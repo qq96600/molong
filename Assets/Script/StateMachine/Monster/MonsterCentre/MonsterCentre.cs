@@ -1,0 +1,55 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace StateMachine
+{
+    public class MonsterCentre :RolesManage
+    {
+        [Header("是否为中间怪")]
+        public bool IsCentre = true;
+
+        #region 状态
+        public MonsterCentreStateMachine stateMachine { get; private set; }//状态机
+        public MonsterCentre_Move moveState { get; private set; }//移动状态
+        public MonsterCentre_Idle idleState { get; private set; }//空闲状态
+
+        public MonsterCentre_Attack attackState { get; private set; }//攻击状态
+        #endregion
+        protected override void Awake()
+        {
+            base.Awake();
+            #region 状态初始化
+            stateMachine = new MonsterCentreStateMachine();
+            moveState=new MonsterCentre_Move(this,stateMachine,"Move");
+            idleState = new MonsterCentre_Idle(this, stateMachine, "Idle");
+            attackState = new MonsterCentre_Attack(this, stateMachine, "Attack");
+            #endregion
+
+
+            
+        }
+
+        protected override void Start()
+        {
+            base.Start();
+            stateMachine.Initialized(idleState);
+        }
+
+        protected override void Update()
+        {
+            base.Update();
+            stateMachine.currentState.Update();
+        }
+
+        public override void Init(float attack_speed, float attack_distance, float move_speed, Transform playerPosition)
+        {
+            base.Init(attack_speed, attack_distance, move_speed, playerPosition);
+            stateMachine.ChangeState(moveState);
+        }
+    }
+
+}
+
+
+
