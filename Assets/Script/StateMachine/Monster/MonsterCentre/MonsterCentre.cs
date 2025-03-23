@@ -1,3 +1,4 @@
+using MVC;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -42,9 +43,9 @@ namespace StateMachine
             stateMachine.currentState.Update();
         }
 
-        public override void Init(float attack_speed, float attack_distance, float move_speed, Transform playerPosition)
+        public override void Init(float attack_speed, float attack_distance, float move_speed, BattleHealth _tatgetObg)
         {
-            base.Init(attack_speed, attack_distance, move_speed, playerPosition);
+            base.Init(attack_speed, attack_distance, move_speed, _tatgetObg);
             stateMachine.ChangeState(moveState);
         }
     }

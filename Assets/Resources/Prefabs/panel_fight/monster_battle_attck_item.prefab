@@ -423,9 +423,10 @@ GameObject:
   - component: {fileID: -4516949447149407766}
   - component: {fileID: 5638550709227371366}
   - component: {fileID: 2653692686807080668}
+  - component: {fileID: 2026325892357606695}
   m_Layer: 5
   m_Name: monster_battle_attck_item
-  m_TagString: Untagged
+  m_TagString: Moster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -521,6 +522,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   BaseParalysis: 0
+  StateMachine: {fileID: 0}
 --- !u!114 &5638550709227371366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -533,16 +535,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11f90e1be6e4d7646890137200bff581, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveSpeed: 0.1
-  PlayerPosition: {x: 0, y: 0}
-  TargetPosition: {x: 0, y: 0}
-  AttackDistance: 3
-  BehindDistance: 100
-  IsCentre: 1
-  AttackSpeed: 1
-  BattleAttack: {fileID: 0}
   anim: {fileID: 0}
   rb: {fileID: 0}
+  BattleAttack: {fileID: 0}
+  TatgetObg: {fileID: 0}
+  TargetPosition: {x: 0, y: 0}
+  BackstabPosition: {x: 0, y: 0}
+  animSpeed: 0
+  AttackDistance: 300
+  BehindDistance: 100
+  AttackSpeed: 1
+  MoveSpeed: 0.1
+  IsCentre: 1
 --- !u!50 &2653692686807080668
 Rigidbody2D:
   serializedVersion: 4
@@ -570,3 +574,38 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 6
+--- !u!70 &2026325892357606695
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7282181595703900079}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 24.348389, y: -2.7668762}
+  m_Size: {x: 111.06738, y: 170.8316}
+  m_Direction: 0

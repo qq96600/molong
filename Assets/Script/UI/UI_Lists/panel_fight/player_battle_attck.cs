@@ -1,4 +1,5 @@
 using MVC;
+using StateMachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,8 @@ public class player_battle_attck : BattleAttack
         BaseAttack();
 
     }
+
+  
 
     private void BaseAttack()
     {

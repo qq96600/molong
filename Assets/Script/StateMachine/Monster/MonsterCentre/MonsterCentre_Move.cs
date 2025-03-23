@@ -41,7 +41,7 @@ namespace StateMachine
             else
             {
                 monsterCentre.TargetMove(monsterCentre.BackstabPosition);
-                stateManage.ChangeState(monsterCentre.attackState);
+                //stateManage.ChangeState(monsterCentre.attackState);
             }
 
         }
