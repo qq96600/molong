@@ -142,13 +142,10 @@ namespace MVC
         /// </summary>
         protected virtual void Find_Terget()
         {
-<<<<<<< HEAD
-            data.index = -1;
-            if (data.index == -1)
-=======
+
            // if (data.index == -1)
            if(GetComponent<Player>() != null)
->>>>>>> d23897bd1b0c2aa1dee2b0e1c68244f79093bb9b
+
             {
                 if (SumSave.battleMonsterHealths.Count > 0  )//мФ╪рур╧жнО
                 {
