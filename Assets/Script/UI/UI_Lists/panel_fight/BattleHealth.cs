@@ -77,6 +77,7 @@ namespace MVC
         {
             if (HP <= 0) return;
             HP -= damage;
+            Hurt("ÉËº¦ " + "-" + (int)damage);
             if (HP <= 0)
             {
                 //ËÀÍö µôÂä

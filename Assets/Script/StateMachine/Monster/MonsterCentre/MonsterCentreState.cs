@@ -23,7 +23,7 @@ namespace StateMachine
         public virtual void Enter()
         {
             monsterCentre.anim.SetBool(animBoolName, true);
-
+            monsterCentre.FlipControl(monsterCentre.Direction(monsterCentre.TargetPosition));
         }
 
         

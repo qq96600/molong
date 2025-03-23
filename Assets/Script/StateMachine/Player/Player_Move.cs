@@ -13,6 +13,7 @@ namespace StateMachine
         public override void Enter()
         {
             base.Enter();
+            
         }
 
         public override void Exit()
@@ -24,10 +25,10 @@ namespace StateMachine
         {
             base.Update();
             player.TargetMove(player.TargetPosition);
-
+            
             if (player.isAttackDistance())//½øÈë¹ÖÎï¹¥»÷¾àÀë
             {
-                stateMachine.ChangeState(player.attackState);
+                stateMachine.ChangeState(player.skillHuoQiuState);
             }
         }
     }

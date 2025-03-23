@@ -142,15 +142,20 @@ namespace MVC
         /// </summary>
         protected virtual void Find_Terget()
         {
+<<<<<<< HEAD
             data.index = -1;
             if (data.index == -1)
+=======
+           // if (data.index == -1)
+           if(GetComponent<Player>() != null)
+>>>>>>> d23897bd1b0c2aa1dee2b0e1c68244f79093bb9b
             {
-                if (SumSave.battleMonsterHealths.Count > 0 && GetComponent<player_battle_attck>() != null)//玩家找怪物
+                if (SumSave.battleMonsterHealths.Count > 0  )//玩家找怪物
                 {
                     //寻找距离自身最近的目标    
                     Terget = ArrayHelper.GetMin(SumSave.battleMonsterHealths, e => Vector2.Distance(transform.position, e.transform.position));
                     
-                    StateMachine.Init(data.attack_speed, data.attack_distance, data.move_speed, Terget.transform);
+                    StateMachine.Init(data.attack_speed, data.attack_distance, data.move_speed, Terget);
                     //play_move.Instantiate(this);
                     //if (Terget != null) play_move.anto(Terget);
                     //else
@@ -160,14 +165,14 @@ namespace MVC
                 }
                 else Game_Next_Map();
             }
-            else
+            else if (GetComponent<MonsterCentre>() != null)
             {
-                if (SumSave.battleHeroHealths.Count > 0 && GetComponent<monster_battle_attck>() != null)//怪物找玩家
+                if (SumSave.battleHeroHealths.Count > 0 )//怪物找玩家
                 {
                     //寻找距离自身最近的目标    
                     Terget = ArrayHelper.GetMin(SumSave.battleHeroHealths, e => Vector2.Distance(transform.position, e.transform.position));
 
-                    StateMachine.Init(data.attack_speed, data.attack_distance, data.move_speed, Terget.transform);
+                    StateMachine.Init(data.attack_speed, data.attack_distance, data.move_speed, Terget);
                     //if (Terget != null) play_move.anto(Terget);
                     //else
                     //{

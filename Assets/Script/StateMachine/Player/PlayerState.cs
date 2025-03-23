@@ -22,7 +22,7 @@ namespace StateMachine
         public virtual void Enter()
         {
             player.anim.SetBool(animBoolName, true);
-
+            player.FlipControl(player.Direction(player.TargetPosition));
         }
 
         public virtual void Update()
