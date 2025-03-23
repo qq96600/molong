@@ -34,6 +34,10 @@ namespace Common
         /// </summary>
         public static List<Bag_Base_VO> db_stditems;
         /// <summary>
+        /// 激活角色列表
+        /// </summary>
+        public static List<db_hero_vo> db_heros;
+        /// <summary>
         /// 玩家技能
         /// </summary>
         public static List<base_skill_vo> crt_skills;

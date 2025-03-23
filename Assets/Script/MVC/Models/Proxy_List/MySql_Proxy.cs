@@ -32,8 +32,22 @@ namespace MVC
             Read_Db_Map();
             Read_Db_Magic();
             Read_Db_stditems();
+            Read_Db_Hero();
             CloseMySqlDB();
 
+        }
+
+        private void Read_Db_Hero()
+        {
+            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_hero);
+            SumSave.db_heros = new List<db_hero_vo>();
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.db_heros.Add(ReadDb.Read(mysqlReader, new db_hero_vo()));
+                }
+            }
         }
 
         /// <summary>

@@ -35,6 +35,7 @@ namespace MVC
                 }
                 SumSave.crt_user.Nowdate = DateTime.Now;
                 Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_base, SumSave.crt_user.Set_Uptade_String(), SumSave.crt_user.Get_Update_Character());
+                Read_Instace();
             }
             else
             {
@@ -43,11 +44,38 @@ namespace MVC
                 SumSave.crt_user.RegisterDate = DateTime.Now;
                 SumSave.crt_user.par = SumSave.par;
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_base, SumSave.crt_user.Set_Instace_String());
+                Init();
             }
             CloseMySqlDB();
         }
-        public void Read_Instace()
+        //初始化文件
+        private void Init()
+        { 
+            
+        
+
+        }
+        /// <summary>
+        /// 读取自身数据
+        /// </summary>
+        private void Read_Instace()
         {
+            Read_User_Hero();
+        }
+        /// <summary>
+        /// 读取英雄数据
+        /// </summary>
+        private void Read_User_Hero()
+        {
+            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.mo_user_hero);
+            SumSave.db_heros = new List<db_hero_vo>();
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.db_heros.Add(ReadDb.Read(mysqlReader, new db_hero_vo()));
+                }
+            }
         }
         /// <summary>
         /// 导入数据

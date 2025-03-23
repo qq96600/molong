@@ -17,6 +17,35 @@ public static class ReadDb
         item.par = reader.GetInt32(reader.GetOrdinal("par"));
         return item;
     }
+
+    public static db_hero_vo Read(MySqlDataReader reader, db_hero_vo item)
+    {
+        item.hero_name = reader.GetString(reader.GetOrdinal("show_name"));
+        item.hero_type = reader.GetInt32(reader.GetOrdinal("hero_type"));
+        string crate_value = reader.GetString(reader.GetOrdinal("crate_value"));
+        string[] crate_value_array = crate_value.Split(' ');
+        item.crate_value = new int[crate_value_array.Length];
+        for (int i = 0; i < crate_value_array.Length; i++)
+        { 
+            item.crate_value[i] = int.Parse(crate_value_array[i]);
+        }
+        string up_base_value = reader.GetString(reader.GetOrdinal("up_base_value"));
+        string[] up_base_value_array = up_base_value.Split(' ');
+        item.up_base_value= new int[up_base_value_array.Length];
+        for (int i = 0; i < up_base_value_array.Length; i++)
+        { 
+            item.up_base_value[i] = int.Parse(up_base_value_array[i]);
+        }
+        string up_value= reader.GetString(reader.GetOrdinal("up_value"));
+        string[] up_value_array = up_value.Split(' ');
+        item.up_value= new int[up_value_array.Length];
+        for (int i = 0; i < up_value_array.Length; i++)
+        {
+            Debug.Log(up_value_array[i]);
+            item.up_value[i] = int.Parse(up_value_array[i]);
+        }
+        return item;
+    }
     public static user_map_vo Read(MySqlDataReader reader,user_map_vo item)
     {
         item.map_index = reader.GetInt32(reader.GetOrdinal("map_index"));

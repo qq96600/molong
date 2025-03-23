@@ -41,14 +41,6 @@ namespace MVC
         {
             return true;
         }
-
-
-        protected void base_info(string info)
-        {
-            //SendNotification(NotiList.Data_Log, DateTime.Now + " 获取材料 " + info);
-
-        }
-
         /// <summary>
         /// 将时间转换为 HH:MM:SS
         /// </summary>
