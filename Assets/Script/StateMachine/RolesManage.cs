@@ -74,6 +74,7 @@ namespace StateMachine
         public virtual void Init(float attack_speed, float attack_distance, float move_speed, BattleHealth _tatgetObg)//初始化参数
         {
             AttackSpeed = attack_speed;
+            if(attack_distance>=AttackDistance)
             AttackDistance = attack_distance;
             //MoveSpeed = move_speed;
 

@@ -77,7 +77,8 @@ namespace MVC
         {
             if (HP <= 0) return;
             HP -= damage;
-            Hurt("…À∫¶ " + "-" + (int)damage);
+            // Hurt("…À∫¶ " + "-" + (int)damage);
+            Hurt(damage.ToString());
             if (HP <= 0)
             {
                 //À¿Õˆ µÙ¬‰
@@ -116,8 +117,8 @@ namespace MVC
         /// <param name="type">1…À∫¶2÷Œ¡∆</param>
         private void Hurt(string dec, int type = 1)
         {
-
-            //DamageTextManager.Instance.ShowDamageText((DamageEnum)(type), dec, transform.Find("DamagePos"));
+            
+            DamageTextManager.Instance.DisplayArtisticCharacters(dec,this.transform);
         }
         /// <summary>
         /// œ‘ æœ˚œ¢

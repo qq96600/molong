@@ -169,8 +169,8 @@ namespace UI
         {
 
             // 从缓存中查找
-            if (sprites.ContainsKey(name))
-                return sprites[name];
+            //if (sprites.ContainsKey(name))
+            //    return sprites[name];
             // 从atlas查找
             for (int i = 0; i < atlas.Length; i++)
             {

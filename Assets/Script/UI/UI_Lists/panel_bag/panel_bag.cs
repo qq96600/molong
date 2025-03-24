@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UI;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class panel_bag : Panel_Base
 {
@@ -22,6 +23,8 @@ public class panel_bag : Panel_Base
     /// 按钮位置
     /// </summary>
     private Transform crt_btn, crt_bag;
+
+    private panel_equip panel_equip;
     protected override void Awake()
     {
         base.Awake();
@@ -34,6 +37,7 @@ public class panel_bag : Panel_Base
         crt_bag = Find<Transform>("bg_main/show_bag/Scroll View/Viewport/Content");
         btn_item_Prefabs = Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
         bag_item_Prefabs = Resources.Load<bag_item>("Prefabs/panel_bag/bag_item");
+        panel_equip = UI_Manager.I.GetPanel<panel_equip>();
         for (int i = 0; i < Enum.GetNames(typeof(bag_btn_list)).Length; i++)
         {
             btn_item btn_item = Instantiate(btn_item_Prefabs, crt_btn);//实例化背包装备
@@ -62,8 +66,9 @@ public class panel_bag : Panel_Base
     public override void Show()
     {
         base.Show();
-        Base_Show();
         Show_Bag();
+        Base_Show();
+       
     }
     /// <summary>
     /// 显示装备列表
@@ -83,6 +88,11 @@ public class panel_bag : Panel_Base
         {
             Destroy(crt_bag.GetChild(i).gameObject);
         }
+        for (int i = 0; i < 5; i++)
+        {
+            SumSave.crt_bag.Add(tool_Categoryt.crate_equip(SumSave.db_stditems[Random.Range(0, SumSave.db_stditems.Count)].Name));
+           
+        }
         for (int i = 0; i < SumSave.crt_bag.Count; i++)
         {
             bag_item item= Instantiate(bag_item_Prefabs, crt_bag);
@@ -96,6 +106,8 @@ public class panel_bag : Panel_Base
     /// <param name="item"></param>
     private void Select_Bag(bag_item item)
     {
-
+        panel_equip.Show();
+        panel_equip.Init(item);
+       
     }
 }

@@ -50,7 +50,12 @@ namespace Common
         /// 穿戴
         /// </summary>
         public static List<Bag_Base_VO> crt_euqip;
-        #endregion  
+
+        /// <summary>
+        /// 称号提供极品率
+        /// </summary>
+        public static int titleLucky = 0;
+        #endregion
 
         #region 配置db文件
         /// <summary>
