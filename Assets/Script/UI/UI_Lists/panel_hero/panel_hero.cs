@@ -121,7 +121,7 @@ public class panel_hero : Panel_Base
     /// </summary>
     private void base_show()
     {
-        SumSave.crt_MaxHero = new crtMaxHeroVO();
+        //SumSave.crt_MaxHero = new crtMaxHeroVO();
         foreach (var item in info_item_dic.Keys)
         {
             switch (item)

@@ -1,3 +1,4 @@
+using Common;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -82,10 +83,10 @@ public class panel_bag : Panel_Base
         {
             Destroy(crt_bag.GetChild(i).gameObject);
         }
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < SumSave.crt_bag.Count; i++)
         {
             bag_item item= Instantiate(bag_item_Prefabs, crt_bag);
-            item.Data = new MVC.Bag_Base_VO();
+            item.Data = SumSave.crt_bag[i];
             item.GetComponent<Button>().onClick.AddListener(delegate { Select_Bag(item); });
         }
     }

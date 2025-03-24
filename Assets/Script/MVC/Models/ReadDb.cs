@@ -17,7 +17,37 @@ public static class ReadDb
         item.par = reader.GetInt32(reader.GetOrdinal("par"));
         return item;
     }
-
+    public static user_base_Resources_vo Read(MySqlDataReader reader, user_base_Resources_vo item)
+    {
+        item.now_time = Convert.ToDateTime(reader.GetString(reader.GetOrdinal("now_time")));
+        item.skill_value = reader.GetString(reader.GetOrdinal("skill_value"));
+        item.house_value = reader.GetString(reader.GetOrdinal("house_value"));
+        item.bag_value = reader.GetString(reader.GetOrdinal("bag_value"));
+        item.material_value = reader.GetString(reader.GetOrdinal("material_value"));
+        item.equip_value = reader.GetString(reader.GetOrdinal("equip_value"));
+        string page= reader.GetString(reader.GetOrdinal("page_value"));
+        string[] page_value = page.Split(' ');
+        item.pages= new int[page_value.Length];
+        for (int i = 0; i < page_value.Length; i++)
+        {
+            item.pages[i] = int.Parse(page_value[i]);
+        }
+        return item;
+    }
+    public static Hero_VO Read(MySqlDataReader reader, Hero_VO item)
+    {
+        item.hero_name = reader.GetValue(reader.GetOrdinal("hero_name")).ToString();
+        item.hero_type = reader.GetString(reader.GetOrdinal("hero_type"));
+        item.hero_index= reader.GetString(reader.GetOrdinal("hero_index"));
+        item.hero_list= reader.GetString(reader.GetOrdinal("hero_list"));
+        item.hero_lv = reader.GetString(reader.GetOrdinal("hero_lv"));
+        item.hero_Lv = int.Parse(item.hero_lv);
+        item.hero_exp= reader.GetString(reader.GetOrdinal("hero_exp"));
+        item.hero_Exp = long.Parse(item.hero_exp);
+        item.hero_pos= reader.GetString(reader.GetOrdinal("hero_pos"));
+        item.hero_value= reader.GetString(reader.GetOrdinal("hero_value"));
+        return item;
+    }
     public static db_hero_vo Read(MySqlDataReader reader, db_hero_vo item)
     {
         item.hero_name = reader.GetString(reader.GetOrdinal("show_name"));
@@ -41,7 +71,6 @@ public static class ReadDb
         item.up_value= new int[up_value_array.Length];
         for (int i = 0; i < up_value_array.Length; i++)
         {
-            Debug.Log(up_value_array[i]);
             item.up_value[i] = int.Parse(up_value_array[i]);
         }
         return item;

@@ -8,9 +8,9 @@ public class show_equip_item : Base_Mono
 {
     public EquipTypeList type;
     /// <summary>
-    /// 装备弹出框
+    /// 展示类型
     /// </summary>
-    //private EquipPopups equipPopup;
+    private Image show_type;
     /// <summary>
     /// 预制件
     /// </summary>
@@ -19,9 +19,11 @@ public class show_equip_item : Base_Mono
     private void Awake()
     {
         BagItemPrefabs = Resources.Load<bag_item>("Prefabs/panel_bag/bag_item");
+        show_type = GetComponent<Image>();
     }
     private void Start()
     {
+        show_type.sprite= Resources.Load<Sprite>("panel_bag/equip_type/" + type);
         transform.parent.parent.parent.parent.SendMessage("Instance_Pos", this);
     }
     /// <summary>

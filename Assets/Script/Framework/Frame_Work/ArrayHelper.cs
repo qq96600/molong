@@ -5,6 +5,22 @@ namespace Common
 {
     public static class ArrayHelper
     {
+        /// <summary>
+        /// 数字数组转字符串
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static string Data_Encryption<T>(this T[] str)
+        {
+            string dec = "";
+
+            for (int i = 0; i < str.Length; i++)
+            {
+                dec += (dec == "" ? "" : " ") + str[i];
+            }
+            return dec;
+        }
         public static T[] FindAll<T>(List<T> array, Func<T, bool> handler)
         {
             List<T> result = new List<T>(array.Count);

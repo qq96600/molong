@@ -1,3 +1,4 @@
+using Common;
 using MVC;
 /// <summary>
 /// 角色数据
@@ -25,13 +26,65 @@ public class Hero_VO : Base_VO
     /// </summary>
     public string hero_lv;
     /// <summary>
+    /// 角色等级
+    /// </summary>
+    public int hero_Lv;
+    /// <summary>
     /// 角色经验
     /// </summary>
     public string hero_exp;
     /// <summary>
+    /// 角色经验
+    /// </summary>
+    public long hero_Exp;
+    /// <summary>
     /// 角色上阵选择
     /// </summary>
     public string hero_pos;
+    /// <summary>
+    /// 备用栏
+    /// </summary>
     public string hero_value;
+
+    public override string[] Set_Instace_String()
+    {
+        return new string[]
+        {
+            GetStr(0),
+            GetStr(SumSave.crt_user.uid),
+            GetStr(hero_name),
+            GetStr(hero_type),
+            GetStr(hero_index),
+            GetStr(hero_list),
+            GetStr(hero_lv),
+            GetStr(hero_exp),
+            GetStr(hero_pos),
+            GetStr(hero_value)
+        };
+    }
+
+    public override string[] Get_Update_Character()
+    {
+        return new string[]
+        {
+            "hero_type",
+            "hero_list",
+            "hero_lv",
+            "hero_exp",
+            "hero_pos"
+        };
+    }
+
+    public override string[] Set_Uptade_String()
+    {
+        return new string[]
+       {
+            GetStr(hero_type),
+            GetStr(hero_list),
+            GetStr(hero_lv),
+            GetStr(hero_exp),
+            GetStr(hero_pos),
+       };
+    }
 
 }

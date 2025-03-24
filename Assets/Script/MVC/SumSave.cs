@@ -17,6 +17,7 @@ namespace Common
         /// 服务器几区
         /// </summary>
         public static int par = 1;
+        #region 玩家数据中转
         /// <summary>
         /// 主角色数据
         /// </summary>
@@ -25,6 +26,33 @@ namespace Common
         /// 当前玩家总属性
         /// </summary>
         public static crtMaxHeroVO crt_MaxHero;
+        /// <summary>
+        /// 玩家技能
+        /// </summary>
+        public static List<base_skill_vo> crt_skills;
+        /// <summary>
+        /// 角色基准值
+        /// </summary>
+        public static Hero_VO crt_hero;
+        /// <summary>
+        /// 资源项
+        /// </summary>
+        public static user_base_Resources_vo crt_resources;
+        /// <summary>
+        /// 背包
+        /// </summary>
+        public static List<Bag_Base_VO> crt_bag;
+        /// <summary>
+        /// 仓库
+        /// </summary>
+        public static List<Bag_Base_VO> crt_house;
+        /// <summary>
+        /// 穿戴
+        /// </summary>
+        public static List<Bag_Base_VO> crt_euqip;
+        #endregion  
+
+        #region 配置db文件
         /// <summary>
         /// 技能列表
         /// </summary>
@@ -37,10 +65,7 @@ namespace Common
         /// 激活角色列表
         /// </summary>
         public static List<db_hero_vo> db_heros;
-        /// <summary>
-        /// 玩家技能
-        /// </summary>
-        public static List<base_skill_vo> crt_skills;
+     
         /// <summary>
         /// 读取怪物数据
         /// </summary>
@@ -49,6 +74,9 @@ namespace Common
         /// 地图列表
         /// </summary>
         public static List<user_map_vo> db_maps;
+        #endregion
+
+        #region 功能文件
 
         /// <summary>
         /// 怪物对象池
@@ -62,5 +90,7 @@ namespace Common
         /// 战斗刷新时间
         /// </summary>
         public static float WaitTime = 5f;
+
+        #endregion
     }
 }
