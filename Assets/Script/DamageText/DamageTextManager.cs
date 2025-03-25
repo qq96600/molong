@@ -101,6 +101,7 @@ public class DamageTextManager : MonoBehaviour// MonoSingleton <DamageTextManage
         damageText.transform.GetOrAddComponent<DamageAnimiton>().Init();
 
     }
+   
     /// <summary>
     /// 从对象池中获取伤害文本
     /// </summary>

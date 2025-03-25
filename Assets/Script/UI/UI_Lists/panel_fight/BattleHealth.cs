@@ -115,10 +115,21 @@ namespace MVC
         /// </summary>
         /// <param name="dec"></param>
         /// <param name="type">1伤害2治疗</param>
-        private void Hurt(string dec, int type = 1)
+        private void Hurt(string dec,int type = 1)
         {
+            //StartCoroutine(tool_tesk(dec));
             DamageTextManager.Instance.ShowDamageText(DamageEnum.普通伤害, dec, this.transform);
         }
+
+        IEnumerator tool_tesk(string dec)
+        {
+            Debug.Log("开枪");
+            yield return new WaitForSeconds(1f);
+            DamageTextManager.Instance.ShowDamageText(DamageEnum.普通伤害, dec, this.transform);
+            StartCoroutine(tool_tesk(dec));
+
+        }
+
         /// <summary>
         /// 显示消息
         /// </summary>
