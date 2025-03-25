@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace StateMachine
 {
-    public class Player_Move : PlayerState
+    public class Player_Move : Player_Basic
     {
         public Player_Move(Player _player, PlayerstateMachine _playerStateMachine, string _animBoolName) : base(_player, _playerStateMachine, _animBoolName)
         {
@@ -26,10 +26,7 @@ namespace StateMachine
             base.Update();
             player.TargetMove(player.TargetPosition);
             
-            if (player.isAttackDistance())//½øÈë¹ÖÎï¹¥»÷¾àÀë
-            {
-                stateMachine.ChangeState(player.skillHuoQiuState);
-            }
+            
         }
     }
 }

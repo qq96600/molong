@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace StateMachine
 {
-    public class Player_Idle : PlayerState
+    public class Player_Idle : Player_Basic
     {
         public Player_Idle(Player _player, PlayerstateMachine _playerStateMachine, string _animBoolName) : base(_player, _playerStateMachine, _animBoolName)
         {
@@ -14,6 +14,7 @@ namespace StateMachine
         {
             base.Enter();
             player.RbZero();
+            
         }
 
         public override void Exit()
@@ -24,8 +25,11 @@ namespace StateMachine
         public override void Update()
         {
             base.Update();
-            
+           
+
         }
+
+        
     }
 
 

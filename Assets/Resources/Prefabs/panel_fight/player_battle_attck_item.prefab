@@ -178,12 +178,16 @@ MonoBehaviour:
   TargetPosition: {x: 0, y: 0}
   BackstabPosition: {x: 0, y: 0}
   animSpeed: 0
-  AttackDistance: 3
+  attackDamage: 10
+  AttackDistance: 700
   BehindDistance: 100
   AttackSpeed: 1
   MoveSpeed: 0.1
+  skillRelease: 50
   skillStoragePos: {fileID: 0}
   skills_HuoQiu: {fileID: 0}
+  skill_damage: 123
+  skill_release_pro: 30
 --- !u!50 &4756189591136534018
 Rigidbody2D:
   serializedVersion: 4

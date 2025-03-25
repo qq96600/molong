@@ -15,6 +15,9 @@ namespace StateMachine
         public override void Enter()
         {
             base.Enter();
+            player.RbZero();
+
+
         }
 
         public override void Exit()
@@ -25,8 +28,12 @@ namespace StateMachine
         public override void Update()
         {
             base.Update();
+            
+            //if (startTime > player.AttackSpeed)
+            //{
+            //    stateMachine.ChangeState(player.basicState);
+            //}
         }
+
     }
-
 }
-

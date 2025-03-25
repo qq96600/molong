@@ -16,14 +16,20 @@ namespace StateMachine
         [HideInInspector] public Vector2 TargetPosition;//目标位置
         [HideInInspector] public Vector2 BackstabPosition;//背刺位置
         [HideInInspector] public float animSpeed ;//动画速度
+       
+
+        [Header("造成伤害")]
+        public float attackDamage = 10f;
         [Header("攻击距离")]
-        public float AttackDistance = 300f;
+        public float AttackDistance = 500f;
         [Header("背刺的距离")]
         public float BehindDistance = 100f;
         [Header("攻击速度")]
-        public float AttackSpeed = 1f;
+        public float AttackSpeed = 200f;
         [Header("移动速度")]
         public float MoveSpeed = 0.1f;
+        [Header("技能释放概率")]
+        public float skillRelease = 50f;
         [Header("是否面向左")]
         protected bool facingLeft=true;
         
@@ -76,6 +82,7 @@ namespace StateMachine
             AttackSpeed = attack_speed;
             if(attack_distance>=AttackDistance)
             AttackDistance = attack_distance;
+            
             //MoveSpeed = move_speed;
 
             TatgetObg=_tatgetObg;
@@ -127,6 +134,10 @@ namespace StateMachine
         public void newAnimSpeed()
         {
             anim.speed = animSpeed;
+        }
+        public float AttackSpeedCalculation(float _attackSpeed)//攻击速度计算
+        {
+            return _attackSpeed / 60f;
         }
     }
 

@@ -10,7 +10,7 @@ namespace StateMachine
         protected Player player;
         protected PlayerstateMachine stateMachine;
         protected string animBoolName;
-
+        protected float startTime=0;
         public PlayerState(Player _player, PlayerstateMachine _playerStateMachine, string _animBoolName)
         {
             this.player = _player;
@@ -27,7 +27,7 @@ namespace StateMachine
 
         public virtual void Update()//¸üÐÂ
         {
-
+           
         }
         public virtual void Exit()//ÍË³ö
         {

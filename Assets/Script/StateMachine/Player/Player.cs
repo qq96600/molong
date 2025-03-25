@@ -17,12 +17,14 @@ namespace StateMachine
         public Player_Attack attackState { get; private set; }//攻击状态
         public PlayerSkillManager skillManagerState { get; private set; }//技能管理器
         public PlayerSkill_HuoQiu skillHuoQiuState { get; private set; }//火球技能
+        public Player_Basic basicState { get; private set; }//基本状态(子类_move,_idle)
         #endregion
 
         #region 技能
         [SerializeField] public Transform skillStoragePos;//技能储存位置
         public GameObject skills_HuoQiu;//火球技能
         public float skill_damage = 123f;//火球伤害
+        public float skill_release_pro = 30f;//技能释放概率
 
         #endregion
 
@@ -37,6 +39,7 @@ namespace StateMachine
             attackState = new Player_Attack(this, stateMachine, "Attack");
             skillManagerState = new PlayerSkillManager(this, stateMachine, "Storage");
             skillHuoQiuState = new PlayerSkill_HuoQiu(this, stateMachine, "Storage");
+            basicState = new Player_Basic(this, stateMachine, "Idle");
             #endregion
 
             #region 技能初始化
@@ -71,8 +74,23 @@ namespace StateMachine
         public override void Init(float attack_speed, float attack_distance, float move_speed, BattleHealth _tatgetObg)
         {
             base.Init(attack_speed, attack_distance, move_speed, _tatgetObg);
-            stateMachine.ChangeState(skillHuoQiuState);
+            //stateMachine.ChangeState(basicState);
         }
+
+        /// <summary>
+        /// 随机概率
+        /// </summary>
+        /// <param 概率 % ="probability"></param>
+        /// <returns></returns>
+        public bool JudgeRandom(float probability)
+        {
+            if (Random.Range(0, 100) < probability)
+                return true;
+            else 
+                return false;
+        }
+
+
     }
 }
 
