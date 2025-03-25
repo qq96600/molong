@@ -117,8 +117,7 @@ namespace MVC
         /// <param name="type">1伤害2治疗</param>
         private void Hurt(string dec, int type = 1)
         {
-            
-            DamageTextManager.Instance.DisplayArtisticCharacters(dec,this.transform);
+            DamageTextManager.Instance.ShowDamageText(DamageEnum.普通伤害, dec, this.transform);
         }
         /// <summary>
         /// 显示消息
