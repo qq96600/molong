@@ -21,7 +21,7 @@ public class DamageTextManager : MonoBehaviour// MonoSingleton <DamageTextManage
     /// </summary>
     private Queue<GameObject> DamageTipsList;
 
-    private int maxDamageTextNum = 10;
+    private int maxDamageTextNum = 100;
     private string ch = "-";
 
 
@@ -29,14 +29,15 @@ public class DamageTextManager : MonoBehaviour// MonoSingleton <DamageTextManage
     /// 显示伤害文本,伤害字
     /// </summary>
     private GameObject damage_text,Image_text;
-    
-   
 
     void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
         DamageTipsList = new Queue<GameObject>();
         damage_text=Resources.Load<GameObject>("Prefabs/panel_text/damage_text");
-        
         Image_text=Resources.Load<GameObject>("Prefabs/panel_text/Image_text");
         Init();
     }
@@ -51,12 +52,11 @@ public class DamageTextManager : MonoBehaviour// MonoSingleton <DamageTextManage
         GameObject parent = GameObject.FindWithTag("DamageTextPool");
         for (int i = 0; i < maxDamageTextNum; i++)
         {
-            //ResManger.LoadPrefabInstance("Show/DamageTips", (damageText) =>
-            //{
-            //    DamageTipsList.Enqueue(damageText);
-            //    damageText.SetActive(false);
-            //}, parent.transform);
-            //GetObjectFormPool
+            ResManger.LoadPrefabInstance("Prefabs/Show/DamageTips", (damageText) =>
+            {
+                DamageTipsList.Enqueue(damageText);
+                damageText.SetActive(false);
+            }, parent.transform);
         }
     }
 
@@ -65,21 +65,18 @@ public class DamageTextManager : MonoBehaviour// MonoSingleton <DamageTextManage
     /// </summary>
     public void DisplayArtisticCharacters( string text,Transform father)
     {
-       
-        ObjectPoolManager.instance.GetObjectFormPool("damage_text", damage_text,father.position, Quaternion.identity,father );
-       
+        GameObject go = ObjectPoolManager.instance.GetObjectFormPool("damage_text", damage_text, father.position, Quaternion.identity, father);
         List<Sprite> Text= new List<Sprite>();
-        for(int i=0;i<text.Length;i++)
+        char[] characters = text.ToCharArray();
+        foreach (char c in characters)//拆分text并查找对应艺术字
         {
-           
-            Text.Add(Resources.Load<Sprite>("Assets/Resources/panel_fight/digit_Text/" + text[i]));
-           
+            Text.Add(UI.UI_Manager.I.GetEquipSprite("panel_fight/digit_Text/", "digit_" + c));
         }
-
-        for(int j=0;j<Text.Count;j++)
+       
+        for (int j=0;j<Text.Count;j++)//对象池实例化艺术字
         {
+            ObjectPoolManager.instance.GetObjectFormPool("Image_text", Image_text, father.position, Quaternion.identity, go.transform);
             Image_text.GetComponent<Image>().sprite = Text[j];
-            ObjectPoolManager.instance.GetObjectFormPool("Image_text", Image_text, father.position, Quaternion.identity, damage_text.transform);
         }
 
     }
@@ -94,27 +91,36 @@ public class DamageTextManager : MonoBehaviour// MonoSingleton <DamageTextManage
     /// <param name="parent"></param>
     public void ShowDamageText(DamageEnum damageEnum, string damage, Transform parent)
     {
-        //if (SumSave.Data_User_Setting.battle_DamageText != 0)
-            //return;
         GameObject damageText = GetDamageTextFromPool();
         damageText.transform.position = parent.position;
         damageText.transform.SetParent(parent);
-        Text textComponent = damageText.GetComponent<Text>();
-        textComponent.text = damage.ToString();
+        if (damageText.transform.childCount < damage.Length)
+        {
+            for (int i = damageText.transform.childCount; i < damage.Length; i++)
+            {
+                 Instantiate(Image_text, damageText.transform);
+            }
+        }
+        char[] characters = damage.ToCharArray();
+
+        for (int i = 0; i < damageText.transform.childCount; i++)
+        {
+            damageText.transform.GetChild(i).GetComponent<Image>().sprite = UI.UI_Manager.I.GetEquipSprite("panel_fight/digit_Text/", "digit_" + characters[i]);
+        }
         switch (damageEnum)
         {
             case DamageEnum.普通伤害:
-                textComponent.color = normalColor;
+                //textComponent.color = normalColor;
                 break;
             case DamageEnum.治疗伤害:
-                textComponent.color = volleyColor;
+                //textComponent.color = volleyColor;
                 break;
             case DamageEnum.真实伤害:
-                textComponent.color = readlyColor;
+                //textComponent.color = readlyColor;
                 break;
         }
-        //damageText.transform.GetOrAddComponent<DamageAnimiton>().Init();
-        //��Ӷ���
+
+        damageText.transform.GetOrAddComponent<DamageAnimiton>().Init();
 
     }
     /// <summary>

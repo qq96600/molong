@@ -136,7 +136,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: +
+      name: digit_+
       rect:
         serializedVersion: 2
         x: 14
@@ -144,7 +144,7 @@ TextureImporter:
         width: 59
         height: 62
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -157,15 +157,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 0
+      name: digit_0
       rect:
         serializedVersion: 2
-        x: 104
+        x: 103
         y: 12
         width: 75
         height: 76
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -178,7 +178,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 1
+      name: digit_1
       rect:
         serializedVersion: 2
         x: 215
@@ -186,7 +186,7 @@ TextureImporter:
         width: 53
         height: 100
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -199,7 +199,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2
+      name: digit_2
       rect:
         serializedVersion: 2
         x: 287
@@ -207,7 +207,7 @@ TextureImporter:
         width: 89
         height: 82
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -220,7 +220,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 3
+      name: digit_3
       rect:
         serializedVersion: 2
         x: 383
@@ -228,7 +228,7 @@ TextureImporter:
         width: 91
         height: 90
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -241,7 +241,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 4
+      name: digit_4
       rect:
         serializedVersion: 2
         x: 475
@@ -249,7 +249,7 @@ TextureImporter:
         width: 95
         height: 97
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -262,7 +262,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 5
+      name: digit_5
       rect:
         serializedVersion: 2
         x: 576
@@ -270,7 +270,7 @@ TextureImporter:
         width: 79
         height: 86
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -283,7 +283,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 6
+      name: digit_6
       rect:
         serializedVersion: 2
         x: 676
@@ -291,7 +291,7 @@ TextureImporter:
         width: 75
         height: 100
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -304,7 +304,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 7
+      name: digit_7
       rect:
         serializedVersion: 2
         x: 761
@@ -312,7 +312,7 @@ TextureImporter:
         width: 88
         height: 89
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -325,15 +325,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 8
+      name: digit_8
       rect:
         serializedVersion: 2
-        x: 865
+        x: 866
         y: 3
         width: 86
         height: 92
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -346,7 +346,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 9
+      name: digit_9
       rect:
         serializedVersion: 2
         x: 962
@@ -354,7 +354,7 @@ TextureImporter:
         width: 70
         height: 98
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -377,17 +377,17 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      +: -955767256
-      0: -1140653550
-      1: -240603619
-      2: -1350091649
-      3: -549396767
-      4: 906716096
-      5: -771730954
-      6: 1135897523
-      7: 1722715467
-      8: 1123473992
-      9: -1166766361
+      digit_+: -955767256
+      digit_0: -1140653550
+      digit_1: -240603619
+      digit_2: -1350091649
+      digit_3: -549396767
+      digit_4: 906716096
+      digit_5: -771730954
+      digit_6: 1135897523
+      digit_7: 1722715467
+      digit_8: 1123473992
+      digit_9: -1166766361
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

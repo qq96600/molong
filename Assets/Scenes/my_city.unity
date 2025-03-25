@@ -3109,7 +3109,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1799936666}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eea38d6d3358c354ba8518505d66c591, type: 3}
+  m_Script: {fileID: 11500000, guid: d66de189ca8726147bb07d09f292897e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!224 &1865415664 stripped
@@ -4241,6 +4241,10 @@ PrefabInstance:
     - target: {fileID: 2055120693064544636, guid: af1dfdf5cfdb15e4aa35b6459506477a, type: 3}
       propertyPath: select_panel
       value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 2443237376554994848, guid: af1dfdf5cfdb15e4aa35b6459506477a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2543518487099249909, guid: af1dfdf5cfdb15e4aa35b6459506477a, type: 3}
       propertyPath: m_AnchorMax.y

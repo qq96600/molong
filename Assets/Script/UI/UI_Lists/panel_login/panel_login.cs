@@ -102,8 +102,10 @@ namespace MVC
                 return;
             }
             SendNotification(NotiList.User_Login);
-            Debug.Log("已阅读并勾选同意协议");
+            //Debug.Log("已阅读并勾选同意协议");
             PlayerPrefs.SetInt("同意阅读协议", 1);
+            Hide();
+            UI_Manager.I.TogglePanel(Panel_List.panel_fight, true);
         }
 
         public override void Show()

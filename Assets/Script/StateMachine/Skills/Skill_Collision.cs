@@ -28,12 +28,28 @@ namespace StateMachine
         {
             if (collision.gameObject.tag == "Moster")
             {
-                collision.gameObject.GetComponent<BattleHealth>().TakeDamage(1);
+                if (DamageTextManager.Instance == null)
+                {
+                    Debug.LogError("DamageTextManager instance is null!");
+                    return;
+                }
+                string dec = "1234";
+                StartCoroutine(tool_tesk(dec, collision));
+                DamageTextManager.Instance.ShowDamageText(DamageEnum.∆’Õ®…À∫¶, dec, collision.transform);
+                //collision.gameObject.GetComponent<BattleHealth>().TakeDamage(1);
                 //gameObject.SetActive(false);
-                ObjectPoolManager.instance.PushObjectToPool("Skll_HuoQiu", this.gameObject);
+                //ObjectPoolManager.instance.PushObjectToPool("Skll_HuoQiu", this.gameObject);
             }
         }
- 
+
+        IEnumerator tool_tesk(string dec, Collider2D collision)
+        {
+            Debug.Log("ø™«π");
+            yield return new WaitForSeconds(1f);
+            DamageTextManager.Instance.ShowDamageText(DamageEnum.∆’Õ®…À∫¶, dec, collision.transform);
+            StartCoroutine(tool_tesk(dec, collision));
+
+        }
 
         public void TargetMove(Vector2 targetPosition,float MoveSpeed)//∆Ω“∆
         {
