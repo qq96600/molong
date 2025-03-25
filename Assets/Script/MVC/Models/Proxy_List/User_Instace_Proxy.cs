@@ -67,6 +67,33 @@ namespace MVC
                 }
                 
             }
+            if (SumSave.crt_resources.equip_value.Length > 0)
+            {
+                string[] Splits = SumSave.crt_resources.equip_value.Split(';');
+                for (int i = 0; i < Splits.Length; i++)
+                {
+                    if (Splits[i].Length > 0)
+                    {
+                        Bag_Base_VO bag = new Bag_Base_VO();
+                        bag.user_value = Splits[i];
+                        SumSave.crt_euqip.Add(tool_Categoryt.Read_Bag(bag));
+                    }
+                }
+            }
+
+            if (SumSave.crt_resources.skill_value.Length > 0)
+            {
+                string[] Splits = SumSave.crt_resources.skill_value.Split(';');
+                for (int i = 0; i < Splits.Length; i++)
+                {
+                    if (Splits[i].Length > 0)
+                    {
+                        base_skill_vo skill = new base_skill_vo();
+                        skill.user_value = Splits[i];
+                        SumSave.crt_skills.Add(tool_Categoryt.Read_skill(skill));
+                    }
+                }
+            }
         }
         /// <summary>
         /// 读取自身数据

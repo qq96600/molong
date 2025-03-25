@@ -37,7 +37,6 @@ public class panel_fight : Panel_Base
         pos_player = Find<Transform>("battle_pos/player_pos");
         player_battle_attack_prefabs= Resources.Load<GameObject>("Prefabs/panel_fight/player_battle_attck_item");
         monster_battle_attack_prefabs = Resources.Load<GameObject>("Prefabs/panel_fight/monster_battle_attck_item");
-        StartCoroutine(Open_Maps(3));
     }
     private IEnumerator Open_Maps(float time)
     {
@@ -75,6 +74,15 @@ public class panel_fight : Panel_Base
         StartCoroutine(ProduceMonster(SumSave.WaitTime));
     }
     /// <summary>
+    /// 获取离线收益
+    /// </summary>
+    public void offline()
+    {
+        //计算离线收益
+        //进入战斗
+        Open_Map(ArrayHelper.Find(SumSave.db_maps, e => e.map_name == SumSave.crt_resources.user_map_index));
+    }
+    /// <summary>
     /// 生成角色初始化
     /// </summary>
     private void Crate_Init()
@@ -85,7 +93,7 @@ public class panel_fight : Panel_Base
 
     private void crate_hero()
     {
-        crtMaxHeroVO crt = SumSave.db_monsters[0];
+        crtMaxHeroVO crt = crt_map_monsters[Random.Range(0, crt_map_monsters.Count)];
         GameObject item = ObjectPoolManager.instance.GetObjectFormPool(crt.show_name, player_battle_attack_prefabs,
             new Vector3(pos_player.position.x, pos_player.position.y, pos_player.position.z), Quaternion.identity, pos_player);
         // 设置Data

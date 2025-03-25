@@ -8,6 +8,8 @@ public class user_base_Resources_vo:Base_VO
     /// 当前时间
     /// </summary>
     public DateTime now_time;
+
+    public string user_map_index;
     /// <summary>
     /// 技能列表
     /// </summary>
@@ -33,6 +35,7 @@ public class user_base_Resources_vo:Base_VO
     /// </summary>
     public int[] pages;
 
+
     public override string[] Set_Instace_String()
     {
         //return new string[] { "now_time", "skill_value", "house_value", "bag_value", "material_value", "equip_value" };
@@ -40,6 +43,7 @@ public class user_base_Resources_vo:Base_VO
         {
         GetStr(0),
         GetStr(SumSave.crt_user.uid),
+        GetStr(SumSave.db_maps[0].map_name),
         GetStr(now_time),
         GetStr(skill_value),
         GetStr(house_value),
@@ -54,7 +58,8 @@ public class user_base_Resources_vo:Base_VO
     {
         return new string[] 
         { 
-            "now_time", 
+            "now_time",
+            "user_map_index",
             "skill_value", 
             "house_value",
             "bag_value", 
@@ -67,6 +72,7 @@ public class user_base_Resources_vo:Base_VO
         return new string[]
         {
          GetStr(now_time),
+         GetStr(user_map_index),
          GetStr(skill_value),
          GetStr(house_value),
          GetStr(bag_value),
