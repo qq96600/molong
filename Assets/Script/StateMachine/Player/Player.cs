@@ -22,7 +22,8 @@ namespace StateMachine
         #region 技能
         [SerializeField] public Transform skillStoragePos;//技能储存位置
         public GameObject skills_HuoQiu;//火球技能
-        
+        public float skill_damage = 123f;//火球伤害
+
         #endregion
 
 
@@ -63,7 +64,7 @@ namespace StateMachine
 
         public void GetSkill(Skill_Collision skill)//回调函数
         {
-            skill.SetSkillTarget(TatgetObg);
+            skill.SetSkillTarget(TatgetObg,skill_damage);
         }
 
 

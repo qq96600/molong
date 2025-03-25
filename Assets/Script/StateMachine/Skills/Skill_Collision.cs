@@ -11,7 +11,7 @@ namespace StateMachine
         private float MoveSpeed = 1f;//移动速度
         private Vector2 TatgetPosition;//目标位置
         private Transform Axle;//转向轴
-        [SerializeField] private float rotationSpeed = 5f;
+        private float skill_damage;//技能伤害
         private void Awake()
         {
             rb= GetComponent<Rigidbody2D>();
@@ -33,23 +33,14 @@ namespace StateMachine
                     Debug.LogError("DamageTextManager instance is null!");
                     return;
                 }
-                string dec = "1234";
-                StartCoroutine(tool_tesk(dec, collision));
-                DamageTextManager.Instance.ShowDamageText(DamageEnum.普通伤害, dec, collision.transform);
-                //collision.gameObject.GetComponent<BattleHealth>().TakeDamage(1);
-                //gameObject.SetActive(false);
-                //ObjectPoolManager.instance.PushObjectToPool("Skll_HuoQiu", this.gameObject);
+                
+                collision.gameObject.GetComponent<BattleHealth>().TakeDamage(skill_damage);
+                gameObject.SetActive(false);
+                ObjectPoolManager.instance.PushObjectToPool("Skll_HuoQiu", this.gameObject);
             }
         }
 
-        IEnumerator tool_tesk(string dec, Collider2D collision)
-        {
-            Debug.Log("开枪");
-            yield return new WaitForSeconds(1f);
-            DamageTextManager.Instance.ShowDamageText(DamageEnum.普通伤害, dec, collision.transform);
-            StartCoroutine(tool_tesk(dec, collision));
-
-        }
+    
 
         public void TargetMove(Vector2 targetPosition,float MoveSpeed)//平移
         {
@@ -71,9 +62,10 @@ namespace StateMachine
             direction.Normalize();
             return direction;
         }
-        public void SetSkillTarget(BattleHealth _tatgetObg)//找到目标
+        public void SetSkillTarget(BattleHealth _tatgetObg,float _attack_distance)//找到目标
         {
             TatgetPosition = _tatgetObg.transform.position;
+            skill_damage = _attack_distance;
         }
         public void Init()//初始化
         {

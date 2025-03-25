@@ -78,7 +78,9 @@ namespace MVC
             refresh_Max_Hero_Attribute();
 
         }
-
+        /// <summary>
+        /// 刷新属性
+        /// </summary>
         private void refresh_Max_Hero_Attribute()
         {
             SumSave.crt_MaxHero = new crtMaxHeroVO();

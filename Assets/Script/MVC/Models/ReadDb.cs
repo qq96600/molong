@@ -158,6 +158,7 @@ public static class ReadDb
 
     public static base_skill_vo Read(MySqlDataReader reader, base_skill_vo item)
     {
+        return item;
         item.skillname = reader.GetString(reader.GetOrdinal("skill_name")); 
         item.skill_type = reader.GetInt32(reader.GetOrdinal("skill_type"));
         item.skill_damage_type = reader.GetInt32(reader.GetOrdinal("skill_damage_type"));
