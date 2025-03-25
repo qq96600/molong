@@ -27,7 +27,6 @@ public class tool_Categoryt : MonoBehaviour
     {
         Bag_Base_VO bag_base = new Bag_Base_VO();
         string[] slits = bag.user_value.Split(' ');
-        Debug.Log(slits[0]);
         if (slits.Length > 1)
         {
             foreach (var item in SumSave.db_stditems)
@@ -42,6 +41,29 @@ public class tool_Categoryt : MonoBehaviour
         }
 
         return bag_base;
+    }
+    /// <summary>
+    /// ¶ÁÈ¡¼¼ÄÜ
+    /// </summary>
+    /// <param name="base_item"></param>
+    /// <returns></returns>
+    public static base_skill_vo Read_skill(base_skill_vo base_item)
+    {
+        base_skill_vo skill = new base_skill_vo();
+        string[] slits = base_item.user_value.Split(' ');
+        if (slits.Length > 1)
+        {
+            foreach (var item in SumSave.db_skills)
+            {
+                if (item.skillname == slits[0])
+                {
+                    skill = item;
+                    skill.user_value = base_item.user_value;
+                    return base_item;
+                }
+            }
+        }
+        return base_item;
     }
 
     /// <summary>

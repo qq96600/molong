@@ -1,4 +1,5 @@
 
+using Common;
 using Components;
 using UI;
 using UnityEngine;
@@ -18,6 +19,7 @@ namespace MVC
 
         private  Toggle Toggle;//协议确定开关
 
+        private panel_fight fightPanel;
         private void Start()
         {
             SendNotification(NotiList.Read_Instace);
@@ -27,7 +29,7 @@ namespace MVC
             base.Initialize();
             loginBt = Find<Button>("login");
             loginBt.onClick.AddListener(OnLoginClick);
-
+            fightPanel = UI_Manager.I.GetPanel<panel_fight>();
             #region 用户协议
             AgreementButter = GameObject.Find("AgreementButter");
             if (AgreementButter == null)
@@ -105,7 +107,9 @@ namespace MVC
             //Debug.Log("已阅读并勾选同意协议");
             PlayerPrefs.SetInt("同意阅读协议", 1);
             Hide();
-            UI_Manager.I.TogglePanel(Panel_List.panel_fight, true);
+            fightPanel.Show();
+            //计算离线收益
+            fightPanel.offline();
         }
 
         public override void Show()

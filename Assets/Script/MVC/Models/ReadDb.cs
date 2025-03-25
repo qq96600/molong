@@ -20,6 +20,7 @@ public static class ReadDb
     public static user_base_Resources_vo Read(MySqlDataReader reader, user_base_Resources_vo item)
     {
         item.now_time = Convert.ToDateTime(reader.GetString(reader.GetOrdinal("now_time")));
+        item.user_map_index= reader.GetString(reader.GetOrdinal("user_map_index"));
         item.skill_value = reader.GetString(reader.GetOrdinal("skill_value"));
         item.house_value = reader.GetString(reader.GetOrdinal("house_value"));
         item.bag_value = reader.GetString(reader.GetOrdinal("bag_value"));
@@ -214,7 +215,7 @@ public static class ReadDb
         string skill_pos_type = reader.GetString(reader.GetOrdinal("skill_pos_type"));
         string[] skill_pos_type_array = skill_pos_type.Split(' ');
         item.skill_pos_type = new System.Collections.Generic.List<int>();
-        if (skill_pos_type_array.Length > 0)
+        if (skill_pos_type_array.Length > 1)
         {
             for (int i = 0; i < skill_pos_type_array.Length; i++)
             { 
@@ -224,7 +225,7 @@ public static class ReadDb
         string skill_pos_value= reader.GetString(reader.GetOrdinal("skill_pos_value"));
         string[] skill_pos_value_array = skill_pos_value.Split(' ');
         item.skill_pos_value = new System.Collections.Generic.List<int>();
-        if (skill_pos_value_array.Length > 0)
+        if (skill_pos_value_array.Length > 1)
         {
             for (int i = 0; i < skill_pos_value_array.Length; i++)
             { 
