@@ -18,13 +18,13 @@ public class show_equip_item : Base_Mono
 
     private void Awake()
     {
+        transform.parent.parent.parent.parent.SendMessage("Instance_Pos", this);
         BagItemPrefabs = Resources.Load<bag_item>("Prefabs/panel_bag/bag_item");
         show_type = GetComponent<Image>();
     }
     private void Start()
     {
         show_type.sprite= Resources.Load<Sprite>("panel_bag/equip_type/" + type);
-        transform.parent.parent.parent.parent.SendMessage("Instance_Pos", this);
     }
     /// <summary>
     /// 初始化
@@ -37,15 +37,12 @@ public class show_equip_item : Base_Mono
             Destroy(transform.GetChild(i).gameObject);
         }
     }
-
     /// <summary>
     /// 显示装备信息
     /// </summary>
-    private void ShowEquip()
+    private void ShowEquip(bag_item item)
     {
-        //equipPopup.gameObject.SetActive(true);
-        //equipPopup.Data = data;
-       
+        transform.parent.parent.parent.parent.SendMessage("Select_Equip", item);
     }
 
     private Bag_Base_VO data;
@@ -63,7 +60,7 @@ public class show_equip_item : Base_Mono
 
             bag_item item = Instantiate(BagItemPrefabs, transform);
             item.Data = data;
-            //item.GetComponent<Button>().onClick.AddListener(() => { AudioManager.Instance.playAudio(ClipEnum.购买物品); ShowEquip(); });
+            item.GetComponent<Button>().onClick.AddListener(() => { ShowEquip(item); });
             
 
         }

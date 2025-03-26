@@ -46,5 +46,6 @@ public enum EquipConfigTypeList
     宠物蛋,
     宠物技能,
     消耗品,
-    战斗技能
+    战斗技能,
+    特殊技能
 }

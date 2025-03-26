@@ -139,11 +139,11 @@ namespace MVC
         {
             SumSave.crt_MaxHero = new crtMaxHeroVO();
             crtMaxHeroVO crt = new crtMaxHeroVO();
+            crt.show_name= SumSave.crt_hero.hero_name;
             for (int i = 0; i < SumSave.db_heros.Count; i++)
             {
                 if (SumSave.db_heros[i].hero_name == SumSave.crt_hero.hero_pos)
                 {
-                    
                     for (int j = 0; j < SumSave.db_heros[i].crate_value.Length; j++)
                     {
                         int value = SumSave.db_heros[i].crate_value[j] + (SumSave.db_heros[i].up_value[j] * (SumSave.crt_hero.hero_Lv / SumSave.db_heros[i].up_base_value[j]));
