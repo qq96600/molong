@@ -102,8 +102,35 @@ namespace MVC
         {
             Read_User_Hero();
             Read_User_Resources();
+            Read_User_Setting();
             refresh_Max_Hero_Attribute();
+        }
 
+        private void Read_User_Setting()
+        {
+            mysqlReader = MysqlDb.Select(Mysql_Table_Name.mo_user_setting, "uid", GetStr(SumSave.crt_user.uid));
+            SumSave.crt_setting = new user_base_setting_vo();
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.crt_setting = ReadDb.Read(mysqlReader, new user_base_setting_vo());
+                }
+            }
+            else
+            {
+                SumSave.crt_setting.user_value = "0 0 0 0 0 0 0 0 0";
+                Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_setting, SumSave.crt_setting.Set_Instace_String());
+            }
+        }
+        /// <summary>
+        /// 写入自身数据
+        /// </summary>
+        /// <param name="data"></param>
+        public void Refresh_User_Setting(user_base_setting_vo data)
+        {
+            data.user_value = data.data_combination(data.user_setting);
+            Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_setting, data.Set_Uptade_String(), data.Get_Update_Character());
         }
         /// <summary>
         /// 刷新属性

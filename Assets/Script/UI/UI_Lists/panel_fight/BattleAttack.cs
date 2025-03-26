@@ -38,10 +38,6 @@ namespace MVC
         /// 生成魂环
         /// </summary>
         protected bool Zodiac = true;
-
-        //protected List<MonsterBattleAttack> monsters = new List<MonsterBattleAttack>();
-
-        //protected List<playerBattleAttack> players = new List<playerBattleAttack>();
         /// <summary>
         /// 技能列表
         /// </summary>
@@ -66,14 +62,9 @@ namespace MVC
         public virtual void Awake()
         {
             target = GetComponent<BattleHealth>();
-
-
             StateMachine = GetComponent<RolesManage>();
             frame = transform.GetComponent<Image>();
-            //icon = Find<Image>("icon");
-            //Name = Find<Text>("nameinfo");
             show_hp = Find<Slider>("Slider");
-            //damageInfo = Find<Text>("damageInfo");
         }
 
         protected crtMaxHeroVO data;
@@ -117,9 +108,9 @@ namespace MVC
         /// </summary>
         public virtual void OnAuto()
         {
-            frame.color = Color.red;
+            //frame.color = Color.red;
             //play_move.anto_State();
-            StartCoroutine(HideFrame());
+            //StartCoroutine(HideFrame());
         }
 
         /// <summary>
@@ -152,7 +143,7 @@ namespace MVC
                     //寻找距离自身最近的目标    
                     Terget = ArrayHelper.GetMin(SumSave.battleMonsterHealths, e => Vector2.Distance(transform.position, e.transform.position));
                     
-                    StateMachine.Init(data.attack_speed, data.attack_distance, data.move_speed, Terget);
+                    StateMachine.Init(data.attack_speed, data.attack_distance, data.move_speed, Terget,this);
                     //play_move.Instantiate(this);
                     //if (Terget != null) play_move.anto(Terget);
                     //else
@@ -169,7 +160,7 @@ namespace MVC
                     //寻找距离自身最近的目标    
                     Terget = ArrayHelper.GetMin(SumSave.battleHeroHealths, e => Vector2.Distance(transform.position, e.transform.position));
 
-                    StateMachine.Init(data.attack_speed, data.attack_distance, data.move_speed, Terget);
+                    StateMachine.Init(data.attack_speed, data.attack_distance, data.move_speed, Terget,this);
                     //if (Terget != null) play_move.anto(Terget);
                     //else
                     //{

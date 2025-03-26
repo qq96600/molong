@@ -28,8 +28,10 @@ namespace StateMachine
             startTime += 3;
             if (startTime> player.AttackSpeed)//¹¥»÷¼ä¸ô
             {
+                player.BattleAttack.OnAuto();
+                
                 player.anim.SetBool("Attack", true);
-                player.TatgetObg.TakeDamage(player.attackDamage);
+                //player.TatgetObg.TakeDamage(player.attackDamage);
                 startTime =0;
                 player.anim.SetBool("Attack", false);
             }

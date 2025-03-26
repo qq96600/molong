@@ -73,7 +73,7 @@ namespace MVC
             MP = Mathf.Max(0, MP);
 
         }
-        public void TakeDamage(float damage)
+        public void TakeDamage(float damage,BattleAttack monster)
         {
             if (HP <= 0) return;
             HP -= damage;
@@ -82,9 +82,9 @@ namespace MVC
             if (HP <= 0)
             {
                 //À¿Õˆ µÙ¬‰
-
+                if(monster.GetComponent<monster_battle_attck>()!=null)  WaitAndDestory(monster); 
                 //monster.newValueClear();
-                WaitAndDestory("À¿Õˆœ˚ ß");
+                WaitAndDestory(monster.Data.show_name);
             }
         }
         /*
@@ -152,10 +152,10 @@ namespace MVC
         /// </summary>
         /// <param name="monster"></param>
         /// <returns></returns>
-        private void WaitAndDestory()//MonsterBattleAttack monster)
+        private void WaitAndDestory(BattleAttack monster)//MonsterBattleAttack monster)
         {
             OnDestroy();
-            //monster.OnDestroy();
+            ConfigBattle.LoadSetting(monster, 2);
             /*
             StartCoroutine(WaitAndDestory(monster.Data.Name));
             long tempEXP = monster.Data.Exp;

@@ -1,3 +1,4 @@
+using Common;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,16 +35,19 @@ namespace MVC
         /// <param name="tableName">调用列表</param>
         /// <param name="sql">写入值</param>
         /// /// <param name="sql_names">序列名</param>
-        public string[] GetQueue(Mysql_Type type, Mysql_Table_Name tableName, string[] sql, string[] sql_names = null)
+        public void GetQueue(Mysql_Type type, Mysql_Table_Name tableName, string[] sql, string[] sql_names = null)
         {
             foreach (var item in wirtes)
             {
                 if (item.type == type)
                 {
-                    if (item.tableName == tableName)
+                    if (item.tableName == tableName && type != Mysql_Type.InsertInto)
                     {
                         //执行合并
-                        return item.columnValues;
+                        item.columnValues = sql;
+                        item.exist = true;
+                        //return item.columnValues;
+                        return;
                     }
                 }
             }
@@ -55,7 +59,7 @@ namespace MVC
             vo.columnValues = sql;
             vo.exist = true;
             wirtes.Add(vo);
-            return sql;
+            //return sql;
 
             /// <summary>
         }
@@ -101,6 +105,52 @@ namespace MVC
                 else return value;
             }
             return value;
+        }
+
+        /// <summary>
+        /// 写入资源
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="index"></param>
+        /// <param name="all_list"></param>
+        public void Wirte_ResourcesList<T>(Emun_Resources_List index, List<T> all_list) where T : Base_VO
+        {
+            string value= OnWirte(all_list);
+            switch (index)
+            {
+                case Emun_Resources_List.skill_value:
+                    SumSave.crt_resources.skill_value = value;
+                    break;
+                case Emun_Resources_List.bag_value:
+                    SumSave.crt_resources.bag_value = value;
+                    break;
+                case Emun_Resources_List.equip_value:
+                    SumSave.crt_resources.equip_value = value;
+                    break;
+                case Emun_Resources_List.material_value:
+                    SumSave.crt_resources.material_value = value;
+                    break;
+            }
+            GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_value, SumSave.crt_resources.Set_Uptade_String(), SumSave.crt_resources.Get_Update_Character());
+        }
+        /// <summary>
+        /// 写入数据
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="all_list"></param>
+        /// <returns></returns>
+        private string OnWirte<T>(List<T> all_list) where T : Base_VO
+        {
+            string value = "";
+
+            foreach (T item in all_list)
+            {
+                value += item.user_value;
+
+                value += ';';
+            }
+            return value;
+
         }
     }
 

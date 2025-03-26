@@ -123,6 +123,6 @@ public class base_skill_vo : Base_VO
     /// <summary>
     /// 1技能名称 2技能等级 3技能位置 4技能内力 5技能类型 6技能伤害类型 7技能最大等级 8技能初始化升级经验 9技能升级
     /// </summary>
-    public string user_value;
+    //public string user_value;
 
 }

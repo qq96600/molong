@@ -39,6 +39,10 @@ namespace Common
         /// </summary>
         public static user_base_Resources_vo crt_resources;
         /// <summary>
+        /// 设置
+        /// </summary>
+        public static user_base_setting_vo crt_setting;
+        /// <summary>
         /// 背包
         /// </summary>
         public static List<Bag_Base_VO> crt_bag;

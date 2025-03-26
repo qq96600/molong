@@ -77,17 +77,26 @@ namespace StateMachine
             return direction;
         }
 
-        public virtual void Init(float attack_speed, float attack_distance, float move_speed, BattleHealth _tatgetObg)//初始化参数
+        public virtual void Init(float attack_speed, float attack_distance, float move_speed, BattleHealth _tatgetObg,BattleAttack battle)//初始化参数
         {
+            BattleAttack = battle;
             AttackSpeed = attack_speed;
             if(attack_distance>=AttackDistance)
             AttackDistance = attack_distance;
             
             //MoveSpeed = move_speed;
-
+            
             TatgetObg=_tatgetObg;
         }
-
+        /// <summary>
+        /// 攻击状态
+        /// </summary>
+        /// <param name="damage"></param>
+        /// <param name="skill_name"></param>
+        public virtual void stateAutoInit(int damage, string skill_name=null)
+        {
+            attackDamage = damage;
+        }
 
         public void RbZero()//停止移动
         {
@@ -139,6 +148,7 @@ namespace StateMachine
         {
             return _attackSpeed / 60f;
         }
+      
     }
 
 }

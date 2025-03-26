@@ -27,7 +27,8 @@ namespace MVC
             return new string[]
             {
                 NotiList.User_Login,
-                NotiList.Execute_Write
+                NotiList.Execute_Write,
+                NotiList.Refresh_User_Setting
 
 
             };
@@ -45,6 +46,9 @@ namespace MVC
                     break;
                     case NotiList.Execute_Write:
                     user.Execute_Write(data as List<Base_Wirte_VO>);
+                    break;
+                case NotiList.Refresh_User_Setting:
+                    user.Refresh_User_Setting(data as user_base_setting_vo);
                     break;
             }
         }

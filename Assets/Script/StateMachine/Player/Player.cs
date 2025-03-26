@@ -71,9 +71,9 @@ namespace StateMachine
         }
 
 
-        public override void Init(float attack_speed, float attack_distance, float move_speed, BattleHealth _tatgetObg)
+        public override void Init(float attack_speed, float attack_distance, float move_speed, BattleHealth _tatgetObg,BattleAttack battle)
         {
-            base.Init(attack_speed, attack_distance, move_speed, _tatgetObg);
+            base.Init(attack_speed, attack_distance, move_speed, _tatgetObg,battle);
             //stateMachine.ChangeState(basicState);
         }
 
@@ -90,7 +90,19 @@ namespace StateMachine
                 return false;
         }
 
+        public override void stateAutoInit(int damage, string skill_name = null)
+        {
+            base.stateAutoInit(damage, skill_name);
 
+            if (skill_name == null)//ƽa
+            {
+                stateMachine.ChangeState(attackState);
+            }
+            else if(skill_name== "HuoQiu")
+            {
+                stateMachine.ChangeState(skillHuoQiuState);
+            }
+        }
     }
 }
 

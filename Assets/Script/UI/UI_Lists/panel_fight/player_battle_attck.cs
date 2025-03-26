@@ -11,6 +11,8 @@ public class player_battle_attck : BattleAttack
     {
         base.OnAuto();
         //判断技能
+
+       
         //player_move(开天);
         BaseAttack();
 
@@ -41,7 +43,11 @@ public class player_battle_attck : BattleAttack
         {
             damage = damage * data.crit_damage / 100;
         }
-        monster.target.TakeDamage(damage);
+        if (Random.Range(0, 100) < 50) StateMachine.stateAutoInit(1);
+        else StateMachine.stateAutoInit(1, "kai");
+        damage = 1000;
+
+        monster.target.TakeDamage(damage,monster);
     }
 
 }

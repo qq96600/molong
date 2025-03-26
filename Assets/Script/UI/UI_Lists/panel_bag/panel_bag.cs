@@ -88,11 +88,6 @@ public class panel_bag : Panel_Base
         {
             Destroy(crt_bag.GetChild(i).gameObject);
         }
-        for (int i = 0; i < 5; i++)
-        {
-            SumSave.crt_bag.Add(tool_Categoryt.crate_equip(SumSave.db_stditems[Random.Range(0, SumSave.db_stditems.Count)].Name));
-           
-        }
         for (int i = 0; i < SumSave.crt_bag.Count; i++)
         {
             bag_item item= Instantiate(bag_item_Prefabs, crt_bag);

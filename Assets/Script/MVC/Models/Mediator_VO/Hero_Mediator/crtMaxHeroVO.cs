@@ -12,9 +12,12 @@ public class crtMaxHeroVO
     /// 职业 1战 2法 3道 11战伤害 12法伤害召唤
     /// </summary>
     public int Type;//角色职业
-
     /// <summary>
-    /// 地图编号 玩家-1
+    /// 地图产出编号
+    /// </summary>
+    public int map_index;
+    /// <summary>
+    /// 状态编号 玩家-1
     /// </summary>
     public int index;
     /// <summary>

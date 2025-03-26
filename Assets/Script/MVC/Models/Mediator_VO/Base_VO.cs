@@ -52,7 +52,18 @@ namespace MVC
             return output;
 
         }
-         
+        public virtual string data_combination(int[] base_value)
+        {
+            string output = "";
+
+            for (int i = 0; i < base_value.Length; i++)
+            {
+                output += base_value[i].ToString() + (i == base_value.Length - 1 ? "" : " ");
+            }
+
+            return output;
+
+        }
         /// <summary>
         ///  前后添加单引号
         /// </summary>
@@ -129,6 +140,10 @@ namespace MVC
             // 返回属性值字符串
             return propertyStr;
         }
+        /// <summary>
+        /// 写入数据库
+        /// </summary>
+        public string user_value;
     }
 
 }

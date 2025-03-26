@@ -7,6 +7,10 @@ public class NotiList
     public const string User_Login = "登录";
     public const string Execute_Write = "执行写入指令";
 
+
+    public const string Refresh_User_Setting = "刷新设置";
+
+
 #endregion
 
     /*

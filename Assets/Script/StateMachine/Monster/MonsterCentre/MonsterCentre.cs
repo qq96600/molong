@@ -43,9 +43,9 @@ namespace StateMachine
             stateMachine.currentState.Update();
         }
 
-        public override void Init(float attack_speed, float attack_distance, float move_speed, BattleHealth _tatgetObg)
+        public override void Init(float attack_speed, float attack_distance, float move_speed, BattleHealth _tatgetObg,BattleAttack battle)
         {
-            base.Init(attack_speed, attack_distance, move_speed, _tatgetObg);
+            base.Init(attack_speed, attack_distance, move_speed, _tatgetObg, battle);
             stateMachine.ChangeState(moveState);
         }
     }

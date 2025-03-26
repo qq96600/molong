@@ -34,7 +34,7 @@ namespace StateMachine
                     return;
                 }
                 
-                collision.gameObject.GetComponent<BattleHealth>().TakeDamage(skill_damage);
+                //collision.gameObject.GetComponent<BattleHealth>().TakeDamage(skill_damage);
                 gameObject.SetActive(false);
                 ObjectPoolManager.instance.PushObjectToPool("Skll_HuoQiu", this.gameObject);
             }
