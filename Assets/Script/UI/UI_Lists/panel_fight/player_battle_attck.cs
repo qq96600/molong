@@ -22,7 +22,7 @@ public class player_battle_attck : BattleAttack
 
     private void BaseAttack()
     {
-        float damage = 0;
+        float damage = 0f;
         BattleAttack monster = Terget.GetComponent<BattleAttack>();
         if (monster.target.HP <= 0) return;//½áÕ½¶·
         if (Data.Type == 1)
@@ -45,7 +45,8 @@ public class player_battle_attck : BattleAttack
         }
         if (Random.Range(0, 100) < 50) StateMachine.stateAutoInit(1);
         else StateMachine.stateAutoInit(1, "kai");
-        damage = 1000;
+        
+        damage = 1000000000000000;
 
         monster.target.TakeDamage(damage,monster);
     }

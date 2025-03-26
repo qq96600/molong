@@ -78,7 +78,7 @@ namespace MVC
             if (HP <= 0) return;
             HP -= damage;
             // Hurt("…À∫¶ " + "-" + (int)damage);
-            Hurt(damage.ToString());
+            Hurt(damage);
             if (HP <= 0)
             {
                 //À¿Õˆ µÙ¬‰
@@ -115,10 +115,13 @@ namespace MVC
         /// </summary>
         /// <param name="dec"></param>
         /// <param name="type">1…À∫¶2÷Œ¡∆</param>
-        private void Hurt(string dec,int type = 1)
+        private void Hurt(float dec,int type = 1)
         {
             //StartCoroutine(tool_tesk(dec));
-            DamageTextManager.Instance.ShowDamageText(DamageEnum.∆’Õ®…À∫¶, dec, this.transform);
+
+            string _dec=dec.ToString("F0");
+            
+            DamageTextManager.Instance.ShowDamageText(DamageEnum.∆’Õ®…À∫¶, _dec, this.transform);
         }
 
         IEnumerator tool_tesk(string dec)

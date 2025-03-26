@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1092174230280644572}
   - component: {fileID: 2932528324200247643}
   - component: {fileID: 419967467744237273}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: HuoQiu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60,7 +60,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a1edc62768e6124b99cc940d3958cf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 5
 --- !u!50 &2932528324200247643
 Rigidbody2D:
   serializedVersion: 4
@@ -132,7 +131,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7350049053072620538}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Axle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,7 +171,7 @@ GameObject:
   - component: {fileID: 1981643829026983426}
   - component: {fileID: 8862080956506623162}
   - component: {fileID: 6700581164610818337}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
