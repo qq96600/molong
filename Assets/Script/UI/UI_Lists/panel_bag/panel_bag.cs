@@ -1,4 +1,5 @@
 using Common;
+using MVC;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -68,8 +69,27 @@ public class panel_bag : Panel_Base
         base.Show();
         Show_Bag();
         Base_Show();
+        base_Equip();
        
     }
+    /// <summary>
+    /// 显示装备
+    /// </summary>
+    private void base_Equip()
+    {
+        foreach (EquipTypeList item in dic_equips.Keys)
+        {
+            dic_equips[item].Init();
+            foreach (Bag_Base_VO equip in SumSave.crt_euqip)
+            {
+                if (equip.StdMode == item.ToString())
+                {
+                    dic_equips[item].Data = equip;
+                }
+            }
+        }
+    }
+
     /// <summary>
     /// 显示装备列表
     /// </summary>
@@ -104,5 +124,15 @@ public class panel_bag : Panel_Base
         panel_equip.Show();
         panel_equip.Init(item);
        
+    }
+    /// <summary>
+    /// 显示自身装备
+    /// </summary>
+    /// <param name="item"></param>
+    protected void Select_Equip(bag_item item)
+    {
+        panel_equip.Show();
+        panel_equip.Select_Equip(item);
+
     }
 }

@@ -25,6 +25,10 @@ public class panel_fight : Panel_Base
     /// 当前地图
     /// </summary>
     private user_map_vo select_map;
+    /// <summary>
+    /// 刷新状态
+    /// </summary>
+    private bool Open_Monster_State= true;
     protected override void Awake()
     {
         base.Awake();
@@ -38,19 +42,9 @@ public class panel_fight : Panel_Base
         player_battle_attack_prefabs= Resources.Load<GameObject>("Prefabs/panel_fight/player_battle_attck_item");
         monster_battle_attack_prefabs = Resources.Load<GameObject>("Prefabs/panel_fight/monster_battle_attck_item");
     }
-    private IEnumerator Open_Maps(float time)
-    {
-        while (time > 0)
-        {
-            time -= 0.5f;
-            yield return new WaitForSeconds(0.5f);
-        }
-        Open_Map(new user_map_vo());
-    }
     public override void Show()
     {
         base.Show();
-        Game_Start();
     }
     public override void Hide()
     { 
@@ -61,9 +55,13 @@ public class panel_fight : Panel_Base
     /// </summary>
     protected void Game_Over()
     {
-        //进入复活周期 5s
-        StopAllCoroutines();
-        StartCoroutine(Game_WaitTime(5));
+        if (Open_Monster_State)
+        {
+            Open_Monster_State = false;
+            //进入复活周期 5s
+            StopAllCoroutines();
+            StartCoroutine(Game_WaitTime(5));
+        }
     }
 
     public void Open_Map(user_map_vo map)
@@ -71,7 +69,6 @@ public class panel_fight : Panel_Base
         select_map = map;
         init();
         Crate_Init();
-        StartCoroutine(ProduceMonster(SumSave.WaitTime));
     }
     /// <summary>
     /// 获取离线收益
@@ -93,7 +90,7 @@ public class panel_fight : Panel_Base
 
     private void crate_hero()
     {
-        crtMaxHeroVO crt = crt_map_monsters[Random.Range(0, crt_map_monsters.Count)];
+        crtMaxHeroVO crt = SumSave.crt_MaxHero;
         GameObject item = ObjectPoolManager.instance.GetObjectFormPool(crt.show_name, player_battle_attack_prefabs,
             new Vector3(pos_player.position.x, pos_player.position.y, pos_player.position.z), Quaternion.identity, pos_player);
         // 设置Data
@@ -109,7 +106,7 @@ public class panel_fight : Panel_Base
     /// </summary>
     private void init()
     {
-        if (SumSave.battleMonsterHealths.Count > 0)
+        if (SumSave.battleMonsterHealths != null)
         {
             for (int i = pos_monster.childCount - 1; i >= 0; i--)
             {
@@ -117,7 +114,7 @@ public class panel_fight : Panel_Base
             }
             SumSave.battleMonsterHealths.Clear();
         }
-        if (SumSave.battleHeroHealths.Count > 0)
+        if (SumSave.battleHeroHealths != null)
         {
             for (int i = pos_player.childCount - 1; i >= 0; i--)
             {
@@ -155,13 +152,17 @@ public class panel_fight : Panel_Base
     /// 开始游戏
     /// </summary>
     public void Game_Start()
-    { 
+    {
         StartCoroutine(ProduceMonster(SumSave.WaitTime));
     }
-
+    // 下一波怪
     protected void Game_Next_Map()
     {
-
+        if (Open_Monster_State)
+        {
+            Open_Monster_State = false;
+            StartCoroutine(ProduceMonster(SumSave.WaitTime));
+        }
     }
 
     private IEnumerator ProduceMonster(float time)
@@ -170,17 +171,16 @@ public class panel_fight : Panel_Base
 
         while (time > 0)
         {
+            time-= basetime;
             yield return new WaitForSeconds(basetime);
         }
         crate_monster();
-
-        StartCoroutine(ProduceMonster(SumSave.WaitTime));
+        //StartCoroutine(ProduceMonster(SumSave.WaitTime));
     }
 
     private void crate_monster()
     {
         crtMaxHeroVO crt = crt_map_monsters[Random.Range(0, crt_map_monsters.Count)];
-
         GameObject item = ObjectPoolManager.instance.GetObjectFormPool(crt.show_name, monster_battle_attack_prefabs,
             new Vector3(pos_monster.position.x, pos_monster.position.y,pos_monster.position.z), Quaternion.identity, pos_monster);
         // 设置Data
@@ -189,5 +189,6 @@ public class panel_fight : Panel_Base
         //    item.GetComponent<Button>().onClick.AddListener(delegate { AudioManager.Instance.playAudio(ClipEnum.购买物品); SelectMonster(item.GetComponent<MonsterBattleAttack>()); });
         //item.GetComponent<Button>().enabled = true;
         SumSave.battleMonsterHealths.Add(item.GetComponent<BattleHealth>());
+        Open_Monster_State=true;
     }
 }

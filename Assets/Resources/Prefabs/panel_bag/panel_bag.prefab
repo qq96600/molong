@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3744165707473934676}
   - component: {fileID: 963977740016757975}
   - component: {fileID: 3596775904189533104}
+  - component: {fileID: 8344612961925204599}
   m_Layer: 5
   m_Name: show_equip_item
   m_TagString: Untagged
@@ -135,6 +136,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 12
   BagItemPrefabs: {fileID: 0}
+--- !u!114 &8344612961925204599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 749965842242777596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 50, y: 50}
+  m_Spacing: {x: 0, y: 0}
+  m_Constraint: 0
+  m_ConstraintCount: 2
 --- !u!1 &900620251140624790
 GameObject:
   m_ObjectHideFlags: 0
@@ -429,6 +454,7 @@ GameObject:
   - component: {fileID: 5361394643106512736}
   - component: {fileID: 5278384657026653861}
   - component: {fileID: 6044910105440129045}
+  - component: {fileID: 5598013332353742596}
   m_Layer: 5
   m_Name: show_equip_item
   m_TagString: Untagged
@@ -551,6 +577,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 14
   BagItemPrefabs: {fileID: 0}
+--- !u!114 &5598013332353742596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1836566560577733197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 50, y: 50}
+  m_Spacing: {x: 0, y: 0}
+  m_Constraint: 0
+  m_ConstraintCount: 2
 --- !u!1 &2176966850637674502
 GameObject:
   m_ObjectHideFlags: 0
@@ -641,6 +691,7 @@ GameObject:
   - component: {fileID: 1037931442982419001}
   - component: {fileID: 1915840624962950737}
   - component: {fileID: 7797474784637153421}
+  - component: {fileID: 3378678220941525541}
   m_Layer: 5
   m_Name: show_equip_item
   m_TagString: Untagged
@@ -763,6 +814,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   BagItemPrefabs: {fileID: 0}
+--- !u!114 &3378678220941525541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2994322269652626779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 50, y: 50}
+  m_Spacing: {x: 0, y: 0}
+  m_Constraint: 0
+  m_ConstraintCount: 2
 --- !u!1 &3349606563967924512
 GameObject:
   m_ObjectHideFlags: 0
@@ -776,6 +851,7 @@ GameObject:
   - component: {fileID: 1109067330869580318}
   - component: {fileID: 424595365617027365}
   - component: {fileID: 7655382380954494668}
+  - component: {fileID: 9052044427950209289}
   m_Layer: 5
   m_Name: show_equip_item
   m_TagString: Untagged
@@ -898,6 +974,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 10
   BagItemPrefabs: {fileID: 0}
+--- !u!114 &9052044427950209289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3349606563967924512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 50, y: 50}
+  m_Spacing: {x: 0, y: 0}
+  m_Constraint: 0
+  m_ConstraintCount: 2
 --- !u!1 &3413316563109758900
 GameObject:
   m_ObjectHideFlags: 0
@@ -911,6 +1011,7 @@ GameObject:
   - component: {fileID: 2433537566338752935}
   - component: {fileID: 219926652853517909}
   - component: {fileID: 3421735359982719999}
+  - component: {fileID: 3808230209969164095}
   m_Layer: 5
   m_Name: show_equip_item
   m_TagString: Untagged
@@ -1033,6 +1134,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 15
   BagItemPrefabs: {fileID: 0}
+--- !u!114 &3808230209969164095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3413316563109758900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 50, y: 50}
+  m_Spacing: {x: 0, y: 0}
+  m_Constraint: 0
+  m_ConstraintCount: 2
 --- !u!1 &4182144299226283014
 GameObject:
   m_ObjectHideFlags: 0
@@ -1046,6 +1171,7 @@ GameObject:
   - component: {fileID: 991382075837561778}
   - component: {fileID: 2237971905029518257}
   - component: {fileID: 4435017542521214429}
+  - component: {fileID: 5404186666408022858}
   m_Layer: 5
   m_Name: show_equip_item
   m_TagString: Untagged
@@ -1168,6 +1294,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   BagItemPrefabs: {fileID: 0}
+--- !u!114 &5404186666408022858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4182144299226283014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 50, y: 50}
+  m_Spacing: {x: 0, y: 0}
+  m_Constraint: 0
+  m_ConstraintCount: 2
 --- !u!1 &4556419821302926038
 GameObject:
   m_ObjectHideFlags: 0
@@ -1181,6 +1331,7 @@ GameObject:
   - component: {fileID: 839510609531042606}
   - component: {fileID: 5720824932293692180}
   - component: {fileID: 638009795062967609}
+  - component: {fileID: 1141723840263151112}
   m_Layer: 5
   m_Name: show_equip_item
   m_TagString: Untagged
@@ -1303,6 +1454,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 8
   BagItemPrefabs: {fileID: 0}
+--- !u!114 &1141723840263151112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4556419821302926038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 50, y: 50}
+  m_Spacing: {x: 0, y: 0}
+  m_Constraint: 0
+  m_ConstraintCount: 2
 --- !u!1 &4982134648064568414
 GameObject:
   m_ObjectHideFlags: 0
@@ -1493,6 +1668,7 @@ GameObject:
   - component: {fileID: 6705715190965353291}
   - component: {fileID: 6075399005280173287}
   - component: {fileID: 8950472306482851722}
+  - component: {fileID: 6679803692442341128}
   m_Layer: 5
   m_Name: show_equip_item
   m_TagString: Untagged
@@ -1615,6 +1791,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 4
   BagItemPrefabs: {fileID: 0}
+--- !u!114 &6679803692442341128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5219466696965669126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 50, y: 50}
+  m_Spacing: {x: 0, y: 0}
+  m_Constraint: 0
+  m_ConstraintCount: 2
 --- !u!1 &5315567032148150281
 GameObject:
   m_ObjectHideFlags: 0
@@ -1705,6 +1905,7 @@ GameObject:
   - component: {fileID: 5179936693385690618}
   - component: {fileID: 4527213889847086401}
   - component: {fileID: 4546543726683690842}
+  - component: {fileID: 5335138102819027812}
   m_Layer: 5
   m_Name: show_equip_item
   m_TagString: Untagged
@@ -1827,6 +2028,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 5
   BagItemPrefabs: {fileID: 0}
+--- !u!114 &5335138102819027812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5358512549610357805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 50, y: 50}
+  m_Spacing: {x: 0, y: 0}
+  m_Constraint: 0
+  m_ConstraintCount: 2
 --- !u!1 &5865264221496324968
 GameObject:
   m_ObjectHideFlags: 0
@@ -1840,6 +2065,7 @@ GameObject:
   - component: {fileID: 2965560222847365746}
   - component: {fileID: 4286960885473261006}
   - component: {fileID: 6870909890964542047}
+  - component: {fileID: 7925507454781195219}
   m_Layer: 5
   m_Name: show_equip_item
   m_TagString: Untagged
@@ -1962,6 +2188,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 9
   BagItemPrefabs: {fileID: 0}
+--- !u!114 &7925507454781195219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5865264221496324968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 50, y: 50}
+  m_Spacing: {x: 0, y: 0}
+  m_Constraint: 0
+  m_ConstraintCount: 2
 --- !u!1 &5903024755528445123
 GameObject:
   m_ObjectHideFlags: 0
@@ -1975,6 +2225,7 @@ GameObject:
   - component: {fileID: 6091583461306311293}
   - component: {fileID: 1550435858633662178}
   - component: {fileID: 8197690047269868197}
+  - component: {fileID: 8117696762964605918}
   m_Layer: 5
   m_Name: show_equip_item
   m_TagString: Untagged
@@ -2097,6 +2348,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 13
   BagItemPrefabs: {fileID: 0}
+--- !u!114 &8117696762964605918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5903024755528445123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 50, y: 50}
+  m_Spacing: {x: 0, y: 0}
+  m_Constraint: 0
+  m_ConstraintCount: 2
 --- !u!1 &5950460470560068376
 GameObject:
   m_ObjectHideFlags: 0
@@ -2110,6 +2385,7 @@ GameObject:
   - component: {fileID: 6132742932849148123}
   - component: {fileID: 1219859569587749348}
   - component: {fileID: 5421149458262036241}
+  - component: {fileID: 7539713677133002285}
   m_Layer: 5
   m_Name: show_equip_item
   m_TagString: Untagged
@@ -2232,6 +2508,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 3
   BagItemPrefabs: {fileID: 0}
+--- !u!114 &7539713677133002285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5950460470560068376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 50, y: 50}
+  m_Spacing: {x: 0, y: 0}
+  m_Constraint: 0
+  m_ConstraintCount: 2
 --- !u!1 &5957359444516363232
 GameObject:
   m_ObjectHideFlags: 0
@@ -2352,6 +2652,7 @@ GameObject:
   - component: {fileID: 5942524373751451783}
   - component: {fileID: 8848221368898167586}
   - component: {fileID: 1291299768454999710}
+  - component: {fileID: 1468244016475164798}
   m_Layer: 5
   m_Name: show_equip_item
   m_TagString: Untagged
@@ -2474,6 +2775,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 11
   BagItemPrefabs: {fileID: 0}
+--- !u!114 &1468244016475164798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6978306559376216414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 50, y: 50}
+  m_Spacing: {x: 0, y: 0}
+  m_Constraint: 0
+  m_ConstraintCount: 2
 --- !u!1 &7170224830642384260
 GameObject:
   m_ObjectHideFlags: 0
@@ -2487,6 +2812,7 @@ GameObject:
   - component: {fileID: 7404022293233977371}
   - component: {fileID: 3917067019807140437}
   - component: {fileID: 1287083668593682934}
+  - component: {fileID: 2492010009896104798}
   m_Layer: 5
   m_Name: show_equip_item
   m_TagString: Untagged
@@ -2609,6 +2935,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 2
   BagItemPrefabs: {fileID: 0}
+--- !u!114 &2492010009896104798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7170224830642384260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 50, y: 50}
+  m_Spacing: {x: 0, y: 0}
+  m_Constraint: 0
+  m_ConstraintCount: 2
 --- !u!1 &7573182057178166867
 GameObject:
   m_ObjectHideFlags: 0
@@ -2622,6 +2972,7 @@ GameObject:
   - component: {fileID: 5903932081738492454}
   - component: {fileID: 1991608337183441297}
   - component: {fileID: 3141775010685359094}
+  - component: {fileID: 3542591651615403892}
   m_Layer: 5
   m_Name: show_equip_item
   m_TagString: Untagged
@@ -2744,6 +3095,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 6
   BagItemPrefabs: {fileID: 0}
+--- !u!114 &3542591651615403892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7573182057178166867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 50, y: 50}
+  m_Spacing: {x: 0, y: 0}
+  m_Constraint: 0
+  m_ConstraintCount: 2
 --- !u!1 &8075952122902923699
 GameObject:
   m_ObjectHideFlags: 0
@@ -2847,6 +3222,7 @@ GameObject:
   - component: {fileID: 3283154096473986792}
   - component: {fileID: 7397549003115895295}
   - component: {fileID: 8512889360138524671}
+  - component: {fileID: 7594144828582851311}
   m_Layer: 5
   m_Name: show_equip_item
   m_TagString: Untagged
@@ -2969,6 +3345,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 7
   BagItemPrefabs: {fileID: 0}
+--- !u!114 &7594144828582851311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8310410199565803513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 50, y: 50}
+  m_Spacing: {x: 0, y: 0}
+  m_Constraint: 0
+  m_ConstraintCount: 2
 --- !u!1 &8984825681584801359
 GameObject:
   m_ObjectHideFlags: 0
@@ -3019,15 +3419,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 5
+    m_Left: 15
     m_Right: 0
-    m_Top: 5
+    m_Top: 10
     m_Bottom: 0
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 50, y: 50}
-  m_Spacing: {x: 0, y: 0}
+  m_Spacing: {x: 10, y: 10}
   m_Constraint: 0
   m_ConstraintCount: 2
 --- !u!114 &6010554607615362085

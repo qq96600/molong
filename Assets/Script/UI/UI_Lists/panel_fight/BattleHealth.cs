@@ -33,7 +33,7 @@ namespace MVC
 
         public void Clear()
         {
-         
+            ObjectPoolManager.instance.PushObjectToPool(GetComponent<BattleAttack>().Data.show_name, this.gameObject);
         }
         /// <summary>
         /// »Ø¸´ÉúÃüÄ§·¨
@@ -84,7 +84,8 @@ namespace MVC
                 //ËÀÍö µôÂä
                 if(monster.GetComponent<monster_battle_attck>()!=null)  WaitAndDestory(monster); 
                 //monster.newValueClear();
-                WaitAndDestory(monster.Data.show_name);
+                StartCoroutine(WaitAndDestory(monster.Data.show_name));
+                // WaitAndDestory(monster.Data.show_name);
             }
         }
         /*
@@ -158,7 +159,9 @@ namespace MVC
         private void WaitAndDestory(BattleAttack monster)//MonsterBattleAttack monster)
         {
             OnDestroy();
-            ConfigBattle.LoadSetting(monster, 2);
+           
+            SumSave.battleMonsterHealths.Remove(this);
+            //ConfigBattle.LoadSetting(monster, 2);
             /*
             StartCoroutine(WaitAndDestory(monster.Data.Name));
             long tempEXP = monster.Data.Exp;

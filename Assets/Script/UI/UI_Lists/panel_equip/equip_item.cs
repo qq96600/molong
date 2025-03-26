@@ -14,7 +14,8 @@ public class equip_item : Base_Mono
     private bag_item bag_item_Prefabs;
 
     private btn_item btn_item_Prefabs;
-
+    private string[] btn_list = new string[] { "穿戴", "出售" };
+    private string[] take_btn_list=new string[] { "卸下" };
     private Text show_name, show_base_need, show_info;
     private void Awake()
     {
@@ -143,5 +144,46 @@ public class equip_item : Base_Mono
         }
         show_info.text = dec;
 
+    }
+    /// <summary>
+    /// 判断是否有开关
+    /// </summary>
+    public void Show_Info_Btn()
+    {
+        for (int i = 0; i < btn_list.Length; i++)
+        {
+            btn_item item = Instantiate(btn_item_Prefabs, crt_btn);
+            item.Show(i, btn_list[i]);
+            item.GetComponent<Button>().onClick.AddListener(() => { OnClick_Btn(item); });
+        }
+    }
+    /// <summary>
+    /// 脱下
+    /// </summary>
+    public void Show_take_Btn()
+    {
+        for (int i = 0; i < take_btn_list.Length; i++)
+        {
+            btn_item item = Instantiate(btn_item_Prefabs, crt_btn);
+            item.Show(i, take_btn_list[i]);
+            item.GetComponent<Button>().onClick.AddListener(() => { OnTake_Btn(item); });
+        }
+    }
+    /// <summary>
+    /// 脱下
+    /// </summary>
+    /// <param name="item"></param>
+    private void OnTake_Btn(btn_item item)
+    {
+        transform.parent.parent.SendMessage("OnTake_Btn", item.index);
+    }
+
+    /// <summary>
+    /// 点击按钮
+    /// </summary>
+    /// <param name="item"></param>
+    private void OnClick_Btn(btn_item item)
+    {
+        transform.parent.parent.SendMessage("OnClick_Btn", item.index);
     }
 }
