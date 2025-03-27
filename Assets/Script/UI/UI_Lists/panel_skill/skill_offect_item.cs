@@ -6,10 +6,18 @@ using UnityEngine.UI;
 
 public class skill_offect_item : Base_Mono
 {
+    /// <summary>
+    /// 基础信息
+    /// </summary>
     private Text info;
+    /// <summary>
+    /// 战斗倒计时
+    /// </summary>
+    private Text WaitTime;
     private void Awake()
     {
         info = Find<Text>("info");
+        WaitTime = Find<Text>("WaitTime");
     }
     private base_skill_vo data;
 
@@ -30,4 +38,37 @@ public class skill_offect_item : Base_Mono
             return data;
         }
     }
+
+    public void Battle()
+    {
+        info.gameObject.SetActive(false);
+        StartCoroutine(Skill_WaitTime());
+    }
+    /// <summary>
+    /// 是否可以释放
+    /// </summary>
+    /// <returns></returns>
+    public bool IsState()
+    {
+        return data.battle_CD <= 0;
+    }
+    /// <summary>
+    /// 刷新冷却
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator Skill_WaitTime()
+    {
+        data.battle_CD = data.skill_cd;
+        float base_time = 0.2f;
+        while (data.battle_CD > 0)
+        {
+            data.battle_CD -= base_time;
+            WaitTime.text = data.battle_CD.ToString("0.0")+"S";
+            if(data.battle_CD<=0)data.battle_CD = 0;
+            yield return new WaitForSeconds(base_time);
+        }
+        WaitTime.text = "";
+    }
+
+
 }

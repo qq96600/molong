@@ -6,19 +6,52 @@ using UnityEngine;
 
 public class player_battle_attck : BattleAttack
 {
-    
+
+    /// <summary>
+    /// 初始化战斗装备
+    /// </summary>
+    /// <param name="skills"></param>
+    public override void Refresh_Skill(List<skill_offect_item> skills)
+    {
+        base.Refresh_Skill(skills);
+        battle_skills = skills;
+        for (int i = 0; i < skills.Count; i++)
+        {
+            skills[i].Battle();
+        }
+    }
+
     public override void OnAuto()
     {
         base.OnAuto();
         //判断技能
-
-       
+        Debug.Log(1);
+        for (int i = 0; i < battle_skills.Count; i++)
+        {
+            if (battle_skills[i].IsState())
+            {
+                if (target.MP >= battle_skills[i].Data.skill_spell * target.maxMP / 100)
+                { 
+                    target.MP -= battle_skills[i].Data.skill_spell * target.maxMP / 100;
+                    //释放技能
+                    BaseAttack(battle_skills[i].Data);
+                    battle_skills[i].Battle();
+                    return;
+                }
+            }
+        }
         //player_move(开天);
         BaseAttack();
 
     }
-
-  
+    /// <summary>
+    /// 释放技能
+    /// </summary>
+    /// <param name="data"></param>
+    private void BaseAttack(base_skill_vo data)
+    {
+        //释放技能
+    }
 
     private void BaseAttack()
     {

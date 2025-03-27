@@ -59,11 +59,12 @@ public class tool_Categoryt : MonoBehaviour
                 {
                     skill = item;
                     skill.user_value = base_item.user_value;
-                    return base_item;
+                    skill.user_values = slits;
+                    return skill;
                 }
             }
         }
-        return base_item;
+        return skill;
     }
 
     /// <summary>

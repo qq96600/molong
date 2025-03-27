@@ -29,6 +29,14 @@ public class panel_fight : Panel_Base
     /// 刷新状态
     /// </summary>
     private bool Open_Monster_State= true;
+    /// <summary>
+    /// 刷新技能
+    /// </summary>
+    private pight_show_skill pight_show_skill;
+    /// <summary>
+    /// 战斗技能
+    /// </summary>
+    private List<skill_offect_item> battle_skills;
     protected override void Awake()
     {
         base.Awake();
@@ -41,6 +49,7 @@ public class panel_fight : Panel_Base
         pos_player = Find<Transform>("battle_pos/player_pos");
         player_battle_attack_prefabs= Resources.Load<GameObject>("Prefabs/panel_fight/player_battle_attck_item");
         monster_battle_attack_prefabs = Resources.Load<GameObject>("Prefabs/panel_fight/monster_battle_attck_item");
+        pight_show_skill = Find<pight_show_skill>("skill_list");
     }
     public override void Show()
     {
@@ -84,8 +93,22 @@ public class panel_fight : Panel_Base
     /// </summary>
     private void Crate_Init()
     {
+        crate_Skill();
         crate_hero();
         crate_monster();
+    }
+
+    public void Refresh_Max_Hero_Attribute()
+    {
+        crate_Skill();
+        foreach (var item in SumSave.battleHeroHealths)
+        {
+            item.GetComponent<BattleAttack>().Refresh(SumSave.crt_MaxHero); 
+        }
+    }
+    private void crate_Skill()
+    {
+        battle_skills = pight_show_skill.Init();
     }
 
     private void crate_hero()
@@ -95,6 +118,7 @@ public class panel_fight : Panel_Base
             new Vector3(pos_player.position.x, pos_player.position.y, pos_player.position.z), Quaternion.identity, pos_player);
         // 设置Data
         item.GetComponent<player_battle_attck>().Data = crt;
+        item.GetComponent<player_battle_attck>().Refresh_Skill(battle_skills);
         //if (item.GetComponent<Button>().enabled)
         //    item.GetComponent<Button>().onClick.AddListener(delegate { AudioManager.Instance.playAudio(ClipEnum.购买物品); SelectMonster(item.GetComponent<MonsterBattleAttack>()); });
         //item.GetComponent<Button>().enabled = true;
