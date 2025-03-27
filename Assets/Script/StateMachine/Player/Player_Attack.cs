@@ -11,29 +11,32 @@ namespace StateMachine
 
         public override void Enter()
         {
+            base.Enter();
+            player.anim.SetBool("Attack", false);
             
-            //startTime = 0;
             player.RbZero();
-            player.FlipControl(player.Direction(player.TargetPosition));
+            //player.FlipControl(player.Direction(player.TargetPosition));
         }
 
         public override void Exit()
         {
+            base.Exit();
 
-            
         }
 
         public override void Update()
         {
             base.Update();
-            startTime += 3;
+            startTime += Time.deltaTime;
             if (startTime> player.AttackSpeed)//¹¥»÷¼ä¸ô
             {
                 player.anim.SetBool("Attack", true);
                 //player.TatgetObg.TakeDamage(player.attackDamage);
+
                 player.BattleAttack.OnAuto();
                 startTime =0;
-                player.CloseAnimAfterDelay("Attack", 2f);
+                player.CloseAnimAfterDelay("Attack", 3f);
+                
             }
            
 

@@ -24,13 +24,25 @@ namespace MVC
         /// </summary>
         [HideInInspector]
         public int Pos = 0;
-      
+        float time=2f;
         private void Awake()
         {
+            maxMP = 100;
             HP = maxHP;
             MP = maxMP;
         }
 
+        private void Update()
+        {
+            time-=Time.deltaTime;
+            if(time<0f)
+            {
+                HP -= 100;
+                MP -= 10;
+                time = 2f;
+            }
+
+        }
         public void Clear()
         {
             ObjectPoolManager.instance.PushObjectToPool(GetComponent<BattleAttack>().Data.show_name, this.gameObject);
