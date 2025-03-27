@@ -22,9 +22,11 @@ public enum Mysql_Table_Name
     db_magic,
     db_map,
     db_hero,//标准参数
+    db_setting,//标准设置信息
     mo_user_base,//用户基础信息
     mo_user_value,//用户资源信息
     mo_user_hero,//用户英雄信息
     mo_user_setting,//用户设置信息
+    
 
 }
