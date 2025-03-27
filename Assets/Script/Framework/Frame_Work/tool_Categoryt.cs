@@ -127,7 +127,7 @@ public class tool_Categoryt : MonoBehaviour
                                 if (quality > 6)
                                 {
                                     //五行
-                                    base_quality = Random.Range(1, 6);
+                                    base_quality = Random.Range(30, 35);
                                     base_quality_value = Random.Range(3, bag.need_lv / 2 + 6);
                                     list.Add((base_quality, base_quality_value));
                                 }
@@ -148,6 +148,28 @@ public class tool_Categoryt : MonoBehaviour
         }
         bag.user_value = user_value;
         return bag;
+    }
+
+    /// <summary>
+    /// 创建技能
+    /// </summary>
+    /// <param name="skill_name"></param>
+    /// <returns></returns>
+    public static base_skill_vo crate_skill(string skill_name)
+    {
+        base_skill_vo skill = ArrayHelper.Find(SumSave.db_skills, e => e.skillname == skill_name);
+        /// 1技能名称 2技能等级 3技能位置 4技能内力 5技能类型 6技能伤害类型 7技能最大等级 8技能初始化升级经验 9技能升级
+
+        skill.user_value = skill_name;
+        //等级
+        skill.user_value += " " + 1;
+        //位置 0不上场
+        skill.user_value += " " + 0;
+        //分配内力 默认为0
+        skill.user_value += " " + 0;
+
+        return skill;
+
     }
     /// <summary>
     /// 获取装备品质

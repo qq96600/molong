@@ -75,9 +75,8 @@ namespace Components
             if(go!=null)
             go.GetComponent<base_info_item>().show_info(dec);
 
-            Show();
-
-            StartCoroutine(close());
+            //Show();
+            //StartCoroutine(close());
 
         }
     }

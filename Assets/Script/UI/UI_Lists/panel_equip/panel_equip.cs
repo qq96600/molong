@@ -88,6 +88,7 @@ public class panel_equip : Panel_Base
             SumSave.crt_euqip.Remove(crt_equip);
             Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.bag_value, SumSave.crt_bag);
             Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.equip_value, SumSave.crt_euqip);
+            SendNotification(NotiList.Refresh_Max_Hero_Attribute);
         }
         Refresh();
     }
@@ -117,7 +118,7 @@ public class panel_equip : Panel_Base
             SumSave.crt_euqip.Add(crt_bag.Data);
             Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.bag_value, SumSave.crt_bag);
             Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.equip_value, SumSave.crt_euqip);
-
+            SendNotification(NotiList.Refresh_Max_Hero_Attribute);
         }
         else
         {

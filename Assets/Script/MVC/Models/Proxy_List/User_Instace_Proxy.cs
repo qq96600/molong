@@ -53,6 +53,7 @@ namespace MVC
         {
             SumSave.crt_bag = new List<Bag_Base_VO>();
             SumSave.crt_euqip = new List<Bag_Base_VO>();
+            SumSave.crt_skills = new List<base_skill_vo>();
             if (SumSave.crt_resources.bag_value.Length > 0)
             { 
                 string[] Splits= SumSave.crt_resources.bag_value.Split(';');
@@ -104,28 +105,7 @@ namespace MVC
             Read_User_Resources();
             Read_User_Setting();
             refresh_Max_Hero_Attribute();
-            Read_Setting_Aoption();
         }
-
-        /// <summary>
-        /// 读取设置选项
-        /// </summary>
-        private void Read_Setting_Aoption()
-        {
-            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_setting);
-            SumSave.crt_setting_type = new user_setting_type_vo();
-            SumSave.crt_setting_type_dic = new Dictionary<int, user_setting_type_vo>();
-            if (mysqlReader.HasRows)
-            {
-                while (mysqlReader.Read())
-                {
-                    SumSave.crt_setting_type = ReadDb.Read(mysqlReader, new user_setting_type_vo());
-                    SumSave.crt_setting_type_dic.Add(SumSave.crt_setting_type.id_setting,SumSave.crt_setting_type);
-                }
-            }
-           
-        }
-
         private void Read_User_Setting()
         {
             mysqlReader = MysqlDb.Select(Mysql_Table_Name.mo_user_setting, "uid", GetStr(SumSave.crt_user.uid));
@@ -267,6 +247,179 @@ namespace MVC
                 }
             }
             //添加装备效果
+            for (int i = 0; i < SumSave.crt_euqip.Count; i++)
+            {
+                string dec = "";
+                Bag_Base_VO data= SumSave.crt_euqip[i];
+                string[] info = data.user_value.Split(' ');
+                int strengthenlv = int.Parse(info[1]);
+                crt.damageMin += data.damgemin;
+                crt.damageMax += data.damagemax;
+                crt.MagicdamageMin += data.magicmin;
+                crt.MagicdamageMax += data.magicmax;
+                crt.DefMin += data.defmin;
+                crt.DefMax += data.defmax;
+                crt.MagicDefMin += data.macdefmin;
+                crt.MagicDefMax += data.macdefmax;
+                crt.MaxHP += data.hp;
+                crt.MaxMp += data.mp;
+                if (data.damgemin > 0 || data.damagemax > 0)
+                {
+                    crt.damageMin += Obtain_Equip_strengthenlv_Value(data, strengthenlv);
+                    crt.damageMax += Obtain_Equip_strengthenlv_Value(data, strengthenlv);
+                }
+                if (data.magicmin > 0 || data.magicmax > 0)
+                {
+                    crt.MagicdamageMin += Obtain_Equip_strengthenlv_Value(data, strengthenlv);
+                    crt.MagicdamageMax += Obtain_Equip_strengthenlv_Value(data, strengthenlv);
+                }
+                if (data.defmin > 0 || data.defmax > 0)
+                {
+                    crt.DefMin += Obtain_Equip_strengthenlv_Value(data, strengthenlv, 2);
+                    crt.DefMax += Obtain_Equip_strengthenlv_Value(data, strengthenlv, 2);
+                }
+                if (data.macdefmin > 0 || data.macdefmax > 0)
+                {
+                    crt.MagicDefMin += Obtain_Equip_strengthenlv_Value(data, strengthenlv, 2);
+                    crt.MagicDefMax += Obtain_Equip_strengthenlv_Value(data, strengthenlv, 2);
+                }
+                if (info.Length > 4)
+                {
+                    //类型
+                    string[] arr = info[3].Split(',');
+                    //值
+                    string[] arr_value = info[4].Split(',');
+                    int index = 0;
+                    for (int j = 0; j < arr.Length; j++)
+                    {
+                        ++index;
+                        if (j == 0)
+                        {
+                            switch (int.Parse(arr[j]))
+                            {
+                                case 1: crt.damageMin += int.Parse(arr_value[j]);   break;
+                                case 2:
+                                    crt.damageMax += int.Parse(arr_value[j]);
+                                    break;
+                                case 3: crt.MagicdamageMin += int.Parse(arr_value[j]); break;
+                                case 4: crt.MagicdamageMax += int.Parse(arr_value[j]); break;
+                                case 5: crt.DefMax+= int.Parse(arr_value[j]); break;
+                                case 6: crt.MagicDefMax += int.Parse(arr_value[j]); break;
+                                case 7: crt.MaxHP += int.Parse(arr_value[j]); break;
+                                case 8: crt.MaxMp += int.Parse(arr_value[j]); break;
+                                default:
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            int value= int.Parse(arr_value[j]);
+                            switch ((enum_skill_attribute_list)(int.Parse(arr[j])))
+                            {
+                                case enum_skill_attribute_list.生命值:
+                                    crt.MaxHP += value;
+                                    break;
+                                case enum_skill_attribute_list.法力值:
+                                    crt.MaxMp += value;
+                                    break;
+                                case enum_skill_attribute_list.内力值:
+                                    crt.internalforceMP += value;
+                                    break;
+                                case enum_skill_attribute_list.蓄力值:
+                                    crt.EnergyMp += value;
+                                    break;
+                                case enum_skill_attribute_list.物理防御:
+                                    crt.DefMax += value;
+                                    break;
+                                case enum_skill_attribute_list.魔法防御:
+                                    crt.MagicDefMax += value;
+                                    break;
+                                case enum_skill_attribute_list.物理攻击:
+                                    crt.damageMax += value;
+                                    break;
+                                case enum_skill_attribute_list.魔法攻击:
+                                    crt.MagicdamageMax += value;
+                                    break;
+                                case enum_skill_attribute_list.命中:
+                                    crt.hit += value;
+                                    break;
+                                case enum_skill_attribute_list.躲避:
+                                    crt.dodge += value;
+                                    break;
+                                case enum_skill_attribute_list.穿透:
+                                    crt.penetrate += value;
+                                    break;
+                                case enum_skill_attribute_list.格挡:
+                                    crt.block += value;
+                                    break;
+                                case enum_skill_attribute_list.暴击:
+                                    crt.crit_rate += value;
+                                    break;
+                                case enum_skill_attribute_list.幸运:
+                                    crt.Lucky += value;
+                                    break;
+                                case enum_skill_attribute_list.暴击伤害:
+                                    crt.crit_damage += value;
+                                    break;
+                                case enum_skill_attribute_list.伤害加成:
+                                    crt.double_damage += value;
+                                    break;
+                                case enum_skill_attribute_list.真实伤害:
+                                    crt.Real_harm += value;
+                                    break;
+                                case enum_skill_attribute_list.伤害减免:
+                                    crt.Damage_Reduction += value;
+                                    break;
+                                case enum_skill_attribute_list.伤害吸收:
+                                    crt.Damage_absorption += value;
+                                    break;
+                                case enum_skill_attribute_list.异常抗性:
+                                    crt.resistance += value;
+                                    break;
+                                case enum_skill_attribute_list.攻击速度:
+                                    crt.attack_speed += value;
+                                    break;
+                                case enum_skill_attribute_list.移动速度:
+                                    crt.move_speed += value;
+                                    break;
+                                case enum_skill_attribute_list.生命加成:
+                                    crt.bonus_Hp += value;
+                                    break;
+                                case enum_skill_attribute_list.法力加成:
+                                    crt.bonus_Mp += value;
+                                    break;
+                                case enum_skill_attribute_list.生命回复:
+                                    crt.Heal_Hp += value;
+                                    break;
+                                case enum_skill_attribute_list.法力回复:
+                                    crt.Heal_Mp += value;
+                                    break;
+                                case enum_skill_attribute_list.物攻加成:
+                                    crt.bonus_Damage += value;
+                                    break;
+                                case enum_skill_attribute_list.魔攻加成:
+                                    crt.bonus_MagicDamage += value;
+                                    break;
+                                case enum_skill_attribute_list.物防加成:
+                                    crt.bonus_Def += value;
+                                    break;
+                                case enum_skill_attribute_list.魔防加成:
+                                    crt.bonus_MagicDef += value;
+                                    break;
+                                case enum_skill_attribute_list.土属性强化:
+                                case enum_skill_attribute_list.火属性强化:
+                                case enum_skill_attribute_list.水属性强化:
+                                case enum_skill_attribute_list.金属性强化:
+                                case enum_skill_attribute_list.木属性强化:
+                                    crt.life[int.Parse(arr[j])-30] += value;
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    }
+                }
+            }
             //添加技能效果
             //添加神器效果
             //称号属性
@@ -276,6 +429,16 @@ namespace MVC
 
 
 
+        }
+        /// <summary>
+        /// 强化属性加成
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="lv"></param>
+        /// <returns></returns>
+        private int Obtain_Equip_strengthenlv_Value(Bag_Base_VO data,int lv,float coefficient=1)
+        {
+            return (int)((data.equip_lv * lv) / coefficient);
         }
 
         ///
