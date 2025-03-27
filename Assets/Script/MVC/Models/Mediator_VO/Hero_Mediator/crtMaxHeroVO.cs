@@ -181,4 +181,8 @@ public class crtMaxHeroVO
     /// 魔法回复
     /// </summary>
     public int Heal_Mp;
+    /// <summary>
+    /// 五行属性
+    /// </summary>
+    public int[] life = new int[] { 0, 0, 0, 0, 0 };
 }

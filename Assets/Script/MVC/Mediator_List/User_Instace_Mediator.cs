@@ -28,7 +28,8 @@ namespace MVC
             {
                 NotiList.User_Login,
                 NotiList.Execute_Write,
-                NotiList.Refresh_User_Setting
+                NotiList.Refresh_User_Setting,
+                NotiList.Refresh_Max_Hero_Attribute
 
 
             };
@@ -53,6 +54,9 @@ namespace MVC
                     break;
                 case NotiList.Refresh_User_Setting:
                     user.Refresh_User_Setting(data as user_base_setting_vo);
+                    break;
+                case NotiList.Refresh_Max_Hero_Attribute:
+                    user.Refresh_Max_Hero_Attribute();
                     break;
             }
         }

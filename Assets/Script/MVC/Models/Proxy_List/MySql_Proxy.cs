@@ -33,10 +33,26 @@ namespace MVC
             Read_Db_Magic();
             Read_Db_stditems();
             Read_Db_Hero();
+            Read_Db_Setting_Aoption();
             CloseMySqlDB();
 
         }
+        /// <summary>
+        /// 读取设置选项
+        /// </summary>
+        private void Read_Db_Setting_Aoption()
+        {
+            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_setting);
 
+            SumSave.db_sttings = new List<user_setting_type_vo>();
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.db_sttings.Add(ReadDb.Read(mysqlReader, new user_setting_type_vo()));
+                }
+            }
+        }
         private void Read_Db_Hero()
         {
             mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_hero);

@@ -12,7 +12,6 @@ public class setting_item : MonoBehaviour
     private void Awake()
     {
         dropdown = GetComponent<Dropdown>();
-        dropdown.onValueChanged.AddListener(OnValueChange);
     }
 
 
@@ -40,5 +39,6 @@ public class setting_item : MonoBehaviour
             dropdown.AddOptions(new List<string>() { list[i] });
         }
         dropdown.value = value;
+        dropdown.onValueChanged.AddListener(OnValueChange);
     }
 }

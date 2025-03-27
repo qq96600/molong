@@ -46,10 +46,7 @@ namespace Common
         /// 设置类型
         /// </summary>
         public static user_setting_type_vo crt_setting_type;
-        ///<summary>
-        /// 设置类型字典
-        /// </summary>
-        public static Dictionary<int, user_setting_type_vo> crt_setting_type_dic ;
+      
         /// <summary>
         /// 背包
         /// </summary>
@@ -74,6 +71,10 @@ namespace Common
         /// 技能列表
         /// </summary>
         public static List<base_skill_vo> db_skills;
+        ///<summary>
+        /// 设置类型字典
+        /// </summary>
+        public static List<user_setting_type_vo> db_sttings;
         /// <summary>
         /// 装备列表
         /// </summary>

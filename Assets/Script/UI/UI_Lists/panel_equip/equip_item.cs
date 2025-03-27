@@ -82,7 +82,7 @@ public class equip_item : Base_Mono
             dec += "\n" + Show_Color.White("物理防御:" + data.defmin + "-" + data.defmax);
             if (strengthenlv > 0)
             {
-                dec += Show_Color.Grey("(+" + (data.equip_lv * strengthenlv) + ")");
+                dec += Show_Color.Grey("(+" + (data.equip_lv * strengthenlv / 2) + ")");
             }
         }
         if (data.macdefmin > 0 || data.macdefmax > 0)
@@ -90,7 +90,7 @@ public class equip_item : Base_Mono
             dec += "\n" + Show_Color.White("魔法防御:" + data.macdefmin + "-" + data.macdefmax);
             if (strengthenlv > 0)
             {
-                dec += Show_Color.Grey("(+" + (data.equip_lv * strengthenlv) + ")");
+                dec += Show_Color.Grey("(+" + (data.equip_lv * strengthenlv / 2) + ")");
             }
         }
         if (data.hp > 0)
@@ -130,16 +130,29 @@ public class equip_item : Base_Mono
                 }
                 else
                 {
-                    dec += "\n" + Show_Color.Green((enum_attribute_list)(int.Parse(arr[i])) + ":" + arr_value[i] + (index >= 4 ? "%" : ""));
-                    if (index == 4)
+                    if (index >= 7)
                     {
-                        if (index < arr.Length)
+                        if (index==7)
+                        {
+                            dec += "\n" + Show_Color.Yellow("[五行加成]");
+                        }
+                        dec += "\n" + Show_Color.Purple((enum_skill_attribute_list)(int.Parse(arr[i])) + ":" + arr_value[i]);
+
+                    }
+                    else
+                    if (index >= 4)
+                    {
+                        if (index==4)
                         {
                             dec += "\n" + Show_Color.Yellow("[加成属性]");
                         }
-                    }
+                        dec += "\n" + Show_Color.Blue((enum_skill_attribute_list)(int.Parse(arr[i])) + ":" + arr_value[i] +"%");
+                    }else
+                        dec += "\n" + Show_Color.Green((enum_skill_attribute_list)(int.Parse(arr[i])) + ":" + arr_value[i] + "");
+
+
                 }
-                
+
             }
         }
         show_info.text = dec;
