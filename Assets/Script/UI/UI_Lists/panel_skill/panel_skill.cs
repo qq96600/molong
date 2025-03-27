@@ -1,4 +1,6 @@
 using Common;
+using Components;
+using MVC;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -32,8 +34,14 @@ public class panel_skill : Panel_Base
     private Text base_info;
 
     private skill_btn_list select_btn_type = skill_btn_list.战斗;
-
+    /// <summary>
+    /// 选中技能
+    /// </summary>
     private offect_up_skill offect_skill;
+    /// <summary>
+    /// 分配内力
+    /// </summary>
+    private allocation_skill_damage allocation_skill_damage;
     protected override void Awake()
     {
         base.Awake();
@@ -49,6 +57,7 @@ public class panel_skill : Panel_Base
         skill_item_Prefabs = Resources.Load<skill_item>("Prefabs/panel_skill/skill_item");
         base_info = Find<Text>("bg_main/show_skill/bg_info/base_info");
         offect_skill = Find<offect_up_skill>("bg_main/offect_up_skill");
+        allocation_skill_damage = Find<allocation_skill_damage>("bg_main/allocation_skill_damage");
         for (int i = 0; i < Enum.GetNames(typeof(skill_btn_list)).Length; i++)
         {
             btn_item btn_item = Instantiate(btn_item_Prefabs, crt_btn);
@@ -76,14 +85,36 @@ public class panel_skill : Panel_Base
                 offect_skill.Show(user_skill.Data);
                 break;
             case skill_Offect_btn_list.升级:
+                UpLv();
                 break;
             case skill_Offect_btn_list.分配:
+                allocation_skill_damage.gameObject.SetActive(true);
+                allocation_skill_damage.Show(user_skill.Data);
                 break;
             default:
                 break;
         }
     }
-
+    /// <summary>
+    /// 升级技能
+    /// </summary>
+    private void UpLv()
+    {
+        //缺少引用判断
+        if (user_skill.Data.skill_max_lv > int.Parse(user_skill.Data.user_values[1]))
+        {
+            Alert_Dec.Show("升级消耗 * 3333历练值 " + user_skill.Data.skillname + "等级提升");
+            int lv = int.Parse(user_skill.Data.user_values[1]);
+            lv++;
+            user_skill.Data.user_values[1] = lv.ToString();
+            user_skill.Data.user_value = ArrayHelper.Data_Encryption(user_skill.Data.user_values);
+            Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.skill_value, SumSave.crt_skills);
+            SendNotification(NotiList.Refresh_Max_Hero_Attribute);
+            user_skill.Refresh();
+            Select_skill(user_skill);
+        }
+        else Alert_Dec.Show("技能等级已满");
+    }
     /// <summary>
     /// 选中功能
     /// </summary>
@@ -120,10 +151,7 @@ public class panel_skill : Panel_Base
         {
             btn_item_dic[item].gameObject.SetActive(false);
         }
-        for (int i = 0; i < 3; i++)
-        {
-            SumSave.crt_skills.Add(tool_Categoryt.crate_skill(SumSave.db_skills[Random.Range(0, SumSave.db_skills.Count)].skillname));
-        }
+        //SumSave.crt_skills.Add(tool_Categoryt.crate_skill(SumSave.db_skills[Random.Range(0, SumSave.db_skills.Count)].skillname));
         for (int i = 0; i < SumSave.crt_skills.Count; i++)
         {
             if ((skill_btn_list)SumSave.crt_skills[i].skill_type == select_btn_type)
@@ -163,18 +191,18 @@ public class panel_skill : Panel_Base
     private void Show_info()
     {
 
-        string dec = user_skill.Data.skillname + "\nLv." + user_skill.Data.skilllv;
-
+        string dec = user_skill.Data.skillname + "\nLv." + user_skill.Data.user_values[1]+"级";
+        int lv= int.Parse(user_skill.Data.user_values[1]);
         dec += "消耗法力 " + user_skill.Data.skill_spell + "%\n";
         dec += "技能cd " + user_skill.Data.skill_cd / 60f + "秒\n";
-        dec += "对目标造成" + (user_skill.Data.skill_damage + (user_skill.Data.skill_power * user_skill.Data.skilllv)) + "%伤害";
-        if (user_skill.Data.skilllv >= user_skill.Data.skill_max_lv)
+        dec += "对目标造成" + (user_skill.Data.skill_damage + (user_skill.Data.skill_power * lv)) + "%伤害";
+        if (lv >= user_skill.Data.skill_max_lv)
         { 
         dec += "\n已满级";
         }
         else
         {
-            dec += "升级需要 " + user_skill.Data.skill_need_exp * Mathf.Pow(user_skill.Data.skill_need_coefficient[0], user_skill.Data.skill_need_coefficient[1]) * (user_skill.Data.skilllv+1) + "\n";
+            dec += "升级需要 " + user_skill.Data.skill_need_exp * Mathf.Pow(user_skill.Data.skill_need_coefficient[0], user_skill.Data.skill_need_coefficient[1]) * (lv + 1) + "\n";
         }
         if (user_skill.Data.skill_open_type.Count > 0)
         {

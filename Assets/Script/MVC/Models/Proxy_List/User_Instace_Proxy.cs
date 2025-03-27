@@ -1,6 +1,7 @@
 ﻿using Common;
 using System;
 using System.Collections.Generic;
+using UI;
 using UnityEngine;
 
 
@@ -448,6 +449,8 @@ namespace MVC
         public void Refresh_Max_Hero_Attribute()
         {
             refresh_Max_Hero_Attribute();
+            //刷新战斗
+            UI_Manager.I.GetPanel<panel_fight>().Refresh_Max_Hero_Attribute();
         }
 
         /// <summary>

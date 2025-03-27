@@ -27,13 +27,21 @@ public class skill_item : Base_Mono
         {
             data = value;
             if (data == null) return;
-            //item_icon.sprite = UI.UI_Manager.I.GetEquipSprite("icon/", "10050" + Random.Range(16, 55));
-            info.text= data.skillname+"Lv."+ data.skilllv;
-            item_frame.gameObject.SetActive(data.skillpos != 0);
+            Refresh();
         }
         get
         {
             return data;
         }
     }
+    /// <summary>
+    /// Ë¢ÐÂÒ»ÏÂ
+    /// </summary>
+    public void Refresh()
+    {
+        //item_icon.sprite = UI.UI_Manager.I.GetEquipSprite("icon/", "10050" + Random.Range(16, 55));
+        info.text = Data.skillname + "Lv." + Data.user_values[1];
+        item_frame.gameObject.SetActive(data.skillpos != 0);
+    }
+
 }

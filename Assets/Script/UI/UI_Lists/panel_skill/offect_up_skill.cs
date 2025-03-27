@@ -1,4 +1,5 @@
 using Common;
+using Components;
 using MVC;
 using System;
 using System.Collections;
@@ -28,6 +29,7 @@ public class offect_up_skill : Base_Mono
         crt_attack_skill=Find<Transform>("attack_skill");
         crt_special_skill = Find<Transform>("special_skill");
         btn_Item_parfabs = Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
+        skill_item_parfabs = Resources.Load<skill_offect_item>("Prefabs/panel_skill/skill_offect_item");
         close = Find<Button>("close_button");
         close.onClick.AddListener(() => { On_Close(); });
 
@@ -59,8 +61,7 @@ public class offect_up_skill : Base_Mono
             bool exist = true;
             for (int i = 0; i < SumSave.crt_skills.Count; i++)
             {
-                string[] skill = SumSave.crt_skills[i].user_value.Split(' ');
-                if (int.Parse(skill[2]) == attack_numbers[j])
+                if (int.Parse(SumSave.crt_skills[i].user_values[2]) == attack_numbers[j])
                 {
                     if ((skill_btn_list)SumSave.crt_skills[i].skill_type == skill_btn_list.战斗)
                     {
@@ -79,7 +80,7 @@ public class offect_up_skill : Base_Mono
             { 
                 btn_item item = Instantiate(btn_Item_parfabs, crt_attack_skill);
                 item.Show(attack_numbers[j], attack_numbers[j] + "战斗位");
-                item.GetComponent<Button>().onClick.AddListener(() => { On_Attack_Click(item); });
+                item.GetComponent<Button>().onClick.AddListener(() => { On_AttackClick(item); });
             }
         }
 
@@ -88,8 +89,7 @@ public class offect_up_skill : Base_Mono
             bool exist = true;
             for (int i = 0; i < SumSave.crt_skills.Count; i++)
             {
-                string[] skill = SumSave.crt_skills[i].user_value.Split(' ');
-                if (int.Parse(skill[2]) == attack_numbers[j])
+                if (int.Parse(SumSave.crt_skills[i].user_values[2]) == special_numbers[j])
                 {
                     if ((skill_btn_list)SumSave.crt_skills[i].skill_type == skill_btn_list.秘笈)
                     {
@@ -99,8 +99,6 @@ public class offect_up_skill : Base_Mono
                         item.GetComponent<Button>().onClick.AddListener(() => { On_Click(item); });
                         continue;
                     }
-
-
                 }
 
             }
@@ -108,36 +106,59 @@ public class offect_up_skill : Base_Mono
             {
                 btn_item item = Instantiate(btn_Item_parfabs, crt_special_skill);
                 item.Show(attack_numbers[j], attack_numbers[j] + "秘笈位");
-                item.GetComponent<Button>().onClick.AddListener(() => { On_Special_Click(item); });
+                item.GetComponent<Button>().onClick.AddListener(() => { On_SpecialClick(item); });
             }
         }
 
     }
+
+    private void On_AttackClick(btn_item item)
+    {
+        if ((skill_btn_list)user_skill.skill_type == skill_btn_list.战斗)
+        {
+            On_Click(item);
+        }
+        else Alert_Dec.Show("该技能只能装载战斗技能");
+    }
+
+    private void On_SpecialClick(btn_item item)
+    {
+        if ((skill_btn_list)user_skill.skill_type == skill_btn_list.秘笈)
+        {
+            On_Click(item);
+        }else Alert_Dec.Show("该技能只能装载秘笈");
+    }
+
     /// <summary>
     /// 设置特殊技能
     /// </summary>
     /// <param name="item"></param>
-    private void On_Special_Click(btn_item item)
+    private void On_Click(btn_item item)
     {
-
+        bring_skill(item.index);
+        Alert_Dec.Show("装载技能成功");
+        Show(user_skill);
     }
 
-    /// <summary>
-    /// 切换战斗技能
-    /// </summary>
-    /// <param name="item"></param>
-    private void On_Attack_Click(btn_item item)
+    private void bring_skill(int index)
     {
-
+        user_skill.user_values[2]= index.ToString();
+        user_skill.user_value = ArrayHelper.Data_Encryption(user_skill.user_values);
+        Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.skill_value, SumSave.crt_skills);
+        SendNotification(NotiList.Refresh_Max_Hero_Attribute);
     }
-
     /// <summary>
     /// 切换技能
     /// </summary>
     /// <param name="item"></param>
     private void On_Click(skill_offect_item item)
     {
-
+        int pos = int.Parse(item.Data.user_values[2]);
+        item.Data.user_values[2] = user_skill.user_values[2];
+        item.Data.user_value = ArrayHelper.Data_Encryption(item.Data.user_values);
+        bring_skill(pos);
+        Alert_Dec.Show("技能切换成功");
+        Show(user_skill);
     }
 
     public void Show(base_skill_vo skill)

@@ -28,8 +28,10 @@ namespace MVC
         protected Image frame, icon;
 
         protected Image targetIcon;
-
-
+        /// <summary>
+        /// 技能列表
+        /// </summary>
+        protected List<skill_offect_item> battle_skills;
         /// <summary>
         /// 抗性
         /// </summary>
@@ -38,11 +40,6 @@ namespace MVC
         /// 生成魂环
         /// </summary>
         protected bool Zodiac = true;
-        /// <summary>
-        /// 技能列表
-        /// </summary>
-        [HideInInspector]
-        //public SkillBattleItem[] skills = new SkillBattleItem[] { };
 
         /// <summary>
         /// 名称 称号
@@ -57,8 +54,19 @@ namespace MVC
         /// 角色状态机
         /// </summary>
         public RolesManage StateMachine;
+        /// <summary>
+        /// 刷新属性
+        /// </summary>
+        /// <param name="hero"></param>
+        public virtual void Refresh(crtMaxHeroVO hero)
+        { 
+
+        }
+
+        public virtual void Refresh_Skill(List<skill_offect_item> skills)
+        { 
         
-        
+        }
         public virtual void Awake()
         {
             target = GetComponent<BattleHealth>();
