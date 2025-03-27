@@ -104,6 +104,26 @@ namespace MVC
             Read_User_Resources();
             Read_User_Setting();
             refresh_Max_Hero_Attribute();
+            Read_Setting_Aoption();
+        }
+
+        /// <summary>
+        /// 读取设置选项
+        /// </summary>
+        private void Read_Setting_Aoption()
+        {
+            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_setting);
+            SumSave.crt_setting_type = new user_setting_type_vo();
+            SumSave.crt_setting_type_dic = new Dictionary<int, user_setting_type_vo>();
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.crt_setting_type = ReadDb.Read(mysqlReader, new user_setting_type_vo());
+                    SumSave.crt_setting_type_dic.Add(SumSave.crt_setting_type.id_setting,SumSave.crt_setting_type);
+                }
+            }
+           
         }
 
         private void Read_User_Setting()

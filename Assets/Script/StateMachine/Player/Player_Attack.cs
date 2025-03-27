@@ -13,7 +13,8 @@ namespace StateMachine
         {
             
             //startTime = 0;
-            player.RbZero();  
+            player.RbZero();
+            player.FlipControl(player.Direction(player.TargetPosition));
         }
 
         public override void Exit()
@@ -28,12 +29,11 @@ namespace StateMachine
             startTime += 3;
             if (startTime> player.AttackSpeed)//¹¥»÷¼ä¸ô
             {
-                player.BattleAttack.OnAuto();
-                
                 player.anim.SetBool("Attack", true);
                 //player.TatgetObg.TakeDamage(player.attackDamage);
+                player.BattleAttack.OnAuto();
                 startTime =0;
-                player.anim.SetBool("Attack", false);
+                player.CloseAnimAfterDelay("Attack", 2f);
             }
            
 

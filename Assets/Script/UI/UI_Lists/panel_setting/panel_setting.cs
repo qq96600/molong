@@ -28,10 +28,18 @@ public class panel_setting : Panel_Base
         base.Initialize();
         crt_setting=Find<Transform>("bg_main/Scroll View/Viewport/Content");
         setting_Item_prefab=Resources.Load<setting_item>("Prefabs/panel_setting/setting_item");
-        for (int i = 0; i < setting_name.Length; i++)
+        for (int i = 1; i <= SumSave.crt_setting_type_dic.Count; i++)
         {
+
             setting_item item = Instantiate(setting_Item_prefab, crt_setting);
-            item.Init(i, new string[] { "开心", "快了", "开心2", "快了3" }, SumSave.crt_setting.user_setting[i]);
+
+            string set_type = SumSave.crt_setting_type_dic[i].option_setting;
+
+            string[] setAnOption = set_type.Split(' ');
+            
+
+            //item.Init(i, new string[] { "开心", "快了", "开心2", "快了3" }, SumSave.crt_setting.user_setting[i]);
+            item.Init(i, setAnOption, SumSave.crt_setting.user_setting[i]);
         }
     }
     /// <summary>

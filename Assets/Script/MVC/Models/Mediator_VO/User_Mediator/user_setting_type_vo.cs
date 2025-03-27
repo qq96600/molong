@@ -1,25 +1,31 @@
 using Common;
 using MVC;
-
-public class user_base_setting_vo : Base_VO
+public class user_setting_type_vo : Base_VO
 {
     /// <summary>
-    /// 读取用户设置数据
+    /// 设置id
     /// </summary>
-    public string user_value;
-    /// <summary>
-    /// 转译设置
-    /// </summary>
-    public int[] user_setting;
+    public int id_setting;
 
-   
+    /// <summary>
+    /// 设置类型
+    /// </summary>
+    /// <returns></returns>
+    public string type_setting;
+    /// <summary>
+    /// 设置选项
+    /// </summary>
+    /// <returns></returns>
+    public string option_setting;
+ 
+
     public override string[] Set_Instace_String()
     {
-        return 
-            new string[] { 
+        return
+            new string[] {
                 GetStr(0),
-                GetStr(SumSave.crt_user.uid),
-                GetStr(user_value),
+                GetStr(type_setting),
+                GetStr(option_setting),
 
                 };
     }
@@ -30,7 +36,8 @@ public class user_base_setting_vo : Base_VO
     public override string[] Get_Update_Character()
     {
         return new string[] {
-            "setting_value",
+            "type_setting",
+            "option_setting",
         };
     }
     /// <summary>
@@ -40,7 +47,8 @@ public class user_base_setting_vo : Base_VO
     public override string[] Set_Uptade_String()
     {
         return new string[] {
-            GetStr(user_value)
+           GetStr(type_setting),
+           GetStr(option_setting)
         };
     }
 }

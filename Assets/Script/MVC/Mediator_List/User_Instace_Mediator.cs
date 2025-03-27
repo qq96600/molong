@@ -35,7 +35,11 @@ namespace MVC
 
         }
 
-
+        /// <summary>
+        /// 处理通知
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="data"></param>
         public override void HandleNotification(string name, object data)
         {
             switch (name)

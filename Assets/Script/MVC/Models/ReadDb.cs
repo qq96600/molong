@@ -23,6 +23,16 @@ public static class ReadDb
         item.user_setting = item.Data_Decrypt(item.user_value);
         return item;
     }
+
+    public static user_setting_type_vo Read(MySqlDataReader reader, user_setting_type_vo item)
+    {
+        item.id_setting = reader.GetInt32(reader.GetOrdinal("id"));
+        item.type_setting = reader.GetString(reader.GetOrdinal("setting_type"));
+        item.option_setting= reader.GetString(reader.GetOrdinal("setting_value"));
+       
+
+        return item;
+    }
     public static user_base_Resources_vo Read(MySqlDataReader reader, user_base_Resources_vo item)
     {
         item.now_time = Convert.ToDateTime(reader.GetString(reader.GetOrdinal("now_time")));

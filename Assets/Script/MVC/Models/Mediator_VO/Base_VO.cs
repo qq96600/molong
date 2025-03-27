@@ -52,6 +52,11 @@ namespace MVC
             return output;
 
         }
+        /// <summary>
+        /// 数据组合
+        /// </summary>
+        /// <param name="base_value"></param>
+        /// <returns></returns>
         public virtual string data_combination(int[] base_value)
         {
             string output = "";

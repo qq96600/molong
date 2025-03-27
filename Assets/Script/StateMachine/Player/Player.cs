@@ -54,7 +54,7 @@ namespace StateMachine
         protected override void Start()
         {
             base.Start();
-            stateMachine.Initialized(idleState);
+            stateMachine.Initialized(skillHuoQiuState);
 
         }
 
@@ -77,18 +77,6 @@ namespace StateMachine
             //stateMachine.ChangeState(basicState);
         }
 
-        /// <summary>
-        /// Ëæ»ú¸ÅÂÊ
-        /// </summary>
-        /// <param ¸ÅÂÊ % ="probability"></param>
-        /// <returns></returns>
-        public bool JudgeRandom(float probability)
-        {
-            if (Random.Range(0, 100) < probability)
-                return true;
-            else 
-                return false;
-        }
 
         public override void stateAutoInit(int damage, string skill_name = null)
         {
@@ -103,6 +91,9 @@ namespace StateMachine
                 stateMachine.ChangeState(skillHuoQiuState);
             }
         }
+
+
+
     }
 }
 

@@ -31,10 +31,11 @@ namespace StateMachine
         [Header("技能释放概率")]
         public float skillRelease = 50f;
         [Header("是否面向左")]
-        protected bool facingLeft=true;
+        protected bool facingLeft;
         
         protected virtual void Awake()
         {
+            facingLeft = true;
             anim = GetComponentInChildren<Animator>();
             if (anim == null)
                 Debug.LogError("怪物没有Animator组件");
@@ -116,10 +117,8 @@ namespace StateMachine
         }
         public void Flip()//翻转
         {
-            
             facingLeft=!facingLeft;
             transform.Rotate(0, 180, 0);
-
         }
 
         
@@ -138,6 +137,27 @@ namespace StateMachine
         public void AnimSpeed(float _speed)//动画播放速度
         {
             anim.speed = _speed;
+        }
+
+
+        /// <summary>
+        /// 延迟关闭动画
+        /// </summary>
+        /// <param name="animName"></param>
+        /// <param name="delay"></param>
+        /// <returns></returns>
+        public IEnumerator CloseAnimAfterDelay(string animName, float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            CloseAnim(animName); // 传递参数
+        }
+        /// <summary>
+        /// 关闭动画 
+        /// </summary>
+        /// <param name="animName"></param>
+        public void CloseAnim(string animName)
+        {
+            anim.SetBool(animName, false);
         }
 
         public void newAnimSpeed()
