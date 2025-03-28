@@ -41,7 +41,7 @@ public class skill_offect_item : Base_Mono
 
     public void Battle()
     {
-        info.gameObject.SetActive(false);
+        info.text="";
         StartCoroutine(Skill_WaitTime());
     }
     /// <summary>
@@ -59,7 +59,8 @@ public class skill_offect_item : Base_Mono
     private IEnumerator Skill_WaitTime()
     {
         data.battle_CD = data.skill_cd;
-        float base_time = 0.2f;
+        info.text = "";
+        float base_time = 0.1f;
         while (data.battle_CD > 0)
         {
             data.battle_CD -= base_time;
@@ -68,6 +69,7 @@ public class skill_offect_item : Base_Mono
             yield return new WaitForSeconds(base_time);
         }
         WaitTime.text = "";
+        info.text= data.skillname;
     }
 
 

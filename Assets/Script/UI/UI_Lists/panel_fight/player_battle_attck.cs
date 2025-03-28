@@ -25,17 +25,19 @@ public class player_battle_attck : BattleAttack
     {
         base.OnAuto();
         //判断技能
-        Debug.Log(1);
         for (int i = 0; i < battle_skills.Count; i++)
         {
             if (battle_skills[i].IsState())
             {
                 if (target.MP >= battle_skills[i].Data.skill_spell * target.maxMP / 100)
                 { 
+                    skill_offect_item skill = battle_skills[i];
                     target.MP -= battle_skills[i].Data.skill_spell * target.maxMP / 100;
                     //释放技能
                     BaseAttack(battle_skills[i].Data);
                     battle_skills[i].Battle();
+                    battle_skills.RemoveAt(i);
+                    battle_skills.Add(skill);
                     return;
                 }
             }
@@ -51,6 +53,43 @@ public class player_battle_attck : BattleAttack
     private void BaseAttack(base_skill_vo data)
     {
         //释放技能
+        StateMachine.stateAutoInit(data);
+        //skill_damage(data);
+    }
+
+    protected void skill_damage(base_skill_vo skill)
+    {
+        Debug.Log("技能回调");
+        float damage = 0f;
+        BattleAttack monster = Terget.GetComponent<BattleAttack>();
+        if (monster.target.HP <= 0) return;//结战斗
+        if (Data.Type == 1)
+        {
+            damage = Random.Range(Data.damageMin, Data.damageMax) - Random.Range(monster.Data.DefMin, monster.Data.DefMax);
+        }
+        else
+        if (Data.Type == 2)
+        {
+            damage = Random.Range(Data.MagicdamageMin, Data.MagicdamageMax) - Random.Range(monster.Data.MagicDefMin, monster.Data.MagicDefMax);
+        }
+
+        if (Random.Range(0, 100) > Data.hit - monster.Data.dodge)
+        {
+            //传递消息，未命中;
+            monster.target.TakeDamage(1, DamageEnum.技能未命中, monster);
+            return;
+        }
+        damage = damage * (skill.skill_damage + (skill.skill_power * int.Parse(skill.user_values[1]))) / 100;
+
+        bool isCrit = false;
+        if (Random.Range(0, 100) > data.crit_rate - monster.Data.resistance)
+        {
+            isCrit = true;
+            damage = damage * data.crit_damage / 100;
+        }
+        damage = 100;
+
+        monster.target.TakeDamage(damage, isCrit ? DamageEnum.暴击技能伤害 : DamageEnum.技能伤害, monster);
     }
 
     private void BaseAttack()
@@ -70,18 +109,18 @@ public class player_battle_attck : BattleAttack
         if (Random.Range(0, 100) > Data.hit - monster.Data.dodge)
         {
             //传递消息，未命中;
+            monster.target.TakeDamage(1,DamageEnum.未命中, monster);
             return;
         }
+        bool isCrit = false;
         if (Random.Range(0, 100) > data.crit_rate - monster.Data.resistance)
         {
+            isCrit = true;
             damage = damage * data.crit_damage / 100;
         }
-        if (Random.Range(0, 100) < 50) StateMachine.stateAutoInit(1);
-        else StateMachine.stateAutoInit(1, "kai");
-        
-        damage = 1000000000000000;
+        damage = 100;
 
-        monster.target.TakeDamage(damage,monster);
+        monster.target.TakeDamage(damage, isCrit ? DamageEnum.暴击伤害 : DamageEnum.普通伤害, monster);
     }
 
 }

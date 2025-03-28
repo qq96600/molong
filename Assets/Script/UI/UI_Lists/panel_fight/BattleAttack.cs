@@ -33,15 +33,6 @@ namespace MVC
         /// </summary>
         protected List<skill_offect_item> battle_skills;
         /// <summary>
-        /// 抗性
-        /// </summary>
-        public int BaseParalysis = 0;
-        /// <summary>
-        /// 生成魂环
-        /// </summary>
-        protected bool Zodiac = true;
-
-        /// <summary>
         /// 名称 称号
         /// </summary>
         protected Text Name, sliderInfo, damageInfo;
@@ -71,7 +62,7 @@ namespace MVC
         {
             target = GetComponent<BattleHealth>();
             StateMachine = GetComponent<RolesManage>();
-            frame = transform.GetComponent<Image>();
+            frame = Find<Image>("frame");
             show_hp = Find<Slider>("Slider");
         }
 
@@ -85,12 +76,13 @@ namespace MVC
             {
                 data = value;
                 if (data == null) return;
+                frame.gameObject.SetActive(false);
                 target.maxHP = data.MaxHP;
                 target.HP = data.MaxHP;
                 show_hp.maxValue = target.maxHP;
                 show_hp.value = target.HP;
-                BaseParalysis = 0;
-
+                target.maxMP= data.MaxMp;
+                target.MP= data.MaxMp;
             }
             get
             {
@@ -106,6 +98,16 @@ namespace MVC
             Terget = health;
         }
 
+        public void injured()
+        {
+            //播放音效
+            if (!frame.gameObject.activeSelf)
+            {
+                frame.gameObject.SetActive(true);
+                StartCoroutine(HideFrame());
+            }
+        }
+
         protected int SkillInfo = 0;
         /// <summary>
         /// 基础速度
@@ -116,9 +118,7 @@ namespace MVC
         /// </summary>
         public virtual void OnAuto()
         {
-            //frame.color = Color.red;
-            //play_move.anto_State();
-            //StartCoroutine(HideFrame());
+
         }
 
         /// <summary>
@@ -141,8 +141,6 @@ namespace MVC
         /// </summary>
         protected virtual void Find_Terget()
         {
-
-           // if (data.index == -1)
            if(GetComponent<Player>() != null)
 
             {
@@ -169,11 +167,6 @@ namespace MVC
                     Terget = ArrayHelper.GetMin(SumSave.battleHeroHealths, e => Vector2.Distance(transform.position, e.transform.position));
 
                     StateMachine.Init(data.attack_speed, data.attack_distance, data.move_speed, Terget,this);
-                    //if (Terget != null) play_move.anto(Terget);
-                    //else
-                    //{
-                    //    StartCoroutine(HideFrame());
-                    //}
                 }
                 else game_over();
             }
@@ -222,8 +215,8 @@ namespace MVC
         /// <returns></returns>
         IEnumerator HideFrame()
         {
-            yield return new WaitForSeconds(0.5f);
-            frame.color = Color.white;
+            yield return new WaitForSeconds(1f);
+            frame.gameObject.SetActive(false);
         }
     }
 }

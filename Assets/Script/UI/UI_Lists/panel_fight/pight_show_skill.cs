@@ -72,7 +72,7 @@ public class pight_show_skill : Base_Mono
                 }
             }
         }
-        return ArrayHelper.OrderDescding(battle_skills, e => int.Parse(e.Data.user_values[2]));
+        return ArrayHelper.Ascending(battle_skills, e => int.Parse(e.Data.user_values[2]));
     }
 
     private void On_Click(skill_offect_item item)

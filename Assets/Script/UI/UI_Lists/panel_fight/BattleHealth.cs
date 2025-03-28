@@ -27,21 +27,8 @@ namespace MVC
         float time=2f;
         private void Awake()
         {
-            maxMP = 100;
             HP = maxHP;
             MP = maxMP;
-        }
-
-        private void Update()
-        {
-            time-=Time.deltaTime;
-            if(time<0f)
-            {
-                HP -= 100;
-                MP -= 10;
-                time = 2f;
-            }
-
         }
         public void Clear()
         {
@@ -85,11 +72,10 @@ namespace MVC
             MP = Mathf.Max(0, MP);
 
         }
-        public void TakeDamage(float damage,BattleAttack monster)
+        public void TakeDamage(float damage, DamageEnum damageEnum , BattleAttack monster)
         {
             if (HP <= 0) return;
             HP -= damage;
-            // Hurt("伤害 " + "-" + (int)damage);
             Hurt(damage);
             if (HP <= 0)
             {
@@ -100,29 +86,7 @@ namespace MVC
                 // WaitAndDestory(monster.Data.show_name);
             }
         }
-        /*
-        /// <summary>
-        /// 对怪物产生伤害
-        /// </summary>
-        /// <param name="damage"></param>
-        /// <param name="monster"></param>
-        /// <param name="dec"></param>
-        public void TakeDamage(float damage, MonsterBattleAttack monster, DamageList aMAGE = DamageList.伤害, string skill = "")
-        {
-            if (HP <= 0) return;
-            HP -= damage;
-            if (monster.Data.monsterTypes != MonsterTypes.Nothing)
-            {
-                transform.parent.parent.parent.parent.SendMessage("ShowBossSlider", monster);
-            }
-            Hurt(skill + aMAGE + " " + "-" + (int)damage);
-            if (HP <= 0)
-            {
-                monster.newValueClear();
-                WaitAndDestory(monster);
-            }
-        }
-        */
+        
         /// <summary>
         /// 显示信息
         /// </summary>
@@ -130,22 +94,9 @@ namespace MVC
         /// <param name="type">1伤害2治疗</param>
         private void Hurt(float dec,int type = 1)
         {
-            //StartCoroutine(tool_tesk(dec));
-
             string _dec=dec.ToString("F0");
-            
             DamageTextManager.Instance.ShowDamageText(DamageEnum.普通伤害, _dec, this.transform);
         }
-
-        IEnumerator tool_tesk(string dec)
-        {
-            Debug.Log("开枪");
-            yield return new WaitForSeconds(1f);
-            DamageTextManager.Instance.ShowDamageText(DamageEnum.普通伤害, dec, this.transform);
-            StartCoroutine(tool_tesk(dec));
-
-        }
-
         /// <summary>
         /// 显示消息
         /// </summary>

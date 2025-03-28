@@ -509,6 +509,7 @@ namespace MVC
                 SumSave.crt_hero.hero_Lv = 1;
                 SumSave.crt_hero.hero_Exp = 0;
                 SumSave.crt_hero.hero_pos = "江湖人";
+                SumSave.crt_hero.hero_material_list = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_hero, SumSave.crt_hero.Set_Instace_String());
             }
         }

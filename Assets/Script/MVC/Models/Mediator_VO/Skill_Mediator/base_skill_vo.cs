@@ -111,7 +111,7 @@ public class base_skill_vo : Base_VO
     /// <summary>
     /// ¼¼ÄÜcd
     /// </summary>
-    public int skill_cd;
+    public float skill_cd;
     /// <summary>
     /// Õ½¶·cd
     /// </summary>

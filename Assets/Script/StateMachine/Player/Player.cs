@@ -9,7 +9,6 @@ namespace StateMachine
 {
     public class Player : RolesManage
     {
-
         #region 状态
         public PlayerstateMachine stateMachine { get; private set; }//状态机
         public Player_Idle idleState { get; private set; }//空闲状态
@@ -54,7 +53,7 @@ namespace StateMachine
         protected override void Start()
         {
             base.Start();
-            stateMachine.Initialized(skillHuoQiuState);
+            stateMachine.Initialized(idleState);
 
         }
 
@@ -65,9 +64,9 @@ namespace StateMachine
       
         }
 
-        public void GetSkill(Skill_Collision skill)//回调函数
+        public void GetSkill(Skill_Collision _skill)//回调函数
         {
-            skill.SetSkillTarget(TatgetObg,skill_damage);
+            _skill.SetSkillTarget(TatgetObg, baseskill);
         }
 
 
@@ -78,15 +77,14 @@ namespace StateMachine
         }
 
 
-        public override void stateAutoInit(int damage, string skill_name = null)
+        public override void stateAutoInit(base_skill_vo skill_name = null)
         {
-            base.stateAutoInit(damage, skill_name);
-
+            base.stateAutoInit(skill_name);
             if (skill_name == null)//平a
             {
                 stateMachine.ChangeState(attackState);
             }
-            else if(skill_name== "HuoQiu")
+            else //if(skill_name== "火球术" 判断预制体
             {
                 stateMachine.ChangeState(skillHuoQiuState);
             }

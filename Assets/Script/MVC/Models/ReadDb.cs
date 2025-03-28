@@ -63,6 +63,14 @@ public static class ReadDb
         item.hero_Exp = long.Parse(item.hero_exp);
         item.hero_pos= reader.GetString(reader.GetOrdinal("hero_pos"));
         item.hero_value= reader.GetString(reader.GetOrdinal("hero_value"));
+        item.hero_material= reader.GetString(reader.GetOrdinal("hero_material"));
+        string[] hero_material_array = item.hero_material.Split(' ');
+        item.hero_material_list = new int[hero_material_array.Length];
+        for (int i = 0; i < hero_material_array.Length; i++)
+        { 
+            item.hero_material_list[i] = int.Parse(hero_material_array[i]);
+        }
+        
         return item;
     }
     public static db_hero_vo Read(MySqlDataReader reader, db_hero_vo item)
@@ -172,7 +180,6 @@ public static class ReadDb
         item.Heal_Mp= reader.GetInt32(reader.GetOrdinal("Heal_Mp"));
         return item;
     }
-
     public static base_skill_vo Read(MySqlDataReader reader, base_skill_vo item)
     {
         item.skillname = reader.GetString(reader.GetOrdinal("skill_name")); 
@@ -252,7 +259,7 @@ public static class ReadDb
         item.skill_suit_type = reader.GetInt32(reader.GetOrdinal("skill_suit_type"));
         item.skill_suit_value = reader.GetInt32(reader.GetOrdinal("skill_suit_value"));
         item.skill_spell= reader.GetInt32(reader.GetOrdinal("skill_spell"));
-        item.skill_cd= reader.GetInt32(reader.GetOrdinal("skill_cd"));
+        item.skill_cd = reader.GetInt32(reader.GetOrdinal("skill_cd")) / 60f;
         return item;
     } 
 

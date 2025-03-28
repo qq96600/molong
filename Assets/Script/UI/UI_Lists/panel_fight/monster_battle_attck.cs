@@ -34,11 +34,16 @@ public class monster_battle_attck : BattleAttack
             //´«µİÏûÏ¢£¬Î´ÃüÖĞ;
             return;
         }
+        bool crit_rate = false;
         if (Random.Range(0, 100) > data.crit_rate - monster.Data.resistance)
         {
+            crit_rate = true;
             damage = damage * data.crit_damage / 100;
         }
-        monster.target.TakeDamage(damage,monster);
+        if(crit_rate)
+        monster.target.TakeDamage(damage,DamageEnum.±©»÷ÉËº¦, monster);
+        else monster.target.TakeDamage(damage, DamageEnum.ÆÕÍ¨ÉËº¦, monster);
+
     }
 
 }

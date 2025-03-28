@@ -42,6 +42,10 @@ public class panel_skill : Panel_Base
     /// 分配内力
     /// </summary>
     private allocation_skill_damage allocation_skill_damage;
+    /// <summary>
+    /// 需求升级经验
+    /// </summary>
+    private int need_exp;
     protected override void Awake()
     {
         base.Awake();
@@ -100,18 +104,24 @@ public class panel_skill : Panel_Base
     /// </summary>
     private void UpLv()
     {
-        //缺少引用判断
         if (user_skill.Data.skill_max_lv > int.Parse(user_skill.Data.user_values[1]))
         {
-            Alert_Dec.Show("升级消耗 * 3333历练值 " + user_skill.Data.skillname + "等级提升");
-            int lv = int.Parse(user_skill.Data.user_values[1]);
-            lv++;
-            user_skill.Data.user_values[1] = lv.ToString();
-            user_skill.Data.user_value = ArrayHelper.Data_Encryption(user_skill.Data.user_values);
-            Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.skill_value, SumSave.crt_skills);
-            SendNotification(NotiList.Refresh_Max_Hero_Attribute);
-            user_skill.Refresh();
-            Select_skill(user_skill);
+            if (SumSave.crt_hero.hero_material_list[2] >= need_exp)
+            {
+                SumSave.crt_hero.hero_material_list[2]-=need_exp;
+                //更新英雄信息
+                Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto,Mysql_Table_Name.mo_user_hero, SumSave.crt_hero.Set_Uptade_String(),SumSave.crt_hero.Get_Update_Character());
+                Alert_Dec.Show("升级消耗  " + need_exp + user_skill.Data.skillname + "等级提升");
+                int lv = int.Parse(user_skill.Data.user_values[1]);
+                lv++;
+                user_skill.Data.user_values[1] = lv.ToString();
+                user_skill.Data.user_value = ArrayHelper.Data_Encryption(user_skill.Data.user_values);
+                Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.skill_value, SumSave.crt_skills);
+                SendNotification(NotiList.Refresh_Max_Hero_Attribute);
+                user_skill.Refresh();
+                Select_skill(user_skill);
+            }else Alert_Dec.Show("历练值不足");
+            
         }
         else Alert_Dec.Show("技能等级已满");
     }
@@ -190,7 +200,7 @@ public class panel_skill : Panel_Base
     /// </summary>
     private void Show_info()
     {
-
+        need_exp = 0;
         string dec = user_skill.Data.skillname + "\nLv." + user_skill.Data.user_values[1]+"级";
         int lv= int.Parse(user_skill.Data.user_values[1]);
         dec += "消耗法力 " + user_skill.Data.skill_spell + "%\n";
@@ -202,7 +212,14 @@ public class panel_skill : Panel_Base
         }
         else
         {
-            dec += "升级需要 " + user_skill.Data.skill_need_exp * Mathf.Pow(user_skill.Data.skill_need_coefficient[0], user_skill.Data.skill_need_coefficient[1]) * (lv + 1) + "\n";
+            int number = 0;
+            foreach (var item in SumSave.crt_skills)
+            {
+                if (item.skill_type == user_skill.Data.skill_type) number += int.Parse(item.user_values[1]);
+            }
+            need_exp = (int)(number * 10 * MathF.Pow(2, int.Parse(user_skill.Data.user_values[1])));
+
+            dec += "升级需要 " + need_exp+ "历练值\n";
         }
         if (user_skill.Data.skill_open_type.Count > 0)
         {

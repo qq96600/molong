@@ -16,6 +16,10 @@ namespace StateMachine
         [HideInInspector] public Vector2 TargetPosition;//目标位置
         [HideInInspector] public Vector2 BackstabPosition;//背刺位置
         [HideInInspector] public float animSpeed ;//动画速度
+        /// <summary>
+        /// 获取技能
+        /// </summary>
+        protected base_skill_vo baseskill;
        
 
         [Header("造成伤害")]
@@ -94,9 +98,9 @@ namespace StateMachine
         /// </summary>
         /// <param name="damage"></param>
         /// <param name="skill_name"></param>
-        public virtual void stateAutoInit(int damage, string skill_name=null)
+        public virtual void stateAutoInit(base_skill_vo skill_name=null)
         {
-            attackDamage = damage;
+            baseskill = skill_name;
         }
 
         public void RbZero()//停止移动

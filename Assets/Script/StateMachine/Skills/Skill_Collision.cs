@@ -9,9 +9,9 @@ namespace StateMachine
     {
         private Rigidbody2D rb;
         private float MoveSpeed = 1f;//移动速度
-        private Vector2 TatgetPosition;//目标位置
+        private BattleHealth TatgetPosition;//目标位置
         private Transform Axle;//转向轴
-        private float skill_damage;//技能伤害
+        private base_skill_vo skill;//技能伤害
         private void Awake()
         {
             rb= GetComponent<Rigidbody2D>();
@@ -21,7 +21,7 @@ namespace StateMachine
         private void Update()
         {
             Init();
-            TargetMove(TatgetPosition, MoveSpeed);
+            TargetMove(TatgetPosition.transform.position, MoveSpeed);
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -33,10 +33,12 @@ namespace StateMachine
                     Debug.LogError("DamageTextManager instance is null!");
                     return;
                 }
-                
-                //collision.gameObject.GetComponent<BattleHealth>().TakeDamage(skill_damage);
+                transform.parent.parent.SendMessage("skill_damage", skill);
                 gameObject.SetActive(false);
                 ObjectPoolManager.instance.PushObjectToPool("Skll_HuoQiu", this.gameObject);
+                //ObjectPoolManager.instance.PushObjectToPool(skill.skillname, this.gameObject);
+                //播放碰撞动画
+                TatgetPosition.GetComponent<BattleAttack>().injured();
             }
         }
 
@@ -62,10 +64,10 @@ namespace StateMachine
             direction.Normalize();
             return direction;
         }
-        public void SetSkillTarget(BattleHealth _tatgetObg,float _attack_distance)//找到目标
+        public void SetSkillTarget(BattleHealth _tatgetObg, base_skill_vo base_skill)//找到目标
         {
-            TatgetPosition = _tatgetObg.transform.position;
-            skill_damage = _attack_distance;
+            TatgetPosition = _tatgetObg;
+            skill = base_skill;
         }
         public void Init()//初始化
         {

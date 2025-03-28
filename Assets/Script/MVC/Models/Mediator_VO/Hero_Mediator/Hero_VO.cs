@@ -45,7 +45,14 @@ public class Hero_VO : Base_VO
     /// 备用栏
     /// </summary>
     public string hero_value;
-
+    /// <summary>
+    /// 获取英雄资源
+    /// </summary>
+    public string hero_material;
+    /// <summary>
+    /// 英雄资源 1金币 2砖石 3历练值 4声望
+    /// </summary>
+    public int[] hero_material_list;
     public override string[] Set_Instace_String()
     {
         return new string[]
@@ -59,7 +66,8 @@ public class Hero_VO : Base_VO
             GetStr(hero_lv),
             GetStr(hero_exp),
             GetStr(hero_pos),
-            GetStr(hero_value)
+            GetStr(hero_value),
+            GetStr(ArrayHelper.Data_Encryption(hero_material_list)),
         };
     }
 
@@ -71,7 +79,8 @@ public class Hero_VO : Base_VO
             "hero_list",
             "hero_lv",
             "hero_exp",
-            "hero_pos"
+            "hero_pos",
+            "hero_material"
         };
     }
 
@@ -84,6 +93,7 @@ public class Hero_VO : Base_VO
             GetStr(hero_lv),
             GetStr(hero_exp),
             GetStr(hero_pos),
+            GetStr(ArrayHelper.Data_Encryption(hero_material_list))
        };
     }
 

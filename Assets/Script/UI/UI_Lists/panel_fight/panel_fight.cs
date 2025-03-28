@@ -39,15 +39,8 @@ public class panel_fight : Panel_Base
     /// 战斗技能
     /// </summary>
     private List<skill_offect_item> battle_skills;
-    ///<summary>
-    ///右上角健康栏Hp,Mp显示
-    /// <summary>
-    private Slider role_Hp, role_Mp;
-    /// <summary>
-    /// 获取健康信息
-    /// </summary>
-    public BattleHealth battleHealth;
 
+    private panel_role_health role_health;
     protected override void Awake()
     {
         base.Awake();
@@ -61,17 +54,8 @@ public class panel_fight : Panel_Base
         player_battle_attack_prefabs= Resources.Load<GameObject>("Prefabs/panel_fight/player_battle_attck_item");
         monster_battle_attack_prefabs = Resources.Load<GameObject>("Prefabs/panel_fight/monster_battle_attck_item");
         pight_show_skill = Find<pight_show_skill>("skill_list");
-        role_Hp= Find<Slider>("panel_role_health/panel_Hp");
-        role_Mp = Find<Slider>("panel_role_health/panel_Mp");
-       
+        role_health = Find<panel_role_health>("panel_role_health");
     }
-
-    private void Update()
-    {
-        MonitoringHealth();
-    }
-  
-
     public override void Show()
     {
         base.Show();
@@ -80,38 +64,6 @@ public class panel_fight : Panel_Base
     { 
         base.Hide();
     }
-    /// <summary>
-    /// 监控健康变化
-    /// </summary>
-    private void MonitoringHealth()
-    {
-        if (battleHealth == null)
-            return;
-        if (role_Hp.value != battleHealth.HP|| role_Mp.value != battleHealth.MP|| 
-            role_Hp.maxValue!= battleHealth.maxHP || role_Mp.value!= battleHealth.maxMP)
-        {
-            UpHealtHpanel();
-        }
-        
-    }
-    /// <summary>
-    /// 更新健康面板
-    /// </summary>
-    public void UpHealtHpanel()
-    {
-        if (battleHealth == null)
-            return;
-        role_Hp.maxValue = battleHealth.maxHP;
-        role_Mp.maxValue = battleHealth.maxMP;
-
-        role_Hp.value = battleHealth.HP;
-        role_Mp.value = battleHealth.MP; 
-    }
-    
-
-
-
-
     /// <summary>
     /// 游戏结束
     /// </summary>
@@ -156,7 +108,8 @@ public class panel_fight : Panel_Base
         crate_Skill();
         foreach (var item in SumSave.battleHeroHealths)
         {
-            item.GetComponent<BattleAttack>().Refresh(SumSave.crt_MaxHero); 
+            item.GetComponent<BattleAttack>().Refresh(SumSave.crt_MaxHero);
+            item.GetComponent<BattleAttack>().Refresh_Skill(battle_skills);
         }
     }
     private void crate_Skill()
@@ -177,9 +130,7 @@ public class panel_fight : Panel_Base
         //    item.GetComponent<Button>().onClick.AddListener(delegate { AudioManager.Instance.playAudio(ClipEnum.购买物品); SelectMonster(item.GetComponent<MonsterBattleAttack>()); });
         //item.GetComponent<Button>().enabled = true;
         SumSave.battleHeroHealths.Add(item.GetComponent<BattleHealth>());
-
-        battleHealth = Find<BattleHealth>("battle_pos/player_pos/player_battle_attck_item(Clone)");
-        UpHealtHpanel();
+        role_health.SetHealth(item.GetComponent<BattleHealth>());
     }
 
     /// <summary>

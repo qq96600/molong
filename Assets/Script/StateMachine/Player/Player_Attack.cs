@@ -5,6 +5,7 @@ namespace StateMachine
 {
     public class Player_Attack : Player_Basic
     {
+        private float _Time=0;
         public Player_Attack(Player _player, PlayerstateMachine _playerStateMachine, string _animBoolName) : base(_player, _playerStateMachine, _animBoolName)
         {
         }
@@ -13,31 +14,29 @@ namespace StateMachine
         {
             base.Enter();
             player.anim.SetBool("Attack", false);
-            
             player.RbZero();
             //player.FlipControl(player.Direction(player.TargetPosition));
         }
 
+
         public override void Exit()
         {
             base.Exit();
-
+            
         }
 
         public override void Update()
         {
             base.Update();
-            startTime += Time.deltaTime;
-            if (startTime> player.AttackSpeed)//¹¥»÷¼ä¸ô
+            _Time += Time.deltaTime;
+            if (_Time> player.AttackSpeed)//¹¥»÷¼ä¸ô
             {
                 player.anim.SetBool("Attack", true);
-                //player.TatgetObg.TakeDamage(player.attackDamage);
-
+                _Time = 0;
                 player.BattleAttack.OnAuto();
-                startTime =0;
                 player.CloseAnimAfterDelay("Attack", 3f);
-                
             }
+            //stateMachine.ChangeState(player.idleState);
            
 
         }
