@@ -24,6 +24,8 @@ namespace StateMachine
         public override void Update()
         {
             base.Update();
+            
+            
             if (player.isAttackDistance())//½øÈë¹ÖÎï¹¥»÷¾àÀë
             {
                 stateMachine.ChangeState(player.attackState);

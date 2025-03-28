@@ -13,7 +13,8 @@ namespace StateMachine
 
         public override void Enter()
         {
-            base.Enter();
+            base.Enter(); 
+            monsterCentre.anim.SetBool("Attack", false);
             monsterCentre.RbZero();
             //monsterCentre.BattleAttack.OnAuto();
         }
@@ -26,6 +27,15 @@ namespace StateMachine
         public override void Update()
         {
             base.Update();
+
+            startTime += Time.deltaTime;
+            if (startTime > monsterCentre.AttackSpeed)//¹¥»÷¼ä¸ô
+            {
+                monsterCentre.anim.SetBool("Attack", true);
+                startTime = 0;
+                monsterCentre.BattleAttack.OnAuto();
+                monsterCentre.CloseAnimAfterDelay("Attack", 3f);
+            }
         }
     }
 }

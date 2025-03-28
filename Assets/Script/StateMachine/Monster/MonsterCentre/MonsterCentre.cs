@@ -43,11 +43,34 @@ namespace StateMachine
             stateMachine.currentState.Update();
         }
 
+        /// <summary>
+        /// 数据传输
+        /// </summary>
+        /// <param name="attack_speed"></param>
+        /// <param name="attack_distance"></param>
+        /// <param name="move_speed"></param>
+        /// <param name="_tatgetObg"></param>
+        /// <param name="battle"></param>
         public override void Init(float attack_speed, float attack_distance, float move_speed, BattleHealth _tatgetObg,BattleAttack battle)
         {
             base.Init(attack_speed, attack_distance, move_speed, _tatgetObg, battle);
-            stateMachine.ChangeState(moveState);
+
+           
         }
+
+        /// <summary>
+        /// 判定使用什么攻击方式
+        /// </summary>
+        /// <param name="skill_name"></param>
+        public override void stateAutoInit(base_skill_vo skill_name = null)
+        {
+            base.stateAutoInit(skill_name);
+            stateMachine.ChangeState(attackState);
+        
+        }
+
+      
+
     }
 
 }

@@ -35,11 +35,10 @@ namespace StateMachine
         [Header("技能释放概率")]
         public float skillRelease = 50f;
         [Header("是否面向左")]
-        protected bool facingLeft;
+        protected bool facingLeft=true;
         
         protected virtual void Awake()
         {
-            facingLeft = true;
             anim = GetComponentInChildren<Animator>();
             if (anim == null)
                 Debug.LogError("怪物没有Animator组件");
@@ -86,8 +85,7 @@ namespace StateMachine
         {
             BattleAttack = battle;
             AttackSpeed = attack_speed;
-            if(attack_distance>=AttackDistance)
-            AttackDistance = attack_distance;
+            AttackDistance = 500f;
             
             //MoveSpeed = move_speed;
             

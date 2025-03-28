@@ -5,7 +5,7 @@ namespace StateMachine
 {
     public class Player_Attack : Player_Basic
     {
-        private float _Time=0;
+        
         public Player_Attack(Player _player, PlayerstateMachine _playerStateMachine, string _animBoolName) : base(_player, _playerStateMachine, _animBoolName)
         {
         }
@@ -28,11 +28,11 @@ namespace StateMachine
         public override void Update()
         {
             base.Update();
-            _Time += Time.deltaTime;
-            if (_Time> player.AttackSpeed)//¹¥»÷¼ä¸ô
+            startTime += Time.deltaTime;
+            if (startTime > player.AttackSpeed)//¹¥»÷¼ä¸ô
             {
                 player.anim.SetBool("Attack", true);
-                _Time = 0;
+                startTime = 0;
                 player.BattleAttack.OnAuto();
                 player.CloseAnimAfterDelay("Attack", 3f);
             }
