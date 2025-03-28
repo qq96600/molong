@@ -59,7 +59,6 @@ public class player_battle_attck : BattleAttack
 
     protected void skill_damage(base_skill_vo skill)
     {
-        Debug.Log("技能回调");
         float damage = 0f;
         BattleAttack monster = Terget.GetComponent<BattleAttack>();
         if (monster.target.HP <= 0) return;//结战斗
