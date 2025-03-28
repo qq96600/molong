@@ -148,109 +148,13 @@ namespace MVC
                     for (int j = 0; j < SumSave.db_heros[i].crate_value.Length; j++)
                     {
                         int value = SumSave.db_heros[i].crate_value[j] + (SumSave.db_heros[i].up_value[j] * (SumSave.crt_hero.hero_Lv / SumSave.db_heros[i].up_base_value[j]));
-                        switch ((enum_attribute_list)j)
-                        {
-                            case enum_attribute_list.生命值:
-                                crt.MaxHP += value;
-                                break;
-                            case enum_attribute_list.法力值:
-                                crt.MaxMp += value;
-                                break;
-                            case enum_attribute_list.内力值:
-                                crt.internalforceMP += value;
-                                break;
-                            case enum_attribute_list.蓄力值:
-                                crt.EnergyMp += value;
-                                break;
-                            case enum_attribute_list.物理防御:
-                                crt.DefMax += value;
-                                break;
-                            case enum_attribute_list.魔法防御:
-                                crt.MagicDefMax += value;
-                                break;
-                            case enum_attribute_list.物理攻击:
-                                crt.damageMax += value;
-                                break;
-                            case enum_attribute_list.魔法攻击:
-                                crt.MagicdamageMax+= value;
-                                break;
-                            case enum_attribute_list.命中:
-                                crt.hit += value;
-                                break;
-                            case enum_attribute_list.躲避:
-                                crt.dodge+= value;
-                                break;
-                            case enum_attribute_list.穿透:
-                                crt.penetrate += value;
-                                break;
-                            case enum_attribute_list.格挡:
-                                crt.block+= value;
-                                break;
-                            case enum_attribute_list.暴击:
-                                crt.crit_rate+= value;
-                                break;
-                            case enum_attribute_list.幸运:
-                                crt.Lucky += value;
-                                break;
-                            case enum_attribute_list.暴击伤害:
-                                crt.crit_damage += value;
-                                break;
-                            case enum_attribute_list.伤害加成:
-                                crt.double_damage+= value;
-                                break;
-                            case enum_attribute_list.真实伤害:
-                                crt.Real_harm += value;
-                                break;
-                            case enum_attribute_list.伤害减免:
-                                crt.Damage_Reduction+= value;
-                                break;
-                            case enum_attribute_list.伤害吸收:
-                                crt.Damage_absorption+= value;
-                                break;
-                            case enum_attribute_list.异常抗性:
-                                crt.resistance+= value;
-                                break;
-                            case enum_attribute_list.攻击速度:
-                                crt.attack_speed+= value;
-                                break;
-                            case enum_attribute_list.移动速度:
-                                crt.move_speed+= value;
-                                break;
-                            case enum_attribute_list.生命加成:
-                                crt.bonus_Hp+= value;
-                                break;
-                            case enum_attribute_list.法力加成:
-                                crt.bonus_Mp+= value;
-                                break;
-                            case enum_attribute_list.生命回复:
-                                crt.Heal_Hp+= value;
-                                break;
-                            case enum_attribute_list.法力回复:
-                                crt.Heal_Mp+= value;
-                                break;
-                            case enum_attribute_list.物攻加成:
-                                crt.bonus_Damage+= value;
-                                break;
-                            case enum_attribute_list.魔攻加成:
-                                crt.bonus_MagicDamage+= value;
-                                break;
-                            case enum_attribute_list.物防加成:
-                                crt.bonus_Def+= value;
-                                break;
-                            case enum_attribute_list.魔防加成:
-                                crt.bonus_MagicDef+= value;
-                                break;
-                            default:
-                                break;
-                        }
+                        Enum_Value(crt, j, value);
                     }
-
                 }
             }
             //添加装备效果
             for (int i = 0; i < SumSave.crt_euqip.Count; i++)
             {
-                string dec = "";
                 Bag_Base_VO data= SumSave.crt_euqip[i];
                 string[] info = data.user_value.Split(' ');
                 int strengthenlv = int.Parse(info[1]);
@@ -315,113 +219,33 @@ namespace MVC
                         else
                         {
                             int value= int.Parse(arr_value[j]);
-                            switch ((enum_skill_attribute_list)(int.Parse(arr[j])))
-                            {
-                                case enum_skill_attribute_list.生命值:
-                                    crt.MaxHP += value;
-                                    break;
-                                case enum_skill_attribute_list.法力值:
-                                    crt.MaxMp += value;
-                                    break;
-                                case enum_skill_attribute_list.内力值:
-                                    crt.internalforceMP += value;
-                                    break;
-                                case enum_skill_attribute_list.蓄力值:
-                                    crt.EnergyMp += value;
-                                    break;
-                                case enum_skill_attribute_list.物理防御:
-                                    crt.DefMax += value;
-                                    break;
-                                case enum_skill_attribute_list.魔法防御:
-                                    crt.MagicDefMax += value;
-                                    break;
-                                case enum_skill_attribute_list.物理攻击:
-                                    crt.damageMax += value;
-                                    break;
-                                case enum_skill_attribute_list.魔法攻击:
-                                    crt.MagicdamageMax += value;
-                                    break;
-                                case enum_skill_attribute_list.命中:
-                                    crt.hit += value;
-                                    break;
-                                case enum_skill_attribute_list.躲避:
-                                    crt.dodge += value;
-                                    break;
-                                case enum_skill_attribute_list.穿透:
-                                    crt.penetrate += value;
-                                    break;
-                                case enum_skill_attribute_list.格挡:
-                                    crt.block += value;
-                                    break;
-                                case enum_skill_attribute_list.暴击:
-                                    crt.crit_rate += value;
-                                    break;
-                                case enum_skill_attribute_list.幸运:
-                                    crt.Lucky += value;
-                                    break;
-                                case enum_skill_attribute_list.暴击伤害:
-                                    crt.crit_damage += value;
-                                    break;
-                                case enum_skill_attribute_list.伤害加成:
-                                    crt.double_damage += value;
-                                    break;
-                                case enum_skill_attribute_list.真实伤害:
-                                    crt.Real_harm += value;
-                                    break;
-                                case enum_skill_attribute_list.伤害减免:
-                                    crt.Damage_Reduction += value;
-                                    break;
-                                case enum_skill_attribute_list.伤害吸收:
-                                    crt.Damage_absorption += value;
-                                    break;
-                                case enum_skill_attribute_list.异常抗性:
-                                    crt.resistance += value;
-                                    break;
-                                case enum_skill_attribute_list.攻击速度:
-                                    crt.attack_speed += value;
-                                    break;
-                                case enum_skill_attribute_list.移动速度:
-                                    crt.move_speed += value;
-                                    break;
-                                case enum_skill_attribute_list.生命加成:
-                                    crt.bonus_Hp += value;
-                                    break;
-                                case enum_skill_attribute_list.法力加成:
-                                    crt.bonus_Mp += value;
-                                    break;
-                                case enum_skill_attribute_list.生命回复:
-                                    crt.Heal_Hp += value;
-                                    break;
-                                case enum_skill_attribute_list.法力回复:
-                                    crt.Heal_Mp += value;
-                                    break;
-                                case enum_skill_attribute_list.物攻加成:
-                                    crt.bonus_Damage += value;
-                                    break;
-                                case enum_skill_attribute_list.魔攻加成:
-                                    crt.bonus_MagicDamage += value;
-                                    break;
-                                case enum_skill_attribute_list.物防加成:
-                                    crt.bonus_Def += value;
-                                    break;
-                                case enum_skill_attribute_list.魔防加成:
-                                    crt.bonus_MagicDef += value;
-                                    break;
-                                case enum_skill_attribute_list.土属性强化:
-                                case enum_skill_attribute_list.火属性强化:
-                                case enum_skill_attribute_list.水属性强化:
-                                case enum_skill_attribute_list.金属性强化:
-                                case enum_skill_attribute_list.木属性强化:
-                                    crt.life[int.Parse(arr[j])-30] += value;
-                                    break;
-                                default:
-                                    break;
-                            }
+                            Enum_Value(crt, int.Parse(arr[j]), value);
                         }
                     }
                 }
             }
             //添加技能效果
+
+            foreach (base_skill_vo skill in SumSave.crt_skills)
+            {
+                if (skill.skill_open_type.Count > 0)
+                {
+                    for (int i = 0; i < skill.skill_open_type.Count; i++)
+                    {
+                        Enum_Value(crt, skill.skill_open_type[i], skill.skill_open_value[i]);
+                    }
+                }
+                if (skill.skill_pos_type.Count > 0)
+                {
+                    for (int i = 0; i < skill.skill_pos_type.Count; i++)
+                    {
+                        if (int.Parse(skill.user_values[3]) > 0)
+                        {
+                            Enum_Value(crt, skill.skill_pos_type[i], skill.skill_pos_value[i]);
+                        }
+                    }
+                }
+            }
             //添加神器效果
             //称号属性
             //成就属性
@@ -429,6 +253,119 @@ namespace MVC
             SumSave.crt_MaxHero = crt;
 
 
+
+        }
+
+        /// <summary>
+        /// 加成属性
+        /// </summary>
+        /// <param name="crt">主体</param>
+        /// <param name="index">编号</param>
+        /// <param name="value">值</param>
+        private void Enum_Value(crtMaxHeroVO crt,int index,int value)
+        {
+            switch ((enum_skill_attribute_list)(index))
+            {
+                case enum_skill_attribute_list.生命值:
+                    crt.MaxHP += value;
+                    break;
+                case enum_skill_attribute_list.法力值:
+                    crt.MaxMp += value;
+                    break;
+                case enum_skill_attribute_list.内力值:
+                    crt.internalforceMP += value;
+                    break;
+                case enum_skill_attribute_list.蓄力值:
+                    crt.EnergyMp += value;
+                    break;
+                case enum_skill_attribute_list.物理防御:
+                    crt.DefMax += value;
+                    break;
+                case enum_skill_attribute_list.魔法防御:
+                    crt.MagicDefMax += value;
+                    break;
+                case enum_skill_attribute_list.物理攻击:
+                    crt.damageMax += value;
+                    break;
+                case enum_skill_attribute_list.魔法攻击:
+                    crt.MagicdamageMax += value;
+                    break;
+                case enum_skill_attribute_list.命中:
+                    crt.hit += value;
+                    break;
+                case enum_skill_attribute_list.躲避:
+                    crt.dodge += value;
+                    break;
+                case enum_skill_attribute_list.穿透:
+                    crt.penetrate += value;
+                    break;
+                case enum_skill_attribute_list.格挡:
+                    crt.block += value;
+                    break;
+                case enum_skill_attribute_list.暴击:
+                    crt.crit_rate += value;
+                    break;
+                case enum_skill_attribute_list.幸运:
+                    crt.Lucky += value;
+                    break;
+                case enum_skill_attribute_list.暴击伤害:
+                    crt.crit_damage += value;
+                    break;
+                case enum_skill_attribute_list.伤害加成:
+                    crt.double_damage += value;
+                    break;
+                case enum_skill_attribute_list.真实伤害:
+                    crt.Real_harm += value;
+                    break;
+                case enum_skill_attribute_list.伤害减免:
+                    crt.Damage_Reduction += value;
+                    break;
+                case enum_skill_attribute_list.伤害吸收:
+                    crt.Damage_absorption += value;
+                    break;
+                case enum_skill_attribute_list.异常抗性:
+                    crt.resistance += value;
+                    break;
+                case enum_skill_attribute_list.攻击速度:
+                    crt.attack_speed += value;
+                    break;
+                case enum_skill_attribute_list.移动速度:
+                    crt.move_speed += value;
+                    break;
+                case enum_skill_attribute_list.生命加成:
+                    crt.bonus_Hp += value;
+                    break;
+                case enum_skill_attribute_list.法力加成:
+                    crt.bonus_Mp += value;
+                    break;
+                case enum_skill_attribute_list.生命回复:
+                    crt.Heal_Hp += value;
+                    break;
+                case enum_skill_attribute_list.法力回复:
+                    crt.Heal_Mp += value;
+                    break;
+                case enum_skill_attribute_list.物攻加成:
+                    crt.bonus_Damage += value;
+                    break;
+                case enum_skill_attribute_list.魔攻加成:
+                    crt.bonus_MagicDamage += value;
+                    break;
+                case enum_skill_attribute_list.物防加成:
+                    crt.bonus_Def += value;
+                    break;
+                case enum_skill_attribute_list.魔防加成:
+                    crt.bonus_MagicDef += value;
+                    break;
+                case enum_skill_attribute_list.土属性强化:
+                case enum_skill_attribute_list.火属性强化:
+                case enum_skill_attribute_list.水属性强化:
+                case enum_skill_attribute_list.金属性强化:
+                case enum_skill_attribute_list.木属性强化:
+                    crt.life[index - 30] += value;
+                    break;
+                default:
+                    break;
+            }
 
         }
         /// <summary>
