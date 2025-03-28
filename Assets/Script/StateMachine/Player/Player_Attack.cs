@@ -33,11 +33,11 @@ namespace StateMachine
             {
                 player.anim.SetBool("Attack", true);
                 startTime = 0;
-                player.BattleAttack.OnAuto();
                 player.CloseAnimAfterDelay("Attack", 3f);
+                player.BattleAttack.OnAuto();
+                // 检测是否播放完成（normalizedTime范围0~1，1表示播放完毕）
+                
             }
-            //stateMachine.ChangeState(player.idleState);
-           
 
         }
 

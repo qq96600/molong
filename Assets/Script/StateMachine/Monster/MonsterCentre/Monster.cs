@@ -5,30 +5,27 @@ using UnityEngine;
 
 namespace StateMachine
 {
-    public class MonsterCentre :RolesManage
+    public class Monster :RolesManage
     {
         [Header("是否为中间怪")]
         public bool IsCentre = true;
 
         #region 状态
-        public MonsterCentreStateMachine stateMachine { get; private set; }//状态机
-        public MonsterCentre_Move moveState { get; private set; }//移动状态
-        public MonsterCentre_Idle idleState { get; private set; }//空闲状态
+        public MonsterStateMachine stateMachine { get; private set; }//状态机
+        public Monster_Move moveState { get; private set; }//移动状态
+        public Monster_Idle idleState { get; private set; }//空闲状态
 
-        public MonsterCentre_Attack attackState { get; private set; }//攻击状态
+        public Monster_Attack attackState { get; private set; }//攻击状态
         #endregion
         protected override void Awake()
         {
             base.Awake();
             #region 状态初始化
-            stateMachine = new MonsterCentreStateMachine();
-            moveState=new MonsterCentre_Move(this,stateMachine,"Move");
-            idleState = new MonsterCentre_Idle(this, stateMachine, "Idle");
-            attackState = new MonsterCentre_Attack(this, stateMachine, "Attack");
+            stateMachine = new MonsterStateMachine();
+            moveState=new Monster_Move(this,stateMachine,"Move");
+            idleState = new Monster_Idle(this, stateMachine, "Idle");
+            attackState = new Monster_Attack(this, stateMachine, "Attack");
             #endregion
-
-
-            
         }
 
         protected override void Start()

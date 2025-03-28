@@ -29,7 +29,7 @@ namespace StateMachine
         [Header("背刺的距离")]
         public float BehindDistance = 100f;
         [Header("攻击速度")]
-        public float AttackSpeed = 200f;
+        public float AttackSpeed = 5f;
         [Header("移动速度")]
         public float MoveSpeed = 0.1f;
         [Header("技能释放概率")]
@@ -84,7 +84,7 @@ namespace StateMachine
         public virtual void Init(float attack_speed, float attack_distance, float move_speed, BattleHealth _tatgetObg,BattleAttack battle)//初始化参数
         {
             BattleAttack = battle;
-            AttackSpeed = attack_speed;
+            //AttackSpeed = attack_speed;
             AttackDistance = 500f;
             
             //MoveSpeed = move_speed;

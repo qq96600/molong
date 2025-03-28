@@ -4,16 +4,16 @@ using UnityEngine;
 
 namespace StateMachine
 {
-    public class MonsterCentre_Idle : MonsterCentreState
+    public class Monster_Idle : MonsterState
     {
-        public MonsterCentre_Idle(MonsterCentre _monster, MonsterCentreStateMachine _sateMachine, string _animBoolName) : base(_monster, _sateMachine, _animBoolName)
+        public Monster_Idle(Monster _monster, MonsterStateMachine _sateMachine, string _animBoolName) : base(_monster, _sateMachine, _animBoolName)
         {
         }
 
         public override void Enter()
         {
             base.Enter();
-            monsterCentre.rb.velocity = Vector2.zero;
+            monster.rb.velocity = Vector2.zero;
 
         }
 

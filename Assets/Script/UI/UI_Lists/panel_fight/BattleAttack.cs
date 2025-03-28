@@ -159,7 +159,7 @@ namespace MVC
                 }
                 else Game_Next_Map();
             }
-            else if (GetComponent<MonsterCentre>() != null)
+            else if (GetComponent<Monster>() != null)
             {
                 if (SumSave.battleHeroHealths.Count > 0 )//π÷ŒÔ’“ÕÊº“
                 {
