@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace StateMachine
 {
-    public class Monster_Idle : MonsterState
+    public class Monster_Idle :Monster_Basic
     {
         public Monster_Idle(Monster _monster, MonsterStateMachine _sateMachine, string _animBoolName) : base(_monster, _sateMachine, _animBoolName)
         {

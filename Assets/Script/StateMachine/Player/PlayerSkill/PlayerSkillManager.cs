@@ -29,10 +29,7 @@ namespace StateMachine
         {
             base.Update();
             
-            //if (startTime > player.AttackSpeed)
-            //{
-            //    stateMachine.ChangeState(player.basicState);
-            //}
+           
         }
 
     }

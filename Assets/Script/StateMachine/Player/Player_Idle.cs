@@ -14,7 +14,6 @@ namespace StateMachine
         {
             base.Enter();
             player.RbZero();
-            
         }
 
         public override void Exit()
@@ -25,14 +24,13 @@ namespace StateMachine
         public override void Update()
         {
             base.Update();
-           
-
         }
+    }   
 
         
-    }
-
-
 }
+
+
+
 
 

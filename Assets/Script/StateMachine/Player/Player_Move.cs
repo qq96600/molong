@@ -8,6 +8,7 @@ namespace StateMachine
     {
         public Player_Move(Player _player, PlayerstateMachine _playerStateMachine, string _animBoolName) : base(_player, _playerStateMachine, _animBoolName)
         {
+
         }
 
         public override void Enter()
@@ -25,7 +26,6 @@ namespace StateMachine
         {
             base.Update();
             player.TargetMove(player.TargetPosition);
-            
             
         }
     }

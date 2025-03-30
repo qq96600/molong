@@ -14,9 +14,9 @@ namespace StateMachine
         public override void Enter()
         {
             base.Enter(); 
-            monster.anim.SetBool("Attack", false);
             monster.RbZero();
-            //monsterCentre.BattleAttack.OnAuto();
+            monster.anim.SetBool(animBoolName, true);
+            
         }
 
         public override void Exit()
@@ -28,13 +28,12 @@ namespace StateMachine
         {
             base.Update();
 
-            startTime += Time.deltaTime;
-            if (startTime > monster.AttackSpeed)//攻击间隔
+            startTime -= Time.deltaTime;
+            monster.animStateInfo = monster.anim.GetCurrentAnimatorStateInfo(0);//需要在每一帧更新动画状态信息
+            if (startTime <=0)
             {
-                monster.anim.SetBool("Attack", true);
-                startTime = 0;
                 monster.BattleAttack.OnAuto();
-                monster.CloseAnimAfterDelay("Attack", 3f);
+                startTime = monster.animStateInfo.length;
             }
         }
     }

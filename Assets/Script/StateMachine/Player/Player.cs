@@ -89,7 +89,34 @@ namespace StateMachine
                 stateMachine.ChangeState(skillHuoQiuState);
             }
         }
+        /// <summary>
+        /// 启动携程
+        /// </summary>
+        public void StartAnimation()
+        {
+            StartCoroutine(PlayAndWaitForAnimation());
+        }
+        /// <summary>
+        /// 播放动画并等待动画结束
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerator PlayAndWaitForAnimation()
+        {
+            anim.speed = 1.0f;
+            
+            // 记录动画开始时间
+            float startTime = Time.time;
+            float animationLength =anim.GetCurrentAnimatorStateInfo(0).length;
 
+            // 等待动画播放完成
+            while (Time.time - startTime < animationLength)
+            {
+                yield return null;
+            }
+
+            // 动画播放完毕后的逻辑
+           BattleAttack.OnAuto();
+        }
 
 
     }

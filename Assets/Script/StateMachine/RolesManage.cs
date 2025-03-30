@@ -16,6 +16,7 @@ namespace StateMachine
         [HideInInspector] public Vector2 TargetPosition;//目标位置
         [HideInInspector] public Vector2 BackstabPosition;//背刺位置
         [HideInInspector] public float animSpeed ;//动画速度
+        [HideInInspector] public AnimatorStateInfo animStateInfo;//动画状态
         /// <summary>
         /// 获取技能
         /// </summary>
@@ -151,6 +152,7 @@ namespace StateMachine
         public IEnumerator CloseAnimAfterDelay(string animName, float delay)
         {
             yield return new WaitForSeconds(delay);
+
             CloseAnim(animName); // 传递参数
         }
         /// <summary>

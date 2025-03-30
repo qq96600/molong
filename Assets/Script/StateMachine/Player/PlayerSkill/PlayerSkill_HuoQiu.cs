@@ -13,10 +13,11 @@ namespace StateMachine
         public override void Enter()
         {
             base.Enter();
-            
+
             player.RbZero();
 
-            
+           
+           
 
         }
 
@@ -33,24 +34,18 @@ namespace StateMachine
         public override void Update()
         {
             base.Update();
-            startTime += Time.deltaTime;
-            if (startTime > player.AttackSpeed)
+
+            startTime -= Time.deltaTime;
+            player.animStateInfo = player.anim.GetCurrentAnimatorStateInfo(0);//需要在每一帧更新动画状态信息        
+            if (startTime <=0)
             {
                 ObjectPoolManager.instance.GetObjectFormPool("Skll_HuoQiu", player.skills_HuoQiu,
-            new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z)
-            , Quaternion.identity, player.skillStoragePos);
-                startTime = 0;
-                AnimatorStateInfo stateInfo = player.anim.GetCurrentAnimatorStateInfo(0);
+                new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z)
+                , Quaternion.identity, player.skillStoragePos);
+
                 player.BattleAttack.OnAuto();
-                //player.CloseAnimAfterDelay("Storage", 0.5f);
-                if (stateInfo.IsName("Anim_Player_Attack") && stateInfo.normalizedTime >= 1.0f)
-                {
-                    Debug.Log("动画播放完毕");
-                    stateMachine.ChangeState(player.idleState);
-                }
-               
+                startTime = player.animStateInfo.length;
             }
-               
         }
     }
 }

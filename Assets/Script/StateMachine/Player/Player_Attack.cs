@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace StateMachine
 {
-    public class Player_Attack : Player_Basic
+    public class Player_Attack : PlayerState
     {
         
         public Player_Attack(Player _player, PlayerstateMachine _playerStateMachine, string _animBoolName) : base(_player, _playerStateMachine, _animBoolName)
@@ -13,7 +13,6 @@ namespace StateMachine
         public override void Enter()
         {
             base.Enter();
-            player.anim.SetBool("Attack", false);
             player.RbZero();
             //player.FlipControl(player.Direction(player.TargetPosition));
         }
@@ -28,17 +27,14 @@ namespace StateMachine
         public override void Update()
         {
             base.Update();
-            startTime += Time.deltaTime;
-            if (startTime > player.AttackSpeed)//攻击间隔
+            
+            startTime -= Time.deltaTime;
+            player.animStateInfo = player.anim.GetCurrentAnimatorStateInfo(0);//需要在每一帧更新动画状态信息        
+            if (startTime <= 0)
             {
-                player.anim.SetBool("Attack", true);
-                startTime = 0;
-                player.CloseAnimAfterDelay("Attack", 3f);
                 player.BattleAttack.OnAuto();
-                // 检测是否播放完成（normalizedTime范围0~1，1表示播放完毕）
-                
+                startTime = player.animStateInfo.length;
             }
-
         }
 
         
