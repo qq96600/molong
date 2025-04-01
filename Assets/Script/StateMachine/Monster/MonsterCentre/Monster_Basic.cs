@@ -23,21 +23,7 @@ namespace StateMachine
         public override void Update()
         {
             base.Update();
-            if (monster.IsCentre) //如果怪物是中心怪，并且玩家在攻击范围内
-            {
-                if (monster.isAttackDistance())//进入攻击距离
-                {
-                    stateMachine.ChangeState(monster.attackState);
-                }
-                else
-                {
-                    stateMachine.ChangeState(monster.moveState);
-                }
-            }
-            else
-            {
-                stateMachine.ChangeState(monster.moveState);
-            }
+         
 
         }
     }

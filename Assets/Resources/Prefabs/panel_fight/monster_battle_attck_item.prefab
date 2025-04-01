@@ -211,7 +211,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ecf034e2439d3d64c813ddcf2e356feb, type: 3}
+  m_Sprite: {fileID: 166963352, guid: 755701407edb3694f909834b0dad0779, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -499,6 +499,7 @@ GameObject:
   - component: {fileID: 5638550709227371366}
   - component: {fileID: 2653692686807080668}
   - component: {fileID: 2026325892357606695}
+  - component: {fileID: 5155554611015358463}
   m_Layer: 5
   m_Name: monster_battle_attck_item
   m_TagString: Moster
@@ -597,6 +598,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  AttackStateMachine: {fileID: 0}
   StateMachine: {fileID: 0}
 --- !u!114 &5638550709227371366
 MonoBehaviour:
@@ -617,6 +619,7 @@ MonoBehaviour:
   TargetPosition: {x: 0, y: 0}
   BackstabPosition: {x: 0, y: 0}
   animSpeed: 0
+  attack: {fileID: 0}
   attackDamage: 10
   AttackDistance: 300
   BehindDistance: 100
@@ -686,3 +689,16 @@ CapsuleCollider2D:
   m_Offset: {x: 24.348389, y: -2.7668762}
   m_Size: {x: 111.06738, y: 170.8316}
   m_Direction: 0
+--- !u!114 &5155554611015358463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7282181595703900079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b943be1d028e66448a24799dfb9f1d60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 0}

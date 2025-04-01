@@ -1,8 +1,7 @@
 using MVC;
-using StateMachine;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class player_battle_attck : BattleAttack
 {
@@ -30,7 +29,7 @@ public class player_battle_attck : BattleAttack
             if (battle_skills[i].IsState())
             {
                 if (target.MP >= battle_skills[i].Data.skill_spell * target.maxMP / 100)
-                { 
+                {
                     skill_offect_item skill = battle_skills[i];
                     target.MP -= battle_skills[i].Data.skill_spell * target.maxMP / 100;
                     //释放技能
@@ -53,7 +52,7 @@ public class player_battle_attck : BattleAttack
     private void BaseAttack(base_skill_vo data)
     {
         //释放技能
-        StateMachine.stateAutoInit(data);
+        AttackStateMachine.Skill(data); 
         //skill_damage(data);
     }
 

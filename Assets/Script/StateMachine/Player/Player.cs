@@ -5,6 +5,7 @@ using UnityEngine;
 
 
 
+
 namespace StateMachine
 {
     public class Player : RolesManage
@@ -16,7 +17,7 @@ namespace StateMachine
         public Player_Attack attackState { get; private set; }//攻击状态
         public PlayerSkillManager skillManagerState { get; private set; }//技能管理器
         public PlayerSkill_HuoQiu skillHuoQiuState { get; private set; }//火球技能
-        public Player_Basic basicState { get; private set; }//基本状态(子类_move,_idle)
+
         #endregion
 
         #region 技能
@@ -28,6 +29,8 @@ namespace StateMachine
         #endregion
 
 
+    
+
         protected override void Awake()
         {
             base.Awake();
@@ -38,7 +41,6 @@ namespace StateMachine
             attackState = new Player_Attack(this, stateMachine, "Attack");
             skillManagerState = new PlayerSkillManager(this, stateMachine, "Storage");
             skillHuoQiuState = new PlayerSkill_HuoQiu(this, stateMachine, "Storage");
-            basicState = new Player_Basic(this, stateMachine, "Idle");
             #endregion
 
             #region 技能初始化
@@ -61,61 +63,47 @@ namespace StateMachine
         {
             base.Update();
             stateMachine.currentState.Update();
-      
+         
         }
 
-        public void GetSkill(Skill_Collision _skill)//回调函数
-        {
-            _skill.SetSkillTarget(TatgetObg, baseskill);
+        /// <summary>
+        /// 动画状态
+        /// </summary>
+        public override void Animator_State(Arrow_Type arrowType)
+        {     
+            base.Animator_State(arrowType);
+            switch (arrowType)
+            {
+                case Arrow_Type.idle:
+                    stateMachine.ChangeState(idleState);
+                    break;
+                case Arrow_Type.move:
+                    stateMachine.ChangeState(moveState);   
+                    break;
+                case Arrow_Type.attack:
+                    stateMachine.ChangeState(attackState);
+                    break;
+                default:
+                    break;
+            }
         }
 
 
-        public override void Init(float attack_speed, float attack_distance, float move_speed, BattleHealth _tatgetObg,BattleAttack battle)
+
+
+
+
+        //public void GetSkill(Skill_Collision _skill)//回调函数
+        //{
+        //    _skill.SetSkillTarget(TatgetObg, baseskill);
+        //}
+
+
+        public override void Init( BattleAttack battle, BattleHealth _tatgetObg)
         {
-            base.Init(attack_speed, attack_distance, move_speed, _tatgetObg,battle);
+            base.Init( battle, _tatgetObg);
            
-        }
-
-
-        public override void stateAutoInit(base_skill_vo skill_name = null)
-        {
-            base.stateAutoInit(skill_name);
-            if (skill_name == null)//平a
-            {
-                stateMachine.ChangeState(attackState);
-            }
-            else //if(skill_name== "火球术" 判断预制体
-            {
-                stateMachine.ChangeState(skillHuoQiuState);
-            }
-        }
-        /// <summary>
-        /// 启动携程
-        /// </summary>
-        public void StartAnimation()
-        {
-            StartCoroutine(PlayAndWaitForAnimation());
-        }
-        /// <summary>
-        /// 播放动画并等待动画结束
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerator PlayAndWaitForAnimation()
-        {
-            anim.speed = 1.0f;
-            
-            // 记录动画开始时间
-            float startTime = Time.time;
-            float animationLength =anim.GetCurrentAnimatorStateInfo(0).length;
-
-            // 等待动画播放完成
-            while (Time.time - startTime < animationLength)
-            {
-                yield return null;
-            }
-
-            // 动画播放完毕后的逻辑
-           BattleAttack.OnAuto();
+           
         }
 
 

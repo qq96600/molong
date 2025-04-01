@@ -32,6 +32,7 @@ namespace StateMachine
         public virtual void Exit()//ÍË³ö
         {
             player.anim.SetBool(animBoolName, false);
+
         }
     }
 

@@ -29,16 +29,7 @@ namespace StateMachine
             base.Update();
 
 
-            if (monster.IsCentre)
-            {
-                monster.TargetMove(monster.TargetPosition);
-            }else
-            {
-                monster.TargetMove(monster.BackstabPosition);
-
-                if ((Vector2)monster.transform.position == monster.BackstabPosition)
-                    stateMachine.ChangeState(monster.attackState);
-            }
+            
                 
             
         }

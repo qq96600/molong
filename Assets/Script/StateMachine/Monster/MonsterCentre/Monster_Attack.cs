@@ -14,27 +14,27 @@ namespace StateMachine
         public override void Enter()
         {
             base.Enter(); 
-            monster.RbZero();
-            monster.anim.SetBool(animBoolName, true);
+           
             
         }
 
         public override void Exit()
         {
             base.Exit();
+            monster.anim.speed = 1;
         }
 
         public override void Update()
         {
             base.Update();
-
-            startTime -= Time.deltaTime;
-            monster.animStateInfo = monster.anim.GetCurrentAnimatorStateInfo(0);//需要在每一帧更新动画状态信息
-            if (startTime <=0)
-            {
-                monster.BattleAttack.OnAuto();
-                startTime = monster.animStateInfo.length;
-            }
+            //monster.anim.speed = monster.animSpeed;
+            //startTime -= Time.deltaTime;
+            //monster.animStateInfo = monster.anim.GetCurrentAnimatorStateInfo(0);//需要在每一帧更新动画状态信息
+            //if (startTime <=0)
+            //{
+            //    monster.BattleAttack.OnAuto();
+            //    startTime = monster.animStateInfo.length;
+            //}
         }
     }
 }
