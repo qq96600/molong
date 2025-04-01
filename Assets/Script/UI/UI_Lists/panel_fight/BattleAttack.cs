@@ -148,14 +148,7 @@ namespace MVC
                 {
                     //寻找距离自身最近的目标    
                     Terget = ArrayHelper.GetMin(SumSave.battleMonsterHealths, e => Vector2.Distance(transform.position, e.transform.position));
-                    
                     StateMachine.Init(data.attack_speed, data.attack_distance, data.move_speed, Terget,this);
-                    //play_move.Instantiate(this);
-                    //if (Terget != null) play_move.anto(Terget);
-                    //else
-                    //{
-                    //    StartCoroutine(HideFrame());
-                    //}
                 }
                 else Game_Next_Map();
             }
