@@ -48,9 +48,9 @@ namespace StateMachine
         /// <param name="move_speed"></param>
         /// <param name="_tatgetObg"></param>
         /// <param name="battle"></param>
-        public override void Init(float attack_speed, float attack_distance, float move_speed, BattleHealth _tatgetObg,BattleAttack battle)
+        public override void Init(BattleAttack battle, BattleHealth _tatgetObg)
         {
-            base.Init(attack_speed, attack_distance, move_speed, _tatgetObg, battle);
+            base.Init(battle,_tatgetObg); 
 
            
         }

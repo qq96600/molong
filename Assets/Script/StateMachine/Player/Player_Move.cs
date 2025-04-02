@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace StateMachine
 {
-    public class Player_Move : Player_Basic
+    public class Player_Move : PlayerState
     {
         public Player_Move(Player _player, PlayerstateMachine _playerStateMachine, string _animBoolName) : base(_player, _playerStateMachine, _animBoolName)
         {
@@ -26,7 +26,6 @@ namespace StateMachine
         {
             base.Update();
             player.TargetMove(player.TargetPosition);
-            
         }
     }
 }

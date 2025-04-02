@@ -15,7 +15,7 @@ namespace StateMachine
         public override void Enter()
         {
             base.Enter();
-            player.RbZero();
+           
 
 
         }

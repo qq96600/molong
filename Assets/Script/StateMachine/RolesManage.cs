@@ -11,12 +11,14 @@ namespace StateMachine
      
         [HideInInspector] public Rigidbody2D rb;
 
-        [HideInInspector] public BattleAttack BattleAttack;//战斗管理器
-        [HideInInspector] public BattleHealth TatgetObg;//目标物体
+        [HideInInspector] public BattleAttack BattleAttack = new BattleAttack();//战斗管理器
+        [HideInInspector] public BattleHealth TatgetObg = new BattleHealth();//目标物体
         [HideInInspector] public Vector2 TargetPosition;//目标位置
         [HideInInspector] public Vector2 BackstabPosition;//背刺位置
         [HideInInspector] public float animSpeed ;//动画速度
         [HideInInspector] public AnimatorStateInfo animStateInfo;//动画状态
+        [HideInInspector] public AttackStateMachine attack;//战斗逻辑
+
         /// <summary>
         /// 获取技能
         /// </summary>
@@ -46,6 +48,8 @@ namespace StateMachine
             rb = GetComponent<Rigidbody2D>();
             if (rb == null)
                 Debug.LogError("怪物没有Rigidbody2D组件");
+
+            attack= GetComponent<AttackStateMachine>();
             TargetPosition = new Vector2(transform.position.x, transform.position.y);
             BackstabPosition = new Vector2(transform.position.x, transform.position.y);
             animSpeed = anim.speed;
@@ -61,39 +65,27 @@ namespace StateMachine
         {
             TargetPosition = new Vector2(TatgetObg.transform.position.x, transform.position.y);
             BackstabPosition = new Vector2(TatgetObg.transform.position.x - BehindDistance, transform.position.y);
-
         }
 
 
-        public void TargetMove( Vector2 targetMove)//平移
+        public virtual void Init(BattleAttack battle, BattleHealth _tatgetObg)//初始化参数
         {
-            Vector2 direction = Direction(targetMove);
-
-            // 施加追踪力（物理驱动）
-            rb.AddForce(direction * MoveSpeed, ForceMode2D.Impulse);
-            FlipControl(Direction(TargetPosition));
-
-        }
-
-        public Vector2 Direction(Vector2 targetPosition)//判断方向
-        {
-            Vector2 direction = targetPosition - rb.position;
-            direction.Normalize();
-            return direction;
-        }
-
-        public virtual void Init(float attack_speed, float attack_distance, float move_speed, BattleHealth _tatgetObg,BattleAttack battle)//初始化参数
-        {
-            BattleAttack = battle;
-            //AttackSpeed = attack_speed;
-            AttackDistance = 500f;
-            
+            //anim.speed = attack_speed;
+            //AttackDistance = attack_distance;
             //MoveSpeed = move_speed;
-            
-            TatgetObg=_tatgetObg;
+            TatgetObg = _tatgetObg;
+            BattleAttack = battle;
         }
+
+        public virtual void Animator_State(Arrow_Type arrowType)
+        {
+
+        }
+
+     
+
         /// <summary>
-        /// 攻击状态
+        /// 状态切换
         /// </summary>
         /// <param name="damage"></param>
         /// <param name="skill_name"></param>
@@ -102,45 +94,8 @@ namespace StateMachine
             baseskill = skill_name;
         }
 
-        public void RbZero()//停止移动
-        {
-            rb.velocity = Vector2.zero;
-        }
-
-
-        public bool isAttackDistance()//攻击距离
-        {
-           
-            float distance = Vector2.Distance(transform.position, TargetPosition); 
-
-            if (AttackDistance >= distance)
-                return true;
-            else
-                return false;
-        }
-        public void Flip()//翻转
-        {
-            facingLeft=!facingLeft;
-            transform.Rotate(0, 180, 0);
-        }
-
         
-       public void FlipControl(Vector2 direction)//翻转控制
-        {
-            if (direction.x > 0 && facingLeft)
-            {
-                Flip();
-            }
-            else if (direction.x < 0 && !facingLeft)
-            {
-                Flip();
-            }
-        }
-
-        public void AnimSpeed(float _speed)//动画播放速度
-        {
-            anim.speed = _speed;
-        }
+     
 
 
         /// <summary>
@@ -164,15 +119,62 @@ namespace StateMachine
             anim.SetBool(animName, false);
         }
 
-        public void newAnimSpeed()
+        public bool isAttackDistance()//攻击距离
         {
-            anim.speed = animSpeed;
+
+            float distance = Vector2.Distance(transform.position, TatgetObg.transform.position);
+
+            if (AttackDistance >= distance)
+                return true;
+            else
+                return false;
         }
-        public float AttackSpeedCalculation(float _attackSpeed)//攻击速度计算
+
+        public void TargetMove(Vector2 targetMove)//平移
         {
-            return _attackSpeed / 60f;
+            Vector2 direction = Direction(targetMove);
+            Debug.Log(direction + "方向" + TatgetObg.transform.position + "目标位置" + transform.position + "自己位置");
+            // 施加追踪力（物理驱动）
+            rb.AddForce(direction * MoveSpeed, ForceMode2D.Impulse);
+            FlipControl(Direction(TatgetObg.transform.position));
+
         }
-      
+
+        public void FlipControl(Vector2 direction)//翻转控制
+        {
+            if (direction.x > 0 && facingLeft)
+            {
+                Flip();
+            }
+            else if (direction.x < 0 && !facingLeft)
+            {
+                Flip();
+            }
+        }
+
+        public void Flip()//翻转
+        {
+            facingLeft = !facingLeft;
+            transform.Rotate(0, 180, 0);
+        }
+
+
+
+        public Vector2 Direction(Vector2 targetPosition)//判断方向
+        {
+            Vector2 direction = targetPosition - rb.position;
+            direction.Normalize();
+            return direction;
+        }
+
+
+
+        public void RbZero()//停止移动
+        {
+            rb.velocity = Vector2.zero;
+        }
+
+
     }
 
 }

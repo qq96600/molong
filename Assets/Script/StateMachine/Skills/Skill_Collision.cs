@@ -1,4 +1,4 @@
-using MVC;
+ï»¿using MVC;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,70 +8,141 @@ namespace StateMachine
     public class Skill_Collision : MonoBehaviour
     {
         private Rigidbody2D rb;
-        private float MoveSpeed = 1f;//ÒÆ¶¯ËÙ¶È
-        private BattleHealth TatgetPosition;//Ä¿±êÎ»ÖÃ
-        private Transform Axle;//×ªÏòÖá
-        private base_skill_vo skill;//¼¼ÄÜÉËº¦
+        private float MoveSpeed = 1f;//ç§»åŠ¨é€Ÿåº¦
+        private BattleHealth TatgetPosition;//ç›®æ ‡ä½ç½®
+        private Transform Axle;//è½¬å‘è½´
+        private base_skill_vo skill;//æŠ€èƒ½ä¼¤å®³
+        private bool is_collider = false;//æ˜¯å¦ç¢°æ’
+
+        private Animator anim;//ç«çƒåŠ¨ç”»
+        private skill_pos_type SkillPosType;//æŠ€èƒ½é‡Šæ”¾ç±»å‹
+
+
+        private bool isExplosion= false;//æ˜¯å¦çˆ†ç‚¸
         private void Awake()
         {
             rb= GetComponent<Rigidbody2D>();
             Axle = GetComponentInChildren<Transform>();
+            anim= GetComponentInChildren<Animator>().transform.GetComponentInChildren<Animator>();
+
+
+
         }
-       
+        private void Start()
+        {
+           
+        }
         private void Update()
         {
-            Init();
             TargetMove(TatgetPosition.transform.position, MoveSpeed);
+
+
+            if(SkillPosType== skill_pos_type.situ&&!is_collider)
+            {
+                anim.SetBool("Explosion", true);
+                ObjectPoolManager.instance.PushObjectToPool("Skll_HuoQiu", this.gameObject);
+                TatgetPosition.GetComponent<BattleAttack>().injured();
+            }
+
+            if (isExplosion)
+            {
+                //rb.velocity = Vector2.zero;
+               
+                //animStateInfo = anim.GetCurrentAnimatorStateInfo(0);//éœ€è¦åœ¨æ¯ä¸€å¸§æ›´æ–°åŠ¨ç”»çŠ¶æ€ä¿¡æ¯
+                
+                //if(animStateInfo.normalizedTime >= 1f)
+                //{
+                //    ObjectPoolManager.instance.PushObjectToPool("Skll_HuoQiu", this.gameObject);
+                //}
+
+            }
+             
+        
+                  
+            
         }
+
+
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.gameObject.tag == "Moster")
+            if (is_collider)
             {
-                if (DamageTextManager.Instance == null)
+                if (collision.gameObject.tag == "Moster"&& SkillPosType== skill_pos_type.move)
                 {
-                    Debug.LogError("DamageTextManager instance is null!");
-                    return;
+                    if (DamageTextManager.Instance == null)
+                    {
+                        Debug.LogError("DamageTextManager instance is null!");
+                        return;
+                    }
+                    is_collider = false;
+                    transform.parent.SendMessage("skill_damage", skill);
+                    ObjectPoolManager.instance.PushObjectToPool(skill.skillname, this.gameObject);
+                    this.GetComponent<BattleAttack>().injured();
+                    //StartCoroutine(WaitForExplosionEnd());
                 }
-                transform.parent.parent.SendMessage("skill_damage", skill);
-                gameObject.SetActive(false);
-                ObjectPoolManager.instance.PushObjectToPool("Skll_HuoQiu", this.gameObject);
-                //ObjectPoolManager.instance.PushObjectToPool(skill.skillname, this.gameObject);
-                //²¥·ÅÅö×²¶¯»­
-                TatgetPosition.GetComponent<BattleAttack>().injured();
             }
         }
 
-    
 
-        public void TargetMove(Vector2 targetPosition,float MoveSpeed)//Æ½ÒÆ
+        private IEnumerator WaitForExplosionEnd()
+        {
+            
+            anim.SetBool("Explosion", true);
+            rb.velocity = Vector2.zero;
+            AnimatorStateInfo animStateInfo = anim.GetCurrentAnimatorStateInfo(0);
+            Debug.Log("åŠ¨ç”»æ’­æ”¾æ—¶é—´" + animStateInfo.length);
+            // ç­‰å¾…åŠ¨ç”»æ’­æ”¾å®Œæˆ
+            yield return new WaitForSeconds(animStateInfo.length);
+            // å°†ç«çƒå¯¹è±¡è¿”å›å¯¹è±¡æ± 
+            ObjectPoolManager.instance.PushObjectToPool(skill.skillname, this.gameObject);
+            transform.parent.SendMessage("skill_damage", skill);
+            
+        }
+
+
+
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            if (is_collider)
+            {
+                anim.SetBool("Explosion", false);
+            }
+        }
+
+
+        public void TargetMove(Vector2 targetPosition,float MoveSpeed)//å¹³ç§»
         {
             Vector2 direction = Direction(targetPosition);
 
-            // Ê©¼Ó×·×ÙÁ¦£¨ÎïÀíÇı¶¯£©
+            // æ–½åŠ è¿½è¸ªåŠ›ï¼ˆç‰©ç†é©±åŠ¨ï¼‰
             rb.AddForce(direction * MoveSpeed, ForceMode2D.Impulse);
 
-            // ¼ÆËãËùĞèĞı×ª½Ç¶È
-            float targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;//Ä¿±ê½Ç¶È
+            // è®¡ç®—æ‰€éœ€æ—‹è½¬è§’åº¦
+            float targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;//ç›®æ ‡è§’åº¦
             Axle.rotation = Quaternion.AngleAxis(targetAngle, Vector3.forward);
            
 
         }
 
-        public Vector2 Direction( Vector2 targetPosition)//ÅĞ¶Ï·½Ïò
+        public Vector2 Direction( Vector2 targetPosition)//åˆ¤æ–­æ–¹å‘
         {
             Vector2 direction = targetPosition - rb.position;
             direction.Normalize();
             return direction;
         }
-        public void SetSkillTarget(BattleHealth _tatgetObg, base_skill_vo base_skill)//ÕÒµ½Ä¿±ê
+        public void SetSkillTarget(BattleHealth _tatgetObg, base_skill_vo base_skill)//æ‰¾åˆ°ç›®æ ‡
         {
             TatgetPosition = _tatgetObg;
             skill = base_skill;
         }
-        public void Init()//³õÊ¼»¯
+        public void Init(base_skill_vo _skill,BattleAttack _attack,BattleHealth _target, skill_pos_type _skill_pos_type)//åˆå§‹åŒ–
         {
-            transform.parent.parent.SendMessage("GetSkill", this);
+            is_collider = true;
+            skill = _skill;
+            TatgetPosition=_target;
+            SkillPosType= _skill_pos_type;
+
         }
     }
 }

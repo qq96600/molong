@@ -89,6 +89,7 @@ GameObject:
   - component: {fileID: 8839381190810163130}
   - component: {fileID: 2481061557439096980}
   - component: {fileID: 4756189591136534018}
+  - component: {fileID: 3729646464881259563}
   m_Layer: 5
   m_Name: player_battle_attck_item
   m_TagString: Untagged
@@ -178,6 +179,7 @@ MonoBehaviour:
   TargetPosition: {x: 0, y: 0}
   BackstabPosition: {x: 0, y: 0}
   animSpeed: 0
+  attack: {fileID: 0}
   attackDamage: 10
   AttackDistance: 700
   BehindDistance: 100
@@ -215,6 +217,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 6
+--- !u!114 &3729646464881259563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3018193744863770996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b943be1d028e66448a24799dfb9f1d60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5069692488799321593
 GameObject:
   m_ObjectHideFlags: 0

@@ -25,15 +25,7 @@ namespace StateMachine
         {
             base.Update();
 
-            if (player.isAttackDistance())//½øÈë¹ÖÎï¹¥»÷¾àÀë
-            {
-                stateMachine.ChangeState(player.attackState);
-            }
-            else
-            {
-                stateMachine.ChangeState(player.moveState);
-            }
-
+      
 
 
         }
