@@ -45,7 +45,6 @@ namespace MVC
                 SumSave.crt_user.par = SumSave.par;
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_base, SumSave.crt_user.Set_Instace_String());
             }
-
             Read_Instace();
             CloseMySqlDB();
         }
@@ -55,6 +54,7 @@ namespace MVC
             SumSave.crt_bag = new List<Bag_Base_VO>();
             SumSave.crt_euqip = new List<Bag_Base_VO>();
             SumSave.crt_skills = new List<base_skill_vo>();
+            SumSave.crt_bag_resources = new bag_Resources_vo();
             if (SumSave.crt_resources.bag_value.Length > 0)
             { 
                 string[] Splits= SumSave.crt_resources.bag_value.Split(';');
@@ -82,7 +82,6 @@ namespace MVC
                     }
                 }
             }
-
             if (SumSave.crt_resources.skill_value.Length > 0)
             {
                 string[] Splits = SumSave.crt_resources.skill_value.Split(';');
@@ -96,17 +95,66 @@ namespace MVC
                     }
                 }
             }
+            SumSave.crt_bag_resources.Init(SumSave.crt_resources.material_value);
         }
+
+        public void Delete(string dec)
+        {
+            OpenMySqlDB();
+            if (isFirst)
+            {
+                MysqlDb.UpdateInto(Mysql_Table_Name.mo_user_base, new string[] { "Nowdate" }, new string[] { GetStr(dec) }, "uid", GetStr(SumSave.crt_user.uid));//login
+                MysqlDb.UpdateInto(Mysql_Table_Name.user_login, new string[] { "login" }, new string[] { GetStr(-1) }, "uid", GetStr(SumSave.crt_user.uid));
+            }
+            CloseMySqlDB();
+        }
+        private List<string> log_list = new List<string>();
+        public void loglist(string dec)
+        {
+            log_list.Add(dec);
+            OpenMySqlDB();
+            if (isFirst)
+            {
+                for (int i = 0; i < log_list.Count; i++)
+                {
+                    MysqlDb.InsertInto(Mysql_Table_Name.loglist, new string[] { GetStr(0), GetStr(log_list[i]) });
+                }
+                log_list.Clear();
+            }
+            CloseMySqlDB();
+        }
+
         /// <summary>
         /// 读取自身数据
         /// </summary>
         private void Read_Instace()
         {
+            Read_User_Unit();
             Read_User_Hero();
             Read_User_Resources();
             Read_User_Setting();
             Read_User_Artifact();
             refresh_Max_Hero_Attribute();
+        }
+        /// <summary>
+        /// 获取基础货币
+        /// </summary>
+        private void Read_User_Unit()
+        {
+            mysqlReader = MysqlDb.Select(Mysql_Table_Name.mo_user, "uid", GetStr(SumSave.crt_user.uid));
+            SumSave.crt_user_unit = new user_vo();
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.crt_user_unit = ReadDb.Read(mysqlReader, new user_vo());
+                }
+            }
+            else
+            {
+                SumSave.crt_user_unit.Init("10000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
+                Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user, SumSave.crt_user_unit.Set_Instace_String());
+            }
         }
 
         private void Read_User_Artifact()

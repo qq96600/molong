@@ -29,5 +29,8 @@ public enum Mysql_Table_Name
     mo_user_hero,//用户英雄信息
     mo_user_setting,//用户设置信息
     mo_user_artifact,//用户神器信息
+    mo_user,//用户货币信息
+    loglist,//日志
+    user_login//用户登录
 
 }

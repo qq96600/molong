@@ -6,8 +6,8 @@ public class NotiList
     public const string Read_Instace = "获取初始化数据";
     public const string User_Login = "登录";
     public const string Execute_Write = "执行写入指令";
-
-
+    public const string Delete = "删除";
+    public const string loglist = "日志";
     public const string Refresh_User_Setting = "刷新设置";
     public const string Refresh_Max_Hero_Attribute = "刷新属性";
 

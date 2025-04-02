@@ -1,5 +1,6 @@
 ﻿using Common;
 using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using TarenaMVC;
 
@@ -14,6 +15,10 @@ namespace MVC
         /// NAME
         /// </summary>
         public new const string NAME = "Base_Proxy";
+        /// <summary>
+        /// 验证双开
+        /// </summary>
+        private int user_login = 0;
         public Base_Proxy()
         {
             this.ProxyName = NAME;
@@ -24,6 +29,10 @@ namespace MVC
         protected MysqlDbAccess MysqlDb;
 
         protected MySqlDataReader mysqlReader;
+        /// <summary>
+        /// 获取表名
+        /// </summary>
+        protected bool isFirst = true;
 
         bool OpenSelect = true;
         /// <summary>
@@ -32,7 +41,46 @@ namespace MVC
         public void OpenMySqlDB()
         {
             MysqlDb = new MysqlDbAccess("server=rm-bp1ilq26us071qrl8eo.mysql.rds.aliyuncs.com;port=3306;database=onlinestore;user=mysql_db_shadow;password=tcm520WLF;");
+            User_Login();
         }
+        /// <summary>
+        /// 验证数据
+        /// </summary>
+        private void User_Login()
+        {
+            if (!isFirst) return;
+            if (SumSave.crt_user != null)
+            {
+                mysqlReader = MysqlDb.Select(Mysql_Table_Name.user_login, "uid", GetStr(SumSave.uid));
+                if (mysqlReader.HasRows)
+                {
+                    if (user_login == 0)
+                    {
+                        user_login = tool_Categoryt.Obtain_Random();
+                        MysqlDb.UpdateInto(Mysql_Table_Name.user_login, new string[] { "login" }, new string[] { GetStr(user_login) }, "uid", GetStr(SumSave.uid));
+                    }
+                    else
+                    {
+                        int login = 0;
+                        while (mysqlReader.Read())
+                        {
+                            login = mysqlReader.GetInt32(mysqlReader.GetOrdinal("login"));
+                        }
+                        if (login != user_login)
+                        {
+                            Game_Omphalos.i.Alert_Info("多开游戏已关闭");
+                            CloseMySqlDB();
+                        }
+                    }
+                }
+                else
+                {
+                    user_login = tool_Categoryt.Obtain_Random();
+                    MysqlDb.InsertInto(Mysql_Table_Name.user_login, new string[] { GetStr(0), GetStr(SumSave.uid), GetStr(user_login)});
+                }
+            }
+        }
+
         /// <summary>
         ///  关闭网络数据库
         /// </summary>
@@ -63,6 +111,7 @@ namespace MVC
         /// </summary>
         public void ExecuteWrite(List<Base_Wirte_VO> wirtes)
         {
+            if (!isFirst) return;
             if (wirtes.Count > 0)
             {
                 for (int i = 0; i < wirtes.Count; i++)

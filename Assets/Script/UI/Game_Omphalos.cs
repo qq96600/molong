@@ -1,4 +1,5 @@
 using Common;
+using Components;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,11 +25,24 @@ namespace MVC
             InvokeRepeating("CountTime", 1, 1);
         }
         /// <summary>
+        /// 提示信息
+        /// </summary>
+        /// <param name="dec"></param>
+        public void Alert_Info(string dec)
+        {
+            Alert.Show("异常提示", dec);
+        }
+        /// <summary>
         /// 写入数据
         /// </summary>
         private void CountTime()
         {
             SendNotification(NotiList.Execute_Write, wirtes);
+        }
+
+        public void Delete(string dec)
+        { 
+          SendNotification(NotiList.Delete,SumSave.nowtime+" "+SumSave.crt_user.uid+" "+  dec);
         }
 
         /// <summary>

@@ -361,6 +361,14 @@ public class tool_Categoryt : MonoBehaviour
 
     }
     /// <summary>
+    /// 获取随机数
+    /// </summary>
+    /// <returns></returns>
+    public static int Obtain_Random()
+    { 
+        return Random.Range(1, 10000);
+    }
+    /// <summary>
     /// 获取装备品质
     /// </summary>
     /// <param name="boss"></param>

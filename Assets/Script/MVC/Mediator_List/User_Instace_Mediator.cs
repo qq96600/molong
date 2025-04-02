@@ -29,7 +29,9 @@ namespace MVC
                 NotiList.User_Login,
                 NotiList.Execute_Write,
                 NotiList.Refresh_User_Setting,
-                NotiList.Refresh_Max_Hero_Attribute
+                NotiList.Refresh_Max_Hero_Attribute,
+                NotiList.Delete,
+                NotiList.loglist
 
 
             };
@@ -57,6 +59,12 @@ namespace MVC
                     break;
                 case NotiList.Refresh_Max_Hero_Attribute:
                     user.Refresh_Max_Hero_Attribute();
+                    break;
+                case NotiList.Delete:
+                    user.Delete(data.ToString());
+                    break;
+                    case NotiList.loglist:
+                    user.loglist(data.ToString());
                     break;
             }
         }

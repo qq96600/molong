@@ -17,6 +17,12 @@ public static class ReadDb
         item.par = reader.GetInt32(reader.GetOrdinal("par"));
         return item;
     }
+    public static user_vo Read(MySqlDataReader reader, user_vo item)
+    {
+        string value= reader.GetString(reader.GetOrdinal("value"));
+        item.Init(value);
+        return item;
+    }
     public static user_artifact_vo Read(MySqlDataReader reader, user_artifact_vo item)
     {
         item.artifact_value = reader.GetString(reader.GetOrdinal("artifact_value"));

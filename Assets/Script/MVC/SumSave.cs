@@ -17,6 +17,14 @@ namespace Common
         /// 服务器几区
         /// </summary>
         public static int par = 1;
+        /// <summary>
+        /// 验证单次收益 0 金币 1声望 2元宝 3材料获取量
+        /// </summary>
+        public static List<int> base_setting = new List<int>() { 1000, 1000, 1000, 1000 };
+        /// <summary>
+        /// 当前时间
+        /// </summary>
+        public static DateTime nowtime=DateTime.Now;
         #region 玩家数据中转
         /// <summary>
         /// 主角色数据
@@ -35,6 +43,10 @@ namespace Common
         /// </summary>
         public static Hero_VO crt_hero;
         /// <summary>
+        /// 货币库存
+        /// </summary>
+        public static user_vo crt_user_unit;
+        /// <summary>
         /// 资源项
         /// </summary>
         public static user_base_Resources_vo crt_resources;
@@ -51,7 +63,10 @@ namespace Common
         /// 设置类型
         /// </summary>
         public static user_setting_type_vo crt_setting_type;
-      
+        /// <summary>
+        /// 当前物品
+        /// </summary>
+        public static bag_Resources_vo crt_bag_resources;
         /// <summary>
         /// 背包
         /// </summary>
