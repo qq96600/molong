@@ -17,6 +17,21 @@ public static class ReadDb
         item.par = reader.GetInt32(reader.GetOrdinal("par"));
         return item;
     }
+    public static user_artifact_vo Read(MySqlDataReader reader, user_artifact_vo item)
+    {
+        item.artifact_value = reader.GetString(reader.GetOrdinal("artifact_value"));
+        item.Init();
+        return item;
+    }
+    public static db_artifact_vo Read(MySqlDataReader reader, db_artifact_vo item)
+    {
+        item.arrifact_name = reader.GetString(reader.GetOrdinal("Artifact_name"));
+        item.arrifact_needs = reader.GetString(reader.GetOrdinal("Artifact_need")).Split(' ');
+        item.arrifact_effects = reader.GetString(reader.GetOrdinal("Artifact_effect")).Split('&');
+        item.arrifact_type = reader.GetInt32(reader.GetOrdinal("Artifact_type"));
+        item.Artifact_dec= reader.GetString(reader.GetOrdinal("Artifact_dec"));
+        return item;
+    }
     public static user_base_setting_vo Read(MySqlDataReader reader, user_base_setting_vo item)
     {
         item.user_value = reader.GetString(reader.GetOrdinal("setting_value"));

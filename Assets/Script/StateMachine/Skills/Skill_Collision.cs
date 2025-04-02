@@ -46,7 +46,7 @@ namespace StateMachine
 
             if (isExplosion)
             {
-                //rb.velocity = Vector2.zero;
+                rb.velocity = Vector2.zero;
                
                 //animStateInfo = anim.GetCurrentAnimatorStateInfo(0);//需要在每一帧更新动画状态信息
                 
@@ -78,7 +78,7 @@ namespace StateMachine
                     is_collider = false;
                     transform.parent.SendMessage("skill_damage", skill);
                     ObjectPoolManager.instance.PushObjectToPool(skill.skillname, this.gameObject);
-                    this.GetComponent<BattleAttack>().injured();
+                    //this.GetComponent<BattleAttack>().injured();
                     //StartCoroutine(WaitForExplosionEnd());
                 }
             }

@@ -125,15 +125,18 @@ namespace StateMachine
             float distance = Vector2.Distance(transform.position, TatgetObg.transform.position);
 
             if (AttackDistance >= distance)
+            {
+                RbZero();
                 return true;
+            }
             else
                 return false;
         }
 
-        public void TargetMove(Vector2 targetMove)//平移
+        public void TargetMove(Vector2 targetMove)//平移 
         {
             Vector2 direction = Direction(targetMove);
-            Debug.Log(direction + "方向" + TatgetObg.transform.position + "目标位置" + transform.position + "自己位置");
+            //Debug.Log(direction + "方向" + TatgetObg.transform.position + "目标位置" + transform.position + "自己位置");
             // 施加追踪力（物理驱动）
             rb.AddForce(direction * MoveSpeed, ForceMode2D.Impulse);
             FlipControl(Direction(TatgetObg.transform.position));

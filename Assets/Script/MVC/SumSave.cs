@@ -43,6 +43,11 @@ namespace Common
         /// </summary>
         public static user_base_setting_vo crt_setting;
         /// <summary>
+        /// 自身神器
+        /// 
+        /// </summary>
+        public static user_artifact_vo crt_artifact;
+        /// <summary>
         /// 设置类型
         /// </summary>
         public static user_setting_type_vo crt_setting_type;
@@ -75,6 +80,10 @@ namespace Common
         /// 设置类型字典
         /// </summary>
         public static List<user_setting_type_vo> db_sttings;
+        /// <summary>
+        /// 神器列表
+        /// </summary>
+        public static List<db_artifact_vo> db_Artifacts;
         /// <summary>
         /// 装备列表
         /// </summary>

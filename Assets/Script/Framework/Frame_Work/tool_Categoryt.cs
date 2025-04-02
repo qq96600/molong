@@ -20,6 +20,186 @@ public class tool_Categoryt : MonoBehaviour
         return transform.Find(name).GetComponent<T>();
     }
     /// <summary>
+    /// 获得单位
+    /// </summary>
+    /// <param name="index"></param>
+    /// <returns></returns>
+    public static string Obtain_unit(int index)
+    {
+        string dec = "";
+        switch ((enum_skill_attribute_list)index)
+        {
+            case enum_skill_attribute_list.生命值:
+                break;
+            case enum_skill_attribute_list.法力值:
+                break;
+            case enum_skill_attribute_list.内力值:
+                break;
+            case enum_skill_attribute_list.蓄力值:
+                break;
+            case enum_skill_attribute_list.物理防御:
+                break;
+            case enum_skill_attribute_list.魔法防御:
+                break;
+            case enum_skill_attribute_list.物理攻击:
+                break;
+            case enum_skill_attribute_list.魔法攻击:
+                break;
+            case enum_skill_attribute_list.生命回复:
+                break;
+            case enum_skill_attribute_list.法力回复:
+                break;
+            case enum_skill_attribute_list.命中:
+                break;
+            case enum_skill_attribute_list.躲避:
+                break;
+            case enum_skill_attribute_list.穿透:
+                break;
+            case enum_skill_attribute_list.格挡:
+                break;
+            case enum_skill_attribute_list.暴击:
+                break;
+            case enum_skill_attribute_list.幸运:
+                break;
+            case enum_skill_attribute_list.真实伤害:
+                break;
+            case enum_skill_attribute_list.伤害减免:
+                break;
+            case enum_skill_attribute_list.异常抗性:
+            case enum_skill_attribute_list.暴击伤害:
+
+            case enum_skill_attribute_list.伤害加成:
+                dec = "%";
+                break;
+            case enum_skill_attribute_list.伤害吸收:
+                break;
+            case enum_skill_attribute_list.攻击速度:
+                break;
+            case enum_skill_attribute_list.移动速度:
+                break;
+            case enum_skill_attribute_list.生命加成:
+            case enum_skill_attribute_list.法力加成:
+            case enum_skill_attribute_list.物攻加成:
+            case enum_skill_attribute_list.魔攻加成:
+            case enum_skill_attribute_list.物防加成:
+            case enum_skill_attribute_list.魔防加成:
+                dec = "%";
+                break;
+            case enum_skill_attribute_list.土属性强化:
+                break;
+            case enum_skill_attribute_list.火属性强化:
+                break;
+            case enum_skill_attribute_list.水属性强化:
+                break;
+            case enum_skill_attribute_list.木属性强化:
+                break;
+            case enum_skill_attribute_list.金属性强化:
+                break;
+            case enum_skill_attribute_list.经验加成:
+            case enum_skill_attribute_list.装备掉落:
+            case enum_skill_attribute_list.极品宠物掉落:
+            case enum_skill_attribute_list.人物修为:
+            case enum_skill_attribute_list.宠物经验:
+            case enum_skill_attribute_list.内功经验:
+            case enum_skill_attribute_list.金币收益:
+            case enum_skill_attribute_list.装备爆率:
+            case enum_skill_attribute_list.宠物获取:
+            case enum_skill_attribute_list.云游商人折扣:
+            case enum_skill_attribute_list.祈愿收益:
+            case enum_skill_attribute_list.奇遇任务收益:
+            case enum_skill_attribute_list.游历危险躲避率:
+            case enum_skill_attribute_list.游历双倍获得率:
+                dec = "%";
+                break;
+            case enum_skill_attribute_list.游历时长:
+                break;
+            case enum_skill_attribute_list.游历龙珠收益:
+                dec = "%";
+                break;
+            case enum_skill_attribute_list.寻怪间隔:
+                break;
+            case enum_skill_attribute_list.宠物容量:
+                break;
+            case enum_skill_attribute_list.土:
+                break;
+            case enum_skill_attribute_list.火:
+                break;
+            case enum_skill_attribute_list.水:
+                break;
+            case enum_skill_attribute_list.木:
+                break;
+            case enum_skill_attribute_list.金:
+                break;
+            case enum_skill_attribute_list.五行伤害:
+            case enum_skill_attribute_list.五行伤害减少:
+                dec = "%";
+                break;
+            case enum_skill_attribute_list.灵力:
+                break;
+            case enum_skill_attribute_list.体魄:
+                break;
+            case enum_skill_attribute_list.神识:
+                break;
+            case enum_skill_attribute_list.宠物攻击:
+                break;
+            case enum_skill_attribute_list.宠物防御:
+                break;
+            case enum_skill_attribute_list.宠物生命:
+                break;
+            case enum_skill_attribute_list.宠物暴击:
+                break;
+            case enum_skill_attribute_list.宠物暴击伤害:
+                dec = "%";
+                break;
+            case enum_skill_attribute_list.宠物暴击率:
+                break;
+            case enum_skill_attribute_list.宠物攻击速度:
+                break;
+            case enum_skill_attribute_list.技能伤害:
+                dec = "%";
+                break;
+            case enum_skill_attribute_list.燃血:
+                break;
+            case enum_skill_attribute_list.灵身:
+                break;
+            case enum_skill_attribute_list.连击:
+                break;
+            case enum_skill_attribute_list.受到减免伤害:
+                break;
+            case enum_skill_attribute_list.复活次数:
+                break;
+            case enum_skill_attribute_list.幸运一击的概率:
+                dec = "%";
+
+                break;
+            case enum_skill_attribute_list.幸运一击的伤害:
+                dec = "%";
+
+                break;
+            case enum_skill_attribute_list.攻击时概率抵消伤害:
+                dec = "%";
+
+                break;
+            case enum_skill_attribute_list.被攻击时反击真实伤害:
+                break;
+            case enum_skill_attribute_list.每次攻击增加伤害:
+                dec = "%";
+
+                break;
+            case enum_skill_attribute_list.治疗术效果:
+            case enum_skill_attribute_list.施毒术效果:
+            case enum_skill_attribute_list.青云门技能伤害:
+            case enum_skill_attribute_list.魔法盾效果:
+            case enum_skill_attribute_list.血刀刀法伤害:
+                dec = "%";
+
+                break;
+            default:
+                break;
+        }
+        return dec;
+    }
+    /// <summary>
     /// 获取时间
     /// </summary>
     /// <returns></returns>

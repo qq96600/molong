@@ -44,6 +44,7 @@ namespace MVC
         /// <summary>
         /// 角色状态机
         /// </summary>
+        public AttackStateMachine AttackStateMachine;
         public RolesManage StateMachine;
         /// <summary>
         /// 刷新属性
@@ -61,7 +62,8 @@ namespace MVC
         public virtual void Awake()
         {
             target = GetComponent<BattleHealth>();
-            StateMachine = GetComponent<RolesManage>();
+            AttackStateMachine = GetComponent<AttackStateMachine>();
+            StateMachine= GetComponent<RolesManage>();
             frame = Find<Image>("frame");
             show_hp = Find<Slider>("Slider");
         }
@@ -101,11 +103,6 @@ namespace MVC
         public void injured()
         {
             //播放音效
-            if (!frame.gameObject.activeSelf)
-            {
-                frame.gameObject.SetActive(true);
-                StartCoroutine(HideFrame());
-            }
         }
 
         protected int SkillInfo = 0;
@@ -148,8 +145,13 @@ namespace MVC
                 {
                     //寻找距离自身最近的目标    
                     Terget = ArrayHelper.GetMin(SumSave.battleMonsterHealths, e => Vector2.Distance(transform.position, e.transform.position));
-                    StateMachine.Init(data.attack_speed, data.attack_distance, data.move_speed, Terget,this);
-                }
+
+                   // StateMachine.Init(data.attack_speed, data.attack_distance, data.move_speed, Terget,this);
+
+
+                    AttackStateMachine.Init(this, Terget);
+                    StateMachine.Init(this, Terget);
+          }
                 else Game_Next_Map();
             }
             else if (GetComponent<Monster>() != null)
@@ -158,8 +160,9 @@ namespace MVC
                 {
                     //寻找距离自身最近的目标    
                     Terget = ArrayHelper.GetMin(SumSave.battleHeroHealths, e => Vector2.Distance(transform.position, e.transform.position));
+                    StateMachine.Init(this, Terget);
+                   
 
-                    StateMachine.Init(data.attack_speed, data.attack_distance, data.move_speed, Terget,this);
                 }
                 else game_over();
             }

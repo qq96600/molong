@@ -159,6 +159,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  AttackStateMachine: {fileID: 0}
   StateMachine: {fileID: 0}
 --- !u!114 &2481061557439096980
 MonoBehaviour:
@@ -229,6 +230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b943be1d028e66448a24799dfb9f1d60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 0}
 --- !u!1 &5069692488799321593
 GameObject:
   m_ObjectHideFlags: 0

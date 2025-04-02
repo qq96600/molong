@@ -34,9 +34,28 @@ namespace MVC
             Read_Db_stditems();
             Read_Db_Hero();
             Read_Db_Setting_Aoption();
+            Read_Db_artifact();
             CloseMySqlDB();
 
         }
+        /// <summary>
+        /// 读取神器列表
+        /// </summary>
+        private void Read_Db_artifact()
+        {
+            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_artifact);
+
+            SumSave.db_Artifacts = new List<db_artifact_vo>();
+
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.db_Artifacts.Add(ReadDb.Read(mysqlReader, new db_artifact_vo()));
+                }
+            }
+        }
+
         /// <summary>
         /// 读取设置选项
         /// </summary>

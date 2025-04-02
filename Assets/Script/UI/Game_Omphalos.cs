@@ -23,6 +23,9 @@ namespace MVC
         {
             InvokeRepeating("CountTime", 1, 1);
         }
+        /// <summary>
+        /// Ð´ÈëÊý¾Ý
+        /// </summary>
         private void CountTime()
         {
             SendNotification(NotiList.Execute_Write, wirtes);

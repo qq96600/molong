@@ -105,8 +105,29 @@ namespace MVC
             Read_User_Hero();
             Read_User_Resources();
             Read_User_Setting();
+            Read_User_Artifact();
             refresh_Max_Hero_Attribute();
         }
+
+        private void Read_User_Artifact()
+        {
+            mysqlReader = MysqlDb.Select(Mysql_Table_Name.mo_user_artifact, "uid", GetStr(SumSave.crt_user.uid));
+            SumSave.crt_artifact = new user_artifact_vo();
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.crt_artifact = ReadDb.Read(mysqlReader, new user_artifact_vo());
+                }
+            }
+            else
+            {
+                SumSave.crt_artifact.artifact_value = "";
+                SumSave.crt_artifact.Init();
+                Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_artifact, SumSave.crt_artifact.Set_Instace_String());
+            }
+        }
+
         private void Read_User_Setting()
         {
             mysqlReader = MysqlDb.Select(Mysql_Table_Name.mo_user_setting, "uid", GetStr(SumSave.crt_user.uid));
