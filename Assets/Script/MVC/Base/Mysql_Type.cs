@@ -31,6 +31,8 @@ public enum Mysql_Table_Name
     mo_user_artifact,//用户神器信息
     mo_user,//用户货币信息
     loglist,//日志
-    user_login//用户登录
+    user_login,//用户登录
+    db_pass,//通行证
+    mo_user_pass,//用户通行证
 
 }

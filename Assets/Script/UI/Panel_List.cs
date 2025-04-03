@@ -22,7 +22,7 @@ public enum  Panel_List
     panel_guide,//引导面板
     panel_worldmap,//世界地图面板
     panel_manor,//领地面板
-    panel_pass,//关卡面板
+    panel_pass,//通行证
     panel_map,// 地图面板
     panel_Artifact,//神器面板
 }

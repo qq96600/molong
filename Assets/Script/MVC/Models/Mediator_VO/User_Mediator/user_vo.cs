@@ -21,8 +21,11 @@ public class user_vo : Base_VO
         string[] str = value.Split(',');
         for (int i = 0; i < str.Length; i++)
         {
-            list.Add(int.Parse(str[i]));
-            verify_list.Add(int.Parse(str[i] + index));
+            if (str[i].Length > 0)
+            {
+                list.Add(int.Parse(str[i]));
+                verify_list.Add(int.Parse(str[i] + index));
+            }
         }
     }
     public List<int> Set()

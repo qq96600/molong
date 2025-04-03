@@ -134,8 +134,31 @@ namespace MVC
             Read_User_Resources();
             Read_User_Setting();
             Read_User_Artifact();
+            Read_User_Pass();
             refresh_Max_Hero_Attribute();
         }
+        /// <summary>
+        /// 通行证
+        /// </summary>
+        private void Read_User_Pass()
+        {
+            mysqlReader = MysqlDb.Select(Mysql_Table_Name.mo_user_pass, "uid", GetStr(SumSave.crt_user.uid));
+            SumSave.crt_pass = new user_pass_vo();
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.crt_pass = ReadDb.Read(mysqlReader, new user_pass_vo());
+                }
+            }
+            else
+            {
+                SumSave.crt_pass.user_value = "";
+                SumSave.crt_pass.Init();
+                Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_pass, SumSave.crt_pass.Set_Instace_String());
+            }
+        }
+
         /// <summary>
         /// 获取基础货币
         /// </summary>

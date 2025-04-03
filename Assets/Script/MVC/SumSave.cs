@@ -47,6 +47,10 @@ namespace Common
         /// </summary>
         public static user_vo crt_user_unit;
         /// <summary>
+        /// 自身通行证
+        /// </summary>
+        public static user_pass_vo crt_pass;
+        /// <summary>
         /// 资源项
         /// </summary>
         public static user_base_Resources_vo crt_resources;
@@ -87,6 +91,10 @@ namespace Common
         #endregion
 
         #region 配置db文件
+        /// <summary>
+        /// 配置通行证
+        /// </summary>
+        public static List<user_pass_vo> db_pass;
         /// <summary>
         /// 技能列表
         /// </summary>

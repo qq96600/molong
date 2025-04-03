@@ -17,6 +17,22 @@ public static class ReadDb
         item.par = reader.GetInt32(reader.GetOrdinal("par"));
         return item;
     }
+    public static user_pass_vo Read(MySqlDataReader reader, user_pass_vo item)
+    {
+        item.data_lv = reader.GetInt32(reader.GetOrdinal("pass_lv"));
+        item.data_exp = reader.GetInt32(reader.GetOrdinal("pass_exp"));
+        item.user_value = reader.GetString(reader.GetOrdinal("user_value"));
+        item.Init();
+        return item;
+    }
+    public static user_pass_vo Read_Pass(MySqlDataReader reader, user_pass_vo item)
+    {
+        item.lv = reader.GetInt32(reader.GetOrdinal("db_lv"));
+        item.pass_index= reader.GetInt32(reader.GetOrdinal("db_index"));
+        item.reward = reader.GetString(reader.GetOrdinal("reward"));
+        item.uplv_reward = reader.GetString(reader.GetOrdinal("uplv_reward"));
+        return item;
+    }
     public static user_vo Read(MySqlDataReader reader, user_vo item)
     {
         string value= reader.GetString(reader.GetOrdinal("value"));

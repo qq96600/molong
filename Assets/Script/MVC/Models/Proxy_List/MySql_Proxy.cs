@@ -35,9 +35,26 @@ namespace MVC
             Read_Db_Hero();
             Read_Db_Setting_Aoption();
             Read_Db_artifact();
+            Read_Db_Pass();
             CloseMySqlDB();
 
         }
+
+        private void Read_Db_Pass()
+        {
+            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_pass);
+
+            SumSave.db_pass = new List<user_pass_vo>();
+
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.db_pass.Add(ReadDb.Read_Pass(mysqlReader, new user_pass_vo()));
+                }
+            }
+        }
+
         /// <summary>
         /// 读取神器列表
         /// </summary>
