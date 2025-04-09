@@ -38,7 +38,7 @@ public class user_pass_vo : Base_VO
     private Dictionary<int,List<int>> dic_user_values = new Dictionary<int, List<int>>();
 
     public void Init()
-    { 
+    {
         string[] str = user_value.Split('|');
 
         for (int i = 0; i < str.Length; i++)

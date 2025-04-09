@@ -135,8 +135,32 @@ namespace MVC
             Read_User_Setting();
             Read_User_Artifact();
             Read_User_Pass();
+            Read_User_smallWorld();
             refresh_Max_Hero_Attribute();
         }
+        /// <summary>
+        /// 小世界
+        /// </summary>
+        private void Read_User_smallWorld()
+        {
+            mysqlReader = MysqlDb.Select(Mysql_Table_Name.mo_user_plant, "uid", GetStr(SumSave.crt_user.uid));
+            SumSave.crt_plant = new user_plant_vo();
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.crt_plant = ReadDb.Read(mysqlReader, new user_plant_vo());
+                }
+            }
+            else
+            {
+                SumSave.crt_plant.user_value = "";
+                SumSave.crt_plant.Init();
+                Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_plant, SumSave.crt_plant.Set_Instace_String());
+            }
+        }
+
+
         /// <summary>
         /// 通行证
         /// </summary>
@@ -179,7 +203,9 @@ namespace MVC
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user, SumSave.crt_user_unit.Set_Instace_String());
             }
         }
-
+        /// <summary>
+        /// 读取神器数据
+        /// </summary>
         private void Read_User_Artifact()
         {
             mysqlReader = MysqlDb.Select(Mysql_Table_Name.mo_user_artifact, "uid", GetStr(SumSave.crt_user.uid));
@@ -198,7 +224,9 @@ namespace MVC
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_artifact, SumSave.crt_artifact.Set_Instace_String());
             }
         }
-
+        /// <summary>
+        /// 读取设置文件
+        /// </summary>
         private void Read_User_Setting()
         {
             mysqlReader = MysqlDb.Select(Mysql_Table_Name.mo_user_setting, "uid", GetStr(SumSave.crt_user.uid));

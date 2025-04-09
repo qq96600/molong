@@ -34,5 +34,7 @@ public enum Mysql_Table_Name
     user_login,//用户登录
     db_pass,//通行证
     mo_user_pass,//用户通行证
+    mo_user_plant,//用户种植信息
+    db_plant,//种植信息
 
 }
