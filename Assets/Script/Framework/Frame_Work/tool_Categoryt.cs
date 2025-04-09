@@ -20,6 +20,16 @@ public class tool_Categoryt : MonoBehaviour
         return transform.Find(name).GetComponent<T>();
     }
     /// <summary>
+    /// 创造怪物
+    /// </summary>
+    /// <param name="crt"></param>
+    /// <param name="lv">1小怪2精英3boss</param>
+    public void crate_monster(crtMaxHeroVO crt,int lv=1)
+    { 
+    
+
+    }
+    /// <summary>
     /// 获得单位
     /// </summary>
     /// <param name="index"></param>

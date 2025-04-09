@@ -213,6 +213,7 @@ public class panel_fight : Panel_Base
     private void crate_monster()
     {
         crtMaxHeroVO crt = crt_map_monsters[Random.Range(0, crt_map_monsters.Count)];
+        //tool_Categoryt.crate_monster(crt);
         GameObject item = ObjectPoolManager.instance.GetObjectFormPool(crt.show_name, monster_battle_attack_prefabs,
             new Vector3(pos_monster.position.x, pos_monster.position.y,pos_monster.position.z), Quaternion.identity, pos_monster);
         // …Ë÷√Data
