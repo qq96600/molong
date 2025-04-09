@@ -17,6 +17,24 @@ public static class ReadDb
         item.par = reader.GetInt32(reader.GetOrdinal("par"));
         return item;
     }
+
+
+    public static user_plant_vo Read(MySqlDataReader reader, user_plant_vo item)
+    {
+        item.plantLeve= reader.GetInt32(reader.GetOrdinal("plantLeve"));
+        item.user_value= reader.GetString(reader.GetOrdinal("user_value"));
+        item.Init();
+        return item;
+    }
+    public static user_plant_vo Read_Pass(MySqlDataReader reader, user_plant_vo item)
+    {
+        item.plantName= reader.GetString(reader.GetOrdinal("plantType"));
+        item.plantTime= reader.GetInt32(reader.GetOrdinal("plantTime"));
+        item.HarvestMaterials= reader.GetString(reader.GetOrdinal("HarvestMaterials"));
+        return item; 
+    }
+
+
     public static user_pass_vo Read(MySqlDataReader reader, user_pass_vo item)
     {
         item.data_lv = reader.GetInt32(reader.GetOrdinal("pass_lv"));

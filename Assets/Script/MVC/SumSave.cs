@@ -83,6 +83,10 @@ namespace Common
         /// 穿戴
         /// </summary>
         public static List<Bag_Base_VO> crt_euqip;
+        /// <summary>
+        /// 种植数据
+        /// </summary>
+        public static user_plant_vo crt_plant;
 
         /// <summary>
         /// 称号提供极品率
@@ -120,6 +124,11 @@ namespace Common
         /// 读取怪物数据
         /// </summary>
         public static List<crtMaxHeroVO> db_monsters;
+        /// <summary>
+        /// 读取植物列表
+        /// </summary>
+        public static List<user_plant_vo> db_plants;
+
         /// <summary>
         /// 地图列表
         /// </summary>

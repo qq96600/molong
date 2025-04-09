@@ -25,4 +25,5 @@ public enum  Panel_List
     panel_pass,//通行证
     panel_map,// 地图面板
     panel_Artifact,//神器面板
+    panel_smallWorld//小世界面板
 }

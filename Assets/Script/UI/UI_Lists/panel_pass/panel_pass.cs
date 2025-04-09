@@ -34,8 +34,8 @@ public class panel_pass : Panel_Base
         base.Initialize();
         pos_btn = Find<Transform>("bg_main/btn_list");
         pos_item = Find<Transform>("bg_main/Scroll View/Viewport/Content");
-        btn_itm_prefabs = Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
-        pass_item_prefabs= Resources.Load<pass_item>("Prefabs/panel_pass/pass_item");
+        btn_itm_prefabs = Resources.Load<btn_item>("Prefabs/base_tool/btn_item"); 
+        pass_item_prefabs = Resources.Load<pass_item>("Prefabs/panel_pass/pass_item"); 
         for (int i = 0; i < btn_list.Count; i++)
         {
             btn_item btn = Instantiate(btn_itm_prefabs, pos_btn);

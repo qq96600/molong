@@ -36,10 +36,30 @@ namespace MVC
             Read_Db_Setting_Aoption();
             Read_Db_artifact();
             Read_Db_Pass();
+            Read_Db_Panlt();
             CloseMySqlDB();
 
         }
+        /// <summary>
+        /// 读取植物数据库
+        /// </summary>
+        private void Read_Db_Panlt()
+        {
+            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_plant);
 
+            SumSave.db_plants = new List<user_plant_vo>();
+
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.db_plants.Add(ReadDb.Read_Pass(mysqlReader, new user_plant_vo()));
+                }
+            }
+        }
+        /// <summary>
+        /// 读取通行证数据库
+        /// </summary>
         private void Read_Db_Pass()
         {
             mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_pass);
@@ -89,6 +109,9 @@ namespace MVC
                 }
             }
         }
+        /// <summary>
+        /// 读取英雄数据库
+        /// </summary>
         private void Read_Db_Hero()
         {
             mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_hero);
@@ -147,7 +170,9 @@ namespace MVC
                 }
             }
         }
-
+        /// <summary>
+        /// 读取地图数据库
+        /// </summary>
         private void Read_Db_Map()
         {
             mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_map);
