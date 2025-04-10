@@ -158,7 +158,7 @@ namespace StateMachine
         public void Flip()//·­×ª
         {
             facingLeft = !facingLeft;
-            transform.Rotate(0, 180, 0);
+            //transform.Rotate(0, 180, 0);
         }
 
 
