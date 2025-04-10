@@ -24,7 +24,7 @@ public class user_vo : Base_VO
             if (str[i].Length > 0)
             {
                 list.Add(int.Parse(str[i]));
-                verify_list.Add(int.Parse(str[i] + index));
+                verify_list.Add(int.Parse(str[i]) + index);
             }
         }
     }

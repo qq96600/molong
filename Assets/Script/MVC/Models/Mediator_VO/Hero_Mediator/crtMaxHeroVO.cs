@@ -185,4 +185,8 @@ public class crtMaxHeroVO
     /// 五行属性
     /// </summary>
     public int[] life = new int[] { 0, 0, 0, 0, 0 };
+    /// <summary>
+    /// 怪物掉落金币
+    /// </summary>
+    public int unit = 0;
 }

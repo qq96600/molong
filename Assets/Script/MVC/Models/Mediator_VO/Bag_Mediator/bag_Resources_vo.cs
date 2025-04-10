@@ -37,29 +37,33 @@ public class bag_Resources_vo : Base_VO
         return list;
     }
     /// <summary>
-    /// 写入数据
+    /// 传入参数
     /// </summary>
     /// <param name="list"></param>
     public void Get(Dictionary<string, int> dec,bool exist = false)
     {
+        bool crate_state = false;
+        //验证数据
         for (int i = 0; i < list.Count; i++)
         {
             //原始数据发生改变
             if (list[i].Item2 + index != verify_list[i].Item2)
             {
                 //验证数据
-               Game_Omphalos.i.Delete(list[i].Item1 + " 显示数据 " + list[i].Item2 + " 验证值 " + index + " " + verify_list[i].Item2);
+                Game_Omphalos.i.Delete(list[i].Item1 + " 显示数据 " + list[i].Item2 + " 验证值 " + index + " " + verify_list[i].Item2);
             }
         }
-        for (int i = 0; i < list.Count; i++)
+        //写入数据
+        foreach (var item in dec.Keys)
         {
-            foreach (var item in dec.Keys)
+            crate_state = true;
+            for (int i = 0; i < list.Count; i++)
             {
                 if (item == list[i].Item1)
                 {
-                    //不需要验证数据合理性
+                    crate_state = false;
                     if (exist)
-                    { 
+                    {
                     }
                     else
                     {
@@ -73,6 +77,24 @@ public class bag_Resources_vo : Base_VO
                     verify_list[i] = (item, verify_list[i].Item2 + dec[item]);
                 }
             }
+            if (crate_state)
+            {
+                list.Add((item, dec[item]));
+                verify_list.Add((item, dec[item] + index));
+            }
         }
+    }
+    /// <summary>
+    /// 转换格式
+    /// </summary>
+    /// <returns></returns>
+    public string GetData()
+    {
+        string data_list= "";
+        for (int i = 0; i < list.Count; i++)
+        {
+            data_list += (i == 0 ? "" : ",") + (list[i].Item1 + " " + list[i].Item2);
+        }
+        return data_list;
     }
 }

@@ -29,7 +29,6 @@ namespace MVC
         {
             OpenMySqlDB();
             Read_Db_Monster();
-            Read_Db_Map();
             Read_Db_Magic();
             Read_Db_stditems();
             Read_Db_Hero();
@@ -37,6 +36,7 @@ namespace MVC
             Read_Db_artifact();
             Read_Db_Pass();
             Read_Db_Panlt();
+            Read_Db_Map();
             CloseMySqlDB();
 
         }
@@ -184,6 +184,8 @@ namespace MVC
                     SumSave.db_maps.Add(ReadDb.Read(mysqlReader, new user_map_vo()));
                 }
             }
+
+            Battle_Tool.tool_map();
         }
     }
 }

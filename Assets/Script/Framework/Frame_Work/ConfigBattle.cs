@@ -108,6 +108,12 @@ namespace MVC
                 }
                 
             }
+            else
+            {
+                //Debug.Log(bag.Name);
+                //获取材料
+                Battle_Tool.Obtain_Resources(bag.Name, 1);
+            }
 
         }
 

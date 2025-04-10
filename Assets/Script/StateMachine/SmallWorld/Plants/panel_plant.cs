@@ -256,7 +256,7 @@ public class panel_plant : Panel_Base
     /// </summary>
     private void Seeding()
     {
-
+        if (currentPlant == null) { Alert_Dec.Show("请选择播种物品"); return; }
         List<(string, DateTime )> Set = SumSave.crt_plant.Set();//获取种子名称以及需要成熟的时间
         List<int> numbers= new List<int>();//空土地的索引
         for (int i = 0; i < Set.Count; i++)

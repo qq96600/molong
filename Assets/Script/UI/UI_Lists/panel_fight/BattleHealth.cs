@@ -77,6 +77,9 @@ namespace MVC
             if (HP <= 0) return;
             HP -= damage;
             Hurt(damage);
+            //测试掉落
+            //ConfigBattle.LoadSetting(monster, 2);
+            if (monster.GetComponent<monster_battle_attck>() != null) WaitAndDestory(monster);
             if (HP <= 0)
             {
                 //死亡 掉落
@@ -122,9 +125,18 @@ namespace MVC
         private void WaitAndDestory(BattleAttack monster)//MonsterBattleAttack monster)
         {
             OnDestroy();
-           
             SumSave.battleMonsterHealths.Remove(this);
-            //ConfigBattle.LoadSetting(monster, 2);
+            ConfigBattle.LoadSetting(monster, 2);
+            //增加经验
+            SumSave.crt_hero.hero_Exp+= monster.Data.Exp;
+            //获取金币
+            SumSave.crt_user_unit.verify_data(currency_unit.金币, monster.Data.unit);
+            //判断是否增加历练值
+            if (SumSave.crt_resources.user_map_index != "1")
+            {
+                SumSave.crt_user_unit.verify_data(currency_unit.声望, monster.Data.Point);
+            }
+
             /*
             StartCoroutine(WaitAndDestory(monster.Data.Name));
             long tempEXP = monster.Data.Exp;

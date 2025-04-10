@@ -164,7 +164,6 @@ public static class ReadDb
         item.need_Required = reader.GetString(reader.GetOrdinal("need_Required"));
         item.ProfitList = reader.GetString(reader.GetOrdinal("ProfitList"));
         item.monster_list = reader.GetString(reader.GetOrdinal("monster_list"));
-
         return item;
     }
 

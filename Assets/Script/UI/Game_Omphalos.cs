@@ -33,6 +33,15 @@ namespace MVC
             Alert.Show("异常提示", dec);
         }
         /// <summary>
+        /// 写入日志
+        /// </summary>
+        /// <param name="log"></param>
+        public void LogList(string log)
+        {
+            //写入日志
+            SendNotification(NotiList.loglist, log);
+        }
+        /// <summary>
         /// 写入数据
         /// </summary>
         private void CountTime()
@@ -150,6 +159,32 @@ namespace MVC
             }
             GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_value, SumSave.crt_resources.Set_Uptade_String(), SumSave.crt_resources.Get_Update_Character());
         }
+        /// <summary>
+        /// 写入材料资源
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="value"></param>
+        public void Wirte_ResourcesList(Emun_Resources_List index,string value) 
+        {
+            switch (index)
+            {
+                case Emun_Resources_List.skill_value:
+                    SumSave.crt_resources.skill_value = value;
+                    break;
+                case Emun_Resources_List.bag_value:
+                    SumSave.crt_resources.bag_value = value;
+                    break;
+                case Emun_Resources_List.equip_value:
+                    SumSave.crt_resources.equip_value = value;
+                    break;
+                case Emun_Resources_List.material_value:
+                    SumSave.crt_resources.material_value = value;
+                    break;
+            }
+            GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_value, SumSave.crt_resources.Set_Uptade_String(), SumSave.crt_resources.Get_Update_Character());
+        }
+
+
         /// <summary>
         /// 写入数据
         /// </summary>
