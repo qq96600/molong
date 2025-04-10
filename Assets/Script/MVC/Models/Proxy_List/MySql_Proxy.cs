@@ -37,9 +37,37 @@ namespace MVC
             Read_Db_Pass();
             Read_Db_Panlt();
             Read_Db_Map();
+            Read_Db_Pet();
             CloseMySqlDB();
 
         }
+        /// <summary>
+        /// 孵化表
+        /// </summary>
+        private void Read_Db_Pet()
+        {
+            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_pet);
+
+            SumSave.db_pet = new List<user_pet_hatching_vo>();
+
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.db_pet.Add(ReadDb.Read_Pass(mysqlReader, new user_pet_hatching_vo()));
+                }
+            }
+
+            List<user_pet_hatching_vo> db_pet = SumSave.db_pet;
+            SumSave.db_pet_dic= new Dictionary<string, user_pet_hatching_vo>();
+            for (int i = 0; i < db_pet.Count; i++)
+            {
+                SumSave.db_pet_dic.Add(db_pet[i].petEggsName, db_pet[i]);
+            }
+            
+
+        }
+
         /// <summary>
         /// 读取植物数据库
         /// </summary>

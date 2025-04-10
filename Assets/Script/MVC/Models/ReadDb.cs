@@ -19,6 +19,13 @@ public static class ReadDb
     }
 
 
+    public static user_pet_hatching_vo Read(MySqlDataReader reader, user_pet_hatching_vo item)
+    {
+        item.user_value = reader.GetString(reader.GetOrdinal("user_value"));
+        item.Init();
+        return item;
+    }
+
     public static user_plant_vo Read(MySqlDataReader reader, user_plant_vo item)
     {
         item.plantLeve= reader.GetInt32(reader.GetOrdinal("plantLeve"));
@@ -34,6 +41,14 @@ public static class ReadDb
         return item; 
     }
 
+
+    public static user_pet_hatching_vo Read_Pass(MySqlDataReader reader, user_pet_hatching_vo item)
+    {
+        item.petName= reader.GetString(reader.GetOrdinal("petName"));
+        item.petEggsName = reader.GetString(reader.GetOrdinal("petEggsName"));
+        item.hatchingTime=reader.GetInt32(reader.GetOrdinal("hatchingTime"));
+        return item;
+    }
 
     public static user_pass_vo Read(MySqlDataReader reader, user_pass_vo item)
     {

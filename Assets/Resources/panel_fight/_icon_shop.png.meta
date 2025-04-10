@@ -34,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -43,12 +43,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -121,7 +121,721 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: _icon_shop_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 564
+        width: 215
+        height: 280
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9e3c8deb86b7fc4baafd948d432bd09
+      internalID: -1211484818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _icon_shop_1
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 564
+        width: 208
+        height: 261
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8b30d728c7af154e94c10a3ae9c4dec
+      internalID: 1337047494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _icon_shop_2
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 755
+        width: 216
+        height: 261
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a24a4baa116a20f43a971c96a534e53c
+      internalID: 1440311678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _icon_shop_3
+      rect:
+        serializedVersion: 2
+        x: 728
+        y: 763
+        width: 208
+        height: 244
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5755766358add7546b0d205925f40f64
+      internalID: -1078555400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _icon_shop_4
+      rect:
+        serializedVersion: 2
+        x: 946
+        y: 755
+        width: 202
+        height: 244
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b97f0296595f90f41ab75970d0b2bb06
+      internalID: -1943482614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "hatching_\u91CE\u517D\u86CB"
+      rect:
+        serializedVersion: 2
+        x: 1193
+        y: 756
+        width: 185
+        height: 253
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89eb3fca63317fa48954c60dc496da06
+      internalID: 69881242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _icon_shop_6
+      rect:
+        serializedVersion: 2
+        x: 1380
+        y: 756
+        width: 184
+        height: 244
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1d6218ef9286fe49ae740a172660e54
+      internalID: -746725226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _icon_shop_7
+      rect:
+        serializedVersion: 2
+        x: 1567
+        y: 751
+        width: 184
+        height: 244
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f289dfacaeb10d45b4984f6b1b0a70d
+      internalID: 286912542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _icon_shop_8
+      rect:
+        serializedVersion: 2
+        x: 1755
+        y: 747
+        width: 184
+        height: 244
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e97a5214ea650147adfd186d206d492
+      internalID: -1323096960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _icon_shop_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 282
+        width: 215
+        height: 280
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84d45b80524c1dd4ebfef29b9ac6d501
+      internalID: 1865503746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _icon_shop_10
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 282
+        width: 215
+        height: 280
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51413d773fe9e154dbbd02cbc021197f
+      internalID: 302647831
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _icon_shop_11
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 492
+        width: 217
+        height: 261
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8837df0613c44f49bdef012a2e3eb28
+      internalID: -724761370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _icon_shop_12
+      rect:
+        serializedVersion: 2
+        x: 728
+        y: 513
+        width: 208
+        height: 248
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ea03b9480469d1469641f52b7e9df2b
+      internalID: -2028041040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _icon_shop_13
+      rect:
+        serializedVersion: 2
+        x: 946
+        y: 482
+        width: 185
+        height: 271
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2aceb22da850353459db625ddc4b2b00
+      internalID: -1883479188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _icon_shop_14
+      rect:
+        serializedVersion: 2
+        x: 1193
+        y: 501
+        width: 185
+        height: 253
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ddc3dd47a0ad47e4095f8cea64339691
+      internalID: -1818365539
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "hatching_\u6885\u82B1\u9E7F\u86CB"
+      rect:
+        serializedVersion: 2
+        x: 1380
+        y: 501
+        width: 185
+        height: 253
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f1fc3319e8f405498662c861c9ee002
+      internalID: 1744400477
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _icon_shop_16
+      rect:
+        serializedVersion: 2
+        x: 1567
+        y: 501
+        width: 186
+        height: 248
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f38c8cb04fa32174a8dc64c3d5893f2b
+      internalID: 2041090176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _icon_shop_17
+      rect:
+        serializedVersion: 2
+        x: 1755
+        y: 501
+        width: 184
+        height: 244
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e76eada20fd3ce640af38b9d49404fc9
+      internalID: 1819974578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _icon_shop_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 262
+        height: 280
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb4292d4c186c284d95f027362df4c8c
+      internalID: -1318595264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _icon_shop_19
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 0
+        width: 215
+        height: 280
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13b383b55a64f254abe197c4c691063a
+      internalID: 38635446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _icon_shop_20
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 246
+        width: 236
+        height: 244
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7dcfa177f86e17f47a6957d12a9acb5c
+      internalID: 1180696757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _icon_shop_21
+      rect:
+        serializedVersion: 2
+        x: 728
+        y: 263
+        width: 208
+        height: 248
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa8aabc7a3ec2d643bc450be00b32db5
+      internalID: 1142405694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _icon_shop_22
+      rect:
+        serializedVersion: 2
+        x: 946
+        y: 219
+        width: 194
+        height: 261
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 10d4666e9ec82a34a973d212254013ca
+      internalID: -1812183452
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _icon_shop_23
+      rect:
+        serializedVersion: 2
+        x: 1193
+        y: 246
+        width: 185
+        height: 253
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ba37876c11e05a43a001b2fa0717d42
+      internalID: -471196292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _icon_shop_24
+      rect:
+        serializedVersion: 2
+        x: 1380
+        y: 246
+        width: 185
+        height: 253
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 149080e26b06e7f4390f21973bd30ba2
+      internalID: 785270415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _icon_shop_25
+      rect:
+        serializedVersion: 2
+        x: 1567
+        y: 246
+        width: 185
+        height: 253
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d48469846eb3eb44195417753616e995
+      internalID: -438205879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _icon_shop_26
+      rect:
+        serializedVersion: 2
+        x: 1754
+        y: 246
+        width: 185
+        height: 253
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ec8fd723febc454abcbd8ff95c9bcd7
+      internalID: 592663603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _icon_shop_27
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 0
+        width: 245
+        height: 244
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ccb4a1c4f548ab74484be6cf650abcd4
+      internalID: 2008329489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _icon_shop_28
+      rect:
+        serializedVersion: 2
+        x: 728
+        y: 0
+        width: 216
+        height: 261
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4bebd342a52fe8c40a3963af72b36340
+      internalID: 156286761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _icon_shop_29
+      rect:
+        serializedVersion: 2
+        x: 946
+        y: 0
+        width: 245
+        height: 217
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c97d6362d90b43e4d8f19db7f195e171
+      internalID: -1095406097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _icon_shop_30
+      rect:
+        serializedVersion: 2
+        x: 1193
+        y: 0
+        width: 202
+        height: 244
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4c3ca4233bbce8418b9733480bee3da
+      internalID: -15762719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _icon_shop_31
+      rect:
+        serializedVersion: 2
+        x: 1397
+        y: 0
+        width: 198
+        height: 244
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0985fb9e8079b14faa651d5a9702247
+      internalID: -708512748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _icon_shop_32
+      rect:
+        serializedVersion: 2
+        x: 1597
+        y: 0
+        width: 189
+        height: 244
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 475e1647e7ccbc84d89ea578574bf74c
+      internalID: 1726685734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _icon_shop_33
+      rect:
+        serializedVersion: 2
+        x: 1788
+        y: 0
+        width: 189
+        height: 244
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 604412f8f11a04a40a6857403382d954
+      internalID: 1615489450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -132,7 +846,41 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      _icon_shop_0: -1211484818
+      _icon_shop_1: 1337047494
+      _icon_shop_10: 302647831
+      _icon_shop_11: -724761370
+      _icon_shop_12: -2028041040
+      _icon_shop_13: -1883479188
+      _icon_shop_14: -1818365539
+      _icon_shop_16: 2041090176
+      _icon_shop_17: 1819974578
+      _icon_shop_18: -1318595264
+      _icon_shop_19: 38635446
+      _icon_shop_2: 1440311678
+      _icon_shop_20: 1180696757
+      _icon_shop_21: 1142405694
+      _icon_shop_22: -1812183452
+      _icon_shop_23: -471196292
+      _icon_shop_24: 785270415
+      _icon_shop_25: -438205879
+      _icon_shop_26: 592663603
+      _icon_shop_27: 2008329489
+      _icon_shop_28: 156286761
+      _icon_shop_29: -1095406097
+      _icon_shop_3: -1078555400
+      _icon_shop_30: -15762719
+      _icon_shop_31: -708512748
+      _icon_shop_32: 1726685734
+      _icon_shop_33: 1615489450
+      _icon_shop_4: -1943482614
+      _icon_shop_6: -746725226
+      _icon_shop_7: 286912542
+      _icon_shop_8: -1323096960
+      _icon_shop_9: 1865503746
+      "hatching_\u6885\u82B1\u9E7F\u86CB": 1744400477
+      "hatching_\u91CE\u517D\u86CB": 69881242
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

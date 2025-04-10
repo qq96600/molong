@@ -87,6 +87,10 @@ namespace Common
         /// 种植数据
         /// </summary>
         public static user_plant_vo crt_plant;
+        /// <summary>
+        /// 自身孵化数据
+        /// </summary>
+        public static user_pet_hatching_vo crt_hatching;
 
         /// <summary>
         /// 称号提供极品率
@@ -128,6 +132,11 @@ namespace Common
         /// 读取植物列表
         /// </summary>
         public static List<user_plant_vo> db_plants;
+        /// <summary>
+        /// 宠物列表
+        /// </summary>
+        public static List<user_pet_hatching_vo> db_pet;
+        public static Dictionary<string, user_pet_hatching_vo> db_pet_dic;
 
         /// <summary>
         /// 地图列表

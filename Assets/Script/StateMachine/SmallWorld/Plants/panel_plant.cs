@@ -63,7 +63,6 @@ public class panel_plant : Panel_Base
 
     protected override void Awake()
     {
-
         #region 按钮下拉列表初始化
         Buttons = transform.Find("plant_Buttons");
         seedingButton = Buttons.Find("seeding_Button").GetComponent<Button>();
@@ -71,6 +70,7 @@ public class panel_plant : Panel_Base
         harvestButton = Buttons.Find("harvest_Button").GetComponent<Button>();
         expansionButton = Buttons.Find("expansion_Button").GetComponent<Button>();
         plantDropdown=Buttons.Find("plant_Dropdown").GetComponent<Dropdown>();
+        plantDropdown.onValueChanged.AddListener(CurrentPlant);
         seedingButton.onClick.AddListener(Seeding);
         wateringButton.onClick.AddListener(Watering);
         harvestButton.onClick.AddListener(Harvest);
@@ -84,7 +84,7 @@ public class panel_plant : Panel_Base
         plantInfo=transform.Find("plant_info").transform;
         plantText=plantInfo.Find("plant_Text").GetComponent<Text>();
         plantInfo.gameObject.SetActive(false);
-        plantDropdown.onValueChanged.AddListener(CurrentPlant);
+        
         //for (int i = 0; i < plantCount; i++)//初始化种植区域并添加到列表
         //{
         //    GameObject plantItem = Instantiate(plantPrefab, plantFields);
@@ -242,10 +242,11 @@ public class panel_plant : Panel_Base
             {
                 panltList[i].Init();
                 Set[(panltList[i].Obtain_Index())] = ("0", DateTime.Now);
+
                 Wirte(Set);//写入数据库
                 Alert_Dec.Show("已收获");
-                //获得材料
-                //Addition.DropBag(panltList[i].palntName, number, 3);
+
+                
             }
         }
     }
