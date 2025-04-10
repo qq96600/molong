@@ -27,9 +27,9 @@ public class Pet_explore : Panel_Base
     private string explore;
 
     /// <summary>
-    /// 是否可以探索
+    /// 探索次数
     /// </summary>
-    private bool IsExploring = true;
+    private int IsExploring = 5;
 
     protected override void Awake()
     {
@@ -65,7 +65,7 @@ public class Pet_explore : Panel_Base
     {
         explore = button_map[index].GetComponentInChildren<Text>().text;
 
-        if (IsExploring && SumSave.db_pet_explore_dic.TryGetValue(explore, out user_pet_explore_vo vo)) //判断是否可以探索并且在字典中找到该地图的信息
+        if (IsExploring>=0 && SumSave.db_pet_explore_dic.TryGetValue(explore, out user_pet_explore_vo vo)) //判断是否可以探索并且在字典中找到该地图的信息
         {
             Explore_list = vo.petExploreReward;//获取该地图的奖励列表
 
@@ -74,6 +74,7 @@ public class Pet_explore : Panel_Base
             Battle_Tool.Obtain_Resources(data.Item1, data.Item2);
             //Explore_list.Remove(data);
             Alert_Dec.Show("探索收益 " + data.Item1 + " x " + data.Item2);
+            IsExploring--;
             Init();
         }
         else Alert_Dec.Show("探索次数不足");
