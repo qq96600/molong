@@ -70,7 +70,6 @@ public class player_battle_attck : BattleAttack
         {
             damage = Random.Range(Data.MagicdamageMin, Data.MagicdamageMax) - Random.Range(monster.Data.MagicDefMin, monster.Data.MagicDefMax);
         }
-
         if (Random.Range(0, 100) > Data.hit - monster.Data.dodge)
         {
             //传递消息，未命中;

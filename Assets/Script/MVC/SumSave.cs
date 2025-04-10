@@ -157,8 +157,7 @@ namespace Common
         /// <summary>
         /// 战斗刷新时间
         /// </summary>
-        public static float WaitTime = 1f;
-
+        public static float WaitTime = 5f;
         #endregion
     }
 }

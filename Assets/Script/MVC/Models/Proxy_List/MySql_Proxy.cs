@@ -46,6 +46,7 @@ namespace MVC
         /// </summary>
         private void Read_Db_Pet()
         {
+            return;
             mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_pet);
 
             SumSave.db_pet = new List<user_pet_hatching_vo>();

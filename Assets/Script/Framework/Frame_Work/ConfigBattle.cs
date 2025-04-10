@@ -56,7 +56,34 @@ namespace MVC
 
             }
         }
-    
+        /// <summary>
+        /// 获取物品掉落
+        /// </summary>
+        /// <param name="line"></param>
+        private static (bool,string) Obtain_ProfitList(string line)
+        {
+            (bool,string) result = (false, null);
+            string[] values = line.Split('&');
+            if (values.Length > 1)
+            {
+                string[] values1 = values[Random.Range(0, values.Length)].Split(' ');
+                if (values1.Length == 3)
+                {
+                    string[] values2 = values1[2].Split('/');
+                    if (values2.Length > 1)
+                    {
+                        if (Random.Range(0, int.Parse(values2[1])) < int.Parse(values2[0]))
+                        { 
+                            result = (true, values1[0]);
+                            return result;
+                        }
+
+                    }
+                }
+               
+            }
+            return result;
+        }
         /// <summary>
         /// 掉落配置
         /// </summary>
@@ -64,11 +91,14 @@ namespace MVC
         /// <param name="Name"></param>
         /// <param name="boss"></param>
         /// <param name="age"></param>
-        static void CalculationBag(string line, string Name, bool boss,int age=1)
+        private static void CalculationBag(string line, string Name, bool boss,int age=1)
         {
 
+            (bool, string) result = Obtain_ProfitList(line);
+            if (!result.Item1) return;
+
             Bag_Base_VO bag = new Bag_Base_VO();
-            bag = ArrayHelper.Find(SumSave.db_stditems, e => e.Name == line);
+            bag = ArrayHelper.Find(SumSave.db_stditems, e => e.Name == result.Item2);
             bool exist = true;
             switch ((EquipConfigTypeList)Enum.Parse(typeof(EquipConfigTypeList), bag.StdMode))
             {
@@ -116,7 +146,10 @@ namespace MVC
             }
 
         }
-
+        /// <summary>
+        /// 显示获取信息
+        /// </summary>
+        /// <param name="bag"></param>
         private static void Obtian_Bag(Bag_Base_VO bag)
         { 
             string[] keyValue = bag.user_value.Split(' ');

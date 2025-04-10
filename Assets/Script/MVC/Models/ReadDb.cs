@@ -44,6 +44,7 @@ public static class ReadDb
 
     public static user_pet_hatching_vo Read_Pass(MySqlDataReader reader, user_pet_hatching_vo item)
     {
+        return item;
         item.petName= reader.GetString(reader.GetOrdinal("petName"));
         item.petEggsName = reader.GetString(reader.GetOrdinal("petEggsName"));
         item.hatchingTime=reader.GetInt32(reader.GetOrdinal("hatchingTime"));
