@@ -135,13 +135,40 @@ namespace MVC
             Read_User_Setting();
             Read_User_Artifact();
             Read_User_Pass();
-            Read_User_smallWorld();
+            Read_User_Plant();
+            Read_User_Hatching();
             refresh_Max_Hero_Attribute();
         }
+
+
         /// <summary>
-        /// 小世界
+        /// 宠物孵化数据
         /// </summary>
-        private void Read_User_smallWorld()
+        private void Read_User_Hatching()
+        {
+            mysqlReader = MysqlDb.Select(Mysql_Table_Name.mo_user_pet_hatching, "uid", GetStr(SumSave.crt_user.uid));
+            SumSave.crt_hatching = new user_pet_hatching_vo();
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.crt_hatching = ReadDb.Read(mysqlReader, new user_pet_hatching_vo());
+                }
+            }
+            else
+            {
+                SumSave.crt_hatching.user_value = "";
+                SumSave.crt_hatching.Init();
+                Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_pet_hatching, SumSave.crt_hatching.Set_Instace_String());
+            }
+        }
+
+
+
+        /// <summary>
+        /// 种植数据
+        /// </summary>
+        private void Read_User_Plant()
         {
             mysqlReader = MysqlDb.Select(Mysql_Table_Name.mo_user_plant, "uid", GetStr(SumSave.crt_user.uid));
             SumSave.crt_plant = new user_plant_vo();

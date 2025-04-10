@@ -25,6 +25,7 @@ public class user_plant_vo : Base_VO
     /// </summary>
     public string HarvestMaterials;
 
+   
 
     /// <summary>
     /// ÷÷÷≤µ»º∂

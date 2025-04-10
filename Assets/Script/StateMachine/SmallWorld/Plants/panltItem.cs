@@ -1,10 +1,11 @@
 
 using Common;
 using System;
+using UI;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class panltItem : MonoBehaviour 
+public class panltItem : Panel_Base
 {
     
 
@@ -21,7 +22,7 @@ public class panltItem : MonoBehaviour
     /// </summary>
     private int growTimeInt;
     /// <summary>
-    /// 植物成熟时间
+    /// 植物种植时间
     /// </summary>
     private DateTime currentGrowTimeDate;
     /// <summary>
@@ -44,13 +45,14 @@ public class panltItem : MonoBehaviour
     /// 索引位置
     /// </summary>
     private int index = -1;
-    
-    private void Awake()
+
+   protected override void Awake()
     {
         image = GetComponent<Image>();
         CountdownText = GetComponentInChildren<Text>();
         CountdownText.transform.gameObject.SetActive(false);
     }
+   
 
 
 
@@ -106,10 +108,10 @@ public class panltItem : MonoBehaviour
         isMature = 0;
         image.sprite = Resources.Load<Sprite>("panel_fight/panlt_土地");
 
-        growTimeInt = (int)(SumSave.nowtime - currentGrowTimeDate).TotalSeconds;//当前时间-植物成熟时间 获得植物成熟剩余时间
-        if (growTimeInt <= growTime)//剩余时间<=需要的成熟时间
+        growTimeInt = (int)(SumSave.nowtime - currentGrowTimeDate).TotalSeconds;//当前时间-植物种植时间 获得植物种植到现在的时间
+        if (growTimeInt <= growTime)//植物已经生长的时间小于植物需要生长的时间
         {
-            growTimeInt = growTime - growTimeInt;//倒计时
+            growTimeInt = growTime - growTimeInt;
         }
         else
         {
@@ -132,7 +134,7 @@ public class panltItem : MonoBehaviour
         {
             CountdownText.text = "";
             growTimeInt = -1;
-            isMature = 0;
+            isMature = 1;
         }
 
 

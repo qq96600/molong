@@ -255,6 +255,12 @@ public class tool_Categoryt : MonoBehaviour
         return skill;
     }
 
+    public static user_pet_hatching_vo crate_Pet(string name)
+    { 
+        user_pet_hatching_vo pet = new user_pet_hatching_vo();
+
+        return pet;
+    }
     /// <summary>
     /// 创建装备
     /// </summary>

@@ -14,7 +14,7 @@ public class panel_smallWorld : Panel_Base
     public override void Initialize()
     {
         base.Initialize();
-        _plant=Find<panel_plant>("small_World/plantPlanting");
+        _plant=Find<panel_plant>("small_World/Panel_plant");
     }
 
     public override void Show()
