@@ -19,7 +19,16 @@ public static class ReadDb
     }
 
 
-    public static user_pet_hatching_vo Read(MySqlDataReader reader, user_pet_hatching_vo item)
+    public static user_pet_explore_vo Read_Pass(MySqlDataReader reader, user_pet_explore_vo item)
+    {
+        item.petExploreMapName = reader.GetString(reader.GetOrdinal("petEvent_name"));
+        item.petEvent_reward = reader.GetString(reader.GetOrdinal("petEvent_reward"));
+        item.Init();
+        return item;
+    }
+
+
+    public static user_pet_vo Read(MySqlDataReader reader, user_pet_vo item)
     {
         item.user_value = reader.GetString(reader.GetOrdinal("user_value"));
         item.Init();
@@ -42,11 +51,16 @@ public static class ReadDb
     }
 
 
-    public static user_pet_hatching_vo Read_Pass(MySqlDataReader reader, user_pet_hatching_vo item)
+    public static user_pet_vo Read_Pass(MySqlDataReader reader, user_pet_vo item)
     {
         item.petName= reader.GetString(reader.GetOrdinal("petName"));
         item.petEggsName = reader.GetString(reader.GetOrdinal("petEggsName"));
         item.hatchingTime=reader.GetInt32(reader.GetOrdinal("hatchingTime"));
+        item.hero_type= reader.GetInt32(reader.GetOrdinal("hero_type"));
+        item.crate_value= reader.GetString(reader.GetOrdinal("crate_value"));
+        item.up_value= reader.GetString(reader.GetOrdinal("up_value"));
+        item.up_base_value= reader.GetString(reader.GetOrdinal("up_base_value"));
+        item.hero_talent= reader.GetString(reader.GetOrdinal("hero_talent"));
         return item;
     }
 

@@ -229,15 +229,7 @@ namespace Common
 
             return array;
         }
-        /// <summary>
-        /// 显示倒计时
-        /// </summary>
-        /// <param name="spanNumber"></param>
-        /// <returns></returns>
-        public static string Show_time(int spanNumber)
-        {
-            return string.Format("{0:d2}:{1:d2}:{2:d2}", spanNumber / 3600, (spanNumber - spanNumber / 3600 * 3600) / 60, spanNumber % 60);
-        }
+      
 
     }
 }

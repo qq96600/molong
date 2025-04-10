@@ -242,11 +242,15 @@ public class panel_plant : Panel_Base
             {
                 panltList[i].Init();
                 Set[(panltList[i].Obtain_Index())] = ("0", DateTime.Now);
-
                 Wirte(Set);//写入数据库
                 Alert_Dec.Show("已收获");
+                //收获的材料
+                if(SumSave.db_plants_dic.TryGetValue(panltList[i].plantName, out user_plant_vo vo))
+                {
+                    Battle_Tool.Obtain_Resources(vo.HarvestMaterials, 3);
+                }
 
-                
+
             }
         }
     }

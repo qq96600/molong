@@ -147,12 +147,12 @@ namespace MVC
         private void Read_User_Hatching()
         {
             mysqlReader = MysqlDb.Select(Mysql_Table_Name.mo_user_pet_hatching, "uid", GetStr(SumSave.crt_user.uid));
-            SumSave.crt_hatching = new user_pet_hatching_vo();
+            SumSave.crt_hatching = new user_pet_vo();
             if (mysqlReader.HasRows)
             {
                 while (mysqlReader.Read())
                 {
-                    SumSave.crt_hatching = ReadDb.Read(mysqlReader, new user_pet_hatching_vo());
+                    SumSave.crt_hatching = ReadDb.Read(mysqlReader, new user_pet_vo());
                 }
             }
             else
