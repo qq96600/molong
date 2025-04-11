@@ -90,7 +90,11 @@ namespace Common
         /// <summary>
         /// 自身孵化数据
         /// </summary>
-        public static user_pet_hatching_vo crt_hatching;
+        public static user_pet_vo crt_hatching;
+        /// <summary>
+        /// 自身小世界数据
+        /// </summary>
+        public static user_world_vo crt_world;
 
         /// <summary>
         /// 称号提供极品率
@@ -133,10 +137,31 @@ namespace Common
         /// </summary>
         public static List<user_plant_vo> db_plants;
         /// <summary>
+        /// 读取宠物列表
+        /// </summary>
+        public static Dictionary<string, user_plant_vo> db_plants_dic;
+
+        /// <summary>
         /// 宠物列表
         /// </summary>
-        public static List<user_pet_hatching_vo> db_pet;
-        public static Dictionary<string, user_pet_hatching_vo> db_pet_dic;
+        public static List<user_pet_vo> db_pet;
+        /// <summary>
+        /// 宠物字典
+        /// </summary>
+        public static Dictionary<string, user_pet_vo> db_pet_dic;
+
+        /// <summary>
+        /// 宠物探索列表
+        /// </summary>
+        public static List<user_pet_explore_vo> db_pet_explore;
+        /// <summary>
+        /// 升级列表
+        /// </summary>
+        public static db_lv_vo db_lvs;
+        /// <summary>
+        /// 宠物探索字典
+        /// </summary>
+        public static Dictionary<string, user_pet_explore_vo> db_pet_explore_dic;
 
         /// <summary>
         /// 地图列表

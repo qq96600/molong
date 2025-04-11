@@ -112,7 +112,8 @@ public class Pet_Hatching : Panel_Base
         {
             
             Debug.Log("领取宠物"+ isHatching);
-            //tool_Categoryt.crate_Pet(Pet);
+            //领取宠物
+            Battle_Tool.Obtain_Resources(Pet, 1);
             isHatching = 0;
         }
        
@@ -130,7 +131,7 @@ public class Pet_Hatching : Panel_Base
             //NeedConsumables(currentPet, 1);
             //if(RefreshConsumables())
             //{
-                if (SumSave.db_pet_dic.TryGetValue(currentPet, out user_pet_hatching_vo quantity))//查找选择的宠物蛋，设置孵化时间，和孵化成功的宠物
+                if (SumSave.db_pet_dic.TryGetValue(currentPet, out user_pet_vo quantity))//查找选择的宠物蛋，设置孵化时间，和孵化成功的宠物
                 {
                     hatchingTime = quantity.hatchingTime;
                     Pet = quantity.petName;
@@ -183,8 +184,7 @@ public class Pet_Hatching : Panel_Base
         if (hatchingTimeCounter > 0)
         {
             hatchingTimeCounter -= time;
-            hatching_Text.text = ArrayHelper.Show_time(hatchingTimeCounter); 
-           
+            hatching_Text.text = ConvertSecondsToHHMMSS(hatchingTimeCounter);
             hatching_Slider.value = hatchingTime - hatchingTimeCounter;
             Debug.Log("倒计时" + hatchingTimeCounter+"进度条："+ hatching_Slider.value);
         }
@@ -269,7 +269,7 @@ public class Pet_Hatching : Panel_Base
     private void InitDropdown()
     {
         hatching_Dropdown.ClearOptions();
-        foreach (user_pet_hatching_vo type in SumSave.db_pet)
+        foreach (user_pet_vo type in SumSave.db_pet)
         {
             hatching_Dropdown.options.Add(new Dropdown.OptionData(type.petEggsName.ToString()));
         }

@@ -38,29 +38,75 @@ namespace MVC
             Read_Db_Panlt();
             Read_Db_Map();
             Read_Db_Pet();
+            Read_Db_Pet_explore();
+            Read_Db_Lv();
             CloseMySqlDB();
 
         }
         /// <summary>
-        /// 孵化表
+        /// 升级经验
         /// </summary>
-        private void Read_Db_Pet()
+        private void Read_Db_Lv()
         {
-            return;
-            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_pet);
+            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_lv);
 
-            SumSave.db_pet = new List<user_pet_hatching_vo>();
+            SumSave.db_lvs = new db_lv_vo();
 
             if (mysqlReader.HasRows)
             {
                 while (mysqlReader.Read())
                 {
-                    SumSave.db_pet.Add(ReadDb.Read_Pass(mysqlReader, new user_pet_hatching_vo()));
+                    SumSave.db_lvs=(ReadDb.Read(mysqlReader, new db_lv_vo()));
+                }
+            }
+        }
+
+        /// <summary>
+        /// 读取宠物探索地图
+        /// </summary>
+        private void Read_Db_Pet_explore()
+        {
+            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_pet_explore);
+
+            SumSave.db_pet_explore = new List<user_pet_explore_vo>();
+
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.db_pet_explore.Add(ReadDb.Read_Pass(mysqlReader, new user_pet_explore_vo()));
                 }
             }
 
-            List<user_pet_hatching_vo> db_pet = SumSave.db_pet;
-            SumSave.db_pet_dic= new Dictionary<string, user_pet_hatching_vo>();
+            List<user_pet_explore_vo> db_pet_explore = SumSave.db_pet_explore;
+            SumSave.db_pet_explore_dic = new Dictionary<string, user_pet_explore_vo>();
+            for (int i = 0; i < db_pet_explore.Count; i++)
+            {
+                SumSave.db_pet_explore_dic.Add(db_pet_explore[i].petExploreMapName, db_pet_explore[i]);
+            }
+
+        }
+
+
+        /// <summary>
+        /// 读取宠物表
+        /// </summary>
+        private void Read_Db_Pet()
+        {
+            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_pet);
+
+            SumSave.db_pet = new List<user_pet_vo>();
+
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.db_pet.Add(ReadDb.Read_Pass(mysqlReader, new user_pet_vo()));
+                }
+            }
+
+            List<user_pet_vo> db_pet = SumSave.db_pet;
+            SumSave.db_pet_dic= new Dictionary<string, user_pet_vo>();
             for (int i = 0; i < db_pet.Count; i++)
             {
                 SumSave.db_pet_dic.Add(db_pet[i].petEggsName, db_pet[i]);
@@ -85,6 +131,14 @@ namespace MVC
                     SumSave.db_plants.Add(ReadDb.Read_Pass(mysqlReader, new user_plant_vo()));
                 }
             }
+
+            List<user_plant_vo> db_plants = SumSave.db_plants;
+            SumSave.db_plants_dic = new Dictionary<string, user_plant_vo>();
+            for (int i = 0; i < db_plants.Count; i++)
+            {
+                SumSave.db_plants_dic.Add(db_plants[i].plantName, db_plants[i]);
+            }
+
         }
         /// <summary>
         /// 读取通行证数据库

@@ -1,0 +1,89 @@
+using Common;
+using MVC;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class user_world_vo : Base_VO
+{
+    /// <summary>
+    /// 等级
+    /// </summary>
+    public int World_Lv;
+    /// <summary>
+    /// 0 最后刷新时间 1灵气值
+    /// </summary>
+    private List<string> value_lists = new List<string>();
+
+    public void Init()
+    {
+        string[] spilts = user_value.Split('&');
+        if (spilts.Length > 1)
+        {
+            for (int i = 0; i < spilts.Length; i++)
+            {
+                value_lists.Add(spilts[i]);
+            }
+        }
+    }
+    /// <summary>
+    /// 获取值
+    /// </summary>
+    /// <returns></returns>
+    public List<string> Get()
+    { 
+     return value_lists;
+    }
+
+    public string Set_data()
+    {
+        string dec = "";
+        for (int i = 0; i < value_lists.Count; i++)
+        {
+            if(i!=0)
+            {
+                dec += "&";
+            }
+            dec += value_lists[i] ;
+        }
+        return dec;
+    }
+
+    /// <summary>
+    /// 初始化
+    /// </summary>
+    /// <returns></returns>
+    public override string[] Set_Instace_String()
+    {
+        return new string[]
+        {
+            GetStr(0),
+            GetStr(SumSave.crt_user.uid),
+            GetStr(World_Lv),
+            GetStr(user_value)
+        };
+    }
+
+
+    public override string[] Get_Update_Character()
+    {
+        return new string[]
+        {
+            "World_Lv",
+            "user_value"
+        };
+    }
+
+
+    public override string[] Set_Uptade_String()
+    {
+        return new string[]
+        {
+            GetStr(World_Lv),
+            GetStr(Set_data()),
+
+        };
+    }
+
+
+}

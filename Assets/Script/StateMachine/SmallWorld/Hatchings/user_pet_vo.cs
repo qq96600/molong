@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class user_pet_hatching_vo : Base_VO
+public class user_pet_vo : Base_VO
 {
     /// <summary>
     /// 宠物名字
@@ -30,23 +30,23 @@ public class user_pet_hatching_vo : Base_VO
     /// <summary>
     /// 宠物编号
     /// </summary>
-    private int hero_type ;
+    public int hero_type ;
     /// <summary>
     /// 宠物基础属性
     /// </summary>
-    private string crate_value;
+    public string crate_value;
     /// <summary>
     /// 宠物升级属性
     /// </summary>
-    private string up_value;
+    public string up_value;
     /// <summary>
     /// 宠物基础属性
     /// </summary>
-    private string up_base_value;
+    public string up_base_value;
     /// <summary>
     /// 宠物天赋
     /// </summary>
-    private string hero_talent;
+    public string hero_talent;
 
     /// <summary>
     /// 解析数据

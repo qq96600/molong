@@ -229,14 +229,25 @@ namespace Common
 
             return array;
         }
+
         /// <summary>
-        /// 显示倒计时
+        /// 防止数据越界
         /// </summary>
-        /// <param name="spanNumber"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <param name="index"></param>
+        /// <param name="value"></param>
         /// <returns></returns>
-        public static string Show_time(int spanNumber)
+        public static bool SafeGet<T>(this List<T> list, int index, out T value)
         {
-            return string.Format("{0:d2}:{1:d2}:{2:d2}", spanNumber / 3600, (spanNumber - spanNumber / 3600 * 3600) / 60, spanNumber % 60);
+            value = default;
+            if (index >= 0 || index < list.Count)
+            {
+                value = list[index];
+                return true;
+            }
+            return false;
+
         }
 
     }
