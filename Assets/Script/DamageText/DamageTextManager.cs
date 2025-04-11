@@ -92,7 +92,7 @@ public class DamageTextManager : MonoBehaviour// MonoSingleton <DamageTextManage
             }
         }
         char[] characters = damage.ToCharArray();
-        Debug.Log(damage);
+        //Debug.Log(damage);
         for (int i = 0; i < damageText.transform.childCount; i++)
         {
             damageText.transform.GetChild(i).GetComponent<Image>().sprite = UI.UI_Manager.I.GetEquipSprite("panel_fight/digit_Text/", "digit_" + characters[i]);

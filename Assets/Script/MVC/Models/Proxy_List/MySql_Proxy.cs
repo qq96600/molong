@@ -39,9 +39,28 @@ namespace MVC
             Read_Db_Map();
             Read_Db_Pet();
             Read_Db_Pet_explore();
+            Read_Db_Lv();
             CloseMySqlDB();
 
         }
+        /// <summary>
+        /// 升级经验
+        /// </summary>
+        private void Read_Db_Lv()
+        {
+            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_lv);
+
+            SumSave.db_lvs = new db_lv_vo();
+
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.db_lvs=(ReadDb.Read(mysqlReader, new db_lv_vo()));
+                }
+            }
+        }
+
         /// <summary>
         /// 读取宠物探索地图
         /// </summary>

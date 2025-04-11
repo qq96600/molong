@@ -17,12 +17,54 @@ public static class ReadDb
         item.par = reader.GetInt32(reader.GetOrdinal("par"));
         return item;
     }
-
+    public static db_lv_vo Read(MySqlDataReader reader, db_lv_vo item)
+    {
+        string hero_lv_exp = reader.GetString(reader.GetOrdinal("hero_lv_exp"));
+        item.hero_lv_list = new System.Collections.Generic.List<long>();
+        string[] hero_lv_exp_list = hero_lv_exp.Split(' ');
+        for (int i = 0; i < hero_lv_exp_list.Length; i++)
+        { 
+            item.hero_lv_list.Add(Convert.ToInt64(hero_lv_exp_list[i]));
+        }
+        string word_lv_exp= reader.GetString(reader.GetOrdinal("word_lv_exp"));
+        item.world_lv_list = new System.Collections.Generic.List<(string, int)>();
+        string[] word_lv_exp_list = word_lv_exp.Split('&');
+        for (int i = 0; i < word_lv_exp_list.Length; i++)
+        { 
+            string[] word_lv_exp_list2 = word_lv_exp_list[i].Split(' ');
+            if(word_lv_exp_list2.Length==2)
+            item.world_lv_list.Add((word_lv_exp_list2[0], Convert.ToInt32(word_lv_exp_list2[1])));
+        }
+        string world_offect_list = reader.GetString(reader.GetOrdinal("world_offect_list"));
+        item.world_offect_list = new System.Collections.Generic.List<int>();
+        string[] world_offect_list2 = world_offect_list.Split(' ');
+        for (int i = 0; i < world_offect_list2.Length; i++)
+        { 
+            item.world_offect_list.Add(Convert.ToInt32(world_offect_list2[i]));
+        }
+        string word_lv_max_value= reader.GetString(reader.GetOrdinal("word_lv_max_value"));
+        item.word_lv_max_value = new System.Collections.Generic.List<int>();
+        string[] word_lv_max_value2 = word_lv_max_value.Split(' ');
+        for (int i = 0; i < word_lv_max_value2.Length; i++)
+        { 
+            item.word_lv_max_value.Add(Convert.ToInt32(word_lv_max_value2[i]));
+        }
+        return item;
+    }
 
     public static user_pet_explore_vo Read_Pass(MySqlDataReader reader, user_pet_explore_vo item)
     {
         item.petExploreMapName = reader.GetString(reader.GetOrdinal("petEvent_name"));
         item.petEvent_reward = reader.GetString(reader.GetOrdinal("petEvent_reward"));
+        item.Init();
+        return item;
+    }
+
+
+    public static user_world_vo Read(MySqlDataReader reader, user_world_vo item)
+    {
+        item.World_Lv = reader.GetInt32(reader.GetOrdinal("World_Lv"));
+        item.user_value = reader.GetString(reader.GetOrdinal("user_value"));
         item.Init();
         return item;
     }

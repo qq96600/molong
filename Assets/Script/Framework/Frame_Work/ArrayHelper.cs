@@ -229,7 +229,26 @@ namespace Common
 
             return array;
         }
-      
+
+        /// <summary>
+        /// 防止数据越界
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <param name="index"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static bool SafeGet<T>(this List<T> list, int index, out T value)
+        {
+            value = default;
+            if (index >= 0 || index < list.Count)
+            {
+                value = list[index];
+                return true;
+            }
+            return false;
+
+        }
 
     }
 }

@@ -39,5 +39,7 @@ public enum Mysql_Table_Name
     db_pet,//宠物信息
     mo_user_pet_hatching,//用户宠物孵化信息
     db_pet_explore,//宠物探险信息
+    mo_user_world,
+    db_lv,//等级信息
 
 }

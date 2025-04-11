@@ -17,8 +17,10 @@ public class panel_fight : Panel_Base
 
     private GameObject monster_battle_attack_prefabs;
 
+    /// <summary>
+    /// 怪物生成位置
+    /// </summary>
     private Transform pos_player, pos_monster;
-
     /// <summary>
     /// 当前怪物列表
     /// </summary>
@@ -39,8 +41,14 @@ public class panel_fight : Panel_Base
     /// 战斗技能
     /// </summary>
     private List<skill_offect_item> battle_skills;
-
+    /// <summary>
+    /// 显示基础信息
+    /// </summary>
     private panel_role_health role_health;
+    /// <summary>
+    /// 显示地图名称和回合时间
+    /// </summary>
+    private Text map_name, map_time;
     protected override void Awake()
     {
         base.Awake();
@@ -55,6 +63,8 @@ public class panel_fight : Panel_Base
         monster_battle_attack_prefabs = Resources.Load<GameObject>("Prefabs/panel_fight/monster_battle_attck_item");
         pight_show_skill = Find<pight_show_skill>("skill_list");
         role_health = Find<panel_role_health>("panel_role_health");
+        map_name = Find<Text>("battle_pos/map_name/info");
+        map_time = Find<Text>("battle_pos/map_name/show_time");
     }
     public override void Show()
     {
@@ -83,6 +93,16 @@ public class panel_fight : Panel_Base
         select_map = map;
         init();
         Crate_Init();
+        map_name.text=map.map_name;
+        Show_Battle_State("战斗中...");
+    }
+    /// <summary>
+    /// 显示战斗状态
+    /// </summary>
+    /// <param name="dec"></param>
+    private void Show_Battle_State(string dec)
+    {
+        map_time.text= dec;
     }
     /// <summary>
     /// 获取离线收益
@@ -173,11 +193,14 @@ public class panel_fight : Panel_Base
     /// <returns></returns>
     private IEnumerator Game_WaitTime(float time)
     {
+        
         while (time > 0)
         {
-            time -= 0.5f;
-            yield return new WaitForSeconds(0.5f);
+            Show_Battle_State("复活剩余时间 " + time.ToString()[..Math.Min(2, time.ToString().Length)]);
+            time -= 0.1f;
+            yield return new WaitForSeconds(0.1f);
         }
+        Show_Battle_State("战斗中...");
         Game_Start();
     }
     /// <summary>
@@ -203,9 +226,11 @@ public class panel_fight : Panel_Base
 
         while (time > 0)
         {
-            time-= basetime;
+            Show_Battle_State("刷新时间 " + time.ToString("F1") +"s") ;//[..Math.Min(2, time.ToString().Length)]); ;
+            time -= basetime;
             yield return new WaitForSeconds(basetime);
         }
+        Show_Battle_State("战斗中...");
         crate_monster();
         //StartCoroutine(ProduceMonster(SumSave.WaitTime));
     }
@@ -213,7 +238,7 @@ public class panel_fight : Panel_Base
     private void crate_monster()
     {
         crtMaxHeroVO crt = crt_map_monsters[Random.Range(0, crt_map_monsters.Count)];
-        //tool_Categoryt.crate_monster(crt);
+        crt = Battle_Tool.crate_monster(crt);
         GameObject item = ObjectPoolManager.instance.GetObjectFormPool(crt.show_name, monster_battle_attack_prefabs,
             new Vector3(pos_monster.position.x, pos_monster.position.y,pos_monster.position.z), Quaternion.identity, pos_monster);
         // 设置Data

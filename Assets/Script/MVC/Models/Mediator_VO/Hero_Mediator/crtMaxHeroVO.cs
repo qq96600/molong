@@ -1,9 +1,14 @@
 
+using System.Collections.Generic;
 /// <summary>
 /// 属性汇总表
 /// </summary>
 public class crtMaxHeroVO
 {
+    /// <summary>
+    /// 判断怪物状态 0 代表怪物的不同加成
+    /// </summary>
+    public List<int> monster_attrList= new List<int>();
     /// <summary>
     /// 展示名称
     /// </summary>

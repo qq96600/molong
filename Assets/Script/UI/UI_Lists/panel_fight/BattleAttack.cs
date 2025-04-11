@@ -46,6 +46,8 @@ namespace MVC
         /// </summary>
         public AttackStateMachine AttackStateMachine;
         public RolesManage StateMachine;
+
+        private Text name_text;
         /// <summary>
         /// À¢–¬ Ù–‘
         /// </summary>
@@ -66,7 +68,9 @@ namespace MVC
             StateMachine= GetComponent<RolesManage>();
             frame = Find<Image>("frame");
             show_hp = Find<Slider>("Slider");
+            name_text = Find<Text>("base_info/info");
         }
+
 
         protected crtMaxHeroVO data;
         /// <summary>
@@ -85,6 +89,11 @@ namespace MVC
                 show_hp.value = target.HP;
                 target.maxMP= data.MaxMp;
                 target.MP= data.MaxMp;
+                if (data.monster_attrList.Count > 0)
+                {
+                    name_text.text = (enum_monster_state)data.monster_attrList[0] + " " + data.show_name;
+                }
+                else name_text.text = data.show_name;
             }
             get
             {
