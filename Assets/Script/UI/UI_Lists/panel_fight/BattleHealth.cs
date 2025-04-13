@@ -19,16 +19,19 @@ namespace MVC
         /// </summary>
         [HideInInspector]
         public float maxHP, HP, maxMP, MP, add_hp = 0;
+
+        public float internalforceMP, EnergyMp, internalforcemaxMP, EnergymaxMp;
         /// <summary>
         /// 战斗位置
         /// </summary>
         [HideInInspector]
         public int Pos = 0;
-        float time=2f;
         private void Awake()
         {
             HP = maxHP;
             MP = maxMP;
+            internalforceMP = internalforcemaxMP;
+            EnergyMp = EnergymaxMp;
         }
         public void Clear()
         {
@@ -131,12 +134,14 @@ namespace MVC
             //增加经验
             SumSave.crt_hero.hero_Exp+= monster.Data.Exp;
             //获取金币
-            SumSave.crt_user_unit.verify_data(currency_unit.金币, monster.Data.unit);
+            SumSave.crt_user_unit.verify_data(currency_unit.灵珠, monster.Data.unit);
             //判断是否增加历练值
             if (SumSave.crt_resources.user_map_index != "1")
             {
-                SumSave.crt_user_unit.verify_data(currency_unit.声望, monster.Data.Point);
+                SumSave.crt_user_unit.verify_data(currency_unit.历练, monster.Data.Point);
             }
+            Game_Omphalos.i.GetQueue(
+                        Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user, SumSave.crt_user_unit.Set_Uptade_String(), SumSave.crt_user_unit.Get_Update_Character());
 
             /*
             StartCoroutine(WaitAndDestory(monster.Data.Name));
@@ -170,7 +175,7 @@ namespace MVC
                     else ConfigBattle.LoadSetting(monster, monster.Data.monsterTypes == MonsterTypes.Boss ? Random.Range(5, 15) : 1, true);
                 }
             */
-            
+
         }
        
         /// <summary>
