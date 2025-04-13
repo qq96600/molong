@@ -24,7 +24,6 @@ namespace UI
         /// </summary>
         public virtual void Show()
         {
-            
             this.gameObject.SetActive(true);
         }
         /// <summary>

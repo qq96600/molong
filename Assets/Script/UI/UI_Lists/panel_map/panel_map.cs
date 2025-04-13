@@ -11,6 +11,10 @@ public class panel_map : Panel_Base
 
     private btn_item btn_item_prefab;
     /// <summary>
+    /// 地图名称
+    /// </summary>
+    private Text map_name;
+    /// <summary>
     /// 等级要求
     /// </summary>
     private Text need_lv;
@@ -43,20 +47,21 @@ public class panel_map : Panel_Base
     /// 进入地图按钮
     /// </summary>
     private Button enter_map_button;
-    private Image base_show_info;
+    private Transform base_show_info;
+ 
 
     protected override void Awake()
     {
         base.Awake();
+        map_name= Find<Text>("bg_main/base_info/map_name");
         need_lv = Find<Text>("bg_main/base_info/need_lv");
-
         monster_list = Find<Text>("bg_main/base_info/monster_list");
         need_Required = Find<Text>("bg_main/base_info/need_Required");
-        ProfitList = Find<Text>("bg_main/base_info/ProfitList");
+        ProfitList = Find<Text>("bg_main/base_info/ProfitList/Profit_List/Viewport/Profit_info");
         enter_map_button = Find<Button>("bg_main/base_info/enter_map_button");
         enter_map_button.onClick.AddListener(Open_Map);
         fight_panel = UI_Manager.I.GetPanel<panel_fight>();
-        base_show_info = Find<Image>("bg_main/base_info");
+        base_show_info = Find<Transform>("bg_main/base_info");
     }
 
 
@@ -94,11 +99,30 @@ public class panel_map : Panel_Base
         crt_map = item;
         base_show_info.gameObject.SetActive(true);
         user_map_vo map = maplists[item];
+        map_name.text = map.map_name;
         need_lv.text = "等级要求： "+ map.need_lv.ToString();
         monster_list.text = "怪物列表： "+map.monster_list.ToString();
         need_Required.text = "门票要求： "+map.need_Required.ToString();
-        ProfitList.text = "物品掉落： "+map.ProfitList.ToString();
-       
+        //ProfitList.text = "物品掉落： "+map.ProfitList.ToString();
+        ProfitList.text="";
+        foreach (string str in map.ProfitList.Split('&'))
+        {
+            str.Split(' ');
+
+            string[] str1 = str.Split(' ');
+
+            ProfitList.text += str1[0].ToString()+", ";
+        }
+    }
+
+    public override void Hide()
+    {
+        if (base_show_info.gameObject.activeInHierarchy)
+        {
+            base_show_info.gameObject.SetActive(false);
+        }
+        else
+            base.Hide();
     }
 
     public override void Show()

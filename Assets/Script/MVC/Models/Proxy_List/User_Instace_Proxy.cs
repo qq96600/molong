@@ -396,7 +396,10 @@ namespace MVC
                 {
                     for (int i = 0; i < skill.skill_open_type.Count; i++)
                     {
-                        Enum_Value(crt, skill.skill_open_type[i], skill.skill_open_value[i]);
+                        //技能属性根据等级提升
+                        //skill.skill_open_value[i] += int.Parse(skill.user_values[1])* skill.skill_power;
+
+                        Enum_Value(crt, skill.skill_open_type[i], skill.skill_open_value[i] * int.Parse(skill.user_values[1]) / skill.skill_max_lv);//根据技能属性类型，加成属性
                     }
                 }
                 if (skill.skill_pos_type.Count > 0)
@@ -405,7 +408,7 @@ namespace MVC
                     {
                         if (int.Parse(skill.user_values[3]) > 0)
                         {
-                            Enum_Value(crt, skill.skill_pos_type[i], skill.skill_pos_value[i]);
+                            Enum_Value(crt, skill.skill_pos_type[i], skill.skill_pos_value[i] * int.Parse(skill.user_values[1]) / skill.skill_max_lv);
                         }
                     }
                 }
@@ -559,7 +562,8 @@ namespace MVC
         /// </summary>
         private void Read_User_Resources()
         {
-            mysqlReader = MysqlDb.Select(Mysql_Table_Name.mo_user_value, "uid", GetStr(SumSave.crt_user.uid));
+            
+            mysqlReader = MysqlDb.Select(Mysql_Table_Name.mo_user_value, "uid", GetStr(SumSave.crt_user.uid));//读取角色信息
             SumSave.crt_resources = new user_base_Resources_vo();
             if (mysqlReader.HasRows)
             {

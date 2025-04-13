@@ -155,14 +155,15 @@ namespace Common
         /// </summary>
         public static List<user_pet_explore_vo> db_pet_explore;
         /// <summary>
-        /// 升级列表
-        /// </summary>
-        public static db_lv_vo db_lvs;
-        /// <summary>
         /// 宠物探索字典
         /// </summary>
         public static Dictionary<string, user_pet_explore_vo> db_pet_explore_dic;
 
+
+        /// <summary>
+        /// 升级列表
+        /// </summary>
+        public static db_lv_vo db_lvs;
         /// <summary>
         /// 地图列表
         /// </summary>
