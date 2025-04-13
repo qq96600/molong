@@ -66,7 +66,6 @@ namespace StateMachine
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            return;
             if (is_collider)
             {
                 if (collision.gameObject.tag == "Moster"&& SkillPosType== skill_pos_type.move)
