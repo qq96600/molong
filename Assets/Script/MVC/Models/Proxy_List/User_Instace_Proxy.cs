@@ -111,7 +111,7 @@ namespace MVC
         public void loglist(string dec)
         {
             log_list.Add(dec);
-            OpenMySqlDB();
+            OpenMySqlDB();  
             if (MysqlDb.MysqlClose)
             {
                 for (int i = 0; i < log_list.Count; i++)
