@@ -96,6 +96,9 @@ namespace Common
         /// </summary>
         public static user_world_vo crt_world;
 
+        //public static 
+        
+
         /// <summary>
         /// 称号提供极品率
         /// </summary>

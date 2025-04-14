@@ -5,6 +5,11 @@ public class btn_item : Base_Mono
 {
     private Text info;
     public int index;
+    /// <summary>
+    /// 是否为激活状态
+    /// </summary>
+    private bool active = false;
+
     private void Awake()
     {
         info = Find<Text>("info");
@@ -19,5 +24,13 @@ public class btn_item : Base_Mono
     { 
         index = _index;
         info.text = dec.ToString();
+    }
+    /// <summary>
+    /// 是否激活
+    /// </summary>
+    /// <returns></returns>
+    public bool Active()
+    {
+        return active;
     }
 }
