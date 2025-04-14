@@ -373,6 +373,13 @@ public class tool_Categoryt : MonoBehaviour
         //分配内力 默认为0
         skill.user_value += " " + 0;
 
+        string[] item = skill.user_value.Split(' ');
+        skill.user_values= new string[item.Length];
+        for (int i = 0; i < item.Length; i++)//拆解成数组添加到user_values
+        {
+            skill.user_values[i] = item[i];
+        }
+
         return skill;
 
     }

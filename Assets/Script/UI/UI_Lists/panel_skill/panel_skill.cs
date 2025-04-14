@@ -59,7 +59,7 @@ public class panel_skill : Panel_Base
         crt_offect_btn=Find<Transform>("bg_main/show_skill/btn_list");
         btn_item_Prefabs = Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
         skill_item_Prefabs = Resources.Load<skill_item>("Prefabs/panel_skill/skill_item");
-        base_info = Find<Text>("bg_main/show_skill/bg_info/base_info");
+        base_info = Find<Text>("bg_main/show_skill/bg_info/Viewport/base_info");
         offect_skill = Find<offect_up_skill>("bg_main/offect_up_skill");
         allocation_skill_damage = Find<allocation_skill_damage>("bg_main/allocation_skill_damage");
         for (int i = 0; i < Enum.GetNames(typeof(skill_btn_list)).Length; i++)
@@ -114,6 +114,20 @@ public class panel_skill : Panel_Base
                 Alert_Dec.Show("升级消耗  " + need_exp + user_skill.Data.skillname + "等级提升");
                 int lv = int.Parse(user_skill.Data.user_values[1]);
                 lv++;
+                if (user_skill.Data.skill_type == 2)//判断是否为秘籍
+                {
+                    if (user_skill.Data.skill_need_state.Count > 0)
+                    {
+                        foreach (var item in user_skill.Data.skill_need_state)
+                        {
+                            if (lv == item.Item1)//当秘籍技能达到特定等级获得新技能
+                            {
+                                Alert_Dec.Show("获得技能 " + item.Item2);
+                                SumSave.crt_skills.Add(tool_Categoryt.crate_skill(item.Item2));//添加技能
+                            }
+                        }
+                    }
+                }
                 user_skill.Data.user_values[1] = lv.ToString();
                 user_skill.Data.user_value = ArrayHelper.Data_Encryption(user_skill.Data.user_values);
                 Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.skill_value, SumSave.crt_skills);
@@ -161,7 +175,8 @@ public class panel_skill : Panel_Base
         {
             btn_item_dic[item].gameObject.SetActive(false);
         }
-        //SumSave.crt_skills.Add(tool_Categoryt.crate_skill(SumSave.db_skills[Random.Range(0, SumSave.db_skills.Count)].skillname));
+        //SumSave.crt_skills.Add(tool_Categoryt.crate_skill(SumSave.db_skills[Random.Range(0, SumSave.db_skills.Count)].skillname));//添加技能
+
         for (int i = 0; i < SumSave.crt_skills.Count; i++)
         {
             if ((skill_btn_list)SumSave.crt_skills[i].skill_type == select_btn_type)
@@ -200,15 +215,16 @@ public class panel_skill : Panel_Base
     /// </summary>
     private void Show_info()
     {
+        
         need_exp = 0;
-        string dec = user_skill.Data.skillname + "\nLv." + user_skill.Data.user_values[1]+"级";
+        string dec = user_skill.Data.skillname + "\nLv." + user_skill.Data.user_values[1]+"级\n";
         int lv= int.Parse(user_skill.Data.user_values[1]);
         dec += "消耗法力 " + user_skill.Data.skill_spell + "%\n";
-        dec += "技能cd " + user_skill.Data.skill_cd / 60f + "秒\n";
-        dec += "对目标造成" + (user_skill.Data.skill_damage + (user_skill.Data.skill_power * lv)) + "%伤害";
+        dec += "技能cd " + user_skill.Data.skill_cd.ToString("F0") + "秒\n";
+        dec += "对目标造成" + (user_skill.Data.skill_damage + (user_skill.Data.skill_power * lv)) + "%伤害\n";
         if (lv >= user_skill.Data.skill_max_lv)
-        { 
-        dec += "\n已满级";
+        {
+            dec += Show_Color.Red("已满级\n");
         }
         else
         {
@@ -219,30 +235,30 @@ public class panel_skill : Panel_Base
             }
             need_exp = (int)(number * 10 * MathF.Pow(2, int.Parse(user_skill.Data.user_values[1])));
 
-            dec += "升级需要 " + need_exp+ "历练值\n";
+            dec += Show_Color.Green("升级需要 " + need_exp + "历练值\n");
         }
         if (user_skill.Data.skill_open_type.Count > 0)
         {
-            dec += "激活特效 ";
+            dec += Show_Color.Yellow("激活特效 \n");
             for (int i = 0; i < user_skill.Data.skill_open_type.Count; i++)
             {
-                dec += (enum_attribute_list)user_skill.Data.skill_open_type[i] + " + " + user_skill.Data.skill_open_value[i] + "\n";
+                dec += (enum_attribute_list)user_skill.Data.skill_open_type[i] + " + " + (user_skill.Data.skill_open_value[i] * lv / user_skill.Data.skill_max_lv) + "\n";
             }
         }
         if (user_skill.Data.skill_pos_type.Count > 0)
         {
-            dec += "上阵特效 ";
+            dec += Show_Color.Yellow("上阵特效 \n");
             for (int i = 0; i < user_skill.Data.skill_pos_type.Count; i++)
             {
-                dec += (enum_attribute_list)user_skill.Data.skill_pos_type[i] + " + " + user_skill.Data.skill_pos_value[i] + "\n";
+                dec += (enum_attribute_list)user_skill.Data.skill_pos_type[i] + " + " + (user_skill.Data.skill_pos_value[i] * lv / user_skill.Data.skill_max_lv) + "\n";
             }
         }
         if (user_skill.Data.skill_need_state.Count > 0)
         {
-            dec += "等级特效 \n";
+            dec += Show_Color.Yellow("等级特效 \n");
             for (int i = 0; i < user_skill.Data.skill_need_state.Count; i++)
             {
-                dec += user_skill.Data.skill_need_state[i].Item1+" 激活 "+(user_skill.Data.skill_need_state[i].Item2) + "\n";
+                dec += user_skill.Data.skill_need_state[i].Item1+"级 激活 "+(user_skill.Data.skill_need_state[i].Item2) + "\n";
             }
         }
         base_info.text = dec;

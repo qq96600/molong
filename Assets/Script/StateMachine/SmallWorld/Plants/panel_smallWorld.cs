@@ -63,6 +63,8 @@ public class panel_smallWorld : Panel_Base
         pos_btn=Find<Transform>("bg_main/btn_list");
         base_info = Find<Text>("bg_main/base_info/info");
         btn_item_Prefabs = Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
+
+   
         for (int i = 0; i < btn_list.Length; i++)
         {
             btn_item btn_item = Instantiate(btn_item_Prefabs, pos_btn);//实例化背包装备
@@ -71,7 +73,7 @@ public class panel_smallWorld : Panel_Base
         }
     }
     /// <summary>
-    /// 
+    /// 打开界面
     /// </summary>
     /// <param name="btn_item"></param>
     private void Select_Btn(btn_item btn_item)

@@ -18,7 +18,7 @@ public class user_pet_explore_vo : Base_VO
     public void Init()
     {
         petExploreReward = new List<(string, int)>();
-        string[] str = petEvent_reward.Split('|'); 
+        string[] str = petEvent_reward.Split('&'); 
 
         for (int i = 0; i < str.Length; i++)
         {
@@ -26,7 +26,7 @@ public class user_pet_explore_vo : Base_VO
             {
                 string[] str1 = str[i].Split(' ');
 
-                if (str1.Length == 2)
+                if (str1.Length == 3)
                     petExploreReward.Add((str1[0],int.Parse(str1[1])));
             }
         }
