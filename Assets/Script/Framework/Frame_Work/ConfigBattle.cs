@@ -46,7 +46,7 @@ namespace MVC
             string base_name = SumSave.crt_resources.user_map_index;
             if (!CalculationBattle.ContainsKey(SumSave.crt_resources.user_map_index))
             {
-                CalculationBattle.Add(base_name, ArrayHelper.Find(SumSave.db_maps, e => e.map_name == base_name).ProfitList.Split(' '));
+                CalculationBattle.Add(base_name, ArrayHelper.Find(SumSave.db_maps, e => e.map_name == base_name).ProfitList.Split('&'));
             }
                
             for (int i = 0; i < number; i++)
@@ -63,24 +63,18 @@ namespace MVC
         private static (bool,string) Obtain_ProfitList(string line)
         {
             (bool,string) result = (false, null);
-            string[] values = line.Split('&');
-            if (values.Length > 1)
+            string[] values1 = line.Split(' ');
+            if (values1.Length == 3)
             {
-                string[] values1 = values[Random.Range(0, values.Length)].Split(' ');
-                if (values1.Length == 3)
+                string[] values2 = values1[1].Split('/');
+                if (values2.Length > 1)
                 {
-                    string[] values2 = values1[2].Split('/');
-                    if (values2.Length > 1)
+                    if (true || Random.Range(0, int.Parse(values2[1])) < int.Parse(values2[0]))
                     {
-                        if (Random.Range(0, int.Parse(values2[1])) < int.Parse(values2[0]))
-                        { 
-                            result = (true, values1[0]);
-                            return result;
-                        }
-
+                        result = (true, values1[0]);
+                        return result;
                     }
                 }
-               
             }
             return result;
         }

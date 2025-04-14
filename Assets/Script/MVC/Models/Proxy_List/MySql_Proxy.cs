@@ -1,11 +1,5 @@
 ﻿using Common;
-using Components;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using UI;
-using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace MVC
 {
@@ -24,10 +18,10 @@ namespace MVC
             this.ProxyName = NAME;
         }
 
-
         public void Read_Instace()
         {
             OpenMySqlDB();
+            QueryTime();
             Read_Db_Monster();
             Read_Db_Magic();
             Read_Db_stditems();

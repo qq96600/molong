@@ -29,10 +29,6 @@ namespace MVC
         protected MysqlDbAccess MysqlDb;
 
         protected MySqlDataReader mysqlReader;
-        /// <summary>
-        /// 获取表名
-        /// </summary>
-        protected bool isFirst = true;
 
         bool OpenSelect = true;
         /// <summary>
@@ -48,7 +44,7 @@ namespace MVC
         /// </summary>
         private void User_Login()
         {
-            if (!isFirst) return;
+            if (MysqlDb.MysqlClose) return;//未联网
             if (SumSave.crt_user != null)
             {
                 mysqlReader = MysqlDb.Select(Mysql_Table_Name.user_login, "uid", GetStr(SumSave.uid));
@@ -111,7 +107,8 @@ namespace MVC
         /// </summary>
         public void ExecuteWrite(List<Base_Wirte_VO> wirtes)
         {
-            if (!isFirst) return;
+            if (MysqlDb.MysqlClose) return;
+            QueryTime();
             if (wirtes.Count > 0)
             {
                 for (int i = 0; i < wirtes.Count; i++)
@@ -140,6 +137,22 @@ namespace MVC
                
             }
         }
-
+        /// <summary>
+        /// 读取时间
+        /// </summary>
+        protected void QueryTime()
+        {
+            mysqlReader = MysqlDb.QueryTime();
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    for (int i = 0; i < mysqlReader.FieldCount; i++)
+                    {
+                        SumSave.nowtime = Convert.ToDateTime(mysqlReader[i].ToString());
+                    }
+                }
+            }
+        }
     }
 }

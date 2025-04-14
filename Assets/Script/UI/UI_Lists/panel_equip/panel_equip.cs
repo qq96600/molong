@@ -1,9 +1,11 @@
 using Common;
+using Components;
 using MVC;
 using System.Collections;
 using System.Collections.Generic;
 using UI;
 using UnityEngine;
+using UnityEngine.UI;
 /// <summary>
 /// 展示装备的界面
 /// </summary>
@@ -15,6 +17,7 @@ public class panel_equip : Panel_Base
     private panel_bag panel_bag;
     private bag_item crt_bag;
     private Bag_Base_VO crt_equip;
+    private GridLayoutGroup gridLayoutgroup;
 
     protected override void Awake()
     {
@@ -27,12 +30,15 @@ public class panel_equip : Panel_Base
         equip_item_prafabs = Resources.Load<equip_item>("Prefabs/panel_equip/equip_item"); 
         crt_pos_equip = Find<Transform>("bg_main");
         panel_bag=UI_Manager.I.GetPanel<panel_bag>();
+        gridLayoutgroup = Find<GridLayoutGroup>("bg_main");
     }
 
     public override void Show()
     {
         base.Show();
     }
+
+    #region 显示装备
     /// <summary>
     /// 传递参数
     /// </summary>
@@ -66,10 +72,8 @@ public class panel_equip : Panel_Base
     /// <param name="bag"></param>
     public void Select_Equip(bag_item bag)
     {
-        for (int i = crt_pos_equip.childCount - 1; i >= 0; i--)
-        {
-            Destroy(crt_pos_equip.GetChild(i).gameObject);
-        }
+        gridLayoutgroup.cellSize = new Vector2(178, 360);
+        ClearObject(crt_pos_equip);
         crt_equip = bag.Data;
         equip_item item = Instantiate(equip_item_prafabs, crt_pos_equip);
         item.Data = bag.Data;
@@ -123,12 +127,29 @@ public class panel_equip : Panel_Base
         else
         {
             int moeny= crt_bag.Data.price;
-
-            //出售
+            SumSave.crt_user_unit.verify_data(currency_unit.灵珠, moeny);
+            Alert_Dec.Show("出售成功 获得灵珠" + moeny);
             SumSave.crt_bag.Remove(crt_bag.Data);
             Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.bag_value, SumSave.crt_bag);
+            Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user, SumSave.crt_user_unit.Set_Uptade_String(), SumSave.crt_user_unit.Get_Update_Character());
+
         }
         Refresh();
+    }
+
+    #endregion
+    /// <summary>
+    /// 选择材料
+    /// </summary>
+    /// <param name="item"></param>
+    public void Select_Material(material_item item)
+    {
+        (string, int) data = item.GetItemData();
+        gridLayoutgroup.cellSize = new Vector2(600, 400);
+        Bag_Base_VO vo = ArrayHelper.Find( SumSave.db_stditems,e=> e.Name == data.Item1);
+        //传入数据
+        //Show_Material
+
     }
 
     private void Refresh()
