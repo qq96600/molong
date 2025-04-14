@@ -41,5 +41,6 @@ public enum Mysql_Table_Name
     db_pet_explore,//宠物探险信息
     mo_user_world,
     db_lv,//等级信息
+    user_rank,//排行榜
 
 }

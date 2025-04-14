@@ -194,4 +194,18 @@ public class crtMaxHeroVO
     /// 怪物掉落金币
     /// </summary>
     public int unit = 0;
+
+    public int totalPower;
+    /// <summary>
+    /// 显示战斗力
+    /// </summary>
+    public void Init()
+    {
+        totalPower = (int)(MaxHP / 10 + MaxMp / 5 + internalforceMP + EnergyMp +
+            DefMin + DefMax + MagicDefMin + MagicDefMax + damageMin + damageMax + MagicdamageMin + MagicdamageMax +
+            hit + dodge * 5 + penetrate * 5 + block * 5 + crit_rate * 10 + crit_damage + double_damage * 10 + Lucky * 100 +
+            Damage_Reduction * 10 + Damage_absorption * 10 + resistance * 10 + move_speed + (200 - attack_speed) * 10 + attack_distance +
+            bonus_Hp * 20 + bonus_Mp * 20 + bonus_Damage * 20 + bonus_MagicDamage * 20 + bonus_Def * 20 + bonus_MagicDef * 20 +
+            Heal_Hp * 20 + Heal_Mp * 20 + life[0] * 20 + life[1] * 20 + life[2] * 20 + life[3] * 20 + life[4]) * 20;
+    }
 }

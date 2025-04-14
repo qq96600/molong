@@ -3800,10 +3800,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1420616014}
     m_Modifications:
-    - target: {fileID: 1541936815162525884, guid: e468e3587a3be8a4dbca792b89c17d0a, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0.24101257
-      objectReference: {fileID: 0}
     - target: {fileID: 2029448241893722726, guid: e468e3587a3be8a4dbca792b89c17d0a, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3888,45 +3884,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: panel_pass
       objectReference: {fileID: 0}
-    - target: {fileID: 4402664787844859191, guid: e468e3587a3be8a4dbca792b89c17d0a, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4481143642313700248, guid: e468e3587a3be8a4dbca792b89c17d0a, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: -273.44
-      objectReference: {fileID: 0}
-    - target: {fileID: 5373327469368146062, guid: e468e3587a3be8a4dbca792b89c17d0a, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0.24099731
-      objectReference: {fileID: 0}
-    - target: {fileID: 6352933092708678631, guid: e468e3587a3be8a4dbca792b89c17d0a, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6352933092708678631, guid: e468e3587a3be8a4dbca792b89c17d0a, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6352933092708678631, guid: e468e3587a3be8a4dbca792b89c17d0a, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6352933092708678631, guid: e468e3587a3be8a4dbca792b89c17d0a, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6352933092708678631, guid: e468e3587a3be8a4dbca792b89c17d0a, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6352933092708678631, guid: e468e3587a3be8a4dbca792b89c17d0a, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 1360835749299516581, guid: e468e3587a3be8a4dbca792b89c17d0a, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e468e3587a3be8a4dbca792b89c17d0a, type: 3}

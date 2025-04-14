@@ -97,65 +97,6 @@ namespace MVC
             }
             SumSave.crt_bag_resources.Init(SumSave.crt_resources.material_value);
         }
-        private void QueryTime()
-        {
-            if (MysqlDb.MysqlClose)
-            {
-                if (SumSave.nowtime < DateTime.Now)
-                    SumSave.nowtime = DateTime.Now;
-                return;
-            }
-            mysqlReader = MysqlDb.QueryTime();
-            if (mysqlReader.HasRows)
-            {
-                while (mysqlReader.Read())
-                {
-                    for (int i = 0; i < mysqlReader.FieldCount; i++)
-                    {
-                        SumSave.nowtime = Convert.ToDateTime(mysqlReader[i].ToString());
-                    }
-                }
-            }
-
-            //            string path = "versions";
-            //#if UNITY_EDITOR
-            //            path = "versions_test";
-            //#elif UNITY_ANDROID
-            //            path = "versions";    //正式版
-            //            //path = "versions_test_copy1"; //测试版 编号999
-            //#elif UNITY_IPHONE
-            //            path = "versions";
-            //#endif
-            //            // if(SumSave.isCES)path = "versions_test"; 暂时先不启用
-            //            mysqlReader = MysqlDb.ReadFullTable(path);
-            //            user.Dispose = new Dispose();
-
-            //            if (mysqlReader.HasRows)
-            //            {
-            //                while (mysqlReader.Read())
-            //                {
-            //                    user.Dispose.version = mysqlReader.GetString(mysqlReader.GetOrdinal("Version"));
-
-            //                    user.Dispose.Activity = mysqlReader.GetInt32(mysqlReader.GetOrdinal("Activity"));
-
-            //                }
-            //            }
-            //            SumSave.MysqlUser = user;
-
-            //            if (!state) CloseMySqlDB();
-            //            SumSave.OpenGame = false;
-            //            foreach (string item in versions)
-            //            {
-            //                if (user.Dispose.version == item) SumSave.OpenGame = true;
-            //            }
-            //            if (!SumSave.OpenGame)
-            //            {
-            //                if (versionsnumber >= 3) Application.Quit();
-            //                versionsnumber++;
-            //                AlertDec.Show("游戏版本不匹配，请更新游戏！");
-            //            }
-        }
-
         public void Delete(string dec)
         {
             OpenMySqlDB();
@@ -187,6 +128,7 @@ namespace MVC
         /// </summary>
         private void Read_Instace()
         {
+            read_User_Rank();
             Read_User_Unit();
             Read_User_Hero();
             Read_User_Resources();
@@ -199,6 +141,47 @@ namespace MVC
             refresh_Max_Hero_Attribute();
         }
 
+        /// <summary>
+        /// 读取排行榜
+        /// </summary>
+        private void read_User_Rank()
+        {
+            mysqlReader = MysqlDb.Select(Mysql_Table_Name.user_rank, "par", GetStr(SumSave.par));
+            SumSave.user_ranks = new rank_vo();
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    //获取等级
+                    SumSave.user_ranks.Ranking_value = mysqlReader.GetString(mysqlReader.GetOrdinal("value"));
+                }
+                string[] splits = SumSave.user_ranks.Ranking_value.Split(';');
+                //读取排行榜
+                foreach (string base_value in splits)
+                {
+                    if (base_value != "")
+                    {
+                        base_rank_vo bag_Base_VO = new base_rank_vo();
+                        bag_Base_VO.SetPropertyValue(base_value);
+                        SumSave.user_ranks.lists.Add(bag_Base_VO);
+                    }
+                }
+            }
+
+        }
+
+        /// <summary>
+        /// 读取排行榜
+        /// </summary>
+        public void Read_User_Rank()
+        {
+            OpenMySqlDB();
+            if (MysqlDb.MysqlClose)
+            {
+                read_User_Rank();
+            }
+            CloseMySqlDB();
+        }
 
         /// <summary>
         /// 宠物孵化数据
@@ -477,8 +460,8 @@ namespace MVC
             //皮肤
             SumSave.crt_MaxHero = crt;
 
-
-
+            SumSave.crt_MaxHero.Init();
+            Battle_Tool.validate_rank();
         }
 
         /// <summary>

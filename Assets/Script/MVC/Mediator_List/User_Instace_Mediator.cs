@@ -31,7 +31,8 @@ namespace MVC
                 NotiList.Refresh_User_Setting,
                 NotiList.Refresh_Max_Hero_Attribute,
                 NotiList.Delete,
-                NotiList.loglist
+                NotiList.loglist,
+                NotiList.Read_User_Ranks
 
 
             };
@@ -65,6 +66,9 @@ namespace MVC
                     break;
                     case NotiList.loglist:
                     user.loglist(data.ToString());
+                    break;
+                case NotiList.Read_User_Ranks:
+                    user.Read_User_Rank();
                     break;
             }
         }

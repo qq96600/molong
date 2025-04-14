@@ -95,11 +95,14 @@ namespace Common
         /// 自身小世界数据
         /// </summary>
         public static user_world_vo crt_world;
-
         /// <summary>
         /// 称号提供极品率
         /// </summary>
         public static int titleLucky = 0;
+        /// <summary>
+        /// 排行榜
+        /// </summary>
+        public static rank_vo user_ranks;
         #endregion
 
         #region 配置db文件

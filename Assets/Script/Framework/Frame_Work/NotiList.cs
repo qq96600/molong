@@ -12,6 +12,7 @@ public class NotiList
     public const string Refresh_Max_Hero_Attribute = "刷新属性";
 
     public const string Read_World = "读取小世界";
+    public const string Read_User_Ranks = "读取排行榜";
 
 
 #endregion

@@ -23,6 +23,7 @@ namespace MVC
         public void activation()
         {
             InvokeRepeating("CountTime", 1, 1);
+            InvokeRepeating("Read_User_Ranks", 600, 600);
         }
         /// <summary>
         /// 提示信息
@@ -48,7 +49,14 @@ namespace MVC
         {
             SendNotification(NotiList.Execute_Write, wirtes);
         }
-
+        /// <summary>
+        /// 每10分钟刷新一次排行榜
+        /// </summary>
+        private void Read_User_Ranks()
+        {
+            SendNotification(NotiList.Read_User_Ranks);
+            Battle_Tool.validate_rank();
+        }
         public void Delete(string dec)
         { 
           SendNotification(NotiList.Delete,SumSave.nowtime+" "+SumSave.crt_user.uid+" "+  dec);

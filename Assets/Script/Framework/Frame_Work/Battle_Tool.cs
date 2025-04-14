@@ -56,6 +56,114 @@ public static class Battle_Tool
         }
     }
     /// <summary>
+    /// 刷新排行榜
+    /// </summary>
+    private static void Refresh_Rank()
+    {
+        Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.user_rank, SumSave.user_ranks.Set_Uptade_String(), SumSave.user_ranks.Get_Update_Character());
+    }
+
+    /// <summary>
+    /// 创建排行榜
+    /// </summary>
+    private static  void crate_rank()
+    {
+        base_rank_vo rank = new base_rank_vo();
+
+        rank.uid = SumSave.crt_user.uid;
+        rank.type = SumSave.crt_hero.hero_type;
+        rank.name = SumSave.crt_hero.hero_name;
+        rank.lv = SumSave.crt_MaxHero.Lv;
+        rank.ranking_index = 1;
+        rank.value = (int)SumSave.crt_MaxHero.totalPower;
+        SumSave.user_ranks.lists.Add(rank);
+        //排序
+        Refresh_Rank();
+    }
+    /// <summary>
+    /// 验证排行榜
+    /// </summary>
+    public static void validate_rank()
+    {
+        bool exist = false;
+        if (SumSave.user_ranks.lists.Count < 50)
+        {
+            for (int i = 0; i < SumSave.user_ranks.lists.Count; i++)
+            {
+                if (SumSave.user_ranks.lists[i].uid == SumSave.crt_user.uid)
+                {
+                    exist = true;
+                    SumSave.user_ranks.lists[i].value = (int)SumSave.crt_MaxHero.totalPower;
+                    SumSave.user_ranks.lists[i].lv = SumSave.crt_MaxHero.Lv;
+                    SumSave.user_ranks.lists[i].type = SumSave.crt_hero.hero_type;// SumSave.crtHeroMaxs[0].Type;  
+                    Refresh_Rank();
+                    if (SumSave.crt_MaxHero.totalPower < SumSave.user_ranks.lists[i].value)//小于的情况 写入排行榜战力 且替换排行榜战力
+                    {
+                        Game_Omphalos.i.Alert_Info($"你的战力降低了{"原战斗力" + SumSave.user_ranks.lists[i].value + " 当前" + (int)SumSave.crt_MaxHero.totalPower}");
+                    }
+                }
+            }
+            //存在刷新 不在添加
+            if (exist)
+            {
+                Refresh_Rank();
+            }
+            else crate_rank();
+        }
+        else if (SumSave.user_ranks.lists.Count > 50 && 
+        SumSave.crt_MaxHero.totalPower > SumSave.user_ranks.lists[SumSave.user_ranks.lists.Count - 1].value) //50个榜已满,且自身战力大于榜上最低的一名
+        {
+            for (int i = SumSave.user_ranks.lists.Count - 2; i >= 0; i--)//此前已经满足 第50名条件，直接从49名开始往上遍历
+            {
+                if (SumSave.crt_MaxHero.totalPower > SumSave.user_ranks.lists[i].value) //逐个遍历,继续往上
+                {
+                    if (i == 0)
+                    {
+                        for (int j = SumSave.user_ranks.lists.Count - 1; j > 0; j++) //往后依次替换,该情况仅适用于第一名
+                        {
+                            SumSave.user_ranks.lists[j].value = SumSave.user_ranks.lists[j - 1].value;
+                            SumSave.user_ranks.lists[j].lv = SumSave.user_ranks.lists[j - 1].lv;
+                            SumSave.user_ranks.lists[j].uid = SumSave.user_ranks.lists[j - 1].uid;
+                            SumSave.user_ranks.lists[j].name = SumSave.user_ranks.lists[j - 1].name;
+                            SumSave.user_ranks.lists[j].type = SumSave.user_ranks.lists[j - 1].type;
+                        }
+                        SumSave.user_ranks.lists[0].value = (int)SumSave.crt_MaxHero.totalPower;
+                        SumSave.user_ranks.lists[0].lv = SumSave.crt_MaxHero.Lv;
+                        SumSave.user_ranks.lists[0].uid = SumSave.crt_user.uid;
+                        SumSave.user_ranks.lists[0].name = SumSave.crt_MaxHero.show_name;
+                        SumSave.user_ranks.lists[0].type = SumSave.crt_hero.hero_type;
+                        Refresh_Rank();
+                        break;
+                    }//替换第一名
+                    else continue;
+                }
+                else
+                {
+                    if (i != SumSave.user_ranks.lists.Count - 2) //如果说在倒数第二个结束，就直接替换倒数第一个，不需要进循环
+                    {
+                        for (int j = SumSave.user_ranks.lists.Count - 1; j > i + 1; j++) //往后依次替换，这个时候已经比i小，不需要取到i
+                        {
+                            SumSave.user_ranks.lists[j].value = SumSave.user_ranks.lists[j - 1].value;
+                            SumSave.user_ranks.lists[j].lv = SumSave.user_ranks.lists[j - 1].lv;
+                            SumSave.user_ranks.lists[j].uid = SumSave.user_ranks.lists[j - 1].uid;
+                            SumSave.user_ranks.lists[j].name = SumSave.user_ranks.lists[j - 1].name;
+                            SumSave.user_ranks.lists[j].type = SumSave.user_ranks.lists[j - 1].type;
+                        }
+                    }
+                    // 47   i  = cou - 4     j50  49 -1    49-48  -2
+                    SumSave.user_ranks.lists[i + 1].value = (int)SumSave.crt_MaxHero.totalPower;
+                    SumSave.user_ranks.lists[i + 1].lv = SumSave.crt_MaxHero.Lv;
+                    SumSave.user_ranks.lists[i + 1].uid = SumSave.crt_user.uid;
+                    SumSave.user_ranks.lists[i + 1].name = SumSave.crt_MaxHero.show_name;
+                    SumSave.user_ranks.lists[i + 1].type = SumSave.crt_hero.hero_type;
+                    Refresh_Rank();
+                    break;  //比到战力更高的，就结束，替换直到这之前的前一位  这时已留出i之前的空位
+                }
+            }
+        }
+        SumSave.user_ranks.lists.Sort((x, y) => -x.value.CompareTo(y.value));
+    }
+    /// <summary>
     /// 创造怪物
     /// </summary>
     /// <param name="crt"></param>
