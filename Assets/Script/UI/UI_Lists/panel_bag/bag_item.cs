@@ -23,7 +23,7 @@ public class bag_item : Base_Mono
             data = value;
             if (data == null) return;
 
-            //item_icon.sprite = UI.UI_Manager.I.GetEquipSprite("icon/", data.Name);
+            item_icon.sprite = UI.UI_Manager.I.GetEquipSprite("icon/", data.Name);
             //Resources.Load<Sprite>("icon/1102" + Random.Range(100,450));
         }
         get
