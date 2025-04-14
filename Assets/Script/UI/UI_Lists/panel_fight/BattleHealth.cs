@@ -82,7 +82,7 @@ namespace MVC
             HP -= damage;
             Hurt(damage);
             //≤‚ ‘µÙ¬‰
-            //ConfigBattle.LoadSetting(monster, 2);
+            ConfigBattle.LoadSetting(monster, 2);
             //if (monster.GetComponent<monster_battle_attck>() != null) WaitAndDestory(monster);
             if (HP <= 0)
             {

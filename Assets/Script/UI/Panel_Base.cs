@@ -40,5 +40,16 @@ namespace UI
         {
             this.gameObject.SetActive(false);
         }
+        /// <summary>
+        /// 清空区域内的对象
+        /// </summary>
+        /// <param name="pos_btn"></param>
+        public virtual void ClearObject(Transform pos_btn)
+        {
+            for (int i = pos_btn.childCount - 1; i >= 0; i--)//清空区域内按钮
+            {
+                Destroy(pos_btn.GetChild(i).gameObject);
+            }
+        }
     }
 }

@@ -8,18 +8,15 @@ using Components;
 /// </summary>
 public class MysqlDbAccess
 {
-    //private const string dbPassword = "server=121.37.242.155;port=3306;database=mysqldb;user=root;password=Shirley@123;";
-
     private MySqlConnection conn; // mysql连接
 
     private MySqlCommand cmd; // mysql命令
 
     private MySqlDataReader reader;
-
-    public MysqlDbAccess(string connectionString, string pass)
-    {
-        //OpenDB();
-    }
+    /// <summary>
+    /// 判断网络开关
+    /// </summary>
+    public bool MysqlClose = false;
     /// <summary>
     /// 打开只读数据库
     /// </summary>
@@ -48,15 +45,16 @@ public class MysqlDbAccess
     /// <param name="connectionString"></param>
     public void OpenDB(string connectionString)
     {
+        MysqlClose = true;
         try
         {
             conn = new MySqlConnection(connectionString);
-
             conn.Open();
+            MysqlClose = false;
         }
         catch (Exception e)
         {
-            string temp1 = e.ToString();
+
         }
     }
     /// <summary>
@@ -75,10 +73,19 @@ public class MysqlDbAccess
     /// <returns></returns>
     public MySqlDataReader ExecuteQuery(string sqlQuery)
     {
+        if (MysqlClose) return reader;
         if (reader != null) { reader.Dispose(); reader = null; }
         cmd = conn.CreateCommand();
         cmd.CommandText = sqlQuery;
-        reader = cmd.ExecuteReader();
+        try
+        {
+            reader = cmd.ExecuteReader();
+            MysqlClose = false;
+        }
+        catch (Exception)
+        {
+            MysqlClose = true;
+        }
         return reader;
     }
 

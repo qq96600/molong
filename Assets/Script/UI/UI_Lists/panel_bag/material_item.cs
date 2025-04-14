@@ -26,8 +26,15 @@ public class material_item : Base_Mono
     public void Init((string, int) bag_Resources)
     { 
         data = bag_Resources;
-        //item_icon.sprite = UI.UI_Manager.I.GetEquipSprite("icon/", data.Name);
+        item_icon.sprite = UI.UI_Manager.I.GetEquipSprite("icon/", data.Item1);
         base_info.text = data.Item2.ToString() +"";
     }
-
+    /// <summary>
+    /// ·µ»ØÊý¾Ý
+    /// </summary>
+    /// <returns></returns>
+    public (string, int) GetItemData()
+    {
+        return data;
+    }
 }

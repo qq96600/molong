@@ -97,11 +97,69 @@ namespace MVC
             }
             SumSave.crt_bag_resources.Init(SumSave.crt_resources.material_value);
         }
+        private void QueryTime()
+        {
+            if (MysqlDb.MysqlClose)
+            {
+                if (SumSave.nowtime < DateTime.Now)
+                    SumSave.nowtime = DateTime.Now;
+                return;
+            }
+            mysqlReader = MysqlDb.QueryTime();
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    for (int i = 0; i < mysqlReader.FieldCount; i++)
+                    {
+                        SumSave.nowtime = Convert.ToDateTime(mysqlReader[i].ToString());
+                    }
+                }
+            }
+
+            //            string path = "versions";
+            //#if UNITY_EDITOR
+            //            path = "versions_test";
+            //#elif UNITY_ANDROID
+            //            path = "versions";    //正式版
+            //            //path = "versions_test_copy1"; //测试版 编号999
+            //#elif UNITY_IPHONE
+            //            path = "versions";
+            //#endif
+            //            // if(SumSave.isCES)path = "versions_test"; 暂时先不启用
+            //            mysqlReader = MysqlDb.ReadFullTable(path);
+            //            user.Dispose = new Dispose();
+
+            //            if (mysqlReader.HasRows)
+            //            {
+            //                while (mysqlReader.Read())
+            //                {
+            //                    user.Dispose.version = mysqlReader.GetString(mysqlReader.GetOrdinal("Version"));
+
+            //                    user.Dispose.Activity = mysqlReader.GetInt32(mysqlReader.GetOrdinal("Activity"));
+
+            //                }
+            //            }
+            //            SumSave.MysqlUser = user;
+
+            //            if (!state) CloseMySqlDB();
+            //            SumSave.OpenGame = false;
+            //            foreach (string item in versions)
+            //            {
+            //                if (user.Dispose.version == item) SumSave.OpenGame = true;
+            //            }
+            //            if (!SumSave.OpenGame)
+            //            {
+            //                if (versionsnumber >= 3) Application.Quit();
+            //                versionsnumber++;
+            //                AlertDec.Show("游戏版本不匹配，请更新游戏！");
+            //            }
+        }
 
         public void Delete(string dec)
         {
             OpenMySqlDB();
-            if (isFirst)
+            if (MysqlDb.MysqlClose)
             {
                 MysqlDb.UpdateInto(Mysql_Table_Name.mo_user_base, new string[] { "Nowdate" }, new string[] { GetStr(dec) }, "uid", GetStr(SumSave.crt_user.uid));//login
                 MysqlDb.UpdateInto(Mysql_Table_Name.user_login, new string[] { "login" }, new string[] { GetStr(-1) }, "uid", GetStr(SumSave.crt_user.uid));
@@ -113,7 +171,7 @@ namespace MVC
         {
             log_list.Add(dec);
             OpenMySqlDB();
-            if (isFirst)
+            if (MysqlDb.MysqlClose)
             {
                 for (int i = 0; i < log_list.Count; i++)
                 {

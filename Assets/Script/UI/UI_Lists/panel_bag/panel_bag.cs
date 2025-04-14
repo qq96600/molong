@@ -1,4 +1,5 @@
 using Common;
+using Components;
 using MVC;
 using System;
 using System.Collections;
@@ -20,12 +21,16 @@ public class panel_bag : Panel_Base
     private btn_item btn_item_Prefabs;
 
     private bag_item bag_item_Prefabs;
+
+    private material_item material_item_Prefabs;
     /// <summary>
     /// 按钮位置
     /// </summary>
     private Transform crt_btn, crt_bag;
 
     private panel_equip panel_equip;
+
+    private bag_btn_list crt_select_btn = bag_btn_list.装备;
     protected override void Awake()
     {
         base.Awake();
@@ -38,6 +43,7 @@ public class panel_bag : Panel_Base
         crt_bag = Find<Transform>("bg_main/show_bag/Scroll View/Viewport/Content");
         btn_item_Prefabs = Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
         bag_item_Prefabs = Resources.Load<bag_item>("Prefabs/panel_bag/bag_item");
+        material_item_Prefabs= Resources.Load<material_item>("Prefabs/panel_bag/material_item"); 
         panel_equip = UI_Manager.I.GetPanel<panel_equip>();
         for (int i = 0; i < Enum.GetNames(typeof(bag_btn_list)).Length; i++)
         {
@@ -52,7 +58,9 @@ public class panel_bag : Panel_Base
     /// <param name="btn_item"></param>
     private void Select_Btn(btn_item btn_item)
     {
-        Debug.Log("选择" + (bag_btn_list)btn_item.index);
+        crt_select_btn = (bag_btn_list)btn_item.index;
+        Show_Bag();
+        Alert_Dec.Show("打开 " + crt_select_btn + " 列表");
     }
 
     /// <summary>
@@ -92,7 +100,7 @@ public class panel_bag : Panel_Base
     }
 
     /// <summary>
-    /// 显示装备列表
+    /// 显示穿戴装备列表
     /// </summary>
     private void Base_Show()
     {
@@ -100,24 +108,63 @@ public class panel_bag : Panel_Base
         {
             dic_equips[item].Init();
 
-            dic_equips[item].Data = new MVC.Bag_Base_VO();
+            foreach (Bag_Base_VO equip in SumSave.crt_euqip)
+            {
+                if (equip.StdMode == item.ToString())
+                {
+                    dic_equips[item].Data = equip;
+                }
+            }
             
         }
     }
-
+    /// <summary>
+    /// 显示背包物品
+    /// </summary>
     private void Show_Bag()
     {
-        for (int i = crt_bag.childCount - 1; i >= 0; i--)
+        ClearObject(crt_bag);
+        switch (crt_select_btn)
         {
-            Destroy(crt_bag.GetChild(i).gameObject);
+            case bag_btn_list.装备:
+                for (int i = 0; i < SumSave.crt_bag.Count; i++)
+                {
+                    bag_item item = Instantiate(bag_item_Prefabs, crt_bag);
+                    item.Data = SumSave.crt_bag[i];
+                    item.GetComponent<Button>().onClick.AddListener(delegate { Select_Bag(item); });
+                }
+                break;
+            case bag_btn_list.材料:
+                List<(string, int)> lists = SumSave.crt_bag_resources.Set();
+                for (int i = 0; i < lists.Count; i++)
+                {
+                    (string,int) data = lists[i];
+                    if (data.Item2 > 0)
+                    {
+                        material_item item = Instantiate(material_item_Prefabs, crt_bag);
+                        item.Init(data);
+                        item.GetComponent<Button>().onClick.AddListener(delegate { Select_Material(item); });
+                    }
+                    
+                }
+                break;
+            case bag_btn_list.消耗品:
+                break;
+            default:
+                break;
         }
-        for (int i = 0; i < SumSave.crt_bag.Count; i++)
-        {
-            bag_item item= Instantiate(bag_item_Prefabs, crt_bag);
-            item.Data = SumSave.crt_bag[i];
-            item.GetComponent<Button>().onClick.AddListener(delegate { Select_Bag(item); });
-        }
+        
     }
+    /// <summary>
+    /// 选择材料
+    /// </summary>
+    /// <param name="item"></param>
+    private void Select_Material(material_item item)
+    {
+        panel_equip.Show();
+        panel_equip.Select_Material(item);
+    }
+
     /// <summary>
     /// 选择物品
     /// </summary>

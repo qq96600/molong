@@ -113,23 +113,6 @@ public class Pet_explore : Panel_Base
         Init();
         #endregion
     }
-
-
-
-
-
-
-    /// <summary>
-    /// 清空子物体
-    /// </summary>
-    private void ClearObject(Transform pos_btn)
-    {
-        for (int i = pos_btn.childCount - 1; i >= 0; i--)//清空区域内按钮
-        {
-            Destroy(pos_btn.GetChild(i).gameObject);
-        }
-    }
-
     /// <summary>
     /// 按钮具体功能
     /// </summary>
