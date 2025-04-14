@@ -5,6 +5,7 @@ using MVC;
 using Common;
 using System;
 using System.Security.Cryptography;
+using Random = UnityEngine.Random;
 /// <summary>
 /// 战斗工具类
 /// </summary>
@@ -26,6 +27,33 @@ public static class Battle_Tool
         SumSave.crt_bag_resources.Get(dic);
         //写入数据库
         Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.material_value, SumSave.crt_bag_resources.GetData());
+    }
+    /// <summary>
+    /// 显示货币单位
+    /// </summary>
+    /// <param name="number"></param>
+    /// <returns></returns>
+    public static string FormatNumberToChineseUnit(int number, int decimalPlaces = 2)
+    {
+        string format = "0." + new string('#', decimalPlaces);
+
+        if (number < 0)
+        {
+            return "-" + FormatNumberToChineseUnit(-number, decimalPlaces);
+        }
+
+        if (number >= 100000000)
+        {
+            return (number / 100000000.0).ToString(format) + "亿";
+        }
+        else if (number >= 10000)
+        {
+            return (number / 10000.0).ToString(format) + "万";
+        }
+        else
+        {
+            return number.ToString();
+        }
     }
     /// <summary>
     /// 创造怪物
@@ -75,6 +103,7 @@ public static class Battle_Tool
         base_crt.bonus_MagicDef = crt.bonus_MagicDef;
         base_crt.Heal_Hp = crt.Heal_Hp;
         base_crt.Heal_Mp = crt.Heal_Mp;
+        base_crt.unit = Random.Range(crt.Lv * 5, crt.Lv * 10) + 1;
         Array values = Enum.GetValues(typeof(enum_monster_state));
         enum_monster_state state = (enum_monster_state)values.GetValue(RandomNumberGenerator.GetInt32(values.Length));
         switch (state)

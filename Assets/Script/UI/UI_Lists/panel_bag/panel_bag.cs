@@ -84,6 +84,7 @@ public class panel_bag : Panel_Base
             {
                 if (equip.StdMode == item.ToString())
                 {
+                    
                     dic_equips[item].Data = equip;
                 }
             }
@@ -98,7 +99,9 @@ public class panel_bag : Panel_Base
         foreach (var item in dic_equips.Keys)
         {
             dic_equips[item].Init();
+
             dic_equips[item].Data = new MVC.Bag_Base_VO();
+            
         }
     }
 

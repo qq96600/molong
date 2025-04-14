@@ -50,33 +50,45 @@ public class user_vo : Base_VO
     /// </summary>
     public void verify_data(currency_unit _index,int value)
     {
-        switch (_index)
-        {
-            case currency_unit.金币:
-                break;
-            case currency_unit.声望:
-                if (value >= SumSave.base_setting[0]) Game_Omphalos.i.Delete("获得" + (currency_unit)_index + value);
-                return;
-
-            case currency_unit.元宝:
-                if (value >= SumSave.base_setting[1]) Game_Omphalos.i.Delete("获得" + (currency_unit)_index + value);
-                return;
-        }
         for (int i = 0; i < list.Count; i++)
         {
             //原始数据未发生改变
             if (list[i] + index == verify_list[i])
             {
-                list[i] += value;
-                verify_list[i] += value;
             }
             else Game_Omphalos.i.Delete(_index + " 显示数据 " + list[i] + " 验证值 " + index + " " + verify_list[i]);
         }
+
+        switch (_index)
+        {
+            case currency_unit.灵珠:
+                list[0] += value;
+                verify_list[0] += value;
+                break;
+            case currency_unit.历练:
+                if (value >= SumSave.base_setting[0]) Game_Omphalos.i.Delete("获得" + (currency_unit)_index + value);
+                else
+                {
+                    list[1] += value;
+                    verify_list[1] += value;
+                }
+                return;
+
+            case currency_unit.元宝:
+                if (value >= SumSave.base_setting[1]) Game_Omphalos.i.Delete("获得" + (currency_unit)_index + value);
+                else
+                {
+                    list[2] += value;
+                    verify_list[2] += value;
+                }
+                return;
+        }
+        
     }
 
     public override string[] Get_Update_Character()
     {
-        return new string[] { "user_vo" };
+        return new string[] { "value" };
     }
 
     public override string[] Set_Uptade_String()

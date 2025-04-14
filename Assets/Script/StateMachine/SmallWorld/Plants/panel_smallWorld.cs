@@ -150,7 +150,7 @@ public class panel_smallWorld : Panel_Base
         {
             case 1:
                 ///еп╤от╫╫Г
-                ArrayHelper.SafeGet(SumSave.db_lvs.world_offect_list, SumSave.crt_world.World_Lv, out value);
+                ArrayHelper.SafeGet(SumSave.db_lvs.world_offect_list, SumSave.crt_world.World_Lv, out int valu);
                 value = time * SumSave.db_lvs.world_offect_list[SumSave.crt_world.World_Lv];
                 value+= crt_value;
                 value = Mathf.Min(value, SumSave.db_lvs.word_lv_max_value[SumSave.crt_world.World_Lv]);
