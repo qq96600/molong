@@ -66,7 +66,7 @@ public class Pet_explore : Panel_Base
     {
         base.Show();
         #region 组件初始化
-        //button_map = Find<Transform>("explore_map/Buttons_map").GetComponentsInChildren<Button>();
+        button_map = Find<Transform>("explore_map/Buttons_map").GetComponentsInChildren<Button>();
         pos_btn = Find<Transform>("explore/pet_pos_btn");
         pos_Items = Find<Transform>("Income/Items");
         function_pos_btn= Find<Transform>("explore/function_pos_btn");
