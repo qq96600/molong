@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using MVC;
 using MySql.Data.MySqlClient;
@@ -49,6 +50,82 @@ public static class ReadDb
         { 
             item.word_lv_max_value.Add(Convert.ToInt32(word_lv_max_value2[i]));
         }
+        return item;
+    }
+    
+    public static db_achievement_VO Read(MySqlDataReader reader, db_achievement_VO item)
+    {
+        item.achievement_type = reader.GetInt32(reader.GetOrdinal("achieve_type"));
+        item.achievement_value = reader.GetString(reader.GetOrdinal("achieve_value"));
+        item.achievement_need = reader.GetString(reader.GetOrdinal("achieve_need"));
+        item.achievement_show_lv = reader.GetString(reader.GetOrdinal("achieve_show_lv")).Split('|');
+        string[] split = item.achievement_need.Split('|');
+        foreach (string value in split)
+        {
+            item.achievement_needs.Add(int.Parse(value));
+        }
+        item.achievement_reward = reader.GetString(reader.GetOrdinal("achieve_reward"));
+        split = item.achievement_reward.Split('|');
+        foreach (string value in split)
+        {
+            item.achievement_rewards.Add(value);
+        }
+        item.achievement_exchange_offect = reader.GetString(reader.GetOrdinal("achieve_exchange_offect"));
+
+        return item;
+    }
+    public static user_achievement_vo Read(MySqlDataReader reader, user_achievement_vo item)
+    {
+        item.achievement_exp = reader.GetString(reader.GetOrdinal("achieve_exp"));
+        item.achievement_lvs = reader.GetString(reader.GetOrdinal("achieve_lvs"));
+        #region 更换现有玩家成就词条
+        string[] str = item.achievement_exp.Split("|");
+        string[] strsTemp = str[0].Split(" ");
+        if (strsTemp[0] != Common.SumSave.db_Achievement_dic[0].achievement_value)  //如果为旧数据库词条 只需检测第一条 一条不符则全部不符
+        {
+            string[] lv = item.achievement_lvs.Split("|");
+            List<string[]> expList = new List<string[]>();  //expList[0][0]为第一词条的名称 expList[0][1]为第一词条的值 依次类推
+            List<string[]> lvList = new List<string[]>();
+            for (int j = 0; j < lv.Length; j++)
+            {
+                expList.Add(str[j].Split(" "));
+                lvList.Add(lv[j].Split(" "));
+            }
+            if (Common.SumSave.db_Achievement_dic.Count != expList.Count)
+            {
+                int temp = 0; //从17开始需要 跳过3个索引
+                for (int i = 0; i < Common.SumSave.db_Achievement_dic.Count - 3; i++) //这里可以直接减去3个雪域地图
+                {
+                    if (i == 17 || i == 18 || i == 19) { temp = 3; }//部分玩家没有雪域地图
+                    if (Common.SumSave.db_Achievement_dic[i + temp].achievement_value != expList[i][0])
+                    {
+                        expList[i][0] = Common.SumSave.db_Achievement_dic[i + temp].achievement_value;
+                        lvList[i][0] = Common.SumSave.db_Achievement_dic[i + temp].achievement_value;
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < Common.SumSave.db_Achievement_dic.Count; i++)
+                {
+                    if (Common.SumSave.db_Achievement_dic[i].achievement_value != expList[i][0])
+                    {
+                        expList[i][0] = Common.SumSave.db_Achievement_dic[i].achievement_value;
+                        lvList[i][0] = Common.SumSave.db_Achievement_dic[i].achievement_value;
+                    }
+                }
+            }
+
+            item.achievement_exp = "";
+            item.achievement_lvs = "";
+            for (int i = 0; i < str.Length; i++)
+            {
+                item.achievement_exp += i == 0 ? expList[i][0] + " " + expList[i][1] : "|" + expList[i][0] + " " + expList[i][1];
+                item.achievement_lvs += i == 0 ? lvList[i][0] + " " + lvList[i][1] : "|" + lvList[i][0] + " " + lvList[i][1];
+            }
+        }
+        #endregion
+        item.Init();
         return item;
     }
 

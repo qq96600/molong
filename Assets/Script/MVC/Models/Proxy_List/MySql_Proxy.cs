@@ -37,6 +37,24 @@ namespace MVC
             CloseMySqlDB();
 
         }
+
+        private void Read_Db_Achievement()
+        {
+            //mysqlReader = MysqlDb.ReadFullTable("db_achieve");
+            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_achieve);
+
+            SumSave.db_Achievement_dic= new List<db_achievement_VO>();
+
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.db_Achievement_dic.Add(ReadDb.Read(mysqlReader, new db_achievement_VO()));
+                }
+            }
+        }
+
+
         /// <summary>
         /// 升级经验
         /// </summary>

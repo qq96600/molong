@@ -42,12 +42,12 @@ public class ach_item : Base_Mono
     /// </summary>
     public void Init()
     {
-    //    Dictionary<string, int> dic_exp = SumSave.user_achieve.Set_Exp();
-    //    Dictionary<string, int> dic_lv = SumSave.user_achieve.Set_Lv();
-    //    //Debug.Log("dic_lv[data.achieve_value]:" + data.achieve_need);
-    //    if (dic_lv[data.achieve_value] >= data.achieve_needs.Count)
-    //        info.text = data.achieve_show_lv[data.achieve_show_lv.Length - 1] + " (" + dic_exp[data.achieve_value] + "/Max)";
-    //    else
-    //        info.text = data.achieve_show_lv[dic_lv[data.achieve_value]] + " (" + dic_exp[data.achieve_value] + "/" + data.achieve_needs[dic_lv[data.achieve_value]] + ")";
+        Dictionary<string, int> dic_exp = SumSave.crt_achievement.Set_Exp();
+        Dictionary<string, int> dic_lv = SumSave.crt_achievement.Set_Lv();
+        //Debug.Log("dic_lv[data.achieve_value]:" + data.achieve_need);
+        if (dic_lv[data.achievement_value] >= data.achievement_needs.Count)
+            info.text = data.achievement_show_lv[data.achievement_show_lv.Length - 1] + " (" + dic_exp[data.achievement_value] + "/Max)";
+        else
+            info.text = data.achievement_show_lv[dic_lv[data.achievement_value]] + " (" + dic_exp[data.achievement_value] + "/" + data.achievement_needs[dic_lv[data.achievement_value]] + ")";
     }
 }

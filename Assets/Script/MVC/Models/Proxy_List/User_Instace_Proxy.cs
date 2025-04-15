@@ -183,6 +183,58 @@ namespace MVC
             CloseMySqlDB();
         }
 
+
+        private void Read_User_Achievenment()
+        {
+            mysqlReader = MysqlDb.Select(Mysql_Table_Name.mo_user_achieve, "uid", GetStr(SumSave.crt_user.uid));
+            SumSave.crt_achievement = new user_achievement_vo();
+            
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.crt_achievement = ReadDb.Read(mysqlReader, new user_achievement_vo());
+                }
+                Dictionary<string, int> achieves = SumSave.crt_achievement.Set_Exp();
+                if (achieves.Count == SumSave.db_Achievement_dic.Count)
+                {
+
+                }
+                else
+                {
+                    for (int i = 0; i < SumSave.db_Achievement_dic.Count; i++)
+                    {
+                        bool exist = true;
+                        foreach (string item in achieves.Keys)
+                        {
+                            if (item == SumSave.db_Achievement_dic[i].achievement_value)
+                            {
+                                exist = false;
+                            }
+                        }
+                        if (exist)
+                        {
+                            SumSave.crt_achievement.achievement_exp += "|" + SumSave.db_Achievement_dic[i].achievement_value + " " + 0;
+                            SumSave.crt_achievement.achievement_lvs += "|" + SumSave.db_Achievement_dic[i].achievement_value + " " + 0;
+                        }
+                    }
+                    SumSave.crt_achievement.Init();
+                }
+            }
+            else
+            {
+                for (int i = 0; i < SumSave.db_Achievement_dic.Count; i++)
+                {
+                    SumSave.crt_achievement.achievement_exp += SumSave.db_Achievement_dic[i].achievement_value + " " + 0 + (i == SumSave.db_Achievement_dic.Count - 1 ? "" : "|");
+                }
+                SumSave.crt_achievement.achievement_lvs = SumSave.crt_achievement.achievement_exp;
+                MysqlDb.InsertInto(Mysql_Table_Name.mo_user_achieve, SumSave.crt_achievement.Set_Instace_String());
+                SumSave.crt_achievement.Init();
+            }
+        }
+
+
+
         /// <summary>
         /// 宠物孵化数据
         /// </summary>

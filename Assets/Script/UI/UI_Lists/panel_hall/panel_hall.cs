@@ -22,14 +22,15 @@ public class panel_hall : Panel_Base
     /// <summary>
     /// 成就系统
     /// </summary>
-    private Achievement achievement;
+    private achievement achievement;
     /// <summary>
     /// 排行榜
     /// </summary>
     private offect_rank offect_rank;
-
+    /// <summary>
+    /// 通行证预制件
+    /// </summary>
     private panel_pass pass;
-
     private Image offect_list;
 
     /// <summary>
@@ -57,8 +58,8 @@ public class panel_hall : Panel_Base
         pos_map = Find<Transform>("bg_main/panel_list/maplist/Scroll View/Viewport/Content");
         pos_otain = Find<Transform>("bg_main/panel_list/herolist/Scroll View/Viewport/Content");
         btn_item_Prefabs = Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
-        offect_list=Find<Image>("bg_main/offect_list");
-        achievement =Find<Achievement>("bg_main/achievement");
+        offect_list =Find<Image>("bg_main/offect_list");
+        achievement = Resources.Load<achievement>("Prefabs/panel_hall/Achievement/achievement");
         offect_rank= Resources.Load<offect_rank>("Prefabs/panel_hall/offect_rank");
         pass = Resources.Load<panel_pass>("Prefabs/panel_hall/panel_pass");
 
@@ -66,9 +67,9 @@ public class panel_hall : Panel_Base
         ClearObject(pos_map);
         ClearObject(pos_otain);
         for (int i = 0; i < herolist.Count; i++)
-        { 
+        {
             btn_item item = Instantiate(btn_item_Prefabs, pos_hero);
-            item.Show(i,herolist[i]);
+            item.Show(i, herolist[i]);
             item.GetComponent<Button>().onClick.AddListener(() => { OnClickHeroItem(item); });
         }
         for (int i = 0; i < maplist.Count; i++)
@@ -147,7 +148,19 @@ public class panel_hall : Panel_Base
             case 2:
                 break;
             case 3:
-                achievement.Show();
+                for (int i = achievement.transform.childCount - 1; i >= 0; i--)//清空区域内按钮
+                {
+                    if (achievement.transform.GetChild(i).GetComponent<achievement>() != null)
+                    {
+                        exist = false;
+                        achievement.transform.GetChild(i).GetComponent<achievement>().Show();
+                        return;
+                    }
+                }
+                if (exist)
+                {
+                    Instantiate(achievement, offect_list.transform).GetComponent<achievement>().Show();
+                }
                 break;
             case 4:
                 for (int i = offect_list.transform.childCount - 1; i >= 0; i--)//清空区域内按钮

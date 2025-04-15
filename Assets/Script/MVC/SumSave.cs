@@ -103,6 +103,10 @@ namespace Common
         /// 排行榜
         /// </summary>
         public static rank_vo user_ranks;
+        /// <summary>
+        /// 自身成就
+        /// </summary>
+        public static user_achievement_vo crt_achievement; 
         #endregion
 
         #region 配置db文件
@@ -161,6 +165,10 @@ namespace Common
         /// 宠物探索字典
         /// </summary>
         public static Dictionary<string, user_pet_explore_vo> db_pet_explore_dic;
+        /// <summary>
+        /// 成就数据库
+        /// </summary>
+        public static  List<db_achievement_VO> db_Achievement_dic;
 
 
         /// <summary>
