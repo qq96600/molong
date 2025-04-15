@@ -22,6 +22,13 @@ namespace MVC
             AppFacade.I.SendNotification(name, data);
         }
         /// <summary>
+        /// 显示
+        /// </summary>
+        public virtual void Show()
+        { 
+        
+        }
+        /// <summary>
         ///  获取组件
         /// </summary>
         /// <typeparam name="T"></typeparam>

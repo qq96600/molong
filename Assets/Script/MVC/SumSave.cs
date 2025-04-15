@@ -168,6 +168,10 @@ namespace Common
         /// </summary>
         public static db_lv_vo db_lvs;
         /// <summary>
+        /// 大厅列表
+        /// </summary>
+        public static db_hall_vo db_halls;
+        /// <summary>
         /// 地图列表
         /// </summary>
         public static List<user_map_vo> db_maps;

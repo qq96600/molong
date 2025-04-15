@@ -8,7 +8,7 @@ using UI;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class panel_pass : Panel_Base
+public class panel_pass : Base_Mono
 {
     /// <summary>
     /// 通行证列表
@@ -24,14 +24,13 @@ public class panel_pass : Panel_Base
     /// 第几个通行证
     /// </summary>
     private int index=0;
-    public override void Hide()
-    {
-        base.Hide();
-    }
 
-    public override void Initialize()
+    protected void Awake()
     {
-        base.Initialize();
+        Initialize();
+    }
+    public void Initialize()
+    {
         pos_btn = Find<Transform>("bg_main/btn_list");
         pos_item = Find<Transform>("bg_main/Scroll View/Viewport/Content");
         btn_itm_prefabs = Resources.Load<btn_item>("Prefabs/base_tool/btn_item"); 
@@ -215,10 +214,5 @@ public class panel_pass : Panel_Base
 
     }
 
-    protected override void Awake()
-    {
-        base.Awake();
-
-    }
 
 }

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public enum hall_offect_list 
 {
-   hall_offect_list_1,
     offect_rank,
     panel_pass,
+    offect_rank1,
     
 }

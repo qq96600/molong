@@ -23,8 +23,9 @@ namespace MVC
             rank_itemPrefab= Resources.Load<rank_item>("Prefabs/panel_hall/rank_item");
         }
 
-        public void Show()
+        public override void Show()
         {
+            base.Show();
             SendNotification(NotiList.Read_User_Ranks);
             GetList();
         }
