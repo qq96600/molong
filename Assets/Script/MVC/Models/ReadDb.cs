@@ -17,6 +17,23 @@ public static class ReadDb
         item.par = reader.GetInt32(reader.GetOrdinal("par"));
         return item;
     }
+    public static bag_seed_vo Read(MySqlDataReader reader, bag_seed_vo item)
+    {
+        item.user_value = reader.GetString(reader.GetOrdinal("user_value"));
+        item.Init();
+        return item;
+    }
+    public static db_seed_vo Read(MySqlDataReader reader, db_seed_vo item)
+    {
+        item.type = reader.GetString(reader.GetOrdinal("type"));
+        item.sequence = reader.GetInt32(reader.GetOrdinal("sequence"));
+        item.seed_name = reader.GetString(reader.GetOrdinal("seed_name"));
+        item.seed_formula = reader.GetString(reader.GetOrdinal("seed_formula"));
+        item.pill = reader.GetString(reader.GetOrdinal("pill"));
+        item.formula = reader.GetString(reader.GetOrdinal("formula"));
+        item.pill_effect = reader.GetString(reader.GetOrdinal("pill_effect"));
+        return item;
+    }
 
     public static db_hall_vo Read(MySqlDataReader reader, db_hall_vo item)
     {

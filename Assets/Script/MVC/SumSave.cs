@@ -92,6 +92,10 @@ namespace Common
         /// </summary>
         public static user_pet_vo crt_hatching;
         /// <summary>
+        /// 炼丹数据
+        /// </summary>
+        public static bag_seed_vo crt_seeds;
+        /// <summary>
         /// 自身小世界数据
         /// </summary>
         public static user_world_vo crt_world;
@@ -161,8 +165,10 @@ namespace Common
         /// 宠物探索字典
         /// </summary>
         public static Dictionary<string, user_pet_explore_vo> db_pet_explore_dic;
-
-
+        /// <summary>
+        /// 种子炼丹列表
+        /// </summary>
+        public static List<db_seed_vo> db_seeds;
         /// <summary>
         /// 升级列表
         /// </summary>

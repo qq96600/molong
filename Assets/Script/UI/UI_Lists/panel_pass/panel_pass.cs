@@ -13,7 +13,8 @@ public class panel_pass : Base_Mono
     /// <summary>
     /// 通行证列表
     /// </summary>
-    private List<string> btn_list = new List<string>() { "通行证S1", "通行证S2" }; 
+    private List<string> btn_list = new List<string>() { "S1", "S2" }; 
+
 
     private Transform pos_btn, pos_item;
 

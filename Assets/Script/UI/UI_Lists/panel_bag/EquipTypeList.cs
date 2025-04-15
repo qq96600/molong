@@ -47,5 +47,8 @@ public enum EquipConfigTypeList
     宠物技能,
     消耗品,
     战斗技能,
-    特殊技能
+    特殊技能,
+    炼丹材料,
+    配方,
+    丹药
 }

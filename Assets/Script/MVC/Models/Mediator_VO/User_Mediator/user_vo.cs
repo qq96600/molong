@@ -74,7 +74,7 @@ public class user_vo : Base_VO
                 }
                 return;
 
-            case currency_unit.Ôª±¦:
+            case currency_unit.Ä§Íè:
                 if (value >= SumSave.base_setting[1]) Game_Omphalos.i.Delete("»ñµÃ" + (currency_unit)_index + value);
                 else
                 {

@@ -43,5 +43,6 @@ public enum Mysql_Table_Name
     db_lv,//等级信息
     user_rank,//排行榜
     db_hall,//大厅信息
-
+    db_seed,//炼丹种子信息
+    mo_user_seed,//用户炼丹种子信息
 }
