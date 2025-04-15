@@ -149,6 +149,18 @@ public class panel_bag : Panel_Base
                 }
                 break;
             case bag_btn_list.ÏûºÄÆ·:
+                List<(string, List<string>)> list = SumSave.crt_seeds.Get();
+                for (int i = 0; i < list.Count; i++)
+                {
+                    (string, int) data =(list[i].Item1,1);
+                    
+                    material_item item = Instantiate(material_item_Prefabs, crt_bag);
+
+                    item.Init(data);
+                    item.GetComponent<Button>().onClick.AddListener(delegate { Select_Material(item); });
+                    
+
+                }
                 break;
             default:
                 break;

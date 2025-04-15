@@ -107,7 +107,9 @@ namespace Common
         /// 排行榜
         /// </summary>
         public static rank_vo user_ranks;
-
+        /// <summary>
+        /// 成就
+        /// </summary>
         public static user_achievement_vo crt_achievement;
         #endregion
 
