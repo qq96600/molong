@@ -25,7 +25,6 @@ public class user_pet_explore_vo : Base_VO
             if (str.Length > 0)
             {
                 string[] str1 = str[i].Split(' ');
-
                 if (str1.Length == 3)
                     petExploreReward.Add((str1[0],int.Parse(str1[1])));
             }

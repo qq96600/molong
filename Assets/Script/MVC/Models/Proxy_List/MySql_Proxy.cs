@@ -38,12 +38,17 @@ namespace MVC
             Read_Db_Hall();
             Read_Db_Achievement();
             Read_Db_Store();
+
+            Read_Db_Seed();
+
             CloseMySqlDB();
 
         }
 
 
-
+        /// <summary>
+        /// 商店数据库
+        /// </summary>
         private void Read_Db_Store()
         {
             //mysqlReader = MysqlDb.ReadFullTable("db_achieve");
@@ -83,6 +88,23 @@ namespace MVC
         }
 
 
+        /// <summary>
+        /// 获取炼丹信息
+        /// </summary>
+        private void Read_Db_Seed()
+        {
+            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_seed);
+
+            SumSave.db_seeds = new List<db_seed_vo>();
+
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.db_seeds.Add(ReadDb.Read(mysqlReader, new db_seed_vo()));
+                }
+            }
+        }
         /// <summary>
         /// 大厅按钮
         /// </summary>

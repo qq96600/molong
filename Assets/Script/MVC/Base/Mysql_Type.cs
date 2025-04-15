@@ -46,4 +46,6 @@ public enum Mysql_Table_Name
     mo_user_achieve,//用户成就信息
     db_achieve,//成就数据信息
     db_store,//商店信息
+    db_seed,//炼丹种子信息
+    mo_user_seed,//用户炼丹种子信息
 }

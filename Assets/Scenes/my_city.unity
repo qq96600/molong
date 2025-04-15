@@ -3884,6 +3884,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: panel_pass
       objectReference: {fileID: 0}
+    - target: {fileID: 4402664787844859191, guid: e468e3587a3be8a4dbca792b89c17d0a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4481143642313700248, guid: e468e3587a3be8a4dbca792b89c17d0a, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -273.44
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -92,6 +92,10 @@ namespace Common
         /// </summary>
         public static user_pet_vo crt_hatching;
         /// <summary>
+        /// 炼丹数据
+        /// </summary>
+        public static bag_seed_vo crt_seeds;
+        /// <summary>
         /// 自身小世界数据
         /// </summary>
         public static user_world_vo crt_world;
@@ -103,10 +107,8 @@ namespace Common
         /// 排行榜
         /// </summary>
         public static rank_vo user_ranks;
-        /// <summary>
-        /// 自身成就
-        /// </summary>
-        public static user_achievement_vo crt_achievement=new user_achievement_vo();
+
+        public static user_achievement_vo crt_achievement;
         #endregion
 
         #region 配置db文件
@@ -166,9 +168,9 @@ namespace Common
         /// </summary>
         public static Dictionary<string, user_pet_explore_vo> db_pet_explore_dic;
         /// <summary>
-        /// 成就数据库
+        /// 种子炼丹列表
         /// </summary>
-        public static  List<db_achievement_VO> db_Achievement_dic;
+        public static List<db_seed_vo> db_seeds;
         /// <summary>
         /// 升级列表
         /// </summary>
@@ -185,8 +187,10 @@ namespace Common
         /// 商店物品列表
         /// </summary>
         public static List<db_store_vo> db_stores_dic;
-
-
+        /// <summary>
+        /// 成就物品字典
+        /// </summary>
+        public static List<db_achievement_VO> db_Achievement_dic;
         #endregion
 
         #region 功能文件

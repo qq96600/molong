@@ -139,7 +139,29 @@ namespace MVC
             Read_User_Hatching();
             Read_World();
             Read_User_Achievenment();
+            Read_Seed();
             refresh_Max_Hero_Attribute();
+        }
+        /// <summary>
+        /// 读取炼丹数据
+        /// </summary>
+        private void Read_Seed()
+        {
+            mysqlReader = MysqlDb.Select(Mysql_Table_Name.mo_user_seed, "uid", GetStr(SumSave.crt_user.uid));
+            SumSave.crt_seeds = new bag_seed_vo();
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.crt_seeds = ReadDb.Read(mysqlReader, new bag_seed_vo());
+                }
+            }
+            else
+            {
+                SumSave.crt_seeds.user_value = "";
+                SumSave.crt_seeds.Init();
+                Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_seed, SumSave.crt_seeds.Set_Instace_String());
+            }
         }
 
         /// <summary>
