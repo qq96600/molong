@@ -1,4 +1,5 @@
 using Common;
+using Components;
 using MVC;
 using System;
 using System.Collections;
@@ -16,7 +17,7 @@ public enum Achieve_Type//成就类型枚举
     特殊系列,
 }
 
-public class achievement : Panel_Base
+public class plant_achievement : Base_Mono
 {
     /// <summary>
     /// 显示具体值
@@ -27,9 +28,11 @@ public class achievement : Panel_Base
     /// </summary>
     private Text show_name, show_info;
     /// <summary>
-    /// 领取奖励
+    /// 领取奖励按钮
     /// </summary>
-    private Button  btn_exchange;
+    private Button btn_receive;
+   
+
     /// <summary>
     /// 成就位置
     /// </summary>
@@ -43,7 +46,7 @@ public class achievement : Panel_Base
     /// </summary>
     private ach_item crt_achieve_Item;
     /// <summary>
-    /// 成就类型
+    /// 成就类型预制体
     /// </summary>
     public btn_item Achieve_Type_Prefab;
     /// <summary>
@@ -63,21 +66,73 @@ public class achievement : Panel_Base
     /// 自身等级
     /// </summary>
     private Dictionary<string, int> dic_lv = new Dictionary<string, int>();
+    
+    /// <summary>
+    /// 关闭按钮
+    /// </summary>
+    private Button close;
 
 
 
-
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
-        Achieve_Item_Prefab = Resources.Load<ach_item>("Prefabs/panel_achiebement/ach_item"); 
+        Achieve_Item_Prefab = Resources.Load<ach_item>("Prefabs/base_tool/ach_item"); 
         Achieve_Type_Prefab = Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
-        crt= transform.Find("achievementList/Viewport/Content");
+        crt= Find<Transform>("achievementList/Viewport/Content");
+        show_offect= Find<Image>("show_offect");
+        show_name= Find<Text>("show_offect/show_name/info");
+        show_info=Find<Text>("show_offect/base_info/Viewport/Content/info");
+        btn_receive = Find<Button>("show_offect/btn_list/btn_item");
+        btn_receive.onClick.AddListener(() => { Receive(); });
+        close= Find<Button>("close");
+        close.onClick.AddListener(() => { Close(); });
         Insace_Base_Info();
+    }
+
+    /// <summary>
+    /// 成就信息栏点击其他区域关闭
+    /// </summary>
+    private void Close()
+    {
+        show_offect.gameObject.SetActive(false);
+        close.gameObject.SetActive(false);
+    }
+
+    /// <summary>
+    /// 点击按钮领取奖励
+    /// </summary>
+    private void Receive()
+    {
+        int lv = dic_lv[crt_achieve_Item.Data.achievement_value];
+        if (true)
+        {
+            if (lv >= crt_achieve_Item.Data.achievement_needs.Count)
+            {
+                Alert_Dec.Show("当前阶段已满");
+                return;
+            }
+            if (crt_achieve_Item.Data.achievement_needs[lv] > dic_exp[crt_achieve_Item.Data.achievement_value])
+            {
+                Alert_Dec.Show("未达到领取条件");
+                return;
+            }
+        }
+        dic_lv[crt_achieve_Item.Data.achievement_value]++;
+        string[] temp = crt_achieve_Item.Data.achievement_rewards[lv].Split(' ');
+        Battle_Tool.Obtain_Resources(temp[1], int .Parse( temp[2]));
+        Alert_Dec.Show("领取成功");
+        show_offect.gameObject.SetActive(false);
+        crt_achieve_Item.Init(); 
     }
 
 
 
+
+
+
+    /// <summary>
+    /// 初始化成就列表
+    /// </summary>
     private void Insace_Base_Info()
     {
         for (int i = 0; i < Enum.GetNames(typeof(Achieve_Type)).Length; i++)//更具枚举创建成就类型
@@ -114,9 +169,9 @@ public class achievement : Panel_Base
     private void Select_Achieve(ach_item item)
     {
         show_offect.gameObject.SetActive(true);
+        close.gameObject.SetActive(true);
         crt_achieve_Item = item;
         show_name.text = item.Data.achievement_value;
-        btn_exchange.gameObject.SetActive(crt_achieve_Item.Data.achievement_exchange_offect.Length > 0);//更具是否有奖励列表来判断打开
         Show_Dec();
     }
     /// <summary>
@@ -149,44 +204,44 @@ public class achievement : Panel_Base
     /// <param name="temp"></param>
     private void Select_Type(btn_item temp)
     {
-        //if (crt_type != null)
-        //{
-        //    if (crt_type == temp)//判断是否为当前选择类型
-        //    {
-        //        if (!temp.Active())//判断是否激活
-        //        {
-        //            crt_type.Selected = true;
-        //            foreach (ach_item item in dic[crt_type])
-        //            {
-        //                item.gameObject.SetActive(crt_type.Active());//判断是否需要激活
-        //                item.Init();//初始化
-        //            }
+        if (crt_type != null)
+        {
+            if (crt_type == temp)//判断是否为当前选择类型
+            {
+                if (!temp.Active())//判断是否激活
+                {
+                    crt_type.Selected = true;
+                    foreach (ach_item item in dic[crt_type])
+                    {
+                        item.gameObject.SetActive(crt_type.Active());//判断是否需要激活
+                        item.Init();//初始化
+                    }
 
-        //        }
-        //        else
-        //        {
-        //            crt_type.Selected = false;
-        //            foreach (ach_item item in dic[crt_type])
-        //            {
-        //                item.gameObject.SetActive(crt_type.Active());
-        //            }
-        //        }
-        //        return;
-        //    }
+                }
+                else
+                {
+                    crt_type.Selected = false;
+                    foreach (ach_item item in dic[crt_type])
+                    {
+                        item.gameObject.SetActive(crt_type.Active());
+                    }
+                }
+                return;
+            }
 
-        //    crt_type.Selected = false;
-        //    foreach (ach_item item in dic[crt_type])//不是当前选择类型关闭
-        //    {
-        //        item.gameObject.SetActive(crt_type.Active());
-        //    }
-        //}
-        //crt_type = temp;//更新当前选择类型
-        //crt_type.Selected = true;//选中状态
-        //foreach (ach_item item in dic[crt_type])//打开并且初始化item
-        //{
-        //    item.gameObject.SetActive(crt_type.Active());
-        //    item.Init();
-        //}
+            crt_type.Selected = false;
+            foreach (ach_item item in dic[crt_type])//不是当前选择类型关闭
+            {
+                item.gameObject.SetActive(crt_type.Active());
+            }
+        }
+        crt_type = temp;//更新当前选择类型
+        crt_type.Selected = true;//选中状态
+        foreach (ach_item item in dic[crt_type])//打开并且初始化item
+        {
+            item.gameObject.SetActive(crt_type.Active());
+            item.Init();
+        }
     }
     /// <summary>
     /// 获取奖励

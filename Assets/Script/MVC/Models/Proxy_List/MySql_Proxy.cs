@@ -1,4 +1,5 @@
 ﻿using Common;
+using System;
 using System.Collections.Generic;
 
 namespace MVC
@@ -34,10 +35,37 @@ namespace MVC
             Read_Db_Pet();
             Read_Db_Pet_explore();
             Read_Db_Lv();
+            Read_Db_Hall();
+            Read_Db_Achievement();
+            Read_Db_Store();
             CloseMySqlDB();
 
         }
 
+
+
+        private void Read_Db_Store()
+        {
+            //mysqlReader = MysqlDb.ReadFullTable("db_achieve");
+            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_store);
+
+            SumSave.db_stores_dic = new List<db_store_vo>();
+
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.db_stores_dic.Add(ReadDb.Read(mysqlReader, new db_store_vo()));
+                }
+            }
+        }
+
+
+
+
+        /// <summary>
+        /// 成就数据库
+        /// </summary>
         private void Read_Db_Achievement()
         {
             //mysqlReader = MysqlDb.ReadFullTable("db_achieve");
@@ -54,6 +82,24 @@ namespace MVC
             }
         }
 
+
+        /// <summary>
+        /// 大厅按钮
+        /// </summary>
+        private void Read_Db_Hall()
+        {
+            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_hall);
+
+            SumSave.db_halls = new db_hall_vo();
+
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.db_halls = (ReadDb.Read(mysqlReader, new db_hall_vo()));
+                }
+            }
+        }
 
         /// <summary>
         /// 升级经验

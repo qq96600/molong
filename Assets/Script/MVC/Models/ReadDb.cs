@@ -18,6 +18,62 @@ public static class ReadDb
         item.par = reader.GetInt32(reader.GetOrdinal("par"));
         return item;
     }
+
+
+
+
+
+    public static db_hall_vo Read(MySqlDataReader reader, db_hall_vo item)
+    {
+        string otainlist= reader.GetString(reader.GetOrdinal("otainlist"));
+        item.otainlist_btn = new System.Collections.Generic.List<string>();
+        string[] otainlist_btn = otainlist.Split(' ');
+        for (int i = 0; i < otainlist_btn.Length; i++)
+        { 
+            item.otainlist_btn.Add(otainlist_btn[i]);
+        }
+
+        string otainpanel= reader.GetString(reader.GetOrdinal("otainpanel"));
+        item.otainpanel = new System.Collections.Generic.List<string>();
+        string[] otainpanel_btn = otainpanel.Split(' ');
+        for (int i = 0; i < otainpanel_btn.Length; i++)
+        { 
+            item.otainpanel.Add(otainpanel_btn[i]);
+        }
+
+        string maplist= reader.GetString(reader.GetOrdinal("maplist"));
+        item.maplist_btn = new System.Collections.Generic.List<string>();
+        string[] maplist_btn = maplist.Split(' ');
+        for (int i = 0; i < maplist_btn.Length; i++)
+        { 
+            item.maplist_btn.Add(maplist_btn[i]);
+        }
+
+        string mappanel= reader.GetString(reader.GetOrdinal("mappanel"));
+        item.mappanel = new System.Collections.Generic.List<string>();
+        string[] mappanel_btn = mappanel.Split(' ');
+        for (int i = 0; i < mappanel_btn.Length; i++)
+        { 
+            item.mappanel.Add(mappanel_btn[i]);
+        }
+
+        string herolist= reader.GetString(reader.GetOrdinal("herolist"));
+        item.herolist_btn = new System.Collections.Generic.List<string>();
+        string[] herolist_btn = herolist.Split(' ');
+        for (int i = 0; i < herolist_btn.Length; i++)
+        { 
+            item.herolist_btn.Add(herolist_btn[i]);
+        }
+
+        string heropanel= reader.GetString(reader.GetOrdinal("heropanel"));
+        item.heropanel = new System.Collections.Generic.List<string>();
+        string[] heropanel_btn = heropanel.Split(' ');
+        for (int i = 0; i < heropanel_btn.Length; i++)
+        { 
+            item.heropanel.Add(heropanel_btn[i]);
+        }
+        return item;
+    }
     public static db_lv_vo Read(MySqlDataReader reader, db_lv_vo item)
     {
         string hero_lv_exp = reader.GetString(reader.GetOrdinal("hero_lv_exp"));
@@ -52,7 +108,16 @@ public static class ReadDb
         }
         return item;
     }
-    
+
+    public static db_store_vo Read(MySqlDataReader reader, db_store_vo item)
+    {
+        item.store_Type = reader.GetInt32(reader.GetOrdinal("StoreType"));
+        item.ItemName = reader.GetString(reader.GetOrdinal("ItemName"));
+        item.ItemPrice = reader.GetInt32(reader.GetOrdinal("ItemPrice"));
+        item.ItemMaxQuantity= reader.GetInt32(reader.GetOrdinal("ItemMaxQuantity"));
+        return item;
+    }
+
     public static db_achievement_VO Read(MySqlDataReader reader, db_achievement_VO item)
     {
         item.achievement_type = reader.GetInt32(reader.GetOrdinal("achieve_type"));

@@ -106,7 +106,7 @@ namespace Common
         /// <summary>
         /// 自身成就
         /// </summary>
-        public static user_achievement_vo crt_achievement; 
+        public static user_achievement_vo crt_achievement=new user_achievement_vo();
         #endregion
 
         #region 配置db文件
@@ -169,16 +169,24 @@ namespace Common
         /// 成就数据库
         /// </summary>
         public static  List<db_achievement_VO> db_Achievement_dic;
-
-
         /// <summary>
         /// 升级列表
         /// </summary>
         public static db_lv_vo db_lvs;
         /// <summary>
+        /// 大厅列表
+        /// </summary>
+        public static db_hall_vo db_halls;
+        /// <summary>
         /// 地图列表
         /// </summary>
         public static List<user_map_vo> db_maps;
+        /// <summary>
+        /// 商店物品列表
+        /// </summary>
+        public static List<db_store_vo> db_stores_dic;
+
+
         #endregion
 
         #region 功能文件

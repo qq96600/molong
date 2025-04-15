@@ -44,7 +44,8 @@ public class ach_item : Base_Mono
     {
         Dictionary<string, int> dic_exp = SumSave.crt_achievement.Set_Exp();
         Dictionary<string, int> dic_lv = SumSave.crt_achievement.Set_Lv();
-        //Debug.Log("dic_lv[data.achieve_value]:" + data.achieve_need);
+        //info.text = "显示成就具体信息";
+
         if (dic_lv[data.achievement_value] >= data.achievement_needs.Count)
             info.text = data.achievement_show_lv[data.achievement_show_lv.Length - 1] + " (" + dic_exp[data.achievement_value] + "/Max)";
         else

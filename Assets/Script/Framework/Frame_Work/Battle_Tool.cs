@@ -273,7 +273,7 @@ public static class Battle_Tool
                         else
                         {
                             Bag_Base_VO bag = ArrayHelper.Find(SumSave.db_stditems, e => e.Name == values1[0]);
-                            if (bag == null) Debug.Log("连接错误 与数据库关联错误" + SumSave.db_maps[i].map_name + " " + values[j]);
+                            if (bag == null) Debug.Log("连接错误 与数据库关联错误" + SumSave.db_maps[i].map_name + " " + values[j]);//对应的2个表格对不上
                         }
                     }
                     else Debug.Log(SumSave.db_maps[i].map_name + " " + values[j]);

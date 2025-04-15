@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 6945717752677182385}
   - component: {fileID: 2081710103370691938}
   m_Layer: 5
-  m_Name: 'ach_item '
+  m_Name: ach_item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

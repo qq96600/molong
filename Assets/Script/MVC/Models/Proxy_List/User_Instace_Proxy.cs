@@ -138,6 +138,7 @@ namespace MVC
             Read_User_Plant();
             Read_User_Hatching();
             Read_World();
+            Read_User_Achievenment();
             refresh_Max_Hero_Attribute();
         }
 

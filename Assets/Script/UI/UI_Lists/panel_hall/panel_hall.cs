@@ -1,3 +1,4 @@
+using Common;
 using MVC;
 using System;
 using System.Collections;
@@ -16,21 +17,11 @@ public class panel_hall : Panel_Base
     /// 预制体组件
     /// </summary>
     private btn_item btn_item_Prefabs;
-    private List<string> otainlist=new List<string>(){ "强化", "合成", "炼丹" };
-    private List<string> maplist = new List<string>() { "地图1", "地图2", "地图3" };
-    private List<string> herolist = new List<string>() { "签到", "通行证", "收集", "成就","排行榜"};
     /// <summary>
-    /// 成就系统
+    /// 存储面板列表
     /// </summary>
-    private achievement achievement;
-    /// <summary>
-    /// 排行榜
-    /// </summary>
-    private offect_rank offect_rank;
-    /// <summary>
-    /// 通行证预制件
-    /// </summary>
-    private panel_pass pass;
+    private Dictionary<string,GameObject> offect_list_dic = new Dictionary<string, GameObject>();
+
     private Image offect_list;
 
     /// <summary>
@@ -54,34 +45,31 @@ public class panel_hall : Panel_Base
     public override void Initialize()
     {
         base.Initialize();
-        pos_hero = Find<Transform>("bg_main/panel_list/otainlist/Scroll View/Viewport/Content");
+        pos_hero = Find<Transform>("bg_main/panel_list/herolist/Scroll View/Viewport/Content");//
         pos_map = Find<Transform>("bg_main/panel_list/maplist/Scroll View/Viewport/Content");
-        pos_otain = Find<Transform>("bg_main/panel_list/herolist/Scroll View/Viewport/Content");
+        pos_otain = Find<Transform>("bg_main/panel_list/otainlist/Scroll View/Viewport/Content");
         btn_item_Prefabs = Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
-        offect_list =Find<Image>("bg_main/offect_list");
-        achievement = Resources.Load<achievement>("Prefabs/panel_hall/Achievement/achievement");
-        offect_rank= Resources.Load<offect_rank>("Prefabs/panel_hall/offect_rank");
-        pass = Resources.Load<panel_pass>("Prefabs/panel_hall/panel_pass");
-
+        offect_list=Find<Image>("bg_main/offect_list");
         ClearObject(pos_hero);
         ClearObject(pos_map);
         ClearObject(pos_otain);
-        for (int i = 0; i < herolist.Count; i++)
-        {
+        for (int i = 0; i < SumSave.db_halls.herolist_btn.Count; i++)
+        { 
             btn_item item = Instantiate(btn_item_Prefabs, pos_hero);
-            item.Show(i, herolist[i]);
+
+            item.Show(i, SumSave.db_halls.herolist_btn[i]);
             item.GetComponent<Button>().onClick.AddListener(() => { OnClickHeroItem(item); });
         }
-        for (int i = 0; i < maplist.Count; i++)
+        for (int i = 0; i < SumSave.db_halls.maplist_btn.Count; i++)
         { 
             btn_item item = Instantiate(btn_item_Prefabs, pos_map);
-            item.Show(i,maplist[i]);
+            item.Show(i, SumSave.db_halls.maplist_btn[i]);
             item.GetComponent<Button>().onClick.AddListener(() => { OnClickMapItem(item); });
         }
-        for (int i = 0; i < otainlist.Count; i++)
+        for (int i = 0; i < SumSave.db_halls.otainlist_btn.Count; i++)
         { 
             btn_item item = Instantiate(btn_item_Prefabs, pos_otain);
-            item.Show(i,otainlist[i]);
+            item.Show(i, SumSave.db_halls.otainlist_btn[i]);
             item.GetComponent<Button>().onClick.AddListener(() => { OnClickOtainItem(item); });
         }
     }
@@ -91,8 +79,7 @@ public class panel_hall : Panel_Base
     /// <param name="item"></param>
     private void OnClickOtainItem(btn_item item)
     {
-        index = 200 + item.index;
-
+        Show_GameObject(SumSave.db_halls.otainpanel[item.index], true);
     }
     /// <summary>
     /// 打开地图
@@ -100,22 +87,7 @@ public class panel_hall : Panel_Base
     /// <param name="item"></param>
     private void OnClickMapItem(btn_item item)
     {
-        index =100+ item.index;
-
-        //for (int i = offect_list.transform.childCount - 1; i >= 0; i--)//清空区域内按钮
-        //{
-        //    Base_Mono offect = Resources.Load<Base_Mono>("Prefabs/panel_hall/"+(hall_offect_list)index);
-        //    if (offect_list.transform.GetChild(i).GetComponent<>() != null)
-        //    {
-        //        offect_list.transform.GetChild(i).GetComponent<>().Show();
-        //        return;
-        //    }
-        //}
-        //if (exist)
-        //{
-        //    Instantiate(pass, offect_list.transform).GetComponent<panel_pass>().Show();
-        //}
-
+        Show_GameObject(SumSave.db_halls.mappanel[item.index], true);
     }
     /// <summary>
     /// 打开提升开关
@@ -123,69 +95,30 @@ public class panel_hall : Panel_Base
     /// <param name="item"></param>
     private void OnClickHeroItem(btn_item item)
     {
-        index = item.index;
-        offect_list.gameObject.SetActive(true);
-        bool exist = true;
-        switch (item.index)//"签到", "通行证", "收集", "成就"
-        {
-            case 0:
-                break;
-            case 1:
-                for (int i = offect_list.transform.childCount - 1; i >= 0; i--)//清空区域内按钮
-                {
-                    if (offect_list.transform.GetChild(i).GetComponent<panel_pass>() != null)
-                    {
-                        exist = false;
-                        offect_list.transform.GetChild(i).GetComponent<panel_pass>().Show();
-                        return;
-                    }
-                }
-                if (exist)
-                {
-                     Instantiate(pass, offect_list.transform).GetComponent<panel_pass>().Show();
-                }
-                break;
-            case 2:
-                break;
-            case 3:
-                for (int i = achievement.transform.childCount - 1; i >= 0; i--)//清空区域内按钮
-                {
-                    if (achievement.transform.GetChild(i).GetComponent<achievement>() != null)
-                    {
-                        exist = false;
-                        achievement.transform.GetChild(i).GetComponent<achievement>().Show();
-                        return;
-                    }
-                }
-                if (exist)
-                {
-                    Instantiate(achievement, offect_list.transform).GetComponent<achievement>().Show();
-                }
-                break;
-            case 4:
-                for (int i = offect_list.transform.childCount - 1; i >= 0; i--)//清空区域内按钮
-                {
-                    if (offect_list.transform.GetChild(i).GetComponent<offect_rank>() != null)
-                    {
-                        exist = false;
-                        offect_rank offect = offect_list.transform.GetChild(i).GetComponent<offect_rank>();
-                        offect.gameObject.SetActive(true);
-                        offect.Show();
-                        return;
-                    }
-                }
-                if (exist)
-                {
-                    offect_rank offect = Instantiate(offect_rank, offect_list.transform);
-                    offect.gameObject.SetActive(true);
-                    offect.Show();
-                }
-                break;
-
-
-        }
-
+        Show_GameObject(SumSave.db_halls.heropanel[item.index], true);
     }
+    /// <summary>
+    /// 打开开关
+    /// </summary>
+    /// <param name="index"></param>
+    /// <param name="active"></param>
+    private void Show_GameObject(string index,bool active)
+    {
+        offect_list.gameObject.SetActive(true);
+        foreach (var item in offect_list_dic.Keys)
+        {
+            offect_list_dic[item].SetActive(false);
+        }
+        if (!offect_list_dic.ContainsKey(index))
+        {
+            GameObject obj = Resources.Load<GameObject>("Prefabs/panel_hall/" + index);
+            obj = Instantiate(obj, offect_list.transform);
+            offect_list_dic.Add(index, obj);
+        }
+        offect_list_dic[index].SetActive(active);
+        if (active) offect_list_dic[index].GetComponent<Base_Mono>().Show();
+    }
+  
 
     public override void Show()
     {

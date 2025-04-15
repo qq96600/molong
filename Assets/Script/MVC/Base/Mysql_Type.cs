@@ -42,7 +42,8 @@ public enum Mysql_Table_Name
     mo_user_world,
     db_lv,//等级信息
     user_rank,//排行榜
-    db_achieve,//成就信息
+    db_hall,//大厅信息
     mo_user_achieve,//用户成就信息
-
+    db_achieve,//成就数据信息
+    db_store,//商店信息
 }
