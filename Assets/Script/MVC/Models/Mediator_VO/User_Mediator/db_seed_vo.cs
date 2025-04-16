@@ -32,6 +32,14 @@ public class db_seed_vo : Base_VO
     /// 药品加成效果最小值最大值
     /// </summary>
     public string pill_effect;
+    /// <summary>
+    /// 注灵需要数量
+    /// </summary>
+    public int seed_number=10;
+    /// <summary>
+    /// 权重
+    /// </summary>
+    public int Weight;
 
 
 }

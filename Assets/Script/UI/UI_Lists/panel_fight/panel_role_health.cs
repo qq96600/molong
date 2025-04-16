@@ -46,7 +46,7 @@ public class panel_role_health : Base_Mono
             role_Mp.value = health.MP;
             role_internalforceMP.value = health.internalforceMP;
             role_EnergyMp.value = health.EnergyMp;
-            List<int> list = SumSave.crt_user_unit.Set();
+            List<long> list = SumSave.crt_user_unit.Set();
             show_moeny.text = Battle_Tool.FormatNumberToChineseUnit(list[0]) + " " + currency_unit.¡È÷È;
             show_point.text = Battle_Tool.FormatNumberToChineseUnit(list[1]) + " " + currency_unit.¿˙¡∑;
         } 

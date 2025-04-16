@@ -33,7 +33,7 @@ public static class Battle_Tool
     /// </summary>
     /// <param name="number"></param>
     /// <returns></returns>
-    public static string FormatNumberToChineseUnit(int number, int decimalPlaces = 2)
+    public static string FormatNumberToChineseUnit(long number, int decimalPlaces = 2)
     {
         string format = "0." + new string('#', decimalPlaces);
 
