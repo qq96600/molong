@@ -6,9 +6,14 @@ using UnityEngine;
 
 public class user_vo : Base_VO
 {
-    private List<int> list = new List<int>();
-
-    private List<int> verify_list = new List<int>();
+    /// <summary>
+    /// 玩家货币数据 0 灵珠 1 历练 2 魔丸
+    /// </summary>
+    private List<long> list = new List<long>();
+    /// <summary>
+    /// 验证货币数据
+    /// </summary>
+    private List<long> verify_list = new List<long>();
 
     private int index = -1;
     /// <summary>
@@ -23,12 +28,12 @@ public class user_vo : Base_VO
         {
             if (str[i].Length > 0)
             {
-                list.Add(int.Parse(str[i]));
-                verify_list.Add(int.Parse(str[i]) + index);
+                list.Add(long.Parse(str[i]));
+                verify_list.Add(long.Parse(str[i]) + index);
             }
         }
     }
-    public List<int> Set()
+    public List<long> Set()
     { 
       return list;
     }

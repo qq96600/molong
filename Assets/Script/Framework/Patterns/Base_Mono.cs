@@ -130,7 +130,7 @@ namespace MVC
             {
                 if (item == currency_unit.灵珠.ToString())
                 {
-                    List<int> list = SumSave.crt_user_unit.Set();
+                    List<long> list = SumSave.crt_user_unit.Set();
                     if (list[0] >= Mathf.Abs(keys[item]))
                     {
                         moeny += Mathf.Abs(keys[item]);

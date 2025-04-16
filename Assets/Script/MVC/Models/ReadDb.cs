@@ -36,7 +36,14 @@ public static class ReadDb
         return item;
     }
 
-
+    public static user_needlist_vo Read(MySqlDataReader reader, user_needlist_vo item)
+    {
+        item.store_value = reader.GetString(reader.GetOrdinal("store_value"));
+        item.map_value = reader.GetString(reader.GetOrdinal("map_value"));
+        item.store_Init();
+        item.map_Init();
+        return item;
+    }
 
 
 
@@ -132,6 +139,17 @@ public static class ReadDb
         item.ItemName = reader.GetString(reader.GetOrdinal("ItemName"));
         item.ItemPrice = reader.GetInt32(reader.GetOrdinal("ItemPrice"));
         item.ItemMaxQuantity= reader.GetInt32(reader.GetOrdinal("ItemMaxQuantity"));
+        item.unit = reader.GetString(reader.GetOrdinal("unit"));
+        string[] dis= reader.GetString(reader.GetOrdinal("discount")).Split(' ');
+        
+        if(dis.Length ==2)
+        {
+            item.discount = (int.Parse(dis[0]) , int.Parse(dis[1]));
+        }
+        else
+        {
+            item.discount = (0, 0);
+        }
         return item;
     }
 

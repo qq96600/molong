@@ -111,6 +111,12 @@ namespace Common
         /// 成就
         /// </summary>
         public static user_achievement_vo crt_achievement;
+
+        /// <summary>
+        /// 用户需求信息
+        /// </summary>
+        public static user_needlist_vo crt_needlist;
+
         #endregion
 
         #region 配置db文件
@@ -188,7 +194,11 @@ namespace Common
         /// <summary>
         /// 商店物品列表
         /// </summary>
-        public static List<db_store_vo> db_stores_dic;
+        public static List<db_store_vo> db_stores_list;
+        /// <summary>
+        /// 限定商店物品字典
+        /// </summary>
+        public static Dictionary<string, db_store_vo> db_stores_dic=new Dictionary<string, db_store_vo>();
         /// <summary>
         /// 成就物品字典
         /// </summary>

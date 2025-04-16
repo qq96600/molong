@@ -54,13 +54,21 @@ namespace MVC
             //mysqlReader = MysqlDb.ReadFullTable("db_achieve");
             mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_store);
 
-            SumSave.db_stores_dic = new List<db_store_vo>();
+            SumSave.db_stores_list = new List<db_store_vo>();
 
             if (mysqlReader.HasRows)
             {
                 while (mysqlReader.Read())
                 {
-                    SumSave.db_stores_dic.Add(ReadDb.Read(mysqlReader, new db_store_vo()));
+                    SumSave.db_stores_list.Add(ReadDb.Read(mysqlReader, new db_store_vo()));
+                }
+            }
+
+            for (int i = 0; i < SumSave.db_stores_list.Count; i++)
+            {
+                if (SumSave.db_stores_list[i].ItemMaxQuantity > 0)
+                {
+                    SumSave.db_stores_dic.Add(SumSave.db_stores_list[i].ItemName, SumSave.db_stores_list[i]);
                 }
             }
         }

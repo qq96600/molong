@@ -17,6 +17,15 @@ public class db_store_vo : Base_VO
     /// 物品价格
     /// </summary>
     public int ItemPrice;
+
+    /// <summary>
+    /// 所需要的货币类型
+    /// </summary>
+    public string unit;
+    /// <summary>
+    /// 折扣区间  没有折扣为（0，0）
+    /// </summary>
+    public (int,int) discount;
     /// <summary>
     /// 最大购买数量
     /// </summary>
