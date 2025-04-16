@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class skill_item : Base_Mono
 {
     private Image item_icon, item_frame;
-
     private Text info;
     private void Awake()
     {
@@ -39,7 +38,8 @@ public class skill_item : Base_Mono
     /// </summary>
     public void Refresh()
     {
-        //item_icon.sprite = UI.UI_Manager.I.GetEquipSprite("icon/", "10050" + Random.Range(16, 55));
+        item_icon.sprite = UI.UI_Manager.I.GetEquipSprite("icon/", data.skillname);
+        if(data.skill_type==1) item_icon.sprite = UI.UI_Manager.I.GetEquipSprite("skill/", data.skillname);
         info.text = Data.skillname + "Lv." + Data.user_values[1];
         item_frame.gameObject.SetActive(data.skillpos != 0);
     }

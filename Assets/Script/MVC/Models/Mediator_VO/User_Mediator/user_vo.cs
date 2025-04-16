@@ -6,13 +6,8 @@ using UnityEngine;
 
 public class user_vo : Base_VO
 {
-    /// <summary>
-    /// 玩家货币数据 0 灵珠 1 历练 2 魔丸
-    /// </summary>
+
     private List<long> list = new List<long>();
-    /// <summary>
-    /// 验证货币数据
-    /// </summary>
     private List<long> verify_list = new List<long>();
 
     private int index = -1;

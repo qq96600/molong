@@ -146,7 +146,7 @@ namespace MVC
                         {
                             if (list[i].Item2 >= Mathf.Abs(keys[item]))
                             {
-                                bagdic.Add(item, Mathf.Abs(keys[item]));
+                                bagdic.Add(item, -Mathf.Abs(keys[item]));
                                 count++;
                                 continue;
 

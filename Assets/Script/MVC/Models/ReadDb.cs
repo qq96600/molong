@@ -21,6 +21,8 @@ public static class ReadDb
     public static bag_seed_vo Read(MySqlDataReader reader, bag_seed_vo item)
     {
         item.user_value = reader.GetString(reader.GetOrdinal("user_value"));
+        item.formula_value = reader.GetString(reader.GetOrdinal("formula_value"));
+        item.use_value = reader.GetString(reader.GetOrdinal("user_use_value"));
         item.Init();
         return item;
     }
@@ -33,6 +35,8 @@ public static class ReadDb
         item.pill = reader.GetString(reader.GetOrdinal("pill"));
         item.formula = reader.GetString(reader.GetOrdinal("formula"));
         item.pill_effect = reader.GetString(reader.GetOrdinal("pill_effect"));
+        item.Weight= reader.GetInt32(reader.GetOrdinal("Weight"));
+        item.seed_number= reader.GetInt32(reader.GetOrdinal("seed_number"));
         return item;
     }
 

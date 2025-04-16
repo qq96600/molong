@@ -149,7 +149,7 @@ public class panel_bag : Panel_Base
                 }
                 break;
             case bag_btn_list.ÏûºÄÆ·:
-                List<(string, List<string>)> list = SumSave.crt_seeds.Get();
+                List<(string, List<string>)> list = SumSave.crt_seeds.GetSeedList();
                 for (int i = 0; i < list.Count; i++)
                 {
                     (string, int) data =(list[i].Item1,1);
