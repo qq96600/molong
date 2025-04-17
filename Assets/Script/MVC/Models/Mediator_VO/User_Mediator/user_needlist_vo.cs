@@ -120,7 +120,7 @@ public class user_needlist_vo : Base_VO
         return new string[]
          {
             GetStr(store_Merge()),
-            GetStr(map_Merge()),
+            GetStr(map_Merge()),    
          };
     }
 }

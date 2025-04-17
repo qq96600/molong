@@ -7,6 +7,9 @@ using UnityEngine;
 public class user_vo : Base_VO
 {
 
+    /// <summary>
+    /// 0 ÁéÖé£¬1 ÀúÁ·£¬2 Ä§Íè
+    /// </summary>
     private List<long> list = new List<long>();
     private List<long> verify_list = new List<long>();
 
@@ -73,7 +76,6 @@ public class user_vo : Base_VO
                     verify_list[1] += value;
                 }
                 return;
-
             case currency_unit.Ä§Íè:
                 if (value >= SumSave.base_setting[1]) Game_Omphalos.i.Delete("»ñµÃ" + (currency_unit)_index + value);
                 else
