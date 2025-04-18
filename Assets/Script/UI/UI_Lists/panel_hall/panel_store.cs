@@ -162,8 +162,6 @@ public class panel_store : Base_Mono
             Alert_Dec.Show(buy_item.unit + " ÊýÁ¿²»¹»");
             
         }
-      
-
 
     }
 

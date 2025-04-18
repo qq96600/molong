@@ -109,6 +109,7 @@ public class Alchemy : Base_Mono
         foreach (var item in Select_Materials.Keys)
         {
             NeedConsumables(Select_Materials[item].Item1, Select_Materials[item].Item2);
+            Debug.Log(Select_Materials[item].Item1 + " " + Select_Materials[item].Item2);
         }
         if (RefreshConsumables())
         {

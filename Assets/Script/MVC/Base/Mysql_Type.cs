@@ -49,4 +49,6 @@ public enum Mysql_Table_Name
     db_seed,//炼丹种子信息
     mo_user_seed,//用户炼丹种子信息
     mo_user_needlist,//用户需求信息
+    db_collect,//收集信息
+    mo_user_collect,//用户收集完成信息
 }

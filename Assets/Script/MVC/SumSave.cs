@@ -117,6 +117,11 @@ namespace Common
         /// </summary>
         public static user_needlist_vo crt_needlist;
 
+        ///<summary>
+        ///收集
+        ///</summary>
+        public static user_collect_vo crt_collect;
+
         #endregion
 
         #region 配置db文件
@@ -203,6 +208,11 @@ namespace Common
         /// 成就物品字典
         /// </summary>
         public static List<db_achievement_VO> db_Achievement_dic;
+        /// <summary>
+        /// 收集物品列表
+        /// </summary>
+        public static List<db_collect_vo> db_collect_vo;
+
         #endregion
 
         #region 功能文件

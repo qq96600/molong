@@ -141,7 +141,48 @@ namespace MVC
             Read_User_Achievenment();
             Read_Needlist();
             Read_Seed();
+            //Read_collect();
             refresh_Max_Hero_Attribute();
+        }
+
+        /// <summary>
+        /// 读取收集列表
+        /// </summary>
+        private void Read_collect()
+        {
+            mysqlReader = MysqlDb.Select(Mysql_Table_Name.mo_user_collect, "uid", GetStr(SumSave.crt_user.uid));
+            SumSave.crt_needlist = new user_needlist_vo();
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.crt_needlist = ReadDb.Read(mysqlReader, new user_needlist_vo());
+                }
+            }
+            else//为空的话初始化数据
+            {
+                SumSave.crt_needlist.store_value = "";
+                SumSave.crt_needlist.map_value = "";
+                SumSave.crt_needlist.user_value = "";
+                List<db_store_vo> store_vo = new List<db_store_vo>();
+
+                for (int i = 0; i < SumSave.db_stores_list.Count; i++)
+                {
+                    if (SumSave.db_stores_list[i].ItemMaxQuantity > 0)
+                    {
+                        store_vo.Add(SumSave.db_stores_list[i]);
+                    }
+                }
+                for (int i = 0; i < store_vo.Count; i++)
+                {
+                    if (i > 0)
+                    {
+                        SumSave.crt_needlist.store_value += ",";
+                    }
+                    SumSave.crt_needlist.store_value += store_vo[i].ItemName + " " + "0";
+                }
+                Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_needlist, SumSave.crt_needlist.Set_Instace_String());
+            }
         }
 
         /// <summary>
@@ -548,6 +589,8 @@ namespace MVC
                     }
                 }
             }
+            //添加收集效果
+
             //添加技能效果
 
             foreach (base_skill_vo skill in SumSave.crt_skills)

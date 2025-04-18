@@ -38,11 +38,29 @@ namespace MVC
             Read_Db_Hall();
             Read_Db_Achievement();
             Read_Db_Store();
-
             Read_Db_Seed();
-
+            Read_Db_Collect();
             CloseMySqlDB();
 
+        }
+
+
+        /// <summary>
+        /// 获取收集信息
+        /// </summary>
+        private void Read_Db_Collect()
+        {
+            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_collect);
+
+            SumSave.db_collect_vo = new List<db_collect_vo>();
+
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.db_collect_vo.Add(ReadDb.Read(mysqlReader, new db_collect_vo()));
+                }
+            }
         }
 
 

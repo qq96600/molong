@@ -10,11 +10,9 @@ using UnityEngine.UI;
 
 public enum Achieve_Type//成就类型枚举
 {
-    击杀系列 = 1,
-    收集系列,
-    装备系列,
-    互动系列,
-    特殊系列,
+    收集系列 = 1,
+    击杀系列 ,
+
 }
 
 public class plant_achievement : Base_Mono

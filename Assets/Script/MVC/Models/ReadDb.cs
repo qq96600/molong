@@ -40,6 +40,15 @@ public static class ReadDb
         return item;
     }
 
+    public static db_collect_vo Read(MySqlDataReader reader, db_collect_vo item)
+    {
+        item.Name= reader.GetString(reader.GetOrdinal("Name"));
+        item.StdMode = reader.GetString(reader.GetOrdinal("StdMode"));
+        item.bonuses_type= reader.GetString(reader.GetOrdinal("Collect bonuses type"));
+        item.bonuses_value = reader.GetString(reader.GetOrdinal("Collect bonuses value"));
+        item.Init();
+        return item;
+    }
     public static user_needlist_vo Read(MySqlDataReader reader, user_needlist_vo item)
     {
         item.store_value = reader.GetString(reader.GetOrdinal("store_value"));
@@ -166,7 +175,7 @@ public static class ReadDb
         string[] split = item.achievement_need.Split('|');
         foreach (string value in split)
         {
-            item.achievement_needs.Add(int.Parse(value));
+            item.achievement_needs.Add(long.Parse(value));
         }
         item.achievement_reward = reader.GetString(reader.GetOrdinal("achieve_reward"));
         split = item.achievement_reward.Split('|');
