@@ -84,7 +84,7 @@ public class MysqlDbAccess
         }
         catch (Exception)
         {
-            MysqlClose = true;
+
         }
         return reader;
     }

@@ -37,6 +37,7 @@ public static class ReadDb
         item.pill_effect = reader.GetString(reader.GetOrdinal("pill_effect"));
         item.Weight= reader.GetInt32(reader.GetOrdinal("Weight"));
         item.seed_number= reader.GetInt32(reader.GetOrdinal("seed_number"));
+        item.rule = reader.GetInt32(reader.GetOrdinal("rule"));
         return item;
     }
 

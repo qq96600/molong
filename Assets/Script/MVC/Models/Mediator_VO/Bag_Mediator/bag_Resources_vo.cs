@@ -21,7 +21,6 @@ public class bag_Resources_vo : Base_VO
                 string[] artifact_array = artifact_value_array[i].Split(' ');
                 if (artifact_array.Length > 1)
                 {
-                    //Debug.Log(artifact_array[0]);
                     list.Add((artifact_array[0], int.Parse(artifact_array[1])));
                     verify_list.Add((artifact_array[0], int.Parse(artifact_array[1]) + index));
                 }

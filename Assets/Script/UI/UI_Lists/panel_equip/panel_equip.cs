@@ -18,7 +18,7 @@ public class panel_equip : Panel_Base
     private bag_item crt_bag;
     private Bag_Base_VO crt_equip;
     private GridLayoutGroup gridLayoutgroup;
-
+    private Show_Material show_material_prafabs;
     protected override void Awake()
     {
         base.Awake();
@@ -27,7 +27,8 @@ public class panel_equip : Panel_Base
     public override void Initialize()
     {
         base.Initialize();
-        equip_item_prafabs = Resources.Load<equip_item>("Prefabs/panel_equip/equip_item"); 
+        equip_item_prafabs = Resources.Load<equip_item>("Prefabs/panel_equip/equip_item");
+        show_material_prafabs= Resources.Load<Show_Material>("Prefabs/panel_equip/Show_Material");
         crt_pos_equip = Find<Transform>("bg_main");
         panel_bag=UI_Manager.I.GetPanel<panel_bag>();
         gridLayoutgroup = Find<GridLayoutGroup>("bg_main");
@@ -37,6 +38,7 @@ public class panel_equip : Panel_Base
     {
         base.Show();
     }
+
 
     #region 显示装备
     /// <summary>
@@ -144,15 +146,38 @@ public class panel_equip : Panel_Base
     /// <param name="item"></param>
     public void Select_Material(material_item item)
     {
-        (string, int) data = item.GetItemData();
+        ClearObject(crt_pos_equip);
         gridLayoutgroup.cellSize = new Vector2(600, 400);
-        Bag_Base_VO vo = ArrayHelper.Find( SumSave.db_stditems,e=> e.Name == data.Item1);
-        //传入数据
         //Show_Material
-
+        Show_Material show_material = Instantiate(show_material_prafabs, crt_pos_equip);
+        show_material.Init(item.GetItemData());
     }
-
-    private void Refresh()
+    /// <summary>
+    /// 选择丹药 或技能书
+    /// </summary>
+    /// <param name="item"></param>
+    public void Select_Seed(material_item item)
+    {
+        ClearObject(crt_pos_equip);
+        gridLayoutgroup.cellSize = new Vector2(600, 400);
+        Show_Material show_material = Instantiate(show_material_prafabs, crt_pos_equip);
+        show_material.Init(item.GetSeedData());
+    }
+    /// <summary>
+    /// 使用丹药
+    /// </summary>
+    /// <param name="item"></param>
+    public void Use_Seed(material_item item)
+    {
+        ClearObject(crt_pos_equip);
+        gridLayoutgroup.cellSize = new Vector2(600, 400);
+        Show_Material show_material = Instantiate(show_material_prafabs, crt_pos_equip);
+        show_material.Init_Seed(item.GetSeedData());
+    }
+    /// <summary>
+    /// 刷新
+    /// </summary>
+    protected void Refresh()
     {
         Hide();
         panel_bag.Show();

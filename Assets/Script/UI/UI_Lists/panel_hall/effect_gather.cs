@@ -147,7 +147,6 @@ public class effect_gather : Base_Mono
             Alert_Dec.Show("µ±Ç°×¢Áé²»×ã");
             return;
         }
-
         LimitNumber--;
         int index = -1;
         index = (int)(slider.value / 36);

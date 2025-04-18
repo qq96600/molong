@@ -23,15 +23,15 @@ public class bag_seed_vo : Base_VO
     /// </summary>
     private List<(string, List<string>)> formulalist;
     /// <summary>
-    /// 使用列表 0名称 1数量
+    /// 使用列表 名称 0数量 1累积值
     /// </summary>
-    private List<(string, int)> useList;
+    private List<(string, List<int>)> useList;
 
     public void Init()
     { 
         seedList = new List<(string,List<string>)>();
         formulalist= new List<(string, List<string>)>();
-        useList = new List<(string, int)>();
+        useList = new List<(string, List<int>)>();
         string[] splits = user_value.Split('&');
         for (int i = 0; i < splits.Length; i++)
         {
@@ -65,9 +65,16 @@ public class bag_seed_vo : Base_VO
         {
             if (use_value_splits[i] != "")
             {
-                string[] split = formula_splits[i].Split(',');
+                string[] split = use_value_splits[i].Split(',');
                 if (split.Length > 1)
-                    useList.Add((use_value_splits[0], int.Parse(use_value_splits[1])));
+                {
+                    useList.Add((split[0], new List<int>()));
+                    string[] split1 = split[1].Split('|');
+                    for (int j = 0; j < split1.Length; j++)
+                    { 
+                        useList[i].Item2.Add(int.Parse(split1[j]));
+                    }
+                }
             }
         }
 
@@ -92,7 +99,7 @@ public class bag_seed_vo : Base_VO
     /// 获取使用列表
     /// </summary>
     /// <returns></returns>
-    public List<(string, int)> GetuseList()
+    public List<(string, List<int>)> GetuseList()
     { 
         return useList;
     }
@@ -113,14 +120,9 @@ public class bag_seed_vo : Base_VO
     /// 写入丹方
     /// </summary>
     /// <param name="split"></param>
-    public void Setformula(List<string> split)
+    public void Setformula((string, List<string>) split)
     {
-        (string, List<string>) temp = (split[0], new List<string>());
-        for (int j = 1; j < split.Count; j++)
-        {
-            temp.Item2.Add(split[j]);
-        }
-        formulalist.Add(temp);
+        formulalist.Add(split);
     }
 
     /// <summary>
@@ -141,13 +143,17 @@ public class bag_seed_vo : Base_VO
     /// 使用丹药
     /// </summary>
     /// <param name="split"></param>
-    public void Setuse(string split)
+    public void Setuse((string, List<int>) split)
     {
         for (int i = 0; i < useList.Count; i++)
         {
-            if (useList[i].Item1 == split)
-            { 
-                (string, int) temp = (useList[i].Item1, useList[i].Item2 + 1);
+            if (useList[i].Item1 == split.Item1)
+            {
+                (string, List<int>) temp = (useList[i].Item1, new List<int>());
+                for (int j = 0; j < split.Item2.Count; j++)
+                { 
+                    temp.Item2.Add(useList[i].Item2[j] + split.Item2[j]);
+                }
                 useList[i] = temp;
                 return;
             }
@@ -178,7 +184,11 @@ public class bag_seed_vo : Base_VO
         string value = "";
         for (int i = 0; i < useList.Count; i++)
         {
-            value += (value == "" ? "" : "&") + useList[i].Item1+","+useList[i].Item2;
+            value += (value == "" ? "" : "&") + useList[i].Item1+",";
+            for (int j = 0; j < useList[i].Item2.Count; j++)
+            {
+                value += (j == 0 ? "" : "|") + useList[i].Item2[j];
+            }
         }
         return value;
     }
@@ -205,7 +215,7 @@ public class bag_seed_vo : Base_VO
         return new string[] { 
             "user_value" ,
             "formula_value",
-            "use_value"
+            "user_use_value"
 
         };
     }

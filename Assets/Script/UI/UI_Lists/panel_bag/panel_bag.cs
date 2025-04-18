@@ -147,19 +147,23 @@ public class panel_bag : Panel_Base
                     }
                     
                 }
-                break;
-            case bag_btn_list.消耗品:
-                List<(string, List<string>)> list = SumSave.crt_seeds.GetSeedList();
+                break;   
+               case bag_btn_list.丹囊:
+                List<(string, List<string>)> list = SumSave.crt_seeds.Getformulalist();
                 for (int i = 0; i < list.Count; i++)
                 {
-                    (string, int) data =(list[i].Item1,1);
-                    
                     material_item item = Instantiate(material_item_Prefabs, crt_bag);
-
-                    item.Init(data);
-                    item.GetComponent<Button>().onClick.AddListener(delegate { Select_Material(item); });
-                    
-
+                    item.Init(list[i]);
+                    item.GetComponent<Button>().onClick.AddListener(delegate { Select_Getformula_Material(item); });
+                }
+                break;
+            case bag_btn_list.消耗品:
+                List<(string, List<string>)> Seedlist = SumSave.crt_seeds.GetSeedList();
+                for (int i = 0; i < Seedlist.Count; i++)
+                {
+                    material_item item = Instantiate(material_item_Prefabs, crt_bag);
+                    item.Init(Seedlist[i]);
+                    item.GetComponent<Button>().onClick.AddListener(delegate { Select_SeedMaterial(item); });
                 }
                 break;
             default:
@@ -167,6 +171,25 @@ public class panel_bag : Panel_Base
         }
         
     }
+    /// <summary>
+    /// 吃丹药
+    /// </summary>
+    /// <param name="item"></param>
+    private void Select_SeedMaterial(material_item item)
+    {
+        panel_equip.Show();
+        panel_equip.Use_Seed(item);
+    }
+    /// <summary>
+    /// 选择合成材料
+    /// </summary>
+    /// <param name="item"></param>
+    private void Select_Getformula_Material(material_item item)
+    {
+        panel_equip.Show();
+        panel_equip.Select_Seed(item);
+    }
+
     /// <summary>
     /// 选择材料
     /// </summary>

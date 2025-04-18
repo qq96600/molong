@@ -74,7 +74,7 @@ namespace MVC
         /// <summary>
         /// 物资需求列表
         /// </summary>
-        protected Dictionary<string, int> dic = new Dictionary<string, int>();
+        protected Dictionary<string, long> dic = new Dictionary<string, long>();
         /// <summary>
         /// 类型
         /// </summary>
@@ -122,9 +122,9 @@ namespace MVC
         protected bool RefreshConsumables()
         {
             bool exist = false;
-            Dictionary<string, int> keys = dic;
-            Dictionary<string,int> bagdic = new Dictionary<string, int>();
-            int count = 0, moeny = 0, MilitaryExploits = 0, silver = 0;
+            Dictionary<string, long> keys = dic;
+            Dictionary<string, int> bagdic = new Dictionary<string, int>();
+            long count = 0, moeny = 0, MilitaryExploits = 0, silver = 0;
 
             foreach (string item in keys.Keys)
             {
@@ -133,7 +133,7 @@ namespace MVC
                     List<long> list = SumSave.crt_user_unit.Set();
                     if (list[0] >= Mathf.Abs(keys[item]))
                     {
-                        moeny += Mathf.Abs(keys[item]);
+                        moeny += (long)Mathf.Abs(keys[item]);
                         count++;
                     }
                 }
@@ -146,7 +146,7 @@ namespace MVC
                         {
                             if (list[i].Item2 >= Mathf.Abs(keys[item]))
                             {
-                                bagdic.Add(item, -Mathf.Abs(keys[item]));
+                                bagdic.Add(item, (int)-Mathf.Abs(keys[item]));
                                 count++;
                                 continue;
 
@@ -193,7 +193,7 @@ namespace MVC
         /// <param name="keys"></param>
         /// <param name="value"></param>
         //[System.Obsolete("消耗材料使用->称号中心.Instance.RedConsumables()")]
-        protected void NeedConsumables(object keys, int value)
+        protected void NeedConsumables(object keys, long value)
         {
             if (!dic.ContainsKey(keys.ToString())) dic.Add(keys.ToString(), value);
             else dic[keys.ToString()] += value;
