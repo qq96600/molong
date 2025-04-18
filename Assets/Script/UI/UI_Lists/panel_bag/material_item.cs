@@ -1,4 +1,5 @@
 using MVC;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +14,10 @@ public class material_item : Base_Mono
     /// 资源
     /// </summary>
     private (string, int) data;
+    /// <summary>
+    /// 炼丹材料
+    /// </summary>
+    private (string, List<string>) data_seed;
     private void Awake()
     {
         item_icon = Find<Image>("icon");
@@ -29,6 +34,12 @@ public class material_item : Base_Mono
         item_icon.sprite = UI.UI_Manager.I.GetEquipSprite("icon/", data.Item1);
         base_info.text = data.Item2.ToString() +"";
     }
+    public void Init((string,List<string>) bag_Resources)
+    {
+        data_seed = bag_Resources;
+        item_icon.sprite = UI.UI_Manager.I.GetEquipSprite("icon/", bag_Resources.Item1);
+        base_info.text = "1";
+    }
     /// <summary>
     /// 返回数据
     /// </summary>
@@ -36,5 +47,10 @@ public class material_item : Base_Mono
     public (string, int) GetItemData()
     {
         return data;
+    }
+
+    public (string, List<string>) GetSeedData()
+    {
+        return data_seed;
     }
 }

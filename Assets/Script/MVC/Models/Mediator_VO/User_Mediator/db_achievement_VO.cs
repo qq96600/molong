@@ -20,7 +20,7 @@ public class db_achievement_VO : Base_VO
     /// <summary>
     /// 成就达成条件列表
     /// </summary>
-    public List<int> achievement_needs = new List<int>();
+    public List<long> achievement_needs = new List<long>();
     /// <summary>
     /// 奖励类型
     /// 1装备

@@ -28,6 +28,15 @@ public static class Battle_Tool
         //写入数据库
         Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.material_value, SumSave.crt_bag_resources.GetData());
     }
+
+    public static void tool_item()
+    {
+        return;
+        foreach (var item in SumSave.db_stditems)
+        {
+            UI.UI_Manager.I.GetEquipSprite("icon/", item.Name);
+        }
+    }
     /// <summary>
     /// 显示货币单位
     /// </summary>

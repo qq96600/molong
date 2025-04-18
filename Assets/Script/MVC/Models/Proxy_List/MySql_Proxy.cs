@@ -81,7 +81,6 @@ namespace MVC
         /// </summary>
         private void Read_Db_Achievement()
         {
-            //mysqlReader = MysqlDb.ReadFullTable("db_achieve");
             mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_achieve);
 
             SumSave.db_Achievement_dic= new List<db_achievement_VO>();
@@ -310,6 +309,7 @@ namespace MVC
                     SumSave.db_stditems.Add(ReadDb.Read(mysqlReader, new Bag_Base_VO()));
                 }
             }
+            Battle_Tool.tool_item();
         }
         /// <summary>
         /// 读取技能数据库

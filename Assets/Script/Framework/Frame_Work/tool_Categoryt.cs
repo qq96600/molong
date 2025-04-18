@@ -301,7 +301,6 @@ public class tool_Categoryt : MonoBehaviour
             int base_quality_value = Random.Range(bag.need_lv+5, bag.need_lv * 2 + 10);
             if (base_quality > 6) base_quality_value *= 10;
             list.Add((base_quality, base_quality_value));
-            quality = 7;
             if (quality > 1)
             {
                 base_quality = Random.Range(8, 15);

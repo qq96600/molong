@@ -51,7 +51,7 @@ public class user_vo : Base_VO
     /// <summary>
     /// 验证数据
     /// </summary>
-    public void verify_data(currency_unit _index,int value)
+    public void verify_data(currency_unit _index,long value)
     {
         for (int i = 0; i < list.Count; i++)
         {

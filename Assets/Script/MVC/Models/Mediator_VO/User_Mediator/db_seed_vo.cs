@@ -40,6 +40,13 @@ public class db_seed_vo : Base_VO
     /// 权重
     /// </summary>
     public int Weight;
-
+    /// <summary>
+    /// 定义类型
+    /// </summary>
+    public int rule;
+    /// <summary>
+    /// 累积可以吞的次数
+    /// </summary>
+    public int limit;
 
 }

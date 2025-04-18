@@ -3,6 +3,7 @@ public enum bag_btn_list
 {
     装备,
     材料,
+    丹囊,
     消耗品
 }
 

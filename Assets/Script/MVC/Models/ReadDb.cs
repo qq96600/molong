@@ -37,6 +37,7 @@ public static class ReadDb
         item.pill_effect = reader.GetString(reader.GetOrdinal("pill_effect"));
         item.Weight= reader.GetInt32(reader.GetOrdinal("Weight"));
         item.seed_number= reader.GetInt32(reader.GetOrdinal("seed_number"));
+        item.rule = reader.GetInt32(reader.GetOrdinal("rule"));
         return item;
     }
 
@@ -166,7 +167,7 @@ public static class ReadDb
         string[] split = item.achievement_need.Split('|');
         foreach (string value in split)
         {
-            item.achievement_needs.Add(int.Parse(value));
+            item.achievement_needs.Add(long.Parse(value));
         }
         item.achievement_reward = reader.GetString(reader.GetOrdinal("achieve_reward"));
         split = item.achievement_reward.Split('|');
