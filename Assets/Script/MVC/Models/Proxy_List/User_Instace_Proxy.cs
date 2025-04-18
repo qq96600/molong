@@ -141,10 +141,33 @@ namespace MVC
             Read_User_Achievenment();
             Read_Needlist();
             Read_Seed();
+            Read_Signin();
             //Read_collect();
             refresh_Max_Hero_Attribute();
         }
-
+        /// <summary>
+        /// 读取签到
+        /// </summary>
+        private void Read_Signin()
+        {
+            mysqlReader = MysqlDb.Select(Mysql_Table_Name.mo_user_signin, "uid", GetStr(SumSave.crt_user.uid));
+            SumSave.crt_signin = new user_signin_vo();
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.crt_signin = ReadDb.Read(mysqlReader, new user_signin_vo());
+                }
+            }
+            else//为空的话初始化数据
+            {
+                SumSave.crt_signin.now_time = Convert.ToDateTime(SumSave.nowtime.AddDays(-1).ToString("yyyy-MM-dd"));
+                SumSave.crt_signin.number = 0;
+                SumSave.crt_signin.user_value = "";
+                SumSave.crt_signin.Init();
+                Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_signin, SumSave.crt_signin.Set_Instace_String());
+            }
+        }
         /// <summary>
         /// 读取收集列表
         /// </summary>
@@ -592,7 +615,6 @@ namespace MVC
             //添加收集效果
 
             //添加技能效果
-
             foreach (base_skill_vo skill in SumSave.crt_skills)
             {
                 if (skill.skill_open_type.Count > 0)
@@ -617,11 +639,53 @@ namespace MVC
                 }
             }
             //添加神器效果
+            List < (string, int) > artifacts = SumSave.crt_artifact.Set();
+            if (artifacts.Count > 0)
+            {
+                foreach (var item in artifacts)
+                { 
+                    db_artifact_vo data = ArrayHelper.Find(SumSave.db_Artifacts, e => e.arrifact_name == item.Item1);
+                    if (data != null)
+                    {
+                        int strengthenlv = item.Item2;
+                        string[] splits = data.arrifact_effects;
+                        if (splits.Length > 1)
+                        {
+                            foreach (var base_info in splits)
+                            {
+                                string[] infos = base_info.Split(' ');
+                                //1类型 2每一级加成 3开启等级
+                                if (infos.Length >= 3)
+                                {
+                                    if (strengthenlv >= int.Parse(infos[2]))
+                                    { 
+                                        Enum_Value(crt, int.Parse(infos[0]), int.Parse(infos[1]) * strengthenlv);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
             //称号属性
             //成就属性
+            //丹药属性
+            List<(string, List<int>)> seeds = SumSave.crt_seeds.GetuseList();
+            if (seeds.Count > 0)
+            {
+                foreach (var item in seeds)
+                {
+                    db_seed_vo data = ArrayHelper.Find(SumSave.db_seeds, e => e.pill == item.Item1);
+                    if (data != null)
+                    {
+                        Enum_Value(crt, data.dicdictionary_index, item.Item1[1]);
+                    }
+                }
+            }
             //皮肤
-            SumSave.crt_MaxHero = crt;
 
+
+            SumSave.crt_MaxHero = crt;
             SumSave.crt_MaxHero.Init();
             Battle_Tool.validate_rank();
         }

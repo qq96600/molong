@@ -121,6 +121,10 @@ namespace Common
         ///收集
         ///</summary>
         public static user_collect_vo crt_collect;
+        /// <summary>
+        /// 自身签到数据
+        /// </summary>
+        public static user_signin_vo crt_signin;
 
         #endregion
 
@@ -129,6 +133,10 @@ namespace Common
         /// 配置通行证
         /// </summary>
         public static List<user_pass_vo> db_pass;
+        /// <summary>
+        /// 签到奖励列表
+        /// </summary>
+        public static List<db_signin_vo> db_Signins;
         /// <summary>
         /// 技能列表
         /// </summary>

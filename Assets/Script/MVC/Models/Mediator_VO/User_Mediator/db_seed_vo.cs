@@ -48,5 +48,9 @@ public class db_seed_vo : Base_VO
     /// 累积可以吞的次数
     /// </summary>
     public int limit;
+    /// <summary>
+    /// 对应字典编号
+    /// </summary>
+    public int dicdictionary_index;
 
 }

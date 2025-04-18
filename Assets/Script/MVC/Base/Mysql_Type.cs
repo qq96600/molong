@@ -51,4 +51,6 @@ public enum Mysql_Table_Name
     mo_user_needlist,//用户需求信息
     db_collect,//收集信息
     mo_user_collect,//用户收集完成信息
+    db_signin,//签到信息
+    mo_user_signin
 }

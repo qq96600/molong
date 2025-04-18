@@ -40,10 +40,24 @@ namespace MVC
             Read_Db_Store();
             Read_Db_Seed();
             Read_Db_Collect();
+            Read_db_signin();
             CloseMySqlDB();
 
         }
+        private void Read_db_signin()
+        {
+            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_signin);
 
+            SumSave.db_Signins = new List<db_signin_vo>();
+
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.db_Signins.Add(ReadDb.Read(mysqlReader, new db_signin_vo()));
+                }
+            }
+        }
 
         /// <summary>
         /// 获取收集信息

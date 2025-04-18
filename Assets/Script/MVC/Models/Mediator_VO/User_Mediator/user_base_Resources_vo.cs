@@ -34,8 +34,18 @@ public class user_base_Resources_vo:Base_VO
     /// 页码
     /// </summary>
     public int[] pages;
-
-
+    /// <summary>
+    /// 获取时间
+    /// </summary>
+    /// <returns></returns>
+    private string Get_Time()
+    {
+        if (SumSave.nowtime > now_time)
+        {
+            now_time = SumSave.nowtime;
+        }
+        return now_time.ToString();
+    }
     public override string[] Set_Instace_String()
     {
         //return new string[] { "now_time", "skill_value", "house_value", "bag_value", "material_value", "equip_value" };
@@ -71,7 +81,7 @@ public class user_base_Resources_vo:Base_VO
     {
         return new string[]
         {
-         GetStr(now_time),
+         GetStr(Get_Time()),
          GetStr(user_map_index),
          GetStr(skill_value),
          GetStr(house_value),

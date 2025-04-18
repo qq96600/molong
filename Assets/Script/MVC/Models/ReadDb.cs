@@ -26,6 +26,21 @@ public static class ReadDb
         item.Init();
         return item;
     }
+    public static db_signin_vo Read(MySqlDataReader reader, db_signin_vo item)
+    {
+        item.index = reader.GetInt32(reader.GetOrdinal("index"));
+        item.value = reader.GetString(reader.GetOrdinal("value"));
+        return item;
+    }
+
+    public static user_signin_vo Read(MySqlDataReader reader, user_signin_vo item)
+    {
+        item.now_time = Convert.ToDateTime(reader.GetString(reader.GetOrdinal("now_time")));
+        item.number = reader.GetInt32(reader.GetOrdinal("number"));
+        item.user_value = reader.GetString(reader.GetOrdinal("user_value"));
+        item.Init();
+        return item;
+    }
     public static db_seed_vo Read(MySqlDataReader reader, db_seed_vo item)
     {
         item.type = reader.GetString(reader.GetOrdinal("type"));
@@ -38,6 +53,7 @@ public static class ReadDb
         item.Weight= reader.GetInt32(reader.GetOrdinal("Weight"));
         item.seed_number= reader.GetInt32(reader.GetOrdinal("seed_number"));
         item.rule = reader.GetInt32(reader.GetOrdinal("rule"));
+        item.dicdictionary_index = reader.GetInt32(reader.GetOrdinal("dicdictionary_index"));
         return item;
     }
 

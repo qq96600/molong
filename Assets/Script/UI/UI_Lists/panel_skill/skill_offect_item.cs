@@ -14,10 +14,12 @@ public class skill_offect_item : Base_Mono
     /// Õ½¶·µ¹¼ÆÊ±
     /// </summary>
     private Text WaitTime;
+    private Image item_icon;
     private void Awake()
     {
         info = Find<Text>("info");
         WaitTime = Find<Text>("WaitTime");
+        item_icon = GetComponent<Image>();
     }
     private base_skill_vo data;
 
@@ -30,8 +32,10 @@ public class skill_offect_item : Base_Mono
         {
             data = value;
             if (data == null) return;
-            //item_icon.sprite = UI.UI_Manager.I.GetEquipSprite("icon/", "10050" + Random.Range(16, 55));
-            info.text = data.skillname;
+            if (data.skill_type == 1)
+                item_icon.sprite = UI.UI_Manager.I.GetEquipSprite("skill/", data.skillname);
+            else item_icon.sprite = UI.UI_Manager.I.GetEquipSprite("icon/", data.skillname);
+            //info.text = data.skillname;
         }
         get
         {
@@ -69,7 +73,7 @@ public class skill_offect_item : Base_Mono
             yield return new WaitForSeconds(base_time);
         }
         WaitTime.text = "";
-        info.text= data.skillname;
+        //info.text= data.skillname;
     }
 
 

@@ -80,7 +80,6 @@ public class AttackStateMachine : MonoBehaviour
     public void Init(BattleAttack _battle,BattleHealth target)
     {
         battle= _battle;
-        //AttackSpeed=battle.Data.attack_speed;
         Target = target;
         
        

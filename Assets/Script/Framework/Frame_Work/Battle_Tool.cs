@@ -28,6 +28,48 @@ public static class Battle_Tool
         //写入数据库
         Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.material_value, SumSave.crt_bag_resources.GetData());
     }
+    /// <summary>
+    /// 获取资源
+    /// </summary>
+    /// <param name="result"></param>
+    public static void Obtain_result(string result)
+    {
+
+        string[] result_list = result.Split('*');
+        
+        switch (int.Parse(result_list[2]))
+        {
+            case 1://获取资源
+                Obtain_Resources(result_list[0], int.Parse(result_list[1]));
+                break;
+            case 2:
+              
+                break;
+
+            case 3:
+                SumSave.crt_user_unit.verify_data(currency_unit.灵珠, int.Parse(result_list[1]));
+                break;
+
+            case 4:
+                return;
+                
+                break;
+
+            case 5:
+              
+                break;
+            case 6:
+             
+                break;
+            case 7:
+       
+                break;
+            case 8:
+                break;
+            default:
+                break;
+        }
+    }
 
     public static void tool_item()
     {

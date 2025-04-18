@@ -149,70 +149,8 @@ public class panel_pass : Base_Mono
     /// </summary>
     /// <param name="result"></param>
     private void Obtain_result(string result)
-    { 
-    
-        string[] list = result.Split('*');
-        /*
-        switch ( int.Parse( list[2]))
-        {
-            case 1:
-                foreach (string item in crtItem.Data.results.Keys)
-                {
-                    Addition.DropBag(item, crtItem.Data.results[item] * number, 3);
-                }
-                break;
-
-            case 2:
-                return;
-                foreach (string item in crtItem.Data.results.Keys)
-                {
-                    Addition.DropBag(item, crtItem.Data.results[item] * number, 1);
-                }
-                break;
-
-            case 3:
-                SendNotification(NotiList.Add_Money, 10000000 * number);
-                break;
-
-            case 4:
-                return;
-                foreach (string item in crtItem.Data.results.Keys)
-                {
-                    SendNotification(NotiList.CrateWing, CrateStditems.CrateWing());
-                }
-
-                break;
-
-            case 5:
-                foreach (string item in crtItem.Data.results.Keys)
-                {
-                    SumSave.UserBase.MilitaryExploits += crtItem.Data.results[item] * number;
-                }
-                SendNotification(NotiList.MilitaryExploits, 0);
-                break;
-            case 6:
-                string[] list = crtItem.Data.resultvalue.Split('*');
-                SendNotification(NotiList.CrateEquip, CrateStditems.CrateStditem(list[0], -1, false));
-                break;
-            case 7:
-                string[] Split = crtItem.Data.resultvalue.Split('*');
-                if (称号中心.Instance.CheckTitle(Split[0])) { AlertDec.Show("已拥有此称号"); return; }
-                foreach (var item in SumSave.AllDbTitles)
-                {
-                    if (item.show_name == Split[0]) { item.uid = SumSave.UserBase.uid; item.par = SumSave.Tap_server; SumSave.AllHeroTitles.Add(item); break; }
-                }
-                称号中心.Instance.AddDBTitle(Split[0]);
-                AudioManager.Instance.playAudio(ClipEnum.获得称号);
-                SendNotification(NotiList.Refresh);//刷新数据
-                break;
-            case 8:
-                称号中心.Instance.AddSkin(crtItem.Data.resultvalue.Split("*")[0]);
-                break;
-            default:
-                break;
-        }
-        */
-
+    {
+        Battle_Tool.Obtain_result(result);
     }
 
 
