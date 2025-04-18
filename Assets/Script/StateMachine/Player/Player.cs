@@ -39,8 +39,8 @@ namespace StateMachine
             idleState = new Player_Idle(this, stateMachine, "Idle");
             moveState = new Player_Move(this, stateMachine, "Move");
             attackState = new Player_Attack(this, stateMachine, "Attack");
-            skillManagerState = new PlayerSkillManager(this, stateMachine, "Storage");
-            skillHuoQiuState = new PlayerSkill_HuoQiu(this, stateMachine, "Storage");
+            skillManagerState = new PlayerSkillManager(this, stateMachine, "Skill");
+            skillHuoQiuState = new PlayerSkill_HuoQiu(this, stateMachine, "Skill");
             #endregion
 
             #region 技能初始化
