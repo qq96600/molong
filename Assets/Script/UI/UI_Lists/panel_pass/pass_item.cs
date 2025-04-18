@@ -68,8 +68,20 @@ public class pass_item : Base_Mono
     private void getList()
     {
         info_lv.text = data.lv + "级";
-        info_value.text = data.reward;
-        upinfo_value.text = data.reward;
+        info_value.text = Show_Info(data.reward);
+        upinfo_value.text = Show_Info(data.uplv_reward);
+    }
+    /// <summary>
+    /// 显示信息
+    /// </summary>
+    /// <param name="reward"></param>
+    /// <returns></returns>
+    private string Show_Info(string reward)
+    {
+        string dec = "";
+        string[] arr = reward.Split('*');
+        dec+=arr[0] + "：" + arr[1] + "";
+        return dec;
     }
 
     /// <summary>

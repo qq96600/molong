@@ -430,6 +430,7 @@ namespace MVC
             else
             {
                 SumSave.crt_pass.user_value = "";
+                SumSave.crt_pass.day_state_value = "0|0|0|0|0|0";
                 SumSave.crt_pass.Init();
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_pass, SumSave.crt_pass.Set_Instace_String());
             }

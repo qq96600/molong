@@ -16,11 +16,21 @@ public class panel_pass : Base_Mono
     private List<string> btn_list = new List<string>() { "S1", "S2" }; 
 
 
-    private Transform pos_btn, pos_item;
+    private Transform pos_btn, pos_item,pos_task;
 
     private btn_item btn_itm_prefabs;
 
     private pass_item pass_item_prefabs;
+
+    private task_item task_item_prefabs;
+    /// <summary>
+    /// 显示任务列表
+    /// </summary>
+    private Dictionary<int, task_item> dic_task = new Dictionary<int, task_item>();
+    /// <summary>
+    /// 显示累积任务信息
+    /// </summary>
+    private Text task_info;
     /// <summary>
     /// 第几个通行证
     /// </summary>
@@ -34,14 +44,61 @@ public class panel_pass : Base_Mono
     {
         pos_btn = Find<Transform>("bg_main/btn_list");
         pos_item = Find<Transform>("bg_main/Scroll View/Viewport/Content");
+        pos_task = Find<Transform>("bg_main/task/task_list");
+        task_info = Find<Text>("bg_main/task/info/info");
         btn_itm_prefabs = Resources.Load<btn_item>("Prefabs/base_tool/btn_item"); 
         pass_item_prefabs = Resources.Load<pass_item>("Prefabs/panel_hall/panel_pass/pass_item"); 
+        task_item_prefabs = Resources.Load<task_item>("Prefabs/panel_hall/panel_pass/task_item");
         for (int i = 0; i < btn_list.Count; i++)
         {
             btn_item btn = Instantiate(btn_itm_prefabs, pos_btn);
             btn.Show(i + 1, btn_list[i]);
             btn.GetComponent<Button>().onClick.AddListener(() => { OnBtnClick(btn); });
         }
+        List<int> list = SumSave.crt_pass.Get_day_state();
+        //固定6个任务
+        for (int i = 0; i < 6; i++)
+        {
+            task_item item = Instantiate(task_item_prefabs, pos_task);
+            item.Show(i,SumSave.crt_pass.day_state[i], list[i] == 1);
+            item.GetComponent<Button>().onClick.AddListener(() => { OnTaskClick(item); });
+            dic_task.Add(i, item);
+        }
+    }
+    /// <summary>
+    /// 点击事件
+    /// </summary>
+    /// <param name="item"></param>
+    private void OnTaskClick(task_item item)
+    {
+        List<int> list = SumSave.crt_pass.Get_day_state();
+        if (list[item.index] == 1)
+        {
+            Alert_Dec.Show("任务已完成");
+            return;
+        }
+        if (item.State(SumSave.crt_pass.day_state[item.index]))
+        {
+            //领取奖励
+            Battle_Tool.Obtain_Resources("命运金币", 1);
+
+            SumSave.crt_pass.data_exp++;
+            SumSave.crt_pass.Get(item.index);
+            SumSave.crt_pass.Max_task_number++;
+            if (SumSave.crt_pass.data_exp >= 10)
+            {
+                SumSave.crt_pass.data_lv++;
+                SumSave.crt_pass.data_exp -= 10;
+            }
+            Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_pass,
+                SumSave.crt_pass.Set_Uptade_String(), SumSave.crt_pass.Get_Update_Character());
+            Show_Pass_Progress();
+        }
+        else
+        {
+            Alert_Dec.Show("未满足完成条件");
+        }
+
     }
 
     private void OnBtnClick(btn_item btn)
@@ -53,6 +110,20 @@ public class panel_pass : Base_Mono
     {
         base.Show();
         Base_Show();
+        Show_Pass_Progress();
+
+    }
+    /// <summary>
+    /// 显示任务进度
+    /// </summary>
+    private void Show_Pass_Progress()
+    {
+        task_info.text= "累计完成任务：" + SumSave.crt_pass.Max_task_number;
+        List<int> list = SumSave.crt_pass.Get_day_state();
+        foreach (int item in dic_task.Keys)
+        {
+            dic_task[item].progress(SumSave.crt_pass.day_state[item], list[item]==1);
+        }
     }
 
     private void Base_Show()
@@ -88,6 +159,7 @@ public class panel_pass : Base_Mono
 
             }
         }
+
     }
 
     /// <summary>

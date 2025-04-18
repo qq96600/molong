@@ -317,7 +317,9 @@ public static class ReadDb
     {
         item.data_lv = reader.GetInt32(reader.GetOrdinal("pass_lv"));
         item.data_exp = reader.GetInt32(reader.GetOrdinal("pass_exp"));
+        item.Max_task_number= reader.GetInt32(reader.GetOrdinal("Max_task_number"));
         item.user_value = reader.GetString(reader.GetOrdinal("user_value"));
+        item.day_state_value = reader.GetString(reader.GetOrdinal("day_state_value"));
         item.Init();
         return item;
     }

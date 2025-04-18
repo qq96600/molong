@@ -54,6 +54,8 @@ namespace MVC
         /// </summary>
         private void Read_User_Ranks()
         {
+            //每日任务 在线时长
+            SumSave.crt_pass.day_state[0] += 10;
             SendNotification(NotiList.Read_User_Ranks);
             Battle_Tool.validate_rank();
         }
