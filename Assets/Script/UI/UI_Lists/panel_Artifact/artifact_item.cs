@@ -30,6 +30,7 @@ public class artifact_item : Base_Mono
         {
             data = value;
             if (data == null) return;
+            icon.sprite = UI.UI_Manager.I.GetEquipSprite("UI/show_Artifact/", data.arrifact_name);
             info.text = data.arrifact_name + "(Î´¼¤»î)";
         }
         get

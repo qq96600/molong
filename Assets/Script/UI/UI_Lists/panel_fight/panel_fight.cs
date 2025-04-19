@@ -49,6 +49,18 @@ public class panel_fight : Panel_Base
     /// 显示地图名称和回合时间
     /// </summary>
     private Text map_name, map_time;
+    /// <summary>
+    /// 关闭列表按钮
+    /// </summary>
+    private Button close_btn;
+    /// <summary>
+    /// 是否关闭列表
+    /// </summary>
+    private bool close_panel_state = false;
+    /// <summary>
+    /// 列表位置
+    /// </summary>
+    private Transform pos_btn;
     protected override void Awake()
     {
         base.Awake();
@@ -65,7 +77,23 @@ public class panel_fight : Panel_Base
         role_health = Find<panel_role_health>("panel_role_health");
         map_name = Find<Text>("battle_pos/map_name/info");
         map_time = Find<Text>("battle_pos/map_name/show_time");
+        close_btn = Find<Button>("btn_list/close_btn");
+        close_btn.onClick.AddListener(() => { Close(); });
+        pos_btn = Find<Transform>("btn_list");
     }
+    /// <summary>
+    /// 关闭列表
+    /// </summary>
+    private void Close()
+    {
+        close_panel_state=!close_panel_state;
+        for (int i = 1; i < pos_btn.childCount; i++)
+        { 
+            pos_btn.GetChild(i).gameObject.SetActive(close_panel_state);
+        }
+        //close_btn.GetComponent<Image>().sprite = Resources.Load<Sprite>(close_panel_state ? "UI/panel_fight/btn_list_open" : "UI/panel_fight/btn_list_close");
+    }
+
     public override void Show()
     {
         base.Show();
