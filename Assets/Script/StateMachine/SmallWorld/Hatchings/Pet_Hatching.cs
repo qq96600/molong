@@ -17,7 +17,7 @@ public class Pet_Hatching : Panel_Base
     /// <summary>
     /// 查看进度按钮，孵化按钮,孵化完成领取按钮
     /// </summary>
-    private Button displayPet, hatching_Button, receive_Button;
+    private Button displayPet, hatching_Button, receive_Button; 
     /// <summary>
     /// 宠物蛋下拉列表
     /// </summary>
@@ -27,7 +27,7 @@ public class Pet_Hatching : Panel_Base
     /// </summary>
     private string currentPet;
     /// <summary>
-    /// 孵化成功的宠物名字
+    /// 孵化成功的宠物蛋名字
     /// </summary>
     private string Pet;
 
@@ -68,12 +68,14 @@ public class Pet_Hatching : Panel_Base
     /// </summary  >
     private Sprite sprite;
 
+
+
     protected override void Awake()
     {
         //base.Awake();
         #region 按钮初始化
-        hatching_Buttons = transform.Find("hatching_Buttons");
-        displayPet = hatching_Buttons.Find("displayPet").GetComponent<Button>();
+        hatching_Buttons = transform.Find("hatching_progress/hatching_Buttons");
+        displayPet = transform.Find("displayPet").GetComponent<Button>();
         hatching_Button = hatching_Buttons.Find("hatching_Button").GetComponent<Button>();
         hatching_Dropdown = hatching_Buttons.Find("hatching_Dropdown").GetComponent<Dropdown>();
         displayPet.onClick.AddListener(OnDisplayPet);
@@ -110,10 +112,13 @@ public class Pet_Hatching : Panel_Base
     {
         if(isHatching==2)
         {
-            
-            Debug.Log("领取宠物"+ isHatching);
             //领取宠物
-            Battle_Tool.Obtain_Resources(Pet, 1);
+            Alert_Dec.Show("恭喜你获得 " + Pet);
+
+            db_pet_vo pet= SumSave.db_pet_dic[Pet];
+            SumSave.crt_pet_list.Add(pet);
+            Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_pet,
+            SumSave.crt_pet.Set_Uptade_String(), SumSave.crt_pet.Get_Update_Character());
             isHatching = 0;
         }
        
@@ -131,10 +136,10 @@ public class Pet_Hatching : Panel_Base
             //NeedConsumables(currentPet, 1);
             //if(RefreshConsumables())
             //{
-                if (SumSave.db_pet_dic.TryGetValue(currentPet, out user_pet_vo quantity))//查找选择的宠物蛋，设置孵化时间，和孵化成功的宠物
+                if (SumSave.db_pet_dic.TryGetValue(currentPet, out db_pet_vo quantity))//查找选择的宠物蛋，设置孵化时间，和孵化成功的宠物
                 {
                     hatchingTime = quantity.hatchingTime;
-                    Pet = quantity.petName;
+                    Pet = quantity.petEggsName;
                     //petEggs_Image.sprite = Resources.Load<Sprite>("panel_fight/_icon_shop/hatching_" + quantity.petEggsName); //hatching_梅花鹿蛋
 
                     petEggs_Image.sprite = Resources.Load<Sprite>("panel_fight/panlt_小麦");
@@ -204,13 +209,8 @@ public class Pet_Hatching : Panel_Base
     /// </summary>
     private void OnDisplayPet()
     {
-        if(isHatching != 0)
-        {
+      
             hatching_progress.gameObject.SetActive(true);
-        }else
-        {
-            Alert_Dec.Show("没有孵化的宠物");
-        }
         
     }
 
@@ -269,7 +269,7 @@ public class Pet_Hatching : Panel_Base
     private void InitDropdown()
     {
         hatching_Dropdown.ClearOptions();
-        foreach (user_pet_vo type in SumSave.db_pet)
+        foreach (db_pet_vo type in SumSave.db_pet)
         {
             hatching_Dropdown.options.Add(new Dropdown.OptionData(type.petEggsName.ToString()));
         }

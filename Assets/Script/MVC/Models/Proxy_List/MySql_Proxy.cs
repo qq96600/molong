@@ -214,18 +214,18 @@ namespace MVC
         {
             mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_pet);
 
-            SumSave.db_pet = new List<user_pet_vo>();
+            SumSave.db_pet = new List<db_pet_vo>();
 
             if (mysqlReader.HasRows)
             {
                 while (mysqlReader.Read())
                 {
-                    SumSave.db_pet.Add(ReadDb.Read_Pass(mysqlReader, new user_pet_vo()));
+                    SumSave.db_pet.Add(ReadDb.Read_Pass(mysqlReader, new db_pet_vo()));
                 }
             }
 
-            List<user_pet_vo> db_pet = SumSave.db_pet;
-            SumSave.db_pet_dic= new Dictionary<string, user_pet_vo>();
+            List<db_pet_vo> db_pet = SumSave.db_pet;
+            SumSave.db_pet_dic= new Dictionary<string, db_pet_vo>();
             for (int i = 0; i < db_pet.Count; i++)
             {
                 SumSave.db_pet_dic.Add(db_pet[i].petEggsName, db_pet[i]);

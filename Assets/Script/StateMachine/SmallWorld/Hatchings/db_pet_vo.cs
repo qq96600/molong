@@ -1,0 +1,142 @@
+using Common;
+using MVC;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class db_pet_vo : Base_VO
+{
+    /// <summary>
+    /// 宠物名字
+    /// </summary>
+    public string petName;
+    /// <summary>
+    /// 宠物蛋名字
+    /// </summary>
+    public string petEggsName;
+    /// <summary>
+    /// 需要孵化的时间
+    /// </summary>
+    public int hatchingTime;
+    /// <summary>
+    /// 开始孵化的时间
+    /// </summary>
+    private DateTime startHatchingTime;
+    /// <summary>
+    ///宠物蛋名字和开始孵化的时间
+    /// </summary>
+    private (string name, DateTime time) crt_hatching;
+    /// <summary>
+    /// 宠物编号
+    /// </summary>
+    public int hero_type ;
+    /// <summary>
+    /// 宠物基础属性
+    /// </summary>
+    public string crate_value;
+    /// <summary>
+    /// 宠物升级属性
+    /// </summary>
+    public string up_value;
+    /// <summary>
+    /// 宠物基础属性
+    /// </summary>
+    public string up_base_value;
+    /// <summary>
+    /// 宠物天赋
+    /// </summary>
+    public string hero_talent;
+    /// <summary>
+    /// 宠物等级
+    /// </summary>
+    public int level=1;
+    /// <summary>
+    /// 宠物经验
+    /// </summary>
+    public int exp=0;
+
+
+
+    /// <summary>
+    /// 解析数据
+    /// </summary>
+    public void Init()
+    {
+        
+        string[] str = user_value.Split('|');
+
+        if (str.Length == 2)
+        {
+            crt_hatching = (str[0], (str[1] == "0") ? DateTime.Now : Convert.ToDateTime(str[1]));
+        }else
+        if(str==null)//没有数据就初始化
+        {
+            crt_hatching= ("0", DateTime.Now);
+            Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_pet_hatching,
+            SumSave.crt_hatching.Set_Uptade_String(), SumSave.crt_hatching.Get_Update_Character());
+        }
+
+       
+
+
+    }
+
+
+
+
+    /// <summary>
+    /// 整合数据格式
+    /// </summary>
+    /// <returns></returns>
+    public string Set_data()
+    {
+        string dec = "";
+        dec= crt_hatching.Item1+ "|"+ crt_hatching.Item2.ToString();
+        return dec;
+
+    }
+
+    public void Set_data((string name, DateTime time) crt_plants)
+    {
+        crt_hatching = crt_plants;
+    }
+
+
+    /// <summary>
+    /// 获取当前孵化的宠物
+    /// </summary>
+    /// <returns></returns>
+    public (string, DateTime) Set()
+    {
+        return crt_hatching;
+    }
+
+    public override string[] Set_Instace_String()
+    {
+        return new string[]
+        {
+           GetStr(0),
+           GetStr(SumSave.crt_user.uid),
+           GetStr(user_value), 
+        };
+    }
+
+    public override string[] Get_Update_Character()
+    {
+        return new string[]
+        {
+            "user_value",
+        };
+    }
+
+
+    public override string[] Set_Uptade_String()
+    {
+        return new string[]
+        {
+            GetStr(Set_data()),
+        };
+    }
+
+}

@@ -142,7 +142,8 @@ namespace MVC
             Read_Needlist();
             Read_Seed();
             Read_Signin();
-            //Read_collect();
+            Read_User_Pet();
+            
             refresh_Max_Hero_Attribute();
         }
         /// <summary>
@@ -168,45 +169,7 @@ namespace MVC
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_signin, SumSave.crt_signin.Set_Instace_String());
             }
         }
-        /// <summary>
-        /// 读取收集列表
-        /// </summary>
-        private void Read_collect()
-        {
-            mysqlReader = MysqlDb.Select(Mysql_Table_Name.mo_user_collect, "uid", GetStr(SumSave.crt_user.uid));
-            SumSave.crt_needlist = new user_needlist_vo();
-            if (mysqlReader.HasRows)
-            {
-                while (mysqlReader.Read())
-                {
-                    SumSave.crt_needlist = ReadDb.Read(mysqlReader, new user_needlist_vo());
-                }
-            }
-            else//为空的话初始化数据
-            {
-                SumSave.crt_needlist.store_value = "";
-                SumSave.crt_needlist.map_value = "";
-                SumSave.crt_needlist.user_value = "";
-                List<db_store_vo> store_vo = new List<db_store_vo>();
 
-                for (int i = 0; i < SumSave.db_stores_list.Count; i++)
-                {
-                    if (SumSave.db_stores_list[i].ItemMaxQuantity > 0)
-                    {
-                        store_vo.Add(SumSave.db_stores_list[i]);
-                    }
-                }
-                for (int i = 0; i < store_vo.Count; i++)
-                {
-                    if (i > 0)
-                    {
-                        SumSave.crt_needlist.store_value += ",";
-                    }
-                    SumSave.crt_needlist.store_value += store_vo[i].ItemName + " " + "0";
-                }
-                Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_needlist, SumSave.crt_needlist.Set_Instace_String());
-            }
-        }
 
         /// <summary>
         /// 读取需求列表
@@ -364,6 +327,38 @@ namespace MVC
             }
         }
 
+        /// <summary>
+        /// 获取自身宠物信息
+        /// </summary>
+        private void Read_User_Pet()
+        {
+            mysqlReader = MysqlDb.Select(Mysql_Table_Name.mo_user_pet, "uid", GetStr(SumSave.crt_user.uid));
+            SumSave.crt_pet = new user_pet_vo();
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.crt_pet = ReadDb.Read(mysqlReader, new user_pet_vo());
+                }
+            }
+            else
+            {
+                SumSave.crt_pet.pet_value = "";
+                SumSave.crt_pet.Init();
+                Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_pet, SumSave.crt_pet.Set_Instace_String());
+            }
+
+            for (int i = 0; i < SumSave.crt_pet.pet_bag.Count; i++)
+            {
+                db_pet_vo pet= new db_pet_vo();
+                pet.petName= SumSave.crt_pet.pet_bag[i].Item1;
+                pet.level= SumSave.crt_pet.pet_bag[i].Item2;
+                pet.exp= SumSave.crt_pet.pet_bag[i].Item3;
+                SumSave.crt_pet_list.Add(pet);
+            }
+
+        }
+
 
 
         /// <summary>
@@ -372,12 +367,12 @@ namespace MVC
         private void Read_User_Hatching()
         {
             mysqlReader = MysqlDb.Select(Mysql_Table_Name.mo_user_pet_hatching, "uid", GetStr(SumSave.crt_user.uid));
-            SumSave.crt_hatching = new user_pet_vo();
+            SumSave.crt_hatching = new db_pet_vo();
             if (mysqlReader.HasRows)
             {
                 while (mysqlReader.Read())
                 {
-                    SumSave.crt_hatching = ReadDb.Read(mysqlReader, new user_pet_vo());
+                    SumSave.crt_hatching = ReadDb.Read(mysqlReader, new db_pet_vo());
                 }
             }
             else

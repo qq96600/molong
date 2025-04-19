@@ -259,6 +259,8 @@ public static class ReadDb
         return item;
     }
 
+
+
     public static user_pet_explore_vo Read_Pass(MySqlDataReader reader, user_pet_explore_vo item)
     {
         item.petExploreMapName = reader.GetString(reader.GetOrdinal("petEvent_name"));
@@ -275,11 +277,18 @@ public static class ReadDb
         item.Init();
         return item;
     }
-
-
     public static user_pet_vo Read(MySqlDataReader reader, user_pet_vo item)
     {
+        item.pet_value = reader.GetString(reader.GetOrdinal("user_value"));
+        item.Init();
+        return item;
+    }
+
+    public static db_pet_vo Read(MySqlDataReader reader, db_pet_vo item)
+    {
         item.user_value = reader.GetString(reader.GetOrdinal("user_value"));
+       
+
         item.Init();
         return item;
     }
@@ -300,7 +309,7 @@ public static class ReadDb
     }
 
 
-    public static user_pet_vo Read_Pass(MySqlDataReader reader, user_pet_vo item)
+    public static db_pet_vo Read_Pass(MySqlDataReader reader, db_pet_vo item)
     {
         item.petName= reader.GetString(reader.GetOrdinal("petName"));
         item.petEggsName = reader.GetString(reader.GetOrdinal("petEggsName"));

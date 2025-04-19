@@ -90,7 +90,16 @@ namespace Common
         /// <summary>
         /// 自身孵化数据
         /// </summary>
-        public static user_pet_vo crt_hatching;
+        public static db_pet_vo crt_hatching;
+        /// <summary>
+        /// 自身宠物
+        /// </summary>
+        public static user_pet_vo crt_pet=new user_pet_vo();
+        /// <summary>
+        /// 自身宠物列表
+        /// </summary>
+        public static List<db_pet_vo> crt_pet_list=new List<db_pet_vo>();
+
         /// <summary>
         /// 炼丹数据
         /// </summary>
@@ -174,11 +183,11 @@ namespace Common
         /// <summary>
         /// 宠物列表
         /// </summary>
-        public static List<user_pet_vo> db_pet;
+        public static List<db_pet_vo> db_pet;
         /// <summary>
         /// 宠物字典
         /// </summary>
-        public static Dictionary<string, user_pet_vo> db_pet_dic;
+        public static Dictionary<string, db_pet_vo> db_pet_dic;
 
         /// <summary>
         /// 宠物探索列表

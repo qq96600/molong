@@ -28,9 +28,9 @@ public class panel_smallWorld : Panel_Base
     /// </summary>
     private Transform pos_btn;
     /// <summary>
-    /// 功能按钮
+    /// 按钮预制体
     /// </summary>
-    private btn_item btn_item_Prefabs;
+    private btn_item btn_item;
     /// <summary>
     /// 背景
     /// </summary>
@@ -40,18 +40,12 @@ public class panel_smallWorld : Panel_Base
     /// </summary>
     private Text base_info;
     private string[] btn_list = new string[] { "升级", "农庄", "灵宠", "探险" };
-    public override void Hide()
-    {
-        if (small_World_bg.gameObject.activeInHierarchy)//从最上层关闭
-        {
-            if (_plant.gameObject.activeInHierarchy) _plant.Hide();
-            if(_Hatching.gameObject.activeInHierarchy) _Hatching.Hide();
-            if (_explore.gameObject.activeInHierarchy) _explore.Hide();
+    /// <summary>
+    /// 宠物显示位置
+    /// </summary>
+    private Transform pet_pos;
 
-            small_World_bg.gameObject.SetActive(false);
-        }else
-        base.Hide();
-    }
+    
 
     public override void Initialize()
     {
@@ -62,16 +56,33 @@ public class panel_smallWorld : Panel_Base
         _explore = Find<Pet_explore>("small_World/Pet_explore");
         pos_btn=Find<Transform>("bg_main/btn_list");
         base_info = Find<Text>("bg_main/base_info/info");
-        btn_item_Prefabs = Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
+        btn_item = Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
+        pet_pos= Find<Transform>("small_World/Pet_Hatching/Pet_list/Viewport/items");
 
-   
+
         for (int i = 0; i < btn_list.Length; i++)
         {
-            btn_item btn_item = Instantiate(btn_item_Prefabs, pos_btn);//实例化背包装备
-            btn_item.Show(i, btn_list[i]);
-            btn_item.GetComponent<Button>().onClick.AddListener(delegate { Select_Btn(btn_item); });
+            btn_item btn_items = Instantiate(btn_item, pos_btn);//实例化背包装备
+            btn_items.Show(i, btn_list[i]);
+            btn_items.GetComponent<Button>().onClick.AddListener(delegate { Select_Btn(btn_items); });
         }
     }
+
+
+    public override void Hide()
+    {
+        if (small_World_bg.gameObject.activeInHierarchy)//从最上层关闭
+        {
+            if (_plant.gameObject.activeInHierarchy) _plant.Hide();
+            if (_Hatching.gameObject.activeInHierarchy) _Hatching.Hide();
+            if (_explore.gameObject.activeInHierarchy) _explore.Hide();
+
+            small_World_bg.gameObject.SetActive(false);
+        }
+        else
+            base.Hide();
+    }
+
     /// <summary>
     /// 打开界面
     /// </summary>
@@ -90,6 +101,7 @@ public class panel_smallWorld : Panel_Base
                 break;
             case "灵宠":
                 _Hatching.Show();
+                HatchingInit();
                 break;
             case "探险":
                 _explore.Show();
@@ -97,6 +109,31 @@ public class panel_smallWorld : Panel_Base
         
         }
     }
+    /// <summary>
+    /// 灵宠列表初始化
+    /// </summary>
+    private void HatchingInit()
+    {
+        ClearObject(pet_pos);
+        for (int i= 0; i < SumSave.crt_pet_list.Count; i++)
+        {
+            db_pet_vo pet = SumSave.crt_pet_list[i];
+            btn_item btn_items = Instantiate(btn_item, pet_pos);
+            btn_items.Show(i, SumSave.crt_pet_list[i].petName+" Lv." + SumSave.crt_pet_list[i].level);
+            btn_items.GetComponent<Button>().onClick.AddListener(delegate { Select_Pet(pet); });
+        }
+    }
+    /// <summary>
+    /// 显示灵宠信息
+    /// </summary>
+    /// <param name="pet"></param>
+    private void Select_Pet(db_pet_vo pet)
+    {
+        Debug.Log(pet.petName);
+    }
+
+
+
     /// <summary>
     /// 升级
     /// </summary>

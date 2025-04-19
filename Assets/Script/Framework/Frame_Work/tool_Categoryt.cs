@@ -265,9 +265,9 @@ public class tool_Categoryt : MonoBehaviour
         return skill;
     }
 
-    public static user_pet_vo crate_Pet(string name)
+    public static db_pet_vo crate_Pet(string name)
     { 
-        user_pet_vo pet = new user_pet_vo();
+        db_pet_vo pet = new db_pet_vo();
 
         return pet;
     }
