@@ -1,4 +1,5 @@
 using Common;
+using MVC;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using UI;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class panel_Artifact : Panel_Base
+public class offect_Artifact : Base_Mono
 {
     /// <summary>
     /// ÉñÆ÷Î»ÖÃ
@@ -32,18 +33,16 @@ public class panel_Artifact : Panel_Base
     private int index = 1;
 
     private artifact_offect offect;
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
+        Initialize();
     }
-    public override void Hide()
+    public void Hide()
     {
-        base.Hide();
-    }
 
-    public override void Initialize()
+    }
+    public void Initialize()
     {
-        base.Initialize();
         crt_btn = Find<Transform>("bg_main/btn_list");
         pos_artifact= Find<Transform>("bg_main/Scroll View/Viewport/Content");
         btn_itm_prefabs = Resources.Load<btn_item>("Prefabs/base_tool/btn_item");

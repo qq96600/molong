@@ -2,6 +2,7 @@ using Common;
 using MVC;
 using System.Collections;
 using System.Collections.Generic;
+using UI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,7 +15,7 @@ public class panel_role_health : Base_Mono
 
     private Text show_name, show_moeny, show_point;
 
-
+    private Button btn_back;
 
     private BattleHealth health;
     private void Awake()
@@ -24,10 +25,13 @@ public class panel_role_health : Base_Mono
         role_internalforceMP = Find<Slider>("panel_internalforceMP");
         role_EnergyMp = Find<Slider>("panel_EnergyMp");
         show_name = Find<Text>("role_name/info");
+        btn_back= Find<Button>("role_name");
+        btn_back.onClick.AddListener(() => {
+            UI_Manager.I.TogglePanel(Panel_List.panel_Buff, true);
+        });
         show_moeny = Find<Text>("show_unit/moeny/info");
         show_point = Find<Text>("show_unit/Point/info");
     }
-
     public void SetHealth(BattleHealth _health)
     {
         health = _health;

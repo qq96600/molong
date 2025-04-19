@@ -108,10 +108,10 @@ public class tool_Categoryt : MonoBehaviour
             case enum_skill_attribute_list.经验加成:
             case enum_skill_attribute_list.装备掉落:
             case enum_skill_attribute_list.极品宠物掉落:
-            case enum_skill_attribute_list.人物修为:
+            case enum_skill_attribute_list.人物历练:
             case enum_skill_attribute_list.宠物经验:
             case enum_skill_attribute_list.内功经验:
-            case enum_skill_attribute_list.金币收益:
+            case enum_skill_attribute_list.灵珠收益:
             case enum_skill_attribute_list.装备爆率:
             case enum_skill_attribute_list.宠物获取:
             case enum_skill_attribute_list.云游商人折扣:

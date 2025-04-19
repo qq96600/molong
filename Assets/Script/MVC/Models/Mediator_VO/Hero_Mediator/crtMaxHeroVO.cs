@@ -191,6 +191,10 @@ public class crtMaxHeroVO
     /// </summary>
     public int[] life = new int[] { 0, 0, 0, 0, 0 };
     /// <summary>
+    /// buff加成
+    /// </summary>
+    public List<int> bufflist = new List<int>();
+    /// <summary>
     /// 怪物掉落金币
     /// </summary>
     public int unit = 0;
