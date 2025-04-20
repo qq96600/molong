@@ -29,7 +29,7 @@ public class artifact_offect : Base_Mono
         confirm = Find<Button>("confirm");
         confirm.onClick.AddListener(()=> { confirm_artifact(); });
         artifact_name = Find<Text>("show_name/info");
-        artifact_info = Find<Text>("info");
+        artifact_info = Find<Text>("Scroll View/Viewport/info");
         confirm_info = Find<Text>("confirm/info");
     }
 
@@ -44,39 +44,60 @@ public class artifact_offect : Base_Mono
             (string, int) result = ArrayHelper.Find(SumSave.crt_artifact.Set(), e => e.Item1 == crt_artifact.Data.arrifact_name);
             if (result.Item2 == 0)//未激活
             {
-                NeedConsumables(crt_artifact.Data.arrifact_needs[0], int.Parse(crt_artifact.Data.arrifact_needs[1]));
+                for (int i = 0; i < crt_artifact.Data.arrifact_needs.Length; i++)
+                {
+                    string[] temp = crt_artifact.Data.arrifact_needs[i].Split(' ');
+                    NeedConsumables(temp[0], int.Parse(temp[1]));
+                }
                 if (RefreshConsumables())
                 {
                     result.Item1 = crt_artifact.Data.arrifact_name;
                     result.Item2 = 1;
-                }
-                SumSave.crt_artifact.Get(result);
-                Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto,Mysql_Table_Name.mo_user_artifact, SumSave.crt_artifact.Set_Uptade_String(),SumSave.crt_artifact.Get_Update_Character());
-                SendNotification(NotiList.Refresh_Max_Hero_Attribute);
-                crt_artifact.Set(1);
-                set_artifact(crt_artifact);
-                Alert_Dec.Show("激活成功");
+                    SumSave.crt_artifact.Get(result);
+                    set_artifact(crt_artifact);
+                    if (result.Item1 == "天机扇")
+                    {
+                        //开启小世界
+                        Open_smallWorld();
+                    }
+                    Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_artifact, SumSave.crt_artifact.Set_Uptade_String(), SumSave.crt_artifact.Get_Update_Character());
+                    SendNotification(NotiList.Refresh_Max_Hero_Attribute);
+                    crt_artifact.Set(1);
+                    Alert_Dec.Show("激活成功");
+                }else Alert_Dec.Show("激活失败");
+                
             }
             else
             {
-                if (result.Item2 < int.Parse(crt_artifact.Data.arrifact_needs[2]))
+                if (result.Item2 < crt_artifact.Data.Artifact_MaxLv)
                 {
                     NeedConsumables(crt_artifact.Data.arrifact_needs[0], int.Parse(crt_artifact.Data.arrifact_needs[1]));
                     if (RefreshConsumables())
                     {
                         result.Item2 += 1;
-                    }
-                    SumSave.crt_artifact.Get(result);
-                    crt_artifact.Set(result.Item2);
-                    set_artifact(crt_artifact);
-                    Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_artifact, SumSave.crt_artifact.Set_Uptade_String(), SumSave.crt_artifact.Get_Update_Character());
-                    SendNotification(NotiList.Refresh_Max_Hero_Attribute);
-                    Alert_Dec.Show("升级成功");
+                        SumSave.crt_artifact.Get(result);
+                        crt_artifact.Set(result.Item2);
+                        set_artifact(crt_artifact);
+                        Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_artifact, SumSave.crt_artifact.Set_Uptade_String(), SumSave.crt_artifact.Get_Update_Character());
+                        SendNotification(NotiList.Refresh_Max_Hero_Attribute);
+                        Alert_Dec.Show("升级成功");
+                    }else Alert_Dec.Show("升级失败");
                 }
                 else Alert_Dec.Show("已满级");
             }
         }
     }
+    /// <summary>
+    /// 开启小世界
+    /// </summary>
+    private void Open_smallWorld()
+    {
+        SumSave.crt_world = new user_world_vo();
+        SumSave.crt_world.World_Lv =1;
+        Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_world, SumSave.crt_world.Set_Instace_String());
+        Alert_Dec.Show("小世界开启成功");
+    }
+
     /// <summary>
     /// 设置当前显示的物品
     /// </summary>
@@ -86,11 +107,11 @@ public class artifact_offect : Base_Mono
         crt_artifact=item;
         artifact_name.text = crt_artifact.Data.arrifact_name + (item.base_lv == 0
             ? "(未激活)" : Show_Color.Red("(Lv." + item.base_lv + ")"));
-        string dec = Show_Color.Green("等级: ")+Show_Color.Red(item.base_lv);
+        string dec = Show_Color.Green("等级: ")+Show_Color.Red(item.base_lv)+"/(Max"+item.Data.Artifact_MaxLv+")";
         string[] splits = crt_artifact.Data.arrifact_effects;
 
-        dec += Show_Color.Green("\n属性: ");
-        if (splits.Length > 1)
+        dec += Show_Color.Green("\n属性: \n");
+        if (splits.Length >= 1)
         {
             foreach (var base_info in splits)
             {
@@ -98,15 +119,20 @@ public class artifact_offect : Base_Mono
                 //1类型 2每一级加成 3开启等级
                 if (infos.Length >= 3)
                 {
-                    dec += (infos[2] == "0" ? Show_Color.Green("开启加成:") : infos[2] + "级 激活: ") +
-                        (item.base_lv >= int.Parse(infos[2]) ? Show_Color.Red((enum_skill_attribute_list)int.Parse(infos[0]) + " + " + (int.Parse(infos[1]) * item.base_lv)) :
-                        Show_Color.Grey((enum_skill_attribute_list)int.Parse(infos[0]) + " + " + (int.Parse(infos[1]) * item.base_lv) + "(未激活)")) +
-                        tool_Categoryt.Obtain_unit(int.Parse(infos[0])) + "\n";
-                    
+                    dec += (infos[1] == "0" ? Show_Color.Green("开启加成:") : infos[2] + "级 激活: ") +
+                        (item.base_lv >= int.Parse(infos[2]) ? Show_Color.Red((enum_skill_attribute_list)int.Parse(infos[0]) + " + " + (float.Parse(infos[1]) * item.base_lv)) :
+                        Show_Color.Grey((enum_skill_attribute_list)int.Parse(infos[0]) + " + " + (float.Parse(infos[1]) * item.base_lv) + tool_Categoryt.Obtain_unit(int.Parse(infos[0]))
+                        + "(未激活)")) + "\n";
                 }
             }
         }
-        dec+="\n "+ crt_artifact.Data.Artifact_dec;
+        splits = crt_artifact.Data.arrifact_needs;
+        dec += Show_Color.Green(item.base_lv == 0 ? "\n激活条件: \n" : "\n升级条件: \n");
+        for (int i = 0; i < splits.Length; i ++)
+        { 
+         dec += Show_Color.Red(splits[i]) + "\n";
+        }
+        dec +="\n "+ crt_artifact.Data.Artifact_dec;
         artifact_info.text = dec;
     }
 }

@@ -305,6 +305,8 @@ public static class ReadDb
         item.plantName= reader.GetString(reader.GetOrdinal("plantType"));
         item.plantTime= reader.GetInt32(reader.GetOrdinal("plantTime"));
         item.HarvestMaterials= reader.GetString(reader.GetOrdinal("HarvestMaterials"));
+        item.harvestnumber = reader.GetInt32(reader.GetOrdinal("harvestnumber"));
+        item.lossnumber = reader.GetInt32(reader.GetOrdinal("lossnumber"));
         return item; 
     }
 
@@ -355,10 +357,11 @@ public static class ReadDb
     public static db_artifact_vo Read(MySqlDataReader reader, db_artifact_vo item)
     {
         item.arrifact_name = reader.GetString(reader.GetOrdinal("Artifact_name"));
-        item.arrifact_needs = reader.GetString(reader.GetOrdinal("Artifact_need")).Split(' ');
+        item.arrifact_needs = reader.GetString(reader.GetOrdinal("Artifact_need")).Split('&');
         item.arrifact_effects = reader.GetString(reader.GetOrdinal("Artifact_effect")).Split('&');
         item.arrifact_type = reader.GetInt32(reader.GetOrdinal("Artifact_type"));
         item.Artifact_dec= reader.GetString(reader.GetOrdinal("Artifact_dec"));
+        item.Artifact_MaxLv = reader.GetInt32(reader.GetOrdinal("Artifact_MaxLv"));
         return item;
     }
     public static user_base_setting_vo Read(MySqlDataReader reader, user_base_setting_vo item)
@@ -398,9 +401,6 @@ public static class ReadDb
     public static Hero_VO Read(MySqlDataReader reader, Hero_VO item)
     {
         item.hero_name = reader.GetValue(reader.GetOrdinal("hero_name")).ToString();
-        item.hero_type = reader.GetString(reader.GetOrdinal("hero_type"));
-        item.hero_index= reader.GetString(reader.GetOrdinal("hero_index"));
-        item.hero_list= reader.GetString(reader.GetOrdinal("hero_list"));
         item.hero_lv = reader.GetString(reader.GetOrdinal("hero_lv"));
         item.hero_Lv = int.Parse(item.hero_lv);
         item.hero_exp= reader.GetString(reader.GetOrdinal("hero_exp"));

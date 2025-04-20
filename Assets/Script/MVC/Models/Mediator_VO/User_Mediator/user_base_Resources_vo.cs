@@ -8,7 +8,9 @@ public class user_base_Resources_vo:Base_VO
     /// 当前时间
     /// </summary>
     public DateTime now_time;
-
+    /// <summary>
+    /// 地图索引
+    /// </summary>
     public string user_map_index;
     /// <summary>
     /// 技能列表

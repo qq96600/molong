@@ -48,7 +48,16 @@ public class user_world_vo : Base_VO
         }
         return dec;
     }
-
+    /// <summary>
+    /// 初始化
+    /// </summary>
+    /// <returns></returns>
+    private string InitValue()
+    {
+        user_value = SumSave.nowtime + "&" + "0";
+        Init();
+        return user_value;
+    }
     /// <summary>
     /// 初始化
     /// </summary>
@@ -60,7 +69,7 @@ public class user_world_vo : Base_VO
             GetStr(0),
             GetStr(SumSave.crt_user.uid),
             GetStr(World_Lv),
-            GetStr(user_value)
+            GetStr(InitValue())
         };
     }
 

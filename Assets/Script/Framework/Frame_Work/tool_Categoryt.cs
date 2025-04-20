@@ -127,6 +127,7 @@ public class tool_Categoryt : MonoBehaviour
                 dec = "%";
                 break;
             case enum_skill_attribute_list.Ñ°¹Ö¼ä¸ô:
+                dec = "/10s";
                 break;
             case enum_skill_attribute_list.³èÎïÈİÁ¿:
                 break;

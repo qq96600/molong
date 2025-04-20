@@ -25,5 +25,9 @@ public class db_artifact_vo : Base_VO
     /// 神器描述
     /// </summary>
     public string Artifact_dec;
+    /// <summary>
+    /// 最大等级
+    /// </summary>
+    public int Artifact_MaxLv;
 
 }

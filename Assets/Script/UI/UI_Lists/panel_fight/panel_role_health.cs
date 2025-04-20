@@ -46,6 +46,7 @@ public class panel_role_health : Base_Mono
     {
         if (health != null)
         {
+            show_name.text = SumSave.crt_MaxHero.show_name;
             role_Hp.value = health.HP;
             role_Mp.value = health.MP;
             role_internalforceMP.value = health.internalforceMP;

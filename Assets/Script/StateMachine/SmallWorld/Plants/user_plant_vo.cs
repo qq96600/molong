@@ -24,8 +24,16 @@ public class user_plant_vo : Base_VO
     /// 种子收获材料
     /// </summary>
     public string HarvestMaterials;
+    /// <summary>
+    /// 种子收获数量
+    /// </summary>
+    public int harvestnumber;
+    /// <summary>
+    /// 消耗数量
+    /// </summary>
+    public int lossnumber;
 
-   
+
 
     /// <summary>
     /// 种植等级

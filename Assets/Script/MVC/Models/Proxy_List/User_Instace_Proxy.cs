@@ -230,6 +230,8 @@ namespace MVC
             else
             {
                 SumSave.crt_seeds.user_value = "";
+                SumSave.crt_seeds.formula_value = "";
+                SumSave.crt_seeds.use_value = "";
                 SumSave.crt_seeds.Init();
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_seed, SumSave.crt_seeds.Set_Instace_String());
             }
@@ -692,7 +694,7 @@ namespace MVC
         /// <param name="crt">主体</param>
         /// <param name="index">编号</param>
         /// <param name="value">值</param>
-        private void Enum_Value(crtMaxHeroVO crt,int index,int value)
+        private void Enum_Value(crtMaxHeroVO crt,int index,int value) 
         {
             while (index >= crt.bufflist.Count)
             { 
@@ -932,7 +934,6 @@ namespace MVC
         /// </summary>
         private void Read_User_Resources()
         {
-            
             mysqlReader = MysqlDb.Select(Mysql_Table_Name.mo_user_value, "uid", GetStr(SumSave.crt_user.uid));//读取角色信息
             SumSave.crt_resources = new user_base_Resources_vo();
             if (mysqlReader.HasRows)
@@ -941,7 +942,6 @@ namespace MVC
                 {
                     SumSave.crt_resources = ReadDb.Read(mysqlReader, new user_base_Resources_vo());
                 }
-                Init();
                 SumSave.crt_resources.now_time= DateTime.Now;
                 Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_value, SumSave.crt_resources.Set_Uptade_String(), SumSave.crt_resources.Get_Update_Character());
 
@@ -949,6 +949,7 @@ namespace MVC
             else
             {
                 SumSave.crt_resources.now_time = DateTime.Now;
+                SumSave.crt_resources.user_map_index = SumSave.db_maps[0].map_name;
                 SumSave.crt_resources.skill_value = "";
                 SumSave.crt_resources.house_value = "";
                 SumSave.crt_resources.bag_value = "";
@@ -957,6 +958,7 @@ namespace MVC
                 SumSave.crt_resources.pages = new int[] { 120, 60, 0, 0, 0};
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_value, SumSave.crt_resources.Set_Instace_String());
             }
+            Init();
         }
 
         /// <summary>
@@ -975,15 +977,13 @@ namespace MVC
             }
             else
             {
-                SumSave.crt_hero.hero_name = "007";
-                SumSave.crt_hero.hero_type = enum_hero_type_list.物理攻击.ToString();
-                SumSave.crt_hero.hero_index = "1";
-                SumSave.crt_hero.hero_list = "江湖人";
+                SumSave.crt_hero.hero_name = "墨龙新星";
+                SumSave.crt_hero.hero_list = SumSave.db_heros[0].hero_name;
                 SumSave.crt_hero.hero_lv = "1";
                 SumSave.crt_hero.hero_exp = "0";
                 SumSave.crt_hero.hero_Lv = 1;
                 SumSave.crt_hero.hero_Exp = 0;
-                SumSave.crt_hero.hero_pos = "江湖人";
+                SumSave.crt_hero.hero_pos = SumSave.db_heros[0].hero_name;
                 SumSave.crt_hero.hero_material_list = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_hero, SumSave.crt_hero.Set_Instace_String());
             }

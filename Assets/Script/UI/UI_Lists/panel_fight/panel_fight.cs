@@ -56,7 +56,7 @@ public class panel_fight : Panel_Base
     /// <summary>
     /// 是否关闭列表
     /// </summary>
-    private bool close_panel_state = false;
+    private bool close_panel_state = true;
     /// <summary>
     /// 列表位置
     /// </summary>
