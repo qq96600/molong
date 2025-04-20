@@ -1,4 +1,6 @@
 using Common;
+using Components;
+using MVC;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -39,12 +41,24 @@ public class panel_Buff : Panel_Base
     /// </summary>
     private void OnConfirmClick()
     {
-
+        Alert.Show("提示", "确定将角色名称修改为\n" + Show_Color.Red(inputField.text) + " ？", Confirm);
     }
-
+    /// <summary>
+    /// 确认
+    /// </summary>
+    /// <param name="arg"></param>
+    private void Confirm(object arg)
+    { 
+        SumSave.crt_hero.hero_name= inputField.text;
+        SumSave.crt_hero.hero_material_list[0] = 1;
+        Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_hero, new string[] { "'" + inputField.text + "'" }, new string[] { "hero_name" });
+        SendNotification(NotiList.Refresh_Max_Hero_Attribute);
+        Show();
+    }
     public override void Show()
     {
         base.Show();
+        confirm.gameObject.SetActive(SumSave.crt_hero.hero_material_list[0] == 0);
         inputField.text = SumSave.crt_hero.hero_name;
         string dec = "";
         dec += enum_skill_attribute_list.经验加成 + ": " + Show_Buff(enum_skill_attribute_list.经验加成) + "%\n";
@@ -57,15 +71,17 @@ public class panel_Buff : Panel_Base
         info.text = dec;
 
     }
-
+    /// <summary>
+    /// 显示buff
+    /// </summary>
+    /// <param name="index"></param>
+    /// <returns></returns>
     private int Show_Buff(enum_skill_attribute_list index)
     {
-
         int value = 0;
-        if (SumSave.crt_MaxHero.bufflist.Contains((int)index))
+        if ( (int)index < SumSave.crt_MaxHero.bufflist.Count)
             value = SumSave.crt_MaxHero.bufflist[(int)index];
         return value;
-
     }
 
     protected override void Awake()

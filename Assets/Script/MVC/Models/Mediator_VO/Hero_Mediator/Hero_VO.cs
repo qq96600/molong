@@ -50,7 +50,7 @@ public class Hero_VO : Base_VO
     /// </summary>
     public string hero_material;
     /// <summary>
-    /// 英雄资源 1金币 2砖石 3历练值 4声望
+    /// 英雄资源 转生 强化
     /// </summary>
     public int[] hero_material_list;
     public override string[] Set_Instace_String()
@@ -60,9 +60,6 @@ public class Hero_VO : Base_VO
             GetStr(0),
             GetStr(SumSave.crt_user.uid),
             GetStr(hero_name),
-            GetStr(hero_type),
-            GetStr(hero_index),
-            GetStr(hero_list),
             GetStr(hero_lv),
             GetStr(hero_exp),
             GetStr(hero_pos),
@@ -75,8 +72,6 @@ public class Hero_VO : Base_VO
     {
         return new string[]
         {
-            "hero_type",
-            "hero_list",
             "hero_lv",
             "hero_exp",
             "hero_pos",
@@ -88,8 +83,6 @@ public class Hero_VO : Base_VO
     {
         return new string[]
        {
-            GetStr(hero_type),
-            GetStr(hero_list),
             GetStr(hero_lv),
             GetStr(hero_exp),
             GetStr(hero_pos),
