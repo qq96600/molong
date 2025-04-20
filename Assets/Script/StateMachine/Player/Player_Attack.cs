@@ -27,15 +27,6 @@ namespace StateMachine
         public override void Update()
         {
             base.Update();
-            return;
-            startTime -= Time.deltaTime;
-            player.animStateInfo = player.anim.GetCurrentAnimatorStateInfo(0);//需要在每一帧更新动画状态信息        
-            if (startTime <= 0)
-            {
-                Debug.Log("攻击结束回调");
-                player.attack.OnAnimEnd();
-                startTime = player.animStateInfo.length;
-            }
         }
 
         

@@ -101,6 +101,42 @@ namespace MVC
             }
         }
         /// <summary>
+        /// 对目标造成伤害
+        /// </summary>
+        /// <param name="skill"></param>
+        public void skill_damage(base_skill_vo skill) 
+        {
+            float damage = 0f;
+            BattleAttack monster = Terget.GetComponent<BattleAttack>();
+            if (monster.target.HP <= 0) return;//结战斗
+            if (Data.Type == 1)
+            {
+                damage = Random.Range(Data.damageMin, Data.damageMax) - Random.Range(monster.Data.DefMin, monster.Data.DefMax);
+            }
+            else
+            if (Data.Type == 2)
+            {
+                damage = Random.Range(Data.MagicdamageMin, Data.MagicdamageMax) - Random.Range(monster.Data.MagicDefMin, monster.Data.MagicDefMax);
+            }
+            if (Random.Range(0, 100) > Data.hit - monster.Data.dodge)
+            {
+                //传递消息，未命中;
+                monster.target.TakeDamage(1, DamageEnum.技能未命中, monster);
+                return;
+            }
+            damage = damage * (skill.skill_damage + (skill.skill_power * int.Parse(skill.user_values[1]))) / 100;
+
+            bool isCrit = false;
+            if (Random.Range(0, 100) > data.crit_rate - monster.Data.resistance)
+            {
+                isCrit = true;
+                damage = damage * data.crit_damage / 100;
+            }
+            damage = 100;
+            monster.target.TakeDamage(damage, isCrit ? DamageEnum.暴击技能伤害 : DamageEnum.技能伤害, monster);
+        }
+
+        /// <summary>
         /// 指定目标
         /// </summary>
         /// <param name="health"></param>
@@ -150,18 +186,22 @@ namespace MVC
            if(GetComponent<Player>() != null)
 
             {
-                if (SumSave.battleMonsterHealths.Count > 0  )//玩家找怪物
+                if (SumSave.battleMonsterHealths.Count > 0)//玩家找怪物
                 {
                     //寻找距离自身最近的目标    
                     Terget = ArrayHelper.GetMin(SumSave.battleMonsterHealths, e => Vector2.Distance(transform.position, e.transform.position));
 
-                   // StateMachine.Init(data.attack_speed, data.attack_distance, data.move_speed, Terget,this);
+                    // StateMachine.Init(data.attack_speed, data.attack_distance, data.move_speed, Terget,this);
 
 
                     AttackStateMachine.Init(this, Terget);
                     StateMachine.Init(this, Terget);
-          }
-                else Game_Next_Map();
+                }
+                else
+                {
+                   // StateMachine.Animator_State(Arrow_Type.idle);
+                    Game_Next_Map();
+                }
             }
             else if (GetComponent<Monster>() != null)
             {
@@ -169,6 +209,7 @@ namespace MVC
                 {
                     //寻找距离自身最近的目标    
                     Terget = ArrayHelper.GetMin(SumSave.battleHeroHealths, e => Vector2.Distance(transform.position, e.transform.position));
+                    AttackStateMachine.Init(this, Terget);
                     StateMachine.Init(this, Terget);
                    
 
@@ -203,7 +244,7 @@ namespace MVC
 
         public virtual void Update()
         {
-            if (data != null)
+            if (data != null)//判断是否有怪物
             {
                 if (Terget != null)
                 {
@@ -212,6 +253,7 @@ namespace MVC
                 else Find_Terget();
                 show_hp.value = target.HP;
             }
+           
         }
 
         /// <summary>

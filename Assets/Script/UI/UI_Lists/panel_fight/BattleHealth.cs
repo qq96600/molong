@@ -82,8 +82,8 @@ namespace MVC
         }
         public void TakeDamage(float damage, DamageEnum damageEnum , BattleAttack monster)
         {
-            damage = 1000;
             if (HP <= 0) return;
+            damage = 1000;
             HP -= damage;
             Hurt(damage);
             //≤‚ ‘µÙ¬‰
@@ -93,7 +93,12 @@ namespace MVC
             {
                 //À¿Õˆ µÙ¬‰
                 if(monster.GetComponent<monster_battle_attck>()!=null)  WaitAndDestory(monster); 
+                else if(monster.GetComponent<player_battle_attck>() != null)
+                {
+                    SumSave.battleHeroHealths.Remove(this);
+                }
                 //monster.newValueClear();
+
                 StartCoroutine(WaitAndDestory(monster.Data.show_name));
                 // WaitAndDestory(monster.Data.show_name);
             }
@@ -108,6 +113,7 @@ namespace MVC
         {
             string _dec=dec.ToString("F0");
             DamageTextManager.Instance.ShowDamageText(DamageEnum.∆’Õ®…À∫¶, _dec, this.transform);
+           
         }
         /// <summary>
         /// œ‘ æœ˚œ¢

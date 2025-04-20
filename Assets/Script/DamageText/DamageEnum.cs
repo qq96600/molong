@@ -9,6 +9,7 @@ public enum DamageEnum
     未命中,
     技能伤害,
     暴击技能伤害,
-    技能未命中
+    技能未命中,
+    
 }
 

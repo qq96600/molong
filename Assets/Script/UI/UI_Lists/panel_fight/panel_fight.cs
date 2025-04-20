@@ -248,8 +248,7 @@ public class panel_fight : Panel_Base
             time -= 0.1f;
             yield return new WaitForSeconds(0.1f);
         }
-        Show_Battle_State("战斗中...");
-        Game_Start();
+        Open_Map(select_map);
     }
     /// <summary>
     /// 开始游戏

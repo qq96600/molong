@@ -110,15 +110,7 @@ namespace StateMachine
 
      
 
-        /// <summary>
-        /// ×´Ì¬ÇÐ»»
-        /// </summary>
-        /// <param name="damage"></param>
-        /// <param name="skill_name"></param>
-        public virtual void stateAutoInit(base_skill_vo skill_name=null)
-        {
-            baseskill = skill_name;
-        }
+
 
         
      

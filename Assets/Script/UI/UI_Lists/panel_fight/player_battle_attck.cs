@@ -56,38 +56,38 @@ public class player_battle_attck : BattleAttack
         //skill_damage(data);
     }
 
-    protected void skill_damage(base_skill_vo skill)
-    {
-        float damage = 0f;
-        BattleAttack monster = Terget.GetComponent<BattleAttack>();
-        if (monster.target.HP <= 0) return;//结战斗
-        if (Data.Type == 1)
-        {
-            damage = Random.Range(Data.damageMin, Data.damageMax) - Random.Range(monster.Data.DefMin, monster.Data.DefMax);
-        }
-        else
-        if (Data.Type == 2)
-        {
-            damage = Random.Range(Data.MagicdamageMin, Data.MagicdamageMax) - Random.Range(monster.Data.MagicDefMin, monster.Data.MagicDefMax);
-        }
-        if (Random.Range(0, 100) > Data.hit - monster.Data.dodge)
-        {
-            //传递消息，未命中;
-            monster.target.TakeDamage(1, DamageEnum.技能未命中, monster);
-            return;
-        }
-        damage = damage * (skill.skill_damage + (skill.skill_power * int.Parse(skill.user_values[1]))) / 100;
+    //protected void skill_damage(base_skill_vo skill)
+    //{
+    //    float damage = 0f;
+    //    BattleAttack monster = Terget.GetComponent<BattleAttack>();
+    //    if (monster.target.HP <= 0) return;//结战斗
+    //    if (Data.Type == 1)
+    //    {
+    //        damage = Random.Range(Data.damageMin, Data.damageMax) - Random.Range(monster.Data.DefMin, monster.Data.DefMax);
+    //    }
+    //    else
+    //    if (Data.Type == 2)
+    //    {
+    //        damage = Random.Range(Data.MagicdamageMin, Data.MagicdamageMax) - Random.Range(monster.Data.MagicDefMin, monster.Data.MagicDefMax);
+    //    }
+    //    if (Random.Range(0, 100) > Data.hit - monster.Data.dodge)
+    //    {
+    //        //传递消息，未命中;
+    //        monster.target.TakeDamage(1, DamageEnum.技能未命中, monster);
+    //        return;
+    //    }
+    //    damage = damage * (skill.skill_damage + (skill.skill_power * int.Parse(skill.user_values[1]))) / 100;
 
-        bool isCrit = false;
-        if (Random.Range(0, 100) > data.crit_rate - monster.Data.resistance)
-        {
-            isCrit = true;
-            damage = damage * data.crit_damage / 100;
-        }
-        damage = 100;
+    //    bool isCrit = false;
+    //    if (Random.Range(0, 100) > data.crit_rate - monster.Data.resistance)
+    //    {
+    //        isCrit = true;
+    //        damage = damage * data.crit_damage / 100;
+    //    }
+    //    damage = 100;
 
-        monster.target.TakeDamage(damage, isCrit ? DamageEnum.暴击技能伤害 : DamageEnum.技能伤害, monster);
-    }
+    //    monster.target.TakeDamage(damage, isCrit ? DamageEnum.暴击技能伤害 : DamageEnum.技能伤害, monster);
+    //}
 
     private void BaseAttack()//判断伤害
     {
@@ -117,6 +117,7 @@ public class player_battle_attck : BattleAttack
         }
         damage = 100;
 
+        Debug.Log("伤害" + damage);
         monster.target.TakeDamage(damage, isCrit ? DamageEnum.暴击伤害 : DamageEnum.普通伤害, monster);
     }
 

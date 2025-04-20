@@ -16,8 +16,10 @@ namespace StateMachine
 
         private Animator anim;//火球动画
         private skill_pos_type SkillPosType;//技能释放类型
-
-      
+        /// <summary>
+        /// 自身造成伤害
+        /// </summary>
+        private BattleAttack attack;
 
         private bool isExplosion= false;//是否爆炸
         private void Awake()
@@ -108,8 +110,9 @@ namespace StateMachine
             yield return new WaitForSeconds(animStateInfo.length);
             // 将对象返回对象池
             ObjectPoolManager.instance.PushObjectToPool(skill.skillname, this.gameObject);
-            transform.parent.parent.SendMessage("skill_damage", skill);
-            
+            attack.skill_damage(skill); 
+
+
         }
 
         public void TargetMove(Vector2 targetPosition,float MoveSpeed)//平移
@@ -141,7 +144,8 @@ namespace StateMachine
         {
             is_collider = true;
             skill = _skill;
-            TatgetPosition=_target;
+            attack = _attack;
+            TatgetPosition =_target;
             SkillPosType= _skill_pos_type;
 
         }

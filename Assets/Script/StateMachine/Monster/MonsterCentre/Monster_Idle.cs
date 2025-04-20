@@ -13,7 +13,7 @@ namespace StateMachine
         public override void Enter()
         {
             base.Enter();
-            monster.rb.velocity = Vector2.zero;
+            monster.RbZero();
 
         }
 

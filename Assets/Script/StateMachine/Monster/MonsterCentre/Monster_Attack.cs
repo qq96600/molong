@@ -21,20 +21,11 @@ namespace StateMachine
         public override void Exit()
         {
             base.Exit();
-            monster.anim.speed = 1;
         }
 
         public override void Update()
         {
             base.Update();
-            //monster.anim.speed = monster.animSpeed;
-            //startTime -= Time.deltaTime;
-            //monster.animStateInfo = monster.anim.GetCurrentAnimatorStateInfo(0);//需要在每一帧更新动画状态信息
-            //if (startTime <=0)
-            //{
-            //    monster.BattleAttack.OnAuto();
-            //    startTime = monster.animStateInfo.length;
-            //}
         }
     }
 }

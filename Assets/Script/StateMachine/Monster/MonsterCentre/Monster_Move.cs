@@ -28,10 +28,10 @@ namespace StateMachine
         {
             base.Update();
 
+            monster.TargetMove(monster.TargetPosition);
 
-            
-                
-            
+
+
         }
        
     }

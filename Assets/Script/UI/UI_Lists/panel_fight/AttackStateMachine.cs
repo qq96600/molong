@@ -4,6 +4,7 @@ using UnityEngine;
 using MVC;
 using StateMachine;
 using UI;
+using Common;
 
 public class AttackStateMachine : MonoBehaviour
 {
@@ -60,10 +61,7 @@ public class AttackStateMachine : MonoBehaviour
     /// 动画播放时间
     /// </summary>
     private float  animTime=0f;
-    /// <summary>
-    /// 技能储存位置
-    /// </summary>
-   private Transform skill_pos;
+
 
      private void Awake()
     {
@@ -71,24 +69,22 @@ public class AttackStateMachine : MonoBehaviour
         battle= GetComponent<BattleAttack>();
         Target= GetComponent<BattleHealth>();
         rb = GetComponent<Rigidbody2D>();
-        skill_pos=transform.Find("Skills");
+        
     }
 
     private void Update()
     {
         IsState();
         Animator_State();
-        
 
-        
-       
-        if (arrowType == Arrow_Type.idle)
+
+        if (arrowType == Arrow_Type.idle&& SumSave.battleMonsterHealths.Count>0&& SumSave.battleHeroHealths.Count >0)
         {
             AttackSpeedCounter -= Time.deltaTime;
   
             if (AttackSpeedCounter <= 0)
             {
-                Debug.Log("触发攻击");
+                //Debug.Log("触发攻击"+Time.time);
                 StateMachine.Animator_State(Arrow_Type.attack);
                 battle.OnAuto();
                 AttackSpeedCounter = AttackSpeed;//battle.Data.attack_speed; 
@@ -97,6 +93,10 @@ public class AttackStateMachine : MonoBehaviour
             {
                 StateMachine.Animator_State(Arrow_Type.idle);
             }
+        }
+        else
+        {
+            IsState();
         }
       
     }
@@ -134,7 +134,7 @@ public class AttackStateMachine : MonoBehaviour
         }
         GameObject go = ObjectPoolManager.instance.GetObjectFormPool(skill.skillname, skill_prefabs,
               new Vector3(pos.transform.position.x, pos.transform.position.y, pos.transform.position.z)
-              , Quaternion.identity, skill_pos.transform);
+              , Quaternion.identity, pos.transform);
         go.GetComponent<Skill_Collision>().Init(skill, battle, Target, (skill_pos_type)skill.skill_damage_pos_type);
     }
 
@@ -174,6 +174,9 @@ public class AttackStateMachine : MonoBehaviour
     {
         is_anim= true;
     }
+    /// <summary>
+    /// 判断是否在攻击距离内
+    /// </summary>
     private void IsState()
     {
         arrowType = Arrow_Type.idle;
@@ -188,6 +191,7 @@ public class AttackStateMachine : MonoBehaviour
         else
         {
             arrowType= Arrow_Type.move;
+            is_anim = true;
         }
     }
 

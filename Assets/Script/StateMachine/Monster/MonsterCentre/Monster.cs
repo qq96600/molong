@@ -55,18 +55,28 @@ namespace StateMachine
            
         }
 
-        /// <summary>
-        /// 判定使用什么攻击方式
-        /// </summary>
-        /// <param name="skill_name"></param>
-        public override void stateAutoInit(base_skill_vo skill_name = null)
-        {
-            base.stateAutoInit(skill_name);
-            stateMachine.ChangeState(attackState);
-        
-        }
 
-      
+        /// <summary>
+        /// 动画状态
+        /// </summary>
+        public override void Animator_State(Arrow_Type arrowType)
+        {
+            base.Animator_State(arrowType);
+            switch (arrowType)
+            {
+                case Arrow_Type.idle:
+                    stateMachine.ChangeState(idleState);
+                    break;
+                case Arrow_Type.move:
+                    stateMachine.ChangeState(moveState);
+                    break;
+                case Arrow_Type.attack:
+                    stateMachine.ChangeState(attackState);
+                    break;
+                default:
+                    break;
+            }
+        }
 
     }
 
