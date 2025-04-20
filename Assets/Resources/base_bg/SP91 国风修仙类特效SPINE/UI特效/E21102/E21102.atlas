@@ -1,0 +1,146 @@
+
+E21102.png
+size: 2422,404
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ui_card_purple_00000
+  rotate: true
+  xy: 2, 207
+  size: 195, 237
+  orig: 245, 245
+  offset: 17, 0
+  index: -1
+ui_card_purple_00001
+  rotate: true
+  xy: 1445, 205
+  size: 197, 238
+  orig: 245, 245
+  offset: 17, 0
+  index: -1
+ui_card_purple_00002
+  rotate: true
+  xy: 241, 206
+  size: 196, 239
+  orig: 245, 245
+  offset: 18, 0
+  index: -1
+ui_card_purple_00003
+  rotate: true
+  xy: 482, 206
+  size: 196, 239
+  orig: 245, 245
+  offset: 18, 0
+  index: -1
+ui_card_purple_00004
+  rotate: true
+  xy: 1685, 205
+  size: 197, 240
+  orig: 245, 245
+  offset: 18, 0
+  index: -1
+ui_card_purple_00005
+  rotate: true
+  xy: 1927, 205
+  size: 197, 240
+  orig: 245, 245
+  offset: 18, 0
+  index: -1
+ui_card_purple_00006
+  rotate: true
+  xy: 723, 206
+  size: 196, 240
+  orig: 245, 245
+  offset: 19, 0
+  index: -1
+ui_card_purple_00007
+  rotate: true
+  xy: 965, 206
+  size: 196, 239
+  orig: 245, 245
+  offset: 20, 0
+  index: -1
+ui_card_purple_00008
+  rotate: true
+  xy: 2169, 205
+  size: 197, 237
+  orig: 245, 245
+  offset: 19, 0
+  index: -1
+ui_card_purple_00009
+  rotate: true
+  xy: 2, 6
+  size: 198, 238
+  orig: 245, 245
+  offset: 18, 0
+  index: -1
+ui_card_purple_00010
+  rotate: true
+  xy: 483, 5
+  size: 199, 238
+  orig: 245, 245
+  offset: 17, 0
+  index: -1
+ui_card_purple_00011
+  rotate: true
+  xy: 723, 5
+  size: 199, 239
+  orig: 245, 245
+  offset: 17, 0
+  index: -1
+ui_card_purple_00012
+  rotate: true
+  xy: 1207, 3
+  size: 200, 239
+  orig: 245, 245
+  offset: 16, 0
+  index: -1
+ui_card_purple_00013
+  rotate: true
+  xy: 1448, 3
+  size: 200, 240
+  orig: 245, 245
+  offset: 16, 0
+  index: -1
+ui_card_purple_00014
+  rotate: true
+  xy: 1934, 2
+  size: 201, 242
+  orig: 245, 245
+  offset: 15, 0
+  index: -1
+ui_card_purple_00015
+  rotate: true
+  xy: 2178, 2
+  size: 201, 242
+  orig: 245, 245
+  offset: 15, 0
+  index: -1
+ui_card_purple_00016
+  rotate: true
+  xy: 1690, 3
+  size: 200, 242
+  orig: 245, 245
+  offset: 15, 0
+  index: -1
+ui_card_purple_00017
+  rotate: true
+  xy: 964, 5
+  size: 199, 241
+  orig: 245, 245
+  offset: 15, 0
+  index: -1
+ui_card_purple_00018
+  rotate: true
+  xy: 242, 6
+  size: 198, 239
+  orig: 245, 245
+  offset: 15, 0
+  index: -1
+ui_card_purple_00019
+  rotate: true
+  xy: 1206, 206
+  size: 196, 237
+  orig: 245, 245
+  offset: 17, 0
+  index: -1

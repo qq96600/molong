@@ -1,0 +1,153 @@
+
+E54152.png
+size: 79,942
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+A_lightning_03_00000
+  rotate: false
+  xy: 2, 441
+  size: 75, 34
+  orig: 80, 40
+  offset: 2, 3
+  index: -1
+A_lightning_03_00001
+  rotate: false
+  xy: 2, 405
+  size: 75, 34
+  orig: 80, 40
+  offset: 2, 3
+  index: -1
+A_lightning_03_00002
+  rotate: false
+  xy: 2, 369
+  size: 75, 34
+  orig: 80, 40
+  offset: 2, 3
+  index: -1
+A_lightning_03_00003
+  rotate: false
+  xy: 2, 333
+  size: 75, 34
+  orig: 80, 40
+  offset: 2, 3
+  index: -1
+A_lightning_03_00004
+  rotate: false
+  xy: 2, 297
+  size: 75, 34
+  orig: 80, 40
+  offset: 2, 3
+  index: -1
+A_lightning_03_00005
+  rotate: false
+  xy: 2, 261
+  size: 75, 34
+  orig: 80, 40
+  offset: 2, 3
+  index: -1
+A_lightning_03_00006
+  rotate: false
+  xy: 2, 225
+  size: 75, 34
+  orig: 80, 40
+  offset: 2, 3
+  index: -1
+A_lightning_03_00007
+  rotate: false
+  xy: 2, 189
+  size: 75, 34
+  orig: 80, 40
+  offset: 2, 3
+  index: -1
+A_lightning_03_00008
+  rotate: false
+  xy: 2, 153
+  size: 75, 34
+  orig: 80, 40
+  offset: 2, 3
+  index: -1
+A_lightning_03_00009
+  rotate: false
+  xy: 2, 117
+  size: 75, 34
+  orig: 80, 40
+  offset: 2, 3
+  index: -1
+A_lightning_03_00010
+  rotate: false
+  xy: 2, 81
+  size: 75, 34
+  orig: 80, 40
+  offset: 2, 3
+  index: -1
+A_lightning_03_00011
+  rotate: false
+  xy: 2, 45
+  size: 75, 34
+  orig: 80, 40
+  offset: 2, 3
+  index: -1
+A_thunder_y_00001
+  rotate: true
+  xy: 48, 13
+  size: 30, 27
+  orig: 84, 84
+  offset: 22, 5
+  index: -1
+A_thunder_y_00003
+  rotate: false
+  xy: 2, 2
+  size: 44, 41
+  orig: 84, 84
+  offset: 29, 6
+  index: -1
+A_thunder_y_00004
+  rotate: true
+  xy: 2, 477
+  size: 46, 69
+  orig: 84, 84
+  offset: 26, 5
+  index: -1
+A_thunder_y_00006
+  rotate: true
+  xy: 2, 525
+  size: 64, 68
+  orig: 84, 84
+  offset: 15, 6
+  index: -1
+A_thunder_y_00008
+  rotate: false
+  xy: 2, 800
+  size: 73, 68
+  orig: 84, 84
+  offset: 6, 6
+  index: -1
+A_thunder_y_00010
+  rotate: false
+  xy: 2, 660
+  size: 69, 68
+  orig: 84, 84
+  offset: 5, 6
+  index: -1
+A_thunder_y_00011
+  rotate: false
+  xy: 2, 870
+  size: 73, 70
+  orig: 84, 84
+  offset: 5, 6
+  index: -1
+A_thunder_y_00012
+  rotate: false
+  xy: 2, 591
+  size: 69, 67
+  orig: 84, 84
+  offset: 11, 7
+  index: -1
+A_thunder_y_00013
+  rotate: false
+  xy: 2, 730
+  size: 70, 68
+  orig: 84, 84
+  offset: 10, 6
+  index: -1

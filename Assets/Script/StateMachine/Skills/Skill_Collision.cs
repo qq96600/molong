@@ -17,6 +17,7 @@ namespace StateMachine
         private Animator anim;//火球动画
         private skill_pos_type SkillPosType;//技能释放类型
 
+      
 
         private bool isExplosion= false;//是否爆炸
         private void Awake()
@@ -34,6 +35,7 @@ namespace StateMachine
         }
         private void Update()
         {
+            if(SkillPosType == skill_pos_type.move)
             TargetMove(TatgetPosition.transform.position, MoveSpeed);
 
 
@@ -77,9 +79,23 @@ namespace StateMachine
                     }
                     is_collider = false;
                     transform.parent.SendMessage("skill_damage", skill);
+
+                    
                     ObjectPoolManager.instance.PushObjectToPool(skill.skillname, this.gameObject);
                     //this.GetComponent<BattleAttack>().injured();
                     //StartCoroutine(WaitForExplosionEnd());
+                }else
+                if (collision.gameObject.tag == "Moster" && SkillPosType == skill_pos_type.situ)
+                {
+                    if (DamageTextManager.Instance == null)
+                    {
+                        Debug.LogError("DamageTextManager instance is null!");
+                        return;
+                    }
+
+                    is_collider = false;
+
+                    StartCoroutine(WaitForExplosionEnd());
                 }
             }
         }
@@ -87,14 +103,12 @@ namespace StateMachine
 
         private IEnumerator WaitForExplosionEnd()
         {
-            
-            anim.SetBool("Explosion", true);
             rb.velocity = Vector2.zero;
             AnimatorStateInfo animStateInfo = anim.GetCurrentAnimatorStateInfo(0);
             Debug.Log("动画播放时间" + animStateInfo.length);
             // 等待动画播放完成
             yield return new WaitForSeconds(animStateInfo.length);
-            // 将火球对象返回对象池
+            // 将对象返回对象池
             ObjectPoolManager.instance.PushObjectToPool(skill.skillname, this.gameObject);
             transform.parent.SendMessage("skill_damage", skill);
             

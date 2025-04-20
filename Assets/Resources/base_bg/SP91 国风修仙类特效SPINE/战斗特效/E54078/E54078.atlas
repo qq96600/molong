@@ -1,0 +1,69 @@
+
+E54078.png
+size: 457,964
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+A_hit_00000
+  rotate: false
+  xy: 214, 2
+  size: 167, 129
+  orig: 300, 300
+  offset: 67, 87
+  index: -1
+A_hit_00001
+  rotate: true
+  xy: 2, 502
+  size: 230, 238
+  orig: 300, 300
+  offset: 42, 27
+  index: -1
+A_hit_00002
+  rotate: true
+  xy: 2, 734
+  size: 228, 265
+  orig: 300, 300
+  offset: 21, 30
+  index: -1
+A_hit_00003
+  rotate: true
+  xy: 2, 86
+  size: 201, 210
+  orig: 300, 300
+  offset: 50, 50
+  index: -1
+A_hit_00004
+  rotate: false
+  xy: 242, 348
+  size: 213, 227
+  orig: 300, 300
+  offset: 44, 40
+  index: -1
+A_hit_00005
+  rotate: true
+  xy: 2, 289
+  size: 211, 221
+  orig: 300, 300
+  offset: 45, 46
+  index: -1
+A_hit_00006
+  rotate: true
+  xy: 225, 133
+  size: 213, 217
+  orig: 300, 300
+  offset: 44, 52
+  index: -1
+A_hit_00007
+  rotate: true
+  xy: 269, 768
+  size: 194, 183
+  orig: 300, 300
+  offset: 54, 61
+  index: -1
+A_hit_00008
+  rotate: true
+  xy: 269, 577
+  size: 189, 178
+  orig: 300, 300
+  offset: 55, 62
+  index: -1

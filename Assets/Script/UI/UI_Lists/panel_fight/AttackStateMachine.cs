@@ -20,8 +20,14 @@ public class AttackStateMachine : MonoBehaviour
     /// 状态控制器
     /// </summary>
     private Arrow_Type arrowType = Arrow_Type.idle;
-
+    /// <summary>
+    /// 攻击速度
+    /// </summary>
     private float AttackSpeed = 1f;
+    /// <summary>
+    /// 攻击速度计数器
+    /// </summary>
+    private float AttackSpeedCounter;
     /// <summary>
     /// 是否在动画中
     /// </summary>
@@ -49,6 +55,11 @@ public class AttackStateMachine : MonoBehaviour
     /// 是否面向左
     /// </summary>
     protected bool facingLeft = true;
+    /// <summary>
+    /// 动画播放时间
+    /// </summary>
+    private float  animTime=0f;
+   
 
     private void Awake()
     {
@@ -56,26 +67,38 @@ public class AttackStateMachine : MonoBehaviour
         battle= GetComponent<BattleAttack>();
         Target= GetComponent<BattleHealth>();
         rb = GetComponent<Rigidbody2D>();
-        skill_prefabs = Resources.Load<GameObject>("Prefabs/panel_skill/Skill_Effects/HuoQiu");
+        
     }
 
     private void Update()
     {
         IsState();
         Animator_State();
+        
+
+        
+       
         if (arrowType == Arrow_Type.idle)
         {
-            AttackSpeed -= Time.deltaTime;
-            if (AttackSpeed <= 0)
+            AttackSpeedCounter -= Time.deltaTime;
+  
+            if (AttackSpeedCounter <= 0)
             {
                 Debug.Log("触发攻击");
                 StateMachine.Animator_State(Arrow_Type.attack);
                 battle.OnAuto();
-                AttackSpeed = 1f;//battle.Data.attack_speed;
+                AttackSpeedCounter = AttackSpeed;//battle.Data.attack_speed; 
+            }
+            else
+            {
+                StateMachine.Animator_State(Arrow_Type.idle);
             }
         }
       
     }
+
+
+
 
     public void Init(BattleAttack _battle,BattleHealth target)
     {
@@ -91,13 +114,15 @@ public class AttackStateMachine : MonoBehaviour
     public void Skill(base_skill_vo skill)
     {
         Transform pos=battle.transform;
-
+        skill.skill_damage_pos_type = 1;
         switch ((skill_pos_type)skill.skill_damage_pos_type)
         {
             case skill_pos_type.move:
+                skill_prefabs = Resources.Load<GameObject>("Prefabs/panel_skill/Skill_Effects/HuoQiu");
                 pos = battle.transform;
                 break;
             case skill_pos_type.situ:
+                skill_prefabs = Resources.Load<GameObject>("Prefabs/panel_skill/Skill_Effects/BaoZha");
                 pos = Target.transform;
                 break;
             default:

@@ -32,17 +32,17 @@ namespace StateMachine
         {
             base.Update();
 
-            //startTime -= Time.deltaTime;
-            //player.animStateInfo = player.anim.GetCurrentAnimatorStateInfo(0);//需要在每一帧更新动画状态信息        
-            //if (startTime <=0)
-            //{
-            //    ObjectPoolManager.instance.GetObjectFormPool("Skll_HuoQiu", player.skills_HuoQiu,
-            //    new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z)
-            //    , Quaternion.identity, player.skillStoragePos);
+            startTime -= Time.deltaTime;
+            player.animStateInfo = player.anim.GetCurrentAnimatorStateInfo(0);//需要在每一帧更新动画状态信息        
+            if (startTime <=0)
+            {
+                ObjectPoolManager.instance.GetObjectFormPool("Skll_HuoQiu", player.skills_HuoQiu,
+                new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z)
+                , Quaternion.identity, player.skillStoragePos);
 
-            //    player.BattleAttack.OnAuto();
-            //    startTime = player.animStateInfo.length;
-            //}
+                player.BattleAttack.OnAuto();
+                startTime = player.animStateInfo.length;
+            }
         }
     }
 }

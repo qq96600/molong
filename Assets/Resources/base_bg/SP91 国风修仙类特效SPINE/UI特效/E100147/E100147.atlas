@@ -1,0 +1,13 @@
+
+E100147.png
+size: 120,120
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+glowstar_01_zgd
+  rotate: false
+  xy: 2, 2
+  size: 116, 116
+  orig: 146, 146
+  offset: 15, 14
+  index: -1

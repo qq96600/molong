@@ -1,0 +1,90 @@
+
+E54179.png
+size: 184,1375
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+A_glow
+  rotate: true
+  xy: 131, 2
+  size: 52, 51
+  orig: 64, 64
+  offset: 6, 6
+  index: -1
+A_glow_orange_small
+  rotate: true
+  xy: 131, 56
+  size: 52, 51
+  orig: 64, 64
+  offset: 6, 6
+  index: -1
+A_green_lizi_00001
+  rotate: false
+  xy: 2, 1192
+  size: 176, 181
+  orig: 223, 218
+  offset: 17, 22
+  index: -1
+A_green_lizi_00002
+  rotate: false
+  xy: 2, 831
+  size: 176, 177
+  orig: 223, 218
+  offset: 17, 24
+  index: -1
+A_green_lizi_00003
+  rotate: false
+  xy: 2, 357
+  size: 166, 128
+  orig: 223, 218
+  offset: 18, 48
+  index: -1
+A_green_lizi_00004
+  rotate: true
+  xy: 2, 2
+  size: 106, 127
+  orig: 223, 218
+  offset: 77, 49
+  index: -1
+A_juji
+  rotate: false
+  xy: 2, 1010
+  size: 176, 180
+  orig: 256, 256
+  offset: 32, 32
+  index: -1
+A_line_white
+  rotate: true
+  xy: 2, 487
+  size: 131, 169
+  orig: 168, 183
+  offset: 18, 7
+  index: -1
+A_line_yellow
+  rotate: true
+  xy: 132, 110
+  size: 98, 20
+  orig: 128, 64
+  offset: 16, 22
+  index: -1
+A_line_yellow 03
+  rotate: true
+  xy: 2, 110
+  size: 116, 128
+  orig: 128, 128
+  offset: 2, 0
+  index: -1
+A_rainbow_half
+  rotate: true
+  xy: 2, 620
+  size: 209, 144
+  orig: 243, 238
+  offset: 11, 85
+  index: -1
+Alizi
+  rotate: false
+  xy: 2, 228
+  size: 128, 127
+  orig: 128, 128
+  offset: 0, 0
+  index: -1

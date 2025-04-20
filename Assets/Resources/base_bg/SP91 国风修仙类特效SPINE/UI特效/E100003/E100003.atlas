@@ -1,0 +1,41 @@
+
+E100003.png
+size: 4096,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+dianji01_00
+  rotate: false
+  xy: 2, 2
+  size: 735, 145
+  orig: 1200, 1000
+  offset: 237, 427
+  index: -1
+dianji01_01
+  rotate: true
+  xy: 2034, 202
+  size: 799, 563
+  orig: 1200, 1000
+  offset: 203, 255
+  index: -1
+dianji01_03
+  rotate: true
+  xy: 2, 149
+  size: 852, 748
+  orig: 1200, 1000
+  offset: 166, 154
+  index: -1
+dianji01_05
+  rotate: true
+  xy: 1406, 153
+  size: 848, 626
+  orig: 1200, 1000
+  offset: 142, 172
+  index: -1
+dianji01_06
+  rotate: true
+  xy: 752, 175
+  size: 826, 652
+  orig: 1200, 1000
+  offset: 130, 164
+  index: -1

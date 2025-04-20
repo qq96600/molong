@@ -1,0 +1,62 @@
+
+E54135.png
+size: 253,304
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+A_ice_di
+  rotate: false
+  xy: 2, 174
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+bing
+  rotate: false
+  xy: 2, 2
+  size: 84, 99
+  orig: 84, 99
+  offset: 0, 0
+  index: -1
+ice_00
+  rotate: false
+  xy: 2, 103
+  size: 122, 69
+  orig: 122, 69
+  offset: 0, 0
+  index: -1
+t_smoke10_zgd
+  rotate: true
+  xy: 132, 187
+  size: 115, 116
+  orig: 128, 128
+  offset: 7, 6
+  index: -1
+tx_ice_00001
+  rotate: true
+  xy: 132, 109
+  size: 76, 101
+  orig: 128, 128
+  offset: 32, 15
+  index: -1
+tx_ice_00002
+  rotate: false
+  xy: 88, 12
+  size: 68, 89
+  orig: 128, 128
+  offset: 35, 21
+  index: -1
+tx_ice_00003
+  rotate: true
+  xy: 158, 44
+  size: 63, 82
+  orig: 128, 128
+  offset: 37, 24
+  index: -1
+tx_ice_00004
+  rotate: false
+  xy: 235, 128
+  size: 16, 57
+  orig: 128, 128
+  offset: 39, 45
+  index: -1

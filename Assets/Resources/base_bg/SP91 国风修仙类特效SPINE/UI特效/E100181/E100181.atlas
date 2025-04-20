@@ -1,0 +1,293 @@
+
+E100181.png
+size: 1892,264
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+A_glow
+  rotate: false
+  xy: 1826, 198
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+A_juanyan_00000
+  rotate: false
+  xy: 2, 134
+  size: 150, 128
+  orig: 150, 128
+  offset: 0, 0
+  index: -1
+A_juanyan_00001
+  rotate: false
+  xy: 154, 134
+  size: 150, 128
+  orig: 150, 128
+  offset: 0, 0
+  index: -1
+A_juanyan_00002
+  rotate: false
+  xy: 306, 134
+  size: 150, 128
+  orig: 150, 128
+  offset: 0, 0
+  index: -1
+A_juanyan_00003
+  rotate: false
+  xy: 458, 134
+  size: 150, 128
+  orig: 150, 128
+  offset: 0, 0
+  index: -1
+A_juanyan_00004
+  rotate: false
+  xy: 610, 134
+  size: 150, 128
+  orig: 150, 128
+  offset: 0, 0
+  index: -1
+A_juanyan_00005
+  rotate: false
+  xy: 762, 134
+  size: 150, 128
+  orig: 150, 128
+  offset: 0, 0
+  index: -1
+A_juanyan_00006
+  rotate: false
+  xy: 914, 134
+  size: 150, 128
+  orig: 150, 128
+  offset: 0, 0
+  index: -1
+A_juanyan_00007
+  rotate: false
+  xy: 1066, 134
+  size: 150, 128
+  orig: 150, 128
+  offset: 0, 0
+  index: -1
+A_juanyan_00008
+  rotate: false
+  xy: 1218, 134
+  size: 150, 128
+  orig: 150, 128
+  offset: 0, 0
+  index: -1
+A_juanyan_00009
+  rotate: false
+  xy: 1370, 134
+  size: 150, 128
+  orig: 150, 128
+  offset: 0, 0
+  index: -1
+A_juanyan_00010
+  rotate: false
+  xy: 1522, 134
+  size: 150, 128
+  orig: 150, 128
+  offset: 0, 0
+  index: -1
+A_juanyan_00011
+  rotate: false
+  xy: 1674, 134
+  size: 150, 128
+  orig: 150, 128
+  offset: 0, 0
+  index: -1
+A_juanyan_00012
+  rotate: false
+  xy: 2, 4
+  size: 150, 128
+  orig: 150, 128
+  offset: 0, 0
+  index: -1
+A_juanyan_00013
+  rotate: false
+  xy: 154, 4
+  size: 150, 128
+  orig: 150, 128
+  offset: 0, 0
+  index: -1
+A_juanyan_00014
+  rotate: false
+  xy: 306, 4
+  size: 150, 128
+  orig: 150, 128
+  offset: 0, 0
+  index: -1
+A_juanyan_00015
+  rotate: false
+  xy: 458, 4
+  size: 150, 128
+  orig: 150, 128
+  offset: 0, 0
+  index: -1
+A_juanyan_00016
+  rotate: false
+  xy: 610, 4
+  size: 150, 128
+  orig: 150, 128
+  offset: 0, 0
+  index: -1
+A_juanyan_00017
+  rotate: false
+  xy: 762, 4
+  size: 150, 128
+  orig: 150, 128
+  offset: 0, 0
+  index: -1
+A_juanyan_00018
+  rotate: false
+  xy: 914, 4
+  size: 150, 128
+  orig: 150, 128
+  offset: 0, 0
+  index: -1
+A_juanyan_00019
+  rotate: false
+  xy: 1066, 4
+  size: 150, 128
+  orig: 150, 128
+  offset: 0, 0
+  index: -1
+battle_smoke_00000
+  rotate: false
+  xy: 1826, 132
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+battle_smoke_00001
+  rotate: false
+  xy: 1218, 68
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+battle_smoke_00002
+  rotate: false
+  xy: 1284, 68
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+battle_smoke_00003
+  rotate: false
+  xy: 1350, 68
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+battle_smoke_00004
+  rotate: false
+  xy: 1416, 68
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+battle_smoke_00005
+  rotate: false
+  xy: 1482, 68
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+battle_smoke_00006
+  rotate: false
+  xy: 1548, 68
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+battle_smoke_00007
+  rotate: false
+  xy: 1614, 68
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+battle_smoke_00008
+  rotate: false
+  xy: 1680, 68
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+battle_smoke_00009
+  rotate: false
+  xy: 1746, 68
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+battle_smoke_00010
+  rotate: false
+  xy: 1812, 66
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+battle_smoke_00011
+  rotate: false
+  xy: 1218, 2
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+battle_smoke_00012
+  rotate: false
+  xy: 1284, 2
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+battle_smoke_00013
+  rotate: false
+  xy: 1350, 2
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+battle_smoke_00014
+  rotate: false
+  xy: 1416, 2
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+battle_smoke_00015
+  rotate: false
+  xy: 1482, 2
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+battle_smoke_00016
+  rotate: false
+  xy: 1548, 2
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+battle_smoke_00017
+  rotate: false
+  xy: 1614, 2
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+battle_smoke_00018
+  rotate: false
+  xy: 1680, 2
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+battle_smoke_00019
+  rotate: false
+  xy: 1746, 2
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1

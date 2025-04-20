@@ -1,0 +1,27 @@
+
+E21018.png
+size: 957,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+alpha_tietu
+  rotate: false
+  xy: 2, 114
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+cloud2
+  rotate: false
+  xy: 16, 10
+  size: 394, 116
+  orig: 400, 150
+  offset: 0, 4
+  index: -1
+common_cloud
+  rotate: false
+  xy: 412, 2
+  size: 543, 124
+  orig: 564, 130
+  offset: 11, 4
+  index: -1

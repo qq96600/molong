@@ -1,0 +1,181 @@
+
+E21110.png
+size: 731,264
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+A_glow
+  rotate: false
+  xy: 629, 198
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+lizi_yuan
+  rotate: true
+  xy: 279, 39
+  size: 223, 218
+  orig: 223, 218
+  offset: 0, 0
+  index: -1
+planes_bg_21
+  rotate: true
+  xy: 2, 2
+  size: 260, 275
+  orig: 260, 275
+  offset: 0, 0
+  index: -1
+rotation02
+  rotate: false
+  xy: 499, 134
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+tx_light_0019
+  rotate: false
+  xy: 517, 4
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+uv_smoke_00000
+  rotate: false
+  xy: 279, 5
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+uv_smoke_00001
+  rotate: false
+  xy: 313, 5
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+uv_smoke_00002
+  rotate: false
+  xy: 347, 5
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+uv_smoke_00003
+  rotate: false
+  xy: 381, 5
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+uv_smoke_00004
+  rotate: false
+  xy: 415, 5
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+uv_smoke_00005
+  rotate: false
+  xy: 449, 5
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+uv_smoke_00006
+  rotate: false
+  xy: 483, 5
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+uv_smoke_00007
+  rotate: false
+  xy: 629, 164
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+uv_smoke_00008
+  rotate: false
+  xy: 695, 230
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+uv_smoke_00009
+  rotate: false
+  xy: 695, 196
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+uv_smoke_00010
+  rotate: false
+  xy: 663, 162
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+uv_smoke_00011
+  rotate: false
+  xy: 697, 162
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+uv_smoke_00012
+  rotate: false
+  xy: 647, 128
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+uv_smoke_00013
+  rotate: false
+  xy: 681, 128
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+uv_smoke_00014
+  rotate: false
+  xy: 647, 94
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+uv_smoke_00015
+  rotate: false
+  xy: 681, 94
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+uv_smoke_00016
+  rotate: false
+  xy: 647, 60
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+uv_smoke_00017
+  rotate: false
+  xy: 681, 60
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+uv_smoke_00018
+  rotate: false
+  xy: 647, 26
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+uv_smoke_00019
+  rotate: false
+  xy: 681, 26
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1

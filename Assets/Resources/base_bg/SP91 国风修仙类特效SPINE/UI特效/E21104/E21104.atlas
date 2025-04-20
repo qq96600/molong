@@ -1,0 +1,55 @@
+
+E21104.png
+size: 801,453
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+A_huan_y
+  rotate: false
+  xy: 2, 2
+  size: 449, 449
+  orig: 461, 461
+  offset: 6, 6
+  index: -1
+A_lizi_fire01
+  rotate: true
+  xy: 453, 94
+  size: 151, 153
+  orig: 230, 230
+  offset: 30, 26
+  index: -1
+A_lizi_fire02
+  rotate: true
+  xy: 641, 57
+  size: 145, 148
+  orig: 230, 230
+  offset: 35, 30
+  index: -1
+A_lizi_fire03
+  rotate: false
+  xy: 660, 310
+  size: 139, 141
+  orig: 230, 230
+  offset: 41, 35
+  index: -1
+line_orange2
+  rotate: false
+  xy: 608, 53
+  size: 31, 192
+  orig: 68, 230
+  offset: 18, 19
+  index: -1
+line_yellow 02
+  rotate: true
+  xy: 660, 204
+  size: 104, 115
+  orig: 115, 115
+  offset: 2, 0
+  index: -1
+tx0019glow
+  rotate: true
+  xy: 453, 247
+  size: 204, 205
+  orig: 230, 230
+  offset: 10, 16
+  index: -1

@@ -89,7 +89,7 @@ public class player_battle_attck : BattleAttack
         monster.target.TakeDamage(damage, isCrit ? DamageEnum.±©»÷¼¼ÄÜÉËº¦ : DamageEnum.¼¼ÄÜÉËº¦, monster);
     }
 
-    private void BaseAttack()
+    private void BaseAttack()//ÅĞ¶ÏÉËº¦
     {
         float damage = 0f;
         BattleAttack monster = Terget.GetComponent<BattleAttack>();
