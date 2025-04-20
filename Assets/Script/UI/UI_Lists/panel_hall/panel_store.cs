@@ -32,6 +32,10 @@ public class panel_store : Base_Mono
     /// </summary>
     private material_item material_item;
     /// <summary>
+    /// 商店预制体
+    /// </summary>
+    private store_item store_item_Prefabs;
+    /// <summary>
     /// 当前商店物品字典
     /// </summary>
     private Dictionary<string, db_store_vo> items_dic = new Dictionary<string, db_store_vo>();
@@ -85,8 +89,9 @@ public class panel_store : Base_Mono
         store_type = Find<Transform>("store_type");
         btn_item = Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
         store_item = Find<Transform>("store_item/Viewport/Content");
-        material_item = Resources.Load<material_item>("Prefabs/panel_bag/material_item"); 
-         btn = Find<Button>("but");
+        material_item = Resources.Load<material_item>("Prefabs/panel_bag/material_item");
+        store_item_Prefabs= Resources.Load<store_item>("Prefabs/panel_hall/panel_store/store_item");
+        btn = Find<Button>("but");
 
         btn.onClick.AddListener(() =>{ CloseBuyInterface(); });
 
@@ -193,15 +198,23 @@ public class panel_store : Base_Mono
                 }
             }
         }
-        
         for (int i = 0; i < items_list.Count; i++)//显示商店内物品
         {
-            material_item item = Instantiate(material_item, store_item);
 
-            item.Init((items_list[i].ItemName, items_list[i].ItemPrice));
+            store_item item = Instantiate(store_item_Prefabs, store_item);
             db_store_vo items = items_list[i];
+            item.Init((items_list[i].ItemName, items_list[i].ItemPrice),items.unit);
             item.GetComponent<Button>().onClick.AddListener(() => { ShowItemInfo(items); });
         }
+        //for (int i = 0; i < items_list.Count; i++)//显示商店内物品
+        //{
+
+        //    material_item item = Instantiate(material_item, store_item);
+
+        //    item.Init((items_list[i].ItemName, items_list[i].ItemPrice));
+        //    db_store_vo items = items_list[i];
+        //    item.GetComponent<Button>().onClick.AddListener(() => { ShowItemInfo(items); });
+        //}
        
     }
     /// <summary>
