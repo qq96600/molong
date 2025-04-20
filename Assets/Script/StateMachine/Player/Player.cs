@@ -1,3 +1,4 @@
+using Common;
 using MVC;
 using System.Collections;
 using System.Collections.Generic;
@@ -28,9 +29,7 @@ namespace StateMachine
 
         #endregion
 
-
-    
-
+      
         protected override void Awake()
         {
             base.Awake();
@@ -48,6 +47,7 @@ namespace StateMachine
             skillStoragePos=GameObject.Find("Skills").transform;
             #endregion
 
+           
         }
 
        

@@ -1,0 +1,76 @@
+
+E21012.png
+size: 176,290
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+fire_loop_00000
+  rotate: false
+  xy: 2, 2
+  size: 44, 68
+  orig: 64, 128
+  offset: 12, 16
+  index: -1
+fire_loop_00001
+  rotate: false
+  xy: 130, 127
+  size: 44, 72
+  orig: 64, 128
+  offset: 12, 16
+  index: -1
+fire_loop_00002
+  rotate: false
+  xy: 130, 51
+  size: 38, 74
+  orig: 64, 128
+  offset: 12, 16
+  index: -1
+fire_loop_00003
+  rotate: true
+  xy: 48, 30
+  size: 40, 77
+  orig: 64, 128
+  offset: 9, 16
+  index: -1
+fire_loop_00004
+  rotate: false
+  xy: 124, 201
+  size: 46, 87
+  orig: 64, 128
+  offset: 9, 15
+  index: -1
+fire_loop_00005
+  rotate: false
+  xy: 2, 75
+  size: 45, 91
+  orig: 64, 128
+  offset: 9, 16
+  index: -1
+fire_loop_00006
+  rotate: false
+  xy: 90, 72
+  size: 38, 94
+  orig: 64, 128
+  offset: 15, 16
+  index: -1
+fire_loop_00007
+  rotate: false
+  xy: 49, 72
+  size: 39, 94
+  orig: 64, 128
+  offset: 17, 19
+  index: -1
+glow_05_zgd
+  rotate: false
+  xy: 2, 168
+  size: 120, 120
+  orig: 128, 128
+  offset: 3, 5
+  index: -1
+glow_blue
+  rotate: true
+  xy: 127, 10
+  size: 39, 40
+  orig: 64, 64
+  offset: 13, 12
+  index: -1

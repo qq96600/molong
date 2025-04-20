@@ -1,0 +1,377 @@
+
+E200005.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+A_glow
+  rotate: false
+  xy: 754, 726
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+A_green_lizi_00000
+  rotate: false
+  xy: 754, 1822
+  size: 223, 218
+  orig: 223, 218
+  offset: 0, 0
+  index: -1
+A_green_lizi_00001
+  rotate: true
+  xy: 754, 1597
+  size: 223, 218
+  orig: 223, 218
+  offset: 0, 0
+  index: -1
+A_green_lizi_00002
+  rotate: true
+  xy: 754, 1372
+  size: 223, 218
+  orig: 223, 218
+  offset: 0, 0
+  index: -1
+A_green_lizi_00003
+  rotate: true
+  xy: 754, 1147
+  size: 223, 218
+  orig: 223, 218
+  offset: 0, 0
+  index: -1
+A_green_lizi_00004
+  rotate: true
+  xy: 754, 922
+  size: 223, 218
+  orig: 223, 218
+  offset: 0, 0
+  index: -1
+qiyaoxinggong
+  rotate: false
+  xy: 2, 706
+  size: 750, 1334
+  orig: 750, 1334
+  offset: 0, 0
+  index: -1
+shuiweili_zgd_00000
+  rotate: false
+  xy: 2, 60
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+shuiweili_zgd_00001
+  rotate: false
+  xy: 132, 60
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+shuiweili_zgd_00002
+  rotate: false
+  xy: 262, 60
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+shuiweili_zgd_00003
+  rotate: false
+  xy: 392, 60
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+shuiweili_zgd_00004
+  rotate: false
+  xy: 522, 60
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+shuiweili_zgd_00005
+  rotate: false
+  xy: 652, 60
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+shuiweili_zgd_00006
+  rotate: false
+  xy: 754, 792
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+shuiweili_zgd_00007
+  rotate: false
+  xy: 776, 596
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+shuiweili_zgd_00008
+  rotate: false
+  xy: 884, 792
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+shuiweili_zgd_00009
+  rotate: false
+  xy: 776, 466
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+shuiweili_zgd_00010
+  rotate: false
+  xy: 776, 336
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+shuiweili_zgd_00011
+  rotate: false
+  xy: 776, 206
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+shuiweili_zgd_00012
+  rotate: false
+  xy: 782, 76
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+shuiweili_zgd_00013
+  rotate: false
+  xy: 906, 662
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+shuiweili_zgd_00014
+  rotate: false
+  xy: 906, 532
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+shuiweili_zgd_00015
+  rotate: false
+  xy: 906, 402
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+shuiweili_zgd_00016
+  rotate: false
+  xy: 906, 272
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+shuiweili_zgd_00017
+  rotate: false
+  xy: 912, 142
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+shuiweili_zgd_00018
+  rotate: false
+  xy: 912, 12
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+shuiweili_zgd_00019
+  rotate: false
+  xy: 974, 1692
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+t_banyuan_zc_001
+  rotate: false
+  xy: 2, 448
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+t_banyuan_zc_002
+  rotate: false
+  xy: 2, 190
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+t_banyuan_zc_003
+  rotate: false
+  xy: 260, 448
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+t_banyuan_zc_004
+  rotate: false
+  xy: 260, 190
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+t_banyuan_zc_005
+  rotate: false
+  xy: 518, 448
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+t_banyuan_zc_006
+  rotate: false
+  xy: 518, 190
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+wenli_03_zgd_00000
+  rotate: false
+  xy: 979, 1912
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+wenli_03_zgd_00001
+  rotate: false
+  xy: 974, 1562
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+wenli_03_zgd_00002
+  rotate: false
+  xy: 974, 1432
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+wenli_03_zgd_00003
+  rotate: false
+  xy: 974, 1302
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+wenli_03_zgd_00004
+  rotate: false
+  xy: 974, 1172
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+wenli_03_zgd_00005
+  rotate: false
+  xy: 974, 1042
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+wenli_03_zgd_00006
+  rotate: false
+  xy: 1014, 912
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+wenli_03_zgd_00007
+  rotate: false
+  xy: 1036, 782
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+wenli_03_zgd_00008
+  rotate: false
+  xy: 1036, 652
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+wenli_03_zgd_00009
+  rotate: false
+  xy: 1036, 522
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+wenli_03_zgd_00010
+  rotate: false
+  xy: 1036, 392
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+wenli_03_zgd_00011
+  rotate: false
+  xy: 1042, 262
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+wenli_03_zgd_00012
+  rotate: false
+  xy: 1042, 132
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+wenli_03_zgd_00013
+  rotate: false
+  xy: 1042, 2
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+wenli_03_zgd_00014
+  rotate: false
+  xy: 1104, 1782
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+wenli_03_zgd_00015
+  rotate: false
+  xy: 1109, 1912
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+wenli_03_zgd_00016
+  rotate: false
+  xy: 1104, 1652
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+wenli_03_zgd_00017
+  rotate: false
+  xy: 1104, 1522
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+wenli_03_zgd_00018
+  rotate: false
+  xy: 1104, 1392
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+wenli_03_zgd_00019
+  rotate: false
+  xy: 1104, 1262
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1

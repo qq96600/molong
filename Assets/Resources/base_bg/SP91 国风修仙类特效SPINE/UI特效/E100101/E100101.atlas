@@ -1,0 +1,97 @@
+
+E100101.png
+size: 1024,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+zuji_04
+  rotate: false
+  xy: 266, 31
+  size: 138, 83
+  orig: 154, 152
+  offset: 8, 12
+  index: -1
+zuji_06
+  rotate: false
+  xy: 2, 7
+  size: 138, 107
+  orig: 154, 152
+  offset: 8, 12
+  index: -1
+zuji_08
+  rotate: false
+  xy: 620, 140
+  size: 138, 114
+  orig: 154, 152
+  offset: 8, 12
+  index: -1
+zuji_10
+  rotate: true
+  xy: 127, 116
+  size: 138, 121
+  orig: 154, 152
+  offset: 8, 12
+  index: -1
+zuji_12
+  rotate: true
+  xy: 250, 116
+  size: 138, 118
+  orig: 154, 152
+  offset: 8, 12
+  index: -1
+zuji_14
+  rotate: true
+  xy: 2, 116
+  size: 138, 123
+  orig: 154, 152
+  offset: 8, 12
+  index: -1
+zuji_16
+  rotate: false
+  xy: 406, 2
+  size: 136, 117
+  orig: 154, 152
+  offset: 9, 12
+  index: -1
+zuji_18
+  rotate: true
+  xy: 370, 121
+  size: 133, 121
+  orig: 154, 152
+  offset: 10, 13
+  index: -1
+zuji_20
+  rotate: false
+  xy: 544, 2
+  size: 131, 122
+  orig: 154, 152
+  offset: 11, 12
+  index: -1
+zuji_22
+  rotate: true
+  xy: 493, 126
+  size: 128, 125
+  orig: 154, 152
+  offset: 13, 11
+  index: -1
+zuji_24
+  rotate: false
+  xy: 142, 4
+  size: 122, 110
+  orig: 154, 152
+  offset: 16, 11
+  index: -1
+zuji_26
+  rotate: true
+  xy: 677, 24
+  size: 114, 78
+  orig: 154, 152
+  offset: 20, 10
+  index: -1
+zuji_28
+  rotate: true
+  xy: 757, 43
+  size: 95, 72
+  orig: 154, 152
+  offset: 31, 9
+  index: -1

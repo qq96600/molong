@@ -1,0 +1,41 @@
+
+E54100.png
+size: 329,586
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+A_daozi
+  rotate: false
+  xy: 2, 363
+  size: 256, 221
+  orig: 256, 221
+  offset: 0, 0
+  index: -1
+A_lizi_fire_00000
+  rotate: false
+  xy: 2, 191
+  size: 193, 170
+  orig: 256, 256
+  offset: 33, 29
+  index: -1
+A_lizi_fire_00001
+  rotate: true
+  xy: 2, 2
+  size: 187, 165
+  orig: 256, 256
+  offset: 39, 33
+  index: -1
+A_lizi_fire_00002
+  rotate: true
+  xy: 169, 9
+  size: 180, 158
+  orig: 256, 256
+  offset: 45, 38
+  index: -1
+Alizi
+  rotate: false
+  xy: 197, 234
+  size: 128, 127
+  orig: 128, 128
+  offset: 0, 0
+  index: -1

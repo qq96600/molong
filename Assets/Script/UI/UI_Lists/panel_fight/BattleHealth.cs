@@ -26,12 +26,17 @@ namespace MVC
         /// </summary>
         [HideInInspector]
         public int Pos = 0;
+
+     
         private void Awake()
         {
             HP = maxHP;
             MP = maxMP;
             internalforceMP = internalforcemaxMP;
             EnergyMp = EnergymaxMp;
+
+
+           
         }
         public void Clear()
         {

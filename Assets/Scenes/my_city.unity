@@ -2638,32 +2638,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1579725018}
   m_CullTransparentMesh: 1
---- !u!1 &1584059296 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1145936879483970963, guid: 8b3838d10677bb043a87e194cf3dfa63, type: 3}
-  m_PrefabInstance: {fileID: 1532372820438542301}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &1584059300
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1584059296}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 62c472bc3a597ca4db1af553596713b5, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1692608625
 GameObject:
   m_ObjectHideFlags: 0
@@ -3632,10 +3606,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1420616014}
     m_Modifications:
-    - target: {fileID: 2953607664572667138, guid: 39202a1915586eb48bacd0cd2521f1b6, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3601277999483685527, guid: 39202a1915586eb48bacd0cd2521f1b6, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3715,10 +3685,6 @@ PrefabInstance:
     - target: {fileID: 3601277999483685527, guid: 39202a1915586eb48bacd0cd2521f1b6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3603568523422305986, guid: 39202a1915586eb48bacd0cd2521f1b6, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: -281.2716
       objectReference: {fileID: 0}
     - target: {fileID: 5579923845726669418, guid: 39202a1915586eb48bacd0cd2521f1b6, type: 3}
       propertyPath: m_SizeDelta.x
@@ -3852,10 +3818,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1145936879483970963, guid: 8b3838d10677bb043a87e194cf3dfa63, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1584059300}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b3838d10677bb043a87e194cf3dfa63, type: 3}
 --- !u!114 &1713514662676079371
 MonoBehaviour:

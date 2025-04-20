@@ -53,6 +53,18 @@ public class panel_hero : Panel_Base
     /// 英雄列表
     /// </summary>
     private Button crate_btn,show_hero_info_close_btn;
+    /// <summary>
+    /// 角色类型
+    /// </summary>
+    private enum_skin_state skin_state;
+    /// <summary>
+    /// 角色皮肤预制体
+    /// </summary>
+    private GameObject skin_prefabs;
+    /// <summary>
+    /// 角色内观位置
+    /// </summary>
+    private Transform panel_role_health;
     protected override void Awake()
     {
         base.Awake();
@@ -74,6 +86,13 @@ public class panel_hero : Panel_Base
         hero_name=Find<Text>("bg_main/select_hero/show_hero_info/hero_name/info");
         show_hero_info_close_btn = Find<Button>("bg_main/select_hero/show_hero_info/close");
         show_hero_info_close_btn.onClick.AddListener(() => { show_hero_info.gameObject.SetActive(false); });
+
+        int hero_index = int.Parse(SumSave.crt_hero.hero_index);
+        skin_state = (enum_skin_state)hero_index;
+        skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/内观_" + skin_state.ToString());
+        panel_role_health = Find<Transform>("bg_main/hero_icon/panel_role_health");
+        Instantiate(skin_prefabs, panel_role_health);
+
         for (int i = 0; i < Enum.GetNames(typeof(enum_attribute_list)).Length; i++)
         { 
             info_item item = Instantiate(info_item_prefabs, crt);

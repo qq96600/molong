@@ -1,3 +1,4 @@
+using Common;
 using MVC;
 using System.Collections;
 using System.Collections.Generic;
@@ -39,9 +40,34 @@ namespace StateMachine
         public float skillRelease = 50f;
         [Header("是否面向左")]
         protected bool facingLeft=true;
-        
+
+
+        #region 角色外观
+        /// <summary>
+        /// 角色类型
+        /// </summary>
+        private enum_skin_state skin_state;
+        /// <summary>
+        /// 角色皮肤预制体
+        /// </summary>
+        private GameObject skin_prefabs;
+        /// <summary>
+        /// 角色内观位置
+        /// </summary>
+        private Transform panel_role_health;
+        #endregion
+
+
         protected virtual void Awake()
         {
+            #region 角色外观初始化
+            int hero_index = int.Parse(SumSave.crt_hero.hero_index);
+            skin_state = (enum_skin_state)hero_index;
+            skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/外观_" + skin_state.ToString());
+            panel_role_health = transform.Find("Appearance");
+            Instantiate(skin_prefabs, panel_role_health);
+            #endregion
+
             anim = GetComponentInChildren<Animator>();
             if (anim == null)
                 Debug.LogError("怪物没有Animator组件");

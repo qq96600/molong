@@ -1,0 +1,55 @@
+
+E54013.png
+size: 1596,291
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+zhanjisj_00
+  rotate: false
+  xy: 618, 57
+  size: 232, 232
+  orig: 420, 420
+  offset: 92, 95
+  index: -1
+zhanjisj_02
+  rotate: false
+  xy: 299, 58
+  size: 317, 231
+  orig: 420, 420
+  offset: 52, 105
+  index: -1
+zhanjisj_04
+  rotate: false
+  xy: 2, 2
+  size: 295, 287
+  orig: 420, 420
+  offset: 61, 55
+  index: -1
+zhanjisj_06
+  rotate: true
+  xy: 1228, 11
+  size: 278, 182
+  orig: 420, 420
+  offset: 71, 119
+  index: -1
+zhanjisj_07
+  rotate: true
+  xy: 1412, 11
+  size: 278, 182
+  orig: 420, 420
+  offset: 71, 119
+  index: -1
+zhanjisj_08
+  rotate: true
+  xy: 1040, 9
+  size: 280, 186
+  orig: 420, 420
+  offset: 70, 117
+  index: -1
+zhanjisj_10
+  rotate: true
+  xy: 852, 9
+  size: 280, 186
+  orig: 420, 420
+  offset: 70, 117
+  index: -1

@@ -1,0 +1,69 @@
+
+E100198.png
+size: 499,284
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+baokai_02_csq
+  rotate: false
+  xy: 2, 77
+  size: 205, 205
+  orig: 205, 205
+  offset: 0, 0
+  index: -1
+penjian_00005
+  rotate: false
+  xy: 2, 2
+  size: 73, 73
+  orig: 73, 73
+  offset: 0, 0
+  index: -1
+penjian_00007
+  rotate: false
+  xy: 77, 2
+  size: 73, 73
+  orig: 73, 73
+  offset: 0, 0
+  index: -1
+penjian_00009
+  rotate: false
+  xy: 152, 2
+  size: 73, 73
+  orig: 73, 73
+  offset: 0, 0
+  index: -1
+penjian_00011
+  rotate: false
+  xy: 227, 19
+  size: 73, 73
+  orig: 73, 73
+  offset: 0, 0
+  index: -1
+penjian_00013
+  rotate: false
+  xy: 302, 19
+  size: 73, 73
+  orig: 73, 73
+  offset: 0, 0
+  index: -1
+penjian_00015
+  rotate: false
+  xy: 377, 19
+  size: 73, 73
+  orig: 73, 73
+  offset: 0, 0
+  index: -1
+rope_cow_btn_2_1
+  rotate: true
+  xy: 209, 94
+  size: 188, 143
+  orig: 188, 143
+  offset: 0, 0
+  index: -1
+rope_cow_btn_2_2
+  rotate: true
+  xy: 354, 94
+  size: 188, 143
+  orig: 188, 143
+  offset: 0, 0
+  index: -1

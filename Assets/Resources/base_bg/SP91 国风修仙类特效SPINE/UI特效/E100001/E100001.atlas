@@ -1,0 +1,48 @@
+
+E100001.png
+size: 854,232
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bck_00000
+  rotate: false
+  xy: 638, 142
+  size: 134, 88
+  orig: 278, 257
+  offset: 72, 86
+  index: -1
+bck_00001
+  rotate: false
+  xy: 2, 2
+  size: 221, 228
+  orig: 278, 257
+  offset: 17, 15
+  index: -1
+bck_00002
+  rotate: true
+  xy: 225, 6
+  size: 224, 237
+  orig: 278, 257
+  offset: 27, 9
+  index: -1
+bck_00003
+  rotate: true
+  xy: 464, 49
+  size: 181, 172
+  orig: 278, 257
+  offset: 52, 42
+  index: -1
+bck_00004
+  rotate: true
+  xy: 744, 21
+  size: 119, 108
+  orig: 278, 257
+  offset: 70, 110
+  index: -1
+bck_00005
+  rotate: false
+  xy: 638, 14
+  size: 104, 126
+  orig: 278, 257
+  offset: 93, 109
+  index: -1

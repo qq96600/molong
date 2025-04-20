@@ -1,0 +1,41 @@
+
+E100115.png
+size: 280,148
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+0025line
+  rotate: false
+  xy: 2, 20
+  size: 113, 126
+  orig: 128, 174
+  offset: 8, 36
+  index: -1
+glow_07_zgd
+  rotate: false
+  xy: 117, 3
+  size: 62, 38
+  orig: 64, 64
+  offset: 0, 6
+  index: -1
+item_10200
+  rotate: true
+  xy: 205, 60
+  size: 86, 73
+  orig: 86, 73
+  offset: 0, 0
+  index: -1
+item_10200_1
+  rotate: true
+  xy: 117, 43
+  size: 103, 86
+  orig: 103, 86
+  offset: 0, 0
+  index: -1
+lizi_02
+  rotate: false
+  xy: 205, 2
+  size: 56, 56
+  orig: 64, 64
+  offset: 4, 4
+  index: -1

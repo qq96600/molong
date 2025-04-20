@@ -1,0 +1,12 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public enum enum_skin_state 
+{
+    Á§ÐÄ=1,
+    ÕÑÔÂ,
+    ²Ôöª, 
+
+
+}

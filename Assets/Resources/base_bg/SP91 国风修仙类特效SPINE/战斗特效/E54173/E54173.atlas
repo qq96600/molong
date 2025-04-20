@@ -1,0 +1,132 @@
+
+E54173.png
+size: 431,311
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+A_glow
+  rotate: false
+  xy: 180, 234
+  size: 52, 51
+  orig: 64, 64
+  offset: 6, 6
+  index: -1
+A_juji
+  rotate: false
+  xy: 2, 129
+  size: 176, 180
+  orig: 256, 256
+  offset: 32, 32
+  index: -1
+A_wenli_wave_00000
+  rotate: false
+  xy: 282, 129
+  size: 45, 54
+  orig: 64, 64
+  offset: 9, 4
+  index: -1
+A_wenli_wave_00001
+  rotate: false
+  xy: 329, 129
+  size: 45, 53
+  orig: 64, 64
+  offset: 9, 5
+  index: -1
+A_wenli_wave_00002
+  rotate: false
+  xy: 329, 74
+  size: 45, 53
+  orig: 64, 64
+  offset: 9, 4
+  index: -1
+A_wenli_wave_00003
+  rotate: false
+  xy: 346, 184
+  size: 44, 53
+  orig: 64, 64
+  offset: 9, 4
+  index: -1
+A_wenli_wave_00004
+  rotate: true
+  xy: 376, 130
+  size: 43, 53
+  orig: 64, 64
+  offset: 9, 4
+  index: -1
+A_wenli_wave_00005
+  rotate: false
+  xy: 346, 239
+  size: 43, 54
+  orig: 64, 64
+  offset: 9, 4
+  index: -1
+A_wenli_wave_00006
+  rotate: false
+  xy: 373, 18
+  size: 43, 54
+  orig: 64, 64
+  offset: 9, 5
+  index: -1
+A_wenli_wave_00007
+  rotate: false
+  xy: 376, 74
+  size: 43, 54
+  orig: 64, 64
+  offset: 9, 5
+  index: -1
+A_wenli_wave_00008
+  rotate: false
+  xy: 329, 16
+  size: 42, 56
+  orig: 64, 64
+  offset: 10, 3
+  index: -1
+A_wenli_wave_00009
+  rotate: true
+  xy: 282, 185
+  size: 43, 56
+  orig: 64, 64
+  offset: 10, 3
+  index: -1
+A_wenli_wave_00010
+  rotate: false
+  xy: 301, 230
+  size: 43, 56
+  orig: 64, 64
+  offset: 11, 3
+  index: -1
+line_green
+  rotate: false
+  xy: 238, 18
+  size: 89, 109
+  orig: 105, 115
+  offset: 8, 2
+  index: -1
+lizi_up_green_01
+  rotate: true
+  xy: 2, 2
+  size: 125, 126
+  orig: 128, 128
+  offset: 2, 1
+  index: -1
+lizi_up_green_02
+  rotate: true
+  xy: 130, 20
+  size: 107, 106
+  orig: 128, 128
+  offset: 3, 22
+  index: -1
+lizi_up_green_03
+  rotate: true
+  xy: 180, 130
+  size: 102, 100
+  orig: 128, 128
+  offset: 5, 27
+  index: -1
+lizi_up_green_04
+  rotate: false
+  xy: 234, 234
+  size: 65, 39
+  orig: 128, 128
+  offset: 38, 31
+  index: -1

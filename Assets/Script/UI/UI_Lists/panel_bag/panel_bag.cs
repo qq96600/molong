@@ -30,6 +30,20 @@ public class panel_bag : Panel_Base
 
     private panel_equip panel_equip;
 
+
+    /// <summary>
+    /// 角色皮肤
+    /// </summary>
+    private enum_skin_state skin_state;
+    /// <summary>
+    /// 角色皮肤预制体
+    /// </summary>
+    private GameObject skin_prefabs;
+    /// <summary>
+    /// 角色内观位置
+    /// </summary>
+    private Transform panel_role_health;
+
     private bag_btn_list crt_select_btn = bag_btn_list.装备;
     protected override void Awake()
     {
@@ -45,6 +59,13 @@ public class panel_bag : Panel_Base
         bag_item_Prefabs = Resources.Load<bag_item>("Prefabs/panel_bag/bag_item");
         material_item_Prefabs= Resources.Load<material_item>("Prefabs/panel_bag/material_item"); 
         panel_equip = UI_Manager.I.GetPanel<panel_equip>();
+
+        int hero_index = int.Parse(SumSave.crt_hero.hero_index);
+        skin_state = (enum_skin_state)hero_index;
+        skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/内观_" + skin_state.ToString());
+        panel_role_health = Find<Transform>("bg_main/bag_equips/panel_role_health");
+        Instantiate(skin_prefabs, panel_role_health);
+
         for (int i = 0; i < Enum.GetNames(typeof(bag_btn_list)).Length; i++)
         {
             btn_item btn_item = Instantiate(btn_item_Prefabs, crt_btn);//实例化背包装备

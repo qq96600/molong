@@ -1,0 +1,356 @@
+
+E54047.png
+size: 1997,1043
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+大招/tb_baodian_up_s/tb_baodian_up_s_000
+  rotate: false
+  xy: 1481, 29
+  size: 273, 273
+  orig: 500, 500
+  offset: 113, 97
+  index: -1
+大招/tb_baodian_up_s/tb_baodian_up_s_001
+  rotate: true
+  xy: 1054, 758
+  size: 283, 276
+  orig: 500, 500
+  offset: 106, 98
+  index: -1
+大招/tb_baodian_up_s/tb_baodian_up_s_002
+  rotate: true
+  xy: 778, 748
+  size: 293, 274
+  orig: 500, 500
+  offset: 101, 100
+  index: -1
+大招/tb_baodian_up_s/tb_baodian_up_s_003
+  rotate: true
+  xy: 70, 159
+  size: 300, 272
+  orig: 500, 500
+  offset: 101, 102
+  index: -1
+大招/tb_baodian_up_s/tb_baodian_up_s_004
+  rotate: true
+  xy: 717, 232
+  size: 297, 266
+  orig: 500, 500
+  offset: 101, 107
+  index: -1
+大招/tb_baodian_up_s/tb_baodian_up_s_005
+  rotate: true
+  xy: 344, 162
+  size: 298, 187
+  orig: 500, 500
+  offset: 102, 166
+  index: -1
+大招/tb_baodian_up_s/tb_baodian_up_s_006
+  rotate: true
+  xy: 533, 194
+  size: 298, 182
+  orig: 500, 500
+  offset: 103, 167
+  index: -1
+大招/tb_baodian_up_s/tb_baodian_up_s_007
+  rotate: true
+  xy: 985, 258
+  size: 276, 169
+  orig: 500, 500
+  offset: 125, 167
+  index: -1
+大招/tb_baodian_up_s/tb_baodian_up_s_008
+  rotate: false
+  xy: 187, 8
+  size: 167, 149
+  orig: 500, 500
+  offset: 125, 169
+  index: -1
+大招/tb_baodian_up_s/tb_baodian_up_s_009
+  rotate: false
+  xy: 2, 16
+  size: 114, 42
+  orig: 500, 500
+  offset: 173, 234
+  index: -1
+大招/tb_dl_s/tb_dl_s_010
+  rotate: true
+  xy: 1156, 260
+  size: 274, 139
+  orig: 1440, 1440
+  offset: 779, 453
+  index: -1
+大招/tb_dl_s/tb_dl_s_011
+  rotate: true
+  xy: 1156, 260
+  size: 274, 139
+  orig: 1440, 1440
+  offset: 779, 453
+  index: -1
+大招/tb_dl_s/tb_dl_s_012
+  rotate: true
+  xy: 1332, 767
+  size: 274, 139
+  orig: 1440, 1440
+  offset: 779, 453
+  index: -1
+大招/tb_dl_s/tb_dl_s_013
+  rotate: true
+  xy: 1297, 286
+  size: 274, 139
+  orig: 1440, 1440
+  offset: 779, 453
+  index: -1
+大招/tb_dl_s/tb_dl_s_014
+  rotate: true
+  xy: 1473, 767
+  size: 274, 139
+  orig: 1440, 1440
+  offset: 779, 453
+  index: -1
+大招/tb_dl_s/tb_dl_s_015
+  rotate: true
+  xy: 1438, 304
+  size: 274, 139
+  orig: 1440, 1440
+  offset: 779, 453
+  index: -1
+大招/tb_dl_s/tb_dl_s_016
+  rotate: true
+  xy: 1614, 767
+  size: 274, 139
+  orig: 1440, 1440
+  offset: 779, 453
+  index: -1
+大招/tb_dl_s/tb_dl_s_017
+  rotate: true
+  xy: 1579, 306
+  size: 272, 136
+  orig: 1440, 1440
+  offset: 780, 454
+  index: -1
+大招/tb_dl_s/tb_dl_s_018
+  rotate: true
+  xy: 1717, 311
+  size: 268, 136
+  orig: 1440, 1440
+  offset: 783, 454
+  index: -1
+大招/tb_dl_s/tb_dl_s_019
+  rotate: true
+  xy: 1855, 523
+  size: 265, 134
+  orig: 1440, 1440
+  offset: 785, 455
+  index: -1
+大招/tb_dl_s/tb_dl_s_020
+  rotate: true
+  xy: 1124, 2
+  size: 254, 131
+  orig: 1440, 1440
+  offset: 792, 456
+  index: -1
+大招/tb_dl_s/tb_dl_s_021
+  rotate: false
+  xy: 1755, 916
+  size: 240, 125
+  orig: 1440, 1440
+  offset: 799, 459
+  index: -1
+大招/tb_dl_s/tb_dl_s_022
+  rotate: true
+  xy: 1559, 580
+  size: 185, 90
+  orig: 1440, 1440
+  offset: 827, 473
+  index: -1
+大招/tb_dl_s/tb_dl_s_023
+  rotate: true
+  xy: 1559, 580
+  size: 185, 90
+  orig: 1440, 1440
+  offset: 827, 473
+  index: -1
+大招/tb_jiguang_s/tb_jiguang_s_003
+  rotate: true
+  xy: 1827, 790
+  size: 124, 168
+  orig: 1440, 1440
+  offset: 992, 666
+  index: -1
+大招/tb_jiguang_s/tb_jiguang_s_004
+  rotate: false
+  xy: 141, 462
+  size: 138, 579
+  orig: 1440, 1440
+  offset: 985, 296
+  index: -1
+大招/tb_jiguang_s/tb_jiguang_s_005
+  rotate: false
+  xy: 2, 461
+  size: 137, 580
+  orig: 1440, 1440
+  offset: 986, 295
+  index: -1
+大招/tb_jiguang_s/tb_jiguang_s_006
+  rotate: false
+  xy: 281, 462
+  size: 135, 579
+  orig: 1440, 1440
+  offset: 985, 296
+  index: -1
+大招/tb_jiguang_s/tb_jiguang_s_007
+  rotate: false
+  xy: 418, 494
+  size: 125, 547
+  orig: 1440, 1440
+  offset: 986, 295
+  index: -1
+大招/tb_jiguang_s/tb_jiguang_s_008
+  rotate: false
+  xy: 545, 505
+  size: 120, 536
+  orig: 1440, 1440
+  offset: 989, 303
+  index: -1
+大招/tb_jiguang_s/tb_jiguang_s_009
+  rotate: false
+  xy: 667, 531
+  size: 109, 510
+  orig: 1440, 1440
+  offset: 993, 322
+  index: -1
+大招/tb_jiguang_s/tb_jiguang_s_010
+  rotate: false
+  xy: 2, 60
+  size: 66, 399
+  orig: 1440, 1440
+  offset: 999, 367
+  index: -1
+大招/tb_up_01_s/tb_up_01_s_000
+  rotate: true
+  xy: 1756, 4
+  size: 96, 94
+  orig: 1440, 1440
+  offset: 988, 784
+  index: -1
+大招/tb_up_01_s/tb_up_01_s_001
+  rotate: false
+  xy: 1882, 208
+  size: 111, 101
+  orig: 1440, 1440
+  offset: 986, 778
+  index: -1
+大招/tb_up_01_s/tb_up_01_s_002
+  rotate: true
+  xy: 519, 17
+  size: 143, 138
+  orig: 1440, 1440
+  offset: 985, 775
+  index: -1
+大招/tb_up_01_s/tb_up_01_s_003
+  rotate: false
+  xy: 778, 534
+  size: 187, 212
+  orig: 1440, 1440
+  offset: 947, 709
+  index: -1
+大招/tb_up_01_s/tb_up_01_s_004
+  rotate: true
+  xy: 860, 4
+  size: 226, 262
+  orig: 1440, 1440
+  offset: 940, 709
+  index: -1
+大招/tb_up_01_s/tb_up_01_s_005
+  rotate: false
+  xy: 1257, 5
+  size: 222, 253
+  orig: 1440, 1440
+  offset: 936, 709
+  index: -1
+大招/tb_up_01_s/tb_up_01_s_006
+  rotate: false
+  xy: 967, 536
+  size: 204, 210
+  orig: 1440, 1440
+  offset: 935, 713
+  index: -1
+大招/tb_up_01_s/tb_up_01_s_007
+  rotate: true
+  xy: 659, 3
+  size: 189, 199
+  orig: 1440, 1440
+  offset: 934, 715
+  index: -1
+大招/tb_up_01_s/tb_up_01_s_008
+  rotate: false
+  xy: 1651, 581
+  size: 174, 184
+  orig: 1440, 1440
+  offset: 932, 720
+  index: -1
+大招/tb_up_01_s/tb_up_01_s_009
+  rotate: true
+  xy: 70, 60
+  size: 97, 115
+  orig: 1440, 1440
+  offset: 1009, 774
+  index: -1
+大招/tb_up_01_s/tb_up_01_s_010
+  rotate: true
+  xy: 1756, 207
+  size: 102, 124
+  orig: 1440, 1440
+  offset: 1008, 773
+  index: -1
+大招/tb_up_01_s/tb_up_01_s_011
+  rotate: true
+  xy: 1855, 311
+  size: 104, 132
+  orig: 1440, 1440
+  offset: 1009, 773
+  index: -1
+大招/tb_up_01_s/tb_up_01_s_012
+  rotate: true
+  xy: 1855, 417
+  size: 104, 133
+  orig: 1440, 1440
+  offset: 1009, 774
+  index: -1
+大招/tb_up_01_s/tb_up_01_s_013
+  rotate: true
+  xy: 356, 16
+  size: 144, 161
+  orig: 1440, 1440
+  offset: 967, 737
+  index: -1
+大招/tb_up_01_s/tb_up_01_s_014
+  rotate: true
+  xy: 1415, 580
+  size: 185, 142
+  orig: 1440, 1440
+  offset: 953, 737
+  index: -1
+大招/tb_up_01_s/tb_up_01_s_015
+  rotate: true
+  xy: 1279, 562
+  size: 194, 134
+  orig: 1440, 1440
+  offset: 945, 741
+  index: -1
+大招/tb_up_01_s/tb_up_01_s_016
+  rotate: true
+  xy: 1173, 560
+  size: 196, 104
+  orig: 1440, 1440
+  offset: 941, 756
+  index: -1
+大招/tb_up_01_s/tb_up_01_s_017
+  rotate: false
+  xy: 1882, 102
+  size: 105, 104
+  orig: 1440, 1440
+  offset: 986, 756
+  index: -1

@@ -1,0 +1,69 @@
+
+E100142.png
+size: 1024,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+1
+  rotate: false
+  xy: 2, 2
+  size: 398, 124
+  orig: 398, 124
+  offset: 0, 0
+  index: -1
+2
+  rotate: false
+  xy: 2, 128
+  size: 241, 377
+  orig: 243, 379
+  offset: 1, 1
+  index: -1
+3
+  rotate: false
+  xy: 358, 165
+  size: 133, 152
+  orig: 133, 160
+  offset: 0, 8
+  index: -1
+4
+  rotate: true
+  xy: 245, 319
+  size: 186, 159
+  orig: 186, 159
+  offset: 0, 0
+  index: -1
+5
+  rotate: true
+  xy: 493, 260
+  size: 116, 89
+  orig: 116, 89
+  offset: 0, 0
+  index: -1
+6
+  rotate: true
+  xy: 406, 378
+  size: 127, 112
+  orig: 127, 112
+  offset: 0, 0
+  index: -1
+7
+  rotate: false
+  xy: 358, 128
+  size: 22, 35
+  orig: 24, 37
+  offset: 1, 1
+  index: -1
+8
+  rotate: true
+  xy: 245, 128
+  size: 189, 111
+  orig: 189, 111
+  offset: 0, 0
+  index: -1
+9
+  rotate: true
+  xy: 402, 4
+  size: 159, 109
+  orig: 159, 109
+  offset: 0, 0
+  index: -1

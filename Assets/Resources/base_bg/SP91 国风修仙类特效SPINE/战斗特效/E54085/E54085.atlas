@@ -1,0 +1,48 @@
+
+E54085.png
+size: 397,730
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+A_tx_baodian_00028
+  rotate: false
+  xy: 2, 2
+  size: 169, 91
+  orig: 242, 432
+  offset: 41, 173
+  index: -1
+A_tx_baodian_00029
+  rotate: false
+  xy: 2, 311
+  size: 190, 417
+  orig: 242, 432
+  offset: 27, 7
+  index: -1
+A_tx_baodian_00030
+  rotate: false
+  xy: 194, 438
+  size: 201, 290
+  orig: 242, 432
+  offset: 4, 92
+  index: -1
+A_tx_baodian_00031
+  rotate: true
+  xy: 194, 225
+  size: 211, 201
+  orig: 242, 432
+  offset: 1, 114
+  index: -1
+A_tx_baodian_00032
+  rotate: true
+  xy: 190, 10
+  size: 213, 182
+  orig: 242, 432
+  offset: 0, 128
+  index: -1
+A_tx_baodian_00033
+  rotate: true
+  xy: 2, 95
+  size: 214, 186
+  orig: 242, 432
+  offset: 0, 127
+  index: -1

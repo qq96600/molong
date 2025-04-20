@@ -1,0 +1,20 @@
+
+E100145.png
+size: 1024,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+1
+  rotate: true
+  xy: 2, 2
+  size: 214, 258
+  orig: 216, 260
+  offset: 1, 1
+  index: -1
+2
+  rotate: false
+  xy: 262, 27
+  size: 255, 189
+  orig: 255, 189
+  offset: 0, 0
+  index: -1

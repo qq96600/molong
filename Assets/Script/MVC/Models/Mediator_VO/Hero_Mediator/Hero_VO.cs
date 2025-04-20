@@ -16,7 +16,7 @@ public class Hero_VO : Base_VO
     /// <summary>
     /// 角色编号
     /// </summary>
-    public string hero_index;
+    public string hero_index="1";
     /// <summary>
     /// 已有英雄列表
     /// </summary>
