@@ -39,12 +39,12 @@ namespace StateMachine
             TargetMove(TatgetPosition.transform.position, MoveSpeed);
 
 
-            if(SkillPosType== skill_pos_type.situ&&!is_collider)
-            {
-                anim.SetBool("Explosion", true);
-                ObjectPoolManager.instance.PushObjectToPool("Skll_HuoQiu", this.gameObject);
-                TatgetPosition.GetComponent<BattleAttack>().injured();
-            }
+            //if(SkillPosType== skill_pos_type.situ&&!is_collider)
+            //{
+            //    anim.SetBool("Explosion", true);
+            //    ObjectPoolManager.instance.PushObjectToPool("Skll_HuoQiu", this.gameObject);
+            //    TatgetPosition.GetComponent<BattleAttack>().injured();
+            //}
 
             if (isExplosion)
             {
@@ -79,8 +79,6 @@ namespace StateMachine
                     }
                     is_collider = false;
                     transform.parent.SendMessage("skill_damage", skill);
-
-                    
                     ObjectPoolManager.instance.PushObjectToPool(skill.skillname, this.gameObject);
                     //this.GetComponent<BattleAttack>().injured();
                     //StartCoroutine(WaitForExplosionEnd());
@@ -105,25 +103,14 @@ namespace StateMachine
         {
             rb.velocity = Vector2.zero;
             AnimatorStateInfo animStateInfo = anim.GetCurrentAnimatorStateInfo(0);
-            Debug.Log("动画播放时间" + animStateInfo.length);
+            
             // 等待动画播放完成
             yield return new WaitForSeconds(animStateInfo.length);
             // 将对象返回对象池
             ObjectPoolManager.instance.PushObjectToPool(skill.skillname, this.gameObject);
-            transform.parent.SendMessage("skill_damage", skill);
+            transform.parent.parent.SendMessage("skill_damage", skill);
             
         }
-
-
-
-        private void OnTriggerExit2D(Collider2D collision)
-        {
-            if (is_collider)
-            {
-                anim.SetBool("Explosion", false);
-            }
-        }
-
 
         public void TargetMove(Vector2 targetPosition,float MoveSpeed)//平移
         {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using MVC;
 using StateMachine;
+using UI;
 
 public class AttackStateMachine : MonoBehaviour
 {
@@ -45,7 +46,7 @@ public class AttackStateMachine : MonoBehaviour
     /// <summary>
     /// 刚体组件
     /// </summary>
-    public Rigidbody2D rb;
+    private Rigidbody2D rb;
     /// <summary>
     /// 移动速度
     /// </summary>
@@ -59,15 +60,18 @@ public class AttackStateMachine : MonoBehaviour
     /// 动画播放时间
     /// </summary>
     private float  animTime=0f;
-   
+    /// <summary>
+    /// 技能储存位置
+    /// </summary>
+   private Transform skill_pos;
 
-    private void Awake()
+     private void Awake()
     {
         StateMachine = GetComponent<RolesManage>();
         battle= GetComponent<BattleAttack>();
         Target= GetComponent<BattleHealth>();
         rb = GetComponent<Rigidbody2D>();
-        
+        skill_pos=transform.Find("Skills");
     }
 
     private void Update()
@@ -130,7 +134,7 @@ public class AttackStateMachine : MonoBehaviour
         }
         GameObject go = ObjectPoolManager.instance.GetObjectFormPool(skill.skillname, skill_prefabs,
               new Vector3(pos.transform.position.x, pos.transform.position.y, pos.transform.position.z)
-              , Quaternion.identity, pos.transform);
+              , Quaternion.identity, skill_pos.transform);
         go.GetComponent<Skill_Collision>().Init(skill, battle, Target, (skill_pos_type)skill.skill_damage_pos_type);
     }
 

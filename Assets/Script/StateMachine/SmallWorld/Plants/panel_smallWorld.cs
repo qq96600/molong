@@ -44,8 +44,15 @@ public class panel_smallWorld : Panel_Base
     /// 宠物显示位置
     /// </summary>
     private Transform pet_pos;
+    /// <summary>
+    /// 宠物信息标题
+    /// </summary>
+    private Text Pet_name;
+    /// <summary>
+    /// 宠物属性信息文本
+    /// <summary>  
+    private Text Pet_attribute;
 
-    
 
     public override void Initialize()
     {
@@ -58,8 +65,8 @@ public class panel_smallWorld : Panel_Base
         base_info = Find<Text>("bg_main/base_info/info");
         btn_item = Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
         pet_pos= Find<Transform>("small_World/Pet_Hatching/Pet_list/Viewport/items");
-
-
+        Pet_name= Find<Text>("small_World/Pet_Hatching/Pet_info/Pet_name/Text");
+        Pet_attribute = Find<Text>("small_World/Pet_Hatching/Pet_info/Pet_attribute/Text");
         for (int i = 0; i < btn_list.Length; i++)
         {
             btn_item btn_items = Instantiate(btn_item, pos_btn);//实例化背包装备
@@ -128,8 +135,20 @@ public class panel_smallWorld : Panel_Base
     /// <param name="pet"></param>
     private void Select_Pet(db_pet_vo pet)
     {
-        Debug.Log(pet.petName);
+        Pet_name.text = pet.petName + " Lv." + pet.level;
+        Pet_attribute.text="";
+        string dec = "";
+        dec += "宠物属性：" + pet.crate_value + "\n";
+
+        Pet_attribute.text = dec;
     }
+
+
+
+
+
+
+
     /// <summary>
     /// 升级
     /// </summary>
