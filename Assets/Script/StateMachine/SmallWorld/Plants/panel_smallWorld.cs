@@ -162,7 +162,10 @@ public class panel_smallWorld : Panel_Base
         (string,int) dec = SumSave.db_lvs.world_lv_list[SumSave.crt_world.World_Lv];
         NeedConsumables(dec.Item1, dec.Item2);
         if (RefreshConsumables())
-        { 
+        {
+            List<string> list = SumSave.crt_world.Get();
+            int time = (int)(SumSave.nowtime - Convert.ToDateTime(list[0])).TotalMinutes;
+            SumSave.crt_world.Set(Obtain_Init(1, time, int.Parse(list[1])));
             SumSave.crt_world.World_Lv++;
             Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_world, SumSave.crt_world.Set_Uptade_String(), SumSave.crt_world.Get_Update_Character());
         }else Alert_Dec.Show("灵气不足");
@@ -196,13 +199,12 @@ public class panel_smallWorld : Panel_Base
     /// <param name="time"></param>
     private int Obtain_Init(int type,int time=0,int crt_value=0)
     {
-       
         int value = 0;
         switch (type)
         {
             case 1:
                 ///判断越界
-                ArrayHelper.SafeGet(SumSave.db_lvs.world_offect_list, SumSave.crt_world.World_Lv, out int valu);
+                ArrayHelper.SafeGet(SumSave.db_lvs.world_offect_list, SumSave.crt_world.World_Lv, out int se);
                 value = time * SumSave.db_lvs.world_offect_list[SumSave.crt_world.World_Lv];
                 value+= crt_value;
                 value = Mathf.Min(value, SumSave.db_lvs.word_lv_max_value[SumSave.crt_world.World_Lv]);

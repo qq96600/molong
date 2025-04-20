@@ -6,6 +6,7 @@ using Common;
 using System;
 using System.Security.Cryptography;
 using Random = UnityEngine.Random;
+using Components;
 /// <summary>
 /// 战斗工具类
 /// </summary>
@@ -34,32 +35,34 @@ public static class Battle_Tool
     /// <param name="result"></param>
     public static void Obtain_result(string result)
     {
-
+        if (result == "0") return;
         string[] result_list = result.Split('*');
-        
         switch (int.Parse(result_list[2]))
         {
             case 1://获取资源
                 Obtain_Resources(result_list[0], int.Parse(result_list[1]));
                 break;
             case 2:
-              
+                Obtain_Resources(result_list[0], int.Parse(result_list[1]));
                 break;
-
             case 3:
                 SumSave.crt_user_unit.verify_data(currency_unit.灵珠, int.Parse(result_list[1]));
                 break;
 
             case 4:
-                return;
-                
+                SumSave.crt_user_unit.verify_data(currency_unit.魔丸, int.Parse(result_list[1]));
                 break;
 
             case 5:
               
                 break;
             case 6:
-             
+                if (SumSave.crt_world != null)
+                {
+                    SumSave.crt_world.Set(int.Parse(result_list[1]));
+                    Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_world, SumSave.crt_world.Set_Uptade_String(), SumSave.crt_world.Get_Update_Character());
+                }
+                else Alert_Dec.Show("小世界未激活");
                 break;
             case 7:
        

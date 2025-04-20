@@ -32,7 +32,7 @@ public class material_item : Base_Mono
     { 
         data = bag_Resources;
         item_icon.sprite = UI.UI_Manager.I.GetEquipSprite("icon/", data.Item1);
-        base_info.text = data.Item2.ToString() +"";
+        base_info.text = Battle_Tool.FormatNumberToChineseUnit(data.Item2);
     }
     public void Init((string,List<string>) bag_Resources)
     {

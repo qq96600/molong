@@ -34,7 +34,15 @@ public class user_world_vo : Base_VO
     { 
      return value_lists;
     }
-
+    /// <summary>
+    /// ªÒ»°÷µ
+    /// </summary>
+    /// <param name="value"></param>
+    public void Set(int value)
+    {
+        value_lists[0] = SumSave.nowtime.ToString();
+        value_lists[1] = value.ToString();
+    }
     public string Set_data()
     {
         string dec = "";
