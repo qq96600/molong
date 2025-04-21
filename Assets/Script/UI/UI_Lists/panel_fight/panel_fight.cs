@@ -248,7 +248,7 @@ public class panel_fight : Panel_Base
             time -= 0.1f;
             yield return new WaitForSeconds(0.1f);
         }
-        Open_Map(select_map);
+        Open_Map    (select_map);
     }
     /// <summary>
     /// ¿ªÊ¼ÓÎÏ·
