@@ -244,7 +244,7 @@ public class panel_fight : Panel_Base
         
         while (time > 0)
         {
-            Show_Battle_State("复活剩余时间 " + time.ToString()[..Math.Min(2, time.ToString().Length)]);
+            Show_Battle_State("复活剩余时间 " + time.ToString("F1") + "s");
             time -= 0.1f;
             yield return new WaitForSeconds(0.1f);
         }

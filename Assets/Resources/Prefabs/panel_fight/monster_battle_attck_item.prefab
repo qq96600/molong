@@ -445,7 +445,7 @@ GameObject:
   - component: {fileID: 5449956320651473598}
   - component: {fileID: 4334075212334008511}
   m_Layer: 5
-  m_Name: bg_icon
+  m_Name: "mon_\u866B\u5B50"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -498,7 +498,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -398779377, guid: d2b1d16465c1eb14c8132340ce876ebb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 587cd76d5dfd3a44f94a109d3402365d, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

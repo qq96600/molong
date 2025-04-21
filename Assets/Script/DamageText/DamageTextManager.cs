@@ -95,7 +95,7 @@ public class DamageTextManager : MonoBehaviour// MonoSingleton <DamageTextManage
         Debug.Log(damage);
         for (int i = 0; i < characters.Length; i++)// damageText.transform.childCount
         {
-            damageText.transform.GetChild(i).GetComponent<Image>().sprite = UI.UI_Manager.I.GetEquipSprite("panel_fight/digit_Text/", "digit_" + characters[i]);
+            damageText.transform.GetChild(i).GetComponent<Image>().sprite = UI.UI_Manager.I.GetEquipSprite("base_bg/文字/", characters[i].ToString());// Resources.Load<Sprite> ("base_bg/文字"+ characters[i]);  //UI.UI_Manager.I.GetEquipSprite("base_bg/文字/", characters[i]);
             damageText.transform.GetChild(i).GetComponent<Image>().color = color;
         }
         damageText.transform.GetOrAddComponent<DamageAnimiton>().Init();
