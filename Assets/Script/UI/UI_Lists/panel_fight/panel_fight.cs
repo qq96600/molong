@@ -111,7 +111,7 @@ public class panel_fight : Panel_Base
         { 
             pos_btn.GetChild(i).gameObject.SetActive(close_panel_state);
         }
-        //close_btn.GetComponent<Image>().sprite = Resources.Load<Sprite>(close_panel_state ? "UI/panel_fight/btn_list_open" : "UI/panel_fight/btn_list_close");
+        close_btn.GetComponent<Image>().sprite = Resources.Load<Sprite>(close_panel_state ? "UI/btn_list/Òþ²Ø" : "UI/btn_list/Õ¹¿ª");
     }
     
     public override void Show()
