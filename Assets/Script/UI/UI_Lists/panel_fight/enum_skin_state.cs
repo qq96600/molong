@@ -10,3 +10,10 @@ public enum enum_skin_state
 
 
 }
+
+public enum enum_monster_type
+{
+    ³æ×Ó=1,
+
+
+}

@@ -83,7 +83,7 @@ namespace MVC
         public void TakeDamage(float damage, DamageEnum damageEnum , BattleAttack monster)
         {
             if (HP <= 0) return;
-            damage = 1000;
+            //damage = 1000;
             HP -= damage;
             Hurt(damage);
             //²âÊÔµôÂä

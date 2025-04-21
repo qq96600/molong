@@ -48,24 +48,42 @@ namespace StateMachine
         /// </summary>
         private enum_skin_state skin_state;
         /// <summary>
-        /// 角色皮肤预制体
+        /// 皮肤预制体
         /// </summary>
         private GameObject skin_prefabs;
         /// <summary>
-        /// 角色内观位置
+        /// 角色外观位置
         /// </summary>
         private Transform panel_role_health;
+        /// <summary>
+        /// 怪物类型
+        /// </summary>
+        private enum_monster_type monster_type;
+      
+
         #endregion
 
 
         protected virtual void Awake()
         {
             #region 角色外观初始化
-            int hero_index = int.Parse(SumSave.crt_hero.hero_index);
-            skin_state = (enum_skin_state)hero_index;
-            skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/外观_" + skin_state.ToString());
-            panel_role_health = transform.Find("Appearance");
-            Instantiate(skin_prefabs, panel_role_health);
+            if(GetComponent<Player>()!= null)
+            {
+                int hero_index = int.Parse(SumSave.crt_hero.hero_index);
+                skin_state = (enum_skin_state)hero_index;
+                skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/外观_" + skin_state.ToString());
+                panel_role_health = transform.Find("Appearance");
+                Instantiate(skin_prefabs, panel_role_health);
+            }else if(GetComponent<Monster>() != null)
+            {
+                monster_type = enum_monster_type.虫子;
+                skin_prefabs = Resources.Load<GameObject>("Prefabs/monsters/mon_" + monster_type.ToString());
+                panel_role_health = transform.Find("Appearance");
+                Instantiate(skin_prefabs, panel_role_health);
+            }
+
+
+           
             #endregion
 
             anim = GetComponentInChildren<Animator>();

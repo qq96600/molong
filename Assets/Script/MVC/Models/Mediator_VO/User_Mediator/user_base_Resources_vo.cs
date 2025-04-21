@@ -54,9 +54,9 @@ public class user_base_Resources_vo:Base_VO
         return new string[]
         {
         GetStr(0),
-        GetStr(SumSave.crt_user.uid),
-        GetStr(SumSave.db_maps[0].map_name),
+        GetStr(SumSave.crt_user.uid),        
         GetStr(now_time),
+        GetStr(SumSave.db_maps[0].map_name),
         GetStr(skill_value),
         GetStr(house_value),
         GetStr(bag_value),

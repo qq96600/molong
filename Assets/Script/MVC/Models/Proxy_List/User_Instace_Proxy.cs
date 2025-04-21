@@ -491,6 +491,7 @@ namespace MVC
             else
             {
                 SumSave.crt_setting.user_value = "0 0 0 0 0 0 0 0 0";
+                SumSave.crt_setting.user_setting = SumSave.crt_setting.Data_Decrypt(SumSave.crt_setting.user_value);
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_setting, SumSave.crt_setting.Set_Instace_String());
             }
         }

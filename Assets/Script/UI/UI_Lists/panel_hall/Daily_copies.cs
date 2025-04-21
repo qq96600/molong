@@ -37,7 +37,7 @@ public class Daily_copies : Base_Mono
     /// <param name="arg0"></param>
     private void confirm(object arg0)
     {
-
+        Alert_Dec.Show("µÈ¼¶²»×ã");
     }
 
     public override void Show()
