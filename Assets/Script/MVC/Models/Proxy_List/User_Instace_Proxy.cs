@@ -676,11 +676,12 @@ namespace MVC
             {
                 for (int i = 0; i < SumSave.crt_pet_list.Count; i++)
                 {
-                    string[] v = SumSave.db_pet_dic[SumSave.crt_pet_list[i].petName].crate_values;//宠物基础属性
-                    string[] va = SumSave.db_pet_dic[SumSave.crt_pet_list[i].petName].up_values;//宠物成长属性
-                    for (int j = 0; j < v.Length; j++)
+                    List<string> v = SumSave.db_pet_dic[SumSave.crt_pet_list[i].petName].crate_values;//宠物基础属性
+                    List<string> va = SumSave.db_pet_dic[SumSave.crt_pet_list[i].petName].up_values;//宠物成长属性
+                    for (int j = 0; j < v.Count; j++)
                     {
                         int value = int.Parse(v[j]) + (int.Parse(va[j]) * SumSave.crt_pet_list[i].level);
+                        Debug.Log("宠物属性" + value);
                         Enum_Value(crt, j, value);
                     }
                 }

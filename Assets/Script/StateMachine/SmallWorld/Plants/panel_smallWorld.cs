@@ -72,8 +72,8 @@ public class panel_smallWorld : Panel_Base
         btn_item = Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
         pet_pos= Find<Transform>("small_World/Pet_Hatching/Pet_list/Viewport/items");
         Pet_name= Find<Text>("small_World/Pet_Hatching/Pet_info/Pet_name/Text");
-        Pet_attribute = Find<Text>("small_World/Pet_Hatching/Pet_info/Pet_attribute/Text");
-        but= Find<Button>("small_World/Pet_Hatching/but");
+        Pet_attribute = Find<Text>("small_World/Pet_Hatching/Pet_info/Pet_attribute/Viewport/Content/Text"); 
+         but = Find<Button>("small_World/Pet_Hatching/but");
         displayPet= Find<Button>("small_World/Pet_Hatching/displayPet");
         hatching_progres = Find<Transform>("small_World/Pet_Hatching/hatching_progress");
         but.onClick.AddListener(delegate { CloseHatching(); });
@@ -170,35 +170,20 @@ public class panel_smallWorld : Panel_Base
         Pet_name.text = pet.petName + " Lv." + pet.level;
         Pet_attribute.text="";
 
-        Pet_attribute.text = DisplayPetAttribute(pet.petName);
+        Pet_attribute.text = DisplayPetAttribute(pet);
     }
     /// <summary>
     /// 显示宠物属性
     /// </summary>
-    private string  DisplayPetAttribute(string petName)
+    private string  DisplayPetAttribute(db_pet_vo pet)
     {
         string dec = "";
-        string[] value = SumSave.db_pet_dic[petName].crate_values;//获得宠物基础属性
-        
-        dec += "宠物属性：" + value + "\n";
-        for(int i = 0; i < value.Length; i++)
+        List<string> value = SumSave.db_pet_dic[pet.petName].crate_values;//获得宠物基础属性
+       
+        for(int i = 0; i < value.Count; i++)
         { 
             enum_attribute_list attribute= (enum_attribute_list)i;
-            dec += attribute.ToString() + "：" + value[i] + "\n";
-
-            //switch (i)
-            //{
-            //    case 0:
-            //     dec+="生命值"+value[i] + "\n";
-            //    break;
-            //    case 1:
-            //     dec+= "法力值" + value[i] + "\n";
-            //    break;
-            //    case 2:
-            //     dec+= "内力值" + value[i] + "\n";
-            //    break;
-            //}
-
+            dec += attribute.ToString() + "：" +(int.Parse( value[i])*pet.level ).ToString()+ "\n";
         }
 
         return dec;

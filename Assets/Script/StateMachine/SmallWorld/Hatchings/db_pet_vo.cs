@@ -38,7 +38,7 @@ public class db_pet_vo : Base_VO
     /// <summary>
     /// 宠物基础属性数组
     /// </summary>
-    public string[] crate_values;
+    public List<string> crate_values=new List<string>();
 
     /// <summary>
     /// 宠物升级属性
@@ -47,7 +47,7 @@ public class db_pet_vo : Base_VO
     /// <summary>
     /// 宠物升级属性数组
     /// </summary>
-    public string[] up_values;
+    public List<string> up_values=new List<string>();
 
     /// <summary>
     /// 宠物基础属性
@@ -100,13 +100,13 @@ public class db_pet_vo : Base_VO
         string[] str1 = crate_value.Split(' ');
         for (int i = 0; i < str1.Length; i++)
         {
-            crate_values[i] = str1[i];
+            crate_values.Add(str1[i]);
         }
 
         string[] str2 = up_value.Split(' ');
         for (int i = 0; i < str2.Length; i++)
         {
-            up_values[i] = str2[i];
+            up_values.Add(str2[i]);
         }
     }
 
