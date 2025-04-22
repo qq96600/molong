@@ -28,6 +28,12 @@ namespace MVC
         { 
         
         }
+
+        public T Pos_path<T>(string name)
+        { 
+
+            return default(T);
+        }
         /// <summary>
         ///  获取组件
         /// </summary>

@@ -60,6 +60,8 @@ public class panel_smallWorld : Panel_Base
     /// 孵化界面
     /// </summary>
     private Transform hatching_progres;
+
+    private hatching_progress hatching_progress;
     public override void Initialize()
     {
         base.Initialize();
@@ -76,6 +78,7 @@ public class panel_smallWorld : Panel_Base
          but = Find<Button>("small_World/Pet_Hatching/but");
         displayPet= Find<Button>("small_World/Pet_Hatching/displayPet");
         hatching_progres = Find<Transform>("small_World/Pet_Hatching/hatching_progress");
+        hatching_progress = Find<hatching_progress>("small_World/hatching_progress");
         but.onClick.AddListener(delegate { CloseHatching(); });
         displayPet.onClick.AddListener(delegate { ShowHatching(); });
         for (int i = 0; i < btn_list.Length; i++)
@@ -134,8 +137,10 @@ public class panel_smallWorld : Panel_Base
                 _plant.Show();
                 break;
             case "灵宠":
-                _Hatching.Show();
-                HatchingInit();
+                //_Hatching.Show();
+                //HatchingInit();
+                hatching_progress.gameObject.SetActive(true);
+                hatching_progress.Show();
                 break;
             case "探险":
                 _explore.Show();
@@ -212,7 +217,8 @@ public class panel_smallWorld : Panel_Base
             SumSave.crt_world.Set(Obtain_Init(1, time, int.Parse(list[1])));
             SumSave.crt_world.World_Lv++;
             Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_world, SumSave.crt_world.Set_Uptade_String(), SumSave.crt_world.Get_Update_Character());
-        }else Alert_Dec.Show("灵气不足");
+        }
+        else Alert_Dec.Show("材料不足 需要" + dec.Item1 + " * " + dec.Item2);
     }
 
     public override void Show()
@@ -234,7 +240,16 @@ public class panel_smallWorld : Panel_Base
         string dec = "界灵：Lv." + SumSave.crt_world.World_Lv + "\n";
         dec += "灵气 ：" + Obtain_Init(1,time,int.Parse(list[1])) + "(Max" + Obtain_Init(2) + ")\n";
         dec += "每分钟可获得 ：" + SumSave.db_lvs.world_offect_list[SumSave.crt_world.World_Lv]+  "灵气\n";
-        dec += "历练获得 :" + (SumSave.crt_world.World_Lv * 10) + "%";
+        dec += "历练获得 :" + (SumSave.crt_world.World_Lv * 10) + "%\n";
+        if (SumSave.crt_world.World_Lv >= SumSave.db_lvs.world_lv_list.Count)
+        {
+            dec += "已达最高等级";
+        }
+        else
+        {
+            (string, int) item = SumSave.db_lvs.world_lv_list[SumSave.crt_world.World_Lv];
+            dec += "升级需求 " + item.Item1 + " * " + item.Item2;
+        }
         base_info.text = dec;
     }
     /// <summary>

@@ -29,6 +29,226 @@ public static class Battle_Tool
         //写入数据库
         Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.material_value, SumSave.crt_bag_resources.GetData());
     }
+
+    /// <summary>
+    /// 加成属性
+    /// </summary>
+    /// <param name="crt">主体</param>
+    /// <param name="index">编号</param>
+    /// <param name="value">值</param>
+    public static void Enum_Value(crtMaxHeroVO crt, int index, int value)
+    {
+        while (index >= crt.bufflist.Count)
+        {
+            crt.bufflist.Add(0);
+        }
+        crt.bufflist[index] += value;
+        switch ((enum_skill_attribute_list)index)
+        {
+            case enum_skill_attribute_list.生命值:
+                crt.MaxHP += value;
+                break;
+            case enum_skill_attribute_list.法力值:
+                crt.MaxMp += value;
+                break;
+            case enum_skill_attribute_list.内力值:
+                crt.internalforceMP += value;
+                break;
+            case enum_skill_attribute_list.蓄力值:
+                crt.EnergyMp += value;
+                break;
+            case enum_skill_attribute_list.物理防御:
+                crt.DefMax += value;
+                break;
+            case enum_skill_attribute_list.魔法防御:
+                crt.MagicDefMax += value;
+                break;
+            case enum_skill_attribute_list.物理攻击:
+                crt.damageMax += value;
+                break;
+            case enum_skill_attribute_list.魔法攻击:
+                crt.MagicdamageMax += value;
+                break;
+            case enum_skill_attribute_list.命中:
+                crt.hit += value;
+                break;
+            case enum_skill_attribute_list.躲避:
+                crt.dodge += value;
+                break;
+            case enum_skill_attribute_list.穿透:
+                crt.penetrate += value;
+                break;
+            case enum_skill_attribute_list.格挡:
+                crt.block += value;
+                break;
+            case enum_skill_attribute_list.暴击:
+                crt.crit_rate += value;
+                break;
+            case enum_skill_attribute_list.幸运:
+                crt.Lucky += value;
+                break;
+            case enum_skill_attribute_list.暴击伤害:
+                crt.crit_damage += value;
+                break;
+            case enum_skill_attribute_list.伤害加成:
+                crt.double_damage += value;
+                break;
+            case enum_skill_attribute_list.真实伤害:
+                crt.Real_harm += value;
+                break;
+            case enum_skill_attribute_list.伤害减免:
+                crt.Damage_Reduction += value;
+                break;
+            case enum_skill_attribute_list.伤害吸收:
+                crt.Damage_absorption += value;
+                break;
+            case enum_skill_attribute_list.异常抗性:
+                crt.resistance += value;
+                break;
+            case enum_skill_attribute_list.攻击速度:
+                crt.attack_speed += value;
+                break;
+            case enum_skill_attribute_list.移动速度:
+                crt.move_speed += value;
+                break;
+            case enum_skill_attribute_list.生命加成:
+                crt.bonus_Hp += value;
+                break;
+            case enum_skill_attribute_list.法力加成:
+                crt.bonus_Mp += value;
+                break;
+            case enum_skill_attribute_list.生命回复:
+                crt.Heal_Hp += value;
+                break;
+            case enum_skill_attribute_list.法力回复:
+                crt.Heal_Mp += value;
+                break;
+            case enum_skill_attribute_list.物攻加成:
+                crt.bonus_Damage += value;
+                break;
+            case enum_skill_attribute_list.魔攻加成:
+                crt.bonus_MagicDamage += value;
+                break;
+            case enum_skill_attribute_list.物防加成:
+                crt.bonus_Def += value;
+                break;
+            case enum_skill_attribute_list.魔防加成:
+                crt.bonus_MagicDef += value;
+                break;
+            case enum_skill_attribute_list.土属性强化:
+            case enum_skill_attribute_list.火属性强化:
+            case enum_skill_attribute_list.水属性强化:
+            case enum_skill_attribute_list.金属性强化:
+            case enum_skill_attribute_list.木属性强化:
+                crt.life[index - 30] += value;
+                break;
+            case enum_skill_attribute_list.经验加成:
+                break;
+            case enum_skill_attribute_list.装备掉落:
+                break;
+            case enum_skill_attribute_list.极品宠物掉落:
+                break;
+            case enum_skill_attribute_list.人物历练:
+                break;
+            case enum_skill_attribute_list.宠物经验:
+                break;
+            case enum_skill_attribute_list.内功经验:
+                break;
+            case enum_skill_attribute_list.灵珠收益:
+                break;
+            case enum_skill_attribute_list.装备爆率:
+                break;
+            case enum_skill_attribute_list.宠物获取:
+                break;
+            case enum_skill_attribute_list.云游商人折扣:
+                break;
+            case enum_skill_attribute_list.祈愿收益:
+                break;
+            case enum_skill_attribute_list.奇遇任务收益:
+                break;
+            case enum_skill_attribute_list.游历危险躲避率:
+                break;
+            case enum_skill_attribute_list.游历双倍获得率:
+                break;
+            case enum_skill_attribute_list.游历时长:
+                break;
+            case enum_skill_attribute_list.游历龙珠收益:
+                break;
+            case enum_skill_attribute_list.寻怪间隔:
+                break;
+            case enum_skill_attribute_list.宠物容量:
+                break;
+            case enum_skill_attribute_list.土:
+                break;
+            case enum_skill_attribute_list.火:
+                break;
+            case enum_skill_attribute_list.水:
+                break;
+            case enum_skill_attribute_list.木:
+                break;
+            case enum_skill_attribute_list.金:
+                break;
+            case enum_skill_attribute_list.五行伤害:
+                break;
+            case enum_skill_attribute_list.五行伤害减少:
+                break;
+            case enum_skill_attribute_list.灵力:
+                break;
+            case enum_skill_attribute_list.体魄:
+                break;
+            case enum_skill_attribute_list.神识:
+                break;
+            case enum_skill_attribute_list.宠物攻击:
+                break;
+            case enum_skill_attribute_list.宠物防御:
+                break;
+            case enum_skill_attribute_list.宠物生命:
+                break;
+            case enum_skill_attribute_list.宠物暴击:
+                break;
+            case enum_skill_attribute_list.宠物暴击伤害:
+                break;
+            case enum_skill_attribute_list.宠物暴击率:
+                break;
+            case enum_skill_attribute_list.宠物攻击速度:
+                break;
+            case enum_skill_attribute_list.技能伤害:
+                break;
+            case enum_skill_attribute_list.燃血:
+                break;
+            case enum_skill_attribute_list.灵身:
+                break;
+            case enum_skill_attribute_list.连击:
+                break;
+            case enum_skill_attribute_list.受到减免伤害:
+                break;
+            case enum_skill_attribute_list.复活次数:
+                break;
+            case enum_skill_attribute_list.幸运一击的概率:
+                break;
+            case enum_skill_attribute_list.幸运一击的伤害:
+                break;
+            case enum_skill_attribute_list.攻击时概率抵消伤害:
+                break;
+            case enum_skill_attribute_list.被攻击时反击真实伤害:
+                break;
+            case enum_skill_attribute_list.每次攻击增加伤害:
+                break;
+            case enum_skill_attribute_list.治疗术效果:
+                break;
+            case enum_skill_attribute_list.施毒术效果:
+                break;
+            case enum_skill_attribute_list.青云门技能伤害:
+                break;
+            case enum_skill_attribute_list.魔法盾效果:
+                break;
+            case enum_skill_attribute_list.血刀刀法伤害:
+                break;
+            default:
+                break;
+        }
+
+    }
     /// <summary>
     /// 获取经验
     /// </summary>

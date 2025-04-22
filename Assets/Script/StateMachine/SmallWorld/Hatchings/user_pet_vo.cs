@@ -15,13 +15,19 @@ public class user_pet_vo : Base_VO
     /// 已孵化宠物信息 1宠物名字 2宠物等级 3宠物经验
     /// </summary>
     public List<(string, int, int)> pet_bag=new List<(string, int, int)>();
+    /// <summary>
+    /// 宠物信息 0宠物名字 1孵化时间 2孵化时间 3宠物品质 4宠物等级 5宠物经验 6宠物属性 7 pos 他在干什么1守护庄园2是探索
+    /// </summary>
+    public List<string> crt_pet_list = new List<string>();
    
+
 
     public void Init()
     {
         string[] pet = pet_value.Split('|');
         for (int i = 0; i < pet.Length; i++)
         {
+            crt_pet_list.Add(pet[i]);
             string[] pet_info = pet[i].Split(' ');
             if (pet_info.Length == 3)
             {
