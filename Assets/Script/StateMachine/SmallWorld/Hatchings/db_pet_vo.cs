@@ -50,9 +50,14 @@ public class db_pet_vo : Base_VO
     public List<string> up_values=new List<string>();
 
     /// <summary>
-    /// 宠物基础属性
+    /// 多少级添加一个宠物属性
     /// </summary>
     public string up_base_value;
+   /// <summary>
+   /// 多少级添加一个宠物属性数组
+   /// </summary>
+    public List<string> up_base_values = new List<string>();
+
     /// <summary>
     /// 宠物天赋
     /// </summary>
@@ -107,6 +112,12 @@ public class db_pet_vo : Base_VO
         for (int i = 0; i < str2.Length; i++)
         {
             up_values.Add(str2[i]);
+        }
+
+        string[] str3 = up_base_value.Split(' ');
+        for (int i = 0; i < str3.Length; i++)
+        {
+            up_base_values.Add(str3[i]);
         }
     }
 

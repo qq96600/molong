@@ -111,7 +111,8 @@ public class panel_smallWorld : Panel_Base
         if (small_World_bg.gameObject.activeInHierarchy)//从最上层关闭
         {
             if (_plant.gameObject.activeInHierarchy) _plant.Hide();
-            if (_Hatching.gameObject.activeInHierarchy) _Hatching.Hide();
+            //if (_Hatching.gameObject.activeInHierarchy) _Hatching.Hide();
+            
             if (_explore.gameObject.activeInHierarchy) _explore.Hide();
 
             small_World_bg.gameObject.SetActive(false);

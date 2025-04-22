@@ -16,7 +16,7 @@ public class user_pet_vo : Base_VO
     /// </summary>
     public List<(string, int, int)> pet_bag=new List<(string, int, int)>();
     /// <summary>
-    /// 宠物信息 0宠物名字 1孵化时间 2孵化时间 3宠物品质 4宠物等级 5宠物经验 6宠物属性 7 pos 他在干什么1守护庄园2是探索
+    /// 宠物信息 0宠物名字 1孵化时间  2宠物品质 3宠物等级 4宠物经验 5宠物属性 6 pos 他在干什么0闲置1守护庄园2是探索
     /// </summary>
     public List<string> crt_pet_list = new List<string>();
    
@@ -24,11 +24,11 @@ public class user_pet_vo : Base_VO
 
     public void Init()
     {
-        string[] pet = pet_value.Split('|');
+        string[] pet = pet_value.Split('&');
         for (int i = 0; i < pet.Length; i++)
         {
             crt_pet_list.Add(pet[i]);
-            string[] pet_info = pet[i].Split(' ');
+            string[] pet_info = pet[i].Split(',');
             if (pet_info.Length == 3)
             {
                 pet_bag.Add((pet_info[0], Convert.ToInt32(pet_info[1]), Convert.ToInt32(pet_info[2])));
@@ -40,13 +40,13 @@ public class user_pet_vo : Base_VO
     public string Set_pet_value()
     {
         string dec = "";
-        for (int i = 0; i < SumSave.crt_pet_list.Count; i++)
+        for(int i = 0; i < crt_pet_list.Count; i++)
         {
-            if (i > 0)
+            if(i>0)
             {
-                dec += "|";
+                dec += "&";
             }
-            dec += SumSave.crt_pet_list[i].petName + " " + SumSave.crt_pet_list[i].level + " " + SumSave.crt_pet_list[i].exp;
+            dec += crt_pet_list[i];
         }
 
         return dec;

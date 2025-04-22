@@ -680,8 +680,7 @@ namespace MVC
                     List<string> va = SumSave.db_pet_dic[SumSave.crt_pet_list[i].petName].up_values;//宠物成长属性
                     for (int j = 0; j < v.Count; j++)
                     {
-                        int value = int.Parse(v[j]) + (int.Parse(va[j]) * SumSave.crt_pet_list[i].level);
-                        Debug.Log("宠物属性" + value);
+                        int value = int.Parse(v[j]) + (int.Parse(va[j]) * SumSave.crt_pet_list[i].level); 
                         Enum_Value(crt, j, value);
                     }
                 }
