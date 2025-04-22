@@ -2,7 +2,7 @@
 
 public enum enum_attribute_list 
 {
-    生命值,
+    生命值=0,
     法力值,
     内力值,
     蓄力值,
@@ -32,7 +32,6 @@ public enum enum_attribute_list
     魔攻加成,
     物防加成,
     魔防加成,
-
 }
 
 public enum enum_skill_attribute_list

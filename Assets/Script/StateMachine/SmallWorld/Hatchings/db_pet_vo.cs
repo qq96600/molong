@@ -36,9 +36,19 @@ public class db_pet_vo : Base_VO
     /// </summary>
     public string crate_value;
     /// <summary>
+    /// 宠物基础属性数组
+    /// </summary>
+    public string[] crate_values;
+
+    /// <summary>
     /// 宠物升级属性
     /// </summary>
     public string up_value;
+    /// <summary>
+    /// 宠物升级属性数组
+    /// </summary>
+    public string[] up_values;
+
     /// <summary>
     /// 宠物基础属性
     /// </summary>
@@ -57,29 +67,47 @@ public class db_pet_vo : Base_VO
     public int exp=0;
 
 
+    
+
+
 
     /// <summary>
     /// 解析数据
     /// </summary>
     public void Init()
     {
-        
+
         string[] str = user_value.Split('|');
 
         if (str.Length == 2)
         {
             crt_hatching = (str[0], (str[1] == "0") ? DateTime.Now : Convert.ToDateTime(str[1]));
-        }else
-        if(str==null)//没有数据就初始化
+        }
+        else
+        if (str == null)//没有数据就初始化
         {
-            crt_hatching= ("0", DateTime.Now);
+            crt_hatching = ("0", DateTime.Now);
             Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_pet_hatching,
             SumSave.crt_hatching.Set_Uptade_String(), SumSave.crt_hatching.Get_Update_Character());
         }
 
-       
+    }
+    /// <summary>
+    /// 获得宠物数值数组
+    /// </summary>
+    public void GetNumerical()
+    {
+        string[] str1 = crate_value.Split(' ');
+        for (int i = 0; i < str1.Length; i++)
+        {
+            crate_values[i] = str1[i];
+        }
 
-
+        string[] str2 = up_value.Split(' ');
+        for (int i = 0; i < str2.Length; i++)
+        {
+            up_values[i] = str2[i];
+        }
     }
 
 

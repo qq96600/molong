@@ -176,7 +176,7 @@ namespace Common
         /// </summary>
         public static List<user_plant_vo> db_plants;
         /// <summary>
-        /// 读取宠物列表
+        /// 读取植物列表
         /// </summary>
         public static Dictionary<string, user_plant_vo> db_plants_dic;
 
