@@ -321,6 +321,7 @@ public static class ReadDb
         item.up_value= reader.GetString(reader.GetOrdinal("up_value"));
         item.up_base_value= reader.GetString(reader.GetOrdinal("up_base_value"));
         item.hero_talent= reader.GetString(reader.GetOrdinal("hero_talent"));
+        item.GetNumerical();
         return item;
     }
 

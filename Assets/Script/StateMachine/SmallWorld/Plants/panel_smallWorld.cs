@@ -52,8 +52,14 @@ public class panel_smallWorld : Panel_Base
     /// 宠物属性信息文本
     /// <summary>  
     private Text Pet_attribute;
-
-
+    /// <summary>
+    /// 关闭孵化界面按钮,打开孵化界面
+    /// </summary>
+    private Button but,displayPet;
+    /// <summary>
+    /// 孵化界面
+    /// </summary>
+    private Transform hatching_progres;
     public override void Initialize()
     {
         base.Initialize();
@@ -66,7 +72,12 @@ public class panel_smallWorld : Panel_Base
         btn_item = Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
         pet_pos= Find<Transform>("small_World/Pet_Hatching/Pet_list/Viewport/items");
         Pet_name= Find<Text>("small_World/Pet_Hatching/Pet_info/Pet_name/Text");
-        Pet_attribute = Find<Text>("small_World/Pet_Hatching/Pet_info/Pet_attribute/Text");
+        Pet_attribute = Find<Text>("small_World/Pet_Hatching/Pet_info/Pet_attribute/Viewport/Content/Text"); 
+         but = Find<Button>("small_World/Pet_Hatching/but");
+        displayPet= Find<Button>("small_World/Pet_Hatching/displayPet");
+        hatching_progres = Find<Transform>("small_World/Pet_Hatching/hatching_progress");
+        but.onClick.AddListener(delegate { CloseHatching(); });
+        displayPet.onClick.AddListener(delegate { ShowHatching(); });
         for (int i = 0; i < btn_list.Length; i++)
         {
             btn_item btn_items = Instantiate(btn_item, pos_btn);//实例化背包装备
@@ -75,6 +86,22 @@ public class panel_smallWorld : Panel_Base
         }
     }
 
+   /// <summary>
+   /// 打开孵化界面
+   /// </summary>
+    private void ShowHatching()
+    {
+        hatching_progres.gameObject.SetActive(true);
+        but.gameObject.SetActive(true);
+    }
+    /// <summary>
+    /// 关闭孵化界面
+    /// </summary>
+    private void CloseHatching()
+    {
+        hatching_progres.gameObject.SetActive(false);
+        but.gameObject.SetActive(false);
+    }
 
     public override void Hide()
     {
@@ -121,6 +148,11 @@ public class panel_smallWorld : Panel_Base
     private void HatchingInit()
     {
         ClearObject(pet_pos);
+        if(SumSave.crt_pet_list.Count==0)
+        {
+            btn_item btn_items = Instantiate(btn_item, pet_pos);
+            btn_items.Show(1, "宠物列表为空");
+        }
         for (int i= 0; i < SumSave.crt_pet_list.Count; i++)
         {
             db_pet_vo pet = SumSave.crt_pet_list[i];
@@ -137,13 +169,25 @@ public class panel_smallWorld : Panel_Base
     {
         Pet_name.text = pet.petName + " Lv." + pet.level;
         Pet_attribute.text="";
-        string dec = "";
-        dec += "宠物属性：" + pet.crate_value + "\n";
 
-        Pet_attribute.text = dec;
+        Pet_attribute.text = DisplayPetAttribute(pet);
     }
+    /// <summary>
+    /// 显示宠物属性
+    /// </summary>
+    private string  DisplayPetAttribute(db_pet_vo pet)
+    {
+        string dec = "";
+        List<string> value = SumSave.db_pet_dic[pet.petName].crate_values;//获得宠物基础属性
+       
+        for(int i = 0; i < value.Count; i++)
+        { 
+            enum_attribute_list attribute= (enum_attribute_list)i;
+            dec += attribute.ToString() + "：" +(int.Parse( value[i])*pet.level ).ToString()+ "\n";
+        }
 
-
+        return dec;
+    }
 
 
 

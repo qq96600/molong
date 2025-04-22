@@ -228,7 +228,7 @@ namespace MVC
             SumSave.db_pet_dic= new Dictionary<string, db_pet_vo>();
             for (int i = 0; i < db_pet.Count; i++)
             {
-                SumSave.db_pet_dic.Add(db_pet[i].petEggsName, db_pet[i]);
+                SumSave.db_pet_dic.Add(db_pet[i].petName, db_pet[i]);
             }
             
 

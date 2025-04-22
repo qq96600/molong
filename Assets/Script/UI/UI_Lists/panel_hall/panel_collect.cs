@@ -80,6 +80,10 @@ public class panel_collect : Base_Mono
     /// 收集物品类型预制体
     /// </summary>
     private btn_item btn_Item;
+    /// <summary>
+    /// 收集物品类型
+    /// </summary>
+    private db_collect_vo crt_collect;
     private void Awake()
     {
         collect_item = Find<Transform>("collect_Scroll/Viewport/collect_items");
@@ -90,6 +94,7 @@ public class panel_collect : Base_Mono
         but=Find<Button>("but"); 
         but.onClick.AddListener(() =>{ CloseInfo();});
         
+
         #region 收集物品信息窗口
         collect_info = Find<Transform>("collect_info");
         collect_Title = Find<Text>("collect_info/collect_Title/Title");
@@ -97,9 +102,9 @@ public class panel_collect : Base_Mono
         collect_info_text = Find<Text>("collect_info/collect_info_text/info_text");
         Put_but = Find<Button>("collect_info/Put_but");
         Put_but_text= Find<Text>("collect_info/Put_but/Item_state");
-
+        Put_but.onClick.AddListener(() => { PutItem(); });
         #endregion
-        
+
 
         CloseInfo();
         Init();
@@ -117,37 +122,27 @@ public class panel_collect : Base_Mono
     /// <summary>
     /// 放入物品 
     /// </summary>
-    private void PutItem(db_collect_vo collect)
+    private void PutItem()
     {
         Debug.Log("放入物品");
-
-        collect.isCollect = 1;
-
+        db_collect_vo coll = crt_collect;
         for (int i = 0; i < typeNames.Length; i++)
         {
-            if(collect.StdMode==typeNames[i])
+            if(coll.StdMode==typeNames[i])
             {
                 //查找背包是否有该物品 
-                NeedConsumables(collect.Name, 1);
+                NeedConsumables(coll.Name, 1);
                 if (RefreshConsumables())
                 {
-                    for(int j = 0; j < collect.bonuses_types.Length; j++)
-                    {
-                        //添加属性 创建user_collect_vo 
-                        //AddAttribute(collect.bonuses_types[j], collect.bonuses_values[j]);
-
-                    }
-                }
-                else
-                {
-                    Alert_Dec.Show("背包没有"+ collect.Name);
+                    coll.isCollect = 1;
+                    //添加属性 创建user_collect_vo 
+                    //AddAttribute(collect.bonuses_types[j], collect.bonuses_values[j]);
+                    return;
                 }  
             }
         }
-
-            
-
-        }
+        Alert_Dec.Show("背包没有" + coll.Name);
+    }
 
     public void Init()
     {
@@ -184,11 +179,11 @@ public class panel_collect : Base_Mono
             }
             
         }
-
-        for(int j= 0; j < item_Type.Count; j++)
+       
+        for (int j= 0; j < item_Type.Count; j++)
         {
-            Bag_Base_VO data = new Bag_Base_VO();
             db_collect_vo collect_vo = new db_collect_vo();
+            Bag_Base_VO data = new Bag_Base_VO();
             collect_vo = item_Type[j];
             data.Name = item_Type[j].Name;
             bag_item item = Instantiate(bag_Item, collect_item);
@@ -223,33 +218,32 @@ public class panel_collect : Base_Mono
 
         but.gameObject.SetActive(true);
         collect_info.gameObject.SetActive(true);
-        collect_Title.text= collect.Name;
+        db_collect_vo coll =new db_collect_vo();
+        coll= collect;
+        collect_Title.text= coll.Name;
 
         Bag_Base_VO Dat =new Bag_Base_VO();
-        Dat.Name = collect.Name;
-        Dat.StdMode = collect.StdMode;
+        Dat.Name = coll.Name;
+        Dat.StdMode = coll.StdMode;
         item_image.Data = Dat;
 
         
         collect_info_text.text = "";
-        for (int i = 0; i < collect.bonuses_types.Length; i++) 
+        for (int i = 0; i < coll.bonuses_types.Length; i++) 
         {
-            collect_info_text.text += collect.bonuses_types[i] + "+" + collect.bonuses_values[i] + "\n";
+            string type =(Attribute_Type.GetValue(int.Parse(coll.bonuses_types[i]))).ToString();
+            collect_info_text.text += type + "+" + coll.bonuses_values[i] + "\n";
         }
-       
-       
 
-        if (collect.isCollect == 0)
+        if (coll.isCollect == 0)
         {
-            Put_but.onClick.AddListener(() => { PutItem(collect); });
+            crt_collect= coll;
             Put_but_text.text = "放入";
         }
         else
         {
-            Put_but.onClick.AddListener(() => { Alert_Dec.Show(collect.Name + " 已收集"); });
+            Put_but.onClick.AddListener(() => { Alert_Dec.Show(coll.Name + " 已收集"); });
             Put_but_text.text = "已收集";
         }
-        
-
     }
 }
