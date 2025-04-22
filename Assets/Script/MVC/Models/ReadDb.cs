@@ -134,7 +134,7 @@ public static class ReadDb
         item.hero_lv_list = new System.Collections.Generic.List<long>();
         string[] hero_lv_exp_list = hero_lv_exp.Split(' ');
         for (int i = 0; i < hero_lv_exp_list.Length; i++)
-        { 
+        {
             item.hero_lv_list.Add(Convert.ToInt64(hero_lv_exp_list[i]));
         }
         string word_lv_exp= reader.GetString(reader.GetOrdinal("word_lv_exp"));

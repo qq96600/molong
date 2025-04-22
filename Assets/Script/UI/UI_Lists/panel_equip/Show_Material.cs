@@ -25,6 +25,10 @@ public class Show_Material : Base_Mono
     /// 丹方数据
     /// </summary>
     private (string, List<string>) data_material;
+    /// <summary>
+    /// 技能书
+    /// </summary>
+    private (string,int) data;
 
     private material_item material_item_Prefabs;
 
@@ -50,8 +54,18 @@ public class Show_Material : Base_Mono
     /// </summary>
     private void Discard()
     {
-        SumSave.crt_seeds.usedata(type == 2 ? data_seedmaterial : data_material, type);
-        Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_seed, SumSave.crt_seeds.Set_Uptade_String(), SumSave.crt_seeds.Get_Update_Character());
+        if (data.Item2 > 0)
+        {
+            Dictionary<string,int> dic = new Dictionary<string, int>();
+            dic.Add(data.Item1, -data.Item2);
+            SumSave.crt_bag_resources.Get(dic);
+            Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.material_value, SumSave.crt_bag_resources.GetData());
+        }
+        else
+        {
+            SumSave.crt_seeds.usedata(type == 2 ? data_seedmaterial : data_material, type);
+            Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_seed, SumSave.crt_seeds.Set_Uptade_String(), SumSave.crt_seeds.Get_Update_Character());
+        }
         Alert_Dec.Show("丢弃成功");
         hide();
     }
@@ -68,11 +82,45 @@ public class Show_Material : Base_Mono
     /// </summary>
     private void Confirm()
     {
-        (string, List<int>) data = new(data_seedmaterial.Item1, new List<int>());
-        data.Item2.Add(1);
-        data.Item2.Add(int.Parse(data_seedmaterial.Item2[1]));
-        SumSave.crt_seeds.Setuse(data);
-        Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_seed, SumSave.crt_seeds.Set_Uptade_String(), SumSave.crt_seeds.Get_Update_Character());
+        if (data.Item2 > 0)
+        {
+            Bag_Base_VO bag = ArrayHelper.Find(SumSave.db_stditems, e => e.Name == data.Item1);
+            switch ((EquipConfigTypeList)Enum.Parse(typeof(EquipConfigTypeList), bag.StdMode))
+            {
+                case EquipConfigTypeList.秘笈:
+                case EquipConfigTypeList.战斗技能:
+                case EquipConfigTypeList.特殊技能:
+                    foreach (var item in SumSave.crt_skills)
+                    {
+                        if (item.skillname == bag.Name)
+                        { 
+                            Alert_Dec.Show("已拥有该技能");
+                            return;
+                        }
+                    }
+                    SumSave.crt_skills.Add(tool_Categoryt.crate_skill(data.Item1));//添加技能
+                    Alert_Dec.Show("获得技能 " + data.Item1);
+                    break;
+                case EquipConfigTypeList.宠物技能:
+                    break;
+                default:
+                    break;
+            }
+            Dictionary<string, int> dic = new Dictionary<string, int>();
+            dic.Add(data.Item1, -data.Item2);
+            SumSave.crt_bag_resources.Get(dic);
+            Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.material_value, SumSave.crt_bag_resources.GetData());
+        }
+        else
+        {
+            (string, List<int>) data = new(data_seedmaterial.Item1, new List<int>());
+            data.Item2.Add(1);
+            data.Item2.Add(int.Parse(data_seedmaterial.Item2[1]));
+            SumSave.crt_seeds.Setuse(data);
+            Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_seed, SumSave.crt_seeds.Set_Uptade_String(), SumSave.crt_seeds.Get_Update_Character());
+
+        }
+       
         Alert_Dec.Show("使用成功");
         hide();
     }
@@ -103,6 +151,19 @@ public class Show_Material : Base_Mono
         show_name.text = bag.Name;
         base_info.text = bag.dec;
         base_info.text += "\n存量 ： " + bag_Resources.Item2;
+
+        switch ((EquipConfigTypeList)Enum.Parse(typeof(EquipConfigTypeList), bag.StdMode))
+        {
+            case EquipConfigTypeList.秘笈:
+            case EquipConfigTypeList.宠物技能:
+            case EquipConfigTypeList.战斗技能:
+            case EquipConfigTypeList.特殊技能:
+                data = bag_Resources;
+                Init_Show(true);
+                break;
+            default:
+                break;
+        }
     }
     /// <summary>
     /// 初始化 丹药背包

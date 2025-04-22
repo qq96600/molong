@@ -83,8 +83,8 @@ public class Hero_VO : Base_VO
     {
         return new string[]
        {
-            GetStr(hero_lv),
-            GetStr(hero_exp),
+            GetStr(hero_Lv),
+            GetStr(hero_Exp),
             GetStr(hero_pos),
             GetStr(ArrayHelper.Data_Encryption(hero_material_list))
        };

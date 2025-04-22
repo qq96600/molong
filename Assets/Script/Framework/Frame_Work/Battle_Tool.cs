@@ -30,6 +30,17 @@ public static class Battle_Tool
         Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.material_value, SumSave.crt_bag_resources.GetData());
     }
     /// <summary>
+    /// 获取经验
+    /// </summary>
+    /// <param name="exp"></param>
+    public static void Obtain_Exp(long exp)
+    {
+        SumSave.crt_MaxHero.Exp += exp;
+        SumSave.crt_hero.hero_Exp += exp;
+        Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_hero,
+            SumSave.crt_hero.Set_Uptade_String(), SumSave.crt_hero.Get_Update_Character());
+    }
+    /// <summary>
     /// 获取资源
     /// </summary>
     /// <param name="result"></param>
