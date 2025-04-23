@@ -114,7 +114,6 @@ public class hatching_progress : Base_Mono
         }
     }
     /// <summary>
-<<<<<<< HEAD
     /// 领取宠物
     /// </summary>
     private void ReceivePet()
@@ -167,8 +166,6 @@ public class hatching_progress : Base_Mono
     }
 
     /// <summary>
-=======
->>>>>>> 3db0df667317b4780de06f3dd83c9b6fdebd0bee
     /// 宠物功能
     /// </summary>
     /// <param name="btn"></param>
@@ -187,11 +184,8 @@ public class hatching_progress : Base_Mono
                 {
                     incubate_Time = "";
                     incubate_Time = pet.petName + "," + SumSave.nowtime;
-<<<<<<< HEAD
                     SumSave.crt_pet.crt_pet_list.Add(incubate_Time);
-=======
-                     SumSave.crt_pet.crt_pet_list.Add(incubate_Time);
->>>>>>> 3db0df667317b4780de06f3dd83c9b6fdebd0bee
+
                     Alert_Dec.Show("宠物" + pet.petName + " 孵化开始");
 
                     pos_pet_btn.gameObject.SetActive(false);
@@ -250,29 +244,8 @@ public class hatching_progress : Base_Mono
             hatchingTimeCounter = -1;
             hatching_Slider.value = 0;
             Debug.Log("孵化完成");
-<<<<<<< HEAD
             pet_receive.gameObject.SetActive(true);
-=======
-            string data = incubate_Time;
-            SumSave.crt_pet.crt_pet_list.Remove(data);//孵化宠物只有这一个类型可以直接找到删除
-            db_pet_vo pet_init = SumSave.db_pet_dic[crt_egg.Item1];
 
-            string value_data = " ";
-            value_data += pet_init.petName + ",";
-            value_data += SumSave.nowtime + ",";
-            value_data += (SumSave.crt_world.World_Lv / 5 + 1) + ",";
-            value_data += pet_init.level + ",";
-            value_data += pet_init.exp + ",";
-            value_data += crate_value(pet_init, (SumSave.crt_world.World_Lv / 5 + 1))+",";
-            value_data += 0;
-
-            SumSave.crt_pet.crt_pet_list.Add(value_data);
-
-            SumSave.crt_pet_list.Add(pet);
-            //Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_pet,
-            //SumSave.crt_pet.Set_Uptade_String(), SumSave.crt_pet.Get_Update_Character());
-
->>>>>>> 3db0df667317b4780de06f3dd83c9b6fdebd0bee
         }
     }
     /// <summary>

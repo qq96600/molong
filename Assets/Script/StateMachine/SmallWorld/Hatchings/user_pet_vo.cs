@@ -12,13 +12,6 @@ public class user_pet_vo : Base_VO
     /// </summary>
     public string pet_value;
     /// <summary>
-<<<<<<< HEAD
-=======
-    /// 已孵化宠物信息 1宠物名字 2宠物等级 3宠物经验
-    /// </summary>
-    public List<(string, int, int)> pet_bag=new List<(string, int, int)>();
-    /// <summary>
->>>>>>> 3db0df667317b4780de06f3dd83c9b6fdebd0bee
     /// 宠物信息 0宠物名字 1孵化时间  2宠物品质 3宠物等级 4宠物经验 5宠物属性 6 pos 他在干什么0闲置1守护庄园2是探索
     /// </summary>
     public List<string> crt_pet_list = new List<string>();
