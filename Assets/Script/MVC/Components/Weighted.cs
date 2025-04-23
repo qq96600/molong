@@ -6,25 +6,25 @@ using UI;
 using MVC;
 
 /// <summary>
-/// Weighted£º
+/// Weightedï¼š
 /// </summary>
 public class WeightedItem
 {
     public string prizedraw;
-    public int Weight; // È¨ÖØ
+    public int Weight; // æƒé‡
 }
 
 public class WeightedRandomPicker
 {
     private List<WeightedItem> items;
-    private List<int> cumulativeWeights; // È¨ÖØµÄÀÛ¼ÆºÍ
+    private List<int> cumulativeWeights; // æƒé‡çš„ç´¯è®¡å’Œ
 
     public WeightedRandomPicker(List<WeightedItem> items)
     {
         this.items = items;
         this.cumulativeWeights = new List<int>();
 
-        // ¼ÆËãÀÛ¼ÆÈ¨ÖØ
+        // è®¡ç®—ç´¯è®¡æƒé‡
         int cumulativeWeight = 0;
         foreach (var item in items)
         {
@@ -33,23 +33,23 @@ public class WeightedRandomPicker
         }
     }
 
-    // »ñÈ¡Ò»¸öËæ»úÑ¡ÔñµÄÎïÆ·
+    // è·å–ä¸€ä¸ªéšæœºé€‰æ‹©çš„ç‰©å“
     public WeightedItem GetRandomItem()
     {
-        int totalWeight = cumulativeWeights[cumulativeWeights.Count - 1]; // ×îºóÒ»¸öÖµÊÇËùÓĞÎïÆ·È¨ÖØµÄ×ÜºÍ
-        int randomValue = UnityEngine.Random.Range(0, totalWeight); // Éú³ÉÒ»¸ö0µ½×ÜÈ¨ÖØÖ®¼äµÄËæ»úÊı
-        // ¸ù¾İËæ»úÖµÑ¡ÔñÎïÆ·
+        int totalWeight = cumulativeWeights[cumulativeWeights.Count - 1]; // æœ€åä¸€ä¸ªå€¼æ˜¯æ‰€æœ‰ç‰©å“æƒé‡çš„æ€»å’Œ
+        int randomValue = UnityEngine.Random.Range(0, totalWeight); // ç”Ÿæˆä¸€ä¸ª0åˆ°æ€»æƒé‡ä¹‹é—´çš„éšæœºæ•°
+        // æ ¹æ®éšæœºå€¼é€‰æ‹©ç‰©å“
         for (int i = 0; i < cumulativeWeights.Count; i++)
         {
-            if (randomValue < cumulativeWeights[i]) // Èç¹ûËæ»úÖµĞ¡ÓÚµ±Ç°ÀÛ¼ÆÈ¨ÖØ£¬¾ÍÑ¡ÖĞ¸ÃÎïÆ·
+            if (randomValue < cumulativeWeights[i]) // å¦‚æœéšæœºå€¼å°äºå½“å‰ç´¯è®¡æƒé‡ï¼Œå°±é€‰ä¸­è¯¥ç‰©å“
             {
                 return items[i];
             }
         }
-        return null; // ÕâĞĞÀíÂÛÉÏ²»»á±»´¥·¢£¬·ÀÖ¹±àÒë¾¯¸æ
+        return null; // è¿™è¡Œç†è®ºä¸Šä¸ä¼šè¢«è§¦å‘ï¼Œé˜²æ­¢ç¼–è¯‘è­¦å‘Š
     }
     /// <summary>
-    /// ÏÔÊ¾¸ÅÂÊ
+    /// æ˜¾ç¤ºæ¦‚ç‡
     /// </summary>
     /// <returns></returns>
     public string Show_Success_rate()
@@ -67,7 +67,7 @@ public class WeightedRandomPicker
         string str = "";
         foreach (var item in dic.Keys)
         {
-            str+= item + ":»ñÈ¡¸ÅÂÊ " + (dic[item] * 100.0f / totalWeight).ToString("f2") + "%\n";
+            str+= item + ":è·å–æ¦‚ç‡ " + (dic[item] * 100.0f / totalWeight).ToString("f2") + "%\n";
         }
         return str;
     }

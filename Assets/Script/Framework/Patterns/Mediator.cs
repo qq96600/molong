@@ -1,4 +1,4 @@
-﻿namespace TarenaMVC
+namespace TarenaMVC
 {
     /// <summary>
     ///  UI和数据之间的中介者

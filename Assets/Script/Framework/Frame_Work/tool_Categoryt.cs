@@ -14,23 +14,23 @@ public class tool_Categoryt : MonoBehaviour
     {
         if (transform.Find(name) == null)
         {
-            Debug.LogError(this + " ×Ó¶ÔÏó: " + name + " Ã»ÓĞÕÒµ½!");
+            Debug.LogError(this + " å­å¯¹è±¡: " + name + " æ²¡æœ‰æ‰¾åˆ°!");
             return default(T);
         }
         return transform.Find(name).GetComponent<T>();
     }
     /// <summary>
-    /// ´´Ôì¹ÖÎï
+    /// åˆ›é€ æ€ªç‰©
     /// </summary>
     /// <param name="crt"></param>
-    /// <param name="lv">1Ğ¡¹Ö2¾«Ó¢3boss</param>
+    /// <param name="lv">1å°æ€ª2ç²¾è‹±3boss</param>
     public void crate_monster(crtMaxHeroVO crt,int lv=1)
     { 
     
 
     }
     /// <summary>
-    /// »ñµÃµ¥Î»
+    /// è·å¾—å•ä½
     /// </summary>
     /// <param name="index"></param>
     /// <returns></returns>
@@ -39,169 +39,169 @@ public class tool_Categoryt : MonoBehaviour
         string dec = "";
         switch ((enum_skill_attribute_list)index)
         {
-            case enum_skill_attribute_list.ÉúÃüÖµ:
+            case enum_skill_attribute_list.ç”Ÿå‘½å€¼:
                 break;
-            case enum_skill_attribute_list.·¨Á¦Öµ:
+            case enum_skill_attribute_list.æ³•åŠ›å€¼:
                 break;
-            case enum_skill_attribute_list.ÄÚÁ¦Öµ:
+            case enum_skill_attribute_list.å†…åŠ›å€¼:
                 break;
-            case enum_skill_attribute_list.ĞîÁ¦Öµ:
+            case enum_skill_attribute_list.è“„åŠ›å€¼:
                 break;
-            case enum_skill_attribute_list.ÎïÀí·ÀÓù:
+            case enum_skill_attribute_list.ç‰©ç†é˜²å¾¡:
                 break;
-            case enum_skill_attribute_list.Ä§·¨·ÀÓù:
+            case enum_skill_attribute_list.é­”æ³•é˜²å¾¡:
                 break;
-            case enum_skill_attribute_list.ÎïÀí¹¥»÷:
+            case enum_skill_attribute_list.ç‰©ç†æ”»å‡»:
                 break;
-            case enum_skill_attribute_list.Ä§·¨¹¥»÷:
+            case enum_skill_attribute_list.é­”æ³•æ”»å‡»:
                 break;
-            case enum_skill_attribute_list.ÉúÃü»Ø¸´:
+            case enum_skill_attribute_list.ç”Ÿå‘½å›å¤:
                 break;
-            case enum_skill_attribute_list.·¨Á¦»Ø¸´:
+            case enum_skill_attribute_list.æ³•åŠ›å›å¤:
                 break;
-            case enum_skill_attribute_list.ÃüÖĞ:
+            case enum_skill_attribute_list.å‘½ä¸­:
                 break;
-            case enum_skill_attribute_list.¶ã±Ü:
+            case enum_skill_attribute_list.èº²é¿:
                 break;
-            case enum_skill_attribute_list.´©Í¸:
+            case enum_skill_attribute_list.ç©¿é€:
                 break;
-            case enum_skill_attribute_list.¸ñµ²:
+            case enum_skill_attribute_list.æ ¼æŒ¡:
                 break;
-            case enum_skill_attribute_list.±©»÷:
+            case enum_skill_attribute_list.æš´å‡»:
                 break;
-            case enum_skill_attribute_list.ĞÒÔË:
+            case enum_skill_attribute_list.å¹¸è¿:
                 break;
-            case enum_skill_attribute_list.ÕæÊµÉËº¦:
+            case enum_skill_attribute_list.çœŸå®ä¼¤å®³:
                 break;
-            case enum_skill_attribute_list.ÉËº¦¼õÃâ:
+            case enum_skill_attribute_list.ä¼¤å®³å‡å…:
                 break;
-            case enum_skill_attribute_list.Òì³£¿¹ĞÔ:
-            case enum_skill_attribute_list.±©»÷ÉËº¦:
+            case enum_skill_attribute_list.å¼‚å¸¸æŠ—æ€§:
+            case enum_skill_attribute_list.æš´å‡»ä¼¤å®³:
 
-            case enum_skill_attribute_list.ÉËº¦¼Ó³É:
+            case enum_skill_attribute_list.ä¼¤å®³åŠ æˆ:
                 dec = "%";
                 break;
-            case enum_skill_attribute_list.ÉËº¦ÎüÊÕ:
+            case enum_skill_attribute_list.ä¼¤å®³å¸æ”¶:
                 break;
-            case enum_skill_attribute_list.¹¥»÷ËÙ¶È:
+            case enum_skill_attribute_list.æ”»å‡»é€Ÿåº¦:
                 break;
-            case enum_skill_attribute_list.ÒÆ¶¯ËÙ¶È:
+            case enum_skill_attribute_list.ç§»åŠ¨é€Ÿåº¦:
                 break;
-            case enum_skill_attribute_list.ÉúÃü¼Ó³É:
-            case enum_skill_attribute_list.·¨Á¦¼Ó³É:
-            case enum_skill_attribute_list.Îï¹¥¼Ó³É:
-            case enum_skill_attribute_list.Ä§¹¥¼Ó³É:
-            case enum_skill_attribute_list.Îï·À¼Ó³É:
-            case enum_skill_attribute_list.Ä§·À¼Ó³É:
+            case enum_skill_attribute_list.ç”Ÿå‘½åŠ æˆ:
+            case enum_skill_attribute_list.æ³•åŠ›åŠ æˆ:
+            case enum_skill_attribute_list.ç‰©æ”»åŠ æˆ:
+            case enum_skill_attribute_list.é­”æ”»åŠ æˆ:
+            case enum_skill_attribute_list.ç‰©é˜²åŠ æˆ:
+            case enum_skill_attribute_list.é­”é˜²åŠ æˆ:
                 dec = "%";
                 break;
-            case enum_skill_attribute_list.ÍÁÊôĞÔÇ¿»¯:
+            case enum_skill_attribute_list.åœŸå±æ€§å¼ºåŒ–:
                 break;
-            case enum_skill_attribute_list.»ğÊôĞÔÇ¿»¯:
+            case enum_skill_attribute_list.ç«å±æ€§å¼ºåŒ–:
                 break;
-            case enum_skill_attribute_list.Ë®ÊôĞÔÇ¿»¯:
+            case enum_skill_attribute_list.æ°´å±æ€§å¼ºåŒ–:
                 break;
-            case enum_skill_attribute_list.Ä¾ÊôĞÔÇ¿»¯:
+            case enum_skill_attribute_list.æœ¨å±æ€§å¼ºåŒ–:
                 break;
-            case enum_skill_attribute_list.½ğÊôĞÔÇ¿»¯:
+            case enum_skill_attribute_list.é‡‘å±æ€§å¼ºåŒ–:
                 break;
-            case enum_skill_attribute_list.¾­Ñé¼Ó³É:
-            case enum_skill_attribute_list.×°±¸µôÂä:
-            case enum_skill_attribute_list.¼«Æ·³èÎïµôÂä:
-            case enum_skill_attribute_list.ÈËÎïÀúÁ·:
-            case enum_skill_attribute_list.³èÎï¾­Ñé:
-            case enum_skill_attribute_list.ÄÚ¹¦¾­Ñé:
-            case enum_skill_attribute_list.ÁéÖéÊÕÒæ:
-            case enum_skill_attribute_list.×°±¸±¬ÂÊ:
-            case enum_skill_attribute_list.³èÎï»ñÈ¡:
-            case enum_skill_attribute_list.ÔÆÓÎÉÌÈËÕÛ¿Û:
-            case enum_skill_attribute_list.ÆíÔ¸ÊÕÒæ:
-            case enum_skill_attribute_list.ÆæÓöÈÎÎñÊÕÒæ:
-            case enum_skill_attribute_list.ÓÎÀúÎ£ÏÕ¶ã±ÜÂÊ:
-            case enum_skill_attribute_list.ÓÎÀúË«±¶»ñµÃÂÊ:
+            case enum_skill_attribute_list.ç»éªŒåŠ æˆ:
+            case enum_skill_attribute_list.è£…å¤‡æ‰è½:
+            case enum_skill_attribute_list.æå“å® ç‰©æ‰è½:
+            case enum_skill_attribute_list.äººç‰©å†ç»ƒ:
+            case enum_skill_attribute_list.å® ç‰©ç»éªŒ:
+            case enum_skill_attribute_list.å†…åŠŸç»éªŒ:
+            case enum_skill_attribute_list.çµç æ”¶ç›Š:
+            case enum_skill_attribute_list.è£…å¤‡çˆ†ç‡:
+            case enum_skill_attribute_list.å® ç‰©è·å–:
+            case enum_skill_attribute_list.äº‘æ¸¸å•†äººæŠ˜æ‰£:
+            case enum_skill_attribute_list.ç¥ˆæ„¿æ”¶ç›Š:
+            case enum_skill_attribute_list.å¥‡é‡ä»»åŠ¡æ”¶ç›Š:
+            case enum_skill_attribute_list.æ¸¸å†å±é™©èº²é¿ç‡:
+            case enum_skill_attribute_list.æ¸¸å†åŒå€è·å¾—ç‡:
                 dec = "%";
                 break;
-            case enum_skill_attribute_list.ÓÎÀúÊ±³¤:
+            case enum_skill_attribute_list.æ¸¸å†æ—¶é•¿:
                 break;
-            case enum_skill_attribute_list.ÓÎÀúÁúÖéÊÕÒæ:
+            case enum_skill_attribute_list.æ¸¸å†é¾™ç æ”¶ç›Š:
                 dec = "%";
                 break;
-            case enum_skill_attribute_list.Ñ°¹Ö¼ä¸ô:
+            case enum_skill_attribute_list.å¯»æ€ªé—´éš”:
                 dec = "/10s";
                 break;
-            case enum_skill_attribute_list.³èÎïÈİÁ¿:
+            case enum_skill_attribute_list.å® ç‰©å®¹é‡:
                 break;
-            case enum_skill_attribute_list.ÍÁ:
+            case enum_skill_attribute_list.åœŸ:
                 break;
-            case enum_skill_attribute_list.»ğ:
+            case enum_skill_attribute_list.ç«:
                 break;
-            case enum_skill_attribute_list.Ë®:
+            case enum_skill_attribute_list.æ°´:
                 break;
-            case enum_skill_attribute_list.Ä¾:
+            case enum_skill_attribute_list.æœ¨:
                 break;
-            case enum_skill_attribute_list.½ğ:
+            case enum_skill_attribute_list.é‡‘:
                 break;
-            case enum_skill_attribute_list.ÎåĞĞÉËº¦:
-            case enum_skill_attribute_list.ÎåĞĞÉËº¦¼õÉÙ:
+            case enum_skill_attribute_list.äº”è¡Œä¼¤å®³:
+            case enum_skill_attribute_list.äº”è¡Œä¼¤å®³å‡å°‘:
                 dec = "%";
                 break;
-            case enum_skill_attribute_list.ÁéÁ¦:
+            case enum_skill_attribute_list.çµåŠ›:
                 break;
-            case enum_skill_attribute_list.ÌåÆÇ:
+            case enum_skill_attribute_list.ä½“é­„:
                 break;
-            case enum_skill_attribute_list.ÉñÊ¶:
+            case enum_skill_attribute_list.ç¥è¯†:
                 break;
-            case enum_skill_attribute_list.³èÎï¹¥»÷:
+            case enum_skill_attribute_list.å® ç‰©æ”»å‡»:
                 break;
-            case enum_skill_attribute_list.³èÎï·ÀÓù:
+            case enum_skill_attribute_list.å® ç‰©é˜²å¾¡:
                 break;
-            case enum_skill_attribute_list.³èÎïÉúÃü:
+            case enum_skill_attribute_list.å® ç‰©ç”Ÿå‘½:
                 break;
-            case enum_skill_attribute_list.³èÎï±©»÷:
+            case enum_skill_attribute_list.å® ç‰©æš´å‡»:
                 break;
-            case enum_skill_attribute_list.³èÎï±©»÷ÉËº¦:
+            case enum_skill_attribute_list.å® ç‰©æš´å‡»ä¼¤å®³:
                 dec = "%";
                 break;
-            case enum_skill_attribute_list.³èÎï±©»÷ÂÊ:
+            case enum_skill_attribute_list.å® ç‰©æš´å‡»ç‡:
                 break;
-            case enum_skill_attribute_list.³èÎï¹¥»÷ËÙ¶È:
+            case enum_skill_attribute_list.å® ç‰©æ”»å‡»é€Ÿåº¦:
                 break;
-            case enum_skill_attribute_list.¼¼ÄÜÉËº¦:
+            case enum_skill_attribute_list.æŠ€èƒ½ä¼¤å®³:
                 dec = "%";
                 break;
-            case enum_skill_attribute_list.È¼Ñª:
+            case enum_skill_attribute_list.ç‡ƒè¡€:
                 break;
-            case enum_skill_attribute_list.ÁéÉí:
+            case enum_skill_attribute_list.çµèº«:
                 break;
-            case enum_skill_attribute_list.Á¬»÷:
+            case enum_skill_attribute_list.è¿å‡»:
                 break;
-            case enum_skill_attribute_list.ÊÜµ½¼õÃâÉËº¦:
+            case enum_skill_attribute_list.å—åˆ°å‡å…ä¼¤å®³:
                 break;
-            case enum_skill_attribute_list.¸´»î´ÎÊı:
+            case enum_skill_attribute_list.å¤æ´»æ¬¡æ•°:
                 break;
-            case enum_skill_attribute_list.ĞÒÔËÒ»»÷µÄ¸ÅÂÊ:
-                dec = "%";
-
-                break;
-            case enum_skill_attribute_list.ĞÒÔËÒ»»÷µÄÉËº¦:
+            case enum_skill_attribute_list.å¹¸è¿ä¸€å‡»çš„æ¦‚ç‡:
                 dec = "%";
 
                 break;
-            case enum_skill_attribute_list.¹¥»÷Ê±¸ÅÂÊµÖÏûÉËº¦:
+            case enum_skill_attribute_list.å¹¸è¿ä¸€å‡»çš„ä¼¤å®³:
                 dec = "%";
 
                 break;
-            case enum_skill_attribute_list.±»¹¥»÷Ê±·´»÷ÕæÊµÉËº¦:
-                break;
-            case enum_skill_attribute_list.Ã¿´Î¹¥»÷Ôö¼ÓÉËº¦:
+            case enum_skill_attribute_list.æ”»å‡»æ—¶æ¦‚ç‡æŠµæ¶ˆä¼¤å®³:
                 dec = "%";
 
                 break;
-            case enum_skill_attribute_list.ÖÎÁÆÊõĞ§¹û:
-            case enum_skill_attribute_list.Ê©¶¾ÊõĞ§¹û:
-            case enum_skill_attribute_list.ÇàÔÆÃÅ¼¼ÄÜÉËº¦:
-            case enum_skill_attribute_list.Ä§·¨¶ÜĞ§¹û:
-            case enum_skill_attribute_list.Ñªµ¶µ¶·¨ÉËº¦:
+            case enum_skill_attribute_list.è¢«æ”»å‡»æ—¶åå‡»çœŸå®ä¼¤å®³:
+                break;
+            case enum_skill_attribute_list.æ¯æ¬¡æ”»å‡»å¢åŠ ä¼¤å®³:
+                dec = "%";
+
+                break;
+            case enum_skill_attribute_list.æ²»ç–—æœ¯æ•ˆæœ:
+            case enum_skill_attribute_list.æ–½æ¯’æœ¯æ•ˆæœ:
+            case enum_skill_attribute_list.é’äº‘é—¨æŠ€èƒ½ä¼¤å®³:
+            case enum_skill_attribute_list.é­”æ³•ç›¾æ•ˆæœ:
+            case enum_skill_attribute_list.è¡€åˆ€åˆ€æ³•ä¼¤å®³:
                 dec = "%";
 
                 break;
@@ -211,7 +211,7 @@ public class tool_Categoryt : MonoBehaviour
         return dec;
     }
     /// <summary>
-    /// »ñÈ¡Ê±¼ä
+    /// è·å–æ—¶é—´
     /// </summary>
     /// <returns></returns>
     public static DateTime Nowtime()
@@ -219,7 +219,7 @@ public class tool_Categoryt : MonoBehaviour
         return DateTime.Now; ;
     }
     /// <summary>
-    /// »ñÈ¡Êı¾İÁĞ±í
+    /// è·å–æ•°æ®åˆ—è¡¨
     /// </summary>
     /// <param name="bag"></param>
     public static Bag_Base_VO Read_Bag(Bag_Base_VO bag)
@@ -242,7 +242,7 @@ public class tool_Categoryt : MonoBehaviour
         return bag_base;
     }
     /// <summary>
-    /// ¶ÁÈ¡¼¼ÄÜ
+    /// è¯»å–æŠ€èƒ½
     /// </summary>
     /// <param name="base_item"></param>
     /// <returns></returns>
@@ -273,7 +273,7 @@ public class tool_Categoryt : MonoBehaviour
         return pet;
     }
     /// <summary>
-    /// ´´½¨×°±¸
+    /// åˆ›å»ºè£…å¤‡
     /// </summary>
     /// <param name="bag"></param>
     public static Bag_Base_VO crate_equip(string bag_name)
@@ -288,16 +288,16 @@ public class tool_Categoryt : MonoBehaviour
             }
         }
         string user_value = bag_name;
-        //Ç¿»¯µÈ¼¶
+        //å¼ºåŒ–ç­‰çº§
         user_value += " " + 0;
-        //Æ·ÖÊ
+        //å“è´¨
         int quality = Quality();
         user_value += " " + quality;
 
         if (quality > 0)
         {
             List<(int, int)> list = new List<(int, int)>();
-            //Ëæ»úÊôĞÔ 1Îï¹¥ÏÂ 2Îï¹¥ÉÏ 3Ä§¹¥ÏÂ 4Ä§¹¥ÉÏ 5Îï·À  6Ä§·À 7ÉúÃü8Ä§·¨
+            //éšæœºå±æ€§ 1ç‰©æ”»ä¸‹ 2ç‰©æ”»ä¸Š 3é­”æ”»ä¸‹ 4é­”æ”»ä¸Š 5ç‰©é˜²  6é­”é˜² 7ç”Ÿå‘½8é­”æ³•
             int base_quality = Random.Range(1, 9);
             int base_quality_value = Random.Range(bag.need_lv+5, bag.need_lv * 2 + 10);
             if (base_quality > 6) base_quality_value *= 10;
@@ -331,7 +331,7 @@ public class tool_Categoryt : MonoBehaviour
                                 list.Add((base_quality, base_quality_value));
                                 if (quality > 6)
                                 {
-                                    //ÎåĞĞ
+                                    //äº”è¡Œ
                                     base_quality = Random.Range(30, 35);
                                     base_quality_value = Random.Range(3, bag.need_lv / 2 + 6);
                                     list.Add((base_quality, base_quality_value));
@@ -356,26 +356,26 @@ public class tool_Categoryt : MonoBehaviour
     }
 
     /// <summary>
-    /// ´´½¨¼¼ÄÜ
+    /// åˆ›å»ºæŠ€èƒ½
     /// </summary>
     /// <param name="skill_name"></param>
     /// <returns></returns>
     public static base_skill_vo crate_skill(string skill_name)
     {
         base_skill_vo skill = ArrayHelper.Find(SumSave.db_skills, e => e.skillname == skill_name);
-        /// 1¼¼ÄÜÃû³Æ 2¼¼ÄÜµÈ¼¶ 3¼¼ÄÜÎ»ÖÃ 4¼¼ÄÜÄÚÁ¦ 5¼¼ÄÜÀàĞÍ 6¼¼ÄÜÉËº¦ÀàĞÍ 7¼¼ÄÜ×î´óµÈ¼¶ 8¼¼ÄÜ³õÊ¼»¯Éı¼¶¾­Ñé 9¼¼ÄÜÉı¼¶
+        /// 1æŠ€èƒ½åç§° 2æŠ€èƒ½ç­‰çº§ 3æŠ€èƒ½ä½ç½® 4æŠ€èƒ½å†…åŠ› 5æŠ€èƒ½ç±»å‹ 6æŠ€èƒ½ä¼¤å®³ç±»å‹ 7æŠ€èƒ½æœ€å¤§ç­‰çº§ 8æŠ€èƒ½åˆå§‹åŒ–å‡çº§ç»éªŒ 9æŠ€èƒ½å‡çº§
 
         skill.user_value = skill_name;
-        //µÈ¼¶
+        //ç­‰çº§
         skill.user_value += " " + 1;
-        //Î»ÖÃ 0²»ÉÏ³¡
+        //ä½ç½® 0ä¸ä¸Šåœº
         skill.user_value += " " + 0;
-        //·ÖÅäÄÚÁ¦ Ä¬ÈÏÎª0
+        //åˆ†é…å†…åŠ› é»˜è®¤ä¸º0
         skill.user_value += " " + 0;
 
         string[] item = skill.user_value.Split(' ');
         skill.user_values= new string[item.Length];
-        for (int i = 0; i < item.Length; i++)//²ğ½â³ÉÊı×éÌí¼Óµ½user_values
+        for (int i = 0; i < item.Length; i++)//æ‹†è§£æˆæ•°ç»„æ·»åŠ åˆ°user_values
         {
             skill.user_values[i] = item[i];
         }
@@ -384,7 +384,7 @@ public class tool_Categoryt : MonoBehaviour
 
     }
     /// <summary>
-    /// »ñÈ¡Ëæ»úÊı
+    /// è·å–éšæœºæ•°
     /// </summary>
     /// <returns></returns>
     public static int Obtain_Random()
@@ -392,7 +392,7 @@ public class tool_Categoryt : MonoBehaviour
         return Random.Range(1, 10000);
     }
     /// <summary>
-    /// »ñÈ¡×°±¸Æ·ÖÊ
+    /// è·å–è£…å¤‡å“è´¨
     /// </summary>
     /// <param name="boss"></param>
     /// <returns></returns>

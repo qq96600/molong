@@ -8,14 +8,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 /// <summary>
-/// ·õ»¯½ø¶È
+/// å­µåŒ–è¿›åº¦
 /// </summary>
 public class hatching_progress : Base_Mono
 {
     private Transform pos_list,pos_btn,pos_info,pos_pet_btn;
 
     /// <summary>
-    /// ĞÅÏ¢Ô¤ÖÆÌå
+    /// ä¿¡æ¯é¢„åˆ¶ä½“
     /// </summary>
     private info_item info_item_prefabs;
 
@@ -26,47 +26,51 @@ public class hatching_progress : Base_Mono
     private btn_item btn_item_Prefabs;
     private pet_item pet_item_Prefabs;
     /// <summary>
-    /// µ±Ç°³èÎï
+    /// å½“å‰å® ç‰©
     /// </summary>
     private pet_item crt_pet;
     /// <summary>
-    /// µ±Ç°µ°
+    /// å½“å‰è›‹
     /// </summary>
     private Bag_Base_VO crt_bag_egg;
-    private string[] btn_list = new string[] { "³èÎï", "³èÎïµ°"};
+    private string[] btn_list = new string[] { "å® ç‰©", "å® ç‰©è›‹"};
     /// <summary>
-    /// Ñ¡Ôñ³èÎï¹¦ÄÜ
+    /// é€‰æ‹©å® ç‰©åŠŸèƒ½
     /// </summary>
     private int crt_pet_index = 0;
-    private string[] pet_list_btn = new string[] {"·õ»¯","ÊØ»¤", "¶ªÆú", "Î¹Ñø", "Ì½ÏÕ"};
+    private string[] pet_list_btn = new string[] {"å­µåŒ–","å®ˆæŠ¤", "ä¸¢å¼ƒ", "å–‚å…»", "æ¢é™©"};
     /// <summary>
-    /// Ñ¡Ôñ·ÖÅä 0³èÎï 1µ°
+    /// é€‰æ‹©åˆ†é… 0å® ç‰© 1è›‹
     /// </summary>
     private int index = 0;
     /// <summary>
-    /// ÏÔÊ¾³èÎïµ°ĞÅÏ¢
+    /// æ˜¾ç¤ºå® ç‰©è›‹ä¿¡æ¯
     /// </summary>
     private Text pet_egg_info;
     /// <summary>
-    /// ³èÎïµ°
+    /// å® ç‰©è›‹
     /// </summary>
     private (string, int) crt_egg;
     /// <summary>
-    /// ³èÎï·õ»¯½ø¶ÈÌõ
+    /// å® ç‰©å­µåŒ–è¿›åº¦æ¡
     /// </summary>
     private Slider hatching_Slider;
     /// <summary>
-    /// ·õ»¯¼ÆÊ±Æ÷
+    /// å­µåŒ–è®¡æ—¶å™¨
     /// </summary>
     private int hatchingTimeCounter;
     /// <summary>
-    /// ·õ»¯µ¹¼ÆÊ±ÎÄ±¾
+    /// å­µåŒ–å€’è®¡æ—¶æ–‡æœ¬
     /// </summary>
     private Text countdown_text;
     /// <summary>
-    /// ³èÎï·õ»¯¿ªÊ¼Ê±¼ä ³èÎïÃû×Ö+Ê±¼ä
+    /// å® ç‰©å­µåŒ–å¼€å§‹æ—¶é—´ å® ç‰©åå­—+æ—¶é—´
     /// </summary>
     private string incubate_Time;
+    /// <summary>
+    /// é¢†å–å® ç‰©æŒ‰é’®
+    /// </summary>
+    private Button pet_receive;
     
     private void Awake()
     {
@@ -79,11 +83,14 @@ public class hatching_progress : Base_Mono
         pet_item_Prefabs = Resources.Load<pet_item>("Prefabs/panel_smallWorld/pets/pet_item");
         store_item_Prefabs = Resources.Load<store_item>("Prefabs/panel_hall/panel_store/store_item");
         info_item_prefabs = Resources.Load<info_item>("Prefabs/base_tool/info_item");
-        //pet_egg_info= Find<Text>("Pet_info/btn_list/info");
         hatching_Slider= Find<Slider>("Pet_info/hatching_Slider");
         countdown_text=Find<Text>("Pet_info/hatching_Slider/countdown_text/info");
         hatching_Slider.gameObject.SetActive(false);
-        //pet_egg_info.text = "";
+        pet_receive = Find<Button>("Pet_info/pet_receive");
+        pet_receive.onClick.AddListener(() => { ReceivePet(); });
+        pet_receive.gameObject.SetActive(false);
+
+
         ClearObject(pos_btn);
         for (int i = 0; i < btn_list.Length; i++)
         {
@@ -92,7 +99,7 @@ public class hatching_progress : Base_Mono
             item.GetComponent<Button>().onClick.AddListener(() => { onClick(item); });
         }
         ClearObject(pos_info);
-        for (int i = 0; i < Enum.GetNames(typeof(enum_attribute_list)).Length; i++)//ÏÔÊ¾ÊôĞÔ
+        for (int i = 0; i < Enum.GetNames(typeof(enum_attribute_list)).Length; i++)//æ˜¾ç¤ºå±æ€§
         {
             info_item item = Instantiate(info_item_prefabs, pos_info);
             item.Show((enum_attribute_list)i, UnityEngine.Random.Range(1, 1000));
@@ -107,17 +114,69 @@ public class hatching_progress : Base_Mono
         }
     }
     /// <summary>
-    /// ³èÎï¹¦ÄÜ
+    /// é¢†å–å® ç‰©
+    /// </summary>
+    private void ReceivePet()
+    {
+        pet_receive.gameObject.SetActive(false);
+        string data = incubate_Time;
+        SumSave.crt_pet.crt_pet_list.Remove(data);//å­µåŒ–å® ç‰©åªæœ‰è¿™ä¸€ä¸ªç±»å‹å¯ä»¥ç›´æ¥æ‰¾åˆ°åˆ é™¤
+        SumSave.crt_pet.crt_pet_list.Remove("");
+        db_pet_vo pet_init = SumSave.db_pet_dic[crt_egg.Item1];
+
+        string value_data = " ";
+        value_data += pet_init.petName + ",";
+        value_data += SumSave.nowtime + ",";
+        value_data += (SumSave.crt_world.World_Lv / 5 + 1) + ",";
+        value_data += pet_init.level + ",";
+        value_data += pet_init.exp + ",";
+        value_data += crate_value(pet_init, (SumSave.crt_world.World_Lv / 5 + 1)) + ",";
+        value_data += 0.ToString();
+        SumSave.crt_pet.crt_pet_list.Add(value_data);
+
+
+        db_pet_vo pet = new db_pet_vo();
+        string[] splits = SumSave.crt_pet.crt_pet_list[SumSave.crt_pet.crt_pet_list.Count - 1].Split(',');
+
+        if (splits.Length == 7)
+        {
+            pet.petName = splits[0];
+            pet.startHatchingTime = DateTime.Parse(splits[1]);
+            pet.quality = splits[2];
+            pet.level = int.Parse(splits[3]);
+            pet.exp = int.Parse(splits[4]);
+
+            string[] attributes = splits[5].Split('|');
+            if (attributes.Length == 3)
+            {
+                pet.crate_value = attributes[0];
+                pet.up_value = attributes[1];
+                pet.up_base_value = attributes[2];
+                pet.GetNumerical();
+            }
+            pet.pet_state = splits[6];
+        }
+
+        SumSave.crt_pet_list.Add(pet);
+
+        Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_pet,
+        SumSave.crt_pet.Set_Uptade_String(), SumSave.crt_pet.Get_Update_Character());
+
+
+    }
+
+    /// <summary>
+    /// å® ç‰©åŠŸèƒ½
     /// </summary>
     /// <param name="btn"></param>
     private void onPetClick(btn_item btn)
     {
         switch (pet_list_btn[btn.index])
         {   
-            case "·õ»¯":
+            case "å­µåŒ–":
                 Dictionary<string, int> dic = new Dictionary<string, int>();
                 dic.Add(crt_egg.Item1, -crt_egg.Item2);
-                string EggsName = SumSave.db_pet_dic[crt_egg.Item1].petEggsName;//¸ù¾İ³èÎïÕÒµ½³èÎïµ°Ãû×Ö
+                string EggsName = SumSave.db_pet_dic[crt_egg.Item1].petEggsName;//æ ¹æ®å® ç‰©æ‰¾åˆ°å® ç‰©è›‹åå­—
                 SumSave.crt_bag_resources.Get(dic);
                 Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.material_value, SumSave.crt_bag_resources.GetData());
                 db_pet_vo pet = ArrayHelper.Find(SumSave.db_pet, e => e.petEggsName == EggsName);
@@ -125,8 +184,8 @@ public class hatching_progress : Base_Mono
                 {
                     incubate_Time = "";
                     incubate_Time = pet.petName + "," + SumSave.nowtime;
-                     SumSave.crt_pet.crt_pet_list.Add(incubate_Time);
-                    Alert_Dec.Show("³èÎï" + pet.petName + " ·õ»¯¿ªÊ¼");
+                    SumSave.crt_pet.crt_pet_list.Add(incubate_Time);
+                    Alert_Dec.Show("å® ç‰©" + pet.petName + " å­µåŒ–å¼€å§‹");
 
                     pos_pet_btn.gameObject.SetActive(false);
 
@@ -137,13 +196,13 @@ public class hatching_progress : Base_Mono
 
                 }
                 break;
-            case "ÊØ»¤":
+            case "å®ˆæŠ¤":
                 break;
-            case "¶ªÆú":
+            case "ä¸¢å¼ƒ":
                 break;
-            case "Î¹Ñø":
+            case "å–‚å…»":
                 break;
-            case "Ì½ÏÕ":
+            case "æ¢é™©":
                 break;
             default:
                 break;
@@ -165,7 +224,7 @@ public class hatching_progress : Base_Mono
         }
     }
     /// <summary>
-    /// µ¹¼ÆÊ±
+    /// å€’è®¡æ—¶
     /// </summary>
     /// <param name="time"></param>
     private void Fixed_Update(int time,db_pet_vo pet)
@@ -175,38 +234,20 @@ public class hatching_progress : Base_Mono
             hatchingTimeCounter -= time;
             countdown_text.text = ConvertSecondsToHHMMSS(hatchingTimeCounter);
             hatching_Slider.value = pet.hatchingTime - hatchingTimeCounter;
-            Debug.Log("µ¹¼ÆÊ±" + hatchingTimeCounter + "½ø¶ÈÌõ£º" + hatching_Slider.value);
+            Debug.Log("å€’è®¡æ—¶" + hatchingTimeCounter + "è¿›åº¦æ¡ï¼š" + hatching_Slider.value);
         }
-        else if (hatchingTimeCounter <= 0)//·õ»¯Íê³É
+        else if (hatchingTimeCounter <= 0)//å­µåŒ–å®Œæˆ
         {
             hatching_Slider.gameObject.SetActive(false);
             countdown_text.text = "";
             hatchingTimeCounter = -1;
             hatching_Slider.value = 0;
-            Debug.Log("·õ»¯Íê³É");
-            string data = incubate_Time;
-            SumSave.crt_pet.crt_pet_list.Remove(data);//·õ»¯³èÎïÖ»ÓĞÕâÒ»¸öÀàĞÍ¿ÉÒÔÖ±½ÓÕÒµ½É¾³ı
-            db_pet_vo pet_init = SumSave.db_pet_dic[crt_egg.Item1];
-
-            string value_data = " ";
-            value_data += pet_init.petName + ",";
-            value_data += SumSave.nowtime + ",";
-            value_data += (SumSave.crt_world.World_Lv / 5 + 1) + ",";
-            value_data += pet_init.level + ",";
-            value_data += pet_init.exp + ",";
-            value_data += crate_value(pet_init, (SumSave.crt_world.World_Lv / 5 + 1))+",";
-            value_data += 0;
-
-            SumSave.crt_pet.crt_pet_list.Add(value_data);
-
-            SumSave.crt_pet_list.Add(pet);
-            //Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_pet,
-            //SumSave.crt_pet.Set_Uptade_String(), SumSave.crt_pet.Get_Update_Character());
-
+            Debug.Log("å­µåŒ–å®Œæˆ");
+            pet_receive.gameObject.SetActive(true);
         }
     }
     /// <summary>
-    /// Ìí¼Ó³èÎïÊôĞÔ
+    /// æ·»åŠ å® ç‰©å±æ€§
     /// </summary>
     /// <param name="pet"></param>
     /// <param name="lv"></param>
@@ -232,7 +273,7 @@ public class hatching_progress : Base_Mono
         return data;
     }
     /// <summary>
-    /// Ñ¡Ôñ·ÖÅä 0³èÎï 1µ°
+    /// é€‰æ‹©åˆ†é… 0å® ç‰© 1è›‹
     /// </summary>
     /// <param name="item"></param>
     private void onClick(btn_item item)
@@ -254,7 +295,7 @@ public class hatching_progress : Base_Mono
         pos_pet_btn.gameObject.SetActive(true);
         if (index == 0)
         {
-            for (int i = 0; i < SumSave.crt_pet_list.Count; i++)//ÏÔÊ¾³èÎï
+            for (int i = 0; i < SumSave.crt_pet_list.Count; i++)//æ˜¾ç¤ºå® ç‰©
             {
                 pet_item item= Instantiate(pet_item_Prefabs, pos_list);
                 item.Init(SumSave.crt_pet_list[i]);
@@ -276,7 +317,7 @@ public class hatching_progress : Base_Mono
                 {
                     switch ((EquipConfigTypeList)Enum.Parse(typeof(EquipConfigTypeList), bag.StdMode))
                     {
-                        case EquipConfigTypeList.³èÎïµ°:
+                        case EquipConfigTypeList.å® ç‰©è›‹:
                             (string, int) lists = list[i];
                             store_item item = Instantiate(store_item_Prefabs, pos_list); 
                             item.PetInit(list[i], "");
@@ -299,94 +340,94 @@ public class hatching_progress : Base_Mono
         {
             switch (item)
             {
-                case enum_attribute_list.ÉúÃüÖµ:
+                case enum_attribute_list.ç”Ÿå‘½å€¼:
                     info_item_dic[item].Show(item, crt_MaxHero.MaxHP);
                     break;
-                case enum_attribute_list.·¨Á¦Öµ:
+                case enum_attribute_list.æ³•åŠ›å€¼:
                     info_item_dic[item].Show(item, crt_MaxHero.MaxMp);
                     break;
-                case enum_attribute_list.ÄÚÁ¦Öµ:
+                case enum_attribute_list.å†…åŠ›å€¼:
                     info_item_dic[item].Show(item, crt_MaxHero.internalforceMP);
                     break;
-                case enum_attribute_list.ĞîÁ¦Öµ:
+                case enum_attribute_list.è“„åŠ›å€¼:
                     info_item_dic[item].Show(item, crt_MaxHero.EnergyMp);
                     break;
-                case enum_attribute_list.ÎïÀí·ÀÓù:
+                case enum_attribute_list.ç‰©ç†é˜²å¾¡:
                     info_item_dic[item].Show(item, crt_MaxHero.DefMin + " - " + crt_MaxHero.DefMax);
                     break;
-                case enum_attribute_list.Ä§·¨·ÀÓù:
+                case enum_attribute_list.é­”æ³•é˜²å¾¡:
                     info_item_dic[item].Show(item, crt_MaxHero.MagicDefMin + " - " + crt_MaxHero.MagicDefMax);
                     break;
-                case enum_attribute_list.ÎïÀí¹¥»÷:
+                case enum_attribute_list.ç‰©ç†æ”»å‡»:
                     info_item_dic[item].Show(item, crt_MaxHero.damageMin + " - " + crt_MaxHero.damageMax);
                     break;
-                case enum_attribute_list.Ä§·¨¹¥»÷:
+                case enum_attribute_list.é­”æ³•æ”»å‡»:
                     info_item_dic[item].Show(item, crt_MaxHero.MagicdamageMin + " - " + crt_MaxHero.MagicdamageMax);
                     break;
-                case enum_attribute_list.ÃüÖĞ:
+                case enum_attribute_list.å‘½ä¸­:
                     info_item_dic[item].Show(item, crt_MaxHero.hit);
                     break;
-                case enum_attribute_list.¶ã±Ü:
+                case enum_attribute_list.èº²é¿:
                     info_item_dic[item].Show(item, crt_MaxHero.dodge);
                     break;
-                case enum_attribute_list.´©Í¸:
+                case enum_attribute_list.ç©¿é€:
                     info_item_dic[item].Show(item, crt_MaxHero.penetrate);
                     break;
-                case enum_attribute_list.¸ñµ²:
+                case enum_attribute_list.æ ¼æŒ¡:
                     info_item_dic[item].Show(item, crt_MaxHero.block);
                     break;
-                case enum_attribute_list.±©»÷:
+                case enum_attribute_list.æš´å‡»:
                     info_item_dic[item].Show(item, crt_MaxHero.crit_rate);
                     break;
-                case enum_attribute_list.ĞÒÔË:
+                case enum_attribute_list.å¹¸è¿:
                     info_item_dic[item].Show(item, crt_MaxHero.Lucky);
                     break;
-                case enum_attribute_list.±©»÷ÉËº¦:
+                case enum_attribute_list.æš´å‡»ä¼¤å®³:
                     info_item_dic[item].Show(item, crt_MaxHero.crit_damage);
                     break;
-                case enum_attribute_list.ÉËº¦¼Ó³É:
+                case enum_attribute_list.ä¼¤å®³åŠ æˆ:
                     info_item_dic[item].Show(item, crt_MaxHero.double_damage);
                     break;
-                case enum_attribute_list.ÕæÊµÉËº¦:
+                case enum_attribute_list.çœŸå®ä¼¤å®³:
                     info_item_dic[item].Show(item, crt_MaxHero.Real_harm);
                     break;
-                case enum_attribute_list.ÉËº¦¼õÃâ:
+                case enum_attribute_list.ä¼¤å®³å‡å…:
                     info_item_dic[item].Show(item, crt_MaxHero.Damage_Reduction);
                     break;
-                case enum_attribute_list.ÉËº¦ÎüÊÕ:
+                case enum_attribute_list.ä¼¤å®³å¸æ”¶:
                     info_item_dic[item].Show(item, crt_MaxHero.Damage_absorption);
                     break;
-                case enum_attribute_list.Òì³£¿¹ĞÔ:
+                case enum_attribute_list.å¼‚å¸¸æŠ—æ€§:
                     info_item_dic[item].Show(item, crt_MaxHero.resistance);
                     break;
-                case enum_attribute_list.¹¥»÷ËÙ¶È:
+                case enum_attribute_list.æ”»å‡»é€Ÿåº¦:
                     info_item_dic[item].Show(item, crt_MaxHero.attack_speed);
                     break;
-                case enum_attribute_list.ÒÆ¶¯ËÙ¶È:
+                case enum_attribute_list.ç§»åŠ¨é€Ÿåº¦:
                     info_item_dic[item].Show(item, crt_MaxHero.move_speed);
                     break;
-                case enum_attribute_list.ÉúÃü¼Ó³É:
+                case enum_attribute_list.ç”Ÿå‘½åŠ æˆ:
                     info_item_dic[item].Show(item, crt_MaxHero.bonus_Hp);
                     break;
-                case enum_attribute_list.·¨Á¦¼Ó³É:
+                case enum_attribute_list.æ³•åŠ›åŠ æˆ:
                     info_item_dic[item].Show(item, crt_MaxHero.bonus_Mp);
                     break;
-                case enum_attribute_list.ÉúÃü»Ø¸´:
+                case enum_attribute_list.ç”Ÿå‘½å›å¤:
                     info_item_dic[item].Show(item, crt_MaxHero.Heal_Hp);
                     break;
-                case enum_attribute_list.·¨Á¦»Ø¸´:
+                case enum_attribute_list.æ³•åŠ›å›å¤:
                     info_item_dic[item].Show(item, crt_MaxHero.Heal_Mp);
                     break;
-                case enum_attribute_list.Îï¹¥¼Ó³É:
+                case enum_attribute_list.ç‰©æ”»åŠ æˆ:
                     info_item_dic[item].Show(item, crt_MaxHero.bonus_Damage);
                     break;
-                case enum_attribute_list.Ä§¹¥¼Ó³É:
+                case enum_attribute_list.é­”æ”»åŠ æˆ:
                     info_item_dic[item].Show(item, crt_MaxHero.bonus_MagicDamage);
                     break;
-                case enum_attribute_list.Îï·À¼Ó³É:
+                case enum_attribute_list.ç‰©é˜²åŠ æˆ:
                     info_item_dic[item].Show(item, crt_MaxHero.bonus_Def);
                     break;
-                case enum_attribute_list.Ä§·À¼Ó³É:
+                case enum_attribute_list.é­”é˜²åŠ æˆ:
                     info_item_dic[item].Show(item, crt_MaxHero.bonus_MagicDef);
                     break;
                 default:
@@ -397,7 +438,7 @@ public class hatching_progress : Base_Mono
     }
 
     /// <summary>
-    /// ÏÔÊ¾³èÎïµ°
+    /// æ˜¾ç¤ºå® ç‰©è›‹
     /// </summary>
     /// <param name="bag"></param>
     private void Select_Egg((string,int) bag)
@@ -408,7 +449,7 @@ public class hatching_progress : Base_Mono
         Obtain_Pet(pet, 1);
     }
     /// <summary>
-    /// »ñÈ¡·õ»¯×´Ì¬
+    /// è·å–å­µåŒ–çŠ¶æ€
     /// </summary>
     private void Obtain_Egg_State()
     {
@@ -416,7 +457,7 @@ public class hatching_progress : Base_Mono
     }
 
     /// <summary>
-    /// Õ¹Ê¾³èÎï
+    /// å±•ç¤ºå® ç‰©
     /// </summary>
     /// <param name="item"></param>
     private void Select_Pet(pet_item item)
@@ -431,7 +472,7 @@ public class hatching_progress : Base_Mono
     }
 
     /// <summary>
-    /// »ñÈ¡³èÎïÊôĞÔ
+    /// è·å–å® ç‰©å±æ€§
     /// </summary>
     /// <param name="pet"></param>
     /// <param name="lv"></param>
@@ -440,8 +481,8 @@ public class hatching_progress : Base_Mono
         if (pet != null)
         {
             crtMaxHeroVO crt = new crtMaxHeroVO();
-            List<string> v = pet.crate_values;//³èÎï»ù´¡ÊôĞÔ
-            List<string> va = pet.up_values;//³èÎï³É³¤ÊôĞÔ
+            List<string> v = pet.crate_values;//å® ç‰©åŸºç¡€å±æ€§
+            List<string> va = pet.up_values;//å® ç‰©æˆé•¿å±æ€§
             for (int i = 0; i < v.Count; i++)
             {
                 int value = int.Parse(v[i]) + (int.Parse(va[i]) * lv);
@@ -451,7 +492,7 @@ public class hatching_progress : Base_Mono
         }
     }
     /// <summary>
-    /// ¹¦ÄÜÏÔÊ¾
+    /// åŠŸèƒ½æ˜¾ç¤º
     /// </summary>
     /// <param name="state"></param>
     private void Show_Btn(bool state,int pos = -1)

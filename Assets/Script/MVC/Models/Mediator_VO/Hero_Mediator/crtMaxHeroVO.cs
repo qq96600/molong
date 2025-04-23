@@ -1,207 +1,207 @@
 
 using System.Collections.Generic;
 /// <summary>
-/// ÊôĞÔ»ã×Ü±í
+/// å±æ€§æ±‡æ€»è¡¨
 /// </summary>
 public class crtMaxHeroVO
 {
     /// <summary>
-    /// ÅĞ¶Ï¹ÖÎï×´Ì¬ 0 ´ú±í¹ÖÎïµÄ²»Í¬¼Ó³É
+    /// åˆ¤æ–­æ€ªç‰©çŠ¶æ€ 0 ä»£è¡¨æ€ªç‰©çš„ä¸åŒåŠ æˆ
     /// </summary>
     public List<int> monster_attrList= new List<int>();
     /// <summary>
-    /// Õ¹Ê¾Ãû³Æ
+    /// å±•ç¤ºåç§°
     /// </summary>
     public string show_name;
     /// <summary>
-    /// Ö°Òµ 1Õ½ 2·¨ 3µÀ 11Õ½ÉËº¦ 12·¨ÉËº¦ÕÙ»½
+    /// èŒä¸š 1æˆ˜ 2æ³• 3é“ 11æˆ˜ä¼¤å®³ 12æ³•ä¼¤å®³å¬å”¤
     /// </summary>
-    public int Type;//½ÇÉ«Ö°Òµ
+    public int Type;//è§’è‰²èŒä¸š
     /// <summary>
-    /// µØÍ¼²ú³ö±àºÅ
+    /// åœ°å›¾äº§å‡ºç¼–å·
     /// </summary>
     public int map_index;
     /// <summary>
-    /// ×´Ì¬±àºÅ Íæ¼Ò-1
+    /// çŠ¶æ€ç¼–å· ç©å®¶-1
     /// </summary>
     public int index;
     /// <summary>
-    /// ³èÎï±àºÅ
+    /// å® ç‰©ç¼–å·
     /// </summary>
     public int PetPos;
     /// <summary>
-    /// µÈ¼¶
+    /// ç­‰çº§
     /// </summary>
-    public int Lv;//½ÇÉ«µÈ¼¶
+    public int Lv;//è§’è‰²ç­‰çº§
     /// <summary>
-    /// ¾­Ñé
+    /// ç»éªŒ
     /// </summary>
-    public long Exp;//µ±Ç°¾­Ñé
+    public long Exp;//å½“å‰ç»éªŒ
     /// <summary>
-    /// ÉùÍûÖµ
+    /// å£°æœ›å€¼
     /// </summary>
-    public int Point;//ÉùÍûÖµ
+    public int Point;//å£°æœ›å€¼
     /// <summary>
-    /// Í¼±ê
+    /// å›¾æ ‡
     /// </summary>
     public string icon;
     /// <summary>
-    /// ÉúÃü
+    /// ç”Ÿå‘½
     /// </summary>
-    public long MaxHP;//×î´óÉúÃü
+    public long MaxHP;//æœ€å¤§ç”Ÿå‘½
     /// <summary>
-    /// Ä§·¨Öµ
+    /// é­”æ³•å€¼
     /// </summary>
     public int MaxMp;
     /// <summary>
-    /// ÄÚÁ¦Öµ
+    /// å†…åŠ›å€¼
     /// </summary>
     public int internalforceMP;
     /// <summary>
-    /// ĞîÁ¦Öµ
+    /// è“„åŠ›å€¼
     /// </summary>
     public int EnergyMp;
     /// <summary>
-    /// ÎïÀí·ÀÓù
+    /// ç‰©ç†é˜²å¾¡
     /// </summary>
     public int DefMin;
     /// <summary>
-    /// ÎïÀí·ÀÓù
+    /// ç‰©ç†é˜²å¾¡
     /// </summary>
     public int DefMax;
     /// <summary>
-    /// Ä§·¨·ÀÓù
+    /// é­”æ³•é˜²å¾¡
     /// </summary>
     public int MagicDefMin;
     /// <summary>
-    /// Ä§·¨·ÀÓù
+    /// é­”æ³•é˜²å¾¡
     /// </summary>
     public int MagicDefMax;
     /// <summary>
-    /// ÎïÀíÉËº¦
+    /// ç‰©ç†ä¼¤å®³
     /// </summary>
     public int damageMin;
     /// <summary>
-    /// ÎïÀíÉËº¦
+    /// ç‰©ç†ä¼¤å®³
     /// </summary>
     public int damageMax;
     /// <summary>
-    /// Ä§·¨ÉËº¦
+    /// é­”æ³•ä¼¤å®³
     /// </summary>
     public int MagicdamageMin;
     /// <summary>
-    /// Ä§·¨ÉËº¦
+    /// é­”æ³•ä¼¤å®³
     /// </summary>
     public int MagicdamageMax;
     /// <summary>
-    /// ÃüÖĞ
+    /// å‘½ä¸­
     /// </summary>
     public int hit;
     /// <summary>
-    /// ÉÁ±Ü
+    /// é—ªé¿
     /// </summary>
     public int dodge;
 
     /// <summary>
-    /// ´©Í¸
+    /// ç©¿é€
     /// </summary>
     public int penetrate;
     /// <summary>
-    /// ¸ñµ²
+    /// æ ¼æŒ¡
     /// </summary>
     public int block;
     /// <summary>
-    /// ±©»÷
+    /// æš´å‡»
     /// </summary>
     public int crit_rate;
     /// <summary>
-    /// ±©»÷ÉËº¦
+    /// æš´å‡»ä¼¤å®³
     /// </summary>
     public int crit_damage;
     /// <summary>
-    /// ÉËº¦¼Ó³É
+    /// ä¼¤å®³åŠ æˆ
     /// </summary>
     public int double_damage;
     /// <summary>
-    /// ĞÒÔË
+    /// å¹¸è¿
     /// </summary>
     public int Lucky;
     /// <summary>
-    /// ÕæÊµÉËº¦
+    /// çœŸå®ä¼¤å®³
     /// </summary>
     public int Real_harm;
     /// <summary>
-    /// ÉËº¦¼õÃâ
+    /// ä¼¤å®³å‡å…
     /// </summary>
     public int Damage_Reduction;
     /// <summary>
-    /// ÉËº¦ÎüÊÕ
+    /// ä¼¤å®³å¸æ”¶
     /// </summary>
     public int Damage_absorption;
     /// <summary>
-    /// Òì³£¿¹ĞÔ
+    /// å¼‚å¸¸æŠ—æ€§
     /// </summary>
     public int resistance;
     /// <summary>
-    /// ÒÆ¶¯ËÙ¶È
+    /// ç§»åŠ¨é€Ÿåº¦
     /// </summary>
     public int move_speed;
     /// <summary>
-    /// ¹¥»÷ËÙ¶È
+    /// æ”»å‡»é€Ÿåº¦
     /// </summary>
     public int attack_speed;
     /// <summary>
-    /// ¹¥»÷¾àÀë
+    /// æ”»å‡»è·ç¦»
     /// </summary>
     public int attack_distance;
     /// <summary>
-    /// ÉúÃü¼Ó³É
+    /// ç”Ÿå‘½åŠ æˆ
     /// </summary>
     public int bonus_Hp;
     /// <summary>
-    /// ·¨Á¦¼Ó³É
+    /// æ³•åŠ›åŠ æˆ
     /// </summary>
     public int bonus_Mp;
     /// <summary>
-    /// sÉËº¦¼Ó³É
+    /// sä¼¤å®³åŠ æˆ
     /// </summary>
     public int bonus_Damage;
     /// <summary>
-    /// Ä§·¨ÉËº¦
+    /// é­”æ³•ä¼¤å®³
     /// </summary>
     public int bonus_MagicDamage;
     /// <summary>
-    /// ·ÀÓù¼Ó³É
+    /// é˜²å¾¡åŠ æˆ
     /// </summary>
     public int bonus_Def;
     /// <summary>
-    /// Ä§·¨·ÀÓù¼Ó³É
+    /// é­”æ³•é˜²å¾¡åŠ æˆ
     /// </summary>
     public int bonus_MagicDef;
     /// <summary>
-    /// ÉúÃü»Ø¸´
+    /// ç”Ÿå‘½å›å¤
     /// </summary>
     public int Heal_Hp;
     /// <summary>
-    /// Ä§·¨»Ø¸´
+    /// é­”æ³•å›å¤
     /// </summary>
     public int Heal_Mp;
     /// <summary>
-    /// ÎåĞĞÊôĞÔ
+    /// äº”è¡Œå±æ€§
     /// </summary>
     public int[] life = new int[] { 0, 0, 0, 0, 0 };
     /// <summary>
-    /// buff¼Ó³É
+    /// buffåŠ æˆ
     /// </summary>
     public List<int> bufflist = new List<int>();
     /// <summary>
-    /// ¹ÖÎïµôÂä½ğ±Ò
+    /// æ€ªç‰©æ‰è½é‡‘å¸
     /// </summary>
     public int unit = 0;
 
     public int totalPower;
     /// <summary>
-    /// ÏÔÊ¾Õ½¶·Á¦
+    /// æ˜¾ç¤ºæˆ˜æ–—åŠ›
     /// </summary>
     public void Init()
     {

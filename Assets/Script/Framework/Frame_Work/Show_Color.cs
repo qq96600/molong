@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+using System.Drawing;
 using UnityEngine.UI;
 //using System.Drawing.Imaging; 
 

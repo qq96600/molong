@@ -2,18 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 /// <summary>
-/// Ö´ĞĞÃüÁî
+/// æ‰§è¡Œå‘½ä»¤
 /// </summary>
 public enum Mysql_Type
 {
-    MySqlDataReader,//»ñÈ¡Ê±¼ä
-    InsertInto,//³õÊ¼»¯
-    UpdateInto,//¸üĞÂ
-    Delete//É¾³ı
+    MySqlDataReader,//è·å–æ—¶é—´
+    InsertInto,//åˆå§‹åŒ–
+    UpdateInto,//æ›´æ–°
+    Delete//åˆ é™¤
 }
 
 /// <summary>
-/// ±íÃû
+/// è¡¨å
 /// </summary>
 public enum Mysql_Table_Name
 {
@@ -21,37 +21,37 @@ public enum Mysql_Table_Name
     db_stditems,
     db_magic,
     db_map,
-    db_hero,//±ê×¼²ÎÊı
-    db_setting,//±ê×¼ÉèÖÃĞÅÏ¢
-    db_artifact,//±ê×¼ÉñÆ÷
-    mo_user_base,//ÓÃ»§»ù´¡ĞÅÏ¢
-    mo_user_value,//ÓÃ»§×ÊÔ´ĞÅÏ¢
-    mo_user_hero,//ÓÃ»§Ó¢ĞÛĞÅÏ¢
-    mo_user_setting,//ÓÃ»§ÉèÖÃĞÅÏ¢
-    mo_user_artifact,//ÓÃ»§ÉñÆ÷ĞÅÏ¢
-    mo_user,//ÓÃ»§»õ±ÒĞÅÏ¢
-    loglist,//ÈÕÖ¾
-    user_login,//ÓÃ»§µÇÂ¼
-    db_pass,//Í¨ĞĞÖ¤
-    mo_user_pass,//ÓÃ»§Í¨ĞĞÖ¤
-    mo_user_plant,//ÓÃ»§ÖÖÖ²ĞÅÏ¢
-    db_plant,//ÖÖÖ²ĞÅÏ¢
-    db_pet,//³èÎïĞÅÏ¢
-    mo_user_pet_hatching,//ÓÃ»§³èÎï·õ»¯ĞÅÏ¢
-    mo_user_pet,//ÓÃ»§³èÎïĞÅÏ¢
-    db_pet_explore,//³èÎïÌ½ÏÕĞÅÏ¢
+    db_hero,//æ ‡å‡†å‚æ•°
+    db_setting,//æ ‡å‡†è®¾ç½®ä¿¡æ¯
+    db_artifact,//æ ‡å‡†ç¥å™¨
+    mo_user_base,//ç”¨æˆ·åŸºç¡€ä¿¡æ¯
+    mo_user_value,//ç”¨æˆ·èµ„æºä¿¡æ¯
+    mo_user_hero,//ç”¨æˆ·è‹±é›„ä¿¡æ¯
+    mo_user_setting,//ç”¨æˆ·è®¾ç½®ä¿¡æ¯
+    mo_user_artifact,//ç”¨æˆ·ç¥å™¨ä¿¡æ¯
+    mo_user,//ç”¨æˆ·è´§å¸ä¿¡æ¯
+    loglist,//æ—¥å¿—
+    user_login,//ç”¨æˆ·ç™»å½•
+    db_pass,//é€šè¡Œè¯
+    mo_user_pass,//ç”¨æˆ·é€šè¡Œè¯
+    mo_user_plant,//ç”¨æˆ·ç§æ¤ä¿¡æ¯
+    db_plant,//ç§æ¤ä¿¡æ¯
+    db_pet,//å® ç‰©ä¿¡æ¯
+    mo_user_pet_hatching,//ç”¨æˆ·å® ç‰©å­µåŒ–ä¿¡æ¯
+    mo_user_pet,//ç”¨æˆ·å® ç‰©ä¿¡æ¯
+    db_pet_explore,//å® ç‰©æ¢é™©ä¿¡æ¯
     mo_user_world,
-    db_lv,//µÈ¼¶ĞÅÏ¢
-    user_rank,//ÅÅĞĞ°ñ
-    db_hall,//´óÌüĞÅÏ¢
-    mo_user_achieve,//ÓÃ»§³É¾ÍĞÅÏ¢
-    db_achieve,//³É¾ÍÊı¾İĞÅÏ¢
-    db_store,//ÉÌµêĞÅÏ¢
-    db_seed,//Á¶µ¤ÖÖ×ÓĞÅÏ¢
-    mo_user_seed,//ÓÃ»§Á¶µ¤ÖÖ×ÓĞÅÏ¢
-    mo_user_needlist,//ÓÃ»§ĞèÇóĞÅÏ¢
-    db_collect,//ÊÕ¼¯ĞÅÏ¢
-    mo_user_collect,//ÓÃ»§ÊÕ¼¯Íê³ÉĞÅÏ¢
-    db_signin,//Ç©µ½ĞÅÏ¢
+    db_lv,//ç­‰çº§ä¿¡æ¯
+    user_rank,//æ’è¡Œæ¦œ
+    db_hall,//å¤§å…ä¿¡æ¯
+    mo_user_achieve,//ç”¨æˆ·æˆå°±ä¿¡æ¯
+    db_achieve,//æˆå°±æ•°æ®ä¿¡æ¯
+    db_store,//å•†åº—ä¿¡æ¯
+    db_seed,//ç‚¼ä¸¹ç§å­ä¿¡æ¯
+    mo_user_seed,//ç”¨æˆ·ç‚¼ä¸¹ç§å­ä¿¡æ¯
+    mo_user_needlist,//ç”¨æˆ·éœ€æ±‚ä¿¡æ¯
+    db_collect,//æ”¶é›†ä¿¡æ¯
+    mo_user_collect,//ç”¨æˆ·æ”¶é›†å®Œæˆä¿¡æ¯
+    db_signin,//ç­¾åˆ°ä¿¡æ¯
     mo_user_signin
 }

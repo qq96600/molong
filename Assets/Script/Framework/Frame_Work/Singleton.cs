@@ -1,4 +1,4 @@
-﻿/// <summary>
+/// <summary>
 /// 单例模式
 /// </summary>
 /// <typeparam name="T"></typeparam>

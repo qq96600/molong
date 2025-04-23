@@ -1,4 +1,4 @@
-﻿namespace TarenaMVC
+namespace TarenaMVC
 {
     /// <summary>
     ///  发送消息

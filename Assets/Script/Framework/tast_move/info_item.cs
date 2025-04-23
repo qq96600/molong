@@ -13,10 +13,10 @@ public class info_item : Base_Mono
         base_type = Find<Text>("base_type");
     }
     /// <summary>
-    /// ÏÔÊ¾ĞÅÏ¢
+    /// æ˜¾ç¤ºä¿¡æ¯
     /// </summary>
-    /// <param name="type">ÀàĞÍ</param>
-    /// <param name="value">Öµ</param>
+    /// <param name="type">ç±»å‹</param>
+    /// <param name="value">å€¼</param>
     public void Show(object type, object value)
     { 
         base_type.text = type.ToString();

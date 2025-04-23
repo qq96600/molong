@@ -8,34 +8,34 @@ using System.Security.Cryptography;
 using Random = UnityEngine.Random;
 using Components;
 /// <summary>
-/// Õ½¶·¹¤¾ßÀà
+/// æˆ˜æ–—å·¥å…·ç±»
 /// </summary>
 public static class Battle_Tool 
 {
     /// <summary>
-    /// ×ÊÔ´´æ´¢Æ÷
+    /// èµ„æºå­˜å‚¨å™¨
     /// </summary>
     //private static List<(string, int)> resources_list = new List<(string, int)>();
     /// <summary>
-    /// »ñÈ¡×ÊÔ´
+    /// è·å–èµ„æº
     /// </summary>
-    /// <param name="resources_name">Ãû³Æ</param>
-    /// <param name="number">ÊıÁ¿</param>
+    /// <param name="resources_name">åç§°</param>
+    /// <param name="number">æ•°é‡</param>
     public static void Obtain_Resources( object resources_name,int number)
     { 
         Dictionary<string, int> dic = new Dictionary<string, int>();
         dic.Add(resources_name.ToString(), number);
         SumSave.crt_bag_resources.Get(dic);
-        //Ğ´ÈëÊı¾İ¿â
+        //å†™å…¥æ•°æ®åº“
         Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.material_value, SumSave.crt_bag_resources.GetData());
     }
 
     /// <summary>
-    /// ¼Ó³ÉÊôĞÔ
+    /// åŠ æˆå±æ€§
     /// </summary>
-    /// <param name="crt">Ö÷Ìå</param>
-    /// <param name="index">±àºÅ</param>
-    /// <param name="value">Öµ</param>
+    /// <param name="crt">ä¸»ä½“</param>
+    /// <param name="index">ç¼–å·</param>
+    /// <param name="value">å€¼</param>
     public static void Enum_Value(crtMaxHeroVO crt, int index, int value)
     {
         while (index >= crt.bufflist.Count)
@@ -45,204 +45,204 @@ public static class Battle_Tool
         crt.bufflist[index] += value;
         switch ((enum_skill_attribute_list)index)
         {
-            case enum_skill_attribute_list.ÉúÃüÖµ:
+            case enum_skill_attribute_list.ç”Ÿå‘½å€¼:
                 crt.MaxHP += value;
                 break;
-            case enum_skill_attribute_list.·¨Á¦Öµ:
+            case enum_skill_attribute_list.æ³•åŠ›å€¼:
                 crt.MaxMp += value;
                 break;
-            case enum_skill_attribute_list.ÄÚÁ¦Öµ:
+            case enum_skill_attribute_list.å†…åŠ›å€¼:
                 crt.internalforceMP += value;
                 break;
-            case enum_skill_attribute_list.ĞîÁ¦Öµ:
+            case enum_skill_attribute_list.è“„åŠ›å€¼:
                 crt.EnergyMp += value;
                 break;
-            case enum_skill_attribute_list.ÎïÀí·ÀÓù:
+            case enum_skill_attribute_list.ç‰©ç†é˜²å¾¡:
                 crt.DefMax += value;
                 break;
-            case enum_skill_attribute_list.Ä§·¨·ÀÓù:
+            case enum_skill_attribute_list.é­”æ³•é˜²å¾¡:
                 crt.MagicDefMax += value;
                 break;
-            case enum_skill_attribute_list.ÎïÀí¹¥»÷:
+            case enum_skill_attribute_list.ç‰©ç†æ”»å‡»:
                 crt.damageMax += value;
                 break;
-            case enum_skill_attribute_list.Ä§·¨¹¥»÷:
+            case enum_skill_attribute_list.é­”æ³•æ”»å‡»:
                 crt.MagicdamageMax += value;
                 break;
-            case enum_skill_attribute_list.ÃüÖĞ:
+            case enum_skill_attribute_list.å‘½ä¸­:
                 crt.hit += value;
                 break;
-            case enum_skill_attribute_list.¶ã±Ü:
+            case enum_skill_attribute_list.èº²é¿:
                 crt.dodge += value;
                 break;
-            case enum_skill_attribute_list.´©Í¸:
+            case enum_skill_attribute_list.ç©¿é€:
                 crt.penetrate += value;
                 break;
-            case enum_skill_attribute_list.¸ñµ²:
+            case enum_skill_attribute_list.æ ¼æŒ¡:
                 crt.block += value;
                 break;
-            case enum_skill_attribute_list.±©»÷:
+            case enum_skill_attribute_list.æš´å‡»:
                 crt.crit_rate += value;
                 break;
-            case enum_skill_attribute_list.ĞÒÔË:
+            case enum_skill_attribute_list.å¹¸è¿:
                 crt.Lucky += value;
                 break;
-            case enum_skill_attribute_list.±©»÷ÉËº¦:
+            case enum_skill_attribute_list.æš´å‡»ä¼¤å®³:
                 crt.crit_damage += value;
                 break;
-            case enum_skill_attribute_list.ÉËº¦¼Ó³É:
+            case enum_skill_attribute_list.ä¼¤å®³åŠ æˆ:
                 crt.double_damage += value;
                 break;
-            case enum_skill_attribute_list.ÕæÊµÉËº¦:
+            case enum_skill_attribute_list.çœŸå®ä¼¤å®³:
                 crt.Real_harm += value;
                 break;
-            case enum_skill_attribute_list.ÉËº¦¼õÃâ:
+            case enum_skill_attribute_list.ä¼¤å®³å‡å…:
                 crt.Damage_Reduction += value;
                 break;
-            case enum_skill_attribute_list.ÉËº¦ÎüÊÕ:
+            case enum_skill_attribute_list.ä¼¤å®³å¸æ”¶:
                 crt.Damage_absorption += value;
                 break;
-            case enum_skill_attribute_list.Òì³£¿¹ĞÔ:
+            case enum_skill_attribute_list.å¼‚å¸¸æŠ—æ€§:
                 crt.resistance += value;
                 break;
-            case enum_skill_attribute_list.¹¥»÷ËÙ¶È:
+            case enum_skill_attribute_list.æ”»å‡»é€Ÿåº¦:
                 crt.attack_speed += value;
                 break;
-            case enum_skill_attribute_list.ÒÆ¶¯ËÙ¶È:
+            case enum_skill_attribute_list.ç§»åŠ¨é€Ÿåº¦:
                 crt.move_speed += value;
                 break;
-            case enum_skill_attribute_list.ÉúÃü¼Ó³É:
+            case enum_skill_attribute_list.ç”Ÿå‘½åŠ æˆ:
                 crt.bonus_Hp += value;
                 break;
-            case enum_skill_attribute_list.·¨Á¦¼Ó³É:
+            case enum_skill_attribute_list.æ³•åŠ›åŠ æˆ:
                 crt.bonus_Mp += value;
                 break;
-            case enum_skill_attribute_list.ÉúÃü»Ø¸´:
+            case enum_skill_attribute_list.ç”Ÿå‘½å›å¤:
                 crt.Heal_Hp += value;
                 break;
-            case enum_skill_attribute_list.·¨Á¦»Ø¸´:
+            case enum_skill_attribute_list.æ³•åŠ›å›å¤:
                 crt.Heal_Mp += value;
                 break;
-            case enum_skill_attribute_list.Îï¹¥¼Ó³É:
+            case enum_skill_attribute_list.ç‰©æ”»åŠ æˆ:
                 crt.bonus_Damage += value;
                 break;
-            case enum_skill_attribute_list.Ä§¹¥¼Ó³É:
+            case enum_skill_attribute_list.é­”æ”»åŠ æˆ:
                 crt.bonus_MagicDamage += value;
                 break;
-            case enum_skill_attribute_list.Îï·À¼Ó³É:
+            case enum_skill_attribute_list.ç‰©é˜²åŠ æˆ:
                 crt.bonus_Def += value;
                 break;
-            case enum_skill_attribute_list.Ä§·À¼Ó³É:
+            case enum_skill_attribute_list.é­”é˜²åŠ æˆ:
                 crt.bonus_MagicDef += value;
                 break;
-            case enum_skill_attribute_list.ÍÁÊôĞÔÇ¿»¯:
-            case enum_skill_attribute_list.»ğÊôĞÔÇ¿»¯:
-            case enum_skill_attribute_list.Ë®ÊôĞÔÇ¿»¯:
-            case enum_skill_attribute_list.½ğÊôĞÔÇ¿»¯:
-            case enum_skill_attribute_list.Ä¾ÊôĞÔÇ¿»¯:
+            case enum_skill_attribute_list.åœŸå±æ€§å¼ºåŒ–:
+            case enum_skill_attribute_list.ç«å±æ€§å¼ºåŒ–:
+            case enum_skill_attribute_list.æ°´å±æ€§å¼ºåŒ–:
+            case enum_skill_attribute_list.é‡‘å±æ€§å¼ºåŒ–:
+            case enum_skill_attribute_list.æœ¨å±æ€§å¼ºåŒ–:
                 crt.life[index - 30] += value;
                 break;
-            case enum_skill_attribute_list.¾­Ñé¼Ó³É:
+            case enum_skill_attribute_list.ç»éªŒåŠ æˆ:
                 break;
-            case enum_skill_attribute_list.×°±¸µôÂä:
+            case enum_skill_attribute_list.è£…å¤‡æ‰è½:
                 break;
-            case enum_skill_attribute_list.¼«Æ·³èÎïµôÂä:
+            case enum_skill_attribute_list.æå“å® ç‰©æ‰è½:
                 break;
-            case enum_skill_attribute_list.ÈËÎïÀúÁ·:
+            case enum_skill_attribute_list.äººç‰©å†ç»ƒ:
                 break;
-            case enum_skill_attribute_list.³èÎï¾­Ñé:
+            case enum_skill_attribute_list.å® ç‰©ç»éªŒ:
                 break;
-            case enum_skill_attribute_list.ÄÚ¹¦¾­Ñé:
+            case enum_skill_attribute_list.å†…åŠŸç»éªŒ:
                 break;
-            case enum_skill_attribute_list.ÁéÖéÊÕÒæ:
+            case enum_skill_attribute_list.çµç æ”¶ç›Š:
                 break;
-            case enum_skill_attribute_list.×°±¸±¬ÂÊ:
+            case enum_skill_attribute_list.è£…å¤‡çˆ†ç‡:
                 break;
-            case enum_skill_attribute_list.³èÎï»ñÈ¡:
+            case enum_skill_attribute_list.å® ç‰©è·å–:
                 break;
-            case enum_skill_attribute_list.ÔÆÓÎÉÌÈËÕÛ¿Û:
+            case enum_skill_attribute_list.äº‘æ¸¸å•†äººæŠ˜æ‰£:
                 break;
-            case enum_skill_attribute_list.ÆíÔ¸ÊÕÒæ:
+            case enum_skill_attribute_list.ç¥ˆæ„¿æ”¶ç›Š:
                 break;
-            case enum_skill_attribute_list.ÆæÓöÈÎÎñÊÕÒæ:
+            case enum_skill_attribute_list.å¥‡é‡ä»»åŠ¡æ”¶ç›Š:
                 break;
-            case enum_skill_attribute_list.ÓÎÀúÎ£ÏÕ¶ã±ÜÂÊ:
+            case enum_skill_attribute_list.æ¸¸å†å±é™©èº²é¿ç‡:
                 break;
-            case enum_skill_attribute_list.ÓÎÀúË«±¶»ñµÃÂÊ:
+            case enum_skill_attribute_list.æ¸¸å†åŒå€è·å¾—ç‡:
                 break;
-            case enum_skill_attribute_list.ÓÎÀúÊ±³¤:
+            case enum_skill_attribute_list.æ¸¸å†æ—¶é•¿:
                 break;
-            case enum_skill_attribute_list.ÓÎÀúÁúÖéÊÕÒæ:
+            case enum_skill_attribute_list.æ¸¸å†é¾™ç æ”¶ç›Š:
                 break;
-            case enum_skill_attribute_list.Ñ°¹Ö¼ä¸ô:
+            case enum_skill_attribute_list.å¯»æ€ªé—´éš”:
                 break;
-            case enum_skill_attribute_list.³èÎïÈİÁ¿:
+            case enum_skill_attribute_list.å® ç‰©å®¹é‡:
                 break;
-            case enum_skill_attribute_list.ÍÁ:
+            case enum_skill_attribute_list.åœŸ:
                 break;
-            case enum_skill_attribute_list.»ğ:
+            case enum_skill_attribute_list.ç«:
                 break;
-            case enum_skill_attribute_list.Ë®:
+            case enum_skill_attribute_list.æ°´:
                 break;
-            case enum_skill_attribute_list.Ä¾:
+            case enum_skill_attribute_list.æœ¨:
                 break;
-            case enum_skill_attribute_list.½ğ:
+            case enum_skill_attribute_list.é‡‘:
                 break;
-            case enum_skill_attribute_list.ÎåĞĞÉËº¦:
+            case enum_skill_attribute_list.äº”è¡Œä¼¤å®³:
                 break;
-            case enum_skill_attribute_list.ÎåĞĞÉËº¦¼õÉÙ:
+            case enum_skill_attribute_list.äº”è¡Œä¼¤å®³å‡å°‘:
                 break;
-            case enum_skill_attribute_list.ÁéÁ¦:
+            case enum_skill_attribute_list.çµåŠ›:
                 break;
-            case enum_skill_attribute_list.ÌåÆÇ:
+            case enum_skill_attribute_list.ä½“é­„:
                 break;
-            case enum_skill_attribute_list.ÉñÊ¶:
+            case enum_skill_attribute_list.ç¥è¯†:
                 break;
-            case enum_skill_attribute_list.³èÎï¹¥»÷:
+            case enum_skill_attribute_list.å® ç‰©æ”»å‡»:
                 break;
-            case enum_skill_attribute_list.³èÎï·ÀÓù:
+            case enum_skill_attribute_list.å® ç‰©é˜²å¾¡:
                 break;
-            case enum_skill_attribute_list.³èÎïÉúÃü:
+            case enum_skill_attribute_list.å® ç‰©ç”Ÿå‘½:
                 break;
-            case enum_skill_attribute_list.³èÎï±©»÷:
+            case enum_skill_attribute_list.å® ç‰©æš´å‡»:
                 break;
-            case enum_skill_attribute_list.³èÎï±©»÷ÉËº¦:
+            case enum_skill_attribute_list.å® ç‰©æš´å‡»ä¼¤å®³:
                 break;
-            case enum_skill_attribute_list.³èÎï±©»÷ÂÊ:
+            case enum_skill_attribute_list.å® ç‰©æš´å‡»ç‡:
                 break;
-            case enum_skill_attribute_list.³èÎï¹¥»÷ËÙ¶È:
+            case enum_skill_attribute_list.å® ç‰©æ”»å‡»é€Ÿåº¦:
                 break;
-            case enum_skill_attribute_list.¼¼ÄÜÉËº¦:
+            case enum_skill_attribute_list.æŠ€èƒ½ä¼¤å®³:
                 break;
-            case enum_skill_attribute_list.È¼Ñª:
+            case enum_skill_attribute_list.ç‡ƒè¡€:
                 break;
-            case enum_skill_attribute_list.ÁéÉí:
+            case enum_skill_attribute_list.çµèº«:
                 break;
-            case enum_skill_attribute_list.Á¬»÷:
+            case enum_skill_attribute_list.è¿å‡»:
                 break;
-            case enum_skill_attribute_list.ÊÜµ½¼õÃâÉËº¦:
+            case enum_skill_attribute_list.å—åˆ°å‡å…ä¼¤å®³:
                 break;
-            case enum_skill_attribute_list.¸´»î´ÎÊı:
+            case enum_skill_attribute_list.å¤æ´»æ¬¡æ•°:
                 break;
-            case enum_skill_attribute_list.ĞÒÔËÒ»»÷µÄ¸ÅÂÊ:
+            case enum_skill_attribute_list.å¹¸è¿ä¸€å‡»çš„æ¦‚ç‡:
                 break;
-            case enum_skill_attribute_list.ĞÒÔËÒ»»÷µÄÉËº¦:
+            case enum_skill_attribute_list.å¹¸è¿ä¸€å‡»çš„ä¼¤å®³:
                 break;
-            case enum_skill_attribute_list.¹¥»÷Ê±¸ÅÂÊµÖÏûÉËº¦:
+            case enum_skill_attribute_list.æ”»å‡»æ—¶æ¦‚ç‡æŠµæ¶ˆä¼¤å®³:
                 break;
-            case enum_skill_attribute_list.±»¹¥»÷Ê±·´»÷ÕæÊµÉËº¦:
+            case enum_skill_attribute_list.è¢«æ”»å‡»æ—¶åå‡»çœŸå®ä¼¤å®³:
                 break;
-            case enum_skill_attribute_list.Ã¿´Î¹¥»÷Ôö¼ÓÉËº¦:
+            case enum_skill_attribute_list.æ¯æ¬¡æ”»å‡»å¢åŠ ä¼¤å®³:
                 break;
-            case enum_skill_attribute_list.ÖÎÁÆÊõĞ§¹û:
+            case enum_skill_attribute_list.æ²»ç–—æœ¯æ•ˆæœ:
                 break;
-            case enum_skill_attribute_list.Ê©¶¾ÊõĞ§¹û:
+            case enum_skill_attribute_list.æ–½æ¯’æœ¯æ•ˆæœ:
                 break;
-            case enum_skill_attribute_list.ÇàÔÆÃÅ¼¼ÄÜÉËº¦:
+            case enum_skill_attribute_list.é’äº‘é—¨æŠ€èƒ½ä¼¤å®³:
                 break;
-            case enum_skill_attribute_list.Ä§·¨¶ÜĞ§¹û:
+            case enum_skill_attribute_list.é­”æ³•ç›¾æ•ˆæœ:
                 break;
-            case enum_skill_attribute_list.Ñªµ¶µ¶·¨ÉËº¦:
+            case enum_skill_attribute_list.è¡€åˆ€åˆ€æ³•ä¼¤å®³:
                 break;
             default:
                 break;
@@ -250,7 +250,7 @@ public static class Battle_Tool
 
     }
     /// <summary>
-    /// »ñÈ¡¾­Ñé
+    /// è·å–ç»éªŒ
     /// </summary>
     /// <param name="exp"></param>
     public static void Obtain_Exp(long exp)
@@ -261,7 +261,7 @@ public static class Battle_Tool
             SumSave.crt_hero.Set_Uptade_String(), SumSave.crt_hero.Get_Update_Character());
     }
     /// <summary>
-    /// »ñÈ¡×ÊÔ´
+    /// è·å–èµ„æº
     /// </summary>
     /// <param name="result"></param>
     public static void Obtain_result(string result)
@@ -270,18 +270,18 @@ public static class Battle_Tool
         string[] result_list = result.Split('*');
         switch (int.Parse(result_list[2]))
         {
-            case 1://»ñÈ¡×ÊÔ´
+            case 1://è·å–èµ„æº
                 Obtain_Resources(result_list[0], int.Parse(result_list[1]));
                 break;
             case 2:
                 Obtain_Resources(result_list[0], int.Parse(result_list[1]));
                 break;
             case 3:
-                SumSave.crt_user_unit.verify_data(currency_unit.ÁéÖé, int.Parse(result_list[1]));
+                SumSave.crt_user_unit.verify_data(currency_unit.çµç , int.Parse(result_list[1]));
                 break;
 
             case 4:
-                SumSave.crt_user_unit.verify_data(currency_unit.Ä§Íè, int.Parse(result_list[1]));
+                SumSave.crt_user_unit.verify_data(currency_unit.é­”ä¸¸, int.Parse(result_list[1]));
                 break;
 
             case 5:
@@ -293,7 +293,7 @@ public static class Battle_Tool
                     SumSave.crt_world.Set(int.Parse(result_list[1]));
                     Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_world, SumSave.crt_world.Set_Uptade_String(), SumSave.crt_world.Get_Update_Character());
                 }
-                else Alert_Dec.Show("Ğ¡ÊÀ½çÎ´¼¤»î");
+                else Alert_Dec.Show("å°ä¸–ç•Œæœªæ¿€æ´»");
                 break;
             case 7:
        
@@ -314,7 +314,7 @@ public static class Battle_Tool
         }
     }
     /// <summary>
-    /// ÏÔÊ¾»õ±Òµ¥Î»
+    /// æ˜¾ç¤ºè´§å¸å•ä½
     /// </summary>
     /// <param name="number"></param>
     /// <returns></returns>
@@ -329,11 +329,11 @@ public static class Battle_Tool
 
         if (number >= 100000000)
         {
-            return (number / 100000000.0).ToString(format) + "ÒÚ";
+            return (number / 100000000.0).ToString(format) + "äº¿";
         }
         else if (number >= 10000)
         {
-            return (number / 10000.0).ToString(format) + "Íò";
+            return (number / 10000.0).ToString(format) + "ä¸‡";
         }
         else
         {
@@ -341,7 +341,7 @@ public static class Battle_Tool
         }
     }
     /// <summary>
-    /// Ë¢ĞÂÅÅĞĞ°ñ
+    /// åˆ·æ–°æ’è¡Œæ¦œ
     /// </summary>
     private static void Refresh_Rank()
     {
@@ -349,7 +349,7 @@ public static class Battle_Tool
     }
 
     /// <summary>
-    /// ´´½¨ÅÅĞĞ°ñ
+    /// åˆ›å»ºæ’è¡Œæ¦œ
     /// </summary>
     private static  void crate_rank()
     {
@@ -362,11 +362,11 @@ public static class Battle_Tool
         rank.ranking_index = 1;
         rank.value = (int)SumSave.crt_MaxHero.totalPower;
         SumSave.user_ranks.lists.Add(rank);
-        //ÅÅĞò
+        //æ’åº
         Refresh_Rank();
     }
     /// <summary>
-    /// ÑéÖ¤ÅÅĞĞ°ñ
+    /// éªŒè¯æ’è¡Œæ¦œ
     /// </summary>
     public static void validate_rank()
     {
@@ -382,13 +382,13 @@ public static class Battle_Tool
                     SumSave.user_ranks.lists[i].lv = SumSave.crt_MaxHero.Lv;
                     SumSave.user_ranks.lists[i].type = SumSave.crt_hero.hero_type;// SumSave.crtHeroMaxs[0].Type;  
                     Refresh_Rank();
-                    if (SumSave.crt_MaxHero.totalPower < SumSave.user_ranks.lists[i].value)//Ğ¡ÓÚµÄÇé¿ö Ğ´ÈëÅÅĞĞ°ñÕ½Á¦ ÇÒÌæ»»ÅÅĞĞ°ñÕ½Á¦
+                    if (SumSave.crt_MaxHero.totalPower < SumSave.user_ranks.lists[i].value)//å°äºçš„æƒ…å†µ å†™å…¥æ’è¡Œæ¦œæˆ˜åŠ› ä¸”æ›¿æ¢æ’è¡Œæ¦œæˆ˜åŠ›
                     {
-                        Game_Omphalos.i.Alert_Info($"ÄãµÄÕ½Á¦½µµÍÁË{"Ô­Õ½¶·Á¦" + SumSave.user_ranks.lists[i].value + " µ±Ç°" + (int)SumSave.crt_MaxHero.totalPower}");
+                        Game_Omphalos.i.Alert_Info($"ä½ çš„æˆ˜åŠ›é™ä½äº†{"åŸæˆ˜æ–—åŠ›" + SumSave.user_ranks.lists[i].value + " å½“å‰" + (int)SumSave.crt_MaxHero.totalPower}");
                     }
                 }
             }
-            //´æÔÚË¢ĞÂ ²»ÔÚÌí¼Ó
+            //å­˜åœ¨åˆ·æ–° ä¸åœ¨æ·»åŠ 
             if (exist)
             {
                 Refresh_Rank();
@@ -396,15 +396,15 @@ public static class Battle_Tool
             else crate_rank();
         }
         else if (SumSave.user_ranks.lists.Count > 50 && 
-        SumSave.crt_MaxHero.totalPower > SumSave.user_ranks.lists[SumSave.user_ranks.lists.Count - 1].value) //50¸ö°ñÒÑÂú,ÇÒ×ÔÉíÕ½Á¦´óÓÚ°ñÉÏ×îµÍµÄÒ»Ãû
+        SumSave.crt_MaxHero.totalPower > SumSave.user_ranks.lists[SumSave.user_ranks.lists.Count - 1].value) //50ä¸ªæ¦œå·²æ»¡,ä¸”è‡ªèº«æˆ˜åŠ›å¤§äºæ¦œä¸Šæœ€ä½çš„ä¸€å
         {
-            for (int i = SumSave.user_ranks.lists.Count - 2; i >= 0; i--)//´ËÇ°ÒÑ¾­Âú×ã µÚ50ÃûÌõ¼ş£¬Ö±½Ó´Ó49Ãû¿ªÊ¼ÍùÉÏ±éÀú
+            for (int i = SumSave.user_ranks.lists.Count - 2; i >= 0; i--)//æ­¤å‰å·²ç»æ»¡è¶³ ç¬¬50åæ¡ä»¶ï¼Œç›´æ¥ä»49åå¼€å§‹å¾€ä¸Šéå†
             {
-                if (SumSave.crt_MaxHero.totalPower > SumSave.user_ranks.lists[i].value) //Öğ¸ö±éÀú,¼ÌĞøÍùÉÏ
+                if (SumSave.crt_MaxHero.totalPower > SumSave.user_ranks.lists[i].value) //é€ä¸ªéå†,ç»§ç»­å¾€ä¸Š
                 {
                     if (i == 0)
                     {
-                        for (int j = SumSave.user_ranks.lists.Count - 1; j > 0; j++) //ÍùºóÒÀ´ÎÌæ»»,¸ÃÇé¿ö½öÊÊÓÃÓÚµÚÒ»Ãû
+                        for (int j = SumSave.user_ranks.lists.Count - 1; j > 0; j++) //å¾€åä¾æ¬¡æ›¿æ¢,è¯¥æƒ…å†µä»…é€‚ç”¨äºç¬¬ä¸€å
                         {
                             SumSave.user_ranks.lists[j].value = SumSave.user_ranks.lists[j - 1].value;
                             SumSave.user_ranks.lists[j].lv = SumSave.user_ranks.lists[j - 1].lv;
@@ -419,14 +419,14 @@ public static class Battle_Tool
                         SumSave.user_ranks.lists[0].type = SumSave.crt_hero.hero_type;
                         Refresh_Rank();
                         break;
-                    }//Ìæ»»µÚÒ»Ãû
+                    }//æ›¿æ¢ç¬¬ä¸€å
                     else continue;
                 }
                 else
                 {
-                    if (i != SumSave.user_ranks.lists.Count - 2) //Èç¹ûËµÔÚµ¹ÊıµÚ¶ş¸ö½áÊø£¬¾ÍÖ±½ÓÌæ»»µ¹ÊıµÚÒ»¸ö£¬²»ĞèÒª½øÑ­»·
+                    if (i != SumSave.user_ranks.lists.Count - 2) //å¦‚æœè¯´åœ¨å€’æ•°ç¬¬äºŒä¸ªç»“æŸï¼Œå°±ç›´æ¥æ›¿æ¢å€’æ•°ç¬¬ä¸€ä¸ªï¼Œä¸éœ€è¦è¿›å¾ªç¯
                     {
-                        for (int j = SumSave.user_ranks.lists.Count - 1; j > i + 1; j++) //ÍùºóÒÀ´ÎÌæ»»£¬Õâ¸öÊ±ºòÒÑ¾­±ÈiĞ¡£¬²»ĞèÒªÈ¡µ½i
+                        for (int j = SumSave.user_ranks.lists.Count - 1; j > i + 1; j++) //å¾€åä¾æ¬¡æ›¿æ¢ï¼Œè¿™ä¸ªæ—¶å€™å·²ç»æ¯”iå°ï¼Œä¸éœ€è¦å–åˆ°i
                         {
                             SumSave.user_ranks.lists[j].value = SumSave.user_ranks.lists[j - 1].value;
                             SumSave.user_ranks.lists[j].lv = SumSave.user_ranks.lists[j - 1].lv;
@@ -442,17 +442,17 @@ public static class Battle_Tool
                     SumSave.user_ranks.lists[i + 1].name = SumSave.crt_MaxHero.show_name;
                     SumSave.user_ranks.lists[i + 1].type = SumSave.crt_hero.hero_type;
                     Refresh_Rank();
-                    break;  //±Èµ½Õ½Á¦¸ü¸ßµÄ£¬¾Í½áÊø£¬Ìæ»»Ö±µ½ÕâÖ®Ç°µÄÇ°Ò»Î»  ÕâÊ±ÒÑÁô³öiÖ®Ç°µÄ¿ÕÎ»
+                    break;  //æ¯”åˆ°æˆ˜åŠ›æ›´é«˜çš„ï¼Œå°±ç»“æŸï¼Œæ›¿æ¢ç›´åˆ°è¿™ä¹‹å‰çš„å‰ä¸€ä½  è¿™æ—¶å·²ç•™å‡ºiä¹‹å‰çš„ç©ºä½
                 }
             }
         }
         SumSave.user_ranks.lists.Sort((x, y) => -x.value.CompareTo(y.value));
     }
     /// <summary>
-    /// ´´Ôì¹ÖÎï
+    /// åˆ›é€ æ€ªç‰©
     /// </summary>
     /// <param name="crt"></param>
-    /// <param name="lv">1Ğ¡¹Ö2¾«Ó¢3boss</param>
+    /// <param name="lv">1å°æ€ª2ç²¾è‹±3boss</param>
     public static crtMaxHeroVO crate_monster(crtMaxHeroVO crt, int lv = 1)
     {
         crtMaxHeroVO base_crt = new crtMaxHeroVO();
@@ -501,33 +501,33 @@ public static class Battle_Tool
         enum_monster_state state = (enum_monster_state)values.GetValue(RandomNumberGenerator.GetInt32(values.Length));
         switch (state)
         {
-            case enum_monster_state.Õı³£µÄ:
+            case enum_monster_state.æ­£å¸¸çš„:
                 break;
-            case enum_monster_state.Ç¿×³µÄ:
+            case enum_monster_state.å¼ºå£®çš„:
                 base_crt.MaxHP = (int)(crt.MaxHP * 1.5f);
                 break;
-            case enum_monster_state.»ìÂÒµÄ:
+            case enum_monster_state.æ··ä¹±çš„:
                 break;
-            case enum_monster_state.¿Ö¾åµÄ:
+            case enum_monster_state.ææƒ§çš„:
                 base_crt.attack_speed= (int)(crt.attack_speed / 2);
                 break;
-            case enum_monster_state.¸ĞÈ¾µÄ:
+            case enum_monster_state.æ„ŸæŸ“çš„:
                 break;
-            case enum_monster_state.³ÁË¯µÄ:
+            case enum_monster_state.æ²‰ç¡çš„:
                 base_crt.Heal_Hp = (int)(crt.Heal_Hp * 1.5f);
                 break;
-            case enum_monster_state.³ÁÄ¬µÄ:
+            case enum_monster_state.æ²‰é»˜çš„:
                 base_crt.DefMax = (int)(crt.DefMax * 1.5f);
                 base_crt.MagicDefMax = (int)(crt.MagicDefMax * 1.5f);
                 break;
-            case enum_monster_state.ÉñÃØµÄ:
+            case enum_monster_state.ç¥ç§˜çš„:
                 base_crt.attack_distance = (int)(crt.attack_distance * 1.5f);
                 break;
-            case enum_monster_state.¿Ö²ÀµÄ:
+            case enum_monster_state.ææ€–çš„:
                 base_crt.damageMax= (int)(crt.damageMax * 1.5f);
                 base_crt.MagicdamageMax = (int)(crt.MagicdamageMax * 1.5f);
                 break;
-            case enum_monster_state.¼¤Å­µÄ:
+            case enum_monster_state.æ¿€æ€’çš„:
                 base_crt.crit_rate= (int)(crt.crit_rate * 1.5f);
                 break;
             default:
@@ -538,7 +538,7 @@ public static class Battle_Tool
 
     }
     /// <summary>
-    /// ÑéÖ¤µØÍ¼ÁĞ±í
+    /// éªŒè¯åœ°å›¾åˆ—è¡¨
     /// </summary>
     public static void tool_map()
     {
@@ -554,11 +554,11 @@ public static class Battle_Tool
                     if (values1.Length == 3)
                     {
                         if (values1[0] != values1[2])
-                            Debug.Log("Åä±í´íÎó " + SumSave.db_maps[i].map_name + " " + values[j]);
+                            Debug.Log("é…è¡¨é”™è¯¯ " + SumSave.db_maps[i].map_name + " " + values[j]);
                         else
                         {
                             Bag_Base_VO bag = ArrayHelper.Find(SumSave.db_stditems, e => e.Name == values1[0]);
-                            if (bag == null) Debug.Log("Á¬½Ó´íÎó ÓëÊı¾İ¿â¹ØÁª´íÎó" + SumSave.db_maps[i].map_name + " " + values[j]);//¶ÔÓ¦µÄ2¸ö±í¸ñ¶Ô²»ÉÏ
+                            if (bag == null) Debug.Log("è¿æ¥é”™è¯¯ ä¸æ•°æ®åº“å…³è”é”™è¯¯" + SumSave.db_maps[i].map_name + " " + values[j]);//å¯¹åº”çš„2ä¸ªè¡¨æ ¼å¯¹ä¸ä¸Š
                         }
                     }
                     else Debug.Log(SumSave.db_maps[i].map_name + " " + values[j]);

@@ -5,44 +5,44 @@ using Common;
 namespace MVC
 {
     /// <summary>
-    ///  ÎïÆ·Êı¾İ½á¹¹
+    ///  ç‰©å“æ•°æ®ç»“æ„
     /// </summary>
     public class Bag_Base_VO : Base_VO
     {
         /// <summary>
-        /// ÎïÆ·Ãû³Æ
+        /// ç‰©å“åç§°
         /// </summary>
         public string Name;
         /// <summary>
-        /// ÎïÆ·ÀàĞÍ
+        /// ç‰©å“ç±»å‹
         /// </summary>
         public string StdMode;
         /// <summary>
-        /// ĞèÇóµÈ¼¶
+        /// éœ€æ±‚ç­‰çº§
         /// </summary>
         public int need_lv;
         /// <summary>
-        /// ÎïÆ·µÈ¼¶
+        /// ç‰©å“ç­‰çº§
         /// </summary>
         public int equip_lv;
         /// <summary>
-        /// ÊÛ¼Û
+        /// å”®ä»·
         /// </summary>
         public int price;
         /// <summary>
-        /// ÊôĞÔ ÉúÃü
+        /// å±æ€§ ç”Ÿå‘½
         /// </summary>
         public int hp;
         /// <summary>
-        /// ÊôĞÔ Ä§·¨
+        /// å±æ€§ é­”æ³•
         /// </summary>
         public int mp;
         /// <summary>
-        /// ÊôĞÔ ·ÀÓù
+        /// å±æ€§ é˜²å¾¡
         /// </summary>
         public int defmin;
         /// <summary>
-        /// ÊôĞÔ ·ÀÓù
+        /// å±æ€§ é˜²å¾¡
         /// </summary>
         public int defmax;
         public int macdefmin;
@@ -53,17 +53,17 @@ namespace MVC
         public int magicmax;
         public string dec;
         /// <summary>
-        /// Ì××°
+        /// å¥—è£…
         /// </summary>
         public int suit;
         /// <summary>
-        /// Ì××°Ãû³Æ
+        /// å¥—è£…åç§°
         /// </summary>
         public string suit_name;
         /// <summary>
         public string suit_dec;
         /// <summary>
-        /// ÅĞ¶ÏÖµ 1 Ãû³Æ 2 Ç¿»¯µÈ¼¶ 3Æ·ÖÊ 4¸½¼ÓÖµ 5Ì××°
+        /// åˆ¤æ–­å€¼ 1 åç§° 2 å¼ºåŒ–ç­‰çº§ 3å“è´¨ 4é™„åŠ å€¼ 5å¥—è£…
         /// </summary>
         //public string user_value;
         

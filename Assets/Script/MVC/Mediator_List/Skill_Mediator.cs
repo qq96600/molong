@@ -1,4 +1,4 @@
-﻿using TarenaMVC;
+using TarenaMVC;
 
 namespace MVC
 {

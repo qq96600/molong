@@ -1,4 +1,4 @@
-﻿using UI;
+using UI;
 using UnityEngine.Events;
 using UnityEngine.UI;
 

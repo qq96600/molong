@@ -1,4 +1,4 @@
-﻿namespace TarenaMVC
+namespace TarenaMVC
 {
     /// <summary>
     ///  我就是老大

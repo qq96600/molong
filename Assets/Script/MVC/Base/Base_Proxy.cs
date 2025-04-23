@@ -1,4 +1,4 @@
-﻿using Common;
+using Common;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;

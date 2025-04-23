@@ -9,7 +9,7 @@ namespace MVC
         /// <summary>
         ///  NAME
         /// </summary>
-        public new const string NAME = "DSFSDFSDFSDF";// "User_Instace_Mediator";
+        public new const string NAME = "DSFSDFSDFSDF3";// "User_Instace_Mediator";
 
         private User_Instace_Proxy user;
         /// <summary>

@@ -5,15 +5,15 @@ using UnityEngine;
 namespace MVC
 {
     /// <summary>
-    /// Ğ´ÈëÄ£ĞÍ
+    /// å†™å…¥æ¨¡å‹
     /// </summary>
     public class Base_Wirte_VO
     {
-        public Mysql_Type type;//Ğ´ÈëÀàĞÍ
-        public Mysql_Table_Name tableName;//Ğ´Èë±íÃû
-        public string[] columnNames;//¸üĞÂÁĞÃû
-        public string[] columnValues;//¸üĞÂÁĞÖµ
-        public bool exist = true;//ÊÇ·ñĞ´Èë
+        public Mysql_Type type;//å†™å…¥ç±»å‹
+        public Mysql_Table_Name tableName;//å†™å…¥è¡¨å
+        public string[] columnNames;//æ›´æ–°åˆ—å
+        public string[] columnValues;//æ›´æ–°åˆ—å€¼
+        public bool exist = true;//æ˜¯å¦å†™å…¥
     }
 
 }

@@ -28,7 +28,7 @@ public class bag_Resources_vo : Base_VO
         }
     }
     /// <summary>
-    /// ¶ÁÈ¡±ê×¼
+    /// è¯»å–æ ‡å‡†
     /// </summary>
     /// <returns></returns>
     public List<(string, int)> Set()
@@ -36,23 +36,23 @@ public class bag_Resources_vo : Base_VO
         return list;
     }
     /// <summary>
-    /// ´«Èë²ÎÊı
+    /// ä¼ å…¥å‚æ•°
     /// </summary>
     /// <param name="list"></param>
     public void Get(Dictionary<string, int> dec,bool exist = false)
     {
         bool crate_state = false;
-        //ÑéÖ¤Êı¾İ
+        //éªŒè¯æ•°æ®
         for (int i = 0; i < list.Count; i++)
         {
-            //Ô­Ê¼Êı¾İ·¢Éú¸Ä±ä
+            //åŸå§‹æ•°æ®å‘ç”Ÿæ”¹å˜
             if (list[i].Item2 + index != verify_list[i].Item2)
             {
-                //ÑéÖ¤Êı¾İ
-                Game_Omphalos.i.Delete(list[i].Item1 + " ÏÔÊ¾Êı¾İ " + list[i].Item2 + " ÑéÖ¤Öµ " + index + " " + verify_list[i].Item2);
+                //éªŒè¯æ•°æ®
+                Game_Omphalos.i.Delete(list[i].Item1 + " æ˜¾ç¤ºæ•°æ® " + list[i].Item2 + " éªŒè¯å€¼ " + index + " " + verify_list[i].Item2);
             }
         }
-        //Ğ´ÈëÊı¾İ
+        //å†™å…¥æ•°æ®
         foreach (var item in dec.Keys)
         {
             crate_state = true;
@@ -68,7 +68,7 @@ public class bag_Resources_vo : Base_VO
                     {
                         if (dec[item] > SumSave.base_setting[3])
                         {
-                            Game_Omphalos.i.Delete(item + " µ¥´Î»ñÈ¡ " + list[i].Item2 + " ÑéÖ¤Öµ " + index + " " + verify_list[i].Item2);
+                            Game_Omphalos.i.Delete(item + " å•æ¬¡è·å– " + list[i].Item2 + " éªŒè¯å€¼ " + index + " " + verify_list[i].Item2);
 
                         }
                     }
@@ -84,7 +84,7 @@ public class bag_Resources_vo : Base_VO
         }
     }
     /// <summary>
-    /// ×ª»»¸ñÊ½
+    /// è½¬æ¢æ ¼å¼
     /// </summary>
     /// <returns></returns>
     public string GetData()

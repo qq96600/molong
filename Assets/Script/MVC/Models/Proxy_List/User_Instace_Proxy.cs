@@ -350,20 +350,31 @@ namespace MVC
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_pet, SumSave.crt_pet.Set_Instace_String());
             }
 
-            for (int i = 0; i < SumSave.crt_pet.pet_bag.Count; i++)
+            for (int i = 0; i < SumSave.crt_pet.crt_pet_list.Count; i++)
             {
+                db_pet_vo pet = new db_pet_vo();
+                string[] splits = SumSave.crt_pet.crt_pet_list[i].Split(',');
 
-               
-                db_pet_vo pet= new db_pet_vo();
-                pet.petName= SumSave.crt_pet.pet_bag[i].Item1;
-                pet.level= SumSave.crt_pet.pet_bag[i].Item2;
-                pet.exp= SumSave.crt_pet.pet_bag[i].Item3;
+                if(splits.Length == 7)
+                {
+                    pet.petName = splits[0];
+                    pet.startHatchingTime = DateTime.Parse(splits[1]);
+                    pet.quality= splits[2];
+                    pet.level =int .Parse( splits[3]);
+                    pet.exp = int.Parse(splits[4]);
+
+                    string[] attributes = splits[5].Split('|');
+                    if(attributes.Length == 3)
+                    {
+                        pet.crate_value = attributes[0];
+                        pet.up_value = attributes[1];
+                        pet.up_base_value = attributes[2];
+                        pet.GetNumerical();
+                    }
+                    pet.pet_state= splits[6];
+                }
                 SumSave.crt_pet_list.Add(pet);
             }
-
-            
-       
-
         }
 
 
@@ -672,19 +683,19 @@ namespace MVC
                 }
             }
             //宠物属性
-            if (SumSave.crt_pet_list.Count!=0)
-            {
-                for (int i = 0; i < SumSave.crt_pet_list.Count; i++)
-                {
-                    List<string> v = SumSave.db_pet_dic[SumSave.crt_pet_list[i].petName].crate_values;//宠物基础属性
-                    List<string> va = SumSave.db_pet_dic[SumSave.crt_pet_list[i].petName].up_values;//宠物成长属性
-                    for (int j = 0; j < v.Count; j++)
-                    {
-                        int value = int.Parse(v[j]) + (int.Parse(va[j]) * SumSave.crt_pet_list[i].level); 
-                        Enum_Value(crt, j, value);
-                    }
-                }
-            }
+            //if (SumSave.crt_pet_list.Count>=0)
+            //{
+            //    for (int i = 0; i < SumSave.crt_pet_list.Count; i++)
+            //    {
+            //        List<string> v = SumSave.db_pet_dic[SumSave.crt_pet_list[i].petName].crate_values;//宠物基础属性
+            //        List<string> va = SumSave.db_pet_dic[SumSave.crt_pet_list[i].petName].up_values;//宠物成长属性
+            //        for (int j = 0; j < v.Count; j++)
+            //        {
+            //            int value = int.Parse(v[j]) + (int.Parse(va[j]) * SumSave.crt_pet_list[i].level); 
+            //            Enum_Value(crt, j, value);
+            //        }
+            //    }
+            //}
          
             
             //称号属性

@@ -7,23 +7,23 @@ using UnityEngine;
 public class bag_seed_vo : Base_VO
 {
     /// <summary>
-    /// 0Ãû³Æ 1Éú³ÉÊ±¼ä 2Ğ§¹û
+    /// 0åç§° 1ç”Ÿæˆæ—¶é—´ 2æ•ˆæœ
     /// </summary>
     private List<(string,List<string>)> seedList;
     /// <summary>
-    /// Åä·½ÁĞ±í
+    /// é…æ–¹åˆ—è¡¨
     /// </summary>
     public string formula_value;
     /// <summary>
-    /// Ê¹ÓÃÊıÁ¿
+    /// ä½¿ç”¨æ•°é‡
     /// </summary>
     public string use_value;
     /// <summary>
-    /// Åä·½ 0Ãû³Æ 1µÈ¼¶ 2²ÄÁÏ×éºÏ
+    /// é…æ–¹ 0åç§° 1ç­‰çº§ 2ææ–™ç»„åˆ
     /// </summary>
     private List<(string, List<string>)> formulalist;
     /// <summary>
-    /// Ê¹ÓÃÁĞ±í Ãû³Æ 0ÊıÁ¿ 1ÀÛ»ıÖµ
+    /// ä½¿ç”¨åˆ—è¡¨ åç§° 0æ•°é‡ 1ç´¯ç§¯å€¼
     /// </summary>
     private List<(string, List<int>)> useList;
 
@@ -80,7 +80,7 @@ public class bag_seed_vo : Base_VO
 
     }
     /// <summary>
-    /// »ñÈ¡µ¤Ò©ÁĞ±í
+    /// è·å–ä¸¹è¯åˆ—è¡¨
     /// </summary>
     /// <returns></returns>
     public List<(string, List<string>)> GetSeedList()
@@ -88,7 +88,7 @@ public class bag_seed_vo : Base_VO
       return seedList;
     }
     /// <summary>
-    /// »ñÈ¡Åä·½ÁĞ±í
+    /// è·å–é…æ–¹åˆ—è¡¨
     /// </summary>
     /// <returns></returns>
     public List<(string, List<string>)> Getformulalist()
@@ -96,7 +96,7 @@ public class bag_seed_vo : Base_VO
         return formulalist;
     }
     /// <summary>
-    /// »ñÈ¡Ê¹ÓÃÁĞ±í
+    /// è·å–ä½¿ç”¨åˆ—è¡¨
     /// </summary>
     /// <returns></returns>
     public List<(string, List<int>)> GetuseList()
@@ -104,7 +104,7 @@ public class bag_seed_vo : Base_VO
         return useList;
     }
     /// <summary>
-    /// Ìí¼ÓÎïÆ·
+    /// æ·»åŠ ç‰©å“
     /// </summary>
     /// <param name="split"></param>
     public void Set( List<string> split)
@@ -117,7 +117,7 @@ public class bag_seed_vo : Base_VO
         seedList.Add(temp);
     }
     /// <summary>
-    /// Ğ´Èëµ¤·½
+    /// å†™å…¥ä¸¹æ–¹
     /// </summary>
     /// <param name="split"></param>
     public void Setformula((string, List<string>) split)
@@ -126,10 +126,10 @@ public class bag_seed_vo : Base_VO
     }
 
     /// <summary>
-    /// ÒÆ³ıµ¤Ò©
+    /// ç§»é™¤ä¸¹è¯
     /// </summary>
-    /// <param name="split">Öµ</param>
-    /// <param name="index">ÀàĞÍ 1 µ¤Ò©2µ¤·½</param>
+    /// <param name="split">å€¼</param>
+    /// <param name="index">ç±»å‹ 1 ä¸¹è¯2ä¸¹æ–¹</param>
     public void usedata((string, List<string>) split,int index=1)
     {
         if (index == 2)
@@ -140,7 +140,7 @@ public class bag_seed_vo : Base_VO
     }
 
     /// <summary>
-    /// Ê¹ÓÃµ¤Ò©
+    /// ä½¿ç”¨ä¸¹è¯
     /// </summary>
     /// <param name="split"></param>
     public void Setuse((string, List<int>) split)
@@ -160,7 +160,7 @@ public class bag_seed_vo : Base_VO
         }
     }
     /// <summary>
-    /// Ğ´Èëµ¤Ò©
+    /// å†™å…¥ä¸¹è¯
     /// </summary>
     private string DataSet()
     { 
@@ -176,7 +176,7 @@ public class bag_seed_vo : Base_VO
         return value;
     }
     /// <summary>
-    /// Ğ´ÈëÊ¹ÓÃ
+    /// å†™å…¥ä½¿ç”¨
     /// </summary>
     /// <returns></returns>
     private string DataSetuse()
@@ -193,7 +193,7 @@ public class bag_seed_vo : Base_VO
         return value;
     }
     /// <summary>
-    /// Ğ´ÈëÅä·½
+    /// å†™å…¥é…æ–¹
     /// </summary>
     /// <returns></returns>
     private string DataSetformula()

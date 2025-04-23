@@ -7,7 +7,7 @@ public class btn_item : Base_Mono
     private Text info;
     public int index;
     /// <summary>
-    /// ÊÇ·ñÎª¼¤»î×´Ì¬
+    /// æ˜¯å¦ä¸ºæ¿€æ´»çŠ¶æ€
     /// </summary>
     private bool active = false;
 
@@ -19,7 +19,7 @@ public class btn_item : Base_Mono
     }
 
     /// <summary>
-    ///  Ñ¡ÖĞ×´Ì¬
+    ///  é€‰ä¸­çŠ¶æ€
     /// </summary>
     public bool Selected
     {
@@ -31,7 +31,7 @@ public class btn_item : Base_Mono
     }
 
     /// <summary>
-    /// ÒıÓÃ
+    /// å¼•ç”¨
     /// </summary>
     /// <param name="_index"></param>
     /// <param name="dec"></param>
@@ -41,7 +41,7 @@ public class btn_item : Base_Mono
         info.text = dec.ToString();
     }
     // <summary>
-    // ÊÇ·ñ¼¤»î
+    // æ˜¯å¦æ¿€æ´»
     // </summary>
     // <returns></returns>
     public bool Active()
