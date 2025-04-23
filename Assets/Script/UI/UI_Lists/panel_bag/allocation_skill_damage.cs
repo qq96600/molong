@@ -39,7 +39,7 @@ public class allocation_skill_damage : Base_Mono
 
     private void OnSliderChange(float arg0)
     {
-        info.text = Show_Color.Red(user_skill.skillname)+ "分配内力 " + Show_Color.Yellow(arg0);
+        info.text = Show_Color.Red(user_skill.skillname)+ " 分配内力 " + Show_Color.Grey(arg0);
     }
 
     /// <summary>

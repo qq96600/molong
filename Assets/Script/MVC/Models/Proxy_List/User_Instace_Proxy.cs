@@ -975,9 +975,6 @@ namespace MVC
                 {
                     SumSave.crt_resources = ReadDb.Read(mysqlReader, new user_base_Resources_vo());
                 }
-                SumSave.crt_resources.now_time= DateTime.Now;
-                Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_value, SumSave.crt_resources.Set_Uptade_String(), SumSave.crt_resources.Get_Update_Character());
-
             }
             else
             {

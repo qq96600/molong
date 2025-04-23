@@ -307,7 +307,7 @@ public static class Battle_Tool
 
     public static void tool_item()
     {
-        //return;
+        return;
         foreach (var item in SumSave.db_stditems)
         {
             UI.UI_Manager.I.GetEquipSprite("icon/", item.Name);
@@ -320,6 +320,7 @@ public static class Battle_Tool
     /// <returns></returns>
     public static string FormatNumberToChineseUnit(long number, int decimalPlaces = 2)
     {
+        if (number == 0) return "";
         string format = "0." + new string('#', decimalPlaces);
 
         if (number < 0)

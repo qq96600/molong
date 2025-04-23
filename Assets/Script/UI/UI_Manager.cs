@@ -105,9 +105,9 @@ namespace UI
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public Sprite GetEquipSprite(string Path, string name)
+        public Sprite GetEquipSprite(string Path, object name)
         {
-            return GetAtlasSprite(Path, name);
+            return GetAtlasSprite(Path, name.ToString());
         }
         /// <summary>
         /// 获取技能Sprite
@@ -118,18 +118,7 @@ namespace UI
         {
             return GetAtlasSprite("icon/", name);
         }
-        /// <summary>
-        /// 获取装备品阶背景
-        /// </summary>
-        /// <param name="Path"></param>
-        /// <param name="Quality"></param>
-        /// <returns></returns>
-        public Sprite GetEquipSprite(string Path, int Quality)
-        {
-            string spriteName = string.Empty;
-            
-            return GetAtlasSprite(Path, spriteName);
-        }
+       
         // 加载图集
         /// <summary>
         ///  图集的缓存

@@ -7,28 +7,28 @@ using UnityEngine;
 public class user_needlist_vo : Base_VO
 {
     /// <summary>
-    /// ÉÌµêÏŞ¹ºÎïÆ·¹ºÂòµÄ´ÎÊı
+    /// å•†åº—é™è´­ç‰©å“è´­ä¹°çš„æ¬¡æ•°
     /// </summary>
     public string store_value;
     /// <summary>
-    /// ÉÌµêÏŞ¹ºÎïÆ·ÁĞ±í
+    /// å•†åº—é™è´­ç‰©å“åˆ—è¡¨
     /// </summary>
     public List<string[]> store_value_list=new List<string[]>();
     /// <summary>
-    /// µØÍ¼½øÈë´ÎÊı
+    /// åœ°å›¾è¿›å…¥æ¬¡æ•°
     /// </summary>
     public string map_value;
     /// <summary>
-    /// µØÍ¼½øÈë´ÎÊıÁĞ±í
+    /// åœ°å›¾è¿›å…¥æ¬¡æ•°åˆ—è¡¨
     /// </summary>
     private List<(string, int)> map_value_list=new List<(string, int)>();
 
     /// <summary>
-    /// À©Õ¹
+    /// æ‰©å±•
     /// </summary>
     public string user_value;
     /// <summary>
-    /// ½âÎöÉÌµêÏŞ¹ºÎïÆ·
+    /// è§£æå•†åº—é™è´­ç‰©å“
     /// </summary>
     public void store_Init()
     {
@@ -45,7 +45,7 @@ public class user_needlist_vo : Base_VO
 
 
     /// <summary>
-    /// ½âÎö½øÈëµØÍ¼´ÎÊı
+    /// è§£æè¿›å…¥åœ°å›¾æ¬¡æ•°
     /// </summary>
     public void map_Init()
     {
@@ -58,7 +58,7 @@ public class user_needlist_vo : Base_VO
         }
     }
     /// <summary>
-    /// ºÏ²¢ÉÌµêÏŞ¹ºÎïÆ·
+    /// åˆå¹¶å•†åº—é™è´­ç‰©å“
     /// </summary>
     private string store_Merge()
     {
@@ -78,7 +78,7 @@ public class user_needlist_vo : Base_VO
 
 
     /// <summary>
-    /// ºÏ²¢µØÍ¼½øÈë´ÎÊı
+    /// åˆå¹¶åœ°å›¾è¿›å…¥æ¬¡æ•°
     /// </summary>
     private string map_Merge()
     {

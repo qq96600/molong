@@ -21,7 +21,7 @@ namespace Common
             }
             return dec;
         }
-        public static T[] FindAll<T>(List<T> array, Func<T, bool> handler)
+        public static List<T> FindAll<T>(List<T> array, Func<T, bool> handler)
         {
             List<T> result = new List<T>(array.Count);
 
@@ -33,7 +33,7 @@ namespace Common
                     result.Add(array[i]);
                 }
             }
-            return result.ToArray();
+            return result;
         }
 
         public static T Find<T>(this List<T> array, Func<T, bool> handler)

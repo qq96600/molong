@@ -104,17 +104,23 @@ public class offect_strengthen : Base_Mono
         ClearObject(pos_bag);
         if (index == 0)
         {
-            Show_Bag(SumSave.crt_euqip);
+            if (Show_Bag(SumSave.crt_euqip))
+            {
+                Alert_Dec.Show("当前无可强化装备");
+            }
         }
         if (index == 1)
         {
-            Show_Bag(SumSave.crt_bag);
+            if (Show_Bag(SumSave.crt_bag))
+            {
+                Alert_Dec.Show("当前无可强化装备");
+            }
         }
     }
 
-    private void Show_Bag(List<Bag_Base_VO> list)
+    private bool Show_Bag(List<Bag_Base_VO> list)
     {
-
+        bool exist = true;
         for (int i = 0; i < list.Count; i++)
         {
             switch ((EquipConfigTypeList)Enum.Parse(typeof(EquipConfigTypeList), list[i].StdMode))
@@ -135,6 +141,7 @@ public class offect_strengthen : Base_Mono
                 //case EquipConfigTypeList.饰品:
                 //case EquipConfigTypeList.玉佩:
                 case EquipConfigTypeList.披风:
+                    exist = false;
                     bag_item item = Instantiate(bag_item_Prefabs, pos_bag);
                     item.Data = (list[i]);
                     item.GetComponent<Button>().onClick.AddListener(() => { Select_Strengthen(item); });
@@ -144,6 +151,9 @@ public class offect_strengthen : Base_Mono
                     break;
             }
         }
+
+        return exist;
+        
     }
     /// <summary>
     /// 选择强化

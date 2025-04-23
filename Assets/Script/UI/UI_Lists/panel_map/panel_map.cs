@@ -8,7 +8,10 @@ using UnityEngine.UI;
 
 public class panel_map : Panel_Base
 {
-
+    /// <summary>
+    /// 掉落列表
+    /// </summary>
+    private Transform pos_life;
     private btn_item btn_item_prefab;
     /// <summary>
     /// 地图名称
@@ -27,10 +30,6 @@ public class panel_map : Panel_Base
     /// </summary>
     private Text need_Required;
     /// <summary>
-    /// 物品掉落
-    /// </summary>
-    private Text ProfitList;
-    /// <summary>
     /// 地图列表
     /// </summary>
     private Dictionary<map_pos_item, user_map_vo> maplists = new Dictionary<map_pos_item, user_map_vo>();
@@ -48,7 +47,7 @@ public class panel_map : Panel_Base
     /// </summary>
     private Button enter_map_button;
     private Transform base_show_info;
- 
+    private material_item material_item_parfabs;
 
     protected override void Awake()
     {
@@ -57,11 +56,12 @@ public class panel_map : Panel_Base
         need_lv = Find<Text>("bg_main/base_info/need_lv");
         monster_list = Find<Text>("bg_main/base_info/monster_list");
         need_Required = Find<Text>("bg_main/base_info/need_Required");
-        ProfitList = Find<Text>("bg_main/base_info/ProfitList/Profit_List/Viewport/Profit_info");
+        pos_life = Find<Transform>("bg_main/base_info/ProfitList/Scroll View/Viewport/Content");
         enter_map_button = Find<Button>("bg_main/base_info/enter_map_button");
         enter_map_button.onClick.AddListener(Open_Map);
         fight_panel = UI_Manager.I.GetPanel<panel_fight>();
         base_show_info = Find<Transform>("bg_main/base_info");
+        material_item_parfabs = Resources.Load<material_item>("Prefabs/panel_bag/material_item");
     }
 
 
@@ -103,15 +103,15 @@ public class panel_map : Panel_Base
         need_lv.text = "等级要求： "+ map.need_lv.ToString();
         monster_list.text = "怪物列表： "+map.monster_list.ToString();
         need_Required.text = "门票要求： "+map.need_Required.ToString();
-        //ProfitList.text = "物品掉落： "+map.ProfitList.ToString();
-        ProfitList.text="";
+        for (int i = pos_life.childCount - 1; i >= 0; i--)//清空区域内按钮
+        {
+            Destroy(pos_life.GetChild(i).gameObject);
+        }
         foreach (string str in map.ProfitList.Split('&'))
         {
             str.Split(' ');
-
             string[] str1 = str.Split(' ');
-
-            ProfitList.text += str1[0].ToString()+", ";
+            Instantiate(material_item_parfabs, pos_life).Init(((str1[0]), 0));
         }
     }
 

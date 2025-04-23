@@ -11,7 +11,6 @@ using Random = UnityEngine.Random;
 
 public class panel_skill : Panel_Base
 {
-    
     /// <summary>
     /// 功能按钮
     /// </summary>
@@ -19,13 +18,17 @@ public class panel_skill : Panel_Base
 
     private skill_item skill_item_Prefabs;
     /// <summary>
+    /// 技能效果
+    /// </summary>
+    private skill_offect_item skill_item_parfabs;
+    /// <summary>
     /// 按钮位置
     /// </summary>
-    private Transform crt_btn,crt_offect_btn, crt_skill;
+    private Transform crt_btn,crt_offect_btn, crt_skill,pos_skill;
     /// <summary>
     /// 当前选中的技能
     /// </summary>
-    private skill_item user_skill;
+    private skill_offect_item user_skill;
     /// <summary>
     /// 存储功能组件
     /// </summary>
@@ -46,6 +49,16 @@ public class panel_skill : Panel_Base
     /// 需求升级经验
     /// </summary>
     private int need_exp;
+    /// <summary>
+    /// 翻页信息
+    /// </summary>
+    private Text page_info;
+    /// <summary>
+    /// 翻页
+    /// </summary>
+    private int page_index = 0;
+
+    private int crt_skill_number = 0;
     protected override void Awake()
     {
         base.Awake();
@@ -62,6 +75,10 @@ public class panel_skill : Panel_Base
         base_info = Find<Text>("bg_main/show_skill/bg_info/Viewport/base_info");
         offect_skill = Find<offect_up_skill>("bg_main/offect_up_skill");
         allocation_skill_damage = Find<allocation_skill_damage>("bg_main/allocation_skill_damage");
+        page_info = Find<Text>("bg_main/item_list/page_info");
+        page_info.GetComponent<Button>().onClick.AddListener(delegate { Page_Change(); });
+        pos_skill = Find<Transform>("bg_main/item_list/list");
+        skill_item_parfabs = Resources.Load<skill_offect_item>("Prefabs/panel_skill/skill_offect_item");
         for (int i = 0; i < Enum.GetNames(typeof(skill_btn_list)).Length; i++)
         {
             btn_item btn_item = Instantiate(btn_item_Prefabs, crt_btn);
@@ -76,6 +93,18 @@ public class panel_skill : Panel_Base
             btn_item_dic.Add((skill_Offect_btn_list)i, btn_item);
         }
     }
+    /// <summary>
+    /// 翻页
+    /// </summary>
+    private void Page_Change()
+    {
+        Debug.Log("翻页");
+        page_index++;
+        if (page_index + 1 > (int)Math.Ceiling((double)crt_skill_number / 12))
+            page_index = 0;
+        Show_skill();
+    }
+
     /// <summary>
     /// 选中技能
     /// </summary>
@@ -146,7 +175,6 @@ public class panel_skill : Panel_Base
     private void Select_Btn(btn_item btn_item)
     {
         select_btn_type = (skill_btn_list)btn_item.index;
-        user_skill = null;
         Show_skill();
     }
 
@@ -156,20 +184,15 @@ public class panel_skill : Panel_Base
         Show_skill();
     }
     /// <summary>
-    /// 显示装备列表
-    /// </summary>
-    private void Base_Show()
-    {
-      
-    }
-    /// <summary>
     /// 显示技能列表
     /// </summary>
     private void Show_skill()
     {
-        for (int i = crt_skill.childCount - 1; i >= 0; i--)
+        base_info.text = "请学习技能";
+        user_skill = null;
+        for (int i = pos_skill.childCount - 1; i >= 0; i--)
         {
-            Destroy(crt_skill.GetChild(i).gameObject);
+            Destroy(pos_skill.GetChild(i).gameObject);
         }
         foreach (var item in btn_item_dic.Keys)
         {
@@ -177,23 +200,23 @@ public class panel_skill : Panel_Base
         }
         //SumSave.crt_skills.Add(tool_Categoryt.crate_skill(SumSave.db_skills[Random.Range(0, SumSave.db_skills.Count)].skillname));//添加技能
 
-        for (int i = 0; i < SumSave.crt_skills.Count; i++)
+        List<base_skill_vo> lists = ArrayHelper.FindAll(SumSave.crt_skills, e => (skill_btn_list)e.skill_type == select_btn_type);
+        crt_skill_number= lists.Count;
+        page_info.text = "下一页" + (page_index + 1) + " / " + (int)Math.Ceiling((double)crt_skill_number / 12);
+        int max = Mathf.Min(lists.Count, (page_index + 1) * 12);
+        for (int i = page_index * 12; i < max; i++)
         {
-            if ((skill_btn_list)SumSave.crt_skills[i].skill_type == select_btn_type)
-            {
-                skill_item item = Instantiate(skill_item_Prefabs, crt_skill);
-                item.Data = SumSave.crt_skills[i];
-                item.GetComponent<Button>().onClick.AddListener(delegate { Select_skill(item); });
-                if (user_skill == null) Select_skill(item);
-            }
-           
+            skill_offect_item item = Instantiate(skill_item_parfabs, pos_skill);
+            item.Data = lists[i];
+            item.GetComponent<Button>().onClick.AddListener(delegate { Select_skill(item); });
+            if (user_skill == null) Select_skill(item);
         }
     }
     /// <summary>
     /// 选择物品
     /// </summary>
     /// <param name="item"></param>
-    private void Select_skill(skill_item item)
+    private void Select_skill(skill_offect_item item)
     {
         user_skill = item;
         Open_Select_Btn();
@@ -215,7 +238,6 @@ public class panel_skill : Panel_Base
     /// </summary>
     private void Show_info()
     {
-        
         need_exp = 0;
         string dec = user_skill.Data.skillname + "\nLv." + user_skill.Data.user_values[1]+"级\n";
         int lv= int.Parse(user_skill.Data.user_values[1]);

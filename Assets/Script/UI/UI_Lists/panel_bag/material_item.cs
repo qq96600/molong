@@ -41,6 +41,14 @@ public class material_item : Base_Mono
         base_info.text = "1";
     }
     /// <summary>
+    /// 是否隐藏效果
+    /// </summary>
+    /// <param name="isSelect"></param> 
+    public void SetFrame(bool isSelect)
+    {
+        item_icon.color = isSelect ? Color.white : Color.gray;
+    }
+    /// <summary>
     /// 返回数据
     /// </summary>
     /// <returns></returns>

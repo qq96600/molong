@@ -12,7 +12,7 @@ namespace Common
         /// <summary>
         /// 用户ID
         /// </summary>
-        public static string uid = "DSFSDFSDFSDF";
+        public static string uid = "DSFSDFSDFSDF5";
         /// <summary>
         /// 服务器几区
         /// </summary>

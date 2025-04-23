@@ -35,7 +35,7 @@ public class skill_offect_item : Base_Mono
             if (data.skill_type == 1)
                 item_icon.sprite = UI.UI_Manager.I.GetEquipSprite("skill/", data.skillname);
             else item_icon.sprite = UI.UI_Manager.I.GetEquipSprite("icon/", data.skillname);
-            //info.text = data.skillname;
+            info.text = data.skillname;
         }
         get
         {
@@ -75,6 +75,12 @@ public class skill_offect_item : Base_Mono
         WaitTime.text = "";
         //info.text= data.skillname;
     }
-
+    public void Refresh()
+    {
+        item_icon.sprite = UI.UI_Manager.I.GetEquipSprite("icon/", data.skillname);
+        if (data.skill_type == 1) item_icon.sprite = UI.UI_Manager.I.GetEquipSprite("skill/", data.skillname);
+        info.text = Data.skillname + "Lv." + Data.user_values[1];
+        //item_frame.gameObject.SetActive(data.skillpos != 0);
+    }
 
 }
