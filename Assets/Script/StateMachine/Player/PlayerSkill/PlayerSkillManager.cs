@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace StateMachine
 {
-    public class PlayerSkillManager : PlayerState//¼¼ÄÜ¹ÜÀí
+    public class PlayerSkillManager : PlayerState//æŠ€èƒ½ç®¡ç†
     {
 
         public PlayerSkillManager(Player _player, PlayerstateMachine _playerStateMachine, string _animBoolName) : base(_player, _playerStateMachine, _animBoolName)

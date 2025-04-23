@@ -6,11 +6,11 @@ using UnityEngine;
 public class user_pet_explore_vo : Base_VO
 {
    /// <summary>
-   /// ³èÎïÌ½Ë÷µØÍ¼Ãû×Ö
+   /// å® ç‰©æ¢ç´¢åœ°å›¾åå­—
    /// </summary>
     public string petExploreMapName;
     /// <summary>
-    /// ³èÎïÌ½Ë÷½±Àø
+    /// å® ç‰©æ¢ç´¢å¥–åŠ±
     /// </summary>
     public string petEvent_reward;
     public List<(string,int)> petExploreReward;

@@ -19,17 +19,17 @@ namespace StateMachine
         }
 
 
-        public virtual void Enter()//½øÈë
+        public virtual void Enter()//è¿›å…¥
         {
             player.anim.SetBool(animBoolName, true);
             player.FlipControl(player.Direction(player.TargetPosition));
         }
 
-        public virtual void Update()//¸üÐÂ
+        public virtual void Update()//æ›´æ–°
         {
            
         }
-        public virtual void Exit()//ÍË³ö
+        public virtual void Exit()//é€€å‡º
         {
             player.anim.SetBool(animBoolName, false);
 

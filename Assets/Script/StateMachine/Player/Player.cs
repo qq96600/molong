@@ -11,21 +11,21 @@ namespace StateMachine
 {
     public class Player : RolesManage
     {
-        #region ×´Ì¬
-        public PlayerstateMachine stateMachine { get; private set; }//×´Ì¬»ú
-        public Player_Idle idleState { get; private set; }//¿ÕÏĞ×´Ì¬
-        public Player_Move moveState { get; private set; }//ÒÆ¶¯×´Ì¬
-        public Player_Attack attackState { get; private set; }//¹¥»÷×´Ì¬
-        public PlayerSkillManager skillManagerState { get; private set; }//¼¼ÄÜ¹ÜÀíÆ÷
-        public PlayerSkill_HuoQiu skillHuoQiuState { get; private set; }//»ğÇò¼¼ÄÜ
+        #region çŠ¶æ€
+        public PlayerstateMachine stateMachine { get; private set; }//çŠ¶æ€æœº
+        public Player_Idle idleState { get; private set; }//ç©ºé—²çŠ¶æ€
+        public Player_Move moveState { get; private set; }//ç§»åŠ¨çŠ¶æ€
+        public Player_Attack attackState { get; private set; }//æ”»å‡»çŠ¶æ€
+        public PlayerSkillManager skillManagerState { get; private set; }//æŠ€èƒ½ç®¡ç†å™¨
+        public PlayerSkill_HuoQiu skillHuoQiuState { get; private set; }//ç«çƒæŠ€èƒ½
 
         #endregion
 
-        #region ¼¼ÄÜ
-        [SerializeField] public Transform skillStoragePos;//¼¼ÄÜ´¢´æÎ»ÖÃ
-        public GameObject skills_HuoQiu;//»ğÇò¼¼ÄÜ
-        public float skill_damage = 123f;//»ğÇòÉËº¦
-        public float skill_release_pro = 30f;//¼¼ÄÜÊÍ·Å¸ÅÂÊ
+        #region æŠ€èƒ½
+        [SerializeField] public Transform skillStoragePos;//æŠ€èƒ½å‚¨å­˜ä½ç½®
+        public GameObject skills_HuoQiu;//ç«çƒæŠ€èƒ½
+        public float skill_damage = 123f;//ç«çƒä¼¤å®³
+        public float skill_release_pro = 30f;//æŠ€èƒ½é‡Šæ”¾æ¦‚ç‡
 
         #endregion
 
@@ -33,7 +33,7 @@ namespace StateMachine
         protected override void Awake()
         {
             base.Awake();
-            #region ×´Ì¬³õÊ¼»¯
+            #region çŠ¶æ€åˆå§‹åŒ–
             stateMachine = new PlayerstateMachine();
             idleState = new Player_Idle(this, stateMachine, "Idle");
             moveState = new Player_Move(this, stateMachine, "Move");
@@ -42,7 +42,7 @@ namespace StateMachine
             skillHuoQiuState = new PlayerSkill_HuoQiu(this, stateMachine, "Skill");
             #endregion
 
-            #region ¼¼ÄÜ³õÊ¼»¯
+            #region æŠ€èƒ½åˆå§‹åŒ–
             skills_HuoQiu = Resources.Load<GameObject>("Prefabs/panel_skill/Skill_Effects/HuoQiu");
             skillStoragePos=GameObject.Find("Skills").transform;
             #endregion
@@ -67,7 +67,7 @@ namespace StateMachine
         }
 
         /// <summary>
-        /// ¶¯»­×´Ì¬
+        /// åŠ¨ç”»çŠ¶æ€
         /// </summary>
         public override void Animator_State(Arrow_Type arrowType)
         {     
@@ -93,7 +93,7 @@ namespace StateMachine
 
 
 
-        //public void GetSkill(Skill_Collision _skill)//»Øµ÷º¯Êı
+        //public void GetSkill(Skill_Collision _skill)//å›è°ƒå‡½æ•°
         //{
         //    _skill.SetSkillTarget(TatgetObg, baseskill);
         //}

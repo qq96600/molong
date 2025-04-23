@@ -1,5 +1,5 @@
 /// <summary>
-/// Ãæ°åÏÔÊ¾
+/// é¢æ¿æ˜¾ç¤º
 /// </summary>
 public enum Tags 
 {

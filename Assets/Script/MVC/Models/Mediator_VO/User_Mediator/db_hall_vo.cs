@@ -6,27 +6,27 @@ using UnityEngine;
 public class db_hall_vo : Base_VO
 {
     /// <summary>
-    /// 获取资源
+    /// 鑾峰彇璧勬簮
     /// </summary>
     public List<string> otainlist_btn;
     /// <summary>
-    /// 获取资源面板
+    /// 鑾峰彇璧勬簮闈㈡澘
     /// </summary>
     public List<string> otainpanel;
     /// <summary>
-    /// 危险地图
+    /// 鍗遍櫓鍦板浘
     /// </summary>
     public List<string> maplist_btn;
     /// <summary>
-    /// 危险地图面板
+    /// 鍗遍櫓鍦板浘闈㈡澘
     /// </summary>
     public List<string> mappanel;
     /// <summary>
-    /// 自我提升按钮
+    /// 鑷垜鎻愬崌鎸夐挳
     /// </summary>
     public List<string> herolist_btn;
     /// <summary>
-    /// 自我提升面板
+    /// 鑷垜鎻愬崌闈㈡澘
     /// </summary>
     public List<string> heropanel;
 

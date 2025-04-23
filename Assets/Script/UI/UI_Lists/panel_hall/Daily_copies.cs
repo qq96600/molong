@@ -23,21 +23,21 @@ public class Daily_copies : Base_Mono
         }
     }
     /// <summary>
-    /// µã»÷ÊÂ¼ş
+    /// ç‚¹å‡»äº‹ä»¶
     /// </summary>
     /// <param name="item"></param>
     private void OnClick(copies_item item)
     {
-        string dec="µÚ"+item.index+"¸±±¾";
-        Alert.Show("½øÈë¸±±¾", dec, confirm);
+        string dec="ç¬¬"+item.index+"å‰¯æœ¬";
+        Alert.Show("è¿›å…¥å‰¯æœ¬", dec, confirm);
     }
     /// <summary>
-    /// È·ÈÏ½øÈë
+    /// ç¡®è®¤è¿›å…¥
     /// </summary>
     /// <param name="arg0"></param>
     private void confirm(object arg0)
     {
-        Alert_Dec.Show("µÈ¼¶²»×ã");
+        Alert_Dec.Show("ç­‰çº§ä¸è¶³");
     }
 
     public override void Show()

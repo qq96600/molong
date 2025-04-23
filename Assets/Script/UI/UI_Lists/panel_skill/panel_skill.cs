@@ -13,37 +13,37 @@ public class panel_skill : Panel_Base
 {
     
     /// <summary>
-    /// ¹¦ÄÜ°´Å¥
+    /// åŠŸèƒ½æŒ‰é’®
     /// </summary>
     private btn_item btn_item_Prefabs;
 
     private skill_item skill_item_Prefabs;
     /// <summary>
-    /// °´Å¥Î»ÖÃ
+    /// æŒ‰é’®ä½ç½®
     /// </summary>
     private Transform crt_btn,crt_offect_btn, crt_skill;
     /// <summary>
-    /// µ±Ç°Ñ¡ÖĞµÄ¼¼ÄÜ
+    /// å½“å‰é€‰ä¸­çš„æŠ€èƒ½
     /// </summary>
     private skill_item user_skill;
     /// <summary>
-    /// ´æ´¢¹¦ÄÜ×é¼ş
+    /// å­˜å‚¨åŠŸèƒ½ç»„ä»¶
     /// </summary>
     private Dictionary<skill_Offect_btn_list,btn_item> btn_item_dic = new Dictionary<skill_Offect_btn_list, btn_item>();
 
     private Text base_info;
 
-    private skill_btn_list select_btn_type = skill_btn_list.Õ½¶·;
+    private skill_btn_list select_btn_type = skill_btn_list.æˆ˜æ–—;
     /// <summary>
-    /// Ñ¡ÖĞ¼¼ÄÜ
+    /// é€‰ä¸­æŠ€èƒ½
     /// </summary>
     private offect_up_skill offect_skill;
     /// <summary>
-    /// ·ÖÅäÄÚÁ¦
+    /// åˆ†é…å†…åŠ›
     /// </summary>
     private allocation_skill_damage allocation_skill_damage;
     /// <summary>
-    /// ĞèÇóÉı¼¶¾­Ñé
+    /// éœ€æ±‚å‡çº§ç»éªŒ
     /// </summary>
     private int need_exp;
     protected override void Awake()
@@ -77,21 +77,21 @@ public class panel_skill : Panel_Base
         }
     }
     /// <summary>
-    /// Ñ¡ÖĞ¼¼ÄÜ
+    /// é€‰ä¸­æŠ€èƒ½
     /// </summary>
     /// <param name="btn_item"></param>
     private void Select_Offect_Btn(btn_item btn_item)
     {
         switch ((skill_Offect_btn_list)btn_item.index)
         {
-            case skill_Offect_btn_list.ÉÏÕó:
+            case skill_Offect_btn_list.ä¸Šé˜µ:
                 offect_skill.gameObject.SetActive(true);
                 offect_skill.Show(user_skill.Data);
                 break;
-            case skill_Offect_btn_list.Éı¼¶:
+            case skill_Offect_btn_list.å‡çº§:
                 UpLv();
                 break;
-            case skill_Offect_btn_list.·ÖÅä:
+            case skill_Offect_btn_list.åˆ†é…:
                 allocation_skill_damage.gameObject.SetActive(true);
                 allocation_skill_damage.Show(user_skill.Data);
                 break;
@@ -100,7 +100,7 @@ public class panel_skill : Panel_Base
         }
     }
     /// <summary>
-    /// Éı¼¶¼¼ÄÜ
+    /// å‡çº§æŠ€èƒ½
     /// </summary>
     private void UpLv()
     {
@@ -109,21 +109,21 @@ public class panel_skill : Panel_Base
             if (SumSave.crt_hero.hero_material_list[2] >= need_exp)
             {
                 SumSave.crt_hero.hero_material_list[2]-=need_exp;
-                //¸üĞÂÓ¢ĞÛĞÅÏ¢
+                //æ›´æ–°è‹±é›„ä¿¡æ¯
                 Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto,Mysql_Table_Name.mo_user_hero, SumSave.crt_hero.Set_Uptade_String(),SumSave.crt_hero.Get_Update_Character());
-                Alert_Dec.Show("Éı¼¶ÏûºÄ  " + need_exp + user_skill.Data.skillname + "µÈ¼¶ÌáÉı");
+                Alert_Dec.Show("å‡çº§æ¶ˆè€—  " + need_exp + user_skill.Data.skillname + "ç­‰çº§æå‡");
                 int lv = int.Parse(user_skill.Data.user_values[1]);
                 lv++;
-                if (user_skill.Data.skill_type == 2)//ÅĞ¶ÏÊÇ·ñÎªÃØ¼®
+                if (user_skill.Data.skill_type == 2)//åˆ¤æ–­æ˜¯å¦ä¸ºç§˜ç±
                 {
                     if (user_skill.Data.skill_need_state.Count > 0)
                     {
                         foreach (var item in user_skill.Data.skill_need_state)
                         {
-                            if (lv == item.Item1)//µ±ÃØ¼®¼¼ÄÜ´ïµ½ÌØ¶¨µÈ¼¶»ñµÃĞÂ¼¼ÄÜ
+                            if (lv == item.Item1)//å½“ç§˜ç±æŠ€èƒ½è¾¾åˆ°ç‰¹å®šç­‰çº§è·å¾—æ–°æŠ€èƒ½
                             {
-                                Alert_Dec.Show("»ñµÃ¼¼ÄÜ " + item.Item2);
-                                SumSave.crt_skills.Add(tool_Categoryt.crate_skill(item.Item2));//Ìí¼Ó¼¼ÄÜ
+                                Alert_Dec.Show("è·å¾—æŠ€èƒ½ " + item.Item2);
+                                SumSave.crt_skills.Add(tool_Categoryt.crate_skill(item.Item2));//æ·»åŠ æŠ€èƒ½
                             }
                         }
                     }
@@ -134,13 +134,13 @@ public class panel_skill : Panel_Base
                 SendNotification(NotiList.Refresh_Max_Hero_Attribute);
                 user_skill.Refresh();
                 Select_skill(user_skill);
-            }else Alert_Dec.Show("ÀúÁ·Öµ²»×ã");
+            }else Alert_Dec.Show("å†ç»ƒå€¼ä¸è¶³");
             
         }
-        else Alert_Dec.Show("¼¼ÄÜµÈ¼¶ÒÑÂú");
+        else Alert_Dec.Show("æŠ€èƒ½ç­‰çº§å·²æ»¡");
     }
     /// <summary>
-    /// Ñ¡ÖĞ¹¦ÄÜ
+    /// é€‰ä¸­åŠŸèƒ½
     /// </summary>
     /// <param name="btn_item"></param>
     private void Select_Btn(btn_item btn_item)
@@ -156,14 +156,14 @@ public class panel_skill : Panel_Base
         Show_skill();
     }
     /// <summary>
-    /// ÏÔÊ¾×°±¸ÁĞ±í
+    /// æ˜¾ç¤ºè£…å¤‡åˆ—è¡¨
     /// </summary>
     private void Base_Show()
     {
       
     }
     /// <summary>
-    /// ÏÔÊ¾¼¼ÄÜÁĞ±í
+    /// æ˜¾ç¤ºæŠ€èƒ½åˆ—è¡¨
     /// </summary>
     private void Show_skill()
     {
@@ -175,7 +175,7 @@ public class panel_skill : Panel_Base
         {
             btn_item_dic[item].gameObject.SetActive(false);
         }
-        //SumSave.crt_skills.Add(tool_Categoryt.crate_skill(SumSave.db_skills[Random.Range(0, SumSave.db_skills.Count)].skillname));//Ìí¼Ó¼¼ÄÜ
+        //SumSave.crt_skills.Add(tool_Categoryt.crate_skill(SumSave.db_skills[Random.Range(0, SumSave.db_skills.Count)].skillname));//æ·»åŠ æŠ€èƒ½
 
         for (int i = 0; i < SumSave.crt_skills.Count; i++)
         {
@@ -190,7 +190,7 @@ public class panel_skill : Panel_Base
         }
     }
     /// <summary>
-    /// Ñ¡ÔñÎïÆ·
+    /// é€‰æ‹©ç‰©å“
     /// </summary>
     /// <param name="item"></param>
     private void Select_skill(skill_item item)
@@ -200,31 +200,31 @@ public class panel_skill : Panel_Base
         Show_info();
     }
     /// <summary>
-    /// ÏÔÊ¾¹¦ÄÜ¿ª¹Ø
+    /// æ˜¾ç¤ºåŠŸèƒ½å¼€å…³
     /// </summary>
     private void Open_Select_Btn()
     {
-        if (user_skill.Data.skill_max_lv > user_skill.Data.skilllv) btn_item_dic[skill_Offect_btn_list.Éı¼¶].gameObject.SetActive(true);
-        if ((skill_btn_list)user_skill.Data.skill_type != skill_btn_list.ÌØÊâ) btn_item_dic[skill_Offect_btn_list.ÉÏÕó].gameObject.SetActive(true);
-        if ((skill_btn_list)user_skill.Data.skill_type == skill_btn_list.Õ½¶·) btn_item_dic[skill_Offect_btn_list.·ÖÅä].gameObject.SetActive(true);
+        if (user_skill.Data.skill_max_lv > user_skill.Data.skilllv) btn_item_dic[skill_Offect_btn_list.å‡çº§].gameObject.SetActive(true);
+        if ((skill_btn_list)user_skill.Data.skill_type != skill_btn_list.ç‰¹æ®Š) btn_item_dic[skill_Offect_btn_list.ä¸Šé˜µ].gameObject.SetActive(true);
+        if ((skill_btn_list)user_skill.Data.skill_type == skill_btn_list.æˆ˜æ–—) btn_item_dic[skill_Offect_btn_list.åˆ†é…].gameObject.SetActive(true);
 
     }
 
     /// <summary>
-    /// ÏÔÊ¾ĞÅÏ¢
+    /// æ˜¾ç¤ºä¿¡æ¯
     /// </summary>
     private void Show_info()
     {
         
         need_exp = 0;
-        string dec = user_skill.Data.skillname + "\nLv." + user_skill.Data.user_values[1]+"¼¶\n";
+        string dec = user_skill.Data.skillname + "\nLv." + user_skill.Data.user_values[1]+"çº§\n";
         int lv= int.Parse(user_skill.Data.user_values[1]);
-        dec += "ÏûºÄ·¨Á¦ " + user_skill.Data.skill_spell + "%\n";
-        dec += "¼¼ÄÜcd " + user_skill.Data.skill_cd.ToString("F0") + "Ãë\n";
-        dec += "¶ÔÄ¿±êÔì³É" + (user_skill.Data.skill_damage + (user_skill.Data.skill_power * lv)) + "%ÉËº¦\n";
+        dec += "æ¶ˆè€—æ³•åŠ› " + user_skill.Data.skill_spell + "%\n";
+        dec += "æŠ€èƒ½cd " + user_skill.Data.skill_cd.ToString("F0") + "ç§’\n";
+        dec += "å¯¹ç›®æ ‡é€ æˆ" + (user_skill.Data.skill_damage + (user_skill.Data.skill_power * lv)) + "%ä¼¤å®³\n";
         if (lv >= user_skill.Data.skill_max_lv)
         {
-            dec += Show_Color.Red("ÒÑÂú¼¶\n");
+            dec += Show_Color.Red("å·²æ»¡çº§\n");
         }
         else
         {
@@ -235,11 +235,11 @@ public class panel_skill : Panel_Base
             }
             need_exp = (int)(number * 10 * MathF.Pow(2, int.Parse(user_skill.Data.user_values[1])));
 
-            dec += Show_Color.Green("Éı¼¶ĞèÒª " + need_exp + "ÀúÁ·Öµ\n");
+            dec += Show_Color.Green("å‡çº§éœ€è¦ " + need_exp + "å†ç»ƒå€¼\n");
         }
         if (user_skill.Data.skill_open_type.Count > 0)
         {
-            dec += Show_Color.Yellow("¼¤»îÌØĞ§ \n");
+            dec += Show_Color.Yellow("æ¿€æ´»ç‰¹æ•ˆ \n");
             for (int i = 0; i < user_skill.Data.skill_open_type.Count; i++)
             {
                 dec += (enum_attribute_list)user_skill.Data.skill_open_type[i] + " + " + (user_skill.Data.skill_open_value[i] * lv / user_skill.Data.skill_max_lv) + "\n";
@@ -247,7 +247,7 @@ public class panel_skill : Panel_Base
         }
         if (user_skill.Data.skill_pos_type.Count > 0)
         {
-            dec += Show_Color.Yellow("ÉÏÕóÌØĞ§ \n");
+            dec += Show_Color.Yellow("ä¸Šé˜µç‰¹æ•ˆ \n");
             for (int i = 0; i < user_skill.Data.skill_pos_type.Count; i++)
             {
                 dec += (enum_attribute_list)user_skill.Data.skill_pos_type[i] + " + " + (user_skill.Data.skill_pos_value[i] * lv / user_skill.Data.skill_max_lv) + "\n";
@@ -255,10 +255,10 @@ public class panel_skill : Panel_Base
         }
         if (user_skill.Data.skill_need_state.Count > 0)
         {
-            dec += Show_Color.Yellow("µÈ¼¶ÌØĞ§ \n");
+            dec += Show_Color.Yellow("ç­‰çº§ç‰¹æ•ˆ \n");
             for (int i = 0; i < user_skill.Data.skill_need_state.Count; i++)
             {
-                dec += user_skill.Data.skill_need_state[i].Item1+"¼¶ ¼¤»î "+(user_skill.Data.skill_need_state[i].Item2) + "\n";
+                dec += user_skill.Data.skill_need_state[i].Item1+"çº§ æ¿€æ´» "+(user_skill.Data.skill_need_state[i].Item2) + "\n";
             }
         }
         base_info.text = dec;

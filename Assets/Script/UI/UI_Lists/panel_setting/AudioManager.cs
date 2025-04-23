@@ -8,13 +8,13 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
     public AudioSource audioSource;
-    List<string> ClipList = new List<string>() { "¹¥»÷µĞÈË", "±»µĞÈË¹¥»÷","µĞÈË¹¥»÷", "µĞÈË±»¹¥»÷","»Ø¸´ÑªÁ¿","»Ø³Ç","Ê¹ÓÃÎïÆ·",
-            "¹ºÂòÎïÆ·","ÄĞ½ÇÉ«ËÀÍö","Å®½ÇÉ«ËÀÍö","ÊÍ·ÅÀ×µçÊõ","·çºôĞ¥Éù","»ñµÃ³ÆºÅ"};//µ¥´ÎÒôÆµÎÄ¼şÃû×Ö
+    List<string> ClipList = new List<string>() { "æ”»å‡»æ•Œäºº", "è¢«æ•Œäººæ”»å‡»","æ•Œäººæ”»å‡»", "æ•Œäººè¢«æ”»å‡»","å›å¤è¡€é‡","å›åŸ","ä½¿ç”¨ç‰©å“",
+            "è´­ä¹°ç‰©å“","ç”·è§’è‰²æ­»äº¡","å¥³è§’è‰²æ­»äº¡","é‡Šæ”¾é›·ç”µæœ¯","é£å‘¼å•¸å£°","è·å¾—ç§°å·"};//å•æ¬¡éŸ³é¢‘æ–‡ä»¶åå­—
     static Dictionary<string, AudioClip> BGMdic = new Dictionary<string, AudioClip>();
     static Dictionary<string, AudioClip> Clipdic = new Dictionary<string, AudioClip>();
-    public int index;//ÒôÆµÎÄ¼şË÷Òı
-    List<string> bgmName = new List<string>() { "°µÓò", "´å×ÓÍâ", "·üÑıËş", "¹ÅÄ¹", "»ú¹Ø¶´", "½«¾ü·Ø", "½ûµØ", "¿ªÆô", "¿ó¶´", "ÄæÄ§¹ÅÉ²",
-    "É³Ä®³Ç","Éß¶´","Í¨ÌìËş","ÑıÉñ½ç","ÒøĞÓ´å","ÖĞÖİ³Ç"}; //bgmÃû×Ö; //bgm µØÍ¼Ãû×Ö¡¢ÓëÒôÆµÎÄ¼şÃû×ÖÏàÍ¬£¬ĞŞ¸ÄĞèÍ¬²½ĞŞ¸Ä
+    public int index;//éŸ³é¢‘æ–‡ä»¶ç´¢å¼•
+    List<string> bgmName = new List<string>() { "æš—åŸŸ", "æ‘å­å¤–", "ä¼å¦–å¡”", "å¤å¢“", "æœºå…³æ´", "å°†å†›åŸ", "ç¦åœ°", "å¼€å¯", "çŸ¿æ´", "é€†é­”å¤åˆ¹",
+    "æ²™æ¼ åŸ","è›‡æ´","é€šå¤©å¡”","å¦–ç¥ç•Œ","é“¶ææ‘","ä¸­å·åŸ"}; //bgmåå­—; //bgm åœ°å›¾åå­—ã€ä¸éŸ³é¢‘æ–‡ä»¶åå­—ç›¸åŒï¼Œä¿®æ”¹éœ€åŒæ­¥ä¿®æ”¹
     private void Awake()
     {
         Instance = this.GetComponent<AudioManager>();
@@ -46,7 +46,7 @@ public class AudioManager : MonoBehaviour
         return null;
     }
     /// <summary>
-    /// ²¥·ÅÒôĞ§£¨Ò»´Î£©
+    /// æ’­æ”¾éŸ³æ•ˆï¼ˆä¸€æ¬¡ï¼‰
     /// </summary>
     /// <param name="s"></param>
     public void playAudio(ClipEnum clip)
@@ -56,15 +56,15 @@ public class AudioManager : MonoBehaviour
         else StartCoroutine("GetClip");
 
     }
-    string BGMtempName;//µ÷ÓÃ±³¾°²¥·Å·½·¨Ìá¹©µÄ²ÎÊı
+    string BGMtempName;//è°ƒç”¨èƒŒæ™¯æ’­æ”¾æ–¹æ³•æä¾›çš„å‚æ•°
     /// <summary>
-    /// ¸Ä±ä±³¾°ÒôÀÖ
+    /// æ”¹å˜èƒŒæ™¯éŸ³ä¹
     /// </summary>
     /// <param name="clip"></param>
     public void ChangeBGM(BGMenum bg)
     {
         if (SumSave.crt_setting.user_setting[3] == 1) return;
-        if (BGMdic.ContainsKey(bg.ToString())) { audioSource.clip = BGMdic[bg.ToString()]; Debug.Log("Ã»ÓĞÒôĞ§¿â"); return; }
+        if (BGMdic.ContainsKey(bg.ToString())) { audioSource.clip = BGMdic[bg.ToString()]; Debug.Log("æ²¡æœ‰éŸ³æ•ˆåº“"); return; }
         else
         {
             BGMtempName = bg.ToString();
@@ -72,7 +72,7 @@ public class AudioManager : MonoBehaviour
         }
 
     }/// <summary>
-     /// ±³¾°ÒôÀÖÊÇ·ñ¾²Òô
+     /// èƒŒæ™¯éŸ³ä¹æ˜¯å¦é™éŸ³
      /// </summary>
      /// <param name="isPlay"></param>
     public void isMuteBGM(bool isPlay)
@@ -81,7 +81,7 @@ public class AudioManager : MonoBehaviour
         audioSource.mute = isPlay;
     }
     /// <summary>
-    /// µ¥´Î·´×ªbgm¾²Òô×´Ì¬
+    /// å•æ¬¡åè½¬bgmé™éŸ³çŠ¶æ€
     /// </summary>
     /// <param name="isPlay"></param>
     public void isMuteBGMOne()
@@ -90,7 +90,7 @@ public class AudioManager : MonoBehaviour
         audioSource.mute = !audioSource.mute;
     }
     /// <summary>
-    /// ÊÇ·ñ½öÔİÍ£±³¾°ÒôÀÖ£¨¿ÉÖØĞÂ²¥·Å£©
+    /// æ˜¯å¦ä»…æš‚åœèƒŒæ™¯éŸ³ä¹ï¼ˆå¯é‡æ–°æ’­æ”¾ï¼‰
     /// </summary>
     /// <param name="isPlay"></param>
     public void isPlayBGM(bool isPlay)
@@ -99,7 +99,7 @@ public class AudioManager : MonoBehaviour
         if (isPlay) audioSource.UnPause();
         else audioSource.Pause();
     }/// <summary>
-     /// ÊÇ·ñ²¥·Å±³¾°ÒôÀÖ(½áÊø»ò´ÓÍ·¿ªÊ¼)
+     /// æ˜¯å¦æ’­æ”¾èƒŒæ™¯éŸ³ä¹(ç»“æŸæˆ–ä»å¤´å¼€å§‹)
      /// </summary>
      /// <param name="isPlay"></param>
     public void isDieBGM(bool isPlay)
@@ -111,11 +111,11 @@ public class AudioManager : MonoBehaviour
 }
 public enum BGMenum
 {
-    °µÓò, ´å×ÓÍâ, ·üÑıËş, ¹ÅÄ¹, »ú¹Ø¶´, ½«¾ü·Ø,
-    ½ûµØ, ¿ªÆô, ¿ó¶´, ÄæÄ§¹ÅÉ²,
-    É³Ä®³Ç, Éß¶´, Í¨ÌìËş, ÑıÉñ½ç, ÒøĞÓ´å, ÖĞÖİ³Ç
+    æš—åŸŸ, æ‘å­å¤–, ä¼å¦–å¡”, å¤å¢“, æœºå…³æ´, å°†å†›åŸ,
+    ç¦åœ°, å¼€å¯, çŸ¿æ´, é€†é­”å¤åˆ¹,
+    æ²™æ¼ åŸ, è›‡æ´, é€šå¤©å¡”, å¦–ç¥ç•Œ, é“¶ææ‘, ä¸­å·åŸ
 }
 public enum ClipEnum
 {
-    ¹¥»÷µĞÈË, ±»µĞÈË¹¥»÷, µĞÈË¹¥»÷, »Ø¸´ÑªÁ¿, »Ø³Ç, Ê¹ÓÃÎïÆ·, ¹ºÂòÎïÆ·, ÄĞ½ÇÉ«ËÀÍö, Å®½ÇÉ«ËÀÍö, ÊÍ·ÅÀ×µçÊõ, ·çºôĞ¥Éù, »ñµÃ³ÆºÅ
+    æ”»å‡»æ•Œäºº, è¢«æ•Œäººæ”»å‡», æ•Œäººæ”»å‡», å›å¤è¡€é‡, å›åŸ, ä½¿ç”¨ç‰©å“, è´­ä¹°ç‰©å“, ç”·è§’è‰²æ­»äº¡, å¥³è§’è‰²æ­»äº¡, é‡Šæ”¾é›·ç”µæœ¯, é£å‘¼å•¸å£°, è·å¾—ç§°å·
 }

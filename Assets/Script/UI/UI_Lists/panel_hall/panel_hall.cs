@@ -10,29 +10,29 @@ using UnityEngine.UI;
 public class panel_hall : Panel_Base
 {
     /// <summary>
-    /// ×ÊÔ´£¬ÌáÉı£¬µØÍ¼¸¸ÎïÌå
+    /// èµ„æºï¼Œæå‡ï¼Œåœ°å›¾çˆ¶ç‰©ä½“
     /// </summary>
     private Transform pos_hero, pos_map, pos_otain;
     /// <summary>
-    /// Ô¤ÖÆÌå×é¼ş
+    /// é¢„åˆ¶ä½“ç»„ä»¶
     /// </summary>
     private btn_item btn_item_Prefabs;
     /// <summary>
-    /// ´æ´¢Ãæ°åÁĞ±í
+    /// å­˜å‚¨é¢æ¿åˆ—è¡¨
     /// </summary>
     private Dictionary<string,GameObject> offect_list_dic = new Dictionary<string, GameObject>();
 
     private Image offect_list;
 
     /// <summary>
-    /// offect´ò¿ªÀàĞÍ
+    /// offectæ‰“å¼€ç±»å‹
     /// </summary>
     private int index = -1;
     public override void Hide()
     {
         if (offect_list.gameObject.activeInHierarchy)
         {
-            for (int i = offect_list.transform.childCount - 1; i >= 0; i--)//¹Ø±ÕÇøÓòÄÚµÄUI
+            for (int i = offect_list.transform.childCount - 1; i >= 0; i--)//å…³é—­åŒºåŸŸå†…çš„UI
             {
                 offect_list.transform.GetChild(i).gameObject.SetActive(false);
             }
@@ -74,7 +74,7 @@ public class panel_hall : Panel_Base
         }
     }
     /// <summary>
-    /// ´ò¿ª×ÊÔ´ÌáÉı¿ª¹Ø
+    /// æ‰“å¼€èµ„æºæå‡å¼€å…³
     /// </summary>
     /// <param name="item"></param>
     private void OnClickOtainItem(btn_item item)
@@ -82,7 +82,7 @@ public class panel_hall : Panel_Base
         Show_GameObject(SumSave.db_halls.otainpanel[item.index], true);
     }
     /// <summary>
-    /// ´ò¿ªµØÍ¼
+    /// æ‰“å¼€åœ°å›¾
     /// </summary>
     /// <param name="item"></param>
     private void OnClickMapItem(btn_item item)
@@ -90,7 +90,7 @@ public class panel_hall : Panel_Base
         Show_GameObject(SumSave.db_halls.mappanel[item.index], true);
     }
     /// <summary>
-    /// ´ò¿ªÌáÉı¿ª¹Ø
+    /// æ‰“å¼€æå‡å¼€å…³
     /// </summary>
     /// <param name="item"></param>
     private void OnClickHeroItem(btn_item item)
@@ -98,7 +98,7 @@ public class panel_hall : Panel_Base
         Show_GameObject(SumSave.db_halls.heropanel[item.index], true);
     }
     /// <summary>
-    /// ´ò¿ª¿ª¹Ø
+    /// æ‰“å¼€å¼€å…³
     /// </summary>
     /// <param name="index"></param>
     /// <param name="active"></param>

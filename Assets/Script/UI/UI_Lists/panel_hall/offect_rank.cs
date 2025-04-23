@@ -6,14 +6,14 @@ using Common;
 namespace MVC
 {
     /// <summary>
-    /// ÅÅĞĞ°ñ
+    /// æ’è¡Œæ¦œ
     /// </summary>
     public class offect_rank : Base_Mono
     {
         private Transform crt;
 
         /// <summary>
-        /// Ô¤ÉèÌå
+        /// é¢„è®¾ä½“
         /// </summary>
         private rank_item rank_itemPrefab;
 

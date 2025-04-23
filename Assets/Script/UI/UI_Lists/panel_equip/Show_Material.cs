@@ -7,26 +7,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 /// <summary>
-/// ÏÔÊ¾²ÄÁÏ
+/// æ˜¾ç¤ºææ–™
 /// </summary>
 public class Show_Material : Base_Mono
 {
     /// <summary>
-    /// ²ÄÁÏÃû×Ö ĞÅÏ¢
+    /// ææ–™åå­— ä¿¡æ¯
     /// </summary>
     private Text show_name, base_info;
     /// <summary>
-    /// Ê¹ÓÃ ¶ªÆú
+    /// ä½¿ç”¨ ä¸¢å¼ƒ
     /// </summary>
     private Button confirm, discard;
-    /// ³ÉÆ·Êı¾İ
+    /// æˆå“æ•°æ®
     /// </summary>
     private (string, List<string>) data_seedmaterial;
-    /// µ¤·½Êı¾İ
+    /// ä¸¹æ–¹æ•°æ®
     /// </summary>
     private (string, List<string>) data_material;
     /// <summary>
-    /// ¼¼ÄÜÊé
+    /// æŠ€èƒ½ä¹¦
     /// </summary>
     private (string,int) data;
 
@@ -34,7 +34,7 @@ public class Show_Material : Base_Mono
 
     private Transform pos_icon;
     /// <summary>
-    /// 2µ¤·½1µ¤Ò©
+    /// 2ä¸¹æ–¹1ä¸¹è¯
     /// </summary>
     private int type = 1;
 
@@ -50,7 +50,7 @@ public class Show_Material : Base_Mono
         material_item_Prefabs = Resources.Load<material_item>("Prefabs/panel_bag/material_item");
     }
     /// <summary>
-    /// ¶ªÆú
+    /// ä¸¢å¼ƒ
     /// </summary>
     private void Discard()
     {
@@ -66,11 +66,11 @@ public class Show_Material : Base_Mono
             SumSave.crt_seeds.usedata(type == 2 ? data_seedmaterial : data_material, type);
             Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_seed, SumSave.crt_seeds.Set_Uptade_String(), SumSave.crt_seeds.Get_Update_Character());
         }
-        Alert_Dec.Show("¶ªÆú³É¹¦");
+        Alert_Dec.Show("ä¸¢å¼ƒæˆåŠŸ");
         hide();
     }
     /// <summary>
-    /// ¹Ø±Õ
+    /// å…³é—­
     /// </summary>
     private void hide()
     {
@@ -78,7 +78,7 @@ public class Show_Material : Base_Mono
     }
 
     /// <summary>
-    /// È·ÈÏ
+    /// ç¡®è®¤
     /// </summary>
     private void Confirm()
     {
@@ -87,21 +87,21 @@ public class Show_Material : Base_Mono
             Bag_Base_VO bag = ArrayHelper.Find(SumSave.db_stditems, e => e.Name == data.Item1);
             switch ((EquipConfigTypeList)Enum.Parse(typeof(EquipConfigTypeList), bag.StdMode))
             {
-                case EquipConfigTypeList.ÃØóÅ:
-                case EquipConfigTypeList.Õ½¶·¼¼ÄÜ:
-                case EquipConfigTypeList.ÌØÊâ¼¼ÄÜ:
+                case EquipConfigTypeList.ç§˜ç¬ˆ:
+                case EquipConfigTypeList.æˆ˜æ–—æŠ€èƒ½:
+                case EquipConfigTypeList.ç‰¹æ®ŠæŠ€èƒ½:
                     foreach (var item in SumSave.crt_skills)
                     {
                         if (item.skillname == bag.Name)
                         { 
-                            Alert_Dec.Show("ÒÑÓµÓĞ¸Ã¼¼ÄÜ");
+                            Alert_Dec.Show("å·²æ‹¥æœ‰è¯¥æŠ€èƒ½");
                             return;
                         }
                     }
-                    SumSave.crt_skills.Add(tool_Categoryt.crate_skill(data.Item1));//Ìí¼Ó¼¼ÄÜ
-                    Alert_Dec.Show("»ñµÃ¼¼ÄÜ " + data.Item1);
+                    SumSave.crt_skills.Add(tool_Categoryt.crate_skill(data.Item1));//æ·»åŠ æŠ€èƒ½
+                    Alert_Dec.Show("è·å¾—æŠ€èƒ½ " + data.Item1);
                     break;
-                case EquipConfigTypeList.³èÎï¼¼ÄÜ:
+                case EquipConfigTypeList.å® ç‰©æŠ€èƒ½:
                     break;
                 default:
                     break;
@@ -121,11 +121,11 @@ public class Show_Material : Base_Mono
 
         }
        
-        Alert_Dec.Show("Ê¹ÓÃ³É¹¦");
+        Alert_Dec.Show("ä½¿ç”¨æˆåŠŸ");
         hide();
     }
     /// <summary>
-    /// ²é¿´Åä·½
+    /// æŸ¥çœ‹é…æ–¹
     /// </summary>
     /// <param name="data_formulamaterial"></param>
     public void Init((string, List<string>) data)
@@ -136,11 +136,11 @@ public class Show_Material : Base_Mono
         type = 1;
         discard.gameObject.SetActive(true);
         show_name.text = data.Item1;
-        base_info.text = "µ¤·½µÈ¼¶" + "Lv." + data.Item2[0]
-            + "\n" + "µ¤·½Åä±í " + data.Item2[1];
+        base_info.text = "ä¸¹æ–¹ç­‰çº§" + "Lv." + data.Item2[0]
+            + "\n" + "ä¸¹æ–¹é…è¡¨ " + data.Item2[1];
     }
     /// <summary>
-    /// ³õÊ¼»¯ ²ÄÁÏ±³°ü
+    /// åˆå§‹åŒ– ææ–™èƒŒåŒ…
     /// </summary>
     /// <param name="bag_Resources"></param>
     public void Init((string, int) bag_Resources)
@@ -150,14 +150,14 @@ public class Show_Material : Base_Mono
         Bag_Base_VO bag = ArrayHelper.Find(SumSave.db_stditems, e => e.Name == bag_Resources.Item1);
         show_name.text = bag.Name;
         base_info.text = bag.dec;
-        base_info.text += "\n´æÁ¿ £º " + bag_Resources.Item2;
+        base_info.text += "\nå­˜é‡ ï¼š " + bag_Resources.Item2;
 
         switch ((EquipConfigTypeList)Enum.Parse(typeof(EquipConfigTypeList), bag.StdMode))
         {
-            case EquipConfigTypeList.ÃØóÅ:
-            case EquipConfigTypeList.³èÎï¼¼ÄÜ:
-            case EquipConfigTypeList.Õ½¶·¼¼ÄÜ:
-            case EquipConfigTypeList.ÌØÊâ¼¼ÄÜ:
+            case EquipConfigTypeList.ç§˜ç¬ˆ:
+            case EquipConfigTypeList.å® ç‰©æŠ€èƒ½:
+            case EquipConfigTypeList.æˆ˜æ–—æŠ€èƒ½:
+            case EquipConfigTypeList.ç‰¹æ®ŠæŠ€èƒ½:
                 data = bag_Resources;
                 Init_Show(true);
                 break;
@@ -166,7 +166,7 @@ public class Show_Material : Base_Mono
         }
     }
     /// <summary>
-    /// ³õÊ¼»¯ µ¤Ò©±³°ü
+    /// åˆå§‹åŒ– ä¸¹è¯èƒŒåŒ…
     /// </summary>
     /// <param name="data"></param>
     public void Init_Seed((string, List<string>) data)
@@ -177,9 +177,9 @@ public class Show_Material : Base_Mono
         Init_Show(true);
         show_name.text = data.Item1;
         db_seed_vo item = ArrayHelper.Find(SumSave.db_seeds, e => e.pill == data.Item1);
-        string dec= "µ¤Ò©Ğ§¹û" + "\n";
+        string dec= "ä¸¹è¯æ•ˆæœ" + "\n";
         dec += Show_Color.Red(item.type + " " + data.Item2[1])
-        + "\nµ¤Ò©´´ÔìÊ±¼ä" + data.Item2[0];
+        + "\nä¸¹è¯åˆ›é€ æ—¶é—´" + data.Item2[0];
         List<(string,List<int>)> list = SumSave.crt_seeds.GetuseList();
         bool exsit = true;
         for (int i = 0; i < list.Count; i++)
@@ -187,21 +187,21 @@ public class Show_Material : Base_Mono
             if (list[i].Item1 == data.Item1)
             {
                 exsit= false;
-                dec += "\n" + "ÀÛ»ıĞ§¹û " + item.type + " " + list[i].Item2[1];
-                dec += "\n" + "Ê£Óà´ÎÊı " + list[i].Item2[0]+"/"+item.limit;
-                //ÊÇ·ñ»¹¿ÉÒÔ³Ô
+                dec += "\n" + "ç´¯ç§¯æ•ˆæœ " + item.type + " " + list[i].Item2[1];
+                dec += "\n" + "å‰©ä½™æ¬¡æ•° " + list[i].Item2[0]+"/"+item.limit;
+                //æ˜¯å¦è¿˜å¯ä»¥åƒ
                 confirm.gameObject.SetActive(list[i].Item2[0] < item.limit);
             }
         }
         if (exsit)
         {
-            dec += "\n" + "ÀÛ»ıĞ§¹û " + item.type + " " + 0;
-            dec += "\n" + "Ê£Óà´ÎÊı " + 0 + "/" + item.limit;
+            dec += "\n" + "ç´¯ç§¯æ•ˆæœ " + item.type + " " + 0;
+            dec += "\n" + "å‰©ä½™æ¬¡æ•° " + 0 + "/" + item.limit;
         }
         base_info.text = dec;
     }
     /// <summary>
-    /// ÏÔÊ¾»ù´¡ĞÅÏ¢
+    /// æ˜¾ç¤ºåŸºç¡€ä¿¡æ¯
     /// </summary>
     /// <param name="name"></param>
     private void Instance_Show(string name )
@@ -209,7 +209,7 @@ public class Show_Material : Base_Mono
         Instantiate(material_item_Prefabs, pos_icon).Init((name, 1));
     }
     /// <summary>
-    /// ÏÔÊ¾°´¼ü
+    /// æ˜¾ç¤ºæŒ‰é”®
     /// </summary>
     /// <param name="exist"></param>
     private void Init_Show(bool exist)

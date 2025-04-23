@@ -10,25 +10,25 @@ using UnityEngine.UI;
 public class offect_Artifact : Base_Mono
 {
     /// <summary>
-    /// 神器位置
+    /// 绁炲櫒浣嶇疆
     /// </summary>
     private Transform pos_artifact, crt_btn;
 
     private btn_item btn_itm_prefabs;
     /// <summary>
-    /// 当前按键
+    /// 褰撳墠鎸夐敭
     /// </summary>
     private artifact_item crt_artifact;
     /// <summary>
-    /// 神器列表
+    /// 绁炲櫒鍒楄〃
     /// </summary>
     private artifact_item artifact_itm_prefabs;
     /// <summary>
-    /// 按键
+    /// 鎸夐敭
     /// </summary>
-    private List<string> btn_list = new List<string>() { "神器", "宝物", "奇物", "灵物" };
+    private List<string> btn_list = new List<string>() { "绁炲櫒", "瀹濈墿", "濂囩墿", "鐏电墿" };
     /// <summary>
-    /// 当前选择页面
+    /// 褰撳墠閫夋嫨椤甸潰
     /// </summary>
     private int index = 1;
 
@@ -56,12 +56,12 @@ public class offect_Artifact : Base_Mono
         }
     }
     /// <summary>
-    /// 点击事件
+    /// 鐐瑰嚮浜嬩欢
     /// </summary>
     /// <param name="btn"></param>
     private void OnBtnClick(btn_item btn)
     {
-        AudioManager.Instance.playAudio(ClipEnum.使用物品);
+        AudioManager.Instance.playAudio(ClipEnum.浣跨敤鐗╁搧);
         index= btn.index;
         Show_List();
     }
@@ -72,7 +72,7 @@ public class offect_Artifact : Base_Mono
 
     }
     /// <summary>
-    /// 显示神器列表
+    /// 鏄剧ず绁炲櫒鍒楄〃
     /// </summary>
     private void Show_List()
     {

@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class panel_role_health : Base_Mono
 {
     ///<summary>
-    ///ÓÒÉÏ½Ç½¡¿µÀ¸Hp,MpÏÔÊ¾
+    ///å³ä¸Šè§’å¥åº·æ Hp,Mpæ˜¾ç¤º
     /// <summary>
     private Slider role_Hp, role_Mp, role_internalforceMP, role_EnergyMp, role_exp;
 
@@ -60,7 +60,7 @@ public class panel_role_health : Base_Mono
                 role_exp.maxValue = SumSave.db_lvs.hero_lv_list[SumSave.crt_MaxHero.Lv];
                 Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto,Mysql_Table_Name.mo_user_hero,
                     SumSave.crt_hero.Set_Uptade_String(),SumSave.crt_hero.Get_Update_Character());
-                //Ë¢ĞÂÊı¾İ
+                //åˆ·æ–°æ•°æ®
                 SendNotification(NotiList.Refresh_Max_Hero_Attribute);
             }
             role_Hp.value = health.HP;
@@ -68,8 +68,8 @@ public class panel_role_health : Base_Mono
             role_internalforceMP.value = health.internalforceMP;
             role_EnergyMp.value = health.EnergyMp;
             List<long> list = SumSave.crt_user_unit.Set();
-            show_moeny.text = Battle_Tool.FormatNumberToChineseUnit(list[0]) + " " + currency_unit.ÁéÖé;
-            show_point.text = Battle_Tool.FormatNumberToChineseUnit(list[1]) + " " + currency_unit.ÀúÁ·;
+            show_moeny.text = Battle_Tool.FormatNumberToChineseUnit(list[0]) + " " + currency_unit.çµç ;
+            show_point.text = Battle_Tool.FormatNumberToChineseUnit(list[1]) + " " + currency_unit.å†ç»ƒ;
         } 
     }
 }

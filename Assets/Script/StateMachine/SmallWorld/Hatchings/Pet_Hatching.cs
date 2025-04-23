@@ -11,60 +11,60 @@ using UnityEngine.UI;
 public class Pet_Hatching : Panel_Base
 {
     /// <summary>
-    /// °´Å¥¸¸Àà
+    /// æŒ‰é’®çˆ¶ç±»
     /// </summary>
     private Transform hatching_Buttons;
     /// <summary>
-    ///·õ»¯°´Å¥,·õ»¯Íê³ÉÁìÈ¡°´Å¥,¹Ø±Õ·õ»¯½çÃæ°´Å¥
+    ///å­µåŒ–æŒ‰é’®,å­µåŒ–å®Œæˆé¢†å–æŒ‰é’®,å…³é—­å­µåŒ–ç•Œé¢æŒ‰é’®
     /// </summary>
     private Button  hatching_Button, receive_Button; 
     /// <summary>
-    /// ³èÎïµ°ÏÂÀ­ÁĞ±í
+    /// å® ç‰©è›‹ä¸‹æ‹‰åˆ—è¡¨
     /// </summary>
     private Dropdown hatching_Dropdown;
     /// <summary>
-    /// ÏÂÀ­ÁĞ±íÑ¡ÖĞµÄ³èÎïµ°
+    /// ä¸‹æ‹‰åˆ—è¡¨é€‰ä¸­çš„å® ç‰©è›‹
     /// </summary>
     private string currentPet;
     /// <summary>
-    /// ·õ»¯³É¹¦µÄ³èÎïÃû×Ö
+    /// å­µåŒ–æˆåŠŸçš„å® ç‰©åå­—
     /// </summary>
     private string Pet;
 
     /// <summary>
-    /// ·õ»¯½çÃæ
+    /// å­µåŒ–ç•Œé¢
     /// </summary>
     private Transform hatching_progress;
     /// <summary>
-    /// ÕıÔÚ·õ»¯Image
+    /// æ­£åœ¨å­µåŒ–Image
     /// </summary>
     private Image petEggs_Image;
     /// <summary>
-    /// ·õ»¯½ø¶ÈÌõ
+    /// å­µåŒ–è¿›åº¦æ¡
     /// </summary>
     private Slider hatching_Slider;
     /// <summary>
-    /// ·õ»¯½ø¶ÈÌõÎÄ±¾
+    /// å­µåŒ–è¿›åº¦æ¡æ–‡æœ¬
     /// </summary>
     private Text hatching_Text;
     /// <summary>
-    /// ĞèÒª·õ»¯µÄÊ±¼ä
+    /// éœ€è¦å­µåŒ–çš„æ—¶é—´
     /// </summary>
     public int hatchingTime;
     /// <summary>
-    /// ·õ»¯¼ÆÊ±Æ÷
+    /// å­µåŒ–è®¡æ—¶å™¨
     /// </summary>
     private int hatchingTimeCounter;
     /// <summary>
-    /// ¿ªÊ¼·õ»¯µÄÊ±¼ä
+    /// å¼€å§‹å­µåŒ–çš„æ—¶é—´
     /// </summary>
     private DateTime startHatchingTime;
     /// <summary>
-    /// ·õ»¯ÊÇ·ñÍê³É 0£º¿Õ£¬1£º·õ»¯ÖĞ£¬2£º·õ»¯Íê³É
+    /// å­µåŒ–æ˜¯å¦å®Œæˆ 0ï¼šç©ºï¼Œ1ï¼šå­µåŒ–ä¸­ï¼Œ2ï¼šå­µåŒ–å®Œæˆ
     /// </summary>
     private int isHatching=0;
     /// <summary>
-    /// ·õ»¯Æ÷Image
+    /// å­µåŒ–å™¨Image
     /// </summary  >
     private Sprite sprite;
 
@@ -73,18 +73,18 @@ public class Pet_Hatching : Panel_Base
     protected override void Awake()
     {
         //base.Awake();
-        #region °´Å¥³õÊ¼»¯
+        #region æŒ‰é’®åˆå§‹åŒ–
         hatching_Buttons = transform.Find("hatching_progress/hatching_Buttons");  
         hatching_Button = hatching_Buttons.Find("hatching_Button").GetComponent<Button>();
         hatching_Dropdown = hatching_Buttons.Find("hatching_Dropdown").GetComponent<Dropdown>();
         hatching_Button.onClick.AddListener(OnHatching);
         hatching_Dropdown.onValueChanged.AddListener(OnHatching_Dropdown);
 
-        currentPet = "Ñ¡ÔñĞèÒª·õ»¯µÄ³èÎï";
+        currentPet = "é€‰æ‹©éœ€è¦å­µåŒ–çš„å® ç‰©";
         InitDropdown();
         #endregion
 
-        #region ·õ»¯ÏÔÊ¾³õÊ¼»¯
+        #region å­µåŒ–æ˜¾ç¤ºåˆå§‹åŒ–
         hatching_progress= transform.Find("hatching_progress");
         petEggs_Image = hatching_progress.Find("petEggs_Image").GetComponent<Image>();
         sprite=petEggs_Image.sprite;
@@ -105,15 +105,15 @@ public class Pet_Hatching : Panel_Base
 
 
     /// <summary>
-    /// ·õ»¯³É¹¦ÁìÈ¡³èÎï
+    /// å­µåŒ–æˆåŠŸé¢†å–å® ç‰©
     /// </summary>
     private void OnReceive()
     {
         if(isHatching==2)
         {
             isHatching = 0;
-            //ÁìÈ¡³èÎï
-            Alert_Dec.Show("¹§Ï²Äã»ñµÃ " + Pet);
+            //é¢†å–å® ç‰©
+            Alert_Dec.Show("æ­å–œä½ è·å¾— " + Pet);
 
             db_pet_vo pet= SumSave.db_pet_dic[Pet];
             SumSave.crt_pet_list.Add(pet);
@@ -125,7 +125,7 @@ public class Pet_Hatching : Panel_Base
     }
 
     /// <summary>
-    /// ·õ»¯
+    /// å­µåŒ–
     /// </summary>
     private void OnHatching()
     {
@@ -136,17 +136,17 @@ public class Pet_Hatching : Panel_Base
             //NeedConsumables(currentPet, 1);
             //if(RefreshConsumables())
             //{
-                if (SumSave.db_pet_dic.TryGetValue(currentPet, out db_pet_vo quantity))//²éÕÒÑ¡ÔñµÄ³èÎïµ°£¬ÉèÖÃ·õ»¯Ê±¼ä£¬ºÍ·õ»¯³É¹¦µÄ³èÎï
+                if (SumSave.db_pet_dic.TryGetValue(currentPet, out db_pet_vo quantity))//æŸ¥æ‰¾é€‰æ‹©çš„å® ç‰©è›‹ï¼Œè®¾ç½®å­µåŒ–æ—¶é—´ï¼Œå’Œå­µåŒ–æˆåŠŸçš„å® ç‰©
                 {
                     hatchingTime = quantity.hatchingTime;
                     Pet = quantity.petName;
-                    //petEggs_Image.sprite = Resources.Load<Sprite>("panel_fight/_icon_shop/hatching_" + quantity.petEggsName); //hatching_Ã·»¨Â¹µ°
+                    //petEggs_Image.sprite = Resources.Load<Sprite>("panel_fight/_icon_shop/hatching_" + quantity.petEggsName); //hatching_æ¢…èŠ±é¹¿è›‹
 
-                    petEggs_Image.sprite = Resources.Load<Sprite>("panel_fight/panlt_Ğ¡Âó");
+                    petEggs_Image.sprite = Resources.Load<Sprite>("panel_fight/panlt_å°éº¦");
                 }
                 else
                 {
-                    Debug.Log("Ã»ÓĞÕâ¸ö³èÎïµ°");
+                    Debug.Log("æ²¡æœ‰è¿™ä¸ªå® ç‰©è›‹");
                     return;
                 }
 
@@ -162,7 +162,7 @@ public class Pet_Hatching : Panel_Base
             //}
         //else
         //    {
-        //        Alert_Dec.Show("±³°üÃ»ÓĞ"+ currentPet+"³èÎïµ°");
+        //        Alert_Dec.Show("èƒŒåŒ…æ²¡æœ‰"+ currentPet+"å® ç‰©è›‹");
         //    }
             
         }
@@ -191,7 +191,7 @@ public class Pet_Hatching : Panel_Base
             hatchingTimeCounter -= time;
             hatching_Text.text = ConvertSecondsToHHMMSS(hatchingTimeCounter);
             hatching_Slider.value = hatchingTime - hatchingTimeCounter;
-            Debug.Log("µ¹¼ÆÊ±" + hatchingTimeCounter+"½ø¶ÈÌõ£º"+ hatching_Slider.value);
+            Debug.Log("å€’è®¡æ—¶" + hatchingTimeCounter+"è¿›åº¦æ¡ï¼š"+ hatching_Slider.value);
         }
         else if(hatchingTimeCounter <= 0&&isHatching == 1)
         {
@@ -205,7 +205,7 @@ public class Pet_Hatching : Panel_Base
 
 
     /// <summary>
-    /// ´ò¿ª³èÎï·õ»¯½çÃæ
+    /// æ‰“å¼€å® ç‰©å­µåŒ–ç•Œé¢
     /// </summary>
     private void OnDisplayPet()
     {
@@ -215,7 +215,7 @@ public class Pet_Hatching : Panel_Base
 
 
     /// <summary>
-    /// ³õÊ¼»¯
+    /// åˆå§‹åŒ–
     /// </summary>
     public void Init()
     {
@@ -230,8 +230,8 @@ public class Pet_Hatching : Panel_Base
 
     private void Countdown()
     {
-        hatchingTimeCounter = (int)(SumSave.nowtime - startHatchingTime).TotalSeconds;//µ±Ç°Ê±¼ä-Ö²ÎïÖÖÖ²Ê±¼ä »ñµÃÖ²ÎïÖÖÖ²µ½ÏÖÔÚµÄÊ±¼ä
-        if (hatchingTimeCounter <= hatchingTime)//Ö²ÎïÒÑ¾­Éú³¤µÄÊ±¼äĞ¡ÓÚÖ²ÎïĞèÒªÉú³¤µÄÊ±¼ä
+        hatchingTimeCounter = (int)(SumSave.nowtime - startHatchingTime).TotalSeconds;//å½“å‰æ—¶é—´-æ¤ç‰©ç§æ¤æ—¶é—´ è·å¾—æ¤ç‰©ç§æ¤åˆ°ç°åœ¨çš„æ—¶é—´
+        if (hatchingTimeCounter <= hatchingTime)//æ¤ç‰©å·²ç»ç”Ÿé•¿çš„æ—¶é—´å°äºæ¤ç‰©éœ€è¦ç”Ÿé•¿çš„æ—¶é—´
         {
             hatchingTimeCounter = hatchingTime - hatchingTimeCounter;
         }
@@ -243,7 +243,7 @@ public class Pet_Hatching : Panel_Base
     }
 
     /// <summary>
-    /// Ğ´Èë
+    /// å†™å…¥
     /// </summary>
     private void Wirte((string, DateTime) Set)
     {
@@ -254,7 +254,7 @@ public class Pet_Hatching : Panel_Base
 
 
     /// <summary>
-    /// ¸ù¾İÏÂÀ­ÁĞ±íÑ¡ÖĞµÄ³èÎïµ°
+    /// æ ¹æ®ä¸‹æ‹‰åˆ—è¡¨é€‰ä¸­çš„å® ç‰©è›‹
     /// </summary>
     /// <param name="index"></param>
     private void OnHatching_Dropdown(int index)
@@ -263,7 +263,7 @@ public class Pet_Hatching : Panel_Base
 
     }    
     /// <summary>
-    /// ³õÊ¼»¯ÏÂÀ­ÁĞ±í
+    /// åˆå§‹åŒ–ä¸‹æ‹‰åˆ—è¡¨
     /// </summary>
     private void InitDropdown()
     {

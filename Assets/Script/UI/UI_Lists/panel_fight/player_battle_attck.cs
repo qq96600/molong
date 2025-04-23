@@ -7,7 +7,7 @@ public class player_battle_attck : BattleAttack
 {
 
     /// <summary>
-    /// ³õÊ¼»¯Õ½¶·×°±¸
+    /// åˆå§‹åŒ–æˆ˜æ–—è£…å¤‡
     /// </summary>
     /// <param name="skills"></param>
     public override void Refresh_Skill(List<skill_offect_item> skills)
@@ -23,7 +23,7 @@ public class player_battle_attck : BattleAttack
     public override void OnAuto()
     {
         base.OnAuto();
-        //ÅĞ¶Ï¼¼ÄÜ
+        //åˆ¤æ–­æŠ€èƒ½
         for (int i = 0; i < battle_skills.Count; i++)
         {
             if (battle_skills[i].IsState())
@@ -32,7 +32,7 @@ public class player_battle_attck : BattleAttack
                 {
                     skill_offect_item skill = battle_skills[i];
                     target.MP -= battle_skills[i].Data.skill_spell * target.maxMP / 100;
-                    //ÊÍ·Å¼¼ÄÜ
+                    //é‡Šæ”¾æŠ€èƒ½
                     BaseAttack(battle_skills[i].Data);
                     battle_skills[i].Battle();
                     battle_skills.RemoveAt(i);
@@ -41,17 +41,17 @@ public class player_battle_attck : BattleAttack
                 }
             }
         }
-        //player_move(¿ªÌì);
+        //player_move(å¼€å¤©);
         BaseAttack();
 
     }
     /// <summary>
-    /// ÊÍ·Å¼¼ÄÜ
+    /// é‡Šæ”¾æŠ€èƒ½
     /// </summary>
     /// <param name="data"></param>
     private void BaseAttack(base_skill_vo data)
     {
-        //ÊÍ·Å¼¼ÄÜ
+        //é‡Šæ”¾æŠ€èƒ½
         AttackStateMachine.Skill(data); 
         //skill_damage(data);
     }
@@ -60,7 +60,7 @@ public class player_battle_attck : BattleAttack
     //{
     //    float damage = 0f;
     //    BattleAttack monster = Terget.GetComponent<BattleAttack>();
-    //    if (monster.target.HP <= 0) return;//½áÕ½¶·
+    //    if (monster.target.HP <= 0) return;//ç»“æˆ˜æ–—
     //    if (Data.Type == 1)
     //    {
     //        damage = Random.Range(Data.damageMin, Data.damageMax) - Random.Range(monster.Data.DefMin, monster.Data.DefMax);
@@ -72,8 +72,8 @@ public class player_battle_attck : BattleAttack
     //    }
     //    if (Random.Range(0, 100) > Data.hit - monster.Data.dodge)
     //    {
-    //        //´«µİÏûÏ¢£¬Î´ÃüÖĞ;
-    //        monster.target.TakeDamage(1, DamageEnum.¼¼ÄÜÎ´ÃüÖĞ, monster);
+    //        //ä¼ é€’æ¶ˆæ¯ï¼Œæœªå‘½ä¸­;
+    //        monster.target.TakeDamage(1, DamageEnum.æŠ€èƒ½æœªå‘½ä¸­, monster);
     //        return;
     //    }
     //    damage = damage * (skill.skill_damage + (skill.skill_power * int.Parse(skill.user_values[1]))) / 100;
@@ -86,14 +86,14 @@ public class player_battle_attck : BattleAttack
     //    }
     //    damage = 100;
 
-    //    monster.target.TakeDamage(damage, isCrit ? DamageEnum.±©»÷¼¼ÄÜÉËº¦ : DamageEnum.¼¼ÄÜÉËº¦, monster);
+    //    monster.target.TakeDamage(damage, isCrit ? DamageEnum.æš´å‡»æŠ€èƒ½ä¼¤å®³ : DamageEnum.æŠ€èƒ½ä¼¤å®³, monster);
     //}
 
-    private void BaseAttack()//ÅĞ¶ÏÉËº¦
+    private void BaseAttack()//åˆ¤æ–­ä¼¤å®³
     {
         float damage = 0f;
         BattleAttack monster = Terget.GetComponent<BattleAttack>();
-        if (monster.target.HP <= 0) return;//½áÕ½¶·
+        if (monster.target.HP <= 0) return;//ç»“æˆ˜æ–—
         if (Data.Type == 1)
         {
             damage = Random.Range(Data.damageMin, Data.damageMax) - Random.Range(monster.Data.DefMin, monster.Data.DefMax);
@@ -105,8 +105,8 @@ public class player_battle_attck : BattleAttack
 
         if (Random.Range(0, 100) > Data.hit - monster.Data.dodge)
         {
-            //´«µİÏûÏ¢£¬Î´ÃüÖĞ;
-            monster.target.TakeDamage(1,DamageEnum.Î´ÃüÖĞ, monster);
+            //ä¼ é€’æ¶ˆæ¯ï¼Œæœªå‘½ä¸­;
+            monster.target.TakeDamage(1,DamageEnum.æœªå‘½ä¸­, monster);
             return;
         }
         bool isCrit = false;
@@ -117,8 +117,8 @@ public class player_battle_attck : BattleAttack
         }
         damage = 100;
 
-        Debug.Log("ÉËº¦" + damage);
-        monster.target.TakeDamage(damage, isCrit ? DamageEnum.±©»÷ÉËº¦ : DamageEnum.ÆÕÍ¨ÉËº¦, monster);
+        Debug.Log("ä¼¤å®³" + damage);
+        monster.target.TakeDamage(damage, isCrit ? DamageEnum.æš´å‡»ä¼¤å®³ : DamageEnum.æ™®é€šä¼¤å®³, monster);
     }
 
 }

@@ -7,11 +7,11 @@ using UnityEngine.UI;
 public class copies_item : Base_Mono
 {
     /// <summary>
-    /// ÏÔÊ¾Í¼Æ¬
+    /// æ˜¾ç¤ºå›¾ç‰‡
     /// </summary>
     private Image icon;
     /// <summary>
-    /// ÏÔÊ¾ĞÅÏ¢
+    /// æ˜¾ç¤ºä¿¡æ¯
     /// </summary>
     private Text info;
 
@@ -25,6 +25,6 @@ public class copies_item : Base_Mono
     public void Init(int _index)
     {
         index = _index;
-        info.text = "µÚ" + index + "¹Ø";
+        info.text = "ç¬¬" + index + "å…³";
     }
 }

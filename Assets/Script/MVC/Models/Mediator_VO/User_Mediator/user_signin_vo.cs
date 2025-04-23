@@ -8,15 +8,15 @@ using UnityEngine;
 public class user_signin_vo : Base_VO
 {
     /// <summary>
-    /// 上次签到时间
+    /// 涓婃绛惧埌鏃堕棿
     /// </summary>
     public DateTime now_time;
     /// <summary>
-    /// 签到数量
+    /// 绛惧埌鏁伴噺
     /// </summary>
     public int number;
     /// <summary>
-    /// 是否领取奖励
+    /// 鏄惁棰嗗彇濂栧姳
     /// </summary>
     private List<int> values = new List<int>();
 
@@ -41,7 +41,7 @@ public class user_signin_vo : Base_VO
         }
     }
     /// <summary>
-    /// 查看
+    /// 鏌ョ湅
     /// </summary>
     /// <returns></returns>
     public List<int> Set()
@@ -49,7 +49,7 @@ public class user_signin_vo : Base_VO
         return values;
     }
     /// <summary>
-    /// 获取编号
+    /// 鑾峰彇缂栧彿
     /// </summary>
     /// <param name="index"></param>
     public void Set(int index)

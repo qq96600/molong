@@ -6,11 +6,11 @@ using UnityEngine;
 public class db_signin_vo : Base_VO
 {
     /// <summary>
-    /// 签到天数
+    /// 绛惧埌澶╂暟
     /// </summary>
     public int index;
     /// <summary>
-    /// 奖励内容
+    /// 濂栧姳鍐呭
     /// </summary>
     public string value;
 }

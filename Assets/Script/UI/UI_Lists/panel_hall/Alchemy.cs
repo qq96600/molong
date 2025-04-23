@@ -7,40 +7,40 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 /// <summary>
-/// Á¶µ¤
+/// ç‚¼ä¸¹
 /// </summary>
 public class Alchemy : Base_Mono
 {
     /// <summary>
-    /// È¨ÖØÁĞ±í
+    /// æƒé‡åˆ—è¡¨
     /// </summary>
     private List<WeightedItem> eighteditems = new List<WeightedItem>();
     /// <summary>
-    /// Î»ÖÃÁĞ±í
+    /// ä½ç½®åˆ—è¡¨
     /// </summary>
     private Dictionary<string, Transform> pos_list = new Dictionary<string, Transform>();
     /// <summary>
-    /// ´«ÈëÏÔÊ¾±ê×¼
+    /// ä¼ å…¥æ˜¾ç¤ºæ ‡å‡†
     /// </summary>
     private Slider slider;
     /// <summary>
-    /// ÏÔÊ¾±ê×¼Öµ
+    /// æ˜¾ç¤ºæ ‡å‡†å€¼
     /// </summary>
     private Text slider_info;
     /// <summary>
-    /// Ñ¡ÔñÅä·½
+    /// é€‰æ‹©é…æ–¹
     /// </summary>
     private int select_formula = 0;
     /// <summary>
-    /// Î»ÖÃ
+    /// ä½ç½®
     /// </summary>
     private Transform pos_materials;
     /// <summary>
-    /// È·ÈÏ°´Å¥
+    /// ç¡®è®¤æŒ‰é’®
     /// </summary>
     private Button confirm;
     /// <summary>
-    /// »ñÈ¡ÁĞ±í
+    /// è·å–åˆ—è¡¨
     /// </summary>
     private Dropdown lists;
 
@@ -48,13 +48,13 @@ public class Alchemy : Base_Mono
 
     private material_item material_item_Prefabs;
     /// <summary>
-    /// Ñ¡ÔñÅä·½²ÄÁÏ
+    /// é€‰æ‹©é…æ–¹ææ–™
     /// </summary>
     private Dictionary<string,(string,int)> Select_Materials = new Dictionary<string, (string, int)>();
 
     private effect_gather effect_gather;
     /// <summary>
-    /// ÏÔÊ¾³É¹¦ÂÊ
+    /// æ˜¾ç¤ºæˆåŠŸç‡
     /// </summary>
     private Button show_Success_rate;
     private void Awake()
@@ -75,7 +75,7 @@ public class Alchemy : Base_Mono
         show_Success_rate.gameObject.SetActive(false);
     }
     /// <summary>
-    /// ÏÔÊ¾³É¹¦ÂÊ
+    /// æ˜¾ç¤ºæˆåŠŸç‡
     /// </summary>
     private void Show_Success_rate()
     {
@@ -89,23 +89,23 @@ public class Alchemy : Base_Mono
         {
             (string, List<string>) formula = SumSave.crt_seeds.Getformulalist()[select_formula - 1];
             db_seed_vo item = ArrayHelper.Find(SumSave.db_seeds, e => e.seed_formula == formula.Item1);
-            dec= item.pill + ":»ñÈ¡¸ÅÂÊ " + 100+"%\n";
+            dec= item.pill + ":è·å–æ¦‚ç‡ " + 100+"%\n";
         }
-        Alert.Show("Á¶µ¤¸ÅÂÊ", dec);
+        Alert.Show("ç‚¼ä¸¹æ¦‚ç‡", dec);
 
     }
 
     /// <summary>
-    /// ³õÊ¼»¯
+    /// åˆå§‹åŒ–
     /// </summary>
     /// <param name="value"></param>
     private void Open_Slider(float value)
     {
-        slider_info.text = "¿É×¢ÁéÌìÂéµ¤ " + slider.value + "£¨Max:" + slider.maxValue + ")";
+        slider_info.text = "å¯æ³¨çµå¤©éº»ä¸¹ " + slider.value + "ï¼ˆMax:" + slider.maxValue + ")";
     }
 
     /// <summary>
-    /// ºÏ³É
+    /// åˆæˆ
     /// </summary>
     private void btn_Confirm()
     {
@@ -113,7 +113,7 @@ public class Alchemy : Base_Mono
         {
             if (Select_Materials[item].Item2 == 0)
             {
-                Alert_Dec.Show("ÇëÑ¡ÔñËùÓĞ²ÄÁÏ");
+                Alert_Dec.Show("è¯·é€‰æ‹©æ‰€æœ‰ææ–™");
                 return;
             }
         }
@@ -128,7 +128,7 @@ public class Alchemy : Base_Mono
             effect_gather.OpenEffect_Gather((int)(slider.value * 10 / (slider.maxValue + 1)) + 1);
         }
         else
-            Alert_Dec.Show("²ÄÁÏ²»×ã");
+            Alert_Dec.Show("ææ–™ä¸è¶³");
     }
 
     protected void Confirm_Number(int number)
@@ -137,14 +137,14 @@ public class Alchemy : Base_Mono
         base_Show();
     }
     /// <summary>
-    /// ÅĞ¶ÏºÏ³É
+    /// åˆ¤æ–­åˆæˆ
     /// </summary>
     /// <param name="number"></param>
     private void synthesis(int number)
     {
-        // ´´½¨Ò»¸ö¼ÓÈ¨Ëæ»úÑ¡ÔñÆ÷
+        // åˆ›å»ºä¸€ä¸ªåŠ æƒéšæœºé€‰æ‹©å™¨
         WeightedRandomPicker picker = new WeightedRandomPicker(eighteditems);
-        // »ñÈ¡Ò»¸öËæ»úÎïÆ·
+        // è·å–ä¸€ä¸ªéšæœºç‰©å“
         WeightedItem selectedItem = picker.GetRandomItem();
         List<string> split = new List<string>();
         db_seed_vo item = ArrayHelper.Find(SumSave.db_seeds, e => e.pill == selectedItem.prizedraw);
@@ -154,11 +154,11 @@ public class Alchemy : Base_Mono
             (string, List<string>) formula = SumSave.crt_seeds.Getformulalist()[select_formula - 1];
             item = ArrayHelper.Find(SumSave.db_seeds, e => e.seed_formula == formula.Item1);
             lv += int.Parse(formula.Item2[0]);
-            //ÒÆ³ıµ¤·½
+            //ç§»é™¤ä¸¹æ–¹
             SumSave.crt_seeds.usedata(formula);
         }
         lv *= 10;
-        lv = lv > 100 ? 100 : lv;//×î´ó100
+        lv = lv > 100 ? 100 : lv;//æœ€å¤§100
         if (number >= 5)
         {
             (string, List<string>) formula = new (item.seed_formula, new List<string>());
@@ -169,17 +169,17 @@ public class Alchemy : Base_Mono
                 dec += (dec == "" ? "" : " ") + base_name.prizedraw;
             }
             formula.Item2.Add(dec);
-            //Ğ´Èëµ¤·½
+            //å†™å…¥ä¸¹æ–¹
             SumSave.crt_seeds.Setformula(formula);
-            Alert_Dec.Show("»ñµÃ "+lv+" ¼¶µ¤·½ " + item.seed_formula);
+            Alert_Dec.Show("è·å¾— "+lv+" çº§ä¸¹æ–¹ " + item.seed_formula);
         }
         split = crate_seed(item, split, lv);
         SumSave.crt_seeds.Set(split);
-        Alert_Dec.Show("»ñµÃµ¤Ò© " + split[0]);
+        Alert_Dec.Show("è·å¾—ä¸¹è¯ " + split[0]);
         Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_seed, SumSave.crt_seeds.Set_Uptade_String(), SumSave.crt_seeds.Get_Update_Character());
     }
     /// <summary>
-    /// Éú³ÉÅä·½
+    /// ç”Ÿæˆé…æ–¹
     /// </summary>
     /// <param name="item"></param>
     /// <param name="split"></param>
@@ -200,7 +200,7 @@ public class Alchemy : Base_Mono
         base_Show();
     }
     /// <summary>
-    /// »ñÈ¡Î»ÖÃ
+    /// è·å–ä½ç½®
     /// </summary>
     /// <param name="pos"></param>
     protected void Init_Pos(Alchemy_button_pos_item pos)
@@ -210,11 +210,11 @@ public class Alchemy : Base_Mono
     }
     private void base_Show()
     {
-        for (int i = pos_materials.childCount - 1; i >= 0; i--)//Çå¿ÕÇøÓòÄÚ°´Å¥
+        for (int i = pos_materials.childCount - 1; i >= 0; i--)//æ¸…ç©ºåŒºåŸŸå†…æŒ‰é’®
         {
             Destroy(pos_materials.GetChild(i).gameObject);
         }
-        //Çå¿ÕÁĞ±í
+        //æ¸…ç©ºåˆ—è¡¨
         foreach (var item in pos_list.Keys)
         {
             for (int i = 0; i < pos_list[item].childCount; i++)
@@ -230,7 +230,7 @@ public class Alchemy : Base_Mono
         {
             Select_Materials[item]= (item, 0);
         }
-        Dropdown_lists.Add("ÇëÑ¡ÔñÅä·½");
+        Dropdown_lists.Add("è¯·é€‰æ‹©é…æ–¹");
         List<(string, int)> list = new List<(string, int)>();
         list=SumSave.crt_bag_resources.Set();
         for (int i = 0; i < list.Count; i++)
@@ -238,7 +238,7 @@ public class Alchemy : Base_Mono
            Bag_Base_VO item=ArrayHelper.Find(SumSave.db_stditems,e=> e.Name== list[i].Item1);
             if (item != null)
             {
-                if (item.StdMode == EquipConfigTypeList.Á¶µ¤²ÄÁÏ.ToString())
+                if (item.StdMode == EquipConfigTypeList.ç‚¼ä¸¹ææ–™.ToString())
                 { 
                     material_item item1 = Instantiate(material_item_Prefabs, pos_materials);
                     item1.Init(list[i]);
@@ -251,7 +251,7 @@ public class Alchemy : Base_Mono
         {
             for (int i = 0; i < formulalist.Count; i++)
             {
-                Dropdown_lists.Add(formulalist[i].Item2[0] + "¼¶" + formulalist[i].Item1);
+                Dropdown_lists.Add(formulalist[i].Item2[0] + "çº§" + formulalist[i].Item1);
             }
         }
         if (Dropdown_lists.Count > 0)
@@ -264,17 +264,17 @@ public class Alchemy : Base_Mono
         lists.onValueChanged.AddListener(OnValueChange);
     }
     /// <summary>
-    /// Ñ¡ÔñÅä·½
+    /// é€‰æ‹©é…æ–¹
     /// </summary>
     /// <param name="arg0"></param>
     private void OnValueChange(int arg0)
     {
-        Alert_Dec.Show("µ±Ç°Ñ¡ÔñÅä·½" + Dropdown_lists[arg0]);
+        Alert_Dec.Show("å½“å‰é€‰æ‹©é…æ–¹" + Dropdown_lists[arg0]);
         select_formula = arg0;
         Select_Formula();
     }
     /// <summary>
-    /// Ëø¶¨Åä·½
+    /// é”å®šé…æ–¹
     /// </summary>
     private void Select_Formula()
     {
@@ -306,7 +306,7 @@ public class Alchemy : Base_Mono
         Show_Slider();
     }
     /// <summary>
-    /// È¨ÖØ±í
+    /// æƒé‡è¡¨
     /// </summary>
     /// <param name="seed_name"></param>
     /// <param name="weight"></param>
@@ -319,7 +319,7 @@ public class Alchemy : Base_Mono
     }
 
     /// <summary>
-    /// Ñ¡Ôñ²ÄÁÏ
+    /// é€‰æ‹©ææ–™
     /// </summary>
     /// <param name="item1"></param>
     private void btn_Select_Material(material_item item1)
@@ -343,16 +343,16 @@ public class Alchemy : Base_Mono
                         Show_Slider();
                         return;
                     }
-                    else Alert_Dec.Show("µ±Ç°²ÄÁÏ²»×ã");
+                    else Alert_Dec.Show("å½“å‰ææ–™ä¸è¶³");
                 }
             }
-            Alert_Dec.Show("µ±Ç°²ÄÁÏÎ»ÒÑÂú");
+            Alert_Dec.Show("å½“å‰ææ–™ä½å·²æ»¡");
         }
-        else Alert_Dec.Show("µ±Ç°ÒÑËø¶¨Åä·½");
+        else Alert_Dec.Show("å½“å‰å·²é”å®šé…æ–¹");
 
     }
     /// <summary>
-    /// ¹Ø±Õ²ÄÁÏ
+    /// å…³é—­ææ–™
     /// </summary>
     /// <param name="material_Item"></param>
     private void close_Select_Material(string pos)
@@ -361,7 +361,7 @@ public class Alchemy : Base_Mono
         { 
             Destroy(pos_list[pos].GetChild(i).gameObject);
         }
-        for (int i = pos_materials.childCount - 1; i >= 0; i--)//Çå¿ÕÇøÓòÄÚ°´Å¥
+        for (int i = pos_materials.childCount - 1; i >= 0; i--)//æ¸…ç©ºåŒºåŸŸå†…æŒ‰é’®
         {
             material_item item = pos_materials.GetChild(i).GetComponent<material_item>();
             if (item != null)
@@ -379,7 +379,7 @@ public class Alchemy : Base_Mono
     }
 
     /// <summary>
-    /// ÏÔÊ¾±ê¼Ç
+    /// æ˜¾ç¤ºæ ‡è®°
     /// </summary>
     private void Show_Slider()
     {
@@ -405,7 +405,7 @@ public class Alchemy : Base_Mono
             slider.gameObject.SetActive(true);
             slider.maxValue = number;
             slider.value = 0;
-            slider_info.text="¿É×¢ÁéÌìÂéµ¤ "+slider.value+ "£¨Max:"+slider.maxValue+")";
+            slider_info.text="å¯æ³¨çµå¤©éº»ä¸¹ "+slider.value+ "ï¼ˆMax:"+slider.maxValue+")";
         }
     }
 }

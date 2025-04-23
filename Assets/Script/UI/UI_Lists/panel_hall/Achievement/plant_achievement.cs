@@ -8,65 +8,65 @@ using UI;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum Achieve_Type//³É¾ÍÀàĞÍÃ¶¾Ù
+public enum Achieve_Type//æˆå°±ç±»å‹æšä¸¾
 {
-    ÊÕ¼¯ÏµÁĞ = 1,
-    »÷É±ÏµÁĞ ,
+    æ”¶é›†ç³»åˆ— = 1,
+    å‡»æ€ç³»åˆ— ,
 
 }
 
 public class plant_achievement : Base_Mono
 {
     /// <summary>
-    /// ÏÔÊ¾¾ßÌåÖµ
+    /// æ˜¾ç¤ºå…·ä½“å€¼
     /// </summary>
     private Image show_offect;
     /// <summary>
-    /// ÏÔÊ¾³É¾ÍÃû³Æ
+    /// æ˜¾ç¤ºæˆå°±åç§°
     /// </summary>
     private Text show_name, show_info;
     /// <summary>
-    /// ÁìÈ¡½±Àø°´Å¥
+    /// é¢†å–å¥–åŠ±æŒ‰é’®
     /// </summary>
     private Button btn_receive;
    
 
     /// <summary>
-    /// ³É¾ÍÎ»ÖÃ
+    /// æˆå°±ä½ç½®
     /// </summary>
     public Transform crt;
     /// <summary>
-    /// ¾ßÌå³É¾Í
+    /// å…·ä½“æˆå°±
     /// </summary>
     public ach_item Achieve_Item_Prefab;
     /// <summary>
-    /// µ±Ç°³É¾Í
+    /// å½“å‰æˆå°±
     /// </summary>
     private ach_item crt_achieve_Item;
     /// <summary>
-    /// ³É¾ÍÀàĞÍÔ¤ÖÆÌå
+    /// æˆå°±ç±»å‹é¢„åˆ¶ä½“
     /// </summary>
     public btn_item Achieve_Type_Prefab;
     /// <summary>
-    /// µ±Ç°Ñ¡Ôñ³É¾ÍÀàĞÍ
+    /// å½“å‰é€‰æ‹©æˆå°±ç±»å‹
     /// </summary>
     private btn_item crt_type;
     /// <summary>
-    /// ´æ´¢×Öµä
+    /// å­˜å‚¨å­—å…¸
     /// </summary>
     private new Dictionary<btn_item, List<ach_item>> dic = new Dictionary<btn_item, List<ach_item>>();
     /// <summary>
-    /// ×ÔÉí¾­ÑéÖµ
+    /// è‡ªèº«ç»éªŒå€¼
     /// </summary>
     private Dictionary<string, int> dic_exp = new Dictionary<string, int>();
     private Dictionary<string, Dictionary<int, int>> dic_exchange = new Dictionary<string, Dictionary<int, int>>();
     /// <summary>
-    /// ×ÔÉíµÈ¼¶
+    /// è‡ªèº«ç­‰çº§
     /// </summary>
     private Dictionary<string, int> dic_lv = new Dictionary<string, int>();
     
     /// <summary>
-    /// ¹Ø±Õ°´Å¥
+    /// å…³é—­æŒ‰é’®
     /// </summary>
     private Button close;
 
@@ -88,7 +88,7 @@ public class plant_achievement : Base_Mono
     }
 
     /// <summary>
-    /// ³É¾ÍĞÅÏ¢À¸µã»÷ÆäËûÇøÓò¹Ø±Õ
+    /// æˆå°±ä¿¡æ¯æ ç‚¹å‡»å…¶ä»–åŒºåŸŸå…³é—­
     /// </summary>
     private void Close()
     {
@@ -97,7 +97,7 @@ public class plant_achievement : Base_Mono
     }
 
     /// <summary>
-    /// µã»÷°´Å¥ÁìÈ¡½±Àø
+    /// ç‚¹å‡»æŒ‰é’®é¢†å–å¥–åŠ±
     /// </summary>
     private void Receive()
     {
@@ -106,19 +106,19 @@ public class plant_achievement : Base_Mono
         {
             if (lv >= crt_achieve_Item.Data.achievement_needs.Count)
             {
-                Alert_Dec.Show("µ±Ç°½×¶ÎÒÑÂú");
+                Alert_Dec.Show("å½“å‰é˜¶æ®µå·²æ»¡");
                 return;
             }
             if (crt_achieve_Item.Data.achievement_needs[lv] > dic_exp[crt_achieve_Item.Data.achievement_value])
             {
-                Alert_Dec.Show("Î´´ïµ½ÁìÈ¡Ìõ¼ş");
+                Alert_Dec.Show("æœªè¾¾åˆ°é¢†å–æ¡ä»¶");
                 return;
             }
         }
         dic_lv[crt_achieve_Item.Data.achievement_value]++;
         string[] temp = crt_achieve_Item.Data.achievement_rewards[lv].Split(' ');
         Battle_Tool.Obtain_Resources(temp[1], int .Parse( temp[2]));
-        Alert_Dec.Show("ÁìÈ¡³É¹¦");
+        Alert_Dec.Show("é¢†å–æˆåŠŸ");
         show_offect.gameObject.SetActive(false);
         crt_achieve_Item.Init(); 
     }
@@ -129,31 +129,31 @@ public class plant_achievement : Base_Mono
 
 
     /// <summary>
-    /// ³õÊ¼»¯³É¾ÍÁĞ±í
+    /// åˆå§‹åŒ–æˆå°±åˆ—è¡¨
     /// </summary>
     private void Insace_Base_Info()
     {
-        for (int i = 0; i < Enum.GetNames(typeof(Achieve_Type)).Length; i++)//¸ü¾ßÃ¶¾Ù´´½¨³É¾ÍÀàĞÍ
+        for (int i = 0; i < Enum.GetNames(typeof(Achieve_Type)).Length; i++)//æ›´å…·æšä¸¾åˆ›å»ºæˆå°±ç±»å‹
         {
-            btn_item temp = Instantiate(Achieve_Type_Prefab, crt);//ÊµÀı»¯
-            temp.Show(i,(Achieve_Type)(i + 1));//ÏÔÊ¾±êÌâĞÅÏ¢
-            for (int j = 0; j < SumSave.db_Achievement_dic.Count; j++)//³É¾ÍÊı¾İ¿â
+            btn_item temp = Instantiate(Achieve_Type_Prefab, crt);//å®ä¾‹åŒ–
+            temp.Show(i,(Achieve_Type)(i + 1));//æ˜¾ç¤ºæ ‡é¢˜ä¿¡æ¯
+            for (int j = 0; j < SumSave.db_Achievement_dic.Count; j++)//æˆå°±æ•°æ®åº“
             {
-                if (SumSave.db_Achievement_dic[j].achievement_type == i + 1)//ÅĞ¶ÏÊÇ·ñÔÚµ±Ç°ÀàĞÍ
+                if (SumSave.db_Achievement_dic[j].achievement_type == i + 1)//åˆ¤æ–­æ˜¯å¦åœ¨å½“å‰ç±»å‹
                 {
-                    ach_item item = Instantiate(Achieve_Item_Prefab, crt);//ÊµÀı»¯¾ßÌå³É¾Í
-                    item.Data = SumSave.db_Achievement_dic[j];//»ñÈ¡³É¾ÍĞÅÏ¢
-                    //¶ÁÈ¡Êı¾İ
-                    if (!dic.ContainsKey(temp)) dic.Add(temp, new List<ach_item>());//ÅĞ¶Ï×ÖµäÀïÊÇ·ñÒÑ¾­´æÔÚ
+                    ach_item item = Instantiate(Achieve_Item_Prefab, crt);//å®ä¾‹åŒ–å…·ä½“æˆå°±
+                    item.Data = SumSave.db_Achievement_dic[j];//è·å–æˆå°±ä¿¡æ¯
+                    //è¯»å–æ•°æ®
+                    if (!dic.ContainsKey(temp)) dic.Add(temp, new List<ach_item>());//åˆ¤æ–­å­—å…¸é‡Œæ˜¯å¦å·²ç»å­˜åœ¨
                     dic[temp].Add(item);
-                    item.GetComponent<Button>().onClick.AddListener(() => { Select_Achieve(item); });//¾ßÌå³É¾Íµã»÷ÊÂ¼ş
+                    item.GetComponent<Button>().onClick.AddListener(() => { Select_Achieve(item); });//å…·ä½“æˆå°±ç‚¹å‡»äº‹ä»¶
                 }
             }
-            temp.GetComponent<Button>().onClick.AddListener(() => { Select_Type(temp); });//³É¾ÍÀàĞÍµã»÷ÊÂ¼ş
+            temp.GetComponent<Button>().onClick.AddListener(() => { Select_Type(temp); });//æˆå°±ç±»å‹ç‚¹å‡»äº‹ä»¶
         }
         foreach (btn_item item in dic.Keys)
         {
-            foreach (ach_item crt_item in dic[item])//¹Ø±ÕËùÒÔ¾ßÌå³É¾Í
+            foreach (ach_item crt_item in dic[item])//å…³é—­æ‰€ä»¥å…·ä½“æˆå°±
             {
                 crt_item.gameObject.SetActive(false);
             }
@@ -161,7 +161,7 @@ public class plant_achievement : Base_Mono
     }
 
     /// <summary>
-    /// ¶ÁÈ¡³É¾Í
+    /// è¯»å–æˆå°±
     /// </summary>
     /// <param name="item"></param>
     private void Select_Achieve(ach_item item)
@@ -173,7 +173,7 @@ public class plant_achievement : Base_Mono
         Show_Dec();
     }
     /// <summary>
-    /// ÏÔÊ¾³É¾ÍÃèÊö
+    /// æ˜¾ç¤ºæˆå°±æè¿°
     /// </summary>
     private void Show_Dec()
     {
@@ -185,34 +185,34 @@ public class plant_achievement : Base_Mono
             int max = (int)MathF.Min(dic_lv[crt_achieve_Item.Data.achievement_value], crt_achieve_Item.Data.achievement_needs.Count);
             for (int i = 0; i < max; i++)
             {
-                dec += "\n" + Show_Color.Green(InSetInfo(i) + "(ÒÑÁìÈ¡)");
+                dec += "\n" + Show_Color.Green(InSetInfo(i) + "(å·²é¢†å–)");
             }
         }
         if (dic_lv[crt_achieve_Item.Data.achievement_value] < crt_achieve_Item.Data.achievement_needs.Count)
         {
             int number = dic_lv[crt_achieve_Item.Data.achievement_value];
-            dec += "\nLv" + (number + 1) + ".³É¾Í½×¶Î " + dic_exp[crt_achieve_Item.Data.achievement_value] + "/" + crt_achieve_Item.Data.achievement_needs[number];
-            dec += "\n½±Àø " + Show_Color.Yellow(InSetInfo(number));
+            dec += "\nLv" + (number + 1) + ".æˆå°±é˜¶æ®µ " + dic_exp[crt_achieve_Item.Data.achievement_value] + "/" + crt_achieve_Item.Data.achievement_needs[number];
+            dec += "\nå¥–åŠ± " + Show_Color.Yellow(InSetInfo(number));
         }
         show_info.text = dec;
     }
     /// <summary>
-    /// Ñ¡Ôñ³É¾ÍÀàĞÍ
+    /// é€‰æ‹©æˆå°±ç±»å‹
     /// </summary>
     /// <param name="temp"></param>
     private void Select_Type(btn_item temp)
     {
         if (crt_type != null)
         {
-            if (crt_type == temp)//ÅĞ¶ÏÊÇ·ñÎªµ±Ç°Ñ¡ÔñÀàĞÍ
+            if (crt_type == temp)//åˆ¤æ–­æ˜¯å¦ä¸ºå½“å‰é€‰æ‹©ç±»å‹
             {
-                if (!temp.Active())//ÅĞ¶ÏÊÇ·ñ¼¤»î
+                if (!temp.Active())//åˆ¤æ–­æ˜¯å¦æ¿€æ´»
                 {
                     crt_type.Selected = true;
                     foreach (ach_item item in dic[crt_type])
                     {
-                        item.gameObject.SetActive(crt_type.Active());//ÅĞ¶ÏÊÇ·ñĞèÒª¼¤»î
-                        item.Init();//³õÊ¼»¯
+                        item.gameObject.SetActive(crt_type.Active());//åˆ¤æ–­æ˜¯å¦éœ€è¦æ¿€æ´»
+                        item.Init();//åˆå§‹åŒ–
                     }
 
                 }
@@ -228,21 +228,21 @@ public class plant_achievement : Base_Mono
             }
 
             crt_type.Selected = false;
-            foreach (ach_item item in dic[crt_type])//²»ÊÇµ±Ç°Ñ¡ÔñÀàĞÍ¹Ø±Õ
+            foreach (ach_item item in dic[crt_type])//ä¸æ˜¯å½“å‰é€‰æ‹©ç±»å‹å…³é—­
             {
                 item.gameObject.SetActive(crt_type.Active());
             }
         }
-        crt_type = temp;//¸üĞÂµ±Ç°Ñ¡ÔñÀàĞÍ
-        crt_type.Selected = true;//Ñ¡ÖĞ×´Ì¬
-        foreach (ach_item item in dic[crt_type])//´ò¿ª²¢ÇÒ³õÊ¼»¯item
+        crt_type = temp;//æ›´æ–°å½“å‰é€‰æ‹©ç±»å‹
+        crt_type.Selected = true;//é€‰ä¸­çŠ¶æ€
+        foreach (ach_item item in dic[crt_type])//æ‰“å¼€å¹¶ä¸”åˆå§‹åŒ–item
         {
             item.gameObject.SetActive(crt_type.Active());
             item.Init();
         }
     }
     /// <summary>
-    /// »ñÈ¡½±Àø
+    /// è·å–å¥–åŠ±
     /// </summary>
     /// <param name="i"></param>
     private string InSetInfo(int i)
@@ -253,48 +253,48 @@ public class plant_achievement : Base_Mono
         ////dec += (Achieve_Rewards_Type)int.Parse(temp[0]) + " ";
         //switch ((Achieve_Rewards_Type)int.Parse(temp[0]))
         //{
-        //    case Achieve_Rewards_Type.Bossµã: dec += "Bossµã +" + temp[1]; break;
-        //    case Achieve_Rewards_Type.×°±¸: dec += "×°±¸ +" + temp[1]; break;
-        //    case Achieve_Rewards_Type.½ğ±Ò: dec += "½ğ±Ò +" + temp[1] + "w"; break;
-        //    case Achieve_Rewards_Type.²ÄÁÏ: dec += temp[1] + " * " + temp[2]; break;
-        //    case Achieve_Rewards_Type.ÉËº¦¼õÃâ: dec += (temp[1] == "1" ? "¼õÉÙÎïÀíÉËº¦" : "¼õÉÙÄ§·¨ÉËº¦") + " + " + temp[2] + "%"; break;
-        //    case Achieve_Rewards_Type.ÌåÁ¦: dec += (temp[1] == "1" ? "ÉúÃü" : "Ä§·¨") + " + " + temp[2]; break;
-        //    case Achieve_Rewards_Type.ÔªËØ¼Ó³É:
+        //    case Achieve_Rewards_Type.Bossç‚¹: dec += "Bossç‚¹ +" + temp[1]; break;
+        //    case Achieve_Rewards_Type.è£…å¤‡: dec += "è£…å¤‡ +" + temp[1]; break;
+        //    case Achieve_Rewards_Type.é‡‘å¸: dec += "é‡‘å¸ +" + temp[1] + "w"; break;
+        //    case Achieve_Rewards_Type.ææ–™: dec += temp[1] + " * " + temp[2]; break;
+        //    case Achieve_Rewards_Type.ä¼¤å®³å‡å…: dec += (temp[1] == "1" ? "å‡å°‘ç‰©ç†ä¼¤å®³" : "å‡å°‘é­”æ³•ä¼¤å®³") + " + " + temp[2] + "%"; break;
+        //    case Achieve_Rewards_Type.ä½“åŠ›: dec += (temp[1] == "1" ? "ç”Ÿå‘½" : "é­”æ³•") + " + " + temp[2]; break;
+        //    case Achieve_Rewards_Type.å…ƒç´ åŠ æˆ:
         //        {
-        //            if (temp[1] == "1") dec += "¹¥»÷ÉËº¦ + " + temp[2] + "%";
-        //            else if (temp[1] == "2") dec += "±©»÷ÂÊ + " + temp[2] + "%";
-        //            else if (temp[1] == "3") dec += "±©»÷ÉËº¦ + " + temp[2] + "%";
-        //            else if (temp[1] == "4") dec += "¹¥»÷ËÙ¶È + " + temp[2] + "";
-        //            else if (temp[1] == "5") dec += "ÃüÖĞ + " + temp[2] + "";
+        //            if (temp[1] == "1") dec += "æ”»å‡»ä¼¤å®³ + " + temp[2] + "%";
+        //            else if (temp[1] == "2") dec += "æš´å‡»ç‡ + " + temp[2] + "%";
+        //            else if (temp[1] == "3") dec += "æš´å‡»ä¼¤å®³ + " + temp[2] + "%";
+        //            else if (temp[1] == "4") dec += "æ”»å‡»é€Ÿåº¦ + " + temp[2] + "";
+        //            else if (temp[1] == "5") dec += "å‘½ä¸­ + " + temp[2] + "";
         //        }
         //        break;
-        //    case Achieve_Rewards_Type.Õ½Á¦:
-        //        if (temp[1] == "1") dec += "ÎïÀí·ÀÓù + " + temp[2] + "";
-        //        else if (temp[1] == "2") dec += "Ä§·¨·ÀÓù + " + temp[2] + "";
-        //        else if (temp[1] == "3") dec += "Îï¹¥ + " + temp[2] + "";
-        //        else if (temp[1] == "4") dec += "Ä§¹¥ + " + temp[2] + "";
-        //        else if (temp[1] == "5") dec += "µÀÊõ + " + temp[2] + "";
+        //    case Achieve_Rewards_Type.æˆ˜åŠ›:
+        //        if (temp[1] == "1") dec += "ç‰©ç†é˜²å¾¡ + " + temp[2] + "";
+        //        else if (temp[1] == "2") dec += "é­”æ³•é˜²å¾¡ + " + temp[2] + "";
+        //        else if (temp[1] == "3") dec += "ç‰©æ”» + " + temp[2] + "";
+        //        else if (temp[1] == "4") dec += "é­”æ”» + " + temp[2] + "";
+        //        else if (temp[1] == "5") dec += "é“æœ¯ + " + temp[2] + "";
 
         //        break;
-        //    case Achieve_Rewards_Type.Òì³£¿¹ĞÔ:
-        //        if (temp[1] == "1") dec += "±©»÷µÖ¿¹ + " + temp[2] + "%";
-        //        else if (temp[1] == "2") dec += "±¬ÉËµÖ¿¹ + " + temp[2] + "%";
+        //    case Achieve_Rewards_Type.å¼‚å¸¸æŠ—æ€§:
+        //        if (temp[1] == "1") dec += "æš´å‡»æŠµæŠ— + " + temp[2] + "%";
+        //        else if (temp[1] == "2") dec += "çˆ†ä¼¤æŠµæŠ— + " + temp[2] + "%";
         //        break;
 
-        //    case Achieve_Rewards_Type.×£¸£:
-        //        if (temp[1] == "1") dec += "ĞÒÔË + " + temp[2] + "";
+        //    case Achieve_Rewards_Type.ç¥ç¦:
+        //        if (temp[1] == "1") dec += "å¹¸è¿ + " + temp[2] + "";
         //        break;
-        //    case Achieve_Rewards_Type.»Ø¸´ÄÜÁ¦:
-        //        if (temp[1] == "1") dec += "ÉúÃü»Ø¸´ + " + temp[2] + "";
-        //        else if (temp[1] == "2") dec += "Ä§·¨»Ø¸´ + " + temp[2] + "";
+        //    case Achieve_Rewards_Type.å›å¤èƒ½åŠ›:
+        //        if (temp[1] == "1") dec += "ç”Ÿå‘½å›å¤ + " + temp[2] + "";
+        //        else if (temp[1] == "2") dec += "é­”æ³•å›å¤ + " + temp[2] + "";
 
         //        break;
-        //    case Achieve_Rewards_Type.¼¼ÄÜ¼Ó³É:
-        //        dec += (Skill_List)(int.Parse(temp[1])) + " ¼¼ÄÜĞ§¹û + " + temp[2] + "%";
+        //    case Achieve_Rewards_Type.æŠ€èƒ½åŠ æˆ:
+        //        dec += (Skill_List)(int.Parse(temp[1])) + " æŠ€èƒ½æ•ˆæœ + " + temp[2] + "%";
         //        break;
 
-        //    case Achieve_Rewards_Type.ÁìÓò¼Ó³É:
-        //        dec += (Skill_List)(int.Parse(temp[1])) + " ÁìÓòÉËº¦ + " + temp[2] + "";
+        //    case Achieve_Rewards_Type.é¢†åŸŸåŠ æˆ:
+        //        dec += (Skill_List)(int.Parse(temp[1])) + " é¢†åŸŸä¼¤å®³ + " + temp[2] + "";
         //        break;
 
         //}

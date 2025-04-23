@@ -6,36 +6,36 @@ using UnityEngine;
 public class db_collect_vo : Base_VO
 {
     /// <summary>
-    /// ĞèÒªÊÕ¼¯ÎïÆ·µÄÃû×Ö
+    /// éœ€è¦æ”¶é›†ç‰©å“çš„åå­—
     /// </summary>
     public string Name;
 
     /// <summary>
-    /// ĞèÒªÊÕ¼¯ÎïÆ·µÄÀàĞÍ
+    /// éœ€è¦æ”¶é›†ç‰©å“çš„ç±»å‹
     /// </summary>
     public string StdMode;
 
     /// <summary>
-    /// ÊÕ¼¯Íê³ÉÔö¼ÓµÄÊôĞÔ
+    /// æ”¶é›†å®Œæˆå¢åŠ çš„å±æ€§
     /// </summary>
     public string bonuses_type;
 
     /// <summary>
-    /// ÊÕ¼¯Íê³ÉÔö¼ÓµÄÊôĞÔÊı×é
+    /// æ”¶é›†å®Œæˆå¢åŠ çš„å±æ€§æ•°ç»„
     /// </summary>
     public string[] bonuses_types;
 
     /// <summary>
-    /// ÊÕ¼¯Íê³ÉÔö¼ÓµÄÊôĞÔÖµ
+    /// æ”¶é›†å®Œæˆå¢åŠ çš„å±æ€§å€¼
     /// </summary>
     public string bonuses_value;
 
     /// <summary>
-    /// ÊÕ¼¯Íê³ÉÔö¼ÓµÄÊôĞÔÖµÊı×é
+    /// æ”¶é›†å®Œæˆå¢åŠ çš„å±æ€§å€¼æ•°ç»„
     /// </summary>
     public string[] bonuses_values;
     /// <summary>
-    /// ÎïÆ·ÊÇ·ñ±»ÊÕ¼¯ 0£ºÎ´ÊÕ¼¯ 1£ºÒÑÊÕ¼¯
+    /// ç‰©å“æ˜¯å¦è¢«æ”¶é›† 0ï¼šæœªæ”¶é›† 1ï¼šå·²æ”¶é›†
     /// </summary>
     public int isCollect = 0;
     public void Init()

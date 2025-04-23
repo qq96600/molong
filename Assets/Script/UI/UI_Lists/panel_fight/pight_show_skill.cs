@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class pight_show_skill : Base_Mono
 {
     /// <summary>
-    /// 功能按键
+    /// 鍔熻兘鎸夐敭
     /// </summary>
     private Transform crt_attack_skill, crt_special_skill;
     private skill_offect_item skill_item_parfabs;
@@ -42,7 +42,7 @@ public class pight_show_skill : Base_Mono
             {
                 if (int.Parse(SumSave.crt_skills[i].user_values[2]) == attack_numbers[j])
                 {
-                    if ((skill_btn_list)SumSave.crt_skills[i].skill_type == skill_btn_list.战斗)
+                    if ((skill_btn_list)SumSave.crt_skills[i].skill_type == skill_btn_list.鎴樻枟)
                     {
                         skill_offect_item item = Instantiate(skill_item_parfabs, crt_attack_skill);
                         item.Data = SumSave.crt_skills[i];
@@ -62,7 +62,7 @@ public class pight_show_skill : Base_Mono
             {
                 if (int.Parse(SumSave.crt_skills[i].user_values[2]) == special_numbers[j])
                 {
-                    if ((skill_btn_list)SumSave.crt_skills[i].skill_type == skill_btn_list.秘笈)
+                    if ((skill_btn_list)SumSave.crt_skills[i].skill_type == skill_btn_list.绉樼瑘)
                     {
                         skill_offect_item item = Instantiate(skill_item_parfabs, crt_special_skill);
                         item.Data = SumSave.crt_skills[i];

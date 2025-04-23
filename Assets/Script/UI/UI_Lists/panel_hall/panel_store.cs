@@ -12,75 +12,75 @@ using UnityEngine.UI;
 public class panel_store : Base_Mono
 {
     /// <summary>
-    /// ÉÌµêÀàĞÍ¸¸ÎïÌå
+    /// å•†åº—ç±»å‹çˆ¶ç‰©ä½“
     /// </summary>
     private Transform store_type; 
     /// <summary>
-    /// ÉÌµêÀàĞÍÃû×Ö
+    /// å•†åº—ç±»å‹åå­—
     /// </summary>
-    private string[] type_name = { "µÀ¾ß", "ÏŞ¹º", "ÀëÏß" };
+    private string[] type_name = { "é“å…·", "é™è´­", "ç¦»çº¿" };
     /// <summary>
-    /// ÉÌµêÀàĞÍ°´Å¥
+    /// å•†åº—ç±»å‹æŒ‰é’®
     /// </summary>
     private btn_item btn_item;
     /// <summary>
-    /// ÉÌµêÄÚÎïÆ·¸¸ÎïÌå
+    /// å•†åº—å†…ç‰©å“çˆ¶ç‰©ä½“
     /// </summary>
     private Transform store_item;
     /// <summary>
-    /// ÉÌµêÄÚÎïÆ·Ô¤ÖÆÌå
+    /// å•†åº—å†…ç‰©å“é¢„åˆ¶ä½“
     /// </summary>
     private material_item material_item;
     /// <summary>
-    /// ÉÌµêÔ¤ÖÆÌå
+    /// å•†åº—é¢„åˆ¶ä½“
     /// </summary>
     private store_item store_item_Prefabs;
     /// <summary>
-    /// µ±Ç°ÉÌµêÎïÆ·×Öµä
+    /// å½“å‰å•†åº—ç‰©å“å­—å…¸
     /// </summary>
     private Dictionary<string, db_store_vo> items_dic = new Dictionary<string, db_store_vo>();
     /// <summary>
-    /// µ±Ç°ÉÌµêÎïÆ·ÁĞ±í
+    /// å½“å‰å•†åº—ç‰©å“åˆ—è¡¨
     /// </summary>
     private List<db_store_vo> items_list = new List<db_store_vo>();
     /// <summary>
-    /// ÉÌµêÎïÆ·¹ºÂò½çÃæ
+    /// å•†åº—ç‰©å“è´­ä¹°ç•Œé¢
     /// </summary>
     private Transform store_item_info;
     /// <summary>
-    /// ÉÌÆ·ÊäÈëµÄÊıÁ¿
+    /// å•†å“è¾“å…¥çš„æ•°é‡
     /// </summary>
     private TMP_InputField inputField;
     /// <summary>
-    /// ¹ºÂò½çÃæ±êÌâ
+    /// è´­ä¹°ç•Œé¢æ ‡é¢˜
     /// </summary>
     private Text buy_item_Title;
     /// <summary>
-    /// ¹ºÂò°´Å¥
+    /// è´­ä¹°æŒ‰é’®
     /// </summary>
     private Button buy_btn;
     /// <summary>
-    /// Ò»´ÎĞÔ¹ºÂòÉÌÆ·µÄ×î´ó³¤¶È
+    /// ä¸€æ¬¡æ€§è´­ä¹°å•†å“çš„æœ€å¤§é•¿åº¦
     /// </summary>
     private int maxLength=3;
     /// <summary>
-    /// ¹ºÂòÉÌÆ·µÄ×î´óÊıÁ¿
+    /// è´­ä¹°å•†å“çš„æœ€å¤§æ•°é‡
     /// </summary>
     private int max_num = 99;
     /// <summary>
-    /// Íæ¼ÒĞèÒª¹ºÂòµÄÊıÁ¿
+    /// ç©å®¶éœ€è¦è´­ä¹°çš„æ•°é‡
     /// </summary>
     private int buy_num = 1;
     /// <summary>
-    /// µ±Ç°Ñ¡ÔñµÄÉÌµêÎïÆ·
+    /// å½“å‰é€‰æ‹©çš„å•†åº—ç‰©å“
     /// </summary>
     private db_store_vo buy_item;
     /// <summary>
-    /// ¹Ø±Õ°´Å¥
+    /// å…³é—­æŒ‰é’®
     /// </summary>
     private Button btn;
     /// <summary>
-    /// ÏÔÊ¾×î´ó¹ºÂòÊıÁ¿
+    /// æ˜¾ç¤ºæœ€å¤§è´­ä¹°æ•°é‡
     /// </summary>
     private Text buy_text;
   
@@ -95,15 +95,15 @@ public class panel_store : Base_Mono
 
         btn.onClick.AddListener(() =>{ CloseBuyInterface(); });
 
-        #region ÉÌµêÎïÆ·¹ºÂò½çÃæ
+        #region å•†åº—ç‰©å“è´­ä¹°ç•Œé¢
         store_item_info = Find<Transform>("store_item_buy");
         inputField = Find<TMP_InputField>("store_item_buy/inputField");
         buy_item_Title = Find<Text>("store_item_buy/buy_item_Title/Title");
         buy_btn = Find<Button>("store_item_buy/buy_btn");
         buy_text = Find<Text>("store_item_buy/buy_text");
 
-        inputField.onEndEdit.AddListener(OnInputChanged);//¼àÌıÊäÈë¿ò
-        buy_btn.onClick.AddListener(BuyItem);//¼àÌı¹ºÂò°´Å¥
+        inputField.onEndEdit.AddListener(OnInputChanged);//ç›‘å¬è¾“å…¥æ¡†
+        buy_btn.onClick.AddListener(BuyItem);//ç›‘å¬è´­ä¹°æŒ‰é’®
         store_item_info.gameObject.SetActive(false);
         #endregion
 
@@ -118,7 +118,7 @@ public class panel_store : Base_Mono
        
     }
     /// <summary>
-    /// µã»÷¹Ø±Õ¹ºÂò½çÃæ
+    /// ç‚¹å‡»å…³é—­è´­ä¹°ç•Œé¢
     /// </summary>
     private void CloseBuyInterface()
     {
@@ -129,42 +129,42 @@ public class panel_store : Base_Mono
   
 
     /// <summary>
-    /// µã»÷¹ºÂò
+    /// ç‚¹å‡»è´­ä¹°
     /// </summary>
     private void BuyItem()
     {
-        NeedConsumables(buy_item.unit,(buy_num * buy_item.ItemPrice));//ĞèÒª¹ºÂòµÄÉÌÆ·ÒÔ¼°¼Û¸ñ
-        if (RefreshConsumables())//ÅĞ¶ÏÊÇ·ñ¹ºÂò³É¹¦
+        NeedConsumables(buy_item.unit,(buy_num * buy_item.ItemPrice));//éœ€è¦è´­ä¹°çš„å•†å“ä»¥åŠä»·æ ¼
+        if (RefreshConsumables())//åˆ¤æ–­æ˜¯å¦è´­ä¹°æˆåŠŸ
         {
-            if (buy_item.ItemMaxQuantity > 0)//ÏŞ¹ºÎïÆ·
+            if (buy_item.ItemMaxQuantity > 0)//é™è´­ç‰©å“
             {
-                //¼õÉÙÏŞ¹ºÎïÆ·¿É¹ºÂòµÄÊıÁ¿
-                for(int i= 0; i < SumSave.crt_needlist.store_value_list.Count; i++)//²éÕÒÏŞ¹ºÎïÆ·
+                //å‡å°‘é™è´­ç‰©å“å¯è´­ä¹°çš„æ•°é‡
+                for(int i= 0; i < SumSave.crt_needlist.store_value_list.Count; i++)//æŸ¥æ‰¾é™è´­ç‰©å“
                 {
-                    int nums = buy_item.ItemMaxQuantity - int.Parse(SumSave.crt_needlist.store_value_list[i][1]);//ÅĞ¶ÏÏŞ¹ºÉÌÆ·ÊÇ·ñ¹ºÂòÍê
-                    if (SumSave.crt_needlist.store_value_list[i][0] == buy_item.ItemName&& nums > 0)//²éÕÒÏŞ¹ºÎïÆ·
+                    int nums = buy_item.ItemMaxQuantity - int.Parse(SumSave.crt_needlist.store_value_list[i][1]);//åˆ¤æ–­é™è´­å•†å“æ˜¯å¦è´­ä¹°å®Œ
+                    if (SumSave.crt_needlist.store_value_list[i][0] == buy_item.ItemName&& nums > 0)//æŸ¥æ‰¾é™è´­ç‰©å“
                     {
-                        if(buy_num> nums)//²»¸ü¸ÄÊıÁ¿¶à´Î¹ºÂòÊ±ÅĞ¶ÏÊÇ·ñ³¬³öÏŞ¹ºÊıÁ¿
+                        if(buy_num> nums)//ä¸æ›´æ”¹æ•°é‡å¤šæ¬¡è´­ä¹°æ—¶åˆ¤æ–­æ˜¯å¦è¶…å‡ºé™è´­æ•°é‡
                         {
                             buy_num= nums;
                         }
                         int num =int.Parse(SumSave.crt_needlist.store_value_list[i][1])+ buy_num;
                         SumSave.crt_needlist.store_value_list[i][1]= num.ToString();
                         Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_needlist, SumSave.crt_needlist.Set_Uptade_String(), SumSave.crt_needlist.Get_Update_Character());
-                        Battle_Tool.Obtain_Resources(buy_item.ItemName, buy_num);//»ñÈ¡½±Àø
-                        Alert_Dec.Show(buy_item.ItemName + "X" + buy_num + " ¹ºÂò³É¹¦(ÏŞ¹ºÎïÆ·) ");
+                        Battle_Tool.Obtain_Resources(buy_item.ItemName, buy_num);//è·å–å¥–åŠ±
+                        Alert_Dec.Show(buy_item.ItemName + "X" + buy_num + " è´­ä¹°æˆåŠŸ(é™è´­ç‰©å“) ");
                         return;
                     }
                 }
-                Alert_Dec.Show("ÏŞ¹ºÉÌÆ· " + buy_item.ItemName + " ÎŞ¹ºÂò´ÎÊı ");
+                Alert_Dec.Show("é™è´­å•†å“ " + buy_item.ItemName + " æ— è´­ä¹°æ¬¡æ•° ");
                 return;
             }
-            Battle_Tool.Obtain_Resources(buy_item.ItemName, buy_num);//»ñÈ¡½±Àø
-            Alert_Dec.Show(buy_item.ItemName + "X" + buy_num + " ¹ºÂò³É¹¦ ");
+            Battle_Tool.Obtain_Resources(buy_item.ItemName, buy_num);//è·å–å¥–åŠ±
+            Alert_Dec.Show(buy_item.ItemName + "X" + buy_num + " è´­ä¹°æˆåŠŸ ");
         }
         else
         {
-            Alert_Dec.Show(buy_item.unit + " ÊıÁ¿²»¹»");
+            Alert_Dec.Show(buy_item.unit + " æ•°é‡ä¸å¤Ÿ");
             
         }
 
@@ -174,7 +174,7 @@ public class panel_store : Base_Mono
     
 
     /// <summary>
-    /// ÏÔÊ¾ÉÌµêÄÚÈİ
+    /// æ˜¾ç¤ºå•†åº—å†…å®¹
     /// </summary>
     /// <param name="index"></param>
     /// <returns></returns>
@@ -183,7 +183,7 @@ public class panel_store : Base_Mono
         items_dic.Clear();
         items_list.Clear();
         ClearObject(store_item);
-        for (int i = 0; i < SumSave.db_stores_list.Count; i++)//ÅĞ¶ÏÊÇ·ñÎªµ±Ç°ÉÌµêÀàĞÍ
+        for (int i = 0; i < SumSave.db_stores_list.Count; i++)//åˆ¤æ–­æ˜¯å¦ä¸ºå½“å‰å•†åº—ç±»å‹
         {
             if (SumSave.db_stores_list[i].store_Type == (index + 1))
             {
@@ -194,11 +194,11 @@ public class panel_store : Base_Mono
                 }
                 else
                 {
-                    Debug.LogError("ÉÌµêÄÚ" + SumSave.db_stores_list[i].ItemName + "ÎïÆ·ÖØ¸´");
+                    Debug.LogError("å•†åº—å†…" + SumSave.db_stores_list[i].ItemName + "ç‰©å“é‡å¤");
                 }
             }
         }
-        for (int i = 0; i < items_list.Count; i++)//ÏÔÊ¾ÉÌµêÄÚÎïÆ·
+        for (int i = 0; i < items_list.Count; i++)//æ˜¾ç¤ºå•†åº—å†…ç‰©å“
         {
 
             store_item item = Instantiate(store_item_Prefabs, store_item);
@@ -206,7 +206,7 @@ public class panel_store : Base_Mono
             item.Init((items_list[i].ItemName, items_list[i].ItemPrice),items.unit);
             item.GetComponent<Button>().onClick.AddListener(() => { ShowItemInfo(items); });
         }
-        //for (int i = 0; i < items_list.Count; i++)//ÏÔÊ¾ÉÌµêÄÚÎïÆ·
+        //for (int i = 0; i < items_list.Count; i++)//æ˜¾ç¤ºå•†åº—å†…ç‰©å“
         //{
 
         //    material_item item = Instantiate(material_item, store_item);
@@ -218,7 +218,7 @@ public class panel_store : Base_Mono
        
     }
     /// <summary>
-    /// µã»÷ÎïÆ·ÏÔÊ¾ÎïÆ·ĞÅÏ¢
+    /// ç‚¹å‡»ç‰©å“æ˜¾ç¤ºç‰©å“ä¿¡æ¯
     /// </summary>
     /// <param name="db_store_vo"></param>
     private void ShowItemInfo(db_store_vo item)
@@ -229,7 +229,7 @@ public class panel_store : Base_Mono
         buy_item= item;
         if(buy_item.ItemMaxQuantity > 0)
         {
-           buy_text.text = "×î´ó¹ºÂòÊıÁ¿£º" + buy_item.ItemMaxQuantity;
+           buy_text.text = "æœ€å¤§è´­ä¹°æ•°é‡ï¼š" + buy_item.ItemMaxQuantity;
         }else
         {
             buy_text.text = " ";
@@ -238,7 +238,7 @@ public class panel_store : Base_Mono
     }
 
     /// <summary>
-    /// ¹ºÂòÎïÆ·ÊäÈëÊıÁ¿
+    /// è´­ä¹°ç‰©å“è¾“å…¥æ•°é‡
     /// </summary>
     /// <param name="arg0"></param>
     private void OnInputChanged(string newText)
@@ -246,7 +246,7 @@ public class panel_store : Base_Mono
 
         char[] chars = newText.ToCharArray();
         string filteredText= "";
-        // ½ö±£ÁôÊı×Ö
+        // ä»…ä¿ç•™æ•°å­—
         foreach (char c in chars)
         {
             if (char.IsDigit(c)) 
@@ -254,29 +254,29 @@ public class panel_store : Base_Mono
                 filteredText+= c;
             }
         }
-        // ½Ø¶Ï³¬³¤²¿·Ö
+        // æˆªæ–­è¶…é•¿éƒ¨åˆ†
         if (filteredText.Length > maxLength)
         {
             filteredText = filteredText.Substring(0, maxLength);
         }
 
-        if (buy_item.ItemMaxQuantity > 0)//µ±ÓĞ×î´ó¹ºÂòÊıÁ¿Ê±
+        if (buy_item.ItemMaxQuantity > 0)//å½“æœ‰æœ€å¤§è´­ä¹°æ•°é‡æ—¶
         {
             
 
 
-            if (buy_item.ItemMaxQuantity > 0)//ÏŞ¹ºÎïÆ·
+            if (buy_item.ItemMaxQuantity > 0)//é™è´­ç‰©å“
             {
-                //¼õÉÙÏŞ¹ºÎïÆ·¿É¹ºÂòµÄÊıÁ¿
-                for (int i = 0; i < SumSave.crt_needlist.store_value_list.Count; i++)//²éÕÒÏŞ¹ºÎïÆ·
+                //å‡å°‘é™è´­ç‰©å“å¯è´­ä¹°çš„æ•°é‡
+                for (int i = 0; i < SumSave.crt_needlist.store_value_list.Count; i++)//æŸ¥æ‰¾é™è´­ç‰©å“
                 {
                     if (SumSave.crt_needlist.store_value_list[i][0] == buy_item.ItemName)
                     {
-                        int num = int.Parse(SumSave.crt_needlist.store_value_list[i][1]);//Íæ¼ÒÒÔ¹ºÂòµÄÊıÁ¿
-                        if (int.Parse(filteredText) > (buy_item.ItemMaxQuantity - num))//ÅĞ¶ÏÊäÈëµÄÖµÊÇ·ñ´óÓÚ×î´ó¹ºÂòÊıÁ¿
+                        int num = int.Parse(SumSave.crt_needlist.store_value_list[i][1]);//ç©å®¶ä»¥è´­ä¹°çš„æ•°é‡
+                        if (int.Parse(filteredText) > (buy_item.ItemMaxQuantity - num))//åˆ¤æ–­è¾“å…¥çš„å€¼æ˜¯å¦å¤§äºæœ€å¤§è´­ä¹°æ•°é‡
                         {
                             filteredText = (buy_item.ItemMaxQuantity - num).ToString();
-                            Alert_Dec.Show("³¬¹ı×î´ó¹ºÂòÊıÁ¿");
+                            Alert_Dec.Show("è¶…è¿‡æœ€å¤§è´­ä¹°æ•°é‡");
                         }
 
                     }
@@ -284,13 +284,13 @@ public class panel_store : Base_Mono
             }
         }
 
-        // Í¬²½ÊäÈë¿òÄÚÈİ
+        // åŒæ­¥è¾“å…¥æ¡†å†…å®¹
         if (filteredText != inputField.text)
         {
             inputField.text = filteredText;
             SetCursorToEnd();
         }
-        //»ñÈ¡¹ºÂòÊıÁ¿
+        //è·å–è´­ä¹°æ•°é‡
         if (int.TryParse(inputField.text, out int value))
         {
             buy_num = value;   
@@ -299,7 +299,7 @@ public class panel_store : Base_Mono
             buy_num = 1;
         }
     }
-    // ±£³Ö¹â±êÔÚÄ©Î²£¨±ÜÃâÌø¶¯£©
+    // ä¿æŒå…‰æ ‡åœ¨æœ«å°¾ï¼ˆé¿å…è·³åŠ¨ï¼‰
     private void SetCursorToEnd()
     {
         inputField.selectionAnchorPosition = inputField.text.Length;

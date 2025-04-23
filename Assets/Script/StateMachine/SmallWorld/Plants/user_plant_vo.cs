@@ -9,39 +9,39 @@ public class user_plant_vo : Base_VO
 {
 
 
-    //public PanltEnum plantType; // Ö²ÎïÀàĞÍ
-    //public int seedNumber;//ÖÖ×ÓÊıÁ¿
+    //public PanltEnum plantType; // æ¤ç‰©ç±»å‹
+    //public int seedNumber;//ç§å­æ•°é‡
 
     /// <summary>
-    /// Ö²ÎïÃû³Æ
+    /// æ¤ç‰©åç§°
     /// </summary>
     public string plantName;
     /// <summary>
-    /// ÖÖ×ÓĞèÒª³ÉÊìµÄÊ±¼ä
+    /// ç§å­éœ€è¦æˆç†Ÿçš„æ—¶é—´
     /// </summary>
     public int plantTime;
     /// <summary>
-    /// ÖÖ×ÓÊÕ»ñ²ÄÁÏ
+    /// ç§å­æ”¶è·ææ–™
     /// </summary>
     public string HarvestMaterials;
     /// <summary>
-    /// ÖÖ×ÓÊÕ»ñÊıÁ¿
+    /// ç§å­æ”¶è·æ•°é‡
     /// </summary>
     public int harvestnumber;
     /// <summary>
-    /// ÏûºÄÊıÁ¿
+    /// æ¶ˆè€—æ•°é‡
     /// </summary>
     public int lossnumber;
 
 
 
     /// <summary>
-    /// ÖÖÖ²µÈ¼¶
+    /// ç§æ¤ç­‰çº§
     /// </summary>
     public int plantLeve;
-    private List<(string,DateTime)> user_plants;//ÖÖÖ²µÄÖ²ÎïÃû³ÆºÍ³ÉÊìÊ±¼ä
+    private List<(string,DateTime)> user_plants;//ç§æ¤çš„æ¤ç‰©åç§°å’Œæˆç†Ÿæ—¶é—´
     /// <summary>
-    /// ½âÎöÖ²ÎïĞÅÏ¢
+    /// è§£ææ¤ç‰©ä¿¡æ¯
     /// </summary> 
     public void Init()
     {
@@ -82,7 +82,7 @@ public class user_plant_vo : Base_VO
 
 
     /// <summary>
-    /// »ñÈ¡µ±Ç°ÖÖÖ²µÄÖ²Îï
+    /// è·å–å½“å‰ç§æ¤çš„æ¤ç‰©
     /// </summary>
     /// <returns></returns>
     public List<(string, DateTime)> Set()

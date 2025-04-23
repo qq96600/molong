@@ -7,7 +7,7 @@ using UI;
 using UnityEngine;
 using UnityEngine.UI;
 /// <summary>
-/// Õ¹Ê¾×°±¸µÄ½çÃæ
+/// å±•ç¤ºè£…å¤‡çš„ç•Œé¢
 /// </summary>
 public class panel_equip : Panel_Base
 {
@@ -40,9 +40,9 @@ public class panel_equip : Panel_Base
     }
 
 
-    #region ÏÔÊ¾×°±¸
+    #region æ˜¾ç¤ºè£…å¤‡
     /// <summary>
-    /// ´«µİ²ÎÊı
+    /// ä¼ é€’å‚æ•°
     /// </summary>
     /// <param name="bag"></param>
     public void Init(bag_item bag)
@@ -69,7 +69,7 @@ public class panel_equip : Panel_Base
         
     }
     /// <summary>
-    /// ÏÔÊ¾×°±¸
+    /// æ˜¾ç¤ºè£…å¤‡
     /// </summary>
     /// <param name="bag"></param>
     public void Select_Equip(bag_item bag)
@@ -83,7 +83,7 @@ public class panel_equip : Panel_Base
     }
 
     /// <summary>
-    /// ÍÑÏÂ
+    /// è„±ä¸‹
     /// </summary>
     /// <param name="index"></param>
     protected void OnTake_Btn(int index)
@@ -99,12 +99,12 @@ public class panel_equip : Panel_Base
         Refresh();
     }
     /// <summary>
-    /// µã»÷ÊÂ¼ş 0 ´©´÷ 1³öÊÛ
+    /// ç‚¹å‡»äº‹ä»¶ 0 ç©¿æˆ´ 1å‡ºå”®
     /// </summary>
     /// <param name="data"></param>
     protected void OnClick_Btn(int index)
     {
-        //´©´÷
+        //ç©¿æˆ´
         if (index == 0)
         {
             List<Bag_Base_VO> euqip = new List<Bag_Base_VO>();
@@ -129,8 +129,8 @@ public class panel_equip : Panel_Base
         else
         {
             int moeny= crt_bag.Data.price;
-            SumSave.crt_user_unit.verify_data(currency_unit.ÁéÖé, moeny);
-            Alert_Dec.Show("³öÊÛ³É¹¦ »ñµÃÁéÖé" + moeny);
+            SumSave.crt_user_unit.verify_data(currency_unit.çµç , moeny);
+            Alert_Dec.Show("å‡ºå”®æˆåŠŸ è·å¾—çµç " + moeny);
             SumSave.crt_bag.Remove(crt_bag.Data);
             Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.bag_value, SumSave.crt_bag);
             Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user, SumSave.crt_user_unit.Set_Uptade_String(), SumSave.crt_user_unit.Get_Update_Character());
@@ -141,7 +141,7 @@ public class panel_equip : Panel_Base
 
     #endregion
     /// <summary>
-    /// Ñ¡Ôñ²ÄÁÏ
+    /// é€‰æ‹©ææ–™
     /// </summary>
     /// <param name="item"></param>
     public void Select_Material(material_item item)
@@ -153,7 +153,7 @@ public class panel_equip : Panel_Base
         show_material.Init(item.GetItemData());
     }
     /// <summary>
-    /// Ñ¡Ôñµ¤Ò© »ò¼¼ÄÜÊé
+    /// é€‰æ‹©ä¸¹è¯ æˆ–æŠ€èƒ½ä¹¦
     /// </summary>
     /// <param name="item"></param>
     public void Select_Seed(material_item item)
@@ -164,7 +164,7 @@ public class panel_equip : Panel_Base
         show_material.Init(item.GetSeedData());
     }
     /// <summary>
-    /// Ê¹ÓÃµ¤Ò©
+    /// ä½¿ç”¨ä¸¹è¯
     /// </summary>
     /// <param name="item"></param>
     public void Use_Seed(material_item item)
@@ -175,7 +175,7 @@ public class panel_equip : Panel_Base
         show_material.Init_Seed(item.GetSeedData());
     }
     /// <summary>
-    /// Ë¢ĞÂ
+    /// åˆ·æ–°
     /// </summary>
     protected void Refresh()
     {

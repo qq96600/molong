@@ -10,31 +10,31 @@ using UnityEngine.UI;
 public class panel_hero : Panel_Base
 {
     /// <summary>
-    /// Î»ÖÃ
+    /// ä½ç½®
     /// </summary>
     private Transform crt,crt_pos_hero; 
     /// <summary>
-    /// ĞÅÏ¢Ô¤ÖÆÌå
+    /// ä¿¡æ¯é¢„åˆ¶ä½“
     /// </summary>
     public info_item info_item_prefabs;
     /// <summary>
-    /// Ö°ÒµÔ¤ÖÆ¼ş
+    /// èŒä¸šé¢„åˆ¶ä»¶
     /// </summary>
     private hero_item hero_item_prefabs;
     /// <summary>
-    /// ¿ªÆôÇĞ»»½ÇÉ«
+    /// å¼€å¯åˆ‡æ¢è§’è‰²
     /// </summary>
     private Button open_activation;
     /// <summary>
-    /// Ñ¡ÔñÖ°Òµ
+    /// é€‰æ‹©èŒä¸š
     /// </summary>
     private hero_item crt_hero;
     /// <summary>
-    /// Ñ¡Ôñ½ÇÉ«Ãæ°å
+    /// é€‰æ‹©è§’è‰²é¢æ¿
     /// </summary>
     private Image select_hero;
     /// <summary>
-    /// Ñ¡Ôñ½ÇÉ«Ãæ°å¹Ø±Õ°´Å¥
+    /// é€‰æ‹©è§’è‰²é¢æ¿å…³é—­æŒ‰é’®
     /// </summary>
     private Button select_hero_close_btn;
 
@@ -42,27 +42,27 @@ public class panel_hero : Panel_Base
 
     private Dictionary<string,hero_item> hero_item_dic = new Dictionary<string, hero_item>();
     /// <summary>
-    /// ÏÔÊ¾Ó¢ĞÛÃæ°å
+    /// æ˜¾ç¤ºè‹±é›„é¢æ¿
     /// </summary>
     private Image show_hero_info;
     /// <summary>
-    /// ÏÔÊ¾Ó¢ĞÛĞÅÏ¢
+    /// æ˜¾ç¤ºè‹±é›„ä¿¡æ¯
     /// </summary>
     private Text hero_info, hero_name;
     /// <summary>
-    /// Ó¢ĞÛÁĞ±í
+    /// è‹±é›„åˆ—è¡¨
     /// </summary>
     private Button crate_btn,show_hero_info_close_btn;
     /// <summary>
-    /// ½ÇÉ«ÀàĞÍ
+    /// è§’è‰²ç±»å‹
     /// </summary>
     private enum_skin_state skin_state;
     /// <summary>
-    /// ½ÇÉ«Æ¤·ôÔ¤ÖÆÌå
+    /// è§’è‰²çš®è‚¤é¢„åˆ¶ä½“
     /// </summary>
     private GameObject skin_prefabs;
     /// <summary>
-    /// ½ÇÉ«ÄÚ¹ÛÎ»ÖÃ
+    /// è§’è‰²å†…è§‚ä½ç½®
     /// </summary>
     private Transform panel_role_health;
     protected override void Awake()
@@ -89,7 +89,7 @@ public class panel_hero : Panel_Base
 
         int hero_index = int.Parse(SumSave.crt_hero.hero_index);
         skin_state = (enum_skin_state)hero_index;
-        skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/ÄÚ¹Û_" + skin_state.ToString());
+        skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/å†…è§‚_" + skin_state.ToString());
         panel_role_health = Find<Transform>("bg_main/hero_icon/panel_role_health");
         Instantiate(skin_prefabs, panel_role_health);
 
@@ -110,7 +110,7 @@ public class panel_hero : Panel_Base
         select_hero.gameObject.SetActive(false);
     }
     /// <summary>
-    /// Ñ¡Ôñ½ÇÉ«
+    /// é€‰æ‹©è§’è‰²
     /// </summary>
     /// <param name="item"></param>
     private void Select_Hero(hero_item item)
@@ -123,10 +123,10 @@ public class panel_hero : Panel_Base
     private void Show_Hero_Type_Attribute(hero_item item)
     {
         hero_name.text= item.Data.hero_name;
-        string dec = "ÉËº¦ÀàĞÍ:" + (item.Data.hero_type == 1 ? "ÎïÀíÉËº¦" : "Ä§·¨ÉËº¦") + "\n";
+        string dec = "ä¼¤å®³ç±»å‹:" + (item.Data.hero_type == 1 ? "ç‰©ç†ä¼¤å®³" : "é­”æ³•ä¼¤å®³") + "\n";
         for (int i = 0; i < item.Data.crate_value.Length; i++)
         {
-            dec += (enum_attribute_list)i + ":" + item.Data.crate_value[i] + "(³É³¤ " + item.Data.up_value[i] + "/" + item.Data.up_base_value[i] + "¼¶)\n";
+            dec += (enum_attribute_list)i + ":" + item.Data.crate_value[i] + "(æˆé•¿ " + item.Data.up_value[i] + "/" + item.Data.up_base_value[i] + "çº§)\n";
         }
         hero_info.text = dec;
     }
@@ -136,7 +136,7 @@ public class panel_hero : Panel_Base
         base_show();
     }
     /// <summary>
-    /// ÏÔÊ¾ÊôĞÔ±í
+    /// æ˜¾ç¤ºå±æ€§è¡¨
     /// </summary>
     private void base_show()
     {
@@ -144,94 +144,94 @@ public class panel_hero : Panel_Base
         {
             switch (item)
             {
-                case enum_attribute_list.ÉúÃüÖµ:
+                case enum_attribute_list.ç”Ÿå‘½å€¼:
                     info_item_dic[item].Show(item, SumSave.crt_MaxHero.MaxHP);
                     break;
-                case enum_attribute_list.·¨Á¦Öµ:
+                case enum_attribute_list.æ³•åŠ›å€¼:
                     info_item_dic[item].Show(item, SumSave.crt_MaxHero.MaxMp);
                     break;
-                case enum_attribute_list.ÄÚÁ¦Öµ:
+                case enum_attribute_list.å†…åŠ›å€¼:
                     info_item_dic[item].Show(item, SumSave.crt_MaxHero.internalforceMP);
                     break;
-                case enum_attribute_list.ĞîÁ¦Öµ:
+                case enum_attribute_list.è“„åŠ›å€¼:
                     info_item_dic[item].Show(item, SumSave.crt_MaxHero.EnergyMp);
                     break;
-                case enum_attribute_list.ÎïÀí·ÀÓù:
+                case enum_attribute_list.ç‰©ç†é˜²å¾¡:
                     info_item_dic[item].Show(item, SumSave.crt_MaxHero.DefMin+" - "+SumSave.crt_MaxHero.DefMax);
                     break;
-                case enum_attribute_list.Ä§·¨·ÀÓù:
+                case enum_attribute_list.é­”æ³•é˜²å¾¡:
                     info_item_dic[item].Show(item, SumSave.crt_MaxHero.MagicDefMin + " - " + SumSave.crt_MaxHero.MagicDefMax);
                     break;
-                case enum_attribute_list.ÎïÀí¹¥»÷:
+                case enum_attribute_list.ç‰©ç†æ”»å‡»:
                     info_item_dic[item].Show(item, SumSave.crt_MaxHero.damageMin + " - " + SumSave.crt_MaxHero.damageMax);
                     break;
-                case enum_attribute_list.Ä§·¨¹¥»÷:
+                case enum_attribute_list.é­”æ³•æ”»å‡»:
                     info_item_dic[item].Show(item, SumSave.crt_MaxHero.MagicdamageMin + " - " + SumSave.crt_MaxHero.MagicdamageMax);
                     break;
-                case enum_attribute_list.ÃüÖĞ:
+                case enum_attribute_list.å‘½ä¸­:
                     info_item_dic[item].Show(item, SumSave.crt_MaxHero.hit);
                     break;
-                case enum_attribute_list.¶ã±Ü:
+                case enum_attribute_list.èº²é¿:
                     info_item_dic[item].Show(item, SumSave.crt_MaxHero.dodge);
                     break;
-                case enum_attribute_list.´©Í¸:
+                case enum_attribute_list.ç©¿é€:
                     info_item_dic[item].Show(item, SumSave.crt_MaxHero.penetrate); 
                     break;
-                case enum_attribute_list.¸ñµ²:
+                case enum_attribute_list.æ ¼æŒ¡:
                     info_item_dic[item].Show(item, SumSave.crt_MaxHero.block);
                     break;
-                case enum_attribute_list.±©»÷:
+                case enum_attribute_list.æš´å‡»:
                     info_item_dic[item].Show(item, SumSave.crt_MaxHero.crit_rate);
                     break;
-                case enum_attribute_list.ĞÒÔË:
+                case enum_attribute_list.å¹¸è¿:
                     info_item_dic[item].Show(item, SumSave.crt_MaxHero.Lucky);
                     break;
-                case enum_attribute_list.±©»÷ÉËº¦:
+                case enum_attribute_list.æš´å‡»ä¼¤å®³:
                     info_item_dic[item].Show(item, SumSave.crt_MaxHero.crit_damage);
                     break;
-                case enum_attribute_list.ÉËº¦¼Ó³É:
+                case enum_attribute_list.ä¼¤å®³åŠ æˆ:
                     info_item_dic[item].Show(item, SumSave.crt_MaxHero.double_damage);
                     break;
-                case enum_attribute_list.ÕæÊµÉËº¦:
+                case enum_attribute_list.çœŸå®ä¼¤å®³:
                     info_item_dic[item].Show(item, SumSave.crt_MaxHero.Real_harm);
                     break;
-                case enum_attribute_list.ÉËº¦¼õÃâ:
+                case enum_attribute_list.ä¼¤å®³å‡å…:
                     info_item_dic[item].Show(item, SumSave.crt_MaxHero.Damage_Reduction);
                     break;
-                case enum_attribute_list.ÉËº¦ÎüÊÕ:
+                case enum_attribute_list.ä¼¤å®³å¸æ”¶:
                     info_item_dic[item].Show(item, SumSave.crt_MaxHero.Damage_absorption);
                     break;
-                case enum_attribute_list.Òì³£¿¹ĞÔ:
+                case enum_attribute_list.å¼‚å¸¸æŠ—æ€§:
                     info_item_dic[item].Show(item, SumSave.crt_MaxHero.resistance);
                     break;
-                case enum_attribute_list.¹¥»÷ËÙ¶È:
+                case enum_attribute_list.æ”»å‡»é€Ÿåº¦:
                     info_item_dic[item].Show(item, SumSave.crt_MaxHero.attack_speed);
                     break;
-                case enum_attribute_list.ÒÆ¶¯ËÙ¶È:
+                case enum_attribute_list.ç§»åŠ¨é€Ÿåº¦:
                     info_item_dic[item].Show(item, SumSave.crt_MaxHero.move_speed);
                     break;
-                case enum_attribute_list.ÉúÃü¼Ó³É:
+                case enum_attribute_list.ç”Ÿå‘½åŠ æˆ:
                     info_item_dic[item].Show(item, SumSave.crt_MaxHero.bonus_Hp);
                     break;
-                case enum_attribute_list.·¨Á¦¼Ó³É:
+                case enum_attribute_list.æ³•åŠ›åŠ æˆ:
                     info_item_dic[item].Show(item, SumSave.crt_MaxHero.bonus_Mp);
                     break;
-                case enum_attribute_list.ÉúÃü»Ø¸´:
+                case enum_attribute_list.ç”Ÿå‘½å›å¤:
                     info_item_dic[item].Show(item, SumSave.crt_MaxHero.Heal_Hp);
                     break;
-                case enum_attribute_list.·¨Á¦»Ø¸´:
+                case enum_attribute_list.æ³•åŠ›å›å¤:
                     info_item_dic[item].Show(item, SumSave.crt_MaxHero.Heal_Mp);
                     break;
-                case enum_attribute_list.Îï¹¥¼Ó³É: 
+                case enum_attribute_list.ç‰©æ”»åŠ æˆ: 
                     info_item_dic[item].Show(item, SumSave.crt_MaxHero.bonus_Damage);
                     break;
-                case enum_attribute_list.Ä§¹¥¼Ó³É:
+                case enum_attribute_list.é­”æ”»åŠ æˆ:
                     info_item_dic[item].Show(item, SumSave.crt_MaxHero.bonus_MagicDamage);
                     break;
-                case enum_attribute_list.Îï·À¼Ó³É:
+                case enum_attribute_list.ç‰©é˜²åŠ æˆ:
                     info_item_dic[item].Show(item, SumSave.crt_MaxHero.bonus_Def);
                     break;
-                case enum_attribute_list.Ä§·À¼Ó³É:
+                case enum_attribute_list.é­”é˜²åŠ æˆ:
                     info_item_dic[item].Show(item, SumSave.crt_MaxHero.bonus_MagicDef);
                     break;
                 default:

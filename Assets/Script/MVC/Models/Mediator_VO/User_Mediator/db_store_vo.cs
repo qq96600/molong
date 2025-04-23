@@ -6,28 +6,28 @@ using UnityEngine;
 public class db_store_vo : Base_VO
 {
     /// <summary>
-    /// ÉÌµêÀàĞÍ 1£¬µÀ¾ßÉÌµê 2£¬ÏŞ¹ºÉÌµê 3£¬ÀëÏßÉÌµê
+    /// å•†åº—ç±»å‹ 1ï¼Œé“å…·å•†åº— 2ï¼Œé™è´­å•†åº— 3ï¼Œç¦»çº¿å•†åº—
     /// </summary>
     public int store_Type;
     /// <summary>
-    /// ÎïÆ·Ãû³Æ
+    /// ç‰©å“åç§°
     /// </summary>
     public string ItemName;
     /// <summary>
-    /// ÎïÆ·¼Û¸ñ
+    /// ç‰©å“ä»·æ ¼
     /// </summary>
     public int ItemPrice;
 
     /// <summary>
-    /// ËùĞèÒªµÄ»õ±ÒÀàĞÍ
+    /// æ‰€éœ€è¦çš„è´§å¸ç±»å‹
     /// </summary>
     public string unit;
     /// <summary>
-    /// ÕÛ¿ÛÇø¼ä  Ã»ÓĞÕÛ¿ÛÎª£¨0£¬0£©
+    /// æŠ˜æ‰£åŒºé—´  æ²¡æœ‰æŠ˜æ‰£ä¸ºï¼ˆ0ï¼Œ0ï¼‰
     /// </summary>
     public (int,int) discount;
     /// <summary>
-    /// ×î´ó¹ºÂòÊıÁ¿
+    /// æœ€å¤§è´­ä¹°æ•°é‡
     /// </summary>
     public int ItemMaxQuantity;
 

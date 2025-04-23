@@ -6,27 +6,27 @@ using UnityEngine;
 public class db_artifact_vo : Base_VO
 {
     /// <summary>
-    /// ÉñÆ÷Ãû³Æ
+    /// ç¥å™¨åç§°
     /// </summary>
     public string arrifact_name;
     /// <summary>
-    /// ÉñÆ÷ID
+    /// ç¥å™¨ID
     /// </summary>
     public int arrifact_type;
     /// <summary>
-    /// ÉñÆ÷Éı¼¶ĞèÇó
+    /// ç¥å™¨å‡çº§éœ€æ±‚
     /// </summary>
     public string[] arrifact_needs;
     /// <summary>
-    /// ÉñÆ÷Ğ§¹û
+    /// ç¥å™¨æ•ˆæœ
     /// </summary>
     public string[] arrifact_effects;
     /// <summary>
-    /// ÉñÆ÷ÃèÊö
+    /// ç¥å™¨æè¿°
     /// </summary>
     public string Artifact_dec;
     /// <summary>
-    /// ×î´óµÈ¼¶
+    /// æœ€å¤§ç­‰çº§
     /// </summary>
     public int Artifact_MaxLv;
 

@@ -6,7 +6,7 @@ using UnityEngine;
 namespace MVC
 {
     /// <summary>
-    /// ¿ØÖÆ¶¨Ê±Æ÷
+    /// æ§åˆ¶å®šæ—¶å™¨
     /// </summary>
     public class Game_Omphalos : Base_Mono
     {
@@ -18,7 +18,7 @@ namespace MVC
         }
         private List<Base_Wirte_VO> wirtes = new List<Base_Wirte_VO>();
         /// <summary>
-        /// ¿ªÆô¶¨Ê±Æ÷ 
+        /// å¼€å¯å®šæ—¶å™¨ 
         /// </summary>
         public void activation()
         {
@@ -26,35 +26,35 @@ namespace MVC
             InvokeRepeating("Read_User_Ranks", 600, 600);
         }
         /// <summary>
-        /// ÌáÊ¾ĞÅÏ¢
+        /// æç¤ºä¿¡æ¯
         /// </summary>
         /// <param name="dec"></param>
         public void Alert_Info(string dec)
         {
-            Alert.Show("Òì³£ÌáÊ¾", dec);
+            Alert.Show("å¼‚å¸¸æç¤º", dec);
         }
         /// <summary>
-        /// Ğ´ÈëÈÕÖ¾
+        /// å†™å…¥æ—¥å¿—
         /// </summary>
         /// <param name="log"></param>
         public void LogList(string log)
         {
-            //Ğ´ÈëÈÕÖ¾
+            //å†™å…¥æ—¥å¿—
             SendNotification(NotiList.loglist, log);
         }
         /// <summary>
-        /// Ğ´ÈëÊı¾İ
+        /// å†™å…¥æ•°æ®
         /// </summary>
         private void CountTime()
         {
             SendNotification(NotiList.Execute_Write, wirtes);
         }
         /// <summary>
-        /// Ã¿10·ÖÖÓË¢ĞÂÒ»´ÎÅÅĞĞ°ñ
+        /// æ¯10åˆ†é’Ÿåˆ·æ–°ä¸€æ¬¡æ’è¡Œæ¦œ
         /// </summary>
         private void Read_User_Ranks()
         {
-            //Ã¿ÈÕÈÎÎñ ÔÚÏßÊ±³¤
+            //æ¯æ—¥ä»»åŠ¡ åœ¨çº¿æ—¶é•¿
             SumSave.crt_pass.day_state[0] += 10;
             SendNotification(NotiList.Read_User_Ranks);
             Battle_Tool.validate_rank();
@@ -65,12 +65,12 @@ namespace MVC
         }
 
         /// <summary>
-        /// ²éÑ¯¶ÓÁĞ
+        /// æŸ¥è¯¢é˜Ÿåˆ—
         /// </summary>
-        /// <param name="type">º¯Êı¹«Ê½</param>
-        /// <param name="tableName">µ÷ÓÃÁĞ±í</param>
-        /// <param name="sql">Ğ´ÈëÖµ</param>
-        /// /// <param name="sql_names">ĞòÁĞÃû</param>
+        /// <param name="type">å‡½æ•°å…¬å¼</param>
+        /// <param name="tableName">è°ƒç”¨åˆ—è¡¨</param>
+        /// <param name="sql">å†™å…¥å€¼</param>
+        /// /// <param name="sql_names">åºåˆ—å</param>
         public void GetQueue(Mysql_Type type, Mysql_Table_Name tableName, string[] sql, string[] sql_names = null)
         {
             foreach (var item in wirtes)
@@ -79,7 +79,7 @@ namespace MVC
                 {
                     if (item.tableName == tableName && type != Mysql_Type.InsertInto)
                     {
-                        //Ö´ĞĞºÏ²¢
+                        //æ‰§è¡Œåˆå¹¶
                         item.columnValues = sql;
                         item.exist = true;
                         //return item.columnValues;
@@ -87,7 +87,7 @@ namespace MVC
                     }
                 }
             }
-            //»ñÈ¡ĞÂÁĞ±í
+            //è·å–æ–°åˆ—è¡¨
             Base_Wirte_VO vo = new Base_Wirte_VO();
             vo.type = type;
             vo.tableName = tableName;
@@ -100,7 +100,7 @@ namespace MVC
             /// <summary>
         }
         /// <summary>
-        /// Ö´ĞĞĞ´Èë¶ÓÁĞ
+        /// æ‰§è¡Œå†™å…¥é˜Ÿåˆ—
         /// </summary>
         public void SetWrite(Mysql_Type type, Mysql_Table_Name tableName, string[] sql)
         {
@@ -119,7 +119,7 @@ namespace MVC
 
         }
         /// <summary>
-        /// µ÷ÓÃĞ´Èë
+        /// è°ƒç”¨å†™å…¥
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="all_list"></param>
@@ -144,7 +144,7 @@ namespace MVC
         }
 
         /// <summary>
-        /// Ğ´Èë×ÊÔ´
+        /// å†™å…¥èµ„æº
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="index"></param>
@@ -170,7 +170,7 @@ namespace MVC
             GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_value, SumSave.crt_resources.Set_Uptade_String(), SumSave.crt_resources.Get_Update_Character());
         }
         /// <summary>
-        /// Ğ´Èë²ÄÁÏ×ÊÔ´
+        /// å†™å…¥ææ–™èµ„æº
         /// </summary>
         /// <param name="index"></param>
         /// <param name="value"></param>
@@ -196,7 +196,7 @@ namespace MVC
 
 
         /// <summary>
-        /// Ğ´ÈëÊı¾İ
+        /// å†™å…¥æ•°æ®
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="all_list"></param>

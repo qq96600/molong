@@ -14,7 +14,7 @@ public class ach_item : Base_Mono
         info = Find<Text>("info");
     }
     /// <summary>
-    /// ÏÔÊ¾ĞÅÏ¢
+    /// æ˜¾ç¤ºä¿¡æ¯
     /// </summary>
     /// <param name="value"></param>
     public void Show_Info(object value)
@@ -38,13 +38,13 @@ public class ach_item : Base_Mono
         }
     }
     /// <summary>
-    /// ³õÊ¼»¯
+    /// åˆå§‹åŒ–
     /// </summary>
     public void Init()
     {
         Dictionary<string, int> dic_exp = SumSave.crt_achievement.Set_Exp();
         Dictionary<string, int> dic_lv = SumSave.crt_achievement.Set_Lv();
-        //info.text = "ÏÔÊ¾³É¾Í¾ßÌåĞÅÏ¢";
+        //info.text = "æ˜¾ç¤ºæˆå°±å…·ä½“ä¿¡æ¯";
 
         if (dic_lv[data.achievement_value] >= data.achievement_needs.Count)
             info.text = data.achievement_show_lv[data.achievement_show_lv.Length - 1] + " (" + dic_exp[data.achievement_value] + "/Max)";

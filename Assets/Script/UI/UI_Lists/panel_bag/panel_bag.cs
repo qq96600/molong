@@ -12,11 +12,11 @@ using Random = UnityEngine.Random;
 public class panel_bag : Panel_Base
 {
     /// <summary>
-    /// ×°±¸ÀàĞÍ
+    /// è£…å¤‡ç±»å‹
     /// </summary>
     private Dictionary<EquipTypeList, show_equip_item> dic_equips = new Dictionary<EquipTypeList, show_equip_item>();
     /// <summary>
-    /// ¹¦ÄÜ°´Å¥
+    /// åŠŸèƒ½æŒ‰é’®
     /// </summary>
     private btn_item btn_item_Prefabs;
 
@@ -24,7 +24,7 @@ public class panel_bag : Panel_Base
 
     private material_item material_item_Prefabs;
     /// <summary>
-    /// °´Å¥Î»ÖÃ
+    /// æŒ‰é’®ä½ç½®
     /// </summary>
     private Transform crt_btn, crt_bag;
 
@@ -32,19 +32,19 @@ public class panel_bag : Panel_Base
 
 
     /// <summary>
-    /// ½ÇÉ«Æ¤·ô
+    /// è§’è‰²çš®è‚¤
     /// </summary>
     private enum_skin_state skin_state;
     /// <summary>
-    /// ½ÇÉ«Æ¤·ôÔ¤ÖÆÌå
+    /// è§’è‰²çš®è‚¤é¢„åˆ¶ä½“
     /// </summary>
     private GameObject skin_prefabs;
     /// <summary>
-    /// ½ÇÉ«ÄÚ¹ÛÎ»ÖÃ
+    /// è§’è‰²å†…è§‚ä½ç½®
     /// </summary>
     private Transform panel_role_health;
 
-    private bag_btn_list crt_select_btn = bag_btn_list.×°±¸;
+    private bag_btn_list crt_select_btn = bag_btn_list.è£…å¤‡;
     protected override void Awake()
     {
         base.Awake();
@@ -62,30 +62,30 @@ public class panel_bag : Panel_Base
 
         int hero_index = int.Parse(SumSave.crt_hero.hero_index);
         skin_state = (enum_skin_state)hero_index;
-        skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/ÄÚ¹Û_" + skin_state.ToString());
+        skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/å†…è§‚_" + skin_state.ToString());
         panel_role_health = Find<Transform>("bg_main/bag_equips/panel_role_health");
         Instantiate(skin_prefabs, panel_role_health);
 
         for (int i = 0; i < Enum.GetNames(typeof(bag_btn_list)).Length; i++)
         {
-            btn_item btn_item = Instantiate(btn_item_Prefabs, crt_btn);//ÊµÀı»¯±³°ü×°±¸
+            btn_item btn_item = Instantiate(btn_item_Prefabs, crt_btn);//å®ä¾‹åŒ–èƒŒåŒ…è£…å¤‡
             btn_item.Show(i, (bag_btn_list)i);
             btn_item.GetComponent<Button>().onClick.AddListener(delegate { Select_Btn(btn_item); });
         }
     }
     /// <summary>
-    /// Ñ¡ÖĞ¹¦ÄÜ
+    /// é€‰ä¸­åŠŸèƒ½
     /// </summary>
     /// <param name="btn_item"></param>
     private void Select_Btn(btn_item btn_item)
     {
         crt_select_btn = (bag_btn_list)btn_item.index;
         Show_Bag();
-        Alert_Dec.Show("´ò¿ª " + crt_select_btn + " ÁĞ±í");
+        Alert_Dec.Show("æ‰“å¼€ " + crt_select_btn + " åˆ—è¡¨");
     }
 
     /// <summary>
-    /// ³õÊ¼»¯Î»ÖÃ
+    /// åˆå§‹åŒ–ä½ç½®
     /// </summary>
     /// <param name="item"></param>
     protected void Instance_Pos(show_equip_item item)
@@ -102,7 +102,7 @@ public class panel_bag : Panel_Base
        
     }
     /// <summary>
-    /// ÏÔÊ¾×°±¸
+    /// æ˜¾ç¤ºè£…å¤‡
     /// </summary>
     private void base_Equip()
     {
@@ -121,7 +121,7 @@ public class panel_bag : Panel_Base
     }
 
     /// <summary>
-    /// ÏÔÊ¾´©´÷×°±¸ÁĞ±í
+    /// æ˜¾ç¤ºç©¿æˆ´è£…å¤‡åˆ—è¡¨
     /// </summary>
     private void Base_Show()
     {
@@ -140,14 +140,14 @@ public class panel_bag : Panel_Base
         }
     }
     /// <summary>
-    /// ÏÔÊ¾±³°üÎïÆ·
+    /// æ˜¾ç¤ºèƒŒåŒ…ç‰©å“
     /// </summary>
     private void Show_Bag()
     {
         ClearObject(crt_bag);
         switch (crt_select_btn)
         {
-            case bag_btn_list.×°±¸:
+            case bag_btn_list.è£…å¤‡:
                 for (int i = 0; i < SumSave.crt_bag.Count; i++)
                 {
                     bag_item item = Instantiate(bag_item_Prefabs, crt_bag);
@@ -155,7 +155,7 @@ public class panel_bag : Panel_Base
                     item.GetComponent<Button>().onClick.AddListener(delegate { Select_Bag(item); });
                 }
                 break;
-            case bag_btn_list.²ÄÁÏ:
+            case bag_btn_list.ææ–™:
                 List<(string, int)> lists = SumSave.crt_bag_resources.Set();
                 for (int i = 0; i < lists.Count; i++)
                 {
@@ -169,7 +169,7 @@ public class panel_bag : Panel_Base
                     
                 }
                 break;   
-               case bag_btn_list.µ¤ÄÒ:
+               case bag_btn_list.ä¸¹å›Š:
                 List<(string, List<string>)> list = SumSave.crt_seeds.Getformulalist();
                 for (int i = 0; i < list.Count; i++)
                 {
@@ -178,7 +178,7 @@ public class panel_bag : Panel_Base
                     item.GetComponent<Button>().onClick.AddListener(delegate { Select_Getformula_Material(item); });
                 }
                 break;
-            case bag_btn_list.ÏûºÄÆ·:
+            case bag_btn_list.æ¶ˆè€—å“:
                 List<(string, List<string>)> Seedlist = SumSave.crt_seeds.GetSeedList();
                 for (int i = 0; i < Seedlist.Count; i++)
                 {
@@ -193,7 +193,7 @@ public class panel_bag : Panel_Base
         
     }
     /// <summary>
-    /// ³Ôµ¤Ò©
+    /// åƒä¸¹è¯
     /// </summary>
     /// <param name="item"></param>
     private void Select_SeedMaterial(material_item item)
@@ -202,7 +202,7 @@ public class panel_bag : Panel_Base
         panel_equip.Use_Seed(item);
     }
     /// <summary>
-    /// Ñ¡ÔñºÏ³É²ÄÁÏ
+    /// é€‰æ‹©åˆæˆææ–™
     /// </summary>
     /// <param name="item"></param>
     private void Select_Getformula_Material(material_item item)
@@ -212,7 +212,7 @@ public class panel_bag : Panel_Base
     }
 
     /// <summary>
-    /// Ñ¡Ôñ²ÄÁÏ
+    /// é€‰æ‹©ææ–™
     /// </summary>
     /// <param name="item"></param>
     private void Select_Material(material_item item)
@@ -222,7 +222,7 @@ public class panel_bag : Panel_Base
     }
 
     /// <summary>
-    /// Ñ¡ÔñÎïÆ·
+    /// é€‰æ‹©ç‰©å“
     /// </summary>
     /// <param name="item"></param>
     private void Select_Bag(bag_item item)
@@ -232,7 +232,7 @@ public class panel_bag : Panel_Base
        
     }
     /// <summary>
-    /// ÏÔÊ¾×ÔÉí×°±¸
+    /// æ˜¾ç¤ºè‡ªèº«è£…å¤‡
     /// </summary>
     /// <param name="item"></param>
     protected void Select_Equip(bag_item item)

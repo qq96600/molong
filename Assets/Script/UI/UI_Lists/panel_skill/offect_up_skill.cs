@@ -10,7 +10,7 @@ using UnityEngine.UI;
 public class offect_up_skill : Base_Mono
 {
     /// <summary>
-    /// ¹¦ÄÜ°´¼ü
+    /// åŠŸèƒ½æŒ‰é”®
     /// </summary>
     private Transform crt_attack_skill, crt_special_skill;
 
@@ -18,7 +18,7 @@ public class offect_up_skill : Base_Mono
 
     private skill_offect_item skill_item_parfabs;
     /// <summary>
-    /// µ±Ç°¼¼ÄÜ
+    /// å½“å‰æŠ€èƒ½
     /// </summary>
     private base_skill_vo user_skill;
 
@@ -35,7 +35,7 @@ public class offect_up_skill : Base_Mono
 
     }
     /// <summary>
-    /// ¹Ø±Õ
+    /// å…³é—­
     /// </summary>
     private void On_Close()
     {
@@ -63,7 +63,7 @@ public class offect_up_skill : Base_Mono
             {
                 if (int.Parse(SumSave.crt_skills[i].user_values[2]) == attack_numbers[j])
                 {
-                    if ((skill_btn_list)SumSave.crt_skills[i].skill_type == skill_btn_list.Õ½¶·)
+                    if ((skill_btn_list)SumSave.crt_skills[i].skill_type == skill_btn_list.æˆ˜æ–—)
                     {
                         exist = false;
                         skill_offect_item item = Instantiate(skill_item_parfabs, crt_attack_skill);
@@ -79,7 +79,7 @@ public class offect_up_skill : Base_Mono
             if (exist)
             { 
                 btn_item item = Instantiate(btn_Item_parfabs, crt_attack_skill);
-                item.Show(attack_numbers[j], attack_numbers[j] + "Õ½¶·Î»");
+                item.Show(attack_numbers[j], attack_numbers[j] + "æˆ˜æ–—ä½");
                 item.GetComponent<Button>().onClick.AddListener(() => { On_AttackClick(item); });
             }
         }
@@ -91,7 +91,7 @@ public class offect_up_skill : Base_Mono
             {
                 if (int.Parse(SumSave.crt_skills[i].user_values[2]) == special_numbers[j])
                 {
-                    if ((skill_btn_list)SumSave.crt_skills[i].skill_type == skill_btn_list.ÃØóÅ)
+                    if ((skill_btn_list)SumSave.crt_skills[i].skill_type == skill_btn_list.ç§˜ç¬ˆ)
                     {
                         exist = false;
                         skill_offect_item item = Instantiate(skill_item_parfabs, crt_special_skill);
@@ -105,7 +105,7 @@ public class offect_up_skill : Base_Mono
             if (exist)
             {
                 btn_item item = Instantiate(btn_Item_parfabs, crt_special_skill);
-                item.Show(attack_numbers[j], attack_numbers[j] + "ÃØóÅÎ»");
+                item.Show(attack_numbers[j], attack_numbers[j] + "ç§˜ç¬ˆä½");
                 item.GetComponent<Button>().onClick.AddListener(() => { On_SpecialClick(item); });
             }
         }
@@ -114,29 +114,29 @@ public class offect_up_skill : Base_Mono
 
     private void On_AttackClick(btn_item item)
     {
-        if ((skill_btn_list)user_skill.skill_type == skill_btn_list.Õ½¶·)
+        if ((skill_btn_list)user_skill.skill_type == skill_btn_list.æˆ˜æ–—)
         {
             On_Click(item);
         }
-        else Alert_Dec.Show("¸Ã¼¼ÄÜÖ»ÄÜ×°ÔØÕ½¶·¼¼ÄÜ");
+        else Alert_Dec.Show("è¯¥æŠ€èƒ½åªèƒ½è£…è½½æˆ˜æ–—æŠ€èƒ½");
     }
 
     private void On_SpecialClick(btn_item item)
     {
-        if ((skill_btn_list)user_skill.skill_type == skill_btn_list.ÃØóÅ)
+        if ((skill_btn_list)user_skill.skill_type == skill_btn_list.ç§˜ç¬ˆ)
         {
             On_Click(item);
-        }else Alert_Dec.Show("¸Ã¼¼ÄÜÖ»ÄÜ×°ÔØÃØóÅ");
+        }else Alert_Dec.Show("è¯¥æŠ€èƒ½åªèƒ½è£…è½½ç§˜ç¬ˆ");
     }
 
     /// <summary>
-    /// ÉèÖÃÌØÊâ¼¼ÄÜ
+    /// è®¾ç½®ç‰¹æ®ŠæŠ€èƒ½
     /// </summary>
     /// <param name="item"></param>
     private void On_Click(btn_item item)
     {
         bring_skill(item.index);
-        Alert_Dec.Show("×°ÔØ¼¼ÄÜ³É¹¦");
+        Alert_Dec.Show("è£…è½½æŠ€èƒ½æˆåŠŸ");
         Show(user_skill);
     }
 
@@ -148,7 +148,7 @@ public class offect_up_skill : Base_Mono
         SendNotification(NotiList.Refresh_Max_Hero_Attribute);
     }
     /// <summary>
-    /// ÇĞ»»¼¼ÄÜ
+    /// åˆ‡æ¢æŠ€èƒ½
     /// </summary>
     /// <param name="item"></param>
     private void On_Click(skill_offect_item item)
@@ -157,7 +157,7 @@ public class offect_up_skill : Base_Mono
         item.Data.user_values[2] = user_skill.user_values[2];
         item.Data.user_value = ArrayHelper.Data_Encryption(item.Data.user_values);
         bring_skill(pos);
-        Alert_Dec.Show("¼¼ÄÜÇĞ»»³É¹¦");
+        Alert_Dec.Show("æŠ€èƒ½åˆ‡æ¢æˆåŠŸ");
         Show(user_skill);
     }
 

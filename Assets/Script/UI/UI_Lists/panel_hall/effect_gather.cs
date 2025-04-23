@@ -24,26 +24,26 @@ public class effect_gather : Base_Mono
 
     private Dictionary<string, int> keys = new Dictionary<string, int>();
     /// <summary>
-    /// ¼«Æ·´ÎÊı
+    /// æå“æ¬¡æ•°
     /// </summary>
     private int success_Number = 0;
 
     private Button gather;
 
     /// <summary>
-    /// ±ê×¼Ê±¼ä
+    /// æ ‡å‡†æ—¶é—´
     /// </summary>
     private static float base_time = 30f;
     /// <summary>
-    /// ±ê×¼´ÎÊı
+    /// æ ‡å‡†æ¬¡æ•°
     /// </summary>
     private static int base_number = 5;
     /// <summary>
-    /// ÏŞÖÆ´ÎÊı
+    /// é™åˆ¶æ¬¡æ•°
     /// </summary>
     private int LimitNumber = base_number;
     /// <summary>
-    /// ÏÔÊ¾Ê±¼ä
+    /// æ˜¾ç¤ºæ—¶é—´
     /// </summary>
     private Text info_time, info_number, info_base_time;
 
@@ -64,7 +64,7 @@ public class effect_gather : Base_Mono
 
     }
     /// <summary>
-    /// ´ò¿ª¿ª¹Ø
+    /// æ‰“å¼€å¼€å…³
     /// </summary>
     public void OpenEffect_Gather(int number)
     {
@@ -81,7 +81,7 @@ public class effect_gather : Base_Mono
 
         receive_list.Clear();
 
-        info_number.text = "²É¼¯(" + LimitNumber + "´Î)";
+        info_number.text = "é‡‡é›†(" + LimitNumber + "æ¬¡)";
 
         for (int i = crt_interval.childCount - 1; i >= 0; i--)
         {
@@ -110,7 +110,7 @@ public class effect_gather : Base_Mono
     {
         while (time > 0)
         {
-            info_time.text = "Á¶µ¤Ê£ÓàÊ±¼ä" + time + "s";
+            info_time.text = "ç‚¼ä¸¹å‰©ä½™æ—¶é—´" + time + "s";
 
             yield return new WaitForSeconds(1f);
             time -= 1;
@@ -120,7 +120,7 @@ public class effect_gather : Base_Mono
 
     private void Obtain_Other_Receive()
     {
-        Alert_Dec.Show("±¾´ÎÁ¶µ¤½áÊø");
+        Alert_Dec.Show("æœ¬æ¬¡ç‚¼ä¸¹ç»“æŸ");
         transform.parent.SendMessage("Confirm_Number", success_Number);
         gameObject.SetActive(false);
     }
@@ -137,14 +137,14 @@ public class effect_gather : Base_Mono
     }
 
     /// <summary>
-    /// ²É¼¯½á¹û
+    /// é‡‡é›†ç»“æœ
     /// </summary>
     private void Refining_Gather()
     {
         slider_speed += Random.Range(1, 5);
         if (LimitNumber <= 0)
         {
-            Alert_Dec.Show("µ±Ç°×¢Áé²»×ã");
+            Alert_Dec.Show("å½“å‰æ³¨çµä¸è¶³");
             return;
         }
         LimitNumber--;
@@ -158,10 +158,10 @@ public class effect_gather : Base_Mono
             if (interval_receive == 3)
             {
                 success_Number++;
-                Alert_Dec.Show("×¢Áé³É¹¦,»ñµÃ¼«Æ·Öµ+1");
+                Alert_Dec.Show("æ³¨çµæˆåŠŸ,è·å¾—æå“å€¼+1");
             }
         }
-        info_number.text = "×¢Áé(" + LimitNumber + "´Î)";
+        info_number.text = "æ³¨çµ(" + LimitNumber + "æ¬¡)";
 
         if (LimitNumber <= 0)
         {
@@ -181,7 +181,7 @@ public class effect_gather : Base_Mono
 
         else keys[obtain_name] += number;
 
-        return "»ñµÃ" + Show_Color.Yellow(obtain_name) + " * " + number;
+        return "è·å¾—" + Show_Color.Yellow(obtain_name) + " * " + number;
 
     }
 

@@ -7,11 +7,11 @@ using UnityEngine;
 public class user_world_vo : Base_VO
 {
     /// <summary>
-    /// µÈ¼¶
+    /// ç­‰çº§
     /// </summary>
     public int World_Lv;
     /// <summary>
-    /// 0 ×îºóË¢ĞÂÊ±¼ä 1ÁéÆøÖµ
+    /// 0 æœ€ååˆ·æ–°æ—¶é—´ 1çµæ°”å€¼
     /// </summary>
     private List<string> value_lists = new List<string>();
 
@@ -27,7 +27,7 @@ public class user_world_vo : Base_VO
         }
     }
     /// <summary>
-    /// »ñÈ¡Öµ
+    /// è·å–å€¼
     /// </summary>
     /// <returns></returns>
     public List<string> Get()
@@ -35,7 +35,7 @@ public class user_world_vo : Base_VO
      return value_lists;
     }
     /// <summary>
-    /// »ñÈ¡Öµ
+    /// è·å–å€¼
     /// </summary>
     /// <param name="value"></param>
     public void Set(int value)
@@ -57,7 +57,7 @@ public class user_world_vo : Base_VO
         return dec;
     }
     /// <summary>
-    /// ³õÊ¼»¯
+    /// åˆå§‹åŒ–
     /// </summary>
     /// <returns></returns>
     private string InitValue()
@@ -67,7 +67,7 @@ public class user_world_vo : Base_VO
         return user_value;
     }
     /// <summary>
-    /// ³õÊ¼»¯
+    /// åˆå§‹åŒ–
     /// </summary>
     /// <returns></returns>
     public override string[] Set_Instace_String()

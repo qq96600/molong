@@ -12,52 +12,52 @@ public class Pet_explore : Panel_Base
 {
 
     /// <summary>
-    /// Ì½Ë÷°´Å¥×é
+    /// æ¢ç´¢æŒ‰é’®ç»„
     /// </summary>
     private Button[] button_map;
 
 
 
     /// <summary>
-    /// Íæ¼ÒÑ¡ÔñµÄÌ½Ë÷
+    /// ç©å®¶é€‰æ‹©çš„æ¢ç´¢
     /// </summary>
     private string explore;
 
     /// <summary>
-    /// Ì½Ë÷´ÎÊı
+    /// æ¢ç´¢æ¬¡æ•°
     /// </summary>
     private int IsExploring = 5;
 
     /// <summary>
-    /// °´Å¥Ô¤ÖÆÌå
+    /// æŒ‰é’®é¢„åˆ¶ä½“
     /// </summary>
     private btn_item btn_item_Prefabs;
     /// <summary>
-    /// ÎïÆ·ĞÅÏ¢Ô¤ÖÆÌå
+    /// ç‰©å“ä¿¡æ¯é¢„åˆ¶ä½“
     /// </summary>
     private material_item info_item_Prefabs;
     /// <summary>
-    /// Ì½Ë÷³èÎï¸¸ÎïÌå
+    /// æ¢ç´¢å® ç‰©çˆ¶ç‰©ä½“
     /// </summary>
     private Transform pos_btn;
     /// <summary>
-    /// Ì½Ë÷½±Àø¸¸ÎïÌå
+    /// æ¢ç´¢å¥–åŠ±çˆ¶ç‰©ä½“
     /// </summary>
     private Transform pos_Items;
     /// <summary>
-    /// ¹¦ÄÜ°´¼ü¸¸ÎïÌå
+    /// åŠŸèƒ½æŒ‰é”®çˆ¶ç‰©ä½“
     /// </summary>
     private Transform function_pos_btn;
     /// <summary>
-    /// Ì½Ë÷³èÎïÁĞ±í
+    /// æ¢ç´¢å® ç‰©åˆ—è¡¨
     /// </summary>
-    private string[] pet_btn_list = new string[] { "ÀÇ", "»¢", "±ª" };
+    private string[] pet_btn_list = new string[] { "ç‹¼", "è™", "è±¹" };
     /// <summary>
-    /// ¹¦ÄÜ°´¼üÁĞ±í
+    /// åŠŸèƒ½æŒ‰é”®åˆ—è¡¨
     /// </summary>
-    private string[] function_btn_list = new string[] { "ÊÕ»ñ", "·µ»Ø", "Ì½Ë÷" };
+    private string[] function_btn_list = new string[] { "æ”¶è·", "è¿”å›", "æ¢ç´¢" };
     /// <summary>
-    /// ³èÎïÌ½Ë÷ÊÕ»ñÁĞ±í
+    /// å® ç‰©æ¢ç´¢æ”¶è·åˆ—è¡¨
     /// </summary>
     private List<(string,int)> btn_item_list = new List<(string, int)>();
 
@@ -65,7 +65,7 @@ public class Pet_explore : Panel_Base
     public override void Show() 
     {
         base.Show();
-        #region ×é¼ş³õÊ¼»¯
+        #region ç»„ä»¶åˆå§‹åŒ–
         button_map = Find<Transform>("explore_map/Buttons_map").GetComponentsInChildren<Button>();
         pos_btn = Find<Transform>("explore/pet_pos_btn");
         pos_Items = Find<Transform>("Income/Items");
@@ -74,15 +74,15 @@ public class Pet_explore : Panel_Base
         info_item_Prefabs = Resources.Load<material_item>("Prefabs/panel_bag/material_item");
         #endregion
 
-        #region ¸÷¹¦ÄÜ°´¼ü³õÊ¼»¯
-        ///³èÎïµØÍ¼Ì½Ë÷°´Å¥³õÊ¼»¯
+        #region å„åŠŸèƒ½æŒ‰é”®åˆå§‹åŒ–
+        ///å® ç‰©åœ°å›¾æ¢ç´¢æŒ‰é’®åˆå§‹åŒ–
         for (int i = 0; i < button_map.Length; i++)
         {
             int index = i;
             button_map[i].onClick.AddListener(() => { Obtain_Explore(index); });
         }
 
-        ///Ì½Ë÷³èÎïbutton
+        ///æ¢ç´¢å® ç‰©button
         ClearObject(pos_btn);
         for (int i = 0; i < pet_btn_list.Length; i++)
         {
@@ -91,9 +91,9 @@ public class Pet_explore : Panel_Base
             btn_item.GetComponent<Button>().onClick.AddListener(delegate { UpSetMaterial(btn_item); });
         }
 
-        btn_item_list.Add(("ÁéÊ¯", 100));
-        btn_item_list.Add(("ÎäÆ÷ËéÆ¬", 100));
-        ///Ì½Ë÷²ÄÁÏimage
+        btn_item_list.Add(("çµçŸ³", 100));
+        btn_item_list.Add(("æ­¦å™¨ç¢ç‰‡", 100));
+        ///æ¢ç´¢ææ–™image
         ClearObject(pos_Items);
         for (int i = 0; i < btn_item_list.Count; i++)
         {
@@ -102,7 +102,7 @@ public class Pet_explore : Panel_Base
             //item.GetComponent<Button>().onClick.AddListener(delegate { Select_Btn(item); });
         }
 
-        ///¹¦ÄÜ°´¼ü³õÊ¼»¯
+        ///åŠŸèƒ½æŒ‰é”®åˆå§‹åŒ–
         ClearObject(function_pos_btn);
         for (int i = 0; i < function_btn_list.Length; i++)
         {
@@ -114,65 +114,65 @@ public class Pet_explore : Panel_Base
         #endregion
     }
     /// <summary>
-    /// °´Å¥¾ßÌå¹¦ÄÜ
+    /// æŒ‰é’®å…·ä½“åŠŸèƒ½
     /// </summary>
     /// <param name="btn_item"></param>
     private void FunctionButton(btn_item btn_item)
     {
         switch (btn_item.name)
         {
-            case "ÊÕ»ñ":
+            case "æ”¶è·":
                 break;
-            case "·µ»Ø":
+            case "è¿”å›":
                 break;
-            case "Ì½Ë÷":
+            case "æ¢ç´¢":
                 break;
         }
     }
 
 
     /// <summary>
-    /// ÏÔÊ¾³èÎïÌ½Ë÷½±ÀøÁĞ±í
+    /// æ˜¾ç¤ºå® ç‰©æ¢ç´¢å¥–åŠ±åˆ—è¡¨
     /// </summary>
     /// <param name="btn_item"></param>
     private void UpSetMaterial(btn_item btn_item)
     {
-        Debug.Log("ÏÔÊ¾³èÎïÌ½Ë÷½±ÀøÁĞ±í");
+        Debug.Log("æ˜¾ç¤ºå® ç‰©æ¢ç´¢å¥–åŠ±åˆ—è¡¨");
     }
 
 
     /// <summary>
-    /// ³õÊ¼»¯Ì½Ë÷ÁĞ±í
+    /// åˆå§‹åŒ–æ¢ç´¢åˆ—è¡¨
     /// </summary>
     /// <param name="data"></param>
     public void Init()
     {
-       for(int i=0;i< button_map.Length; i++)//Ëæ»úÌí¼ÓµØÍ¼Ãû³Æ
+       for(int i=0;i< button_map.Length; i++)//éšæœºæ·»åŠ åœ°å›¾åç§°
        {
             int r = Random.Range(0, SumSave.db_pet_explore.Count);
             button_map[i].GetComponentInChildren<Text>().text = SumSave.db_pet_explore[r].petExploreMapName;
        }
     }
     /// <summary>
-    /// µã»÷Ì½Ë÷
+    /// ç‚¹å‡»æ¢ç´¢
     /// </summary>
     private void Obtain_Explore(int index)
     {
-        explore = button_map[index].GetComponentInChildren<Text>().text;//»ñµÃÌ½Ë÷µØÍ¼µÄÃû×Ö
+        explore = button_map[index].GetComponentInChildren<Text>().text;//è·å¾—æ¢ç´¢åœ°å›¾çš„åå­—
 
-        if (IsExploring>=0 && SumSave.db_pet_explore_dic.TryGetValue(explore, out user_pet_explore_vo vo)) //ÅĞ¶Ï´ÎÊı²¢ÇÒ¸ü¾ßÃû×ÖÕÒµ½¸ÃµØÍ¼µÄĞÅÏ¢
+        if (IsExploring>=0 && SumSave.db_pet_explore_dic.TryGetValue(explore, out user_pet_explore_vo vo)) //åˆ¤æ–­æ¬¡æ•°å¹¶ä¸”æ›´å…·åå­—æ‰¾åˆ°è¯¥åœ°å›¾çš„ä¿¡æ¯
         {
-            string[] Explore_list = vo.petEvent_reward.Split("&");//»ñÈ¡¸ÃµØÍ¼µÄ½±ÀøÁĞ±í
+            string[] Explore_list = vo.petEvent_reward.Split("&");//è·å–è¯¥åœ°å›¾çš„å¥–åŠ±åˆ—è¡¨
 
             int r = 0;
             while(true)
             {
                 r++;
-                string[] data = Explore_list[Random.Range(0, Explore_list.Length)].Split(" ");//¸ù¾İ¿Õ¸ñ²ğ·Ö½±ÀøÁĞ±í
-                if (data.Length == 3)//ÅĞ¶Ï½±Àø¸ñÊ½
+                string[] data = Explore_list[Random.Range(0, Explore_list.Length)].Split(" ");//æ ¹æ®ç©ºæ ¼æ‹†åˆ†å¥–åŠ±åˆ—è¡¨
+                if (data.Length == 3)//åˆ¤æ–­å¥–åŠ±æ ¼å¼
                 {
                     string[] odds = data[2].Split("/");
-                    if (Random.Range(0, int.Parse(odds[1])) < int.Parse(odds[0]))//ÅĞ¶ÏÊÇ·ñ»ñµÃ½±Àø
+                    if (Random.Range(0, int.Parse(odds[1])) < int.Parse(odds[0]))//åˆ¤æ–­æ˜¯å¦è·å¾—å¥–åŠ±
                     {
                         GainRewards(data);
                         return;
@@ -188,19 +188,19 @@ public class Pet_explore : Panel_Base
                   
             }
         }
-        else Alert_Dec.Show("Ì½Ë÷´ÎÊı²»×ã");
+        else Alert_Dec.Show("æ¢ç´¢æ¬¡æ•°ä¸è¶³");
     }
 
     /// <summary>
-    /// »ñµÃ½±Àø²¢·¢ËÍÏûÏ¢
+    /// è·å¾—å¥–åŠ±å¹¶å‘é€æ¶ˆæ¯
     /// </summary>
     /// <param name="data"></param>
     private void GainRewards(string[] data)
     {
-        int i=Random.Range(1, int.Parse(data[1])+1);//Ëæ»ú»ñµÃ½±ÀøÊıÁ¿
+        int i=Random.Range(1, int.Parse(data[1])+1);//éšæœºè·å¾—å¥–åŠ±æ•°é‡
 
-        Battle_Tool.Obtain_Resources(data[0], i);//»ñÈ¡½±Àø
-        Alert_Dec.Show("Ì½Ë÷ÊÕÒæ " + data[0] + " x " + i);
+        Battle_Tool.Obtain_Resources(data[0], i);//è·å–å¥–åŠ±
+        Alert_Dec.Show("æ¢ç´¢æ”¶ç›Š " + data[0] + " x " + i);
         IsExploring--;
         Init();
     }

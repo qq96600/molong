@@ -8,17 +8,17 @@ using UnityEngine;
 public class user_collect_vo : Base_VO
 {
     /// <summary>
-    /// 成就是否收集列表
+    /// 鎴愬氨鏄惁鏀堕泦鍒楄〃
     /// </summary>
     public List<(string,int)> user_collect_list;
     /// <summary>
-    /// 成就是否收集dic
+    /// 鎴愬氨鏄惁鏀堕泦dic
     /// </summary>
     public Dictionary<string, int> user_collect_dic= new Dictionary<string, int>();
 
 
     /// <summary>
-    /// 合并是否收集列表
+    /// 鍚堝苟鏄惁鏀堕泦鍒楄〃
     /// </summary>
     public string collect_Merge()
     {

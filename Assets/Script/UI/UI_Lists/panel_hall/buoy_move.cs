@@ -7,7 +7,7 @@ namespace MVC
     {
         private Rigidbody rb;
         /// <summary>
-        /// 自身速度
+        /// 鑷韩閫熷害
         /// </summary>
         private float AttackSpeed = 300;
 
@@ -20,7 +20,7 @@ namespace MVC
             rb.velocity = transform.right * AttackSpeed;
         }
         /// <summary>
-        /// 移动
+        /// 绉诲姩
         /// </summary>
         /// <param name="direction"></param>
         public void Move(float x_min, float x_max)

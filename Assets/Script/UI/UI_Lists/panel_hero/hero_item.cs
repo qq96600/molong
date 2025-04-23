@@ -26,7 +26,7 @@ public class hero_item : Base_Mono
             data = value;
             if (data == null) return;
             base_info.text = data.hero_name;
-            //¶ÁÈ¡ÏÔÊ¾Í¼±ê
+            //è¯»å–æ˜¾ç¤ºå›¾æ ‡
         }
         get
         {

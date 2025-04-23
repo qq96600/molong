@@ -7,19 +7,19 @@ using UnityEngine.UI;
 public class store_item : Base_Mono
 {
     /// <summary>
-    /// ¹ºÂò
+    /// è´­ä¹°
     /// </summary>
     private Button buy;
     /// <summary>
-    /// ÏÔÊ¾ĞÅÏ¢
+    /// æ˜¾ç¤ºä¿¡æ¯
     /// </summary>
     private Text baseinfo;
     /// <summary>
-    /// ÏÔÊ¾Í¼±ê
+    /// æ˜¾ç¤ºå›¾æ ‡
     /// </summary>
     private Image icon;
     /// <summary>
-    /// Êı¾İ
+    /// æ•°æ®
     /// </summary>
     private material_item material_item_Prefabs;
     private (string, int) data;
@@ -30,16 +30,16 @@ public class store_item : Base_Mono
         material_item_Prefabs = Resources.Load<material_item>("Prefabs/panel_bag/material_item");
     }
     /// <summary>
-    /// ³õÊ¼»¯
+    /// åˆå§‹åŒ–
     /// </summary>
     /// <param name="bag_Resources"></param>
     public void Init((string, int) bag_Resources,string unit)
     {
         data = bag_Resources;
-        baseinfo.text = Show_Color.White(bag_Resources.Item1) + "\nµ¥¼Û"
+        baseinfo.text = Show_Color.White(bag_Resources.Item1) + "\nå•ä»·"
             + Battle_Tool.FormatNumberToChineseUnit(bag_Resources.Item2)
             + " " + unit
-            + "\n" + Show_Color.Green("¹ºÂò");
+            + "\n" + Show_Color.Green("è´­ä¹°");
         material_item item = Instantiate(material_item_Prefabs, icon.transform);
         item.Init((bag_Resources.Item1,1));
     }

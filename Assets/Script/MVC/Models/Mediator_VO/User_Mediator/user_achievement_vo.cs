@@ -7,31 +7,31 @@ using UnityEngine;
 public class user_achievement_vo : Base_VO
 {
     /// <summary>
-    /// ×ÔÉíuid
+    /// è‡ªèº«uid
     /// </summary>
     public string uid;
     /// <summary>
-    /// Çø
+    /// åŒº
     /// </summary>
     public int par;
     /// <summary>
-    /// ¾­ÑéÖµ
+    /// ç»éªŒå€¼
     /// </summary>
     public string achievement_exp;
     /// <summary>
-    /// µÈ¼¶
+    /// ç­‰çº§
     /// </summary>
     public string achievement_lvs;
 
     /// <summary>
-    /// ¾ßÌå³É¾ÍÒÔ¼°³É¾ÍµÈ¼¶
+    /// å…·ä½“æˆå°±ä»¥åŠæˆå°±ç­‰çº§
     /// </summary>
     private Dictionary<string, int> user_achievements = new Dictionary<string, int>();
     private Dictionary<string, int> user_achievements_lv = new Dictionary<string, int>();
   
 
     /// <summary>
-    /// »ñÈ¡¾­ÑéÖµ
+    /// è·å–ç»éªŒå€¼
     /// </summary>
     /// <returns></returns>
     public Dictionary<string, int> Set_Exp()
@@ -39,7 +39,7 @@ public class user_achievement_vo : Base_VO
         return user_achievements;
     }
     /// <summary>
-    /// »ñÈ¡µÈ¼¶
+    /// è·å–ç­‰çº§
     /// </summary>
     /// <returns></returns>
     public Dictionary<string, int> Set_Lv()
@@ -48,7 +48,7 @@ public class user_achievement_vo : Base_VO
     }
 
     /// <summary>
-    /// ²ğ½âÊı¾İ
+    /// æ‹†è§£æ•°æ®
     /// </summary>
     public void Init()
     {

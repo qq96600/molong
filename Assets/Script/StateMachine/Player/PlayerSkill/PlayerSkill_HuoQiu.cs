@@ -33,7 +33,7 @@ namespace StateMachine
             base.Update();
 
             startTime -= Time.deltaTime;
-            player.animStateInfo = player.anim.GetCurrentAnimatorStateInfo(0);//ĞèÒªÔÚÃ¿Ò»Ö¡¸üĞÂ¶¯»­×´Ì¬ĞÅÏ¢        
+            player.animStateInfo = player.anim.GetCurrentAnimatorStateInfo(0);//éœ€è¦åœ¨æ¯ä¸€å¸§æ›´æ–°åŠ¨ç”»çŠ¶æ€ä¿¡æ¯        
             if (startTime <=0)
             {
                 ObjectPoolManager.instance.GetObjectFormPool("Skll_HuoQiu", player.skills_HuoQiu,

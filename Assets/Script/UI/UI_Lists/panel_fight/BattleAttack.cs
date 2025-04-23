@@ -10,18 +10,18 @@ using Random = UnityEngine.Random;
 namespace MVC
 {
     /// <summary>
-    /// Õ½¶·Ä£Ê½
+    /// æˆ˜æ–—æ¨¡å¼
     /// </summary>
     /// 
     public class BattleAttack : Base_Mono
     {
         /// <summary>
-        /// »ñÈ¡ÑªÖµ
+        /// è·å–è¡€å€¼
         /// </summary>
         [HideInInspector]
         public BattleHealth target;
         /// <summary>
-        /// Ä¿±ê
+        /// ç›®æ ‡
         /// </summary>
         protected BattleHealth Terget;
 
@@ -29,27 +29,27 @@ namespace MVC
 
         protected Image targetIcon;
         /// <summary>
-        /// ¼¼ÄÜÁĞ±í
+        /// æŠ€èƒ½åˆ—è¡¨
         /// </summary>
         protected List<skill_offect_item> battle_skills;
         /// <summary>
-        /// Ãû³Æ ³ÆºÅ
+        /// åç§° ç§°å·
         /// </summary>
         protected Text Name, sliderInfo, damageInfo;
         /// <summary>
-        /// ¼ÆÊıÆ÷
+        /// è®¡æ•°å™¨
         /// </summary>
         protected Slider show_hp;
 
         /// <summary>
-        /// ½ÇÉ«×´Ì¬»ú
+        /// è§’è‰²çŠ¶æ€æœº
         /// </summary>
         public AttackStateMachine AttackStateMachine;
         public RolesManage StateMachine;
 
         private Text name_text;
         /// <summary>
-        /// Ë¢ĞÂÊôĞÔ
+        /// åˆ·æ–°å±æ€§
         /// </summary>
         /// <param name="hero"></param>
         public virtual void Refresh(crtMaxHeroVO hero)
@@ -101,14 +101,14 @@ namespace MVC
             }
         }
         /// <summary>
-        /// ¶ÔÄ¿±êÔì³ÉÉËº¦
+        /// å¯¹ç›®æ ‡é€ æˆä¼¤å®³
         /// </summary>
         /// <param name="skill"></param>
         public void skill_damage(base_skill_vo skill) 
         {
             float damage = 0f;
             BattleAttack monster = Terget.GetComponent<BattleAttack>();
-            if (monster.target.HP <= 0) return;//½áÕ½¶·
+            if (monster.target.HP <= 0) return;//ç»“æˆ˜æ–—
             if (Data.Type == 1)
             {
                 damage = Random.Range(Data.damageMin, Data.damageMax) - Random.Range(monster.Data.DefMin, monster.Data.DefMax);
@@ -120,8 +120,8 @@ namespace MVC
             }
             if (Random.Range(0, 100) > Data.hit - monster.Data.dodge)
             {
-                //´«µİÏûÏ¢£¬Î´ÃüÖĞ;
-                monster.target.TakeDamage(1, DamageEnum.¼¼ÄÜÎ´ÃüÖĞ, monster);
+                //ä¼ é€’æ¶ˆæ¯ï¼Œæœªå‘½ä¸­;
+                monster.target.TakeDamage(1, DamageEnum.æŠ€èƒ½æœªå‘½ä¸­, monster);
                 return;
             }
             damage = damage * (skill.skill_damage + (skill.skill_power * int.Parse(skill.user_values[1]))) / 100;
@@ -133,11 +133,11 @@ namespace MVC
                 damage = damage * data.crit_damage / 100;
             }
             damage = 100;
-            monster.target.TakeDamage(damage, isCrit ? DamageEnum.±©»÷¼¼ÄÜÉËº¦ : DamageEnum.¼¼ÄÜÉËº¦, monster);
+            monster.target.TakeDamage(damage, isCrit ? DamageEnum.æš´å‡»æŠ€èƒ½ä¼¤å®³ : DamageEnum.æŠ€èƒ½ä¼¤å®³, monster);
         }
 
         /// <summary>
-        /// Ö¸¶¨Ä¿±ê
+        /// æŒ‡å®šç›®æ ‡
         /// </summary>
         /// <param name="health"></param>
         public void SpecifyTarget(BattleHealth health)
@@ -147,16 +147,16 @@ namespace MVC
 
         public void injured()
         {
-            //²¥·ÅÒôĞ§
+            //æ’­æ”¾éŸ³æ•ˆ
         }
 
         protected int SkillInfo = 0;
         /// <summary>
-        /// »ù´¡ËÙ¶È
+        /// åŸºç¡€é€Ÿåº¦
         /// </summary>
         protected float baseSpeed = 2f;
         /// <summary>
-        /// ×Ô¶¯Õ½¶·
+        /// è‡ªåŠ¨æˆ˜æ–—
         /// </summary>
         public virtual void OnAuto()
         {
@@ -164,7 +164,7 @@ namespace MVC
         }
 
         /// <summary>
-        /// ³õÊ¼»¯Êı¾İ
+        /// åˆå§‹åŒ–æ•°æ®
         /// </summary>
         public virtual void Instace()
         {
@@ -179,16 +179,16 @@ namespace MVC
         }
 
         /// <summary>
-        /// Ñ°ÕÒ¹¥»÷¶ÔÏó
+        /// å¯»æ‰¾æ”»å‡»å¯¹è±¡
         /// </summary>
         protected virtual void Find_Terget()
         {
            if(GetComponent<Player>() != null)
 
             {
-                if (SumSave.battleMonsterHealths.Count > 0)//Íæ¼ÒÕÒ¹ÖÎï
+                if (SumSave.battleMonsterHealths.Count > 0)//ç©å®¶æ‰¾æ€ªç‰©
                 {
-                    //Ñ°ÕÒ¾àÀë×ÔÉí×î½üµÄÄ¿±ê    
+                    //å¯»æ‰¾è·ç¦»è‡ªèº«æœ€è¿‘çš„ç›®æ ‡    
                     Terget = ArrayHelper.GetMin(SumSave.battleMonsterHealths, e => Vector2.Distance(transform.position, e.transform.position));
 
                     // StateMachine.Init(data.attack_speed, data.attack_distance, data.move_speed, Terget,this);
@@ -205,9 +205,9 @@ namespace MVC
             }
             else if (GetComponent<Monster>() != null)
             {
-                if (SumSave.battleHeroHealths.Count > 0 )//¹ÖÎïÕÒÍæ¼Ò
+                if (SumSave.battleHeroHealths.Count > 0 )//æ€ªç‰©æ‰¾ç©å®¶
                 {
-                    //Ñ°ÕÒ¾àÀë×ÔÉí×î½üµÄÄ¿±ê    
+                    //å¯»æ‰¾è·ç¦»è‡ªèº«æœ€è¿‘çš„ç›®æ ‡    
                     Terget = ArrayHelper.GetMin(SumSave.battleHeroHealths, e => Vector2.Distance(transform.position, e.transform.position));
                     AttackStateMachine.Init(this, Terget);
                     StateMachine.Init(this, Terget);
@@ -218,7 +218,7 @@ namespace MVC
             }
         }
         /// <summary>
-        /// ½øĞĞÏÂÒ»»ØºÏ
+        /// è¿›è¡Œä¸‹ä¸€å›åˆ
         /// </summary>
         private void Game_Next_Map()
         {
@@ -226,7 +226,7 @@ namespace MVC
 
         }
         /// <summary>
-        /// ÓÎÏ·½áÊø
+        /// æ¸¸æˆç»“æŸ
         /// </summary>
         private void game_over()
         {
@@ -234,7 +234,7 @@ namespace MVC
         }
 
         /// <summary>
-        /// ÏÔÊ¾ĞÅÏ¢
+        /// æ˜¾ç¤ºä¿¡æ¯
         /// </summary>
         /// <param name="dec"></param>
         protected virtual void Show_Info(string dec)
@@ -244,7 +244,7 @@ namespace MVC
 
         public virtual void Update()
         {
-            if (data != null)//ÅĞ¶ÏÊÇ·ñÓĞ¹ÖÎï
+            if (data != null)//åˆ¤æ–­æ˜¯å¦æœ‰æ€ªç‰©
             {
                 if (Terget != null)
                 {
@@ -257,7 +257,7 @@ namespace MVC
         }
 
         /// <summary>
-        /// ¹Ø±Õ¹â»·
+        /// å…³é—­å…‰ç¯
         /// </summary>
         /// <returns></returns>
         IEnumerator HideFrame()

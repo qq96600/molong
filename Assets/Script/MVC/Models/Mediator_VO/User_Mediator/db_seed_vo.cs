@@ -3,53 +3,53 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 /// <summary>
-/// ÖÖ×ÓÊı¾İ
+/// ç§å­æ•°æ®
 /// </summary>
 public class db_seed_vo : Base_VO
 {
     public string type;
     /// <summary>
-    /// ±àºÅ
+    /// ç¼–å·
     /// </summary>
     public int sequence;
     /// <summary>
-    /// ²ÄÁÏÃû³Æ
+    /// ææ–™åç§°
     /// </summary>
     public string seed_name;
     /// <summary>
-    /// Åä·½
+    /// é…æ–¹
     /// </summary>
     public string seed_formula;
     /// <summary>
-    /// ³ÉÃûÃû³Æ
+    /// æˆååç§°
     /// </summary>
     public string pill;
     /// <summary>
-    /// ºÏ³É¹«Ê½
+    /// åˆæˆå…¬å¼
     /// </summary>
     public string formula;
     /// <summary>
-    /// Ò©Æ·¼Ó³ÉĞ§¹û×îĞ¡Öµ×î´óÖµ
+    /// è¯å“åŠ æˆæ•ˆæœæœ€å°å€¼æœ€å¤§å€¼
     /// </summary>
     public string pill_effect;
     /// <summary>
-    /// ×¢ÁéĞèÒªÊıÁ¿
+    /// æ³¨çµéœ€è¦æ•°é‡
     /// </summary>
     public int seed_number=10;
     /// <summary>
-    /// È¨ÖØ
+    /// æƒé‡
     /// </summary>
     public int Weight;
     /// <summary>
-    /// ¶¨ÒåÀàĞÍ
+    /// å®šä¹‰ç±»å‹
     /// </summary>
     public int rule;
     /// <summary>
-    /// ÀÛ»ı¿ÉÒÔÍÌµÄ´ÎÊı
+    /// ç´¯ç§¯å¯ä»¥åçš„æ¬¡æ•°
     /// </summary>
     public int limit;
     /// <summary>
-    /// ¶ÔÓ¦×Öµä±àºÅ
+    /// å¯¹åº”å­—å…¸ç¼–å·
     /// </summary>
     public int dicdictionary_index;
 

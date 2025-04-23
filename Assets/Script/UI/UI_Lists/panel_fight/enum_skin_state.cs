@@ -4,16 +4,16 @@ using UnityEngine;
 
 public enum enum_skin_state 
 {
-    Á§ĞÄ=1,
-    ÕÑÔÂ,
-    ²Ôöª, 
+    ç’ƒå¿ƒ=1,
+    æ˜­æœˆ,
+    è‹éœ†, 
 
 
 }
 
 public enum enum_monster_type
 {
-    ³æ×Ó=1,
+    è™«å­=1,
 
 
 }

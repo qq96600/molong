@@ -6,38 +6,38 @@ using UnityEngine;
 public class db_achievement_VO : Base_VO
 {
     /// <summary>
-    /// ³É¾ÍÀàĞÍ
+    /// æˆå°±ç±»å‹
     /// </summary>
     public int achievement_type;
     /// <summary>
-    /// ³É¾ÍÃû³Æ
+    /// æˆå°±åç§°
     /// </summary>
     public string achievement_value;
     /// <summary>
-    /// ³É¾Í´ï³ÉÌõ¼ş
+    /// æˆå°±è¾¾æˆæ¡ä»¶
     /// </summary>
     public string achievement_need;
     /// <summary>
-    /// ³É¾Í´ï³ÉÌõ¼şÁĞ±í
+    /// æˆå°±è¾¾æˆæ¡ä»¶åˆ—è¡¨
     /// </summary>
     public List<long> achievement_needs = new List<long>();
     /// <summary>
-    /// ½±ÀøÀàĞÍ
+    /// å¥–åŠ±ç±»å‹
     /// 
-    /// 0ÎïÆ· 1ÊôĞÔ
+    /// 0ç‰©å“ 1å±æ€§
    
     /// </summary>
     public string achievement_reward;
     /// <summary>
-    /// ÊÕÒæÁĞ±í
+    /// æ”¶ç›Šåˆ—è¡¨
     /// </summary>
     public List<string> achievement_rewards = new List<string>();
     /// <summary>
-    /// ÏÔÊ¾µÈ¼¶½éÉÜ
+    /// æ˜¾ç¤ºç­‰çº§ä»‹ç»
     /// </summary>
     public string[] achievement_show_lv;
     /// <summary>
-    /// ÊÇ·ñÓĞ¶Ò»»ÁĞ±í
+    /// æ˜¯å¦æœ‰å…‘æ¢åˆ—è¡¨
     /// </summary>
     public string achievement_exchange_offect = "";
 }

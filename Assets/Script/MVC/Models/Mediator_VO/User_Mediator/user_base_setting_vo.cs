@@ -4,11 +4,11 @@ using MVC;
 public class user_base_setting_vo : Base_VO
 {
     /// <summary>
-    /// 读取用户设置数据
+    /// 璇诲彇鐢ㄦ埛璁剧疆鏁版嵁
     /// </summary>
     public string user_value;
     /// <summary>
-    /// 转译设置
+    /// 杞瘧璁剧疆
     /// </summary>
     public int[] user_setting;
 
@@ -24,7 +24,7 @@ public class user_base_setting_vo : Base_VO
                 };
     }
     /// <summary>
-    /// 读取更新
+    /// 璇诲彇鏇存柊
     /// </summary>
     /// <returns></returns>
     public override string[] Get_Update_Character()
@@ -34,7 +34,7 @@ public class user_base_setting_vo : Base_VO
         };
     }
     /// <summary>
-    /// 写入更新
+    /// 鍐欏叆鏇存柊
     /// </summary>
     /// <returns></returns>
     public override string[] Set_Uptade_String()

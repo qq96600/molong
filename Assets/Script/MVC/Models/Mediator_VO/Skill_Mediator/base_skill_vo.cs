@@ -5,7 +5,7 @@ public class base_skill_vo : Base_VO
 {
     private string skill_name;
     /// <summary>
-    /// ¼¼ÄÜÃû³Æ
+    /// æŠ€èƒ½åç§°
     /// </summary>
     public string skillname
     {
@@ -16,7 +16,7 @@ public class base_skill_vo : Base_VO
 
     private int skill_lv;
     /// <summary>
-    /// J¼¼ÄÜµÈ¼¶
+    /// JæŠ€èƒ½ç­‰çº§
     /// </summary>
     public int skilllv
     { 
@@ -27,7 +27,7 @@ public class base_skill_vo : Base_VO
     private int skill_pos;
 
     /// <summary>
-    /// ÉÏÕóÎ»ÖÃ
+    /// ä¸Šé˜µä½ç½®
     /// </summary>
     public int skillpos
     { 
@@ -38,7 +38,7 @@ public class base_skill_vo : Base_VO
     private int skill_internalforceMP;
 
     /// <summary>
-    /// ¸½¼ÓÄÚÁ¦
+    /// é™„åŠ å†…åŠ›
     /// </summary>
     public int skillinternalforceMP
     { 
@@ -47,89 +47,89 @@ public class base_skill_vo : Base_VO
     }
 
     /// <summary>
-    /// ¼¼ÄÜÀàĞÍ 1Õ½¶·2ÃØóÅ3ÌØÊâ
+    /// æŠ€èƒ½ç±»å‹ 1æˆ˜æ–—2ç§˜ç¬ˆ3ç‰¹æ®Š
     /// </summary>
     public int skill_type;
     /// <summary>
-    /// ¼¼ÄÜÉËº¦ÀàĞÍ 1ÎïÀí2Ä§·¨3ÕæÉË4¸¨Öú»¤¶Ü6»ØÑª7»ØÀ¶
+    /// æŠ€èƒ½ä¼¤å®³ç±»å‹ 1ç‰©ç†2é­”æ³•3çœŸä¼¤4è¾…åŠ©æŠ¤ç›¾6å›è¡€7å›è“
     /// </summary>
     public int skill_damage_type;
     /// <summary>
-    /// ¼¼ÄÜ×î´óµÈ¼¶
+    /// æŠ€èƒ½æœ€å¤§ç­‰çº§
     /// </summary>
     public int skill_max_lv;
     /// <summary>
-    /// ¼¼ÄÜ³õÊ¼»¯Éı¼¶¾­Ñé
+    /// æŠ€èƒ½åˆå§‹åŒ–å‡çº§ç»éªŒ
     /// </summary>
     public int skill_need_exp;
     /// <summary>
-    /// ¼¼ÄÜÉı¼¶ÏµÊı [0]*mathf.pow([1],[2])
+    /// æŠ€èƒ½å‡çº§ç³»æ•° [0]*mathf.pow([1],[2])
     /// </summary>
     public List<int> skill_need_coefficient;
     /// <summary>
-    /// ¼¼ÄÜ¼¤»îĞ§¹û µÈ¼¶+¼¼ÄÜÃû³Æ *·Ö¸ô
+    /// æŠ€èƒ½æ¿€æ´»æ•ˆæœ ç­‰çº§+æŠ€èƒ½åç§° *åˆ†éš”
     /// </summary>
     public List<(int,string)> skill_need_state;
     /// <summary>
-    /// ¼¤»î¸½´øĞ§¹ûÀàĞÍ
-    /// 1ÉúÃüÖµ
-    /// 2Ä§·¨Öµ
-    /// 3ÄÚÁ¦Öµ
-    /// 4ÎïÀí¹¥»÷
-    /// 5Ä§·¨¹¥»÷
-    /// 6ÎïÀí·ÀÓù
-    /// 7Ä§·¨·ÀÓù
-    /// 8¹¥»÷ËÙ¶È
-    /// 9±©»÷ÂÊ
-    /// 10¶ã±Ü
+    /// æ¿€æ´»é™„å¸¦æ•ˆæœç±»å‹
+    /// 1ç”Ÿå‘½å€¼
+    /// 2é­”æ³•å€¼
+    /// 3å†…åŠ›å€¼
+    /// 4ç‰©ç†æ”»å‡»
+    /// 5é­”æ³•æ”»å‡»
+    /// 6ç‰©ç†é˜²å¾¡
+    /// 7é­”æ³•é˜²å¾¡
+    /// 8æ”»å‡»é€Ÿåº¦
+    /// 9æš´å‡»ç‡
+    /// 10èº²é¿
     /// </summary>
     public List<int> skill_open_type;
     /// <summary>
-    /// ¶ÔÓ¦¼¤»îÖµ
+    /// å¯¹åº”æ¿€æ´»å€¼
     /// </summary>
     public List<int> skill_open_value;
     /// <summary>
-    /// ÉÏÕóĞ§¹û Í¬¼¤»îĞ§¹û
+    /// ä¸Šé˜µæ•ˆæœ åŒæ¿€æ´»æ•ˆæœ
     /// </summary>
     public List<int> skill_pos_type;
     /// <summary>
-    /// ÉÏÕóĞ§¹ûÖµ
+    /// ä¸Šé˜µæ•ˆæœå€¼
     /// </summary>
     public List<int> skill_pos_value;
     /// <summary>
-    /// ¼¼ÄÜÊÍ·ÅĞ§¹û¼¤»îËùÔÚÎ»ÖÃÊÇÒÆ¶¯¹¥»÷ »¹ÊÇÔÚÄ¿±êÉíÉÏÊÍ·Å
+    /// æŠ€èƒ½é‡Šæ”¾æ•ˆæœæ¿€æ´»æ‰€åœ¨ä½ç½®æ˜¯ç§»åŠ¨æ”»å‡» è¿˜æ˜¯åœ¨ç›®æ ‡èº«ä¸Šé‡Šæ”¾
     /// </summary>
     public int skill_damage_pos_type;
     /// <summary>
-    /// ¼¼ÄÜÉËº¦
+    /// æŠ€èƒ½ä¼¤å®³
     /// </summary>
     public int skill_damage;
     /// <summary>
-    /// ¼¼ÄÜÉı¼¶Ôö¼ÓÉËº¦
+    /// æŠ€èƒ½å‡çº§å¢åŠ ä¼¤å®³
     /// </summary>
     public int skill_power;
     /// <summary>
-    /// ÏûºÄ·¨Á¦°Ù·Ö±È
+    /// æ¶ˆè€—æ³•åŠ›ç™¾åˆ†æ¯”
     /// </summary>
     public int skill_spell=7;
     /// <summary>
-    /// ¼¼ÄÜcd
+    /// æŠ€èƒ½cd
     /// </summary>
     public float skill_cd;
     /// <summary>
-    /// Õ½¶·cd
+    /// æˆ˜æ–—cd
     /// </summary>
     public float battle_CD;
     /// <summary>
-    /// ¼¼ÄÜÌ××°ÀàĞÍ
+    /// æŠ€èƒ½å¥—è£…ç±»å‹
     /// </summary>
     public int skill_suit_type;
     /// <summary>
-    /// ¼¼ÄÜÌ××°Ğ§¹û
+    /// æŠ€èƒ½å¥—è£…æ•ˆæœ
     /// </summary>
     public int skill_suit_value;
     /// <summary>
-    /// 1¼¼ÄÜÃû³Æ 2¼¼ÄÜµÈ¼¶ 3¼¼ÄÜÎ»ÖÃ 4¼¼ÄÜÄÚÁ¦ 5¼¼ÄÜÀàĞÍ 6¼¼ÄÜÉËº¦ÀàĞÍ 7¼¼ÄÜ×î´óµÈ¼¶ 8¼¼ÄÜ³õÊ¼»¯Éı¼¶¾­Ñé 9¼¼ÄÜÉı¼¶
+    /// 1æŠ€èƒ½åç§° 2æŠ€èƒ½ç­‰çº§ 3æŠ€èƒ½ä½ç½® 4æŠ€èƒ½å†…åŠ› 5æŠ€èƒ½ç±»å‹ 6æŠ€èƒ½ä¼¤å®³ç±»å‹ 7æŠ€èƒ½æœ€å¤§ç­‰çº§ 8æŠ€èƒ½åˆå§‹åŒ–å‡çº§ç»éªŒ 9æŠ€èƒ½å‡çº§
     /// </summary>
     public string[] user_values;
 
