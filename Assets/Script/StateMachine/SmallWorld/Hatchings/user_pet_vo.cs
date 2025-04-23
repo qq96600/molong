@@ -16,11 +16,33 @@ public class user_pet_vo : Base_VO
     /// 宠物信息 0宠物名字 1孵化时间  2宠物品质 3宠物等级 4宠物经验 5宠物属性 6 pos 他在干什么0闲置1守护庄园2是探索
     /// </summary>
     public List<string> crt_pet_list = new List<string>();
-   
+
+
+
+
+    public void DataSet()
+    {
+        string value = "";
+        pet_value = "";
+        foreach (var pet in SumSave.crt_pet_list)
+        {
+            value += value == "" ? "" : "&";
+            value += pet.petName + ",";
+            value += pet.startHatchingTime + ",";
+            value += pet.quality + ",";
+            value += pet.level + ",";
+            value += pet.exp + ",";
+            value += pet.crate_value + "|" + pet.up_value + "|" + pet.up_base_value + ",";
+            value += pet.pet_state;
+        }
+        pet_value = value;
+        Init();
+    }
 
 
     public void Init()
     {
+        crt_pet_list= new List<string>();
         string[] pet = pet_value.Split('&');
         for (int i = 0; i < pet.Length; i++)
         {
