@@ -169,7 +169,7 @@ public class hatching_progress : Base_Mono
                 }
                 break;
             case "守护":
-                transform.parent.parent.SendMessage("Get_pet_guard", crt_pet);
+                transform.parent.parent.SendMessage("Get_pet_guard", crt_pet.SetPet());
                 break;
             case "丢弃":
                 DeletePet();
@@ -178,6 +178,7 @@ public class hatching_progress : Base_Mono
                 FeedPet();
                 break;
             case "探险":
+                transform.parent.parent.SendMessage("PetExpeditionGo", crt_pet.SetPet());
                 break;
             default:
                 break;
@@ -188,9 +189,6 @@ public class hatching_progress : Base_Mono
     /// </summary>
     public void FeedPet()
     {
-        ;
-
-
         db_pet_vo crt_pet_vo = crt_pet.SetPet();
         string value = IntegrationData(crt_pet_vo);//升级之前的数据
 
@@ -259,7 +257,8 @@ public class hatching_progress : Base_Mono
         SumSave.crt_pet_list.Remove(crt_pet_vo);
         //SumSave.crt_pet.DataSet();
         Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_pet,
-       SumSave.crt_pet.Set_Uptade_String(), SumSave.crt_pet.Get_Update_Character());
+        SumSave.crt_pet.Set_Uptade_String(), SumSave.crt_pet.Get_Update_Character());
+        Alert_Dec.Show("宠物" + crt_pet_vo.petName + "已丢弃");
     }
 
     private IEnumerator ShowPlant(db_pet_vo pet)
@@ -403,8 +402,10 @@ public class hatching_progress : Base_Mono
         pos_pet_btn.gameObject.SetActive(true);
         if (index == 0)
         {
+
             for (int i = 0; i < SumSave.crt_pet_list.Count; i++)//显示宠物
             {
+             
                 pet_item item = Instantiate(pet_item_Prefabs, pos_list);
                 item.Init(SumSave.crt_pet_list[i]);
                 item.GetComponent<Button>().onClick.AddListener(() => { Select_Pet(item); });
@@ -416,6 +417,7 @@ public class hatching_progress : Base_Mono
                 {
                     if (item == crt_pet) Select_Pet(item);
                 }
+                   
             }
         }
         if (index == 1)

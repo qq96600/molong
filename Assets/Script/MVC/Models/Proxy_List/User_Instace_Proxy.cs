@@ -352,31 +352,35 @@ namespace MVC
 
             for (int i = 0; i < SumSave.crt_pet.crt_pet_list.Count; i++)
             {
-                db_pet_vo pet = new db_pet_vo();
-                string[] splits = SumSave.crt_pet.crt_pet_list[i].Split(',');
-
-                if(splits.Length == 7)
+                if(SumSave.crt_pet.crt_pet_list[i]!="")
                 {
-                    pet.petName = splits[0];
-                    pet.startHatchingTime = DateTime.Parse(splits[1]);
-                    pet.quality= splits[2];
-                    pet.level =int .Parse( splits[3]);
-                    pet.exp = int.Parse(splits[4]);
+                    db_pet_vo pet = new db_pet_vo();
+                    string[] splits = SumSave.crt_pet.crt_pet_list[i].Split(',');
 
-                    string[] attributes = splits[5].Split('|');
-                    if(attributes.Length == 3)
+                    if (splits.Length == 7)
                     {
-                        pet.crate_value = "";
-                        pet.up_value= "";
-                        pet.up_base_value = "";
-                        pet.crate_value = attributes[0];
-                        pet.up_value = attributes[1];
-                        pet.up_base_value = attributes[2];
-                        pet.GetNumerical();
+                        pet.petName = splits[0];
+                        pet.startHatchingTime = DateTime.Parse(splits[1]);
+                        pet.quality = splits[2];
+                        pet.level = int.Parse(splits[3]);
+                        pet.exp = int.Parse(splits[4]);
+
+                        string[] attributes = splits[5].Split('|');
+                        if (attributes.Length == 3)
+                        {
+                            pet.crate_value = "";
+                            pet.up_value = "";
+                            pet.up_base_value = "";
+                            pet.crate_value = attributes[0];
+                            pet.up_value = attributes[1];
+                            pet.up_base_value = attributes[2];
+                            pet.GetNumerical();
+                        }
+                        pet.pet_state = splits[6];
                     }
-                    pet.pet_state= splits[6];
+                    SumSave.crt_pet_list.Add(pet);
                 }
-                SumSave.crt_pet_list.Add(pet);
+                
             }
         }
 

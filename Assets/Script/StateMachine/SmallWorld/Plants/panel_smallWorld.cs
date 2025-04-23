@@ -74,6 +74,10 @@ public class panel_smallWorld : Panel_Base
     /// 关闭宠物信息窗口
     /// </summary>
     private Button close_hatching;
+    /// <summary>
+    /// 上阵探索的宠物
+    /// </summary>
+    private List<db_pet_vo> pet_expedition=new List<db_pet_vo>();
     public override void Initialize()
     {
         base.Initialize();
@@ -103,6 +107,25 @@ public class panel_smallWorld : Panel_Base
             btn_items.Show(i, btn_list[i]);
             btn_items.GetComponent<Button>().onClick.AddListener(delegate { Select_Btn(btn_items); });
         }
+    }
+
+    /// <summary>
+    /// 宠物上阵
+    /// </summary>
+
+    private void PetExpeditionGo(db_pet_vo pet)
+    {
+        if(pet_expedition.Count<=3)
+        {
+            pet_expedition.Add(pet);
+            _explore.GetPetList(pet_expedition);
+            Alert_Dec.Show(pet.petName + "上阵探索成功");
+        }else
+        {
+            Alert_Dec.Show("上阵探索的宠物数量已满");
+        }
+        
+
     }
 
     /// <summary>
@@ -250,13 +273,13 @@ public class panel_smallWorld : Panel_Base
     public override void Show()
     {
         base.Show();
-        if (SumSave.crt_world == null)
-        {
-            Alert_Dec.Show("小世界未激活");
-            Hide();
-            return;
-        }
-        Base_Show();
+        //if (SumSave.crt_world == null)
+        //{
+        //    Alert_Dec.Show("小世界未激活");
+        //    Hide();
+        //    return;
+        //}
+        //Base_Show();
     }
 
     private void Base_Show()

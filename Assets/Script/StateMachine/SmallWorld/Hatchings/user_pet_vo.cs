@@ -36,7 +36,6 @@ public class user_pet_vo : Base_VO
             value += pet.pet_state;
         }
         pet_value = value;
-        Init();
     }
 
 

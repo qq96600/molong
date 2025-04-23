@@ -16,8 +16,6 @@ public class Pet_explore : Panel_Base
     /// </summary>
     private Button[] button_map;
 
-
-
     /// <summary>
     /// 玩家选择的探索
     /// </summary>
@@ -51,7 +49,8 @@ public class Pet_explore : Panel_Base
     /// <summary>
     /// 探索宠物列表
     /// </summary>
-    private string[] pet_btn_list = new string[] { "狼", "虎", "豹" };
+    //private string[] pet_btn_list = new string[] { "狼", "虎", "豹" };
+    private List<db_pet_vo> pet_expedition_list= new List<db_pet_vo>();
     /// <summary>
     /// 功能按键列表
     /// </summary>
@@ -59,8 +58,11 @@ public class Pet_explore : Panel_Base
     /// <summary>
     /// 宠物探索收获列表
     /// </summary>
-    private List<(string,int)> btn_item_list = new List<(string, int)>();
-
+    private List<(string,int)> btn_item_list =new List<(string, int)>();
+    /// <summary>
+    /// 宠物显示预制体
+    /// </summary>
+    private pet_item pet_item_Prefabs;
 
     public override void Show() 
     {
@@ -68,10 +70,11 @@ public class Pet_explore : Panel_Base
         #region 组件初始化
         button_map = Find<Transform>("explore_map/Buttons_map").GetComponentsInChildren<Button>();
         pos_btn = Find<Transform>("explore/pet_pos_btn");
-        pos_Items = Find<Transform>("Income/Items");
+        pos_Items = Find<Transform>("Income/Viewport/Items");
         function_pos_btn= Find<Transform>("explore/function_pos_btn");
         btn_item_Prefabs = Resources.Load<btn_item>("Prefabs/base_tool/btn_item"); 
         info_item_Prefabs = Resources.Load<material_item>("Prefabs/panel_bag/material_item");
+        pet_item_Prefabs = Resources.Load<pet_item>("Prefabs/panel_smallWorld/pets/pet_item");
         #endregion
 
         #region 各功能按键初始化
@@ -82,24 +85,27 @@ public class Pet_explore : Panel_Base
             button_map[i].onClick.AddListener(() => { Obtain_Explore(index); });
         }
 
-        ///探索宠物button
+        ///探索宠物but
         ClearObject(pos_btn);
-        for (int i = 0; i < pet_btn_list.Length; i++)
+        if(pet_expedition_list.Count>0)
         {
-            btn_item btn_item = Instantiate(btn_item_Prefabs, pos_btn);
-            btn_item.Show(i, pet_btn_list[i]);
-            btn_item.GetComponent<Button>().onClick.AddListener(delegate { UpSetMaterial(btn_item); });
+            for (int i = 0; i < pet_expedition_list.Count; i++)
+            {
+                pet_item pet_item = Instantiate(pet_item_Prefabs, pos_btn);
+                pet_item.Init(pet_expedition_list[i]);
+                pet_item.StartPetItem();
+                pet_item.GetComponent<Button>().onClick.AddListener(delegate { UpSetMaterial(pet_item); });
+            }
         }
+        
 
-        btn_item_list.Add(("灵石", 100));
-        btn_item_list.Add(("武器碎片", 100));
         ///探索材料image
         ClearObject(pos_Items);
         for (int i = 0; i < btn_item_list.Count; i++)
         {
             material_item item = Instantiate(info_item_Prefabs, pos_Items);
             item.Init(btn_item_list[i]);
-            //item.GetComponent<Button>().onClick.AddListener(delegate { Select_Btn(item); });
+            
         }
 
         ///功能按键初始化
@@ -114,6 +120,16 @@ public class Pet_explore : Panel_Base
         #endregion
     }
     /// <summary>
+    /// 获得宠物列表
+    /// </summary>
+    /// <param name="_pet_expedition"></param>
+    public void GetPetList(List<db_pet_vo> _pet_expedition)
+    {
+        pet_expedition_list = _pet_expedition;
+        
+    }
+
+    /// <summary>
     /// 按钮具体功能
     /// </summary>
     /// <param name="btn_item"></param>
@@ -122,6 +138,7 @@ public class Pet_explore : Panel_Base
         switch (btn_item.name)
         {
             case "收获":
+                Harvest();
                 break;
             case "返回":
                 break;
@@ -129,17 +146,29 @@ public class Pet_explore : Panel_Base
                 break;
         }
     }
+    /// <summary>
+    /// 收获物品
+    /// </summary>
+    private void Harvest()
+    {
 
+    }
 
     /// <summary>
     /// 显示宠物探索奖励列表
     /// </summary>
     /// <param name="btn_item"></param>
-    private void UpSetMaterial(btn_item btn_item)
+    private void UpSetMaterial(pet_item btn_item)
     {
-        Debug.Log("显示宠物探索奖励列表");
+        btn_item_list= btn_item.SetItemList();
+        ClearObject(pos_Items);
+        for (int i = 0; i < btn_item_list.Count; i++)
+        {
+            material_item item = Instantiate(info_item_Prefabs, pos_Items);
+            item.Init(btn_item_list[i]);
+        }
     }
-
+  
 
     /// <summary>
     /// 初始化探索列表

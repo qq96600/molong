@@ -38,6 +38,7 @@ public class artifact_offect : Base_Mono
     /// </summary>
     private void confirm_artifact()
     {
+        
         AudioManager.Instance.playAudio(ClipEnum.使用物品);
         if (crt_artifact != null)
         {

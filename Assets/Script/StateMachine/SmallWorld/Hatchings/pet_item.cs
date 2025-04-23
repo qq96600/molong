@@ -11,10 +11,21 @@ public class pet_item : Base_Mono
     /// 宠物数据
     /// </summary>
     private string data;
-
+    /// <summary>
+    /// 宠物数据
+    /// </summary>
     private db_pet_vo crt_pet;
 
     private Text text;
+    /// <summary>
+    /// 宠物奖励列表
+    /// </summary>
+    private List<(string, int)> pet_item_list=new List<(string, int)>();
+    /// <summary>
+    /// 可能获得宠物奖励
+    /// </summary>
+    private string[] va= { "下品修为丹" , "下品经验丹", "下品灵石" };
+
     private void Awake()
     {
         text = Find<Text>("info");
@@ -33,6 +44,49 @@ public class pet_item : Base_Mono
         text.text = crt_pet.petName + "lv:" + crt_pet.level;
     }
     /// <summary>
+    /// 开始获得宠物奖励
+    /// </summary>
+    public void StartPetItem()
+    {
+        StartCoroutine(GetItem());
+    }
+    /// <summary>
+    /// 一定时间获得宠物奖励
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator GetItem()
+    {
+        yield return new WaitForSeconds(5);
+        
+        int index = UnityEngine.Random.Range(0, va.Length);//随机获得一个奖励
+      
+        GainRewards(va[index], 5);
+        StartCoroutine(GetItem());
+    }
+
+
+    /// <summary>
+    /// 随机获得多少个奖励
+    /// </summary>
+    /// <param name="data"></param>
+    /// <param name="num"></param>
+    private void GainRewards(string _data,int num)
+    {
+        int index = UnityEngine.Random.Range(1, num);
+        for(int i = 0; i < pet_item_list.Count; i++)
+        {
+            if(pet_item_list[i].Item1 == _data)
+            {
+                int temp = pet_item_list[i].Item2+index;
+                pet_item_list[i]=(pet_item_list[i].Item1, temp);
+                Debug.Log("奖励"+ pet_item_list[i].Item1+ "已获得个数" + temp);
+                return;
+            }
+        }
+        pet_item_list.Add((_data, index));
+        Debug.Log("奖励" + _data + "已获得个数" + index);
+    }
+    /// <summary>
     /// 获取宠物数据
     /// </summary>
     /// <returns></returns>
@@ -43,5 +97,9 @@ public class pet_item : Base_Mono
     public db_pet_vo SetPet()
     {
         return crt_pet;
+    }
+    public List<(string, int)> SetItemList()
+    {
+        return pet_item_list;
     }
 }
