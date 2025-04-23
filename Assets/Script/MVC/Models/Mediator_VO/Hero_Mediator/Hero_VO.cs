@@ -1,56 +1,56 @@
 using Common;
 using MVC;
 /// <summary>
-/// ½ÇÉ«Êı¾İ
+/// è§’è‰²æ•°æ®
 /// </summary>
 public class Hero_VO : Base_VO
 {
     /// <summary>
-    /// ½ÇÉ«Ãû³Æ
+    /// è§’è‰²åç§°
     /// </summary>
     public string hero_name;
     /// <summary>
-    /// ½ÇÉ«Ö°Òµ
+    /// è§’è‰²èŒä¸š
     /// </summary>
     public string hero_type;
     /// <summary>
-    /// ½ÇÉ«±àºÅ
+    /// è§’è‰²ç¼–å·
     /// </summary>
     public string hero_index="1";
     /// <summary>
-    /// ÒÑÓĞÓ¢ĞÛÁĞ±í
+    /// å·²æœ‰è‹±é›„åˆ—è¡¨
     /// </summary>
     public string hero_list;
     /// <summary>
-    /// ½ÇÉ«µÈ¼¶
+    /// è§’è‰²ç­‰çº§
     /// </summary>
     public string hero_lv;
     /// <summary>
-    /// ½ÇÉ«µÈ¼¶
+    /// è§’è‰²ç­‰çº§
     /// </summary>
     public int hero_Lv;
     /// <summary>
-    /// ½ÇÉ«¾­Ñé
+    /// è§’è‰²ç»éªŒ
     /// </summary>
     public string hero_exp;
     /// <summary>
-    /// ½ÇÉ«¾­Ñé
+    /// è§’è‰²ç»éªŒ
     /// </summary>
     public long hero_Exp;
     /// <summary>
-    /// ½ÇÉ«ÉÏÕóÑ¡Ôñ
+    /// è§’è‰²ä¸Šé˜µé€‰æ‹©
     /// </summary>
     public string hero_pos;
     /// <summary>
-    /// ±¸ÓÃÀ¸
+    /// å¤‡ç”¨æ 
     /// </summary>
     public string hero_value;
     /// <summary>
-    /// »ñÈ¡Ó¢ĞÛ×ÊÔ´
+    /// è·å–è‹±é›„èµ„æº
     /// </summary>
     public string hero_material;
     /// <summary>
-    /// Ó¢ĞÛ×ÊÔ´ ×ªÉú Ç¿»¯
+    /// è‹±é›„èµ„æº è½¬ç”Ÿ å¼ºåŒ–
     /// </summary>
     public int[] hero_material_list;
     public override string[] Set_Instace_String()

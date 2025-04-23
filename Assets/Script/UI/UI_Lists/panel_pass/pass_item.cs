@@ -8,15 +8,15 @@ using UnityEngine.UI;
 public class pass_item : Base_Mono
 {
     /// <summary>
-    /// ÎïÆ·Í¼±ê
+    /// ç‰©å“å›¾æ ‡
     /// </summary>
     private Image icon;
     /// <summary>
-    /// ÎïÆ·ĞÅÏ¢
+    /// ç‰©å“ä¿¡æ¯
     /// </summary>
     private Text info_lv, info_value, upinfo_value;
     /// <summary>
-    /// ½ø½×°´Å¥
+    /// è¿›é˜¶æŒ‰é’®
     /// </summary>
     private Button receive, upLvreceive;
     private void Awake()
@@ -31,7 +31,7 @@ public class pass_item : Base_Mono
         upLvreceive.onClick.AddListener(OnupLvReceive);
     }
     /// <summary>
-    /// ÁìÈ¡½ø½×½±Àø
+    /// é¢†å–è¿›é˜¶å¥–åŠ±
     /// </summary>
     private void OnupLvReceive()
     {
@@ -39,7 +39,7 @@ public class pass_item : Base_Mono
 
     }
     /// <summary>
-    /// µã»÷ÁìÈ¡
+    /// ç‚¹å‡»é¢†å–
     /// </summary>
     private void OnReceive()
     {
@@ -56,7 +56,7 @@ public class pass_item : Base_Mono
         {
             data = value;
             if (data == null) return;
-            //info.text = data.arrifact_name + "(Î´¼¤»î)";
+            //info.text = data.arrifact_name + "(æœªæ¿€æ´»)";
             getList();
         }
         get
@@ -67,12 +67,12 @@ public class pass_item : Base_Mono
 
     private void getList()
     {
-        info_lv.text = data.lv + "¼¶";
+        info_lv.text = data.lv + "çº§";
         info_value.text = Show_Info(data.reward);
         upinfo_value.text = Show_Info(data.uplv_reward);
     }
     /// <summary>
-    /// ÏÔÊ¾ĞÅÏ¢
+    /// æ˜¾ç¤ºä¿¡æ¯
     /// </summary>
     /// <param name="reward"></param>
     /// <returns></returns>
@@ -80,12 +80,12 @@ public class pass_item : Base_Mono
     {
         string dec = "";
         string[] arr = reward.Split('*');
-        dec+=arr[0] + "£º" + arr[1] + "";
+        dec+=arr[0] + "ï¼š" + arr[1] + "";
         return dec;
     }
 
     /// <summary>
-    /// ¶ÁÈ¡µÈ¼¶
+    /// è¯»å–ç­‰çº§
     /// </summary>
     public void Set(int lv,int upLv)
     {

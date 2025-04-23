@@ -7,19 +7,19 @@ public class artifact_offect : Base_Mono
 {
     private Button close;
     /// <summary>
-    /// È·ÈÏÉı¼¶
+    /// ç¡®è®¤å‡çº§
     /// </summary>
     private Button confirm;
     /// <summary>
-    /// ÏÔÊ¾ĞÅÏ¢
+    /// æ˜¾ç¤ºä¿¡æ¯
     /// </summary>
     private Text artifact_name, artifact_info;
     /// <summary>
-    /// È·ÈÏÉı¼¶
+    /// ç¡®è®¤å‡çº§
     /// </summary>
     private Text confirm_info;
     /// <summary>
-    /// µ±Ç°ÏÔÊ¾µÄÎïÆ·
+    /// å½“å‰æ˜¾ç¤ºçš„ç‰©å“
     /// </summary>
     private artifact_item crt_artifact;
     private void Awake()
@@ -34,15 +34,15 @@ public class artifact_offect : Base_Mono
     }
 
     /// <summary>
-    /// Ñ¡ÖĞ¹¦ÄÜ
+    /// é€‰ä¸­åŠŸèƒ½
     /// </summary>
     private void confirm_artifact()
     {
-        AudioManager.Instance.playAudio(ClipEnum.Ê¹ÓÃÎïÆ·);
+        AudioManager.Instance.playAudio(ClipEnum.ä½¿ç”¨ç‰©å“);
         if (crt_artifact != null)
         {
             (string, int) result = ArrayHelper.Find(SumSave.crt_artifact.Set(), e => e.Item1 == crt_artifact.Data.arrifact_name);
-            if (result.Item2 == 0)//Î´¼¤»î
+            if (result.Item2 == 0)//æœªæ¿€æ´»
             {
                 for (int i = 0; i < crt_artifact.Data.arrifact_needs.Length; i++)
                 {
@@ -55,16 +55,16 @@ public class artifact_offect : Base_Mono
                     result.Item2 = 1;
                     SumSave.crt_artifact.Get(result);
                     set_artifact(crt_artifact);
-                    if (result.Item1 == "Ìì»úÉÈ")
+                    if (result.Item1 == "å¤©æœºæ‰‡")
                     {
-                        //¿ªÆôĞ¡ÊÀ½ç
+                        //å¼€å¯å°ä¸–ç•Œ
                         Open_smallWorld();
                     }
                     Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_artifact, SumSave.crt_artifact.Set_Uptade_String(), SumSave.crt_artifact.Get_Update_Character());
                     SendNotification(NotiList.Refresh_Max_Hero_Attribute);
                     crt_artifact.Set(1);
-                    Alert_Dec.Show("¼¤»î³É¹¦");
-                }else Alert_Dec.Show("¼¤»îÊ§°Ü");
+                    Alert_Dec.Show("æ¿€æ´»æˆåŠŸ");
+                }else Alert_Dec.Show("æ¿€æ´»å¤±è´¥");
                 
             }
             else
@@ -80,54 +80,54 @@ public class artifact_offect : Base_Mono
                         set_artifact(crt_artifact);
                         Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_artifact, SumSave.crt_artifact.Set_Uptade_String(), SumSave.crt_artifact.Get_Update_Character());
                         SendNotification(NotiList.Refresh_Max_Hero_Attribute);
-                        Alert_Dec.Show("Éı¼¶³É¹¦");
-                    }else Alert_Dec.Show("Éı¼¶Ê§°Ü");
+                        Alert_Dec.Show("å‡çº§æˆåŠŸ");
+                    }else Alert_Dec.Show("å‡çº§å¤±è´¥");
                 }
-                else Alert_Dec.Show("ÒÑÂú¼¶");
+                else Alert_Dec.Show("å·²æ»¡çº§");
             }
         }
     }
     /// <summary>
-    /// ¿ªÆôĞ¡ÊÀ½ç
+    /// å¼€å¯å°ä¸–ç•Œ
     /// </summary>
     private void Open_smallWorld()
     {
         SumSave.crt_world = new user_world_vo();
         SumSave.crt_world.World_Lv =1;
         Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_world, SumSave.crt_world.Set_Instace_String());
-        Alert_Dec.Show("Ğ¡ÊÀ½ç¿ªÆô³É¹¦");
+        Alert_Dec.Show("å°ä¸–ç•Œå¼€å¯æˆåŠŸ");
     }
 
     /// <summary>
-    /// ÉèÖÃµ±Ç°ÏÔÊ¾µÄÎïÆ·
+    /// è®¾ç½®å½“å‰æ˜¾ç¤ºçš„ç‰©å“
     /// </summary>
     /// <param name="item"></param>
     public void set_artifact(artifact_item item)
     {
         crt_artifact=item;
         artifact_name.text = crt_artifact.Data.arrifact_name + (item.base_lv == 0
-            ? "(Î´¼¤»î)" : Show_Color.Red("(Lv." + item.base_lv + ")"));
-        string dec = Show_Color.Green("µÈ¼¶: ")+Show_Color.Red(item.base_lv)+"/(Max"+item.Data.Artifact_MaxLv+")";
+            ? "(æœªæ¿€æ´»)" : Show_Color.Red("(Lv." + item.base_lv + ")"));
+        string dec = Show_Color.Green("ç­‰çº§: ")+Show_Color.Red(item.base_lv)+"/(Max"+item.Data.Artifact_MaxLv+")";
         string[] splits = crt_artifact.Data.arrifact_effects;
 
-        dec += Show_Color.Green("\nÊôĞÔ: \n");
+        dec += Show_Color.Green("\nå±æ€§: \n");
         if (splits.Length >= 1)
         {
             foreach (var base_info in splits)
             {
                 string[] infos= base_info.Split(' ');
-                //1ÀàĞÍ 2Ã¿Ò»¼¶¼Ó³É 3¿ªÆôµÈ¼¶
+                //1ç±»å‹ 2æ¯ä¸€çº§åŠ æˆ 3å¼€å¯ç­‰çº§
                 if (infos.Length >= 3)
                 {
-                    dec += (infos[1] == "0" ? Show_Color.Green("¿ªÆô¼Ó³É:") : infos[2] + "¼¶ ¼¤»î: ") +
+                    dec += (infos[1] == "0" ? Show_Color.Green("å¼€å¯åŠ æˆ:") : infos[2] + "çº§ æ¿€æ´»: ") +
                         (item.base_lv >= int.Parse(infos[2]) ? Show_Color.Red((enum_skill_attribute_list)int.Parse(infos[0]) + " + " + (float.Parse(infos[1]) * item.base_lv)) :
                         Show_Color.Grey((enum_skill_attribute_list)int.Parse(infos[0]) + " + " + (float.Parse(infos[1]) * item.base_lv) + tool_Categoryt.Obtain_unit(int.Parse(infos[0]))
-                        + "(Î´¼¤»î)")) + "\n";
+                        + "(æœªæ¿€æ´»)")) + "\n";
                 }
             }
         }
         splits = crt_artifact.Data.arrifact_needs;
-        dec += Show_Color.Green(item.base_lv == 0 ? "\n¼¤»îÌõ¼ş: \n" : "\nÉı¼¶Ìõ¼ş: \n");
+        dec += Show_Color.Green(item.base_lv == 0 ? "\næ¿€æ´»æ¡ä»¶: \n" : "\nå‡çº§æ¡ä»¶: \n");
         for (int i = 0; i < splits.Length; i ++)
         { 
          dec += Show_Color.Red(splits[i]) + "\n";

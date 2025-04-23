@@ -4,19 +4,19 @@ using System.Collections.Generic;
 public class db_lv_vo : Base_VO
 {
     /// <summary>
-    /// Íæ¼ÒµÈ¼¶ĞèÇó¾­Ñé
+    /// ç©å®¶ç­‰çº§éœ€æ±‚ç»éªŒ
     /// </summary>
     public List<long> hero_lv_list;
     /// <summary>
-    /// Ğ¡ÊÀ½çÉı¼¶ĞèÇó
+    /// å°ä¸–ç•Œå‡çº§éœ€æ±‚
     /// </summary>
     public List<(string, int)> world_lv_list;
     /// <summary>
-    /// Ğ¡ÊÀ½çÉı¼¶Ğ§¹û
+    /// å°ä¸–ç•Œå‡çº§æ•ˆæœ
     /// </summary>
     public List<int> world_offect_list ;
     /// <summary>
-    /// Ğ¡ÊÀ½ç×î´ó´æ´¢Öµ
+    /// å°ä¸–ç•Œæœ€å¤§å­˜å‚¨å€¼
     /// </summary>
     public List<int> word_lv_max_value;
 }

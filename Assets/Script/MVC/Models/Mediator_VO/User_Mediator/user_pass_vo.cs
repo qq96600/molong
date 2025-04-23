@@ -7,52 +7,52 @@ using UnityEngine;
 public class user_pass_vo : Base_VO
 {
     /// <summary>
-    /// µÈ¼¶
+    /// ç­‰çº§
     /// </summary>
     public int lv;
     /// <summary>
-    /// µÚ¼¸¸öÍ¨ĞĞÖ¤
+    /// ç¬¬å‡ ä¸ªé€šè¡Œè¯
     /// </summary>
     public int pass_index = 0;
     /// <summary>
-    /// ½±Àø
+    /// å¥–åŠ±
     /// </summary>
     public string reward;
     /// <summary>
-    /// ½ø½×½±Àø
+    /// è¿›é˜¶å¥–åŠ±
     /// </summary>
     public string uplv_reward;
     /// <summary>
-    /// µÈ¼¶
+    /// ç­‰çº§
     /// </summary>
     public int data_lv;
     /// <summary>
-    /// ½ø½×½±Àø
+    /// è¿›é˜¶å¥–åŠ±
     /// </summary>
     public int data_uplv;
     /// <summary>
-    /// ¾­ÑéÖµ
+    /// ç»éªŒå€¼
     /// </summary>
     public int data_exp;
 
     /// <summary>
-    /// ÀÛ»ıÍê³ÉÈÎÎñ
+    /// ç´¯ç§¯å®Œæˆä»»åŠ¡
     /// </summary>
     public int Max_task_number;
     /// <summary>
-    /// ÈÎÎñ×´Ì¬
+    /// ä»»åŠ¡çŠ¶æ€
     /// </summary>
     public string day_state_value;
     /// <summary>
-    /// Ã¿ÈÕÈÎÎñ×´Ì¬
+    /// æ¯æ—¥ä»»åŠ¡çŠ¶æ€
     /// </summary>
     public List<int> day_state;
     /// <summary>
-    /// ÓÃ»§ÁìÈ¡×´Ì¬
+    /// ç”¨æˆ·é¢†å–çŠ¶æ€
     /// </summary>
     private List<int> data_day_state = new List<int>();
 
-    ///ÁìÈ¡×´Ì¬
+    ///é¢†å–çŠ¶æ€
     private Dictionary<int,List<int>> dic_user_values = new Dictionary<int, List<int>>();
 
     public void Init()
@@ -85,7 +85,7 @@ public class user_pass_vo : Base_VO
         }
     }
     /// <summary>
-    /// ·µ»ØÓÃ»§ÁìÈ¡×´Ì¬
+    /// è¿”å›ç”¨æˆ·é¢†å–çŠ¶æ€
     /// </summary>
     /// <returns></returns>
     public Dictionary<int, List<int>> Set()
@@ -94,7 +94,7 @@ public class user_pass_vo : Base_VO
 
     }
     /// <summary>
-    /// »ñÈ¡ÈÎÎñ×´Ì¬
+    /// è·å–ä»»åŠ¡çŠ¶æ€
     /// </summary>
     /// <returns></returns>
     public List<int> Get_day_state()
@@ -102,7 +102,7 @@ public class user_pass_vo : Base_VO
      return data_day_state;
     }
     /// <summary>
-    /// ÉèÖÃÓÃ»§ÁìÈ¡×´Ì¬
+    /// è®¾ç½®ç”¨æˆ·é¢†å–çŠ¶æ€
     /// </summary>
     /// <param name="list"></param>
     public void Get(Dictionary<int, List<int>> list)
@@ -110,7 +110,7 @@ public class user_pass_vo : Base_VO
         dic_user_values = list;
     }
     /// <summary>
-    /// Ğ´Èë×´Ì¬
+    /// å†™å…¥çŠ¶æ€
     /// </summary>
     /// <param name="list"></param>
     public void Get(int index)
@@ -118,7 +118,7 @@ public class user_pass_vo : Base_VO
         data_day_state[index] = 1;
     }
     /// <summary>
-    /// Ğ´ÈëÁìÈ¡
+    /// å†™å…¥é¢†å–
     /// </summary>
     /// <returns></returns>
     private string Set_data()
@@ -139,7 +139,7 @@ public class user_pass_vo : Base_VO
     }
 
     /// <summary>
-    /// Ğ´ÈëÃ¿ÈÕÈÎÎñ
+    /// å†™å…¥æ¯æ—¥ä»»åŠ¡
     /// </summary>
     /// <returns></returns>
     private string Set_day_state_value()

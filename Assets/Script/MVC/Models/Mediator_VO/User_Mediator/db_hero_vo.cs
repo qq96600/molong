@@ -2,21 +2,21 @@ using MVC;
 public class db_hero_vo : Base_VO
 {
    /// <summary>
-   /// Ö°ÒµÃû³Æ
+   /// èŒä¸šåç§°
    /// </summary>
     public string hero_name;
 
     public int hero_type;
     /// <summary>
-    /// Ö°Òµ³õÊ¼»¯Öµ
+    /// èŒä¸šåˆå§‹åŒ–å€¼
     /// </summary>
     public int[] crate_value;
     /// <summary>
-    /// Ö°ÒµÉı¼¶±ê×¼
+    /// èŒä¸šå‡çº§æ ‡å‡†
     /// </summary>
     public int[] up_base_value;
     /// <summary>
-    /// Ö°ÒµÉı¼¶ÏµÊı
+    /// èŒä¸šå‡çº§ç³»æ•°
     /// </summary>
     public int[] up_value;
 }

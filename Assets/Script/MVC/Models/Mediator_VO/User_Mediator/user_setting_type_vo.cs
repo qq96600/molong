@@ -3,17 +3,17 @@ using MVC;
 public class user_setting_type_vo : Base_VO
 {
     /// <summary>
-    /// 设置id
+    /// 璁剧疆id
     /// </summary>
     public int id_setting;
 
     /// <summary>
-    /// 设置类型
+    /// 璁剧疆绫诲瀷
     /// </summary>
     /// <returns></returns>
     public string type_setting;
     /// <summary>
-    /// 设置选项
+    /// 璁剧疆閫夐」
     /// </summary>
     /// <returns></returns>
     public string option_setting;
@@ -30,7 +30,7 @@ public class user_setting_type_vo : Base_VO
                 };
     }
     /// <summary>
-    /// 读取更新
+    /// 璇诲彇鏇存柊
     /// </summary>
     /// <returns></returns>
     public override string[] Get_Update_Character()
@@ -41,7 +41,7 @@ public class user_setting_type_vo : Base_VO
         };
     }
     /// <summary>
-    /// 写入更新
+    /// 鍐欏叆鏇存柊
     /// </summary>
     /// <returns></returns>
     public override string[] Set_Uptade_String()

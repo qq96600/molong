@@ -8,15 +8,15 @@ using UnityEngine;
 public class panel_setting : Panel_Base
 {
     /// <summary>
-    /// Ô¤ÖÆÌåÎ»ÖÃ
+    /// é¢„åˆ¶ä½“ä½ç½®
     /// </summary>
     private Transform crt_setting;
     /// <summary>
-    /// Ô¤ÖÆÌå
+    /// é¢„åˆ¶ä½“
     /// </summary>
     private setting_item setting_Item_prefab;
 
-    private string[] setting_name = { "ÉèÖÃ1", "ÉèÖÃ2", "ÉèÖÃ3", "ÉèÖÃ4", "ÉèÖÃ5" };
+    private string[] setting_name = { "è®¾ç½®1", "è®¾ç½®2", "è®¾ç½®3", "è®¾ç½®4", "è®¾ç½®5" };
 
     protected override void Awake()
     {
@@ -37,14 +37,14 @@ public class panel_setting : Panel_Base
         
     }
     /// <summary>
-    /// ÉèÖÃ
+    /// è®¾ç½®
     /// </summary>
     /// <param name="data"></param>
     protected void Select_Setting((int index, int value) data)
     {
         SumSave.crt_setting.user_setting[data.index] = data.value;
         SendNotification(NotiList.Refresh_User_Setting, SumSave.crt_setting);
-        Alert_Dec.Show("ÉèÖÃ³É¹¦");
+        Alert_Dec.Show("è®¾ç½®æˆåŠŸ");
     }
 
     public override void Show()

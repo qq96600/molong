@@ -11,53 +11,53 @@ using UnityEngine.UI;
 public class panel_smallWorld : Panel_Base
 {
     /// <summary>
-    /// ÖÖÖ²½çÃæ
+    /// ç§æ¤ç•Œé¢
     /// </summary>
     private panel_plant _plant;
     /// <summary>
-    /// ·õ»¯½çÃæ
+    /// å­µåŒ–ç•Œé¢
     /// </summary>
     private Pet_Hatching _Hatching;
     /// <summary>
-    /// ³èÎïÌ½Ë÷Î»ÖÃ
+    /// å® ç‰©æ¢ç´¢ä½ç½®
     /// </summary>
     private Pet_explore _explore;
 
     /// <summary>
-    /// °´Å¥Î»ÖÃ
+    /// æŒ‰é’®ä½ç½®
     /// </summary>
     private Transform pos_btn;
     /// <summary>
-    /// °´Å¥Ô¤ÖÆÌå
+    /// æŒ‰é’®é¢„åˆ¶ä½“
     /// </summary>
     private btn_item btn_item;
     /// <summary>
-    /// ±³¾°
+    /// èƒŒæ™¯
     /// </summary>
     private Image small_World_bg;
     /// <summary>
-    /// ÏÔÊ¾Öµ
+    /// æ˜¾ç¤ºå€¼
     /// </summary>
     private Text base_info;
-    private string[] btn_list = new string[] { "Éı¼¶", "Å©×¯", "Áé³è", "Ì½ÏÕ" };
+    private string[] btn_list = new string[] { "å‡çº§", "å†œåº„", "çµå® ", "æ¢é™©" };
     /// <summary>
-    /// ³èÎïÏÔÊ¾Î»ÖÃ
+    /// å® ç‰©æ˜¾ç¤ºä½ç½®
     /// </summary>
     private Transform pet_pos;
     /// <summary>
-    /// ³èÎïĞÅÏ¢±êÌâ
+    /// å® ç‰©ä¿¡æ¯æ ‡é¢˜
     /// </summary>
     private Text Pet_name;
     /// <summary>
-    /// ³èÎïÊôĞÔĞÅÏ¢ÎÄ±¾
+    /// å® ç‰©å±æ€§ä¿¡æ¯æ–‡æœ¬
     /// <summary>  
     private Text Pet_attribute;
     /// <summary>
-    /// ¹Ø±Õ·õ»¯½çÃæ°´Å¥,´ò¿ª·õ»¯½çÃæ
+    /// å…³é—­å­µåŒ–ç•Œé¢æŒ‰é’®,æ‰“å¼€å­µåŒ–ç•Œé¢
     /// </summary>
     private Button but,displayPet;
     /// <summary>
-    /// ·õ»¯½çÃæ
+    /// å­µåŒ–ç•Œé¢
     /// </summary>
     private Transform hatching_progres;
 
@@ -83,14 +83,14 @@ public class panel_smallWorld : Panel_Base
         displayPet.onClick.AddListener(delegate { ShowHatching(); });
         for (int i = 0; i < btn_list.Length; i++)
         {
-            btn_item btn_items = Instantiate(btn_item, pos_btn);//ÊµÀı»¯±³°ü×°±¸
+            btn_item btn_items = Instantiate(btn_item, pos_btn);//å®ä¾‹åŒ–èƒŒåŒ…è£…å¤‡
             btn_items.Show(i, btn_list[i]);
             btn_items.GetComponent<Button>().onClick.AddListener(delegate { Select_Btn(btn_items); });
         }
     }
 
    /// <summary>
-   /// ´ò¿ª·õ»¯½çÃæ
+   /// æ‰“å¼€å­µåŒ–ç•Œé¢
    /// </summary>
     private void ShowHatching()
     {
@@ -98,7 +98,7 @@ public class panel_smallWorld : Panel_Base
         but.gameObject.SetActive(true);
     }
     /// <summary>
-    /// ¹Ø±Õ·õ»¯½çÃæ
+    /// å…³é—­å­µåŒ–ç•Œé¢
     /// </summary>
     private void CloseHatching()
     {
@@ -108,7 +108,7 @@ public class panel_smallWorld : Panel_Base
 
     public override void Hide()
     {
-        if (small_World_bg.gameObject.activeInHierarchy)//´Ó×îÉÏ²ã¹Ø±Õ
+        if (small_World_bg.gameObject.activeInHierarchy)//ä»æœ€ä¸Šå±‚å…³é—­
         {
             if (_plant.gameObject.activeInHierarchy) _plant.Hide();
             //if (_Hatching.gameObject.activeInHierarchy) _Hatching.Hide();
@@ -122,7 +122,7 @@ public class panel_smallWorld : Panel_Base
     }
 
     /// <summary>
-    /// ´ò¿ª½çÃæ
+    /// æ‰“å¼€ç•Œé¢
     /// </summary>
     /// <param name="btn_item"></param>
     private void Select_Btn(btn_item btn_item)
@@ -130,26 +130,26 @@ public class panel_smallWorld : Panel_Base
         small_World_bg.gameObject.SetActive(true);
         switch (btn_list[btn_item.index])
         { 
-            case "Éı¼¶":
+            case "å‡çº§":
                 small_World_bg.gameObject.SetActive(false);
                 uplv();
                 break;
-            case "Å©×¯":
+            case "å†œåº„":
                 _plant.Show();
                 break;
-            case "Áé³è":
+            case "çµå® ":
                 //_Hatching.Show();
                 //HatchingInit();
                 hatching_progress.gameObject.SetActive(true);
                 hatching_progress.Show();
                 break;
-            case "Ì½ÏÕ":
+            case "æ¢é™©":
                 _explore.Show();
                 break;
         }
     }
     /// <summary>
-    /// Áé³èÁĞ±í³õÊ¼»¯
+    /// çµå® åˆ—è¡¨åˆå§‹åŒ–
     /// </summary>
     private void HatchingInit()
     {
@@ -157,7 +157,7 @@ public class panel_smallWorld : Panel_Base
         if(SumSave.crt_pet_list.Count==0)
         {
             btn_item btn_items = Instantiate(btn_item, pet_pos);
-            btn_items.Show(1, "³èÎïÁĞ±íÎª¿Õ");
+            btn_items.Show(1, "å® ç‰©åˆ—è¡¨ä¸ºç©º");
         }
         for (int i= 0; i < SumSave.crt_pet_list.Count; i++)
         {
@@ -168,7 +168,7 @@ public class panel_smallWorld : Panel_Base
         }
     }
     /// <summary>
-    /// ÏÔÊ¾Áé³èĞÅÏ¢
+    /// æ˜¾ç¤ºçµå® ä¿¡æ¯
     /// </summary>
     /// <param name="pet"></param>
     private void Select_Pet(db_pet_vo pet)
@@ -179,17 +179,17 @@ public class panel_smallWorld : Panel_Base
         Pet_attribute.text = DisplayPetAttribute(pet);
     }
     /// <summary>
-    /// ÏÔÊ¾³èÎïÊôĞÔ
+    /// æ˜¾ç¤ºå® ç‰©å±æ€§
     /// </summary>
     private string  DisplayPetAttribute(db_pet_vo pet)
     {
         string dec = "";
-        List<string> value = SumSave.db_pet_dic[pet.petName].crate_values;//»ñµÃ³èÎï»ù´¡ÊôĞÔ
+        List<string> value = SumSave.db_pet_dic[pet.petName].crate_values;//è·å¾—å® ç‰©åŸºç¡€å±æ€§
        
         for(int i = 0; i < value.Count; i++)
         { 
             enum_attribute_list attribute= (enum_attribute_list)i;
-            dec += attribute.ToString() + "£º" +(int.Parse( value[i])*pet.level ).ToString()+ "\n";
+            dec += attribute.ToString() + "ï¼š" +(int.Parse( value[i])*pet.level ).ToString()+ "\n";
         }
 
         return dec;
@@ -200,13 +200,13 @@ public class panel_smallWorld : Panel_Base
 
 
     /// <summary>
-    /// Éı¼¶
+    /// å‡çº§
     /// </summary>
     private void uplv()
     {
         if (SumSave.crt_world.World_Lv >= SumSave.db_lvs.world_lv_list.Count)
         { 
-            Alert_Dec.Show("ÒÑ´ï×î¸ßµÈ¼¶");
+            Alert_Dec.Show("å·²è¾¾æœ€é«˜ç­‰çº§");
             return;
         }
         (string,int) dec = SumSave.db_lvs.world_lv_list[SumSave.crt_world.World_Lv];
@@ -219,7 +219,7 @@ public class panel_smallWorld : Panel_Base
             SumSave.crt_world.World_Lv++;
             Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_world, SumSave.crt_world.Set_Uptade_String(), SumSave.crt_world.Get_Update_Character());
         }
-        else Alert_Dec.Show("²ÄÁÏ²»×ã ĞèÒª" + dec.Item1 + " * " + dec.Item2);
+        else Alert_Dec.Show("ææ–™ä¸è¶³ éœ€è¦" + dec.Item1 + " * " + dec.Item2);
     }
 
     public override void Show()
@@ -227,7 +227,7 @@ public class panel_smallWorld : Panel_Base
         base.Show();
         if (SumSave.crt_world == null)
         {
-            Alert_Dec.Show("Ğ¡ÊÀ½çÎ´¼¤»î");
+            Alert_Dec.Show("å°ä¸–ç•Œæœªæ¿€æ´»");
             Hide();
             return;
         }
@@ -238,23 +238,23 @@ public class panel_smallWorld : Panel_Base
     {
         List<string> list = SumSave.crt_world.Get();
         int time = (int)(SumSave.nowtime - Convert.ToDateTime(list[0])).TotalMinutes;
-        string dec = "½çÁé£ºLv." + SumSave.crt_world.World_Lv + "\n";
-        dec += "ÁéÆø £º" + Obtain_Init(1,time,int.Parse(list[1])) + "(Max" + Obtain_Init(2) + ")\n";
-        dec += "Ã¿·ÖÖÓ¿É»ñµÃ £º" + SumSave.db_lvs.world_offect_list[SumSave.crt_world.World_Lv]+  "ÁéÆø\n";
-        dec += "ÀúÁ·»ñµÃ :" + (SumSave.crt_world.World_Lv * 10) + "%\n";
+        string dec = "ç•Œçµï¼šLv." + SumSave.crt_world.World_Lv + "\n";
+        dec += "çµæ°” ï¼š" + Obtain_Init(1,time,int.Parse(list[1])) + "(Max" + Obtain_Init(2) + ")\n";
+        dec += "æ¯åˆ†é’Ÿå¯è·å¾— ï¼š" + SumSave.db_lvs.world_offect_list[SumSave.crt_world.World_Lv]+  "çµæ°”\n";
+        dec += "å†ç»ƒè·å¾— :" + (SumSave.crt_world.World_Lv * 10) + "%\n";
         if (SumSave.crt_world.World_Lv >= SumSave.db_lvs.world_lv_list.Count)
         {
-            dec += "ÒÑ´ï×î¸ßµÈ¼¶";
+            dec += "å·²è¾¾æœ€é«˜ç­‰çº§";
         }
         else
         {
             (string, int) item = SumSave.db_lvs.world_lv_list[SumSave.crt_world.World_Lv];
-            dec += "Éı¼¶ĞèÇó " + item.Item1 + " * " + item.Item2;
+            dec += "å‡çº§éœ€æ±‚ " + item.Item1 + " * " + item.Item2;
         }
         base_info.text = dec;
     }
     /// <summary>
-    /// »ñÈ¡ÁéÆøÖµ
+    /// è·å–çµæ°”å€¼
     /// </summary>
     /// <param name="time"></param>
     private int Obtain_Init(int type,int time=0,int crt_value=0)
@@ -263,7 +263,7 @@ public class panel_smallWorld : Panel_Base
         switch (type)
         {
             case 1:
-                ///ÅĞ¶ÏÔ½½ç
+                ///åˆ¤æ–­è¶Šç•Œ
                 ArrayHelper.SafeGet(SumSave.db_lvs.world_offect_list, SumSave.crt_world.World_Lv, out int se);
                 value = time * SumSave.db_lvs.world_offect_list[SumSave.crt_world.World_Lv];
                 value+= crt_value;

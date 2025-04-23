@@ -11,51 +11,51 @@ using UnityEngine.UI;
 public class panel_plant : Panel_Base
 {
     /// <summary>
-    /// Ñ¡ÔñÖ²ÎïÏÂÀ­ÁĞ±í
+    /// é€‰æ‹©æ¤ç‰©ä¸‹æ‹‰åˆ—è¡¨
     /// </summary>
     private Dropdown plantDropdown;
     /// <summary>
-    /// ÖÖÖ²°´Å¥,½½Ë®°´Å¥,ÊÕ»ñ°´Å¥
+    /// ç§æ¤æŒ‰é’®,æµ‡æ°´æŒ‰é’®,æ”¶è·æŒ‰é’®
     /// </summary>
     private Button seedingButton, wateringButton, harvestButton, expansionButton;
     private Transform Buttons;
     /// <summary>
-    /// ÖÖÖ²Ö²Îï¸¸ÎïÌå
+    /// ç§æ¤æ¤ç‰©çˆ¶ç‰©ä½“
     /// </summary>
     private Transform plantFields; 
     /// <summary>
-    /// Ö²ÎïÔ¤ÖÆÌå
+    /// æ¤ç‰©é¢„åˆ¶ä½“
     /// </summary>
     private panltItem plantPrefab;   
     /// <summary>
-    /// µ±Ç°Ñ¡ÔñµÄÖ²Îï
+    /// å½“å‰é€‰æ‹©çš„æ¤ç‰©
     /// </summary>
     private string currentPlant;
 
     /// <summary>
-    /// ¿ÉÖÖÖ²µÄ×î´óÊıÁ¿
+    /// å¯ç§æ¤çš„æœ€å¤§æ•°é‡
     /// </summary>
     private int maxPlantCount;
 
     /// <summary>
-    /// ±³°üÖÖ×Ó×Öµä
+    /// èƒŒåŒ…ç§å­å­—å…¸
     /// </summary>
     private Dictionary<PanltEnum,user_plant_vo> plantBag =new Dictionary<PanltEnum, user_plant_vo>();
     /// <summary>
-    /// ÖÖÖ²µÄÖ²ÎïÁĞ±í
+    /// ç§æ¤çš„æ¤ç‰©åˆ—è¡¨
     /// </summary>
     private List<panltItem> panltList=new List<panltItem>();
     /// <summary>
-    /// Ö²ÎïĞÅÏ¢Ãæ°å
+    /// æ¤ç‰©ä¿¡æ¯é¢æ¿
     /// </summary>
     private Transform plantInfo;
     private Text plantText;
     /// <summary>
-    /// ½½Ë®¼õÉÙÊ±¼ä
+    /// æµ‡æ°´å‡å°‘æ—¶é—´
     /// </summary>
     public int reduceTime=10; 
     /// <summary>
-    /// ÊÇ·ñ¿ÉÒÔÀ©Èİ£¬À©ÈİµÄÊıÁ¿
+    /// æ˜¯å¦å¯ä»¥æ‰©å®¹ï¼Œæ‰©å®¹çš„æ•°é‡
     /// </summary>
     public int isExpansion=0; 
 
@@ -63,7 +63,7 @@ public class panel_plant : Panel_Base
 
     protected override void Awake()
     {
-        #region °´Å¥ÏÂÀ­ÁĞ±í³õÊ¼»¯
+        #region æŒ‰é’®ä¸‹æ‹‰åˆ—è¡¨åˆå§‹åŒ–
         Buttons = transform.Find("plant_Buttons");
         seedingButton = Buttons.Find("seeding_Button").GetComponent<Button>();
         wateringButton = Buttons.Find("watering_Button").GetComponent<Button>();
@@ -78,14 +78,14 @@ public class panel_plant : Panel_Base
         InitDropdown();
         #endregion
 
-        #region Ö²ÎïÔ¤ÖÆÌå³õÊ¼»¯
+        #region æ¤ç‰©é¢„åˆ¶ä½“åˆå§‹åŒ–
         plantPrefab= Resources.Load<panltItem>("Prefabs/panel_smallWorld/plantItem");
         plantFields= transform.Find("plantFields").transform;
         plantInfo=transform.Find("plant_info").transform;
         plantText=plantInfo.Find("plant_Text").GetComponent<Text>();
         plantInfo.gameObject.SetActive(false);
         
-        //for (int i = 0; i < plantCount; i++)//³õÊ¼»¯ÖÖÖ²ÇøÓò²¢Ìí¼Óµ½ÁĞ±í
+        //for (int i = 0; i < plantCount; i++)//åˆå§‹åŒ–ç§æ¤åŒºåŸŸå¹¶æ·»åŠ åˆ°åˆ—è¡¨
         //{
         //    GameObject plantItem = Instantiate(plantPrefab, plantFields);
         //    panltItem Item= plantItem.GetComponent<panltItem>();
@@ -108,17 +108,17 @@ public class panel_plant : Panel_Base
         baseShow();
     }
     /// <summary>
-    /// ÏÔÊ¾ÎïÆ·
+    /// æ˜¾ç¤ºç‰©å“
     /// </summary>
     private void baseShow()
     {
         List<(string, DateTime)> Set = SumSave.crt_plant.Set();
         StopAllCoroutines();
-        for (int i = plantFields.childCount - 1; i >= 0; i--)//Çå¿ÕÖÖÖ²ÇøÓò
+        for (int i = plantFields.childCount - 1; i >= 0; i--)//æ¸…ç©ºç§æ¤åŒºåŸŸ
         {
             Destroy(plantFields.GetChild(i).gameObject);
         }
-        panltList.Clear();//Çå¿ÕÁĞ±í
+        panltList.Clear();//æ¸…ç©ºåˆ—è¡¨
         for (int i = 0; i < Set.Count; i++)
         { 
             panltItem item= Instantiate(plantPrefab, plantFields).GetComponent<panltItem>();
@@ -144,7 +144,7 @@ public class panel_plant : Panel_Base
 
     }
     /// <summary>
-    /// ÅĞ¶ÏÏÂÀ­ÁĞ±íÑ¡ÖĞµÄÖ²Îï
+    /// åˆ¤æ–­ä¸‹æ‹‰åˆ—è¡¨é€‰ä¸­çš„æ¤ç‰©
     /// </summary>
     /// <param name="index"></param>
     private void CurrentPlant(int index)
@@ -153,7 +153,7 @@ public class panel_plant : Panel_Base
     }
 
     /// <summary>
-    /// ÏÔÊ¾Ö²ÎïĞÅÏ¢
+    /// æ˜¾ç¤ºæ¤ç‰©ä¿¡æ¯
     /// </summary>
     /// <returns></returns>
     private void PlantInfo(panltItem _panltItem)
@@ -162,15 +162,15 @@ public class panel_plant : Panel_Base
         {
             plantInfo.gameObject.SetActive(true);
             plantInfo.transform.position = _panltItem.transform.position;
-            plantText.text = _panltItem.plantName+ "\nÉú³¤Ê±¼ä£º"+_panltItem.growTime+"Ãë"
-                + "\nÊÇ·ñ½½Ë®£º"+(_panltItem.isWatered==1?"¿É½½Ë®":"²»¿É½½Ë®")
-                +"\nÊÇ·ñ¿ÉÒÔÊÕ»ñ:"+(_panltItem.isMature==1?"¿ÉÊÕ»ñ":"²»¿ÉÊÕ»ñ");
+            plantText.text = _panltItem.plantName+ "\nç”Ÿé•¿æ—¶é—´ï¼š"+_panltItem.growTime+"ç§’"
+                + "\næ˜¯å¦æµ‡æ°´ï¼š"+(_panltItem.isWatered==1?"å¯æµ‡æ°´":"ä¸å¯æµ‡æ°´")
+                +"\næ˜¯å¦å¯ä»¥æ”¶è·:"+(_panltItem.isMature==1?"å¯æ”¶è·":"ä¸å¯æ”¶è·");
         }
         
         
     }
     /// <summary>
-    /// À©Èİ
+    /// æ‰©å®¹
     /// </summary>
     private void Expansion()
     {
@@ -178,7 +178,7 @@ public class panel_plant : Panel_Base
         {
             for(int i = isExpansion; i > 0; i--)
             {
-                Debug.Log("À©Èİ³É¹¦" + isExpansion);
+                Debug.Log("æ‰©å®¹æˆåŠŸ" + isExpansion);
                 List<(string, DateTime)> Set = SumSave.crt_plant.Set();
                 Set.Add(("0", DateTime.Now));
                 Wirte(Set);
@@ -188,28 +188,28 @@ public class panel_plant : Panel_Base
             }
         }else
         {
-            Alert_Dec.Show("¿ÉÀ©ÈİÊıÁ¿Îª0");
+            Alert_Dec.Show("å¯æ‰©å®¹æ•°é‡ä¸º0");
         }
         
     }
 
 
     /// <summary>
-    /// ½½Ë®
+    /// æµ‡æ°´
     /// </summary>
     private void Watering()
     {
         List<(string, DateTime)> Set = SumSave.crt_plant.Set();
         for (int i = 0; i < panltList.Count; i++)
         {
-            if (panltList[i].isWatered == 1)//ÅĞ¶ÏÊÇ·ñ¿ÉÒÔ½½Ë®ÇÒÖ²Îï²»Îª¿Õ&& Set[i].Item1 != "0"
+            if (panltList[i].isWatered == 1)//åˆ¤æ–­æ˜¯å¦å¯ä»¥æµ‡æ°´ä¸”æ¤ç‰©ä¸ä¸ºç©º&& Set[i].Item1 != "0"
             {
                 panltList[i].isWatered = 0;
-                panltList[i].ReduceGrowthTime(reduceTime);//¼õÉÙÉú³¤Ê±¼ä
-                Set[i] = (Set[i].Item1, panltList[i].GetCurrentGrowTimeDate());//¸üĞÂ³ÉÊìÊ±¼ä
-                SumSave.crt_plant.Up_user_plants(Set);//¸üĞÂ½ÇÉ«Êı¾İ
-                Wirte(Set);//Ğ´ÈëÊı¾İ¿â
-                Alert_Dec.Show("ÒÑ½½Ë®£¬" + panltList[i].plantName + "Éú³¤Ê±¼ä¼õÉÙ" + reduceTime + "Ãë");
+                panltList[i].ReduceGrowthTime(reduceTime);//å‡å°‘ç”Ÿé•¿æ—¶é—´
+                Set[i] = (Set[i].Item1, panltList[i].GetCurrentGrowTimeDate());//æ›´æ–°æˆç†Ÿæ—¶é—´
+                SumSave.crt_plant.Up_user_plants(Set);//æ›´æ–°è§’è‰²æ•°æ®
+                Wirte(Set);//å†™å…¥æ•°æ®åº“
+                Alert_Dec.Show("å·²æµ‡æ°´ï¼Œ" + panltList[i].plantName + "ç”Ÿé•¿æ—¶é—´å‡å°‘" + reduceTime + "ç§’");
             }
         }
         
@@ -219,7 +219,7 @@ public class panel_plant : Panel_Base
 
 
     /// <summary>
-    /// Ğ´Èë
+    /// å†™å…¥
     /// </summary>
     private void Wirte(List<(string,DateTime)> Set)
     {
@@ -230,7 +230,7 @@ public class panel_plant : Panel_Base
     }
 
     /// <summary>
-    /// ÊÕ»ñ
+    /// æ”¶è·
     /// </summary>
     private void Harvest()
     {
@@ -242,9 +242,9 @@ public class panel_plant : Panel_Base
             {
                 panltList[i].Init();
                 Set[(panltList[i].Obtain_Index())] = ("0", DateTime.Now);
-                Wirte(Set);//Ğ´ÈëÊı¾İ¿â
-                Alert_Dec.Show("ÒÑÊÕ»ñ");
-                //ÊÕ»ñµÄ²ÄÁÏ
+                Wirte(Set);//å†™å…¥æ•°æ®åº“
+                Alert_Dec.Show("å·²æ”¶è·");
+                //æ”¶è·çš„ææ–™
                 if(SumSave.db_plants_dic.TryGetValue(panltList[i].plantName, out user_plant_vo vo))
                 {
                     Battle_Tool.Obtain_Resources(vo.HarvestMaterials, 3);
@@ -257,23 +257,23 @@ public class panel_plant : Panel_Base
 
 
     /// <summary>
-    /// ²¥ÖÖ
+    /// æ’­ç§
     /// </summary>
     private void Seeding()
     {
-        if (currentPlant == null) { Alert_Dec.Show("ÇëÑ¡Ôñ²¥ÖÖÎïÆ·"); return; }
-        List<(string, DateTime )> Set = SumSave.crt_plant.Set();//»ñÈ¡ÖÖ×ÓÃû³ÆÒÔ¼°ĞèÒª³ÉÊìµÄÊ±¼ä
-        List<int> numbers= new List<int>();//¿ÕÍÁµØµÄË÷Òı
+        if (currentPlant == null) { Alert_Dec.Show("è¯·é€‰æ‹©æ’­ç§ç‰©å“"); return; }
+        List<(string, DateTime )> Set = SumSave.crt_plant.Set();//è·å–ç§å­åç§°ä»¥åŠéœ€è¦æˆç†Ÿçš„æ—¶é—´
+        List<int> numbers= new List<int>();//ç©ºåœŸåœ°çš„ç´¢å¼•
         for (int i = 0; i < Set.Count; i++)
         {
             if(Set[i].Item1=="0") numbers.Add(i);
         }
         if (numbers.Count == 0)
         { 
-            Alert_Dec.Show("ÍÁµØÒÑÂú");
+            Alert_Dec.Show("åœŸåœ°å·²æ»¡");
             return;
         }
-        int number = numbers.Count;//¿ÕÍÁµØµÄÊıÁ¿
+        int number = numbers.Count;//ç©ºåœŸåœ°çš„æ•°é‡
        
         NeedConsumables(currentPlant, number);
         
@@ -287,11 +287,11 @@ public class panel_plant : Panel_Base
             }
             else
             {
-                Alert_Dec.Show("±³°üÖĞÃ»ÓĞ¸ÃÖÖ×Ó");
+                Alert_Dec.Show("èƒŒåŒ…ä¸­æ²¡æœ‰è¯¥ç§å­");
                 return;
             }
         }
-        //ÅĞ¶ÏÊÇ·ñ¿ÉÒÔÖÖÖ²
+        //åˆ¤æ–­æ˜¯å¦å¯ä»¥ç§æ¤
         for (int i = 0; i < number; i++)
         {
             Set[numbers[i]]= (currentPlant.ToString(), SumSave.nowtime);
@@ -302,7 +302,7 @@ public class panel_plant : Panel_Base
     }
 
     /// <summary>
-    /// ³õÊ¼»¯ÏÂÀ­ÁĞ±í
+    /// åˆå§‹åŒ–ä¸‹æ‹‰åˆ—è¡¨
     /// </summary>
     private void InitDropdown()
     {

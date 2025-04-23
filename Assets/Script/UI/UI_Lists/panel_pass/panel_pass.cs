@@ -11,7 +11,7 @@ using UnityEngine.UI;
 public class panel_pass : Base_Mono
 {
     /// <summary>
-    /// Í¨ĞĞÖ¤ÁĞ±í
+    /// é€šè¡Œè¯åˆ—è¡¨
     /// </summary>
     private List<string> btn_list = new List<string>() { "S1", "S2" }; 
 
@@ -24,15 +24,15 @@ public class panel_pass : Base_Mono
 
     private task_item task_item_prefabs;
     /// <summary>
-    /// ÏÔÊ¾ÈÎÎñÁĞ±í
+    /// æ˜¾ç¤ºä»»åŠ¡åˆ—è¡¨
     /// </summary>
     private Dictionary<int, task_item> dic_task = new Dictionary<int, task_item>();
     /// <summary>
-    /// ÏÔÊ¾ÀÛ»ıÈÎÎñĞÅÏ¢
+    /// æ˜¾ç¤ºç´¯ç§¯ä»»åŠ¡ä¿¡æ¯
     /// </summary>
     private Text task_info;
     /// <summary>
-    /// µÚ¼¸¸öÍ¨ĞĞÖ¤
+    /// ç¬¬å‡ ä¸ªé€šè¡Œè¯
     /// </summary>
     private int index=0;
 
@@ -56,7 +56,7 @@ public class panel_pass : Base_Mono
             btn.GetComponent<Button>().onClick.AddListener(() => { OnBtnClick(btn); });
         }
         List<int> list = SumSave.crt_pass.Get_day_state();
-        //¹Ì¶¨6¸öÈÎÎñ
+        //å›ºå®š6ä¸ªä»»åŠ¡
         for (int i = 0; i < 6; i++)
         {
             task_item item = Instantiate(task_item_prefabs, pos_task);
@@ -66,7 +66,7 @@ public class panel_pass : Base_Mono
         }
     }
     /// <summary>
-    /// µã»÷ÊÂ¼ş
+    /// ç‚¹å‡»äº‹ä»¶
     /// </summary>
     /// <param name="item"></param>
     private void OnTaskClick(task_item item)
@@ -74,13 +74,13 @@ public class panel_pass : Base_Mono
         List<int> list = SumSave.crt_pass.Get_day_state();
         if (list[item.index] == 1)
         {
-            Alert_Dec.Show("ÈÎÎñÒÑÍê³É");
+            Alert_Dec.Show("ä»»åŠ¡å·²å®Œæˆ");
             return;
         }
         if (item.State(SumSave.crt_pass.day_state[item.index]))
         {
-            //ÁìÈ¡½±Àø
-            Battle_Tool.Obtain_Resources("ÃüÔË½ğ±Ò", 1);
+            //é¢†å–å¥–åŠ±
+            Battle_Tool.Obtain_Resources("å‘½è¿é‡‘å¸", 1);
 
             SumSave.crt_pass.data_exp++;
             SumSave.crt_pass.Get(item.index);
@@ -96,7 +96,7 @@ public class panel_pass : Base_Mono
         }
         else
         {
-            Alert_Dec.Show("Î´Âú×ãÍê³ÉÌõ¼ş");
+            Alert_Dec.Show("æœªæ»¡è¶³å®Œæˆæ¡ä»¶");
         }
 
     }
@@ -114,11 +114,11 @@ public class panel_pass : Base_Mono
 
     }
     /// <summary>
-    /// ÏÔÊ¾ÈÎÎñ½ø¶È
+    /// æ˜¾ç¤ºä»»åŠ¡è¿›åº¦
     /// </summary>
     private void Show_Pass_Progress()
     {
-        task_info.text= "ÀÛ¼ÆÍê³ÉÈÎÎñ£º" + SumSave.crt_pass.Max_task_number;
+        task_info.text= "ç´¯è®¡å®Œæˆä»»åŠ¡ï¼š" + SumSave.crt_pass.Max_task_number;
         List<int> list = SumSave.crt_pass.Get_day_state();
         foreach (int item in dic_task.Keys)
         {
@@ -132,7 +132,7 @@ public class panel_pass : Base_Mono
         {
             Destroy(pos_item.GetChild(i).gameObject);
         }
-        //×ÔÉíÁìÈ¡×´Ì¬
+        //è‡ªèº«é¢†å–çŠ¶æ€
         Dictionary<int, List<int>> dic = SumSave.crt_pass.Set();
 
         for (int i = 0; i < SumSave.db_pass.Count; i++)
@@ -163,7 +163,7 @@ public class panel_pass : Base_Mono
     }
 
     /// <summary>
-    /// Éı¼¶
+    /// å‡çº§
     /// </summary>
     /// <param name="item"></param>
     protected void GetReward(pass_item item)
@@ -175,7 +175,7 @@ public class panel_pass : Base_Mono
             {
                 if (dic[index][item.Data.lv] == 0)
                 {
-                    //ÁìÈ¡½±Àø
+                    //é¢†å–å¥–åŠ±
                     Obtain_result(item.Data.reward);
                     dic[index][item.Data.lv] = 1;
                     if (dic.ContainsKey(index + 1))
@@ -183,15 +183,15 @@ public class panel_pass : Base_Mono
                     else item.Set(dic[index][item.Data.lv], 1);
                     SumSave.crt_pass.Get(dic);
                     Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_pass, SumSave.crt_pass.Set_Uptade_String(), SumSave.crt_pass.Get_Update_Character());
-                    Alert_Dec.Show("ÁìÈ¡³É¹¦");
+                    Alert_Dec.Show("é¢†å–æˆåŠŸ");
                 }
-                else Alert_Dec.Show("ÒÑ¾­ÁìÈ¡");
+                else Alert_Dec.Show("å·²ç»é¢†å–");
             }
-        }else Alert_Dec.Show("µÈ¼¶²»×ã");
+        }else Alert_Dec.Show("ç­‰çº§ä¸è¶³");
     }
 
     /// <summary>
-    /// ½ø½×ÁìÈ¡
+    /// è¿›é˜¶é¢†å–
     /// </summary>
     /// <param name="item"></param>
     protected void GetupLvReward(pass_item item)
@@ -203,21 +203,21 @@ public class panel_pass : Base_Mono
             {
                 if (dic[index+1][item.Data.lv] == 0)
                 {
-                    //ÁìÈ¡½±Àø
+                    //é¢†å–å¥–åŠ±
                     Obtain_result(item.Data.uplv_reward);
                     dic[index+1][item.Data.lv] = 1;
                     item.Set(dic[index][item.Data.lv], dic[index + 1][item.Data.lv]);
                     SumSave.crt_pass.Get(dic);
                     Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_pass, SumSave.crt_pass.Set_Uptade_String(), SumSave.crt_pass.Get_Update_Character());
-                    Alert_Dec.Show("ÁìÈ¡³É¹¦");
+                    Alert_Dec.Show("é¢†å–æˆåŠŸ");
                 }
-                else Alert_Dec.Show("ÒÑ¾­ÁìÈ¡");
+                else Alert_Dec.Show("å·²ç»é¢†å–");
             }
         }
-        else Alert_Dec.Show("µÈ¼¶²»×ã");
+        else Alert_Dec.Show("ç­‰çº§ä¸è¶³");
     }
     /// <summary>
-    /// »ñÈ¡½±Àø
+    /// è·å–å¥–åŠ±
     /// </summary>
     /// <param name="result"></param>
     private void Obtain_result(string result)

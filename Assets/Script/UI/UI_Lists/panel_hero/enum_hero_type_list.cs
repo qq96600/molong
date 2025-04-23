@@ -4,6 +4,6 @@ using UnityEngine;
 
 public enum enum_hero_type_list
 {
-    ÎïÀí¹¥»÷=1,
-    Ä§·¨¹¥»÷,
+    ç‰©ç†æ”»å‡»=1,
+    é­”æ³•æ”»å‡»,
 }

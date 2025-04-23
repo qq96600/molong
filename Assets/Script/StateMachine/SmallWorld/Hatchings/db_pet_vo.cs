@@ -8,66 +8,66 @@ using UnityEngine;
 public class db_pet_vo : Base_VO
 {
     /// <summary>
-    /// ³èÎïÃû×Ö
+    /// å® ç‰©åå­—
     /// </summary>
     public string petName;
     /// <summary>
-    /// ³èÎïµ°Ãû×Ö
+    /// å® ç‰©è›‹åå­—
     /// </summary>
     public string petEggsName;
     /// <summary>
-    /// ĞèÒª·õ»¯µÄÊ±¼ä
+    /// éœ€è¦å­µåŒ–çš„æ—¶é—´
     /// </summary>
     public int hatchingTime;
     /// <summary>
-    /// ¿ªÊ¼·õ»¯µÄÊ±¼ä
+    /// å¼€å§‹å­µåŒ–çš„æ—¶é—´
     /// </summary>
     private DateTime startHatchingTime;
     /// <summary>
-    ///³èÎïµ°Ãû×ÖºÍ¿ªÊ¼·õ»¯µÄÊ±¼ä
+    ///å® ç‰©è›‹åå­—å’Œå¼€å§‹å­µåŒ–çš„æ—¶é—´
     /// </summary>
     private (string name, DateTime time) crt_hatching;
     /// <summary>
-    /// ³èÎï±àºÅ
+    /// å® ç‰©ç¼–å·
     /// </summary>
     public int hero_type ;
     /// <summary>
-    /// ³èÎï»ù´¡ÊôĞÔ
+    /// å® ç‰©åŸºç¡€å±æ€§
     /// </summary>
     public string crate_value;
     /// <summary>
-    /// ³èÎï»ù´¡ÊôĞÔÊı×é
+    /// å® ç‰©åŸºç¡€å±æ€§æ•°ç»„
     /// </summary>
     public List<string> crate_values=new List<string>();
 
     /// <summary>
-    /// ³èÎïÉı¼¶ÊôĞÔ
+    /// å® ç‰©å‡çº§å±æ€§
     /// </summary>
     public string up_value;
     /// <summary>
-    /// ³èÎïÉı¼¶ÊôĞÔÊı×é
+    /// å® ç‰©å‡çº§å±æ€§æ•°ç»„
     /// </summary>
     public List<string> up_values=new List<string>();
 
     /// <summary>
-    /// ¶àÉÙ¼¶Ìí¼ÓÒ»¸ö³èÎïÊôĞÔ
+    /// å¤šå°‘çº§æ·»åŠ ä¸€ä¸ªå® ç‰©å±æ€§
     /// </summary>
     public string up_base_value;
    /// <summary>
-   /// ¶àÉÙ¼¶Ìí¼ÓÒ»¸ö³èÎïÊôĞÔÊı×é
+   /// å¤šå°‘çº§æ·»åŠ ä¸€ä¸ªå® ç‰©å±æ€§æ•°ç»„
    /// </summary>
     public List<string> up_base_values = new List<string>();
 
     /// <summary>
-    /// ³èÎïÌì¸³
+    /// å® ç‰©å¤©èµ‹
     /// </summary>
     public string hero_talent;
     /// <summary>
-    /// ³èÎïµÈ¼¶
+    /// å® ç‰©ç­‰çº§
     /// </summary>
     public int level=1;
     /// <summary>
-    /// ³èÎï¾­Ñé
+    /// å® ç‰©ç»éªŒ
     /// </summary>
     public int exp=0;
 
@@ -77,7 +77,7 @@ public class db_pet_vo : Base_VO
 
 
     /// <summary>
-    /// ½âÎöÊı¾İ
+    /// è§£ææ•°æ®
     /// </summary>
     public void Init()
     {
@@ -89,7 +89,7 @@ public class db_pet_vo : Base_VO
             crt_hatching = (str[0], (str[1] == "0") ? DateTime.Now : Convert.ToDateTime(str[1]));
         }
         else
-        if (str == null)//Ã»ÓĞÊı¾İ¾Í³õÊ¼»¯
+        if (str == null)//æ²¡æœ‰æ•°æ®å°±åˆå§‹åŒ–
         {
             crt_hatching = ("0", DateTime.Now);
             Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_pet_hatching,
@@ -98,7 +98,7 @@ public class db_pet_vo : Base_VO
 
     }
     /// <summary>
-    /// »ñµÃ³èÎïÊıÖµÊı×é
+    /// è·å¾—å® ç‰©æ•°å€¼æ•°ç»„
     /// </summary>
     public void GetNumerical()
     {
@@ -125,7 +125,7 @@ public class db_pet_vo : Base_VO
 
 
     /// <summary>
-    /// ÕûºÏÊı¾İ¸ñÊ½
+    /// æ•´åˆæ•°æ®æ ¼å¼
     /// </summary>
     /// <returns></returns>
     public string Set_data()
@@ -143,7 +143,7 @@ public class db_pet_vo : Base_VO
 
 
     /// <summary>
-    /// »ñÈ¡µ±Ç°·õ»¯µÄ³èÎï
+    /// è·å–å½“å‰å­µåŒ–çš„å® ç‰©
     /// </summary>
     /// <returns></returns>
     public (string, DateTime) Set()

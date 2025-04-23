@@ -6,31 +6,31 @@ using UnityEngine;
 public class user_map_vo : Base_VO
 {
     /// <summary>
-    /// µØÍ¼±àºÅ
+    /// åœ°å›¾ç¼–å·
     /// </summary>
     public int map_index;
     /// <summary>
-    /// µØÍ¼ÀàĞÍ
+    /// åœ°å›¾ç±»å‹
     /// </summary>
     public int map_type;
     /// <summary>
-    /// µØÍ¼Ãû³Æ
+    /// åœ°å›¾åç§°
     /// </summary>
     public string map_name;
     /// <summary>
-    /// µØÍ¼½âËøµÈ¼¶
+    /// åœ°å›¾è§£é”ç­‰çº§
     /// </summary>
     public int need_lv;
     /// <summary>
-    /// ĞèÇóÃÅÆ±
+    /// éœ€æ±‚é—¨ç¥¨
     /// </summary>
     public string need_Required;
     /// <summary>
-    /// ÊÕÒæÁĞ±í
+    /// æ”¶ç›Šåˆ—è¡¨
     /// </summary>
     public string ProfitList;
     /// <summary>
-    /// ¹ÖÎïÁĞ±í
+    /// æ€ªç‰©åˆ—è¡¨
     /// </summary>
     public string monster_list;
 

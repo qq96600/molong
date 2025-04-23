@@ -11,54 +11,54 @@ public class AttackStateMachine : MonoBehaviour
 
     private float AttackDistance = 500f;
     /// <summary>
-    /// Ä¿±ê
+    /// ç›®æ ‡
     /// </summary>
     private BattleHealth Target;
     /// <summary>
-    /// ×ÔÉí
+    /// è‡ªèº«
     /// </summary>
     private BattleAttack battle;
     /// <summary>
-    /// ×´Ì¬¿ØÖÆÆ÷
+    /// çŠ¶æ€æ§åˆ¶å™¨
     /// </summary>
     private Arrow_Type arrowType = Arrow_Type.idle;
     /// <summary>
-    /// ¹¥»÷ËÙ¶È
+    /// æ”»å‡»é€Ÿåº¦
     /// </summary>
     private float AttackSpeed = 1f;
     /// <summary>
-    /// ¹¥»÷ËÙ¶È¼ÆÊıÆ÷
+    /// æ”»å‡»é€Ÿåº¦è®¡æ•°å™¨
     /// </summary>
     private float AttackSpeedCounter;
     /// <summary>
-    /// ÊÇ·ñÔÚ¶¯»­ÖĞ
+    /// æ˜¯å¦åœ¨åŠ¨ç”»ä¸­
     /// </summary>
     private bool is_anim = true;
 
     /// <summary>
-    /// ×´Ì¬¿ØÖÆÆ÷
+    /// çŠ¶æ€æ§åˆ¶å™¨
     /// </summary>
     /// <returns></returns>
      private RolesManage StateMachine;
     /// <summary>
-    /// ¼¼ÄÜÔ¤ÖÆÌå
+    /// æŠ€èƒ½é¢„åˆ¶ä½“
     /// </summary>
     private GameObject skill_prefabs;
     /// <summary>
-    /// ¸ÕÌå×é¼ş
+    /// åˆšä½“ç»„ä»¶
     /// </summary>
     private Rigidbody2D rb;
     /// <summary>
-    /// ÒÆ¶¯ËÙ¶È
+    /// ç§»åŠ¨é€Ÿåº¦
     /// </summary>
     private float MoveSpeed=1f;
 
     /// <summary>
-    /// ÊÇ·ñÃæÏò×ó
+    /// æ˜¯å¦é¢å‘å·¦
     /// </summary>
     protected bool facingLeft = true;
     /// <summary>
-    /// ¶¯»­²¥·ÅÊ±¼ä
+    /// åŠ¨ç”»æ’­æ”¾æ—¶é—´
     /// </summary>
     private float  animTime=0f;
 
@@ -84,7 +84,7 @@ public class AttackStateMachine : MonoBehaviour
   
             if (AttackSpeedCounter <= 0)
             {
-                //Debug.Log("´¥·¢¹¥»÷"+Time.time);
+                //Debug.Log("è§¦å‘æ”»å‡»"+Time.time);
                 StateMachine.Animator_State(Arrow_Type.attack);
                 battle.OnAuto();
                 AttackSpeedCounter = AttackSpeed;//battle.Data.attack_speed; 
@@ -112,7 +112,7 @@ public class AttackStateMachine : MonoBehaviour
        
      }
     /// <summary>
-    /// ¼¼ÄÜÊÍ·Å¿ØÖÆ
+    /// æŠ€èƒ½é‡Šæ”¾æ§åˆ¶
     /// </summary>
     /// <param name="skill"></param>
     public void Skill(base_skill_vo skill)
@@ -141,7 +141,7 @@ public class AttackStateMachine : MonoBehaviour
 
 
     /// <summary>
-    /// ¶¯»­×´Ì¬¿ØÖÆ
+    /// åŠ¨ç”»çŠ¶æ€æ§åˆ¶
     /// </summary>
     private void Animator_State()
     {
@@ -168,14 +168,14 @@ public class AttackStateMachine : MonoBehaviour
     
 
     /// <summary>
-    /// ¶¯»­½áÊø
+    /// åŠ¨ç”»ç»“æŸ
     /// </summary>
     public void OnAnimEnd()
     {
         is_anim= true;
     }
     /// <summary>
-    /// ÅĞ¶ÏÊÇ·ñÔÚ¹¥»÷¾àÀëÄÚ
+    /// åˆ¤æ–­æ˜¯å¦åœ¨æ”»å‡»è·ç¦»å†…
     /// </summary>
     private void IsState()
     {
@@ -206,8 +206,8 @@ public enum Arrow_Type
 
 public enum skill_pos_type
 { 
-    move,//ÒÆ¶¯Àà
-    situ//ÔÚÄ¿±êÊÍ·Å
+    move,//ç§»åŠ¨ç±»
+    situ//åœ¨ç›®æ ‡é‡Šæ”¾
 
 }
 

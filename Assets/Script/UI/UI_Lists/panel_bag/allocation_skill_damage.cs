@@ -9,19 +9,19 @@ using UnityEngine.UI;
 public class allocation_skill_damage : Base_Mono
 {
     /// <summary>
-    /// ÏÔÊ¾ĞÅÏ¢
+    /// æ˜¾ç¤ºä¿¡æ¯
     /// </summary>
     private Text info;
     /// <summary>
-    /// È·ÈÏ
+    /// ç¡®è®¤
     /// </summary>
     private Button confirm_btn;
     /// <summary>
-    /// ·ÖÅäÄÚÁ¦
+    /// åˆ†é…å†…åŠ›
     /// </summary>
     private Slider slider;
     /// <summary>
-    /// µ±Ç°·ÖÅä¼¼ÄÜ
+    /// å½“å‰åˆ†é…æŠ€èƒ½
     /// </summary>
     private base_skill_vo user_skill;
 
@@ -39,11 +39,11 @@ public class allocation_skill_damage : Base_Mono
 
     private void OnSliderChange(float arg0)
     {
-        info.text = Show_Color.Red(user_skill.skillname)+ "·ÖÅäÄÚÁ¦ " + Show_Color.Yellow(arg0);
+        info.text = Show_Color.Red(user_skill.skillname)+ "åˆ†é…å†…åŠ› " + Show_Color.Yellow(arg0);
     }
 
     /// <summary>
-    /// È·ÈÏ·ÖÅä
+    /// ç¡®è®¤åˆ†é…
     /// </summary>
     private void Confirm()
     {
@@ -56,7 +56,7 @@ public class allocation_skill_damage : Base_Mono
     public void Show(base_skill_vo skill)
     {
         user_skill= skill;
-        info.text = "·ÖÅäÄÚÁ¦¸ø¼¼ÄÜ" + skill.skillname;
+        info.text = "åˆ†é…å†…åŠ›ç»™æŠ€èƒ½" + skill.skillname;
         slider.value = 0;
         slider.maxValue = SumSave.crt_MaxHero.internalforceMP;
     }

@@ -11,67 +11,67 @@ using Random = UnityEngine.Random;
 public class panel_fight : Panel_Base
 {
     /// <summary>
-    /// Íæ¼ÒÔ¤ÖÆÌå
+    /// ç©å®¶é¢„åˆ¶ä½“
     /// </summary>
     private GameObject player_battle_attack_prefabs;
 
     private GameObject monster_battle_attack_prefabs;
 
     /// <summary>
-    /// ¹ÖÎïÉú³ÉÎ»ÖÃ
+    /// æ€ªç‰©ç”Ÿæˆä½ç½®
     /// </summary>
     private Transform pos_player, pos_monster;
     /// <summary>
-    /// µ±Ç°¹ÖÎïÁĞ±í
+    /// å½“å‰æ€ªç‰©åˆ—è¡¨
     /// </summary>
     private List<crtMaxHeroVO> crt_map_monsters = new List<crtMaxHeroVO>();
     /// <summary>
-    /// µ±Ç°µØÍ¼
+    /// å½“å‰åœ°å›¾
     /// </summary>
     private user_map_vo select_map;
     /// <summary>
-    /// Ë¢ĞÂ×´Ì¬
+    /// åˆ·æ–°çŠ¶æ€
     /// </summary>
     private bool Open_Monster_State= true;
     /// <summary>
-    /// Ë¢ĞÂ¼¼ÄÜ
+    /// åˆ·æ–°æŠ€èƒ½
     /// </summary>
     private pight_show_skill pight_show_skill;
     /// <summary>
-    /// Õ½¶·¼¼ÄÜ
+    /// æˆ˜æ–—æŠ€èƒ½
     /// </summary>
     private List<skill_offect_item> battle_skills;
     /// <summary>
-    /// ÏÔÊ¾»ù´¡ĞÅÏ¢
+    /// æ˜¾ç¤ºåŸºç¡€ä¿¡æ¯
     /// </summary>
     private panel_role_health role_health;
     /// <summary>
-    /// ÏÔÊ¾µØÍ¼Ãû³ÆºÍ»ØºÏÊ±¼ä
+    /// æ˜¾ç¤ºåœ°å›¾åç§°å’Œå›åˆæ—¶é—´
     /// </summary>
     private Text map_name, map_time;
     /// <summary>
-    /// ¹Ø±ÕÁĞ±í°´Å¥
+    /// å…³é—­åˆ—è¡¨æŒ‰é’®
     /// </summary>
     private Button close_btn;
     /// <summary>
-    /// ÊÇ·ñ¹Ø±ÕÁĞ±í
+    /// æ˜¯å¦å…³é—­åˆ—è¡¨
     /// </summary>
     private bool close_panel_state = true;
     /// <summary>
-    /// ÁĞ±íÎ»ÖÃ
+    /// åˆ—è¡¨ä½ç½®
     /// </summary>
     private Transform pos_btn;
 
     /// <summary>
-    /// ½ÇÉ«Æ¤·ô
+    /// è§’è‰²çš®è‚¤
     /// </summary>
     private enum_skin_state skin_state;
     /// <summary>
-    /// ½ÇÉ«Æ¤·ôÔ¤ÖÆÌå
+    /// è§’è‰²çš®è‚¤é¢„åˆ¶ä½“
     /// </summary>
    private GameObject skin_prefabs;
     /// <summary>
-    /// ½ÇÉ«Í·Ïñ
+    /// è§’è‰²å¤´åƒ
     /// </summary>
     private Transform panel_role_health;
     protected override void Awake()
@@ -96,13 +96,13 @@ public class panel_fight : Panel_Base
 
         int hero_index = int.Parse(SumSave.crt_hero.hero_index);
         skin_state = (enum_skin_state)hero_index;
-        skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/ÄÚ¹Û_" + skin_state.ToString());
+        skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/å†…è§‚_" + skin_state.ToString());
         panel_role_health = Find<Transform>("panel_role_health/profile_picture");
 
         Instantiate(skin_prefabs, panel_role_health);
     }
     /// <summary>
-    /// ¹Ø±ÕÁĞ±í
+    /// å…³é—­åˆ—è¡¨
     /// </summary>
     private void Close()
     {
@@ -111,7 +111,7 @@ public class panel_fight : Panel_Base
         { 
             pos_btn.GetChild(i).gameObject.SetActive(close_panel_state);
         }
-        close_btn.GetComponent<Image>().sprite = Resources.Load<Sprite>(close_panel_state ? "UI/btn_list/Òş²Ø" : "UI/btn_list/Õ¹¿ª");
+        close_btn.GetComponent<Image>().sprite = Resources.Load<Sprite>(close_panel_state ? "UI/btn_list/éšè—" : "UI/btn_list/å±•å¼€");
     }
     
     public override void Show()
@@ -123,14 +123,14 @@ public class panel_fight : Panel_Base
         base.Hide();
     }
     /// <summary>
-    /// ÓÎÏ·½áÊø
+    /// æ¸¸æˆç»“æŸ
     /// </summary>
     protected void Game_Over()
     {
         if (Open_Monster_State)
         {
             Open_Monster_State = false;
-            //½øÈë¸´»îÖÜÆÚ 5s
+            //è¿›å…¥å¤æ´»å‘¨æœŸ 5s
             StopAllCoroutines();
             StartCoroutine(Game_WaitTime(5));
         }
@@ -142,10 +142,10 @@ public class panel_fight : Panel_Base
         init();
         Crate_Init();
         map_name.text=map.map_name;
-        Show_Battle_State("Õ½¶·ÖĞ...");
+        Show_Battle_State("æˆ˜æ–—ä¸­...");
     }
     /// <summary>
-    /// ÏÔÊ¾Õ½¶·×´Ì¬
+    /// æ˜¾ç¤ºæˆ˜æ–—çŠ¶æ€
     /// </summary>
     /// <param name="dec"></param>
     private void Show_Battle_State(string dec)
@@ -153,16 +153,16 @@ public class panel_fight : Panel_Base
         map_time.text= dec;
     }
     /// <summary>
-    /// »ñÈ¡ÀëÏßÊÕÒæ
+    /// è·å–ç¦»çº¿æ”¶ç›Š
     /// </summary>
     public void offline()
     {
-        //¼ÆËãÀëÏßÊÕÒæ
-        //½øÈëÕ½¶·
+        //è®¡ç®—ç¦»çº¿æ”¶ç›Š
+        //è¿›å…¥æˆ˜æ–—
         Open_Map(ArrayHelper.Find(SumSave.db_maps, e => e.map_name == SumSave.crt_resources.user_map_index));
     }
     /// <summary>
-    /// Éú³É½ÇÉ«³õÊ¼»¯
+    /// ç”Ÿæˆè§’è‰²åˆå§‹åŒ–
     /// </summary>
     private void Crate_Init()
     {
@@ -191,18 +191,18 @@ public class panel_fight : Panel_Base
         crtMaxHeroVO crt = SumSave.crt_MaxHero;
         GameObject item = ObjectPoolManager.instance.GetObjectFormPool(crt.show_name, player_battle_attack_prefabs,
             new Vector3(pos_player.position.x, pos_player.position.y, pos_player.position.z), Quaternion.identity, pos_player);
-        // ÉèÖÃData
+        // è®¾ç½®Data
         item.GetComponent<player_battle_attck>().Data = crt;
         item.GetComponent<player_battle_attck>().Refresh_Skill(battle_skills);
         //if (item.GetComponent<Button>().enabled)
-        //    item.GetComponent<Button>().onClick.AddListener(delegate { AudioManager.Instance.playAudio(ClipEnum.¹ºÂòÎïÆ·); SelectMonster(item.GetComponent<MonsterBattleAttack>()); });
+        //    item.GetComponent<Button>().onClick.AddListener(delegate { AudioManager.Instance.playAudio(ClipEnum.è´­ä¹°ç‰©å“); SelectMonster(item.GetComponent<MonsterBattleAttack>()); });
         //item.GetComponent<Button>().enabled = true;
         SumSave.battleHeroHealths.Add(item.GetComponent<BattleHealth>());
         role_health.SetHealth(item.GetComponent<BattleHealth>());
     }
 
     /// <summary>
-    /// ³õÊ¼»¯
+    /// åˆå§‹åŒ–
     /// </summary>
     private void init()
     {
@@ -235,7 +235,7 @@ public class panel_fight : Panel_Base
     }
 
     /// <summary>
-    /// ËÀÍöµÈ´ı
+    /// æ­»äº¡ç­‰å¾…
     /// </summary>
     /// <param name="time"></param>
     /// <returns></returns>
@@ -244,20 +244,20 @@ public class panel_fight : Panel_Base
         
         while (time > 0)
         {
-            Show_Battle_State("¸´»îÊ£ÓàÊ±¼ä " + time.ToString("F1") + "s");
+            Show_Battle_State("å¤æ´»å‰©ä½™æ—¶é—´ " + time.ToString("F1") + "s");
             time -= 0.1f;
             yield return new WaitForSeconds(0.1f);
         }
         Open_Map(select_map);
     }
     /// <summary>
-    /// ¿ªÊ¼ÓÎÏ·
+    /// å¼€å§‹æ¸¸æˆ
     /// </summary>
     public void Game_Start()
     {
         StartCoroutine(ProduceMonster(SumSave.WaitTime));
     }
-    // ÏÂÒ»²¨¹Ö
+    // ä¸‹ä¸€æ³¢æ€ª
     protected void Game_Next_Map()
     {
         if (Open_Monster_State)
@@ -273,11 +273,11 @@ public class panel_fight : Panel_Base
 
         while (time > 0)
         {
-            Show_Battle_State("Ë¢ĞÂÊ±¼ä " + time.ToString("F1") +"s") ;//[..Math.Min(2, time.ToString().Length)]); ;
+            Show_Battle_State("åˆ·æ–°æ—¶é—´ " + time.ToString("F1") +"s") ;//[..Math.Min(2, time.ToString().Length)]); ;
             time -= basetime;
             yield return new WaitForSeconds(basetime);
         }
-        Show_Battle_State("Õ½¶·ÖĞ...");
+        Show_Battle_State("æˆ˜æ–—ä¸­...");
         crate_monster();
         //StartCoroutine(ProduceMonster(SumSave.WaitTime));
     }
@@ -288,10 +288,10 @@ public class panel_fight : Panel_Base
         crt = Battle_Tool.crate_monster(crt);
         GameObject item = ObjectPoolManager.instance.GetObjectFormPool(crt.show_name, monster_battle_attack_prefabs,
             new Vector3(pos_monster.position.x, pos_monster.position.y,pos_monster.position.z), Quaternion.identity, pos_monster);
-        // ÉèÖÃData
+        // è®¾ç½®Data
         item.GetComponent<monster_battle_attck>().Data = crt;
         //if (item.GetComponent<Button>().enabled)
-        //    item.GetComponent<Button>().onClick.AddListener(delegate { AudioManager.Instance.playAudio(ClipEnum.¹ºÂòÎïÆ·); SelectMonster(item.GetComponent<MonsterBattleAttack>()); });
+        //    item.GetComponent<Button>().onClick.AddListener(delegate { AudioManager.Instance.playAudio(ClipEnum.è´­ä¹°ç‰©å“); SelectMonster(item.GetComponent<MonsterBattleAttack>()); });
         //item.GetComponent<Button>().enabled = true;
         SumSave.battleMonsterHealths.Add(item.GetComponent<BattleHealth>());
         Open_Monster_State=true;

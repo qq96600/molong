@@ -4,11 +4,11 @@ using UnityEngine.UI;
 public class artifact_item : Base_Mono
 {
     /// <summary>
-    /// ÎïÆ·Í¼±ê
+    /// ç‰©å“å›¾æ ‡
     /// </summary>
     private Image icon;
     /// <summary>
-    /// ÎïÆ·ĞÅÏ¢
+    /// ç‰©å“ä¿¡æ¯
     /// </summary>
     private Text info;
 
@@ -31,7 +31,7 @@ public class artifact_item : Base_Mono
             data = value;
             if (data == null) return;
             icon.sprite = UI.UI_Manager.I.GetEquipSprite("UI/show_Artifact/", data.arrifact_name);
-            info.text = data.arrifact_name + "(Î´¼¤»î)";
+            info.text = data.arrifact_name + "(æœªæ¿€æ´»)";
         }
         get
         {
@@ -39,7 +39,7 @@ public class artifact_item : Base_Mono
         }
     }
     /// <summary>
-    /// ¶ÁÈ¡µÈ¼¶
+    /// è¯»å–ç­‰çº§
     /// </summary>
     /// <param name="lv"></param>
     public void Set(int lv)

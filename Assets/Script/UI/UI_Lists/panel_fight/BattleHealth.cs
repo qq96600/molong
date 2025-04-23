@@ -10,19 +10,19 @@ using Random = UnityEngine.Random;
 namespace MVC
 {
     /// <summary>
-    ///  Õ½¶·ÏÔÊ¾ÑªÁ¿
+    ///  æˆ˜æ–—æ˜¾ç¤ºè¡€é‡
     /// </summary>
     public class BattleHealth : Base_Mono
     {
         /// <summary>
-        /// »ù´¡ÊıÖµ
+        /// åŸºç¡€æ•°å€¼
         /// </summary>
         [HideInInspector]
         public float maxHP, HP, maxMP, MP, add_hp = 0;
 
         public float internalforceMP, EnergyMp, internalforcemaxMP, EnergymaxMp;
         /// <summary>
-        /// Õ½¶·Î»ÖÃ
+        /// æˆ˜æ–—ä½ç½®
         /// </summary>
         [HideInInspector]
         public int Pos = 0;
@@ -43,7 +43,7 @@ namespace MVC
             ObjectPoolManager.instance.PushObjectToPool(GetComponent<BattleAttack>().Data.show_name, this.gameObject);
         }
         /// <summary>
-        /// »Ø¸´ÉúÃüÄ§·¨
+        /// å›å¤ç”Ÿå‘½é­”æ³•
         /// </summary>
         /// <param name="value"></param>
         /// <param name="type"></param>
@@ -68,7 +68,7 @@ namespace MVC
             //Hurt(dec, 2);
         }
         /// <summary>
-        /// ÏûºÄÀ¶
+        /// æ¶ˆè€—è“
         /// </summary>
         /// <param name="value"></param>
         public void UseMp(float value)
@@ -86,12 +86,12 @@ namespace MVC
             //damage = 1000;
             HP -= damage;
             Hurt(damage);
-            //²âÊÔµôÂä
+            //æµ‹è¯•æ‰è½
             //ConfigBattle.LoadSetting(monster, 2);
             //if (monster.GetComponent<monster_battle_attck>() != null) WaitAndDestory(monster);
             if (HP <= 0)
             {
-                //ËÀÍö µôÂä
+                //æ­»äº¡ æ‰è½
                 if(monster.GetComponent<monster_battle_attck>()!=null)  WaitAndDestory(monster); 
                 else if(monster.GetComponent<player_battle_attck>() != null)
                 {
@@ -105,18 +105,18 @@ namespace MVC
         }
         
         /// <summary>
-        /// ÏÔÊ¾ĞÅÏ¢
+        /// æ˜¾ç¤ºä¿¡æ¯
         /// </summary>
         /// <param name="dec"></param>
-        /// <param name="type">1ÉËº¦2ÖÎÁÆ</param>
+        /// <param name="type">1ä¼¤å®³2æ²»ç–—</param>
         private void Hurt(float dec,int type = 1)
         {
             string _dec=dec.ToString("F0");
-            DamageTextManager.Instance.ShowDamageText(DamageEnum.ÆÕÍ¨ÉËº¦, _dec, this.transform);
+            DamageTextManager.Instance.ShowDamageText(DamageEnum.æ™®é€šä¼¤å®³, _dec, this.transform);
            
         }
         /// <summary>
-        /// ÏÔÊ¾ÏûÏ¢
+        /// æ˜¾ç¤ºæ¶ˆæ¯
         /// </summary>
         /// <param name="dec"></param>
         private void Show_info(string dec)
@@ -133,7 +133,7 @@ namespace MVC
         }
 
         /// <summary>
-        /// ÑÓÊ±Ïú»Ù£¬µôÂäÎïÆ·
+        /// å»¶æ—¶é”€æ¯ï¼Œæ‰è½ç‰©å“
         /// </summary>
         /// <param name="monster"></param>
         /// <returns></returns>
@@ -142,14 +142,14 @@ namespace MVC
             OnDestroy();
             SumSave.battleMonsterHealths.Remove(this);
             ConfigBattle.LoadSetting(monster, 2);
-            //Ôö¼Ó¾­Ñé
+            //å¢åŠ ç»éªŒ
             Battle_Tool.Obtain_Exp(monster.Data.Exp);
-            //»ñÈ¡½ğ±Ò
-            SumSave.crt_user_unit.verify_data(currency_unit.ÁéÖé, monster.Data.unit);
-            //ÅĞ¶ÏÊÇ·ñÔö¼ÓÀúÁ·Öµ
+            //è·å–é‡‘å¸
+            SumSave.crt_user_unit.verify_data(currency_unit.çµç , monster.Data.unit);
+            //åˆ¤æ–­æ˜¯å¦å¢åŠ å†ç»ƒå€¼
             if (SumSave.crt_resources.user_map_index != "1")
             {
-                SumSave.crt_user_unit.verify_data(currency_unit.ÀúÁ·, monster.Data.Point);
+                SumSave.crt_user_unit.verify_data(currency_unit.å†ç»ƒ, monster.Data.Point);
             }
             Game_Omphalos.i.GetQueue(
                         Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user, SumSave.crt_user_unit.Set_Uptade_String(), SumSave.crt_user_unit.Get_Update_Character());
@@ -157,10 +157,10 @@ namespace MVC
             /*
             StartCoroutine(WaitAndDestory(monster.Data.Name));
             long tempEXP = monster.Data.Exp;
-            //¼ÆËã¼Ó³É
+            //è®¡ç®—åŠ æˆ
             tempEXP = SumSave.BattleState.exp * tempEXP / 100;
             SumSave.crtHero.Exp += tempEXP;
-            if (SumSave.user_OffLine.OpenShow == 0) AlertDec.Show("»÷É±" + monster.Data.Name + " »ñµÃ¾­Ñé " + tempEXP);
+            if (SumSave.user_OffLine.OpenShow == 0) AlertDec.Show("å‡»æ€" + monster.Data.Name + " è·å¾—ç»éªŒ " + tempEXP);
             if (monster.Data.monsterTypes == MonsterTypes.Boss)
             {
                 if (SumSave.crtTask != null)
@@ -175,14 +175,14 @@ namespace MVC
             if (monster.isDrop)
             {
                 if (SumSave.isShen || SumSave.isXShen) ConfigBattle.LoadSetting(monster, monster.Data.monsterTypes == MonsterTypes.Boss ? Random.Range(6, 16) : 1);
-                //ÎïÆ·µôÂä
+                //ç‰©å“æ‰è½
                 else ConfigBattle.LoadSetting(monster, monster.Data.monsterTypes == MonsterTypes.Boss ? Random.Range(5, 15) : 1);
 
                 if (Random.Range(0, 100) < SumSave.HouseHold.Item3)
                 {
-                    ³ÆºÅÖĞĞÄ.Instance.Pet_show("ÇÚ¼ó³Ö¼Ò·¢¶¯ »ñµÃ¶ş´Î½±Àø");
+                    ç§°å·ä¸­å¿ƒ.Instance.Pet_show("å‹¤ä¿­æŒå®¶å‘åŠ¨ è·å¾—äºŒæ¬¡å¥–åŠ±");
                     if (SumSave.isShen || SumSave.isXShen) ConfigBattle.LoadSetting(monster, monster.Data.monsterTypes == MonsterTypes.Boss ? Random.Range(6, 16) : 1, true);
-                    //ÎïÆ·µôÂä
+                    //ç‰©å“æ‰è½
                     else ConfigBattle.LoadSetting(monster, monster.Data.monsterTypes == MonsterTypes.Boss ? Random.Range(5, 15) : 1, true);
                 }
             */
@@ -190,7 +190,7 @@ namespace MVC
         }
        
         /// <summary>
-        /// É¾³ıÏú»Ù
+        /// åˆ é™¤é”€æ¯
         /// </summary>
         /// <returns></returns>
         public virtual IEnumerator WaitAndDestory(string healthname)
@@ -203,7 +203,7 @@ namespace MVC
         }
 
         /// <summary>
-        /// É¾³ı
+        /// åˆ é™¤
         /// </summary>
         public void Destroy()
         {
@@ -215,7 +215,7 @@ namespace MVC
           
         }
         /// <summary>
-        ///  ÊÇ·ñÒÑ¾­¹Òµô
+        ///  æ˜¯å¦å·²ç»æŒ‚æ‰
         /// </summary>
         public bool Dead
         {

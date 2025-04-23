@@ -7,11 +7,11 @@ using UnityEngine.UI;
 public class skill_offect_item : Base_Mono
 {
     /// <summary>
-    /// »ù´¡ĞÅÏ¢
+    /// åŸºç¡€ä¿¡æ¯
     /// </summary>
     private Text info;
     /// <summary>
-    /// Õ½¶·µ¹¼ÆÊ±
+    /// æˆ˜æ–—å€’è®¡æ—¶
     /// </summary>
     private Text WaitTime;
     private Image item_icon;
@@ -49,7 +49,7 @@ public class skill_offect_item : Base_Mono
         StartCoroutine(Skill_WaitTime());
     }
     /// <summary>
-    /// ÊÇ·ñ¿ÉÒÔÊÍ·Å
+    /// æ˜¯å¦å¯ä»¥é‡Šæ”¾
     /// </summary>
     /// <returns></returns>
     public bool IsState()
@@ -57,7 +57,7 @@ public class skill_offect_item : Base_Mono
         return data.battle_CD <= 0;
     }
     /// <summary>
-    /// Ë¢ĞÂÀäÈ´
+    /// åˆ·æ–°å†·å´
     /// </summary>
     /// <returns></returns>
     private IEnumerator Skill_WaitTime()

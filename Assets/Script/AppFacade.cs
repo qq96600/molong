@@ -1,4 +1,4 @@
-﻿using TarenaMVC;
+using TarenaMVC;
 using UnityEngine;
 
 namespace MVC

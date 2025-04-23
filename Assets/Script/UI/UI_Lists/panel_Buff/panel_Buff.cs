@@ -11,29 +11,29 @@ using UnityEngine.UI;
 public class panel_Buff : Panel_Base
 {
     /// <summary>
-    /// ÊäÈë¿ò
+    /// è¾“å…¥æ¡†
     /// </summary>
     private InputField inputField;
     /// <summary>
-    /// È·ÈÏ°´Å¥
+    /// ç¡®è®¤æŒ‰é’®
     /// </summary>
     private Button confirm;
     /// <summary>
-    /// ĞÅÏ¢ÏÔÊ¾
+    /// ä¿¡æ¯æ˜¾ç¤º
     /// </summary>
     private Text info;
 
 
     /// <summary>
-    /// ½ÇÉ«ÀàĞÍ
+    /// è§’è‰²ç±»å‹
     /// </summary>
     private enum_skin_state skin_state;
     /// <summary>
-    /// ½ÇÉ«Æ¤·ôÔ¤ÖÆÌå
+    /// è§’è‰²çš®è‚¤é¢„åˆ¶ä½“
     /// </summary>
     private GameObject skin_prefabs;
     /// <summary>
-    /// ½ÇÉ«ÄÚ¹ÛÎ»ÖÃ
+    /// è§’è‰²å†…è§‚ä½ç½®
     /// </summary>
     private Transform panel_role_health;
     public override void Hide()
@@ -51,20 +51,20 @@ public class panel_Buff : Panel_Base
 
         int hero_index = int.Parse(SumSave.crt_hero.hero_index);
         skin_state = (enum_skin_state)hero_index;
-        skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/ÄÚ¹Û_" + skin_state.ToString());
+        skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/å†…è§‚_" + skin_state.ToString());
         panel_role_health = Find<Transform>("bg_main/bg");
         Instantiate(skin_prefabs, panel_role_health);
 
     }
     /// <summary>
-    /// µã»÷ÊÂ¼ş
+    /// ç‚¹å‡»äº‹ä»¶
     /// </summary>
     private void OnConfirmClick()
     {
-        Alert.Show("ÌáÊ¾", "È·¶¨½«½ÇÉ«Ãû³ÆĞŞ¸ÄÎª\n" + Show_Color.Red(inputField.text) + " £¿", Confirm);
+        Alert.Show("æç¤º", "ç¡®å®šå°†è§’è‰²åç§°ä¿®æ”¹ä¸º\n" + Show_Color.Red(inputField.text) + " ï¼Ÿ", Confirm);
     }
     /// <summary>
-    /// È·ÈÏ
+    /// ç¡®è®¤
     /// </summary>
     /// <param name="arg"></param>
     private void Confirm(object arg)
@@ -81,18 +81,18 @@ public class panel_Buff : Panel_Base
         confirm.gameObject.SetActive(SumSave.crt_hero.hero_material_list[0] == 0);
         inputField.text = SumSave.crt_hero.hero_name;
         string dec = "";
-        dec += enum_skill_attribute_list.¾­Ñé¼Ó³É + ": " + Show_Buff(enum_skill_attribute_list.¾­Ñé¼Ó³É) + "%\n";
-        dec += enum_skill_attribute_list.ÁéÖéÊÕÒæ + ": " + Show_Buff(enum_skill_attribute_list.ÁéÖéÊÕÒæ) + "%\n";
-        dec += enum_skill_attribute_list.×°±¸±¬ÂÊ + ": " + Show_Buff(enum_skill_attribute_list.×°±¸±¬ÂÊ) + "%\n";
-        dec += enum_skill_attribute_list.×°±¸µôÂä + ": " + Show_Buff(enum_skill_attribute_list.×°±¸µôÂä) + "%\n";
-        dec += enum_skill_attribute_list.³èÎï»ñÈ¡ + ": " + Show_Buff(enum_skill_attribute_list.³èÎï»ñÈ¡) + "%\n";
-        dec += enum_skill_attribute_list.Ñ°¹Ö¼ä¸ô + ": -" + (Show_Buff(enum_skill_attribute_list.Ñ°¹Ö¼ä¸ô) / 10f) + "s\n";
-        dec += enum_skill_attribute_list.¸´»î´ÎÊı + ": " + Show_Buff(enum_skill_attribute_list.¸´»î´ÎÊı) + "´Î\n";
+        dec += enum_skill_attribute_list.ç»éªŒåŠ æˆ + ": " + Show_Buff(enum_skill_attribute_list.ç»éªŒåŠ æˆ) + "%\n";
+        dec += enum_skill_attribute_list.çµç æ”¶ç›Š + ": " + Show_Buff(enum_skill_attribute_list.çµç æ”¶ç›Š) + "%\n";
+        dec += enum_skill_attribute_list.è£…å¤‡çˆ†ç‡ + ": " + Show_Buff(enum_skill_attribute_list.è£…å¤‡çˆ†ç‡) + "%\n";
+        dec += enum_skill_attribute_list.è£…å¤‡æ‰è½ + ": " + Show_Buff(enum_skill_attribute_list.è£…å¤‡æ‰è½) + "%\n";
+        dec += enum_skill_attribute_list.å® ç‰©è·å– + ": " + Show_Buff(enum_skill_attribute_list.å® ç‰©è·å–) + "%\n";
+        dec += enum_skill_attribute_list.å¯»æ€ªé—´éš” + ": -" + (Show_Buff(enum_skill_attribute_list.å¯»æ€ªé—´éš”) / 10f) + "s\n";
+        dec += enum_skill_attribute_list.å¤æ´»æ¬¡æ•° + ": " + Show_Buff(enum_skill_attribute_list.å¤æ´»æ¬¡æ•°) + "æ¬¡\n";
         info.text = dec;
 
     }
     /// <summary>
-    /// ÏÔÊ¾buff
+    /// æ˜¾ç¤ºbuff
     /// </summary>
     /// <param name="index"></param>
     /// <returns></returns>

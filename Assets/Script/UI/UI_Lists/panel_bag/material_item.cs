@@ -7,15 +7,15 @@ public class material_item : Base_Mono
 {
     private Image item_icon, item_frame;
     /// <summary>
-    /// »ù´¡ĞÅÏ¢
+    /// åŸºç¡€ä¿¡æ¯
     /// </summary>
     private Text base_info;
     /// <summary>
-    /// ×ÊÔ´
+    /// èµ„æº
     /// </summary>
     private (string, int) data;
     /// <summary>
-    /// Á¶µ¤²ÄÁÏ
+    /// ç‚¼ä¸¹ææ–™
     /// </summary>
     private (string, List<string>) data_seed;
     private void Awake()
@@ -25,7 +25,7 @@ public class material_item : Base_Mono
         base_info= Find<Text>("base_info");
     }
     /// <summary>
-    /// ³õÊ¼»¯
+    /// åˆå§‹åŒ–
     /// </summary>
     /// <param name="bag_Resources"></param>
     public void Init((string, int) bag_Resources)
@@ -41,7 +41,7 @@ public class material_item : Base_Mono
         base_info.text = "1";
     }
     /// <summary>
-    /// ·µ»ØÊı¾İ
+    /// è¿”å›æ•°æ®
     /// </summary>
     /// <returns></returns>
     public (string, int) GetItemData()

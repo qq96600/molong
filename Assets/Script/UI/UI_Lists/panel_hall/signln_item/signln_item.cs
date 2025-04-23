@@ -18,7 +18,7 @@ public class signln_item : Base_Mono
     }
 
     /// <summary>
-    /// »ñÈ¡×´Ì¬
+    /// è·å–çŠ¶æ€
     /// </summary>
     /// <param name="_index"></param>
     /// <param name="db_signin_vo"></param>
@@ -28,13 +28,13 @@ public class signln_item : Base_Mono
         crt_vo=db_signin_vo;
         string[] strs = crt_vo.value.Split('*');
         string dec = strs[0] + "*" + strs[1];
-        dec += "\n" + crt_vo.index + "Ìì½±Àø";
+        dec += "\n" + crt_vo.index + "å¤©å¥–åŠ±";
         info.text = dec;
         icon.gameObject.SetActive(state == 1);
         index = _index;
     }
     /// <summary>
-    /// »ñÈ¡±àºÅË÷Òı
+    /// è·å–ç¼–å·ç´¢å¼•
     /// </summary>
     /// <returns></returns>
     public int Set()

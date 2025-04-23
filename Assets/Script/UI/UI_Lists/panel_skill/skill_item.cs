@@ -34,7 +34,7 @@ public class skill_item : Base_Mono
         }
     }
     /// <summary>
-    /// Ë¢ÐÂÒ»ÏÂ
+    /// åˆ·æ–°ä¸€ä¸‹
     /// </summary>
     public void Refresh()
     {

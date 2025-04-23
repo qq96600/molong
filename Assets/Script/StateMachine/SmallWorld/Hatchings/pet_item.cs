@@ -6,7 +6,7 @@ using UnityEngine;
 public class pet_item : MonoBehaviour
 {
     /// <summary>
-    /// 宠物数据
+    /// 瀹犵墿鏁版嵁
     /// </summary>
     private string data;
 
@@ -15,7 +15,7 @@ public class pet_item : MonoBehaviour
         data = JsonUtility.ToJson(db_pet_vo);
     }
     /// <summary>
-    /// 获取宠物数据
+    /// 鑾峰彇瀹犵墿鏁版嵁
     /// </summary>
     /// <returns></returns>
     public string Set()

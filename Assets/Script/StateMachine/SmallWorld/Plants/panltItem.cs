@@ -10,39 +10,39 @@ public class panltItem : Panel_Base
     
 
     /// <summary>
-    /// Ö²ÎïÃû³Æ
+    /// æ¤ç‰©åç§°
     /// </summary>
-    public string plantName; // Ö²ÎïÃû³Æ
+    public string plantName; // æ¤ç‰©åç§°
     /// <summary>
-    /// Éú³¤Ê±¼ä
+    /// ç”Ÿé•¿æ—¶é—´
     /// </summary>
     public int growTime;
     /// <summary>
-    /// ³ÉÊìÊ±¼ä
+    /// æˆç†Ÿæ—¶é—´
     /// </summary>
     private int growTimeInt;
     /// <summary>
-    /// Ö²ÎïÖÖÖ²Ê±¼ä
+    /// æ¤ç‰©ç§æ¤æ—¶é—´
     /// </summary>
     private DateTime currentGrowTimeDate;
     /// <summary>
-    /// ÊÇ·ñÒÑ½½Ë®
+    /// æ˜¯å¦å·²æµ‡æ°´
     /// </summary>
-    public int  isWatered = 0; //0£º²»¿É½½Ë® 1£º¿É½½Ë®
+    public int  isWatered = 0; //0ï¼šä¸å¯æµ‡æ°´ 1ï¼šå¯æµ‡æ°´
     /// <summary>
-    /// ÊÇ·ñÒÑ³ÉÊì
+    /// æ˜¯å¦å·²æˆç†Ÿ
     /// </summary>
-    public int  isMature = 0;  //0£º²»¿ÉÊÕ»ñ 1£º¿ÉÊÕ»ñ
+    public int  isMature = 0;  //0ï¼šä¸å¯æ”¶è· 1ï¼šå¯æ”¶è·
     /// <summary>
-    /// Ö²ÎïImage
+    /// æ¤ç‰©Image
     /// </summary>
     public Image image; 
     /// <summary>
-    /// µ¹¼ÆÊ±Text
+    /// å€’è®¡æ—¶Text
     /// </summary>
     public Text CountdownText;
     /// <summary>
-    /// Ë÷ÒıÎ»ÖÃ
+    /// ç´¢å¼•ä½ç½®
     /// </summary>
     private int index = -1;
 
@@ -57,7 +57,7 @@ public class panltItem : Panel_Base
 
 
     /// <summary>
-    /// ÏÔÊ¾Ö²ÎïÉú³¤µ¹¼ÆÊ±
+    /// æ˜¾ç¤ºæ¤ç‰©ç”Ÿé•¿å€’è®¡æ—¶
     /// </summary>
     //public void Countdown()
     //{
@@ -73,7 +73,7 @@ public class panltItem : Panel_Base
 
 
     /// <summary>
-    /// ³õÊ¼»¯
+    /// åˆå§‹åŒ–
     /// </summary>
     public void Init()
     {
@@ -81,12 +81,12 @@ public class panltItem : Panel_Base
         growTime = 0;
         isWatered = 0;
         isMature = 0;
-        image.sprite = Resources.Load<Sprite>("panel_fight/panlt_ÍÁµØ");
+        image.sprite = Resources.Load<Sprite>("panel_fight/panlt_åœŸåœ°");
     }
 
 
     /// <summary>
-    /// »ñÈ¡Ë÷Òı
+    /// è·å–ç´¢å¼•
     /// </summary>
     /// <returns></returns>
     public int Obtain_Index()
@@ -95,10 +95,10 @@ public class panltItem : Panel_Base
     }
 
     /// <summary>
-    /// ÉèÖÃË÷Òı
+    /// è®¾ç½®ç´¢å¼•
     /// </summary>
-    /// <param name="_index">Ë÷Òı±àºÅ</param>
-    /// <param name="data">Êı¾İ¿âÖµ</param>
+    /// <param name="_index">ç´¢å¼•ç¼–å·</param>
+    /// <param name="data">æ•°æ®åº“å€¼</param>
     public void Init(int _index, (string,DateTime) data)
     {
         index = _index;
@@ -106,10 +106,10 @@ public class panltItem : Panel_Base
         currentGrowTimeDate = data.Item2;
         isWatered = 0;
         isMature = 0;
-        image.sprite = Resources.Load<Sprite>("panel_fight/panlt_ÍÁµØ");
+        image.sprite = Resources.Load<Sprite>("panel_fight/panlt_åœŸåœ°");
 
-        growTimeInt = (int)(SumSave.nowtime - currentGrowTimeDate).TotalSeconds;//µ±Ç°Ê±¼ä-Ö²ÎïÖÖÖ²Ê±¼ä »ñµÃÖ²ÎïÖÖÖ²µ½ÏÖÔÚµÄÊ±¼ä
-        if (growTimeInt <= growTime)//Ö²ÎïÒÑ¾­Éú³¤µÄÊ±¼äĞ¡ÓÚÖ²ÎïĞèÒªÉú³¤µÄÊ±¼ä
+        growTimeInt = (int)(SumSave.nowtime - currentGrowTimeDate).TotalSeconds;//å½“å‰æ—¶é—´-æ¤ç‰©ç§æ¤æ—¶é—´ è·å¾—æ¤ç‰©ç§æ¤åˆ°ç°åœ¨çš„æ—¶é—´
+        if (growTimeInt <= growTime)//æ¤ç‰©å·²ç»ç”Ÿé•¿çš„æ—¶é—´å°äºæ¤ç‰©éœ€è¦ç”Ÿé•¿çš„æ—¶é—´
         {
             growTimeInt = growTime - growTimeInt;
         }
@@ -120,10 +120,10 @@ public class panltItem : Panel_Base
         } 
     }
     /// <summary>
-    /// Ë¢ĞÂ×´Ì¬
+    /// åˆ·æ–°çŠ¶æ€
     /// </summary>
     /// <param name="time"></param>
-    public void Fixed_Update(int time)//ÏÔÊ¾Ö²Îïµ¹¼ÆÊ±
+    public void Fixed_Update(int time)//æ˜¾ç¤ºæ¤ç‰©å€’è®¡æ—¶
     {
         if (growTimeInt > 0)   
         {
@@ -141,7 +141,7 @@ public class panltItem : Panel_Base
     }
 
     /// <summary>
-    /// ÉèÖÃÖ²ÎïÊı¾İ
+    /// è®¾ç½®æ¤ç‰©æ•°æ®
     /// </summary>
     /// <param name="_Data"></param>
     public void GetData(user_plant_vo _Data)
@@ -154,20 +154,20 @@ public class panltItem : Panel_Base
         image.sprite = Resources.Load<Sprite>("panel_fight/panlt_" + plantName);
     }
     /// <summary>
-    /// ¼õÉÙÉú³¤Ê±¼ä
+    /// å‡å°‘ç”Ÿé•¿æ—¶é—´
     /// </summary>
     public void ReduceGrowthTime(int time)
     {
-        Debug.Log("Î´½½Ë®£¬" + plantName + "¶à¾Ã³ÉÊì" + currentGrowTimeDate);
+        Debug.Log("æœªæµ‡æ°´ï¼Œ" + plantName + "å¤šä¹…æˆç†Ÿ" + currentGrowTimeDate);
         TimeSpan timeSpan = TimeSpan.FromSeconds(time);
         currentGrowTimeDate -= timeSpan;
         growTimeInt -= time;
         
-        Debug.Log("ÒÑ½½Ë®£¬" + plantName + "¶à¾Ã³ÉÊì" + currentGrowTimeDate);
+        Debug.Log("å·²æµ‡æ°´ï¼Œ" + plantName + "å¤šä¹…æˆç†Ÿ" + currentGrowTimeDate);
 
     }
     /// <summary>
-    /// »ñÈ¡µ±Ç°Ö²Îï³ÉÊìÊ±¼ä
+    /// è·å–å½“å‰æ¤ç‰©æˆç†Ÿæ—¶é—´
     /// </summary>
     /// <returns></returns>
     public DateTime GetCurrentGrowTimeDate()
@@ -176,7 +176,7 @@ public class panltItem : Panel_Base
     }
 
     /// <summary>
-    /// ×ª»»intÀàĞÍÎªÊ±¼ä
+    /// è½¬æ¢intç±»å‹ä¸ºæ—¶é—´
     /// </summary>
     /// <param name="timestamp"></param>
     /// <returns></returns>

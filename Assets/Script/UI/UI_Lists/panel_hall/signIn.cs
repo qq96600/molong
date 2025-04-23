@@ -10,19 +10,19 @@ using Components;
 public class signIn : Base_Mono
 {
     /// <summary>
-    /// Ç©µ½ÁĞ±í
+    /// ç­¾åˆ°åˆ—è¡¨
     /// </summary>
     private Transform pos_list;
     /// <summary>
-    /// Ç©µ½ÁĞ±í
+    /// ç­¾åˆ°åˆ—è¡¨
     /// </summary>
     private signln_item signln_item_prafabs;
     /// <summary>
-    /// Ç©µ½ĞÅÏ¢
+    /// ç­¾åˆ°ä¿¡æ¯
     /// </summary>
     private Text info;
     /// <summary>
-    /// Ç©µ½°´Å¥
+    /// ç­¾åˆ°æŒ‰é’®
     /// </summary>
     private Button btn_signln;
     private void Awake()
@@ -46,25 +46,25 @@ public class signIn : Base_Mono
         }
     }
     /// <summary>
-    /// Ç©µ½
+    /// ç­¾åˆ°
     /// </summary>
     private void OnClick_signln()
     {
         if ((SumSave.nowtime - SumSave.crt_signin.now_time).Days >= 1)
         {
-            SumSave.crt_user_unit.verify_data(currency_unit.ÁéÖé, 1000000);
+            SumSave.crt_user_unit.verify_data(currency_unit.çµç , 1000000);
             SumSave.crt_signin.now_time = Convert.ToDateTime(SumSave.nowtime.ToString("yyyy-MM-dd"));
             SumSave.crt_signin.number++;
             Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_signin, SumSave.crt_signin.Set_Uptade_String(),
                 SumSave.crt_signin.Get_Update_Character());
-            Alert_Dec.Show("Ç©µ½³É¹¦");
+            Alert_Dec.Show("ç­¾åˆ°æˆåŠŸ");
             base_show();
         }
-        else Alert_Dec.Show("½ñÈÕÒÑÇ©µ½");
+        else Alert_Dec.Show("ä»Šæ—¥å·²ç­¾åˆ°");
     }
 
     /// <summary>
-    /// µã»÷ÊÂ¼ş
+    /// ç‚¹å‡»äº‹ä»¶
     /// </summary>
     /// <param name="item"></param>
     private void OnClick(signln_item item)
@@ -73,21 +73,21 @@ public class signIn : Base_Mono
         List<int> list = SumSave.crt_signin.Set();
         if (index<= list.Count && list[index] == 1)
         {
-            Alert_Dec.Show("ÒÑÁìÈ¡½±Àø");
+            Alert_Dec.Show("å·²é¢†å–å¥–åŠ±");
             return;
         } 
         db_signin_vo vo = SumSave.db_Signins[index];
         if (SumSave.crt_signin.number < vo.index)
         {
-            Alert_Dec.Show("Î´Âú×ãÁìÈ¡Ìõ¼ş") ;
+            Alert_Dec.Show("æœªæ»¡è¶³é¢†å–æ¡ä»¶") ;
             return;
         }
         string[] strs = vo.value.Split('*');
         string dec = strs[0] + "*" + strs[1];
-        Alert.Show("ÁìÈ¡½±Àø", "È·ÈÏÊÇ·ñÁìÈ¡" + dec, Confirmreceipt, item);
+        Alert.Show("é¢†å–å¥–åŠ±", "ç¡®è®¤æ˜¯å¦é¢†å–" + dec, Confirmreceipt, item);
     }
     /// <summary>
-    /// ÁìÈ¡½±Àø
+    /// é¢†å–å¥–åŠ±
     /// </summary>
     /// <param name="arg0"></param>
     private void Confirmreceipt(object arg0)
@@ -95,7 +95,7 @@ public class signIn : Base_Mono
         signln_item item = arg0 as signln_item;
         int index = item.Set();
         Battle_Tool.Obtain_result(SumSave.db_Signins[index].value);
-        Alert_Dec.Show("ÁìÈ¡³É¹¦");
+        Alert_Dec.Show("é¢†å–æˆåŠŸ");
         SumSave.crt_signin.Set(index);
         item.Init(index, SumSave.db_Signins[index], 1);
         Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_signin, SumSave.crt_signin.Set_Uptade_String(),
@@ -108,13 +108,13 @@ public class signIn : Base_Mono
         base_show();
     }
     /// <summary>
-    /// ÏÔÊ¾»ù´¡ĞÅÏ¢
+    /// æ˜¾ç¤ºåŸºç¡€ä¿¡æ¯
     /// </summary>
     private void base_show()
     {
-        string dec = "Ç©µ½½±Àø";
-        dec += "\nÀÛ»ıÇ©µ½ÌìÊı " + "* " + SumSave.crt_signin.number + " Ìì";
-        dec += "\nÇ©µ½»ñµÃ" + currency_unit.ÁéÖé + "* " + 1000000;
+        string dec = "ç­¾åˆ°å¥–åŠ±";
+        dec += "\nç´¯ç§¯ç­¾åˆ°å¤©æ•° " + "* " + SumSave.crt_signin.number + " å¤©";
+        dec += "\nç­¾åˆ°è·å¾—" + currency_unit.çµç  + "* " + 1000000;
         info.text = dec;
     }
 }

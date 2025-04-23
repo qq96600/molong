@@ -8,14 +8,14 @@ public class user_vo : Base_VO
 {
 
     /// <summary>
-    /// 0 ÁéÖé£¬1 ÀúÁ·£¬2 Ä§Íè
+    /// 0 çµç ï¼Œ1 å†ç»ƒï¼Œ2 é­”ä¸¸
     /// </summary>
     private List<long> list = new List<long>();
     private List<long> verify_list = new List<long>();
 
     private int index = -1;
     /// <summary>
-    /// ³õÊ¼»¯
+    /// åˆå§‹åŒ–
     /// </summary>
     /// <param name="value"></param>
     public void Init(string value)
@@ -49,35 +49,35 @@ public class user_vo : Base_VO
     }
 
     /// <summary>
-    /// ÑéÖ¤Êı¾İ
+    /// éªŒè¯æ•°æ®
     /// </summary>
     public void verify_data(currency_unit _index,long value)
     {
         for (int i = 0; i < list.Count; i++)
         {
-            //Ô­Ê¼Êı¾İÎ´·¢Éú¸Ä±ä
+            //åŸå§‹æ•°æ®æœªå‘ç”Ÿæ”¹å˜
             if (list[i] + index == verify_list[i])
             {
             }
-            else Game_Omphalos.i.Delete(_index + " ÏÔÊ¾Êı¾İ " + list[i] + " ÑéÖ¤Öµ " + index + " " + verify_list[i]);
+            else Game_Omphalos.i.Delete(_index + " æ˜¾ç¤ºæ•°æ® " + list[i] + " éªŒè¯å€¼ " + index + " " + verify_list[i]);
         }
 
         switch (_index)
         {
-            case currency_unit.ÁéÖé:
+            case currency_unit.çµç :
                 list[0] += value;
                 verify_list[0] += value;
                 break;
-            case currency_unit.ÀúÁ·:
-                if (value >= SumSave.base_setting[0]) Game_Omphalos.i.Delete("»ñµÃ" + (currency_unit)_index + value);
+            case currency_unit.å†ç»ƒ:
+                if (value >= SumSave.base_setting[0]) Game_Omphalos.i.Delete("è·å¾—" + (currency_unit)_index + value);
                 else
                 {
                     list[1] += value;
                     verify_list[1] += value;
                 }
                 return;
-            case currency_unit.Ä§Íè:
-                if (value >= SumSave.base_setting[1]) Game_Omphalos.i.Delete("»ñµÃ" + (currency_unit)_index + value);
+            case currency_unit.é­”ä¸¸:
+                if (value >= SumSave.base_setting[1]) Game_Omphalos.i.Delete("è·å¾—" + (currency_unit)_index + value);
                 else
                 {
                     list[2] += value;

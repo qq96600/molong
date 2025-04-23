@@ -8,15 +8,15 @@ using UnityEngine.UI;
 public class task_item : Base_Mono
 {
     /// <summary>
-    /// ÏÔÊ¾ĞÅÏ¢
+    /// æ˜¾ç¤ºä¿¡æ¯
     /// </summary>
     private Text task_info;
     /// <summary>
-    /// ×´Ì¬
+    /// çŠ¶æ€
     /// </summary>
     private Image state;
     /// <summary>
-    /// ±àºÅ
+    /// ç¼–å·
     /// </summary>
     public int index;
     private void Awake()
@@ -32,28 +32,28 @@ public class task_item : Base_Mono
         switch (index)
         {
             case 0:
-                dec += Show_Color.Green("ÔÚÏß120·ÖÖÓ") + "\n" + "½ø¶È:" + Show_Color.Blue(value + "/120")
-                    + "\n" + "½±Àø:" + Show_Color.Red("ÃüÔË½ğ±Ò * 1");
+                dec += Show_Color.Green("åœ¨çº¿120åˆ†é’Ÿ") + "\n" + "è¿›åº¦:" + Show_Color.Blue(value + "/120")
+                    + "\n" + "å¥–åŠ±:" + Show_Color.Red("å‘½è¿é‡‘å¸ * 1");
                 break;
             case 1:
-                dec += Show_Color.Green("¿ªÆôĞ¡ÊÀ½çÖÖÖ²") + "\n" + "½ø¶È:" + Show_Color.Blue(value + "/1")
-                    + "\n" + "½±Àø:" + Show_Color.Red("ÃüÔË½ğ±Ò * 1");
+                dec += Show_Color.Green("å¼€å¯å°ä¸–ç•Œç§æ¤") + "\n" + "è¿›åº¦:" + Show_Color.Blue(value + "/1")
+                    + "\n" + "å¥–åŠ±:" + Show_Color.Red("å‘½è¿é‡‘å¸ * 1");
                 break;
             case 2:
-                dec += Show_Color.Green("»÷É±10¸öÆÕÍ¨Boss") + "\n" + "½ø¶È:" + Show_Color.Blue(value + "/10")
-                    + "\n" + "½±Àø:" + Show_Color.Red("ÃüÔË½ğ±Ò * 1");
+                dec += Show_Color.Green("å‡»æ€10ä¸ªæ™®é€šBoss") + "\n" + "è¿›åº¦:" + Show_Color.Blue(value + "/10")
+                    + "\n" + "å¥–åŠ±:" + Show_Color.Red("å‘½è¿é‡‘å¸ * 1");
                 break;
             case 3:
-                dec += Show_Color.Green("»÷É±10¸ö¸±±¾Boss") + "\n" + "½ø¶È:" + Show_Color.Blue(value + "/10")
-                    + "\n" + "½±Àø:" + Show_Color.Red("ÃüÔË½ğ±Ò * 1");
+                dec += Show_Color.Green("å‡»æ€10ä¸ªå‰¯æœ¬Boss") + "\n" + "è¿›åº¦:" + Show_Color.Blue(value + "/10")
+                    + "\n" + "å¥–åŠ±:" + Show_Color.Red("å‘½è¿é‡‘å¸ * 1");
                 break;
             case 4:
-                dec += Show_Color.Green("»÷É±1¸öÉîÔ¨Boss") + "\n" + "½ø¶È:" + Show_Color.Blue(value + "/1")
-                    + "\n" + "½±Àø:" + Show_Color.Red("ÃüÔË½ğ±Ò * 1");
+                dec += Show_Color.Green("å‡»æ€1ä¸ªæ·±æ¸ŠBoss") + "\n" + "è¿›åº¦:" + Show_Color.Blue(value + "/1")
+                    + "\n" + "å¥–åŠ±:" + Show_Color.Red("å‘½è¿é‡‘å¸ * 1");
                 break;
             case 5:
-                dec += Show_Color.Green("Á¶ÖÆµ¤Ò©") + "\n" + "½ø¶È:" + Show_Color.Blue(value + "/1")
-                    + "\n" + "½±Àø:" + Show_Color.Red("ÃüÔË½ğ±Ò * 1");
+                dec += Show_Color.Green("ç‚¼åˆ¶ä¸¹è¯") + "\n" + "è¿›åº¦:" + Show_Color.Blue(value + "/1")
+                    + "\n" + "å¥–åŠ±:" + Show_Color.Red("å‘½è¿é‡‘å¸ * 1");
                 break;
             default:
                 break;
@@ -68,28 +68,28 @@ public class task_item : Base_Mono
         switch (index)
         {
             case 0:
-                dec += Show_Color.Green("ÔÚÏß120·ÖÖÓ") + "\n" + "½ø¶È:" + Show_Color.Blue( value+"/120")
-                    + "\n" + "½±Àø:" + Show_Color.Red("ÃüÔË½ğ±Ò * 1");
+                dec += Show_Color.Green("åœ¨çº¿120åˆ†é’Ÿ") + "\n" + "è¿›åº¦:" + Show_Color.Blue( value+"/120")
+                    + "\n" + "å¥–åŠ±:" + Show_Color.Red("å‘½è¿é‡‘å¸ * 1");
                 break;
             case 1:
-                dec += Show_Color.Green("¿ªÆôĞ¡ÊÀ½çÖÖÖ²") + "\n" + "½ø¶È:" + Show_Color.Blue(value+"/1")
-                    + "\n" + "½±Àø:" + Show_Color.Red("ÃüÔË½ğ±Ò * 1");
+                dec += Show_Color.Green("å¼€å¯å°ä¸–ç•Œç§æ¤") + "\n" + "è¿›åº¦:" + Show_Color.Blue(value+"/1")
+                    + "\n" + "å¥–åŠ±:" + Show_Color.Red("å‘½è¿é‡‘å¸ * 1");
                 break;
             case 2:
-                dec += Show_Color.Green("»÷É±10¸öÆÕÍ¨Boss") + "\n" + "½ø¶È:" + Show_Color.Blue(value+"/10")
-                    + "\n" + "½±Àø:" + Show_Color.Red("ÃüÔË½ğ±Ò * 1");
+                dec += Show_Color.Green("å‡»æ€10ä¸ªæ™®é€šBoss") + "\n" + "è¿›åº¦:" + Show_Color.Blue(value+"/10")
+                    + "\n" + "å¥–åŠ±:" + Show_Color.Red("å‘½è¿é‡‘å¸ * 1");
                 break;
             case 3:
-                dec += Show_Color.Green("»÷É±10¸ö¸±±¾Boss") + "\n" + "½ø¶È:" + Show_Color.Blue(value+"/10")
-                    + "\n" + "½±Àø:" + Show_Color.Red("ÃüÔË½ğ±Ò * 1");
+                dec += Show_Color.Green("å‡»æ€10ä¸ªå‰¯æœ¬Boss") + "\n" + "è¿›åº¦:" + Show_Color.Blue(value+"/10")
+                    + "\n" + "å¥–åŠ±:" + Show_Color.Red("å‘½è¿é‡‘å¸ * 1");
                 break;
             case 4:
-                dec += Show_Color.Green("»÷É±1¸öÉîÔ¨Boss") + "\n" + "½ø¶È:" + Show_Color.Blue(value+"/1")
-                    + "\n" + "½±Àø:" + Show_Color.Red("ÃüÔË½ğ±Ò * 1");
+                dec += Show_Color.Green("å‡»æ€1ä¸ªæ·±æ¸ŠBoss") + "\n" + "è¿›åº¦:" + Show_Color.Blue(value+"/1")
+                    + "\n" + "å¥–åŠ±:" + Show_Color.Red("å‘½è¿é‡‘å¸ * 1");
                 break;
             case 5:
-                dec += Show_Color.Green("Á¶ÖÆµ¤Ò©") + "\n" + "½ø¶È:" + Show_Color.Blue(value+"/1")
-                    + "\n" + "½±Àø:" + Show_Color.Red("ÃüÔË½ğ±Ò * 1");
+                dec += Show_Color.Green("ç‚¼åˆ¶ä¸¹è¯") + "\n" + "è¿›åº¦:" + Show_Color.Blue(value+"/1")
+                    + "\n" + "å¥–åŠ±:" + Show_Color.Red("å‘½è¿é‡‘å¸ * 1");
                 break;
             default:
                 break;
@@ -98,7 +98,7 @@ public class task_item : Base_Mono
         state.gameObject.SetActive(isFinish);
     }
     /// <summary>
-    /// ÊÇ·ñÍê³É
+    /// æ˜¯å¦å®Œæˆ
     /// </summary>
     /// <param name="value"></param>
     /// <returns></returns>

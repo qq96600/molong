@@ -2,18 +2,18 @@ using System;
 namespace MVC
 {
     /// <summary>
-    /// Ö÷ÕË»§Êı¾İ´æ´¢½á¹¹
+    /// ä¸»è´¦æˆ·æ•°æ®å­˜å‚¨ç»“æ„
     /// </summary>
     public class user_base_vo : Base_VO
     {
 
-        public int par;//ÓÎÏ·Çø
-        public string uid;//Ö÷id
-        public DateTime RegisterDate;//×¢²áÈÕÆÚ
-        public DateTime Nowdate;//µÇÂ¼ÈÕÆÚ
+        public int par;//æ¸¸æˆåŒº
+        public string uid;//ä¸»id
+        public DateTime RegisterDate;//æ³¨å†Œæ—¥æœŸ
+        public DateTime Nowdate;//ç™»å½•æ—¥æœŸ
 
         /// <summary>
-        /// ³õÊ¼»¯
+        /// åˆå§‹åŒ–
         /// </summary>
         /// <returns></returns>
         public override string[] Set_Instace_String()
@@ -34,7 +34,7 @@ namespace MVC
             return new string[] { GetStr(Nowdate)};
         }
         /// <summary>
-        /// Ğ´Èë×Ö·û´®
+        /// å†™å…¥å­—ç¬¦ä¸²
         /// </summary>
         /// <returns></returns>
         public override string[] Get_Update_Character()

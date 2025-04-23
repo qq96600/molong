@@ -8,15 +8,15 @@ using UnityEngine;
 public class user_pet_vo : Base_VO
 {
     /// <summary>
-    /// ÒÑ·õ»¯³èÎïĞÅÏ¢
+    /// å·²å­µåŒ–å® ç‰©ä¿¡æ¯
     /// </summary>
     public string pet_value;
     /// <summary>
-    /// ÒÑ·õ»¯³èÎïĞÅÏ¢ 1³èÎïÃû×Ö 2³èÎïµÈ¼¶ 3³èÎï¾­Ñé
+    /// å·²å­µåŒ–å® ç‰©ä¿¡æ¯ 1å® ç‰©åå­— 2å® ç‰©ç­‰çº§ 3å® ç‰©ç»éªŒ
     /// </summary>
     public List<(string, int, int)> pet_bag=new List<(string, int, int)>();
     /// <summary>
-    /// ³èÎïĞÅÏ¢ 0³èÎïÃû×Ö 1·õ»¯Ê±¼ä  2³èÎïÆ·ÖÊ 3³èÎïµÈ¼¶ 4³èÎï¾­Ñé 5³èÎïÊôĞÔ 6 pos ËûÔÚ¸ÉÊ²Ã´0ÏĞÖÃ1ÊØ»¤×¯Ô°2ÊÇÌ½Ë÷
+    /// å® ç‰©ä¿¡æ¯ 0å® ç‰©åå­— 1å­µåŒ–æ—¶é—´  2å® ç‰©å“è´¨ 3å® ç‰©ç­‰çº§ 4å® ç‰©ç»éªŒ 5å® ç‰©å±æ€§ 6 pos ä»–åœ¨å¹²ä»€ä¹ˆ0é—²ç½®1å®ˆæŠ¤åº„å›­2æ˜¯æ¢ç´¢
     /// </summary>
     public List<string> crt_pet_list = new List<string>();
    

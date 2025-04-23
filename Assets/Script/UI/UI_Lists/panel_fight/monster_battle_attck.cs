@@ -9,7 +9,7 @@ public class monster_battle_attck : BattleAttack
     public override void OnAuto()
     {
         base.OnAuto();
-        //ÅĞ¶Ï¼¼ÄÜ
+        //åˆ¤æ–­æŠ€èƒ½
         BaseAttack();
         
     }
@@ -18,7 +18,7 @@ public class monster_battle_attck : BattleAttack
     {
         float damage = 0;
         BattleAttack monster = Terget.GetComponent<BattleAttack>();
-        if (monster.target.HP <= 0) return;//½áÕ½¶·
+        if (monster.target.HP <= 0) return;//ç»“æˆ˜æ–—
         if (Data.Type == 1)
         {
             damage = Random.Range(Data.damageMin, Data.damageMax) - Random.Range(monster.Data.DefMin, monster.Data.DefMax);
@@ -31,8 +31,8 @@ public class monster_battle_attck : BattleAttack
 
         if (Random.Range(0, 100) > Data.hit - monster.Data.dodge)
         {
-            //´«µİÏûÏ¢£¬Î´ÃüÖĞ;
-            monster.target.TakeDamage(1, DamageEnum.¼¼ÄÜÎ´ÃüÖĞ, monster);
+            //ä¼ é€’æ¶ˆæ¯ï¼Œæœªå‘½ä¸­;
+            monster.target.TakeDamage(1, DamageEnum.æŠ€èƒ½æœªå‘½ä¸­, monster);
             return;
         }
         bool crit_rate = false;
@@ -43,8 +43,8 @@ public class monster_battle_attck : BattleAttack
         }
         damage = 1;
         if (crit_rate)
-        monster.target.TakeDamage(damage,DamageEnum.±©»÷ÉËº¦, monster);
-        else monster.target.TakeDamage(damage, DamageEnum.ÆÕÍ¨ÉËº¦, monster);
+        monster.target.TakeDamage(damage,DamageEnum.æš´å‡»ä¼¤å®³, monster);
+        else monster.target.TakeDamage(damage, DamageEnum.æ™®é€šä¼¤å®³, monster);
 
 
     }

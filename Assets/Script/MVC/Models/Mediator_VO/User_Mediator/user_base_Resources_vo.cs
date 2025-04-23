@@ -5,39 +5,39 @@ using System;
 public class user_base_Resources_vo:Base_VO
 {
     /// <summary>
-    /// µ±Ç°Ê±¼ä
+    /// å½“å‰æ—¶é—´
     /// </summary>
     public DateTime now_time;
     /// <summary>
-    /// µØÍ¼Ë÷Òı
+    /// åœ°å›¾ç´¢å¼•
     /// </summary>
     public string user_map_index;
     /// <summary>
-    /// ¼¼ÄÜÁĞ±í
+    /// æŠ€èƒ½åˆ—è¡¨
     /// </summary>
     public string skill_value;
     /// <summary>
-    /// ²Ö¿âÁĞ±í
+    /// ä»“åº“åˆ—è¡¨
     /// </summary>
     public string house_value;
     /// <summary>
-    /// ±³°üÁĞ±í
+    /// èƒŒåŒ…åˆ—è¡¨
     /// </summary>
     public string bag_value;
     /// <summary>
-    /// ²ÄÁÏÁĞ±í
+    /// ææ–™åˆ—è¡¨
     /// </summary>
     public string material_value;
     /// <summary>
-    /// ×°±¸ÁĞ±í
+    /// è£…å¤‡åˆ—è¡¨
     /// </summary>
     public string equip_value;
     /// <summary>
-    /// Ò³Âë
+    /// é¡µç 
     /// </summary>
     public int[] pages;
     /// <summary>
-    /// »ñÈ¡Ê±¼ä
+    /// è·å–æ—¶é—´
     /// </summary>
     /// <returns></returns>
     private string Get_Time()

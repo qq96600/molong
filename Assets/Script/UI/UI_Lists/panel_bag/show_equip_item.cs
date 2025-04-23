@@ -8,11 +8,11 @@ public class show_equip_item : Base_Mono
 {
     public EquipTypeList type;
     /// <summary>
-    /// Õ¹Ê¾ÀàĞÍ
+    /// å±•ç¤ºç±»å‹
     /// </summary>
     private Image show_type;
     /// <summary>
-    /// Ô¤ÖÆ¼ş
+    /// é¢„åˆ¶ä»¶
     /// </summary>
     public bag_item BagItemPrefabs;
 
@@ -27,7 +27,7 @@ public class show_equip_item : Base_Mono
         show_type.sprite= Resources.Load<Sprite>("panel_bag/equip_type/" + type);
     }
     /// <summary>
-    /// ³õÊ¼»¯
+    /// åˆå§‹åŒ–
     /// </summary>
     public void Init()
     {
@@ -38,7 +38,7 @@ public class show_equip_item : Base_Mono
         }
     }
     /// <summary>
-    /// ÏÔÊ¾×°±¸ĞÅÏ¢
+    /// æ˜¾ç¤ºè£…å¤‡ä¿¡æ¯
     /// </summary>
     private void ShowEquip(bag_item item)
     {

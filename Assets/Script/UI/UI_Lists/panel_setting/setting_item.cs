@@ -16,7 +16,7 @@ public class setting_item : MonoBehaviour
 
 
     /// <summary>
-    /// ·µ»ØÒıÓÃ
+    /// è¿”å›å¼•ç”¨
     /// </summary>
     /// <param name="arg0"></param>
     private void OnValueChange(int arg0)
@@ -25,11 +25,11 @@ public class setting_item : MonoBehaviour
     }
 
     /// <summary>
-    /// ³õÊ¼»¯
+    /// åˆå§‹åŒ–
     /// </summary>
-    /// <param name="type">ÀàĞÍ</param>
-    /// <param name="list">ÁĞ±í</param>
-    /// <param name="index">µ±Ç°Ñ¡ÖĞ</param>
+    /// <param name="type">ç±»å‹</param>
+    /// <param name="list">åˆ—è¡¨</param>
+    /// <param name="index">å½“å‰é€‰ä¸­</param>
     public void Init(int type,string[] list,int value)
     {
         index = type;

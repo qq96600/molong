@@ -9,7 +9,7 @@ public class user_artifact_vo : Base_VO
     public string artifact_value;
     private List<(string,int)> artifact_list;
     /// <summary>
-    /// ³õÊ¼»¯
+    /// åˆå§‹åŒ–
     /// </summary>
     public void Init()
     {
@@ -26,7 +26,7 @@ public class user_artifact_vo : Base_VO
         }
     }
     /// <summary>
-    /// »ñÈ¡
+    /// è·å–
     /// </summary>
     /// <returns></returns>
     public List<(string, int)> Set()
@@ -34,7 +34,7 @@ public class user_artifact_vo : Base_VO
         return artifact_list;
     }
     /// <summary>
-    /// Ìí¼Ó
+    /// æ·»åŠ 
     /// </summary>
     /// <param name="data"></param>
     public void Get((string, int) data)
@@ -55,7 +55,7 @@ public class user_artifact_vo : Base_VO
         Get();
     }
     /// <summary>
-    /// Ë¢ĞÂ
+    /// åˆ·æ–°
     /// </summary>
     public void Get()
     {

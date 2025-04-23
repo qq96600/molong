@@ -9,34 +9,34 @@ using UnityEngine.UI;
 
 public class offect_strengthen : Base_Mono
 {
-    private List<string> btn_list = new List<string>() { "´©´÷", "±³°ü" };
+    private List<string> btn_list = new List<string>() { "ç©¿æˆ´", "èƒŒåŒ…" };
     private Transform pos_btn,pos_bag,pos_icon;
     /// <summary>
-    /// ¹¦ÄÜ°´Å¥
+    /// åŠŸèƒ½æŒ‰é’®
     /// </summary>
     private btn_item btn_item_Prefabs;
     /// <summary>
-    /// ±³°üÔ¤ÖÆÌå
+    /// èƒŒåŒ…é¢„åˆ¶ä½“
     /// </summary>
     private bag_item bag_item_Prefabs;
     /// <summary>
-    /// Ç¿»¯·ÑÓÃ
+    /// å¼ºåŒ–è´¹ç”¨
     /// </summary>
     private List<long> needs = new List<long> { 100, 1000, 10000, 100000, 100000, 1000000, 1000000, 10000000, 100000000, 1000000000, 2000000000, 3000000000, 3000000000, 3000000000 };
     /// <summary>
-    /// µ±Ç°Ñ¡Ôñ
+    /// å½“å‰é€‰æ‹©
     /// </summary>
     private bag_item crt_bag;
     /// <summary>
-    /// Ç¿»¯
+    /// å¼ºåŒ–
     /// </summary>
     private Button  btn_strengthen;
     /// <summary>
-    /// ÏÔÊ¾ĞÅÏ¢
+    /// æ˜¾ç¤ºä¿¡æ¯
     /// </summary>
     private Text info;
     /// <summary>
-    /// µ±Ç°Ñ¡Ôñ
+    /// å½“å‰é€‰æ‹©
     /// </summary>
     private int index;
     private void Awake()
@@ -57,7 +57,7 @@ public class offect_strengthen : Base_Mono
         }
     }
     /// <summary>
-    /// Ç¿»¯
+    /// å¼ºåŒ–
     /// </summary>
     private void Strengthen()
     {
@@ -65,10 +65,10 @@ public class offect_strengthen : Base_Mono
         int lv = int.Parse(infos[1]);
         if (lv >= crt_bag.Data.need_lv/10+3)
         { 
-            Alert_Dec.Show("µ±Ç°×°±¸Ç¿»¯µÈ¼¶ÒÑÂú");
+            Alert_Dec.Show("å½“å‰è£…å¤‡å¼ºåŒ–ç­‰çº§å·²æ»¡");
             return;
         }
-        NeedConsumables(currency_unit.ÁéÖé, needs[lv]);
+        NeedConsumables(currency_unit.çµç , needs[lv]);
         if (RefreshConsumables())
         {
             crt_bag.Data.user_value = crt_bag.Data.user_value.Replace(infos[1], (lv + 1).ToString());
@@ -79,10 +79,10 @@ public class offect_strengthen : Base_Mono
             }
             else Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.bag_value, SumSave.crt_bag);
         }
-        else Alert_Dec.Show(currency_unit.ÁéÖé + "²»×ã " + needs[lv]);
+        else Alert_Dec.Show(currency_unit.çµç  + "ä¸è¶³ " + needs[lv]);
     }
     /// <summary>
-    /// Ñ¡Ôñ¶ÔÏó
+    /// é€‰æ‹©å¯¹è±¡
     /// </summary>
     /// <param name="index"></param>
     private void Select_Btn(object index)
@@ -97,7 +97,7 @@ public class offect_strengthen : Base_Mono
         Base_Show();
     }
     /// <summary>
-    /// ³õÊ¼»¯
+    /// åˆå§‹åŒ–
     /// </summary>
     private void Base_Show()
     {
@@ -119,22 +119,22 @@ public class offect_strengthen : Base_Mono
         {
             switch ((EquipConfigTypeList)Enum.Parse(typeof(EquipConfigTypeList), list[i].StdMode))
             {
-                case EquipConfigTypeList.ÎäÆ÷:
-                case EquipConfigTypeList.ÒÂ·ş:
-                case EquipConfigTypeList.Í·¿ø:
-                case EquipConfigTypeList.ÏîÁ´:
-                case EquipConfigTypeList.»¤±Û:
-                case EquipConfigTypeList.½äÖ¸:
-                case EquipConfigTypeList.ÊÖïí:
-                case EquipConfigTypeList.°âÖ¸:
-                case EquipConfigTypeList.Ñü´ø:
-                case EquipConfigTypeList.Ñ¥×Ó:
-                //case EquipConfigTypeList.»¤·û:
-                //case EquipConfigTypeList.Áé±¦:
-                //case EquipConfigTypeList.Ñ«ÕÂ:
-                //case EquipConfigTypeList.ÊÎÆ·:
-                //case EquipConfigTypeList.ÓñÅå:
-                case EquipConfigTypeList.Åû·ç:
+                case EquipConfigTypeList.æ­¦å™¨:
+                case EquipConfigTypeList.è¡£æœ:
+                case EquipConfigTypeList.å¤´ç›”:
+                case EquipConfigTypeList.é¡¹é“¾:
+                case EquipConfigTypeList.æŠ¤è‡‚:
+                case EquipConfigTypeList.æˆ’æŒ‡:
+                case EquipConfigTypeList.æ‰‹é•¯:
+                case EquipConfigTypeList.æ‰³æŒ‡:
+                case EquipConfigTypeList.è…°å¸¦:
+                case EquipConfigTypeList.é´å­:
+                //case EquipConfigTypeList.æŠ¤ç¬¦:
+                //case EquipConfigTypeList.çµå®:
+                //case EquipConfigTypeList.å‹‹ç« :
+                //case EquipConfigTypeList.é¥°å“:
+                //case EquipConfigTypeList.ç‰ä½©:
+                case EquipConfigTypeList.æŠ«é£:
                     bag_item item = Instantiate(bag_item_Prefabs, pos_bag);
                     item.Data = (list[i]);
                     item.GetComponent<Button>().onClick.AddListener(() => { Select_Strengthen(item); });
@@ -146,7 +146,7 @@ public class offect_strengthen : Base_Mono
         }
     }
     /// <summary>
-    /// Ñ¡ÔñÇ¿»¯
+    /// é€‰æ‹©å¼ºåŒ–
     /// </summary>
     /// <param name="data"></param>
     private void Select_Strengthen(bag_item data)
@@ -156,6 +156,6 @@ public class offect_strengthen : Base_Mono
         Instantiate(bag_item_Prefabs, pos_icon).Data = data.Data;
         string[] infos = crt_bag.Data.user_value.Split(' ');
         int lv = int.Parse(infos[1]);
-        info.text = "Ç¿»¯" + data.Data.Name + "ĞèÒª" + currency_unit.ÁéÖé + needs[lv];
+        info.text = "å¼ºåŒ–" + data.Data.Name + "éœ€è¦" + currency_unit.çµç  + needs[lv];
     }
 }

@@ -1,6 +1,6 @@
 
 /// <summary>
-/// Ğ´ÈëÊı¾İ¿â×ÊÔ´ÀàĞÍ
+/// å†™å…¥æ•°æ®åº“èµ„æºç±»å‹
 /// </summary>
 public enum Emun_Resources_List 
 {

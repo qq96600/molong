@@ -11,13 +11,13 @@ namespace MVC
     public class panel_login : Panel_Base
     {
 
-        private Button loginBt, userBt, selfBt;//¿ªÊ¼°´Å¥, ÓÃ»§£¬ÒşË½
+        private Button loginBt, userBt, selfBt;//å¼€å§‹æŒ‰é’®, ç”¨æˆ·ï¼Œéšç§
 
-        private GameObject AgreementButter, AgreementWindow, userWd, selfWd;//Ğ­Òéµã»÷×é¼ş£¬Ğ­ÒéÃæ°å
+        private GameObject AgreementButter, AgreementWindow, userWd, selfWd;//åè®®ç‚¹å‡»ç»„ä»¶ï¼Œåè®®é¢æ¿
 
-        private Text titleText;//±êÌâ
+        private Text titleText;//æ ‡é¢˜
 
-        private  Toggle Toggle;//Ğ­ÒéÈ·¶¨¿ª¹Ø
+        private  Toggle Toggle;//åè®®ç¡®å®šå¼€å…³
 
         private panel_fight fightPanel;
         private void Start()
@@ -30,11 +30,11 @@ namespace MVC
             loginBt = Find<Button>("login");
             loginBt.onClick.AddListener(OnLoginClick);
             fightPanel = UI_Manager.I.GetPanel<panel_fight>();
-            #region ÓÃ»§Ğ­Òé
+            #region ç”¨æˆ·åè®®
             AgreementButter = GameObject.Find("AgreementButter");
             if (AgreementButter == null)
             {
-                Debug.Log("Ğ­Òé×é¼şÎª¿Õ");
+                Debug.Log("åè®®ç»„ä»¶ä¸ºç©º");
                 return;
             }
             userBt = AgreementButter.transform.Find("user").GetComponent<Button>();
@@ -51,33 +51,33 @@ namespace MVC
             titleText = AgreementWindow.transform.Find("Title").GetComponentInChildren<Text>();
 
             Toggle = AgreementButter.transform.Find("Toggle").GetComponent<Toggle>();
-            Toggle.isOn = PlayerPrefs.GetInt("Í¬ÒâÔÄ¶ÁĞ­Òé", 0) == 1;
+            Toggle.isOn = PlayerPrefs.GetInt("åŒæ„é˜…è¯»åè®®", 0) == 1;
             OpenUser();
             #endregion
 
         }
-        private void OpenUser()//´ò¿ªÓÃ»§Ğ­Òé
+        private void OpenUser()//æ‰“å¼€ç”¨æˆ·åè®®
         {
             if (IsAgreementWdNull())
             {
-                titleText.text = "ÓÃ»§Ğ­Òé";
+                titleText.text = "ç”¨æˆ·åè®®";
                 selfWd.SetActive(false);
                 userWd.SetActive(true);
             }
         }
 
-        private void OpenSelf()//´ò¿ªÒşË½Ğ­Òé
+        private void OpenSelf()//æ‰“å¼€éšç§åè®®
         {
             if (IsAgreementWdNull())
             {
 
-                titleText.text = "ÒşË½Ğ­Òé";
+                titleText.text = "éšç§åè®®";
                 userWd.SetActive(false);
                 selfWd.SetActive(true);
             }
         }
 
-        private bool IsAgreementWdNull()//ÅĞ¶ÏĞ­ÒéÊÇ·ñÎª¿Õ
+        private bool IsAgreementWdNull()//åˆ¤æ–­åè®®æ˜¯å¦ä¸ºç©º
         {
             if (selfWd != null && userWd != null && titleText != null && AgreementWindow != null)
             {
@@ -86,7 +86,7 @@ namespace MVC
             }
             else
             {
-                Debug.LogError("Ğ­Òé´°¿ÚÎª¿Õ");
+                Debug.LogError("åè®®çª—å£ä¸ºç©º");
                 return false;
             }
         }
@@ -94,21 +94,21 @@ namespace MVC
 
 
 
-        private void OnLoginClick()//µÇÂ¼µã»÷
+        private void OnLoginClick()//ç™»å½•ç‚¹å‡»
         {
             if (!Toggle.isOn)
             {
-                Alert_Dec.Show("ÇëÏÈÔÄ¶Á²¢¹´Ñ¡Í¬ÒâĞ­Òé");
-                Debug.Log("ÇëÏÈÔÄ¶Á²¢¹´Ñ¡Í¬ÒâĞ­Òé");
-                PlayerPrefs.SetInt("Í¬ÒâÔÄ¶ÁĞ­Òé", 0);
+                Alert_Dec.Show("è¯·å…ˆé˜…è¯»å¹¶å‹¾é€‰åŒæ„åè®®");
+                Debug.Log("è¯·å…ˆé˜…è¯»å¹¶å‹¾é€‰åŒæ„åè®®");
+                PlayerPrefs.SetInt("åŒæ„é˜…è¯»åè®®", 0);
                 return;
             }
             SendNotification(NotiList.User_Login);
-            //Debug.Log("ÒÑÔÄ¶Á²¢¹´Ñ¡Í¬ÒâĞ­Òé");
-            PlayerPrefs.SetInt("Í¬ÒâÔÄ¶ÁĞ­Òé", 1);
+            //Debug.Log("å·²é˜…è¯»å¹¶å‹¾é€‰åŒæ„åè®®");
+            PlayerPrefs.SetInt("åŒæ„é˜…è¯»åè®®", 1);
             Hide();
             fightPanel.Show();
-            //¼ÆËãÀëÏßÊÕÒæ
+            //è®¡ç®—ç¦»çº¿æ”¶ç›Š
             fightPanel.offline();
         }
 

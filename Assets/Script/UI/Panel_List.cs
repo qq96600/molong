@@ -1,31 +1,31 @@
 
 /// <summary>
-/// ½çÃæÃ¶¾Ù
+/// ç•Œé¢æšä¸¾
 /// </summary>
 public enum  Panel_List 
 {
-    panel_hero,//½ÇÉ«Ãæ°å
-    panel_bag,//±³°üÃæ°å
-    panel_skill,//¼¼ÄÜÃæ°å
-    panel_setting,//ÉèÖÃÃæ°å
-    panel_task,//ÈÎÎñÃæ°å
-    panel_shop,//ÉÌµêÃæ°å
-    panel_equip,//×°±¸Ãæ°å
-    panel_tips,//ÌáÊ¾Ãæ°å
-    panel_fight,//Õ½¶·Ãæ°å
-    panel_login,//µÇÂ¼Ãæ°å
-    panel_main,//Ö÷½çÃæ
-    panel_achieve,//³É¾ÍÃæ°å
-    panel_tutorial,//½Ì³ÌÃæ°å
-    panel_activity,//»î¶¯Ãæ°å
-    panel_notice,//¹«¸æÃæ°å
-    panel_guide,//Òıµ¼Ãæ°å
-    panel_worldmap,//ÊÀ½çµØÍ¼Ãæ°å
-    panel_manor,//ÁìµØÃæ°å
-    panel_pass,//Í¨ĞĞÖ¤
-    panel_map,// µØÍ¼Ãæ°å
-    panel_Artifact,//ÉñÆ÷Ãæ°å
-    panel_smallWorld,//Ğ¡ÊÀ½çÃæ°å
-    panel_hall,//´óÌüÃæ°å
-    panel_Buff,//buffÃæ°å
+    panel_hero,//è§’è‰²é¢æ¿
+    panel_bag,//èƒŒåŒ…é¢æ¿
+    panel_skill,//æŠ€èƒ½é¢æ¿
+    panel_setting,//è®¾ç½®é¢æ¿
+    panel_task,//ä»»åŠ¡é¢æ¿
+    panel_shop,//å•†åº—é¢æ¿
+    panel_equip,//è£…å¤‡é¢æ¿
+    panel_tips,//æç¤ºé¢æ¿
+    panel_fight,//æˆ˜æ–—é¢æ¿
+    panel_login,//ç™»å½•é¢æ¿
+    panel_main,//ä¸»ç•Œé¢
+    panel_achieve,//æˆå°±é¢æ¿
+    panel_tutorial,//æ•™ç¨‹é¢æ¿
+    panel_activity,//æ´»åŠ¨é¢æ¿
+    panel_notice,//å…¬å‘Šé¢æ¿
+    panel_guide,//å¼•å¯¼é¢æ¿
+    panel_worldmap,//ä¸–ç•Œåœ°å›¾é¢æ¿
+    panel_manor,//é¢†åœ°é¢æ¿
+    panel_pass,//é€šè¡Œè¯
+    panel_map,// åœ°å›¾é¢æ¿
+    panel_Artifact,//ç¥å™¨é¢æ¿
+    panel_smallWorld,//å°ä¸–ç•Œé¢æ¿
+    panel_hall,//å¤§å…é¢æ¿
+    panel_Buff,//buffé¢æ¿
 }

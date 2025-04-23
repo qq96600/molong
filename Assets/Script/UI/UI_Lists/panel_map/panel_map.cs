@@ -11,40 +11,40 @@ public class panel_map : Panel_Base
 
     private btn_item btn_item_prefab;
     /// <summary>
-    /// µØÍ¼Ãû³Æ
+    /// åœ°å›¾åç§°
     /// </summary>
     private Text map_name;
     /// <summary>
-    /// µÈ¼¶ÒªÇó
+    /// ç­‰çº§è¦æ±‚
     /// </summary>
     private Text need_lv;
     /// <summary>
-    /// ¹ÖÎïÁĞ±í
+    /// æ€ªç‰©åˆ—è¡¨
     /// </summary>
     private Text monster_list;
     /// <summary>
-    /// ÃÅÆ±ÒªÇó
+    /// é—¨ç¥¨è¦æ±‚
     /// </summary>
     private Text need_Required;
     /// <summary>
-    /// ÎïÆ·µôÂä
+    /// ç‰©å“æ‰è½
     /// </summary>
     private Text ProfitList;
     /// <summary>
-    /// µØÍ¼ÁĞ±í
+    /// åœ°å›¾åˆ—è¡¨
     /// </summary>
     private Dictionary<map_pos_item, user_map_vo> maplists = new Dictionary<map_pos_item, user_map_vo>();
 
     /// <summary>
-    /// Õ½¶·µØÍ¼
+    /// æˆ˜æ–—åœ°å›¾
     /// </summary>
     private panel_fight fight_panel;
     /// <summary>
-    /// µ±Ç°Ñ¡ÔñµØÍ¼
+    /// å½“å‰é€‰æ‹©åœ°å›¾
     /// </summary>
     private map_pos_item crt_map;
     /// <summary>
-    /// ½øÈëµØÍ¼°´Å¥
+    /// è¿›å…¥åœ°å›¾æŒ‰é’®
     /// </summary>
     private Button enter_map_button;
     private Transform base_show_info;
@@ -91,7 +91,7 @@ public class panel_map : Panel_Base
         }
     }
     /// <summary>
-    /// Ñ¡ÔñµØÍ¼
+    /// é€‰æ‹©åœ°å›¾
     /// </summary>
     /// <param name="item"></param>
     private void Select_Map(map_pos_item item)
@@ -100,10 +100,10 @@ public class panel_map : Panel_Base
         base_show_info.gameObject.SetActive(true);
         user_map_vo map = maplists[item];
         map_name.text = map.map_name;
-        need_lv.text = "µÈ¼¶ÒªÇó£º "+ map.need_lv.ToString();
-        monster_list.text = "¹ÖÎïÁĞ±í£º "+map.monster_list.ToString();
-        need_Required.text = "ÃÅÆ±ÒªÇó£º "+map.need_Required.ToString();
-        //ProfitList.text = "ÎïÆ·µôÂä£º "+map.ProfitList.ToString();
+        need_lv.text = "ç­‰çº§è¦æ±‚ï¼š "+ map.need_lv.ToString();
+        monster_list.text = "æ€ªç‰©åˆ—è¡¨ï¼š "+map.monster_list.ToString();
+        need_Required.text = "é—¨ç¥¨è¦æ±‚ï¼š "+map.need_Required.ToString();
+        //ProfitList.text = "ç‰©å“æ‰è½ï¼š "+map.ProfitList.ToString();
         ProfitList.text="";
         foreach (string str in map.ProfitList.Split('&'))
         {
@@ -135,8 +135,8 @@ public class panel_map : Panel_Base
     { 
         if(crt_map==null)
             return;
-        //´ò¿ªµØÍ¼
-        Debug.Log("´ò¿ªµØÍ¼");
+        //æ‰“å¼€åœ°å›¾
+        Debug.Log("æ‰“å¼€åœ°å›¾");
         fight_panel.Open_Map(maplists[crt_map]);
         Hide();
     }

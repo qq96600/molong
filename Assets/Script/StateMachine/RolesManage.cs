@@ -12,51 +12,51 @@ namespace StateMachine
      
         [HideInInspector] public Rigidbody2D rb;
 
-        [HideInInspector] public BattleAttack BattleAttack = new BattleAttack();//Õ½¶·¹ÜÀíÆ÷
-        [HideInInspector] public BattleHealth TatgetObg = new BattleHealth();//Ä¿±êÎïÌå
-        [HideInInspector] public Vector2 TargetPosition;//Ä¿±êÎ»ÖÃ
-        [HideInInspector] public Vector2 BackstabPosition;//±³´ÌÎ»ÖÃ
-        [HideInInspector] public float animSpeed ;//¶¯»­ËÙ¶È
-        [HideInInspector] public AnimatorStateInfo animStateInfo;//¶¯»­×´Ì¬
-        [HideInInspector] public AttackStateMachine attack;//Õ½¶·Âß¼­
+        [HideInInspector] public BattleAttack BattleAttack = new BattleAttack();//æˆ˜æ–—ç®¡ç†å™¨
+        [HideInInspector] public BattleHealth TatgetObg = new BattleHealth();//ç›®æ ‡ç‰©ä½“
+        [HideInInspector] public Vector2 TargetPosition;//ç›®æ ‡ä½ç½®
+        [HideInInspector] public Vector2 BackstabPosition;//èƒŒåˆºä½ç½®
+        [HideInInspector] public float animSpeed ;//åŠ¨ç”»é€Ÿåº¦
+        [HideInInspector] public AnimatorStateInfo animStateInfo;//åŠ¨ç”»çŠ¶æ€
+        [HideInInspector] public AttackStateMachine attack;//æˆ˜æ–—é€»è¾‘
 
         /// <summary>
-        /// »ñÈ¡¼¼ÄÜ
+        /// è·å–æŠ€èƒ½
         /// </summary>
         protected base_skill_vo baseskill;
        
 
-        [Header("Ôì³ÉÉËº¦")]
+        [Header("é€ æˆä¼¤å®³")]
         public float attackDamage = 10f;
-        [Header("¹¥»÷¾àÀë")]
+        [Header("æ”»å‡»è·ç¦»")]
         public float AttackDistance = 500f;
-        [Header("±³´ÌµÄ¾àÀë")]
+        [Header("èƒŒåˆºçš„è·ç¦»")]
         public float BehindDistance = 100f;
-        [Header("¹¥»÷ËÙ¶È")]
+        [Header("æ”»å‡»é€Ÿåº¦")]
         public float AttackSpeed = 5f;
-        [Header("ÒÆ¶¯ËÙ¶È")]
+        [Header("ç§»åŠ¨é€Ÿåº¦")]
         public float MoveSpeed = 0.1f;
-        [Header("¼¼ÄÜÊÍ·Å¸ÅÂÊ")]
+        [Header("æŠ€èƒ½é‡Šæ”¾æ¦‚ç‡")]
         public float skillRelease = 50f;
-        [Header("ÊÇ·ñÃæÏò×ó")]
+        [Header("æ˜¯å¦é¢å‘å·¦")]
         protected bool facingLeft=true;
 
 
-        #region ½ÇÉ«Íâ¹Û
+        #region è§’è‰²å¤–è§‚
         /// <summary>
-        /// ½ÇÉ«ÀàĞÍ
+        /// è§’è‰²ç±»å‹
         /// </summary>
         private enum_skin_state skin_state;
         /// <summary>
-        /// Æ¤·ôÔ¤ÖÆÌå
+        /// çš®è‚¤é¢„åˆ¶ä½“
         /// </summary>
         private GameObject skin_prefabs;
         /// <summary>
-        /// ½ÇÉ«Íâ¹ÛÎ»ÖÃ
+        /// è§’è‰²å¤–è§‚ä½ç½®
         /// </summary>
         private Transform panel_role_health;
         /// <summary>
-        /// ¹ÖÎïÀàĞÍ
+        /// æ€ªç‰©ç±»å‹
         /// </summary>
         private enum_monster_type monster_type;
       
@@ -66,17 +66,17 @@ namespace StateMachine
 
         protected virtual void Awake()
         {
-            #region ½ÇÉ«Íâ¹Û³õÊ¼»¯
+            #region è§’è‰²å¤–è§‚åˆå§‹åŒ–
             if(GetComponent<Player>()!= null)
             {
                 int hero_index = int.Parse(SumSave.crt_hero.hero_index);
                 skin_state = (enum_skin_state)hero_index;
-                skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/Íâ¹Û_" + skin_state.ToString());
+                skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/å¤–è§‚_" + skin_state.ToString());
                 panel_role_health = transform.Find("Appearance");
                 Instantiate(skin_prefabs, panel_role_health);
             }else if(GetComponent<Monster>() != null)
             {
-                monster_type = enum_monster_type.³æ×Ó;
+                monster_type = enum_monster_type.è™«å­;
                 skin_prefabs = Resources.Load<GameObject>("Prefabs/monsters/mon_" + monster_type.ToString());
                 panel_role_health = transform.Find("Appearance");
                 Instantiate(skin_prefabs, panel_role_health);
@@ -88,10 +88,10 @@ namespace StateMachine
 
             anim = GetComponentInChildren<Animator>();
             if (anim == null)
-                Debug.LogError("¹ÖÎïÃ»ÓĞAnimator×é¼ş");
+                Debug.LogError("æ€ªç‰©æ²¡æœ‰Animatorç»„ä»¶");
             rb = GetComponent<Rigidbody2D>();
             if (rb == null)
-                Debug.LogError("¹ÖÎïÃ»ÓĞRigidbody2D×é¼ş");
+                Debug.LogError("æ€ªç‰©æ²¡æœ‰Rigidbody2Dç»„ä»¶");
 
             attack= GetComponent<AttackStateMachine>();
             TargetPosition = new Vector2(transform.position.x, transform.position.y);
@@ -112,7 +112,7 @@ namespace StateMachine
         }
 
 
-        public virtual void Init(BattleAttack battle, BattleHealth _tatgetObg)//³õÊ¼»¯²ÎÊı
+        public virtual void Init(BattleAttack battle, BattleHealth _tatgetObg)//åˆå§‹åŒ–å‚æ•°
         {
             //anim.speed = attack_speed;
             //AttackDistance = attack_distance;
@@ -135,7 +135,7 @@ namespace StateMachine
 
 
         /// <summary>
-        /// ÑÓ³Ù¹Ø±Õ¶¯»­
+        /// å»¶è¿Ÿå…³é—­åŠ¨ç”»
         /// </summary>
         /// <param name="animName"></param>
         /// <param name="delay"></param>
@@ -144,10 +144,10 @@ namespace StateMachine
         {
             yield return new WaitForSeconds(delay);
 
-            CloseAnim(animName); // ´«µİ²ÎÊı
+            CloseAnim(animName); // ä¼ é€’å‚æ•°
         }
         /// <summary>
-        /// ¹Ø±Õ¶¯»­ 
+        /// å…³é—­åŠ¨ç”» 
         /// </summary>
         /// <param name="animName"></param>
         public void CloseAnim(string animName)
@@ -155,7 +155,7 @@ namespace StateMachine
             anim.SetBool(animName, false);
         }
 
-        public bool isAttackDistance()//¹¥»÷¾àÀë
+        public bool isAttackDistance()//æ”»å‡»è·ç¦»
         {
 
             float distance = Vector2.Distance(transform.position, TatgetObg.transform.position);
@@ -169,17 +169,17 @@ namespace StateMachine
                 return false;
         }
 
-        public void TargetMove(Vector2 targetMove)//Æ½ÒÆ 
+        public void TargetMove(Vector2 targetMove)//å¹³ç§» 
         {
             Vector2 direction = Direction(targetMove);
-            //Debug.Log(direction + "·½Ïò" + TatgetObg.transform.position + "Ä¿±êÎ»ÖÃ" + transform.position + "×Ô¼ºÎ»ÖÃ");
-            // Ê©¼Ó×·×ÙÁ¦£¨ÎïÀíÇı¶¯£©
+            //Debug.Log(direction + "æ–¹å‘" + TatgetObg.transform.position + "ç›®æ ‡ä½ç½®" + transform.position + "è‡ªå·±ä½ç½®");
+            // æ–½åŠ è¿½è¸ªåŠ›ï¼ˆç‰©ç†é©±åŠ¨ï¼‰
             rb.AddForce(direction * MoveSpeed, ForceMode2D.Impulse);
             FlipControl(Direction(TatgetObg.transform.position));
 
         }
 
-        public void FlipControl(Vector2 direction)//·­×ª¿ØÖÆ
+        public void FlipControl(Vector2 direction)//ç¿»è½¬æ§åˆ¶
         {
             if (direction.x > 0 && facingLeft)
             {
@@ -191,7 +191,7 @@ namespace StateMachine
             }
         }
 
-        public void Flip()//·­×ª
+        public void Flip()//ç¿»è½¬
         {
             facingLeft = !facingLeft;
             //transform.Rotate(0, 180, 0);
@@ -199,7 +199,7 @@ namespace StateMachine
 
 
 
-        public Vector2 Direction(Vector2 targetPosition)//ÅĞ¶Ï·½Ïò
+        public Vector2 Direction(Vector2 targetPosition)//åˆ¤æ–­æ–¹å‘
         {
             Vector2 direction = targetPosition - rb.position;
             direction.Normalize();
@@ -208,7 +208,7 @@ namespace StateMachine
 
 
 
-        public void RbZero()//Í£Ö¹ÒÆ¶¯
+        public void RbZero()//åœæ­¢ç§»åŠ¨
         {
             rb.velocity = Vector2.zero;
         }

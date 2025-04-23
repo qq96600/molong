@@ -14,8 +14,8 @@ public class equip_item : Base_Mono
     private bag_item bag_item_Prefabs;
 
     private btn_item btn_item_Prefabs;
-    private string[] btn_list = new string[] { "´©´÷", "³öÊÛ" };
-    private string[] take_btn_list=new string[] { "Ğ¶ÏÂ" };
+    private string[] btn_list = new string[] { "ç©¿æˆ´", "å‡ºå”®" };
+    private string[] take_btn_list=new string[] { "å¸ä¸‹" };
     private Text show_name, show_base_need, show_info;
     private void Awake()
     {
@@ -50,20 +50,20 @@ public class equip_item : Base_Mono
 
     private void base_init()
     {
-        //Éú³ÉÎïÆ·ÏÔÊ¾
+        //ç”Ÿæˆç‰©å“æ˜¾ç¤º
         Instantiate(bag_item_Prefabs, crt_bag).Data = data;
         show_name.text=data.Name;
         string[] info = data.user_value.Split(' ');
         int strengthenlv= int.Parse(info[1]);
 
-        show_base_need.text = "Æ·ÖÊ:" + (enum_equip_quality_list)int.Parse(info[2]) + "\n" +
-            "ÀàĞÍ:" + data.StdMode + "\n" +
-            "ĞèÇó:" + data.need_lv + "¼¶";
-        string dec = Show_Color.Yellow("[»ù´¡ÊôĞÔ]");
+        show_base_need.text = "å“è´¨:" + (enum_equip_quality_list)int.Parse(info[2]) + "\n" +
+            "ç±»å‹:" + data.StdMode + "\n" +
+            "éœ€æ±‚:" + data.need_lv + "çº§";
+        string dec = Show_Color.Yellow("[åŸºç¡€å±æ€§]");
         
         if (data.damgemin > 0 || data.damagemax > 0)
         { 
-            dec += "\n" + Show_Color.White("ÎïÀí¹¥»÷:" + data.damgemin + "-" + data.damagemax);
+            dec += "\n" + Show_Color.White("ç‰©ç†æ”»å‡»:" + data.damgemin + "-" + data.damagemax);
             if (strengthenlv > 0)
             { 
                 dec += Show_Color.Grey("(+" + (data.equip_lv * strengthenlv) + ")");
@@ -71,7 +71,7 @@ public class equip_item : Base_Mono
         }
         if (data.magicmin > 0 || data.magicmax > 0)
         { 
-            dec += "\n" + Show_Color.White("Ä§·¨¹¥»÷:" + data.magicmin + "-" + data.magicmax);
+            dec += "\n" + Show_Color.White("é­”æ³•æ”»å‡»:" + data.magicmin + "-" + data.magicmax);
             if (strengthenlv > 0)
             { 
                 dec += Show_Color.Grey("(+" + (data.equip_lv * strengthenlv) + ")");
@@ -79,7 +79,7 @@ public class equip_item : Base_Mono
         }
         if (data.defmin > 0 || data.defmax > 0)
         {
-            dec += "\n" + Show_Color.White("ÎïÀí·ÀÓù:" + data.defmin + "-" + data.defmax);
+            dec += "\n" + Show_Color.White("ç‰©ç†é˜²å¾¡:" + data.defmin + "-" + data.defmax);
             if (strengthenlv > 0)
             {
                 dec += Show_Color.Grey("(+" + (data.equip_lv * strengthenlv / 2) + ")");
@@ -87,7 +87,7 @@ public class equip_item : Base_Mono
         }
         if (data.macdefmin > 0 || data.macdefmax > 0)
         {
-            dec += "\n" + Show_Color.White("Ä§·¨·ÀÓù:" + data.macdefmin + "-" + data.macdefmax);
+            dec += "\n" + Show_Color.White("é­”æ³•é˜²å¾¡:" + data.macdefmin + "-" + data.macdefmax);
             if (strengthenlv > 0)
             {
                 dec += Show_Color.Grey("(+" + (data.equip_lv * strengthenlv / 2) + ")");
@@ -95,19 +95,19 @@ public class equip_item : Base_Mono
         }
         if (data.hp > 0)
         { 
-            dec += "\n" + Show_Color.Green("ÉúÃüÖµ:  " + data.hp);
+            dec += "\n" + Show_Color.Green("ç”Ÿå‘½å€¼:  " + data.hp);
         }
         if (data.mp > 0)
         { 
-            dec += "\n" + Show_Color.Green("Ä§·¨Öµ:  " + data.mp);
+            dec += "\n" + Show_Color.Green("é­”æ³•å€¼:  " + data.mp);
         }
         if (info.Length > 4)
         {
-            //ÀàĞÍ
+            //ç±»å‹
             string[] arr = info[3].Split(',');
-            //Öµ
+            //å€¼
             string[] arr_value = info[4].Split(',');
-            dec += "\n" + Show_Color.Yellow("[¸½¼ÓÊôĞÔ]");
+            dec += "\n" + Show_Color.Yellow("[é™„åŠ å±æ€§]");
             int index = 0;
             for (int i = 0; i < arr.Length; i++)
             {
@@ -116,14 +116,14 @@ public class equip_item : Base_Mono
                 {
                     switch (int.Parse(arr[i]))
                     {
-                        case 1: dec += "\n" + Show_Color.Red("ÎïÀí¹¥»÷: " + arr_value[i] + " - 0"); break;
-                        case 2: dec += "\n" + Show_Color.Red("ÎïÀí¹¥»÷: 0 -" + arr_value[i]); break;
-                        case 3: dec += "\n" + Show_Color.Red("Ä§·¨¹¥»÷: " + arr_value[i]+" - 0"); break;
-                        case 4: dec += "\n" + Show_Color.Red("Ä§·¨¹¥»÷: 0 -" + arr_value[i]); break;
-                        case 5: dec += "\n" + Show_Color.Red("ÎïÀí·ÀÓù: " + arr_value[i]); break;
-                        case 6: dec += "\n" + Show_Color.Red("Ä§·¨·ÀÓù: " + arr_value[i]); break;
-                        case 7: dec += "\n" + Show_Color.Red("ÉúÃüÖµ:   " + arr_value[i]); break;
-                        case 8: dec += "\n" + Show_Color.Red("Ä§·¨Öµ:   " + arr_value[i]); break;
+                        case 1: dec += "\n" + Show_Color.Red("ç‰©ç†æ”»å‡»: " + arr_value[i] + " - 0"); break;
+                        case 2: dec += "\n" + Show_Color.Red("ç‰©ç†æ”»å‡»: 0 -" + arr_value[i]); break;
+                        case 3: dec += "\n" + Show_Color.Red("é­”æ³•æ”»å‡»: " + arr_value[i]+" - 0"); break;
+                        case 4: dec += "\n" + Show_Color.Red("é­”æ³•æ”»å‡»: 0 -" + arr_value[i]); break;
+                        case 5: dec += "\n" + Show_Color.Red("ç‰©ç†é˜²å¾¡: " + arr_value[i]); break;
+                        case 6: dec += "\n" + Show_Color.Red("é­”æ³•é˜²å¾¡: " + arr_value[i]); break;
+                        case 7: dec += "\n" + Show_Color.Red("ç”Ÿå‘½å€¼:   " + arr_value[i]); break;
+                        case 8: dec += "\n" + Show_Color.Red("é­”æ³•å€¼:   " + arr_value[i]); break;
                         default:
                             break;
                     }
@@ -134,7 +134,7 @@ public class equip_item : Base_Mono
                     {
                         if (index==7)
                         {
-                            dec += "\n" + Show_Color.Yellow("[ÎåĞĞ¼Ó³É]");
+                            dec += "\n" + Show_Color.Yellow("[äº”è¡ŒåŠ æˆ]");
                         }
                         dec += "\n" + Show_Color.Purple((enum_skill_attribute_list)(int.Parse(arr[i])) + ":" + arr_value[i]);
 
@@ -144,7 +144,7 @@ public class equip_item : Base_Mono
                     {
                         if (index==4)
                         {
-                            dec += "\n" + Show_Color.Yellow("[¼Ó³ÉÊôĞÔ]");
+                            dec += "\n" + Show_Color.Yellow("[åŠ æˆå±æ€§]");
                         }
                         dec += "\n" + Show_Color.Blue((enum_skill_attribute_list)(int.Parse(arr[i])) + ":" + arr_value[i] +"%");
                     }else
@@ -159,7 +159,7 @@ public class equip_item : Base_Mono
 
     }
     /// <summary>
-    /// ÅĞ¶ÏÊÇ·ñÓĞ¿ª¹Ø
+    /// åˆ¤æ–­æ˜¯å¦æœ‰å¼€å…³
     /// </summary>
     public void Show_Info_Btn()
     {
@@ -171,7 +171,7 @@ public class equip_item : Base_Mono
         }
     }
     /// <summary>
-    /// ÍÑÏÂ
+    /// è„±ä¸‹
     /// </summary>
     public void Show_take_Btn()
     {
@@ -183,7 +183,7 @@ public class equip_item : Base_Mono
         }
     }
     /// <summary>
-    /// ÍÑÏÂ
+    /// è„±ä¸‹
     /// </summary>
     /// <param name="item"></param>
     private void OnTake_Btn(btn_item item)
@@ -192,7 +192,7 @@ public class equip_item : Base_Mono
     }
 
     /// <summary>
-    /// µã»÷°´Å¥
+    /// ç‚¹å‡»æŒ‰é’®
     /// </summary>
     /// <param name="item"></param>
     private void OnClick_Btn(btn_item item)

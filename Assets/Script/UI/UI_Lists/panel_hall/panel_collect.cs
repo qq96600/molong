@@ -8,14 +8,14 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public enum suit_Type//Ì××°ÀàĞÍ
+public enum suit_Type//å¥—è£…ç±»å‹
 {
-    µØÂöÌ××°,
-    ÆíÔ¸Ì××°,
-    »ØÒäÌ××°,
-    ÑªÒ¹Ì××°, 
-    Ğé¿ÕÌ××°, 
-    Ú¤ÊÉÌ××°
+    åœ°è„‰å¥—è£…,
+    ç¥ˆæ„¿å¥—è£…,
+    å›å¿†å¥—è£…,
+    è¡€å¤œå¥—è£…, 
+    è™šç©ºå¥—è£…, 
+    å†¥å™¬å¥—è£…
 }
 
 
@@ -25,63 +25,63 @@ public enum suit_Type//Ì××°ÀàĞÍ
 public class panel_collect : Base_Mono
 {   
     /// <summary>
-    /// ÊÕ¼¯ÎïÆ·Î»ÖÃ
+    /// æ”¶é›†ç‰©å“ä½ç½®
     /// </summary>
     private Transform collect_item;
     /// <summary>
-    /// ÎïÆ·Ô¤ÖÆÌå
+    /// ç‰©å“é¢„åˆ¶ä½“
     /// </summary>
     private bag_item bag_Item;
     /// <summary>
-    /// ÎïÆ·¾ßÌåĞÅÏ¢
+    /// ç‰©å“å…·ä½“ä¿¡æ¯
     /// </summary>
     private Transform collect_info;
     /// <summary>
-    /// ÎïÆ·¾ßÌåĞÅÏ¢±êÌâ
+    /// ç‰©å“å…·ä½“ä¿¡æ¯æ ‡é¢˜
     /// </summary>
     private Text collect_Title;
     /// <summary>
-    /// ÎïÆ·¾ßÌåĞÅÏ¢Í¼Æ¬
+    /// ç‰©å“å…·ä½“ä¿¡æ¯å›¾ç‰‡
     /// </summary>
     private bag_item item_image;
     /// <summary>
-    /// ÎïÆ·¾ßÌåĞÅÏ¢ÃèÊö
+    /// ç‰©å“å…·ä½“ä¿¡æ¯æè¿°
     /// </summary>
     private Text collect_info_text;
     /// <summary>
-    /// ÎïÆ··ÅÈë°´Å¥
+    /// ç‰©å“æ”¾å…¥æŒ‰é’®
     /// </summary>
     private Button Put_but;
     /// <summary>
-    /// ·ÅÈë°´Å¥ÃèÊö
+    /// æ”¾å…¥æŒ‰é’®æè¿°
     /// </summary>
     private Text Put_but_text;
     /// <summary>
-    /// ÎïÌåÊÇ·ñ±»ÊÕ¼¯ 0£ºÎ´ÊÕ¼¯ 1£ºÒÑÊÕ¼¯
+    /// ç‰©ä½“æ˜¯å¦è¢«æ”¶é›† 0ï¼šæœªæ”¶é›† 1ï¼šå·²æ”¶é›†
     /// </summary>
     //private int isCollect=0;
     /// <summary>
-    /// ÊôĞÔÀàĞÍ
+    /// å±æ€§ç±»å‹
     /// </summary>
     private Array Attribute_Type;
     /// <summary>
-    /// ĞÅÏ¢½çÃæcollect_info¹Ø±Õ°´Å¥
+    /// ä¿¡æ¯ç•Œé¢collect_infoå…³é—­æŒ‰é’®
     /// </summary>
     private Button but;
     /// <summary>
-    /// ×°±¸ÀàĞÍ
+    /// è£…å¤‡ç±»å‹
     /// </summary>
     private string[] typeNames;
     /// <summary>
-    /// ÊÕ¼¯ÎïÆ·ÀàĞÍÎ»ÖÃ
+    /// æ”¶é›†ç‰©å“ç±»å‹ä½ç½®
     /// </summary>
     private Transform pos_collect_type;
     /// <summary>
-    /// ÊÕ¼¯ÎïÆ·ÀàĞÍÔ¤ÖÆÌå
+    /// æ”¶é›†ç‰©å“ç±»å‹é¢„åˆ¶ä½“
     /// </summary>
     private btn_item btn_Item;
     /// <summary>
-    /// ÊÕ¼¯ÎïÆ·ÀàĞÍ
+    /// æ”¶é›†ç‰©å“ç±»å‹
     /// </summary>
     private db_collect_vo crt_collect;
     private void Awake()
@@ -95,7 +95,7 @@ public class panel_collect : Base_Mono
         but.onClick.AddListener(() =>{ CloseInfo();});
         
 
-        #region ÊÕ¼¯ÎïÆ·ĞÅÏ¢´°¿Ú
+        #region æ”¶é›†ç‰©å“ä¿¡æ¯çª—å£
         collect_info = Find<Transform>("collect_info");
         collect_Title = Find<Text>("collect_info/collect_Title/Title");
         item_image = Find<bag_item>("collect_info/item_image/bag_item");
@@ -111,7 +111,7 @@ public class panel_collect : Base_Mono
     }
 
     /// <summary>
-    /// ¹Ø±ÕÊÕ¼¯ÎïÆ·ĞÅÏ¢
+    /// å…³é—­æ”¶é›†ç‰©å“ä¿¡æ¯
     /// </summary>
     private void CloseInfo()
     {
@@ -120,28 +120,28 @@ public class panel_collect : Base_Mono
     }
 
     /// <summary>
-    /// ·ÅÈëÎïÆ· 
+    /// æ”¾å…¥ç‰©å“ 
     /// </summary>
     private void PutItem()
     {
-        Debug.Log("·ÅÈëÎïÆ·");
+        Debug.Log("æ”¾å…¥ç‰©å“");
         db_collect_vo coll = crt_collect;
         for (int i = 0; i < typeNames.Length; i++)
         {
             if(coll.StdMode==typeNames[i])
             {
-                //²éÕÒ±³°üÊÇ·ñÓĞ¸ÃÎïÆ· 
+                //æŸ¥æ‰¾èƒŒåŒ…æ˜¯å¦æœ‰è¯¥ç‰©å“ 
                 NeedConsumables(coll.Name, 1);
                 if (RefreshConsumables())
                 {
                     coll.isCollect = 1;
-                    //Ìí¼ÓÊôĞÔ ´´½¨user_collect_vo 
+                    //æ·»åŠ å±æ€§ åˆ›å»ºuser_collect_vo 
                     //AddAttribute(collect.bonuses_types[j], collect.bonuses_values[j]);
                     return;
                 }  
             }
         }
-        Alert_Dec.Show("±³°üÃ»ÓĞ" + coll.Name);
+        Alert_Dec.Show("èƒŒåŒ…æ²¡æœ‰" + coll.Name);
     }
 
     public void Init()
@@ -149,7 +149,7 @@ public class panel_collect : Base_Mono
        
         ClearObject(pos_collect_type);
         typeNames = Enum.GetNames(typeof(EquipTypeList));
-        //ÏÔÊ¾µ¥¸öÎïÆ·
+        //æ˜¾ç¤ºå•ä¸ªç‰©å“
         for (int i = 0; i < typeNames.Length; i++)
         {
             string typeName = typeNames[i];
@@ -164,7 +164,7 @@ public class panel_collect : Base_Mono
 
     }
     /// <summary>
-    /// ÏÔÊ¾ÊÕ¼¯ÎïÆ·
+    /// æ˜¾ç¤ºæ”¶é›†ç‰©å“
     /// </summary>
     /// <param name="index"></param>
     private void ShowCollectItem(string Type)
@@ -195,7 +195,7 @@ public class panel_collect : Base_Mono
 
 
     /// <summary>
-    /// ÉèÖÃÊÕ¼¯ÎïÆ·Êı¾İ
+    /// è®¾ç½®æ”¶é›†ç‰©å“æ•°æ®
     /// </summary>
     /// <param name="data"></param>
     /// <param name="i"></param>
@@ -210,7 +210,7 @@ public class panel_collect : Base_Mono
         return data;
     }
     /// <summary>
-    /// ´ò¿ªÊÕ¼¯ÎïÆ·ĞÅÏ¢
+    /// æ‰“å¼€æ”¶é›†ç‰©å“ä¿¡æ¯
     /// </summary>
     /// <param name="data"></param>
     private void OpenCollectInfo(db_collect_vo collect)
@@ -238,12 +238,12 @@ public class panel_collect : Base_Mono
         if (coll.isCollect == 0)
         {
             crt_collect= coll;
-            Put_but_text.text = "·ÅÈë";
+            Put_but_text.text = "æ”¾å…¥";
         }
         else
         {
-            Put_but.onClick.AddListener(() => { Alert_Dec.Show(coll.Name + " ÒÑÊÕ¼¯"); });
-            Put_but_text.text = "ÒÑÊÕ¼¯";
+            Put_but.onClick.AddListener(() => { Alert_Dec.Show(coll.Name + " å·²æ”¶é›†"); });
+            Put_but_text.text = "å·²æ”¶é›†";
         }
     }
 }
