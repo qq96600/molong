@@ -366,6 +366,9 @@ namespace MVC
                     string[] attributes = splits[5].Split('|');
                     if(attributes.Length == 3)
                     {
+                        pet.crate_value = "";
+                        pet.up_value= "";
+                        pet.up_base_value = "";
                         pet.crate_value = attributes[0];
                         pet.up_value = attributes[1];
                         pet.up_base_value = attributes[2];

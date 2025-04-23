@@ -96,7 +96,7 @@ namespace Common
         /// </summary>
         public static user_pet_vo crt_pet=new user_pet_vo();
         /// <summary>
-        /// 自身宠物列表
+        /// 自身宠物列表 
         /// </summary>
         public static List<db_pet_vo> crt_pet_list=new List<db_pet_vo>();
 

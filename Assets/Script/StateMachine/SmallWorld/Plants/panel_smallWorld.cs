@@ -52,16 +52,28 @@ public class panel_smallWorld : Panel_Base
     /// 宠物属性信息文本
     /// <summary>  
     private Text Pet_attribute;
-    /// <summary>
-    /// 关闭孵化界面按钮,打开孵化界面
-    /// </summary>
-    private Button but,displayPet;
-    /// <summary>
-    /// 孵化界面
-    /// </summary>
-    private Transform hatching_progres;
 
+    /// <summary>
+    /// 守护植物园的宠物
+    /// </summary>
+    private db_pet_vo pet_guard;
+   /// <summary>
+   /// 守护兽显示
+   /// </summary>
+   private Image display_image;
+    /// <summary>
+    /// 守护兽信息
+    /// </summary>
+   private Text  display_info;
+
+    /// <summary>
+    /// 宠物信息窗口
+    /// </summary>
     private hatching_progress hatching_progress;
+    /// <summary>
+    /// 关闭宠物信息窗口
+    /// </summary>
+    private Button close_hatching;
     public override void Initialize()
     {
         base.Initialize();
@@ -74,13 +86,17 @@ public class panel_smallWorld : Panel_Base
         btn_item = Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
         pet_pos= Find<Transform>("small_World/Pet_Hatching/Pet_list/Viewport/items");
         Pet_name= Find<Text>("small_World/Pet_Hatching/Pet_info/Pet_name/Text");
-        Pet_attribute = Find<Text>("small_World/Pet_Hatching/Pet_info/Pet_attribute/Viewport/Content/Text"); 
-         but = Find<Button>("small_World/Pet_Hatching/but");
-        displayPet= Find<Button>("small_World/Pet_Hatching/displayPet");
-        hatching_progres = Find<Transform>("small_World/Pet_Hatching/hatching_progress");
+        Pet_attribute = Find<Text>("small_World/Pet_Hatching/Pet_info/Pet_attribute/Viewport/Content/Text");
+        
         hatching_progress = Find<hatching_progress>("small_World/hatching_progress");
-        but.onClick.AddListener(delegate { CloseHatching(); });
-        displayPet.onClick.AddListener(delegate { ShowHatching(); });
+        
+        display_image= Find<Image>("small_World/Panel_plant/pet_guard/display");
+        display_info = Find<Text>("small_World/Panel_plant/pet_guard/info/Text");
+
+        close_hatching = Find<Button>("small_World/hatching_progress/but");
+        close_hatching.onClick.AddListener(() => { CloseHatching(); });
+
+
         for (int i = 0; i < btn_list.Length; i++)
         {
             btn_item btn_items = Instantiate(btn_item, pos_btn);//实例化背包装备
@@ -89,22 +105,30 @@ public class panel_smallWorld : Panel_Base
         }
     }
 
-   /// <summary>
-   /// 打开孵化界面
-   /// </summary>
-    private void ShowHatching()
-    {
-        hatching_progres.gameObject.SetActive(true);
-        but.gameObject.SetActive(true);
-    }
     /// <summary>
-    /// 关闭孵化界面
+    /// 关闭宠物信息窗口
     /// </summary>
     private void CloseHatching()
     {
-        hatching_progres.gameObject.SetActive(false);
-        but.gameObject.SetActive(false);
+        small_World_bg.gameObject.SetActive(false);
+        hatching_progress.gameObject.SetActive(false);
+        close_hatching.gameObject.SetActive(false);
     }
+
+   
+
+    /// <summary>
+    /// 获取守护植物园的宠物
+    /// </summary>
+    public void Get_pet_guard(db_pet_vo _pet_guard)
+    {
+        Alert_Dec.Show("设置 " + _pet_guard.petName + " 为植物园守护兽");
+        pet_guard = _pet_guard;
+        display_image.sprite = UI_Manager.I.GetEquipSprite("icon/", pet_guard.petName); 
+        display_info.text = pet_guard.petName+ " Lv." + pet_guard.level ;
+
+    }
+
 
     public override void Hide()
     {
@@ -141,6 +165,7 @@ public class panel_smallWorld : Panel_Base
                 //_Hatching.Show();
                 //HatchingInit();
                 hatching_progress.gameObject.SetActive(true);
+                close_hatching.gameObject.SetActive(true);
                 hatching_progress.Show();
                 break;
             case "探险":

@@ -108,6 +108,9 @@ public class db_pet_vo : Base_VO
     /// </summary>
     public void GetNumerical()
     {
+        crate_values= new List<string>();
+        up_values = new List<string>();
+        up_base_values = new List<string>();
         string[] str1 = crate_value.Split(' ');
         for (int i = 0; i < str1.Length; i++)
         {
@@ -126,8 +129,21 @@ public class db_pet_vo : Base_VO
             up_base_values.Add(str3[i]);
         }
     }
-
-
+    /// <summary>
+    /// 整合属性数据
+    /// </summary>
+   public void Integration(List<string> crt)
+   {
+        crate_value= "";
+        string str = "";
+        for (int i = 0; i < crt.Count; i++)
+        {
+            str += crt[i];
+       
+        }
+        crate_value = str;
+        GetNumerical();
+   }
 
 
     /// <summary>
