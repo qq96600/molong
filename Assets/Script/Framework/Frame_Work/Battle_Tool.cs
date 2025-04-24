@@ -250,6 +250,24 @@ public static class Battle_Tool
 
     }
     /// <summary>
+    /// 获取灵气
+    /// </summary>
+    /// <returns></returns>
+    public static int Obtain_World()
+    {
+        int value = 0;
+        if (SumSave.crt_world == null) return value;
+        List<string> list = SumSave.crt_world.Get();
+        int time = (int)(SumSave.nowtime - Convert.ToDateTime(list[0])).TotalMinutes;
+        ArrayHelper.SafeGet(SumSave.db_lvs.world_offect_list, SumSave.crt_world.World_Lv, out int se);
+        value = time * SumSave.db_lvs.world_offect_list[SumSave.crt_world.World_Lv];
+        value += int.Parse(list[1]);
+        value = Mathf.Min(value, SumSave.db_lvs.word_lv_max_value[SumSave.crt_world.World_Lv]);
+        SumSave.crt_world.Set(value);
+        return value;
+    }
+
+    /// <summary>
     /// 获取经验
     /// </summary>
     /// <param name="exp"></param>
@@ -260,6 +278,7 @@ public static class Battle_Tool
         Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_hero,
             SumSave.crt_hero.Set_Uptade_String(), SumSave.crt_hero.Get_Update_Character());
     }
+
     /// <summary>
     /// 获取资源
     /// </summary>
@@ -290,7 +309,7 @@ public static class Battle_Tool
             case 6:
                 if (SumSave.crt_world != null)
                 {
-                    SumSave.crt_world.Set(int.Parse(result_list[1]));
+                    SumSave.crt_world.Set(int.Parse(result_list[1]),false);
                     Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_world, SumSave.crt_world.Set_Uptade_String(), SumSave.crt_world.Get_Update_Character());
                 }
                 else Alert_Dec.Show("小世界未激活");
@@ -366,6 +385,7 @@ public static class Battle_Tool
         //排序
         Refresh_Rank();
     }
+
     /// <summary>
     /// 验证排行榜
     /// </summary>
@@ -449,6 +469,7 @@ public static class Battle_Tool
         }
         SumSave.user_ranks.lists.Sort((x, y) => -x.value.CompareTo(y.value));
     }
+
     /// <summary>
     /// 创造怪物
     /// </summary>
@@ -538,6 +559,7 @@ public static class Battle_Tool
         return base_crt;
 
     }
+
     /// <summary>
     /// 验证地图列表
     /// </summary>
@@ -567,7 +589,5 @@ public static class Battle_Tool
             }
         }
     }
-
-
 }
 

@@ -52,36 +52,14 @@ public class panltItem : Panel_Base
         CountdownText = GetComponentInChildren<Text>();
         CountdownText.transform.gameObject.SetActive(false);
     }
-   
-
-
-
-    /// <summary>
-    /// 显示植物生长倒计时
-    /// </summary>
-    //public void Countdown()
-    //{
-    //    currentGrowTime -= Time.deltaTime;
-    //    CountdownText.text = ((int)currentGrowTime).ToString();
-    //    if (currentGrowTime <= 0)
-    //    {
-    //        isMature = true;
-    //        CountdownText.transform.gameObject.SetActive(false);
-    //    }
-    //}
-
-
-
     /// <summary>
     /// 初始化
     /// </summary>
     public void Init()
     {
-       
         growTime = 0;
         isWatered = 0;
         isMature = 0;
-        image.sprite = Resources.Load<Sprite>("panel_fight/panlt_土地");
     }
 
 
@@ -106,7 +84,7 @@ public class panltItem : Panel_Base
         currentGrowTimeDate = data.Item2;
         isWatered = 0;
         isMature = 0;
-        image.sprite = Resources.Load<Sprite>("panel_fight/panlt_土地");
+        //image.sprite = Resources.Load<Sprite>("panel_fight/panlt_土地");
 
         growTimeInt = (int)(SumSave.nowtime - currentGrowTimeDate).TotalSeconds;//当前时间-植物种植时间 获得植物种植到现在的时间
         if (growTimeInt <= growTime)//植物已经生长的时间小于植物需要生长的时间
@@ -151,7 +129,7 @@ public class panltItem : Panel_Base
         plantName= _Data.plantName;
        
         CountdownText.transform.gameObject.SetActive(true);
-        image.sprite = Resources.Load<Sprite>("panel_fight/panlt_" + plantName);
+        //image.sprite = Resources.Load<Sprite>("panel_fight/panlt_" + plantName);
     }
     /// <summary>
     /// 减少生长时间

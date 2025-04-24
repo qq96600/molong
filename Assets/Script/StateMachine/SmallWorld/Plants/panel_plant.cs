@@ -53,11 +53,11 @@ public class panel_plant : Panel_Base
     /// <summary>
     /// 浇水减少时间
     /// </summary>
-    public int reduceTime=10; 
+    public int reduceTime=10;
     /// <summary>
     /// 是否可以扩容，扩容的数量
     /// </summary>
-    public int isExpansion=0; 
+    public int isExpansion = 0;
 
 
 
@@ -99,9 +99,6 @@ public class panel_plant : Panel_Base
         
         #endregion
     }
-
-   
-
     public override void Show()
     {
         base.Show();
@@ -124,7 +121,6 @@ public class panel_plant : Panel_Base
             panltItem item= Instantiate(plantPrefab, plantFields).GetComponent<panltItem>();
             item.GetComponent<Button>().onClick.AddListener(delegate { PlantInfo(item); });
             user_plant_vo vo = new user_plant_vo();
-            //vo = ArrayHelper.Find(SumSave.db_plants, e => e.plantName== Set[i].Item1);
             item.GetData(vo);
 
             item.Init(i, Set[i]); 

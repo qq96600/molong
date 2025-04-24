@@ -32,7 +32,7 @@ namespace MVC
         /// <summary>
         /// 掉落集合
         /// </summary>
-        public static string[] Calculations;
+        public static List<string> Calculations;
         public static void Instance()
         {
             CalculationBattle.Clear();
@@ -48,13 +48,14 @@ namespace MVC
             {
                 CalculationBattle.Add(base_name, ArrayHelper.Find(SumSave.db_maps, e => e.map_name == base_name).ProfitList.Split('&'));
             }
-               
+            Calculations = new List<string>();
             for (int i = 0; i < number; i++)
             {
                 string countEquip = CalculationBattle[base_name][Random.Range(0, CalculationBattle[base_name].Length)];
                 CalculationBag(countEquip,monster.Data.show_name,false);
 
             }
+            Show_Info();
         }
         /// <summary>
         /// 获取物品掉落
@@ -97,6 +98,7 @@ namespace MVC
 
             Bag_Base_VO bag = new Bag_Base_VO();
             bag = ArrayHelper.Find(SumSave.db_stditems, e => e.Name == result.Item2);
+            Calculations.Add(bag.Name);
             bool exist = true;
             switch ((EquipConfigTypeList)Enum.Parse(typeof(EquipConfigTypeList), bag.StdMode))
             {
@@ -151,13 +153,14 @@ namespace MVC
         private static void Obtian_Bag(Bag_Base_VO bag)
         { 
             string[] keyValue = bag.user_value.Split(' ');
-            Show_Info("获得 " + (enum_equip_quality_list)int.Parse(keyValue[2]) + " " + bag.Name);
-
+            //Show_Info("获得 " + (enum_equip_quality_list)int.Parse(keyValue[2]) + " " + bag.Name);
+            //Show_Info(bag.Name);
         }
 
-        private static void Show_Info(string info)
+        private static void Show_Info()
         { 
-            Alert_Dec.Show(info);
+            //Alert_Dec.Show(info);
+            Alert_Icon.Show(Calculations);
          
         }
 

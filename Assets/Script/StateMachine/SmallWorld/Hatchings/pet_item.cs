@@ -14,7 +14,7 @@ public class pet_item : Base_Mono
     /// <summary>
     /// 宠物数据
     /// </summary>
-    private db_pet_vo crt_pet=null;
+    private db_pet_vo crt_pet = null;
 
     private Text text;
     /// <summary>
@@ -24,11 +24,16 @@ public class pet_item : Base_Mono
     /// <summary>
     /// 可能获得宠物奖励
     /// </summary>
-    private string[] va= { "下品修为丹" , "下品经验丹", "下品灵石" };
+    private string[] va= { "下品修为丹" , "下品经验丹", "下品灵石" };//Assets/Resources/Prefabs/panel_smallWorld/pets/pet_item.prefab
+
+    private Image iocn, frame, state;
 
     private void Awake()
     {
         text = Find<Text>("info");
+        iocn = Find<Image>("iocn");
+        frame = Find<Image>("frame");
+        state = Find<Image>("state");
     }
 
     public void Init(string db_pet_vo)
@@ -42,6 +47,12 @@ public class pet_item : Base_Mono
     {
         crt_pet = data;
         text.text = crt_pet.petName + "lv:" + crt_pet.level;
+        iocn.sprite = UI.UI_Manager.I.GetEquipSprite("UI/pet/", data.petName);
+        frame.sprite = UI.UI_Manager.I.GetEquipSprite("frame/", data.quality);
+        if (data.pet_state != "0")
+            state.sprite = UI.UI_Manager.I.GetEquipSprite("UI/pet/", data.pet_state);
+        else state.gameObject.SetActive(false);
+
     }
     /// <summary>
     /// 开始获得宠物奖励

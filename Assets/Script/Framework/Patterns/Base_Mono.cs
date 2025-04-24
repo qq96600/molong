@@ -25,8 +25,8 @@ namespace MVC
         /// 显示
         /// </summary>
         public virtual void Show()
-        { 
-        
+        {
+            this.gameObject.SetActive(true);
         }
 
         public T Pos_path<T>(string name)
@@ -130,16 +130,46 @@ namespace MVC
             bool exist = false;
             Dictionary<string, long> keys = dic;
             Dictionary<string, int> bagdic = new Dictionary<string, int>();
-            long count = 0, moeny = 0, MilitaryExploits = 0, silver = 0;
+            long count = 0;
+            //0灵珠 1历练 2元宝 3灵气
+            List<long> currency_unit_list = new List<long>(5);
+            List<long> listunit = SumSave.crt_user_unit.Set();
 
             foreach (string item in keys.Keys)
             {
                 if (item == currency_unit.灵珠.ToString())
                 {
-                    List<long> list = SumSave.crt_user_unit.Set();
-                    if (list[0] >= Mathf.Abs(keys[item]))
+                    if (listunit[0] >= Mathf.Abs(keys[item]))
                     {
-                        moeny += (long)Mathf.Abs(keys[item]);
+                        currency_unit_list[0] += (long)Mathf.Abs(keys[item]);
+                        count++;
+                    }
+                }
+                else
+                if (item == currency_unit.历练.ToString())
+                {
+                    if (listunit[1] >= Mathf.Abs(keys[item]))
+                    {
+                        currency_unit_list[1] += (long)Mathf.Abs(keys[item]);
+                        count++;
+                    }
+                }
+                else
+                if (item == currency_unit.魔丸.ToString())
+                {
+                    if (listunit[2] >= Mathf.Abs(keys[item]))
+                    {
+                        currency_unit_list[2] += (long)Mathf.Abs(keys[item]);
+                        count++;
+                    }
+                }
+                else
+                if (item == currency_unit.灵气.ToString())
+                {
+                    int value = Battle_Tool.Obtain_World();
+                    if (value >= Mathf.Abs(keys[item]))
+                    {
+                        currency_unit_list[3] += (long)Mathf.Abs(keys[item]);
                         count++;
                     }
                 }
@@ -161,31 +191,36 @@ namespace MVC
                     }
                 }
             }
-
-            if ((count == keys.Count))
+            if (count == keys.Count)
             {
-                if (moeny > 0)
+                for (int i = 0; i < currency_unit_list.Count; i++)
                 {
-                    SumSave.crt_user_unit.verify_data(currency_unit.灵珠, -moeny);
-                    Game_Omphalos.i.GetQueue(
-                        Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user, SumSave.crt_user_unit.Set_Uptade_String(), SumSave.crt_user_unit.Get_Update_Character());
+                    if (currency_unit_list[i] > 0)
+                    {
+                        switch ((currency_unit)i)
+                        {
+                            case currency_unit.灵珠:
+                            case currency_unit.历练:
+                            case currency_unit.魔丸:
+                                SumSave.crt_user_unit.verify_data((currency_unit)i, -currency_unit_list[i]);
+                                Game_Omphalos.i.GetQueue(
+                       Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user, SumSave.crt_user_unit.Set_Uptade_String(), SumSave.crt_user_unit.Get_Update_Character());
+                                break;
+                            case currency_unit.灵气:
+                                SumSave.crt_world.Set(-(int)currency_unit_list[i], false);
+                                Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_world, SumSave.crt_world.Set_Uptade_String(), SumSave.crt_world.Get_Update_Character());
+                                break;
+                            default:
+                                break;
+                        }
+                    }
                 }
+
                 if (bagdic.Count > 0)
                 { 
-                SumSave.crt_bag_resources.Get(bagdic);
-                Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.material_value, SumSave.crt_bag_resources.GetData());
-
+                    SumSave.crt_bag_resources.Get(bagdic);
+                    Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.material_value, SumSave.crt_bag_resources.GetData());
                 }
-
-                /*
-            if (silver > 0) SendNotification(NotiList.silverCoin, -Mathf.Abs(silver));
-            if (MilitaryExploits > 0)
-            {
-                SumSave.UserBase.MilitaryExploits -= MilitaryExploits;
-                SendNotification(NotiList.MilitaryExploits, 0);
-            }
-                */
-                //SendNotification(NotiList.RefreshConsumables);
             }
             //else SumSave.UserConsumables.Clear();
             exist = count == keys.Count;
@@ -227,5 +262,6 @@ namespace MVC
        灵珠,
        历练,
        魔丸,
+       灵气
     }
 }

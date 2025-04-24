@@ -211,14 +211,6 @@ public class tool_Categoryt : MonoBehaviour
         return dec;
     }
     /// <summary>
-    /// 获取时间
-    /// </summary>
-    /// <returns></returns>
-    public static DateTime Nowtime()
-    { 
-        return DateTime.Now; ;
-    }
-    /// <summary>
     /// 获取数据列表
     /// </summary>
     /// <param name="bag"></param>

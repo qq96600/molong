@@ -98,7 +98,6 @@ public class panel_skill : Panel_Base
     /// </summary>
     private void Page_Change()
     {
-        Debug.Log("翻页");
         page_index++;
         if (page_index + 1 > (int)Math.Ceiling((double)crt_skill_number / 12))
             page_index = 0;
@@ -199,10 +198,11 @@ public class panel_skill : Panel_Base
             btn_item_dic[item].gameObject.SetActive(false);
         }
         //SumSave.crt_skills.Add(tool_Categoryt.crate_skill(SumSave.db_skills[Random.Range(0, SumSave.db_skills.Count)].skillname));//添加技能
-
         List<base_skill_vo> lists = ArrayHelper.FindAll(SumSave.crt_skills, e => (skill_btn_list)e.skill_type == select_btn_type);
         crt_skill_number= lists.Count;
-        page_info.text = "下一页" + (page_index + 1) + " / " + (int)Math.Ceiling((double)crt_skill_number / 12);
+        if (crt_skill_number == 0) page_info.text = "";
+        else
+            page_info.text = "下一页" + (page_index + 1) + " / " + (int)Math.Ceiling((double)crt_skill_number / 12);
         int max = Mathf.Min(lists.Count, (page_index + 1) * 12);
         for (int i = page_index * 12; i < max; i++)
         {

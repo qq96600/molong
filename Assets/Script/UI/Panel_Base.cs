@@ -22,10 +22,10 @@ namespace UI
         /// <summary>
         ///  显示
         /// </summary>
-        public virtual void Show()
-        {
-            this.gameObject.SetActive(true);
-        }
+        //public virtual void Show()
+        //{
+        //    this.gameObject.SetActive(true);
+        //}
         /// <summary>
         /// 初始化
         /// </summary>

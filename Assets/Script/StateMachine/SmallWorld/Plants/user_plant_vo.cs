@@ -32,29 +32,29 @@ public class user_plant_vo : Base_VO
     /// 消耗数量
     /// </summary>
     public int lossnumber;
-
-
-
     /// <summary>
     /// 种植等级
     /// </summary>
     public int plantLeve;
     private List<(string,DateTime)> user_plants;//种植的植物名称和成熟时间
+
+    private List<string> user_valueS;//种植的植物名称和种植时间
     /// <summary>
     /// 解析植物信息
     /// </summary> 
     public void Init()
     {
+        user_valueS= new List<string>();
         user_plants = new List<(string, DateTime)>();
         string[] str = user_value.Split('&');
-
         for (int i = 0; i < str.Length; i++)
         {
+            user_valueS.Add(str[i]);
             if (str.Length > 0)
             {
                 string[] str1 = str[i].Split('|');
                 if (str1.Length == 2)
-                    user_plants.Add((str1[0], (str1[0] == "0") ? DateTime.Now : Convert.ToDateTime(str[1])));
+                    user_plants.Add((str1[0], (str1[0] == "0") ? SumSave.nowtime : Convert.ToDateTime(str1[1])));
             }
         }
     }

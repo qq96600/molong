@@ -38,9 +38,9 @@ public class user_world_vo : Base_VO
     /// 获取值
     /// </summary>
     /// <param name="value"></param>
-    public void Set(int value)
+    public void Set(int value,bool exist = true)
     {
-        value_lists[0] = SumSave.nowtime.ToString();
+        if(exist) value_lists[0] = SumSave.nowtime.ToString();
         value_lists[1] = value.ToString();
     }
     public string Set_data()

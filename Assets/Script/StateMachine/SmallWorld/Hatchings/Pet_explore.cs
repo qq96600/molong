@@ -51,7 +51,11 @@ public class Pet_explore : Panel_Base
     /// 功能按键列表
     /// </summary>
     private string[] function_btn_list = new string[] { "收获", "返回", "探索" };
-  
+    /// <summary>
+    /// 探索按钮列表
+    /// </summary>
+    private string[] pos_btn_list = new string[] { "1", "2", "3" };
+
 
     public override void Show() 
     {
@@ -65,7 +69,6 @@ public class Pet_explore : Panel_Base
         info_item_Prefabs = Resources.Load<material_item>("Prefabs/panel_bag/material_item");
         
         #endregion
-
         #region 各功能按键初始化
         ///宠物地图探索按钮初始化
         for (int i = 0; i < button_map.Length; i++)
