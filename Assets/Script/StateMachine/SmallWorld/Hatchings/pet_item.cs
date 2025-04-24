@@ -14,7 +14,7 @@ public class pet_item : Base_Mono
     /// <summary>
     /// 宠物数据
     /// </summary>
-    private db_pet_vo crt_pet;
+    private db_pet_vo crt_pet=null;
 
     private Text text;
     /// <summary>
@@ -40,7 +40,7 @@ public class pet_item : Base_Mono
     }
     public void Init(db_pet_vo data)
     {
-        crt_pet = (data);
+        crt_pet = data;
         text.text = crt_pet.petName + "lv:" + crt_pet.level;
     }
     /// <summary>
@@ -59,7 +59,7 @@ public class pet_item : Base_Mono
         yield return new WaitForSeconds(5);
         
         int index = UnityEngine.Random.Range(0, va.Length);//随机获得一个奖励
-      
+        //transform.parent.parent.parent.parent.parent.parentSendMessage("Get_pet_guard", crt_pet.SetPet());
         GainRewards(va[index], 5);
         StartCoroutine(GetItem());
     }
