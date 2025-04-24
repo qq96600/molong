@@ -279,7 +279,7 @@ public class panel_smallWorld : Panel_Base
         //    Hide();
         //    return;
         //}
-        //Base_Show();
+        Base_Show();
     }
 
     private void Base_Show()
