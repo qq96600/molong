@@ -77,7 +77,31 @@ public class panel_smallWorld : Panel_Base
     /// <summary>
     /// 上阵探索的宠物
     /// </summary>
-    private List<db_pet_vo> pet_expedition=new List<db_pet_vo>();
+    private List<db_pet_vo> pet_expedition_list=new List<db_pet_vo>();
+    /// <summary>
+    /// 探索宠物位置
+    /// </summary>
+    private Transform pos_btn_explore;
+    /// <summary>
+    /// 宠物预制体
+    /// </summary>
+    private pet_item pet_item_Prefabs;
+    /// <summary>
+    /// 当前选择的宠物
+    /// </summary>
+    private pet_item pet_item_current=null;
+    /// <summary>
+    /// 探索奖励显示位置
+    /// </summary>
+    private Transform pos_items_reward;
+    /// <summary>
+    /// 奖励预制体
+    /// </summary>
+    private material_item material_item_Prefabs;
+    /// <summary>
+    /// 当前宠物奖励列表
+    /// </summary>
+     List<(string, int)> pet_item_reward= new List<(string, int)>();
     public override void Initialize()
     {
         base.Initialize();
@@ -100,6 +124,10 @@ public class panel_smallWorld : Panel_Base
         close_hatching = Find<Button>("small_World/hatching_progress/but");
         close_hatching.onClick.AddListener(() => { CloseHatching(); });
 
+        pos_btn_explore = Find<Transform>("small_World/Pet_explore/explore/pet_pos_btn");
+        pet_item_Prefabs = Resources.Load<pet_item>("Prefabs/panel_smallWorld/pets/pet_item");
+        pos_items_reward= Find<Transform>("small_World/Pet_explore/Income/Viewport/Items");
+        material_item_Prefabs= Resources.Load<material_item>("Prefabs/panel_bag/material_item");
 
         for (int i = 0; i < btn_list.Length; i++)
         {
@@ -107,6 +135,10 @@ public class panel_smallWorld : Panel_Base
             btn_items.Show(i, btn_list[i]);
             btn_items.GetComponent<Button>().onClick.AddListener(delegate { Select_Btn(btn_items); });
         }
+
+
+
+        
     }
 
     /// <summary>
@@ -115,17 +147,40 @@ public class panel_smallWorld : Panel_Base
 
     private void PetExpeditionGo(db_pet_vo pet)
     {
-        if(pet_expedition.Count<=3)
+        if(pet_expedition_list.Count<=3)
         {
-            pet_expedition.Add(pet);
-            _explore.GetPetList(pet_expedition);
+            pet_expedition_list.Add(pet);
             Alert_Dec.Show(pet.petName + "上阵探索成功");
         }else
         {
             Alert_Dec.Show("上阵探索的宠物数量已满");
         }
-        
 
+        
+    }
+    //点击宠物显示奖励信息
+    private void UpSetReward(pet_item pet_item)
+    {
+        pet_item_current = pet_item;
+        RefreshReward(pet_item);
+    }
+
+    /// <summary>
+    /// 刷新奖励信息
+    /// </summary>
+    private void RefreshReward(pet_item pet_item)
+    {
+        pet_item_reward = pet_item.SetItemList();
+        ClearObject(pos_items_reward);
+        for (int i = 0; i < pet_item_reward.Count; i++)
+        {
+            if (pet_item_reward.Count > 0)
+            {
+                material_item item = Instantiate(material_item_Prefabs, pos_items_reward);
+                item.Init(pet_item_reward[i]);
+            }
+
+        }
     }
 
     /// <summary>
@@ -193,9 +248,32 @@ public class panel_smallWorld : Panel_Base
                 break;
             case "探险":
                 _explore.Show();
+                InitExplore();
                 break;
         }
     }
+
+    /// <summary>
+    /// 初始化探索
+    /// </summary>
+    private void InitExplore()
+    {
+        ///探索宠物but
+        ClearObject(pos_btn_explore);
+        ClearObject(pos_items_reward);
+        if (pet_expedition_list.Count > 0)
+        {
+            for (int i = 0; i < pet_expedition_list.Count; i++)
+            {
+                pet_item pet_item = Instantiate(pet_item_Prefabs, pos_btn_explore);
+                pet_item.Init(pet_expedition_list[i]);
+                pet_item.StartPetItem();
+                pet_item.GetComponent<Button>().onClick.AddListener(delegate { UpSetMaterial(pet_item); });
+            }
+        }
+        
+    }
+
     /// <summary>
     /// 灵宠列表初始化
     /// </summary>
