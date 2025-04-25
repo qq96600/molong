@@ -122,29 +122,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!224 &5
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 328270488}
-  - {fileID: 1673099413}
-  - {fileID: 482507803}
-  - {fileID: 540705464}
-  m_Father: {fileID: 960741067}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4724597
 GameObject:
   m_ObjectHideFlags: 0
@@ -1045,7 +1022,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1432,7 +1409,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1769,7 +1746,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3060,11 +3037,6 @@ PrefabInstance:
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6012182569214328686, guid: 459a8cb323db8354fb506e6ba0a317c3, type: 3}
   m_PrefabInstance: {fileID: 899188641}
-  m_PrefabAsset: {fileID: 0}
---- !u!224 &960741067 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 465464445722052864, guid: f4d63779ab358e74b852ae090b8eca3a, type: 3}
-  m_PrefabInstance: {fileID: 6907798663173871735}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &978207393
 GameObject:
@@ -5866,7 +5838,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -10360,7 +10332,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 465464445722052864, guid: f4d63779ab358e74b852ae090b8eca3a, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 85
       objectReference: {fileID: 0}
     - target: {fileID: 745660437553629566, guid: f4d63779ab358e74b852ae090b8eca3a, type: 3}
       propertyPath: m_AnchorMax.y
@@ -10392,7 +10364,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 911288108197381393, guid: f4d63779ab358e74b852ae090b8eca3a, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 952429918253311790, guid: f4d63779ab358e74b852ae090b8eca3a, type: 3}
       propertyPath: m_AnchorMax.y
@@ -10604,11 +10576,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4389851954191686096, guid: f4d63779ab358e74b852ae090b8eca3a, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.539
       objectReference: {fileID: 0}
     - target: {fileID: 4389851954191686096, guid: f4d63779ab358e74b852ae090b8eca3a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4516555658457496799, guid: f4d63779ab358e74b852ae090b8eca3a, type: 3}
       propertyPath: m_Name
@@ -10949,10 +10921,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 4516555658457496799, guid: f4d63779ab358e74b852ae090b8eca3a, type: 3}
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 465464445722052864, guid: f4d63779ab358e74b852ae090b8eca3a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4d63779ab358e74b852ae090b8eca3a, type: 3}
 --- !u!224 &6942451500043349588
@@ -11733,3 +11702,7 @@ SceneRoots:
   - {fileID: 1420616014}
   - {fileID: 1737560466}
   - {fileID: 1799936667}
+  - {fileID: 328270488}
+  - {fileID: 482507803}
+  - {fileID: 540705464}
+  - {fileID: 1673099413}
