@@ -1,21 +1,25 @@
 using Common;
 using Components;
+using MVC;
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UI;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-public class Pet_explore : Panel_Base
+public class Pet_explore : Base_Mono
 {
 
     /// <summary>
     /// 探索按钮组
     /// </summary>
-    private Button[] button_map;
+    private List<btn_item> button_map;
 
+    private Transform pos_map;
+    private Image explore_map;
     /// <summary>
     /// 玩家选择的探索
     /// </summary>
@@ -35,6 +39,10 @@ public class Pet_explore : Panel_Base
     /// </summary>
     private material_item info_item_Prefabs;
     /// <summary>
+    /// 锚点
+    /// </summary>
+    private Transform pos_item_Prefabs;
+    /// <summary>
     /// 探索宠物父物体
     /// </summary>
     private Transform pos_btn;
@@ -46,7 +54,18 @@ public class Pet_explore : Panel_Base
     /// 功能按键父物体
     /// </summary>
     private Transform function_pos_btn;
-
+    /// <summary>
+    /// 获取探索位置
+    /// </summary>
+    private Dictionary<int,Transform> btn_item_Dic = new Dictionary<int, Transform>();
+    /// <summary>
+    /// 探索宠物预制体
+    /// </summary>
+    private explore_item explore_item_Prefabs;
+    /// <summary>
+    /// 当前探索
+    /// </summary>
+    private explore_item crt_explore;
     /// <summary>
     /// 功能按键列表
     /// </summary>
@@ -56,30 +75,28 @@ public class Pet_explore : Panel_Base
     /// </summary>
     private string[] pos_btn_list = new string[] { "1", "2", "3" };
 
+    private material_item material_item_Prefabs;
 
-    public override void Show() 
+    private Text info;
+    protected void Awake()
     {
-        base.Show();
-        #region 组件初始化
-        button_map = Find<Transform>("explore_map/Buttons_map").GetComponentsInChildren<Button>();
         pos_btn = Find<Transform>("explore/pet_pos_btn");
         pos_Items = Find<Transform>("Income/Viewport/Items");
-        function_pos_btn= Find<Transform>("explore/function_pos_btn");
-        btn_item_Prefabs = Resources.Load<btn_item>("Prefabs/base_tool/btn_item"); 
+        pos_item_Prefabs = Resources.Load<Transform>("Prefabs/base_tool/pos_item");
+        function_pos_btn = Find<Transform>("explore/function_pos_btn");
+        btn_item_Prefabs = Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
         info_item_Prefabs = Resources.Load<material_item>("Prefabs/panel_bag/material_item");
-        
-        #endregion
-        #region 各功能按键初始化
-        ///宠物地图探索按钮初始化
-        for (int i = 0; i < button_map.Length; i++)
+        explore_item_Prefabs= Resources.Load<explore_item>("Prefabs/panel_smallWorld/pets/explore_item");
+        material_item_Prefabs = Resources.Load<material_item>("Prefabs/panel_bag/material_item");
+        explore_map=Find<Image>("explore_map");
+        explore_map.gameObject.SetActive(true);
+        pos_map =Find<Transform>("explore_map/Buttons_map");
+        info = Find<Text>("Income/Viewport/info");
+        for (int i = 0; i < 3; i++)
         {
-            int index = i;
-            button_map[i].onClick.AddListener(() => { Obtain_Explore(index); });
+            Transform btn = Instantiate(pos_item_Prefabs, pos_btn);
+            btn_item_Dic.Add(i, btn);
         }
-
-       
-
-        ///功能按键初始化
         ClearObject(function_pos_btn);
         for (int i = 0; i < function_btn_list.Length; i++)
         {
@@ -87,18 +104,186 @@ public class Pet_explore : Panel_Base
             btn_item.Show(i, function_btn_list[i]);
             btn_item.GetComponent<Button>().onClick.AddListener(delegate { FunctionButton(btn_item); });
         }
-        Init();
-        #endregion
-    }
-   
+        button_map = new List<btn_item>();
+        for (int i = 0; i < 4; i++)
+        {
+            btn_item btn_item = Instantiate(btn_item_Prefabs, pos_map);
+            btn_item.Show(i, "");
+            btn_item.GetComponent<Button>().onClick.AddListener(delegate { MapButton(btn_item); });
+            button_map.Add(btn_item);
+        }
+        explore_map.gameObject.SetActive(false);
 
+    }
+    /// <summary>
+    /// 点击事件
+    /// </summary>
+    /// <param name="btn_item"></param>
+    private void MapButton(btn_item btn_item)
+    {
+        Obtain_Explore(btn_item.index);
+    }
+    public override void Show() 
+    {
+        base.Show();
+        Base_Show();
+    }
+    public void Hide()
+    {
+        foreach (var index in btn_item_Dic.Keys)
+        {
+            ClearObject(btn_item_Dic[index]);
+        }
+        ClearObject(pos_Items);
+        explore_map.gameObject.SetActive(false);
+        this.gameObject.SetActive(false);
+    }
+    private void Base_Show()
+    {
+        int max = SumSave.crt_world.World_Lv / 30 + 1;
+        max = Mathf.Min(max, 3);
+        List<db_pet_vo> list = new List<db_pet_vo>();
+        for (int j = 0; j < SumSave.crt_pet_list.Count; j++)
+        {
+            if (SumSave.crt_pet_list[j].pet_state == "2")
+                list.Add(SumSave.crt_pet_list[j]);
+        }
+        int number = 0;
+        for (int i = 0; i < list.Count; i++)
+        {
+            foreach (var index in btn_item_Dic.Keys)
+            {
+                if (btn_item_Dic[index].childCount == 0)
+                {
+                    explore_item item = Instantiate(explore_item_Prefabs, btn_item_Dic[index]);
+                    item.Init(list[i]);
+                    item.GetComponent<Button>().onClick.AddListener(() => { Obtain_Pet(item); });
+                    if (crt_explore == null) Obtain_Pet(item);
+                    number++;
+                    break;
+                }
+            }
+        }
+        if (number < max)
+        {
+            for (int i = number; i < max; i++)
+            {
+                bool exist = true;
+                foreach (var index in btn_item_Dic.Keys)
+                {
+                    if (exist)
+                    {
+                        if (btn_item_Dic[index].childCount == 0)
+                        {
+                            exist = false;
+                            btn_item btn_item = Instantiate(btn_item_Prefabs, btn_item_Dic[index]);
+                            btn_item.Show(i, "空位");
+                            btn_item.GetComponent<Button>().onClick.AddListener(() => { Alert_Dec.Show("请上阵探索宠物"); });
+                            break;
+                        }
+                    }
+                    
+                }
+            }
+        }
+    }
+    /// <summary>
+    /// 打开宠物列表
+    /// </summary>
+    /// <param name="item"></param>
+    private void Obtain_Pet(explore_item item)
+    {
+        if (crt_explore != null) crt_explore.Selected = false;
+        crt_explore = item;
+        crt_explore.Selected = true;
+        GainRewards();
+    }
+
+    /// <summary>
+    /// 获取奖励列表
+    /// </summary>
+    private void GainRewards()
+    {
+        int maxtime = (SumSave.crt_world.World_Lv * 2 + 5) * 60;//单位 分钟
+        Dictionary<string, string> dic = SumSave.crt_explore.Set();
+        db_pet_vo vo = crt_explore.SetData();
+        if (dic.ContainsKey(vo.petName + " " + vo.startHatchingTime))
+        { 
+            //获取收益列表
+            string value= dic[vo.petName + " " + vo.startHatchingTime];
+            string[] data = value.Split(",");
+            //获取最大时间长度
+            //获取已经完成收益时间
+            int time =(Convert.ToDateTime(data[1]) - Convert.ToDateTime(data[0])).Minutes;
+            if (time >= maxtime)
+            {
+                info.text = "当前探索时间已满";
+            }
+            else info.text = "当前探索时间 " + Show_Color.Red(time) + " 分钟/Max " + Show_Color.Red((SumSave.crt_world.World_Lv * 2 + 5) * 60) + " 分钟";
+            //计算收益
+            string[] Explore_list = vo.pet_explore.Split("&");//获取该地图的奖励列表
+            string[] values = data[2].Split(".");//Regex.Split(data[2], "[].");// 
+            Dictionary<string,int> dic2 = new Dictionary<string, int>();
+            for (int i = 0; i < values.Length; i++)
+            {
+                string[] value2 = values[i].Split(" ");
+                if (value2.Length > 1)
+                { 
+                    if(!dic2.ContainsKey(value2[0]))
+                        dic2.Add(value2[0], 0);
+                    dic2[value2[0]] += int.Parse(value2[1]);
+                }
+            }
+            //maxtime = 10000;
+            time = (int)((SumSave.nowtime - Convert.ToDateTime(data[1])).Minutes);
+            maxtime = Mathf.Min(maxtime, (int)((SumSave.nowtime - Convert.ToDateTime(data[0])).Minutes));
+            for (int i = 0; i < time; i += 6)
+            {
+                //获取收益列表
+                GainRewards(Explore_list, maxtime / 3600 + 3, dic2);
+            }
+            ClearObject(pos_Items);
+            //更新数据
+            string data_2 = "";
+            foreach (string item in dic2.Keys)
+            {
+                Instantiate(material_item_Prefabs, pos_Items).Init((item, dic2[item]));
+                data_2 += (data_2 == "" ? "" : ".") + item + " " + dic2[item];
+            }
+            data[1] = SumSave.nowtime.ToString();
+            data[2] = data_2;// string.Join(".", dic2);
+            //dic[vo.petName + " " + vo.startHatchingTime] = string.Join(",", data);
+            SumSave.crt_explore.SetValues(vo.petName + " " + vo.startHatchingTime, string.Join(",", data));
+            Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_pet_explore,
+        SumSave.crt_explore.Set_Uptade_String(), SumSave.crt_explore.Get_Update_Character());
+        }
+    }
+    /// <summary>
+    /// 获取概率
+    /// </summary>
+    /// <param name="data"></param>
+    /// <param name="index"></param>
+    /// <param name="value"></param>
+    private void GainRewards(string[] data,int index, Dictionary<string, int> value)
+    {
+        index = Mathf.Min(data.Length, index);
+        string random = data[Random.Range(0, index)];
+        string[] odds = random.Split(" ");
+        string[] odds2 = odds[odds.Length - 1].Split("/");
+        if (Random.Range(0, int.Parse(odds2[1])) < int.Parse(odds2[0]))
+        {
+           if(!value.ContainsKey(odds[0]))
+                value.Add(odds[0], 0);
+            value[odds[0]] += int.Parse(odds[1]);
+        }
+    }
     /// <summary>
     /// 按钮具体功能
     /// </summary>
     /// <param name="btn_item"></param>
     private void FunctionButton(btn_item btn_item)
     {
-        switch (btn_item.name)
+        switch (function_btn_list[btn_item.index])
         {
             case "收获":
                 Harvest();
@@ -106,31 +291,91 @@ public class Pet_explore : Panel_Base
             case "返回":
                 break;
             case "探索":
+                Show_Harvest();
                 break;
         }
+    }
+
+    private void Show_Harvest()
+    {
+        explore_map.gameObject.SetActive(true);
+        ///功能按键初始化
+        Init();
     }
     /// <summary>
     /// 收获物品
     /// </summary>
     private void Harvest()
     {
-
-
+        if (crt_explore == null)
+        {
+            Alert_Dec.Show("请选择收货的宠物");
+            return;
+        }
+        Dictionary<string, string> dic = SumSave.crt_explore.Set();
+        db_pet_vo vo = crt_explore.SetData();
+        if (dic.ContainsKey(vo.petName + " " + vo.startHatchingTime))
+        {
+            //获取收益列表
+            string value = dic[vo.petName + " " + vo.startHatchingTime];
+            string[] data = value.Split(",");
+            string[] values = data[2].Split(".");//Regex.Split(data[2], "[].");// 
+            Dictionary<string, int> dic2 = new Dictionary<string, int>();
+            for (int i = 0; i < values.Length; i++)
+            {
+                string[] value2 = values[i].Split(" ");
+                if (value2.Length > 1)
+                {
+                    if (!dic2.ContainsKey(value2[0]))
+                        dic2.Add(value2[0], 0);
+                    dic2[value2[0]] += int.Parse(value2[1]);
+                }
+            }
+            SumSave.crt_explore.DeleteValues(vo.petName + " " + vo.startHatchingTime);
+            SumSave.crt_bag_resources.Get(dic2);
+            Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_pet_explore,
+                SumSave.crt_explore.Set_Uptade_String(), SumSave.crt_explore.Get_Update_Character());
+            //写入数据库
+            Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.material_value, 
+                SumSave.crt_bag_resources.GetData());
+            for (int i = 0; i < SumSave.crt_pet_list.Count; i++)
+            {
+                db_pet_vo vo2 = SumSave.crt_pet_list[i];
+                if (vo2.petName == vo.petName && vo2.startHatchingTime == vo.startHatchingTime)
+                {
+                    string petvalue = vo2.IntegrationData(vo2);//升级之前的数据
+                    vo2.pet_state = "0";
+                    string value1 = vo2.IntegrationData(vo2);//升级之后的数据
+                    for (int j = 0; j < SumSave.crt_pet.crt_pet_list.Count; j++)
+                    {
+                        if (SumSave.crt_pet.crt_pet_list[j] == petvalue)
+                        {
+                            SumSave.crt_pet.crt_pet_list[j] = "";
+                            SumSave.crt_pet.crt_pet_list[j] = value1;
+                        }
+                    }
+                    Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_pet,
+             SumSave.crt_pet.Set_Uptade_String(), SumSave.crt_pet.Get_Update_Character());
+                }
+            }
+            Alert_Icon.Show(dic2);
+            foreach (var index in btn_item_Dic.Keys)
+            {
+                ClearObject(btn_item_Dic[index]);
+            }
+            Base_Show();
+        }
     }
-
-    
-  
-
     /// <summary>
     /// 初始化探索列表
     /// </summary>
     /// <param name="data"></param>
     public void Init()
     {
-       for(int i=0;i< button_map.Length; i++)//随机添加地图名称
+       for(int i=0;i< button_map.Count; i++)//随机添加地图名称
        {
             int r = Random.Range(0, SumSave.db_pet_explore.Count);
-            button_map[i].GetComponentInChildren<Text>().text = SumSave.db_pet_explore[r].petExploreMapName;
+            button_map[i].Show(r, SumSave.db_pet_explore[r].petExploreMapName);
        }
     }
     /// <summary>
@@ -138,7 +383,7 @@ public class Pet_explore : Panel_Base
     /// </summary>
     private void Obtain_Explore(int index)
     {
-        explore = button_map[index].GetComponentInChildren<Text>().text;//获得探索地图的名字
+        explore = SumSave.db_pet_explore[index].petExploreMapName;//获得探索地图的名字
 
         if (IsExploring>=0 && SumSave.db_pet_explore_dic.TryGetValue(explore, out user_pet_explore_vo vo)) //判断次数并且更具名字找到该地图的信息
         {

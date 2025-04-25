@@ -38,6 +38,7 @@ public enum Mysql_Table_Name
     db_plant,//种植信息
     db_pet,//宠物信息
     mo_user_pet_hatching,//用户宠物孵化信息
+    mo_user_pet_explore,//用户宠物探险信息
     mo_user_pet,//用户宠物信息
     db_pet_explore,//宠物探险信息
     mo_user_world,
@@ -53,5 +54,6 @@ public enum Mysql_Table_Name
     db_collect,//收集信息
     mo_user_collect,//用户收集完成信息
     db_signin,//签到信息
-    mo_user_signin
+    mo_user_signin,
+
 }

@@ -41,6 +41,12 @@ public static class ReadDb
         item.Init();
         return item;
     }
+    public static user_explore_vo Read(MySqlDataReader reader, user_explore_vo item)
+    {
+        item.user_value = reader.GetString(reader.GetOrdinal("user_value"));
+        item.Init();
+        return item;
+    }
     public static db_seed_vo Read(MySqlDataReader reader, db_seed_vo item)
     {
         item.type = reader.GetString(reader.GetOrdinal("type"));
@@ -287,8 +293,6 @@ public static class ReadDb
     public static db_pet_vo Read(MySqlDataReader reader, db_pet_vo item)
     {
         item.user_value = reader.GetString(reader.GetOrdinal("user_value"));
-       
-
         item.Init();
         return item;
     }
@@ -320,7 +324,8 @@ public static class ReadDb
         item.crate_value= reader.GetString(reader.GetOrdinal("crate_value"));
         item.up_value= reader.GetString(reader.GetOrdinal("up_value"));
         item.up_base_value= reader.GetString(reader.GetOrdinal("up_base_value"));
-        item.hero_talent= reader.GetString(reader.GetOrdinal("hero_talent"));
+        item.hero_talent = reader.GetString(reader.GetOrdinal("hero_talent"));
+        item.pet_explore = reader.GetString(reader.GetOrdinal("pet_explore"));
         item.GetNumerical();
         return item;
     }

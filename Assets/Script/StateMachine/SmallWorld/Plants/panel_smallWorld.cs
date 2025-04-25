@@ -98,9 +98,6 @@ public class panel_smallWorld : Panel_Base
             //刷新下状态
             Update_State();
         }
-
-
-
     }
     /// <summary>
     /// 刷新状态
@@ -113,23 +110,6 @@ public class panel_smallWorld : Panel_Base
         Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_world, SumSave.crt_world.Set_Uptade_String(), SumSave.crt_world.Get_Update_Character());
     }
 
-    /// <summary>
-    /// 宠物上阵
-    /// </summary>
-
-    private void PetExpeditionGo(db_pet_vo pet)
-    {
-        if(pet_expedition_list.Count<=3)
-        {
-            pet_expedition_list.Add(pet);
-            Alert_Dec.Show(pet.petName + "上阵探索成功");
-        }else
-        {
-            Alert_Dec.Show("上阵探索的宠物数量已满");
-        }
-
-        
-    }
     //点击宠物显示奖励信息
     private void UpSetReward(pet_item pet_item)
     {
@@ -200,7 +180,7 @@ public class panel_smallWorld : Panel_Base
                 break;
             case "探险":
                 _explore.Show();
-                InitExplore();
+                //InitExplore();
                 break;
         }
     }
@@ -272,6 +252,7 @@ public class panel_smallWorld : Panel_Base
         dec += "最大庄园数量 :" + (SumSave.crt_world.World_Lv / 5 +3) + "个\n";
         dec += "最大宠物数量 :" + (SumSave.crt_world.World_Lv / 10 + 1) + "个\n";
         dec += "宠物探险数量 :" + (SumSave.crt_world.World_Lv / 30 + 1) + "个\n";
+        dec += "宠物探险时长 :" + (SumSave.crt_world.World_Lv * 2 + 5) + "小时\n";
         dec += "宠物属性继承 :" + (SumSave.crt_world.World_Lv / 10 + 5) + "%\n";
         dec += "宠物孵化最高品质 :" + (SumSave.crt_world.World_Lv / 10 + 1) + "\n";
         dec += "宠物属性继承 :" + (SumSave.crt_world.World_Lv / 10 + 5) + "%\n";

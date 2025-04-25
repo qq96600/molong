@@ -354,9 +354,10 @@ namespace MVC
             {
                 if(SumSave.crt_pet.crt_pet_list[i]!="")
                 {
-                    db_pet_vo pet = new db_pet_vo();
                     string[] splits = SumSave.crt_pet.crt_pet_list[i].Split(',');
-
+                    db_pet_vo pet = new db_pet_vo();
+                    db_pet_vo base_pet = ArrayHelper.Find(SumSave.db_pet, e => e.petName == splits[0]);
+                    pet.pet_explore = base_pet.pet_explore;
                     if (splits.Length == 7)
                     {
                         pet.petName = splits[0];
@@ -390,21 +391,21 @@ namespace MVC
         /// 宠物孵化数据
         /// </summary>
         private void Read_User_Hatching()
-        {
-            mysqlReader = MysqlDb.Select(Mysql_Table_Name.mo_user_pet_hatching, "uid", GetStr(SumSave.crt_user.uid));
-            SumSave.crt_hatching = new db_pet_vo();
+        {   
+            mysqlReader = MysqlDb.Select(Mysql_Table_Name.mo_user_pet_explore, "uid", GetStr(SumSave.crt_user.uid));
+            SumSave.crt_explore = new user_explore_vo();
             if (mysqlReader.HasRows)
             {
                 while (mysqlReader.Read())
                 {
-                    SumSave.crt_hatching = ReadDb.Read(mysqlReader, new db_pet_vo());
+                    SumSave.crt_explore = ReadDb.Read(mysqlReader, new user_explore_vo());
                 }
             }
             else
             {
-                SumSave.crt_hatching.user_value = "";
-                SumSave.crt_hatching.Init();
-                Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_pet_hatching, SumSave.crt_hatching.Set_Instace_String());
+                SumSave.crt_explore.user_value = "";
+                SumSave.crt_explore.Init();
+                Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_pet_explore, SumSave.crt_explore.Set_Instace_String());
             }
         }
 

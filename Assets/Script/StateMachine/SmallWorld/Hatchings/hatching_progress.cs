@@ -29,24 +29,12 @@ public class hatching_progress : Base_Mono
     /// 当前宠物
     /// </summary>
     private pet_item crt_pet;
-    /// <summary>
-    /// 当前蛋
-    /// </summary>
-    private Bag_Base_VO crt_bag_egg;
     private string[] btn_list = new string[] { "宠物", "宠物蛋" };
-    /// <summary>
-    /// 选择宠物功能
-    /// </summary>
-    private int crt_pet_index = 0;
     private string[] pet_list_btn = new string[] { "孵化", "守护", "丢弃", "喂养", "探险" };
     /// <summary>
     /// 选择分配 0宠物 1蛋
     /// </summary>
     private int index = 0;
-    /// <summary>
-    /// 显示宠物蛋信息
-    /// </summary>
-    private Text pet_egg_info;
     /// <summary>
     /// 宠物蛋
     /// </summary>
@@ -147,7 +135,6 @@ public class hatching_progress : Base_Mono
                 dic.Add(crt_egg.Item1, -crt_egg.Item2);
                 string EggsName = SumSave.db_pet_dic[crt_egg.Item1].petEggsName;//根据宠物找到宠物蛋名字
                 SumSave.crt_bag_resources.Get(dic);
-
                 Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.material_value, SumSave.crt_bag_resources.GetData());
 
                 db_pet_vo pet = ArrayHelper.Find(SumSave.db_pet, e => e.petEggsName == EggsName);
@@ -213,6 +200,9 @@ public class hatching_progress : Base_Mono
                     SumSave.crt_pet.crt_pet_list[i] = value1;
                 }
             }
+            SumSave.crt_explore.SetValues(crt_pet_vo.petName + " " + crt_pet_vo.startHatchingTime, SumSave.nowtime + "," + SumSave.nowtime + ",");
+            Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_pet_explore,
+         SumSave.crt_explore.Set_Uptade_String(), SumSave.crt_explore.Get_Update_Character());
             Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_pet,
      SumSave.crt_pet.Set_Uptade_String(), SumSave.crt_pet.Get_Update_Character());
             Alert_Dec.Show("当前宠物已开始探险");
@@ -417,6 +407,7 @@ public class hatching_progress : Base_Mono
     /// <param name="item"></param>
     private void onClick(btn_item item)
     {
+        Alert_Dec.Show("切换到" + btn_list[item.index]);
         index = item.index;
         Show();
     }
@@ -425,6 +416,7 @@ public class hatching_progress : Base_Mono
     {
         base.Show();
         Base_Show();
+        Show_Btn(false, 0);
     }
 
     /// <summary>
@@ -452,7 +444,6 @@ public class hatching_progress : Base_Mono
                 {
                     if (item == crt_pet) Select_Pet(item);
                 }
-                   
             }
         }
         if (index == 1)
@@ -460,6 +451,7 @@ public class hatching_progress : Base_Mono
             List<(string, int)> list = SumSave.crt_bag_resources.Set();
             for (int i = 0; i < list.Count; i++)
             {
+                if (list[i].Item2 <= 0) continue;
                 Bag_Base_VO bag = ArrayHelper.Find(SumSave.db_stditems, e => e.Name == list[i].Item1);
                 if (bag != null)
                 {
@@ -470,14 +462,12 @@ public class hatching_progress : Base_Mono
                             store_item item = Instantiate(store_item_Prefabs, pos_list);
                             item.PetInit(list[i], "");
                             item.GetComponent<Button>().onClick.AddListener(() => { Select_Egg(lists); });
-                            if (crt_bag_egg == null) Select_Egg(lists);
+                            if (crt_egg.Item2 == 0) Select_Egg(lists);
                             break;
                         default:
                             break;
                     }
                 }
-
-
             }
         }
     }
@@ -603,7 +593,9 @@ public class hatching_progress : Base_Mono
     /// <param name="item"></param>
     private void Select_Pet(pet_item item)
     {
+        if (crt_pet != null) crt_pet.Selected = false;
         crt_pet = item;
+        crt_pet.Selected = true;
         UpProperties(item.SetPet());
         Show_Btn(true, 0);
         db_pet_vo pet = ArrayHelper.Find(SumSave.db_pet, e => e.petName == item.name);

@@ -35,6 +35,13 @@ public class pet_item : Base_Mono
         frame = Find<Image>("frame");
         state = Find<Image>("state");
     }
+    /// <summary>
+    /// 是否被选中
+    /// </summary>
+    public bool Selected
+    {
+        set { GetComponent<Image>().color = value ? Color.yellow : Color.white; }
+    }
 
     public void Init(string db_pet_vo)
     {

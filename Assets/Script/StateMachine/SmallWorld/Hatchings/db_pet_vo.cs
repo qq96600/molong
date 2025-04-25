@@ -78,7 +78,10 @@ public class db_pet_vo : Base_VO
     /// 宠物此时的状态
     /// </summary>
     public string pet_state;
-
+    /// <summary>
+    /// 探索列表
+    /// </summary>
+    public string pet_explore;
 
 
 
@@ -198,6 +201,23 @@ public class db_pet_vo : Base_VO
         {
             GetStr(Set_data()),
         };
+    }
+    /// <summary>
+    /// 转化字符串
+    /// </summary>
+    /// <param name="crt_pet_vo"></param>
+    /// <returns></returns>
+    public string IntegrationData(db_pet_vo crt_pet_vo)
+    {
+        string value = "";
+        value += crt_pet_vo.petName + ",";
+        value += crt_pet_vo.startHatchingTime + ",";
+        value += crt_pet_vo.quality + ",";
+        value += crt_pet_vo.level + ",";
+        value += crt_pet_vo.exp + ",";
+        value += crt_pet_vo.crate_value + "|" + crt_pet_vo.up_value + "|" + crt_pet_vo.up_base_value + ",";
+        value += crt_pet_vo.pet_state;
+        return value;
     }
 
 }

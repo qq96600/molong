@@ -12,7 +12,7 @@ namespace Common
         /// <summary>
         /// 用户ID
         /// </summary>
-        public static string uid = "DSFSDFSDFSDF";
+        public static string uid = "DSFSDFSDFSDF3";
         /// <summary>
         /// 服务器几区
         /// </summary>
@@ -92,6 +92,10 @@ namespace Common
         /// </summary>
         public static db_pet_vo crt_hatching;
         /// <summary>
+        /// 自身探索数据
+        /// </summary>
+        public static user_explore_vo crt_explore;
+        /// <summary>
         /// 自身宠物
         /// </summary>
         public static user_pet_vo crt_pet=new user_pet_vo();
@@ -99,7 +103,6 @@ namespace Common
         /// 自身宠物列表 
         /// </summary>
         public static List<db_pet_vo> crt_pet_list=new List<db_pet_vo>();
-
         /// <summary>
         /// 炼丹数据
         /// </summary>
