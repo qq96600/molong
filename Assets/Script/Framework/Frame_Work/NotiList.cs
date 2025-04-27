@@ -14,6 +14,7 @@ public class NotiList
     public const string Read_World = "读取小世界";
     public const string Read_User_Ranks = "读取排行榜";
     public const string Read_Crate_Uid = "进入游戏";
+    public const string Read_Obtain_Par = "读取服务器列表";
 
 #endregion
 

@@ -35,6 +35,7 @@ namespace Common
         /// 当前玩家总属性
         /// </summary>
         public static crtMaxHeroVO crt_MaxHero;
+      
         /// <summary>
         /// 玩家技能
         /// </summary>
@@ -146,6 +147,10 @@ namespace Common
         /// 配置通行证
         /// </summary>
         public static List<user_pass_vo> db_pass;
+        /// <summary>
+        /// 服务器列表
+        /// </summary>
+        public static List<db_base_par> db_pars = new List<db_base_par>();
         /// <summary>
         /// 签到奖励列表
         /// </summary>

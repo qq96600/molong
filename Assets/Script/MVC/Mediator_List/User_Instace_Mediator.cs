@@ -1,4 +1,4 @@
-﻿
+
 using System.Collections.Generic;
 using TarenaMVC;
 
@@ -34,7 +34,7 @@ namespace MVC
                 NotiList.loglist,
                 NotiList.Read_User_Ranks,
                 NotiList.Read_Crate_Uid,
-
+                NotiList.Read_Obtain_Par,
             };
 
         }
@@ -51,7 +51,7 @@ namespace MVC
                 case NotiList.Read_Crate_Uid:
                     user.Read_Crate_Uid(data as string[]);
                     break;
-
+                    
                 case NotiList.User_Login:
                     user.User_Login();
                     Game_Omphalos.i.activation();
@@ -73,6 +73,9 @@ namespace MVC
                     break;
                 case NotiList.Read_User_Ranks:
                     user.Read_User_Rank();
+                    break;
+                    case NotiList.Read_Obtain_Par:
+                    user.Read_db_par();
                     break;
             }
         }

@@ -100,6 +100,13 @@ public class GameLogin : Singleton<GameLogin>
         Game_Omphalos.i.Crate_Tap(vs);
     }
 
+
+    private void Crate_Par()
+    {
+        Game_Omphalos.i.Crate_Par();
+    }
+
+
     /// <summary>
     /// 防沉迷回调
     /// </summary>
@@ -109,6 +116,7 @@ public class GameLogin : Singleton<GameLogin>
         {
             Debug.Log("玩家未受到限制，正常进入游戏");
             UI_Manager.Instance.GetPanel<panel_login>().ShowStartBtn(true);
+            Crate_Par();
         }
         //else if (code == 1001)
         //{

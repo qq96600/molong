@@ -130,7 +130,9 @@ public class panel_map : Panel_Base
         base.Show();
         base_show_info.gameObject.SetActive(false);
     }
-
+    /// <summary>
+    /// 打开地图
+    /// </summary>
     private void Open_Map()
     { 
         if(crt_map==null)

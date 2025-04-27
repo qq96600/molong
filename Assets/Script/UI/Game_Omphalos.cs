@@ -100,10 +100,21 @@ namespace MVC
 
             /// <summary>
         }
-
+        /// <summary>
+        /// 写入角色Tapid
+        /// </summary>
+        /// <param name="vs"></param>
         internal void Crate_Tap(string[] vs)
         {
             SendNotification(NotiList.Read_Crate_Uid, vs);
+        }
+
+        /// <summary>
+        /// 读取服务器列表
+        /// </summary>
+        internal void Crate_Par()
+        {
+            SendNotification(NotiList.Read_Obtain_Par);
         }
 
         /// <summary>

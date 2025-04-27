@@ -32,6 +32,14 @@ public static class ReadDb
         item.value = reader.GetString(reader.GetOrdinal("value"));
         return item;
     }
+    public static db_base_par Read(MySqlDataReader reader, db_base_par item)
+    {
+        item.index= reader.GetInt32(reader.GetOrdinal("par"));
+        item.opentime = Convert.ToDateTime(reader.GetString(reader.GetOrdinal("time")));
+        item.openstate= reader.GetInt32(reader.GetOrdinal("openstate"));
+        return item;
+    }
+
 
     public static user_signin_vo Read(MySqlDataReader reader, user_signin_vo item)
     {

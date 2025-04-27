@@ -176,6 +176,30 @@ namespace MVC
             
             refresh_Max_Hero_Attribute();
         }
+
+
+
+        /// <summary>
+        /// 读取服务器
+        /// </summary>
+        public void Read_db_par()
+        {
+            OpenMySqlDB();
+            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_par);
+
+            SumSave.db_pars = new List<db_base_par>();
+
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.db_pars.Add(ReadDb.Read(mysqlReader, new db_base_par()));
+
+                }
+            }
+            CloseMySqlDB();
+        }
+
         /// <summary>
         /// 读取签到
         /// </summary>

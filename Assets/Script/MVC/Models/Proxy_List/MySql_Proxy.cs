@@ -1,6 +1,7 @@
 using Common;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace MVC
 {
@@ -41,9 +42,17 @@ namespace MVC
             Read_Db_Seed();
             Read_Db_Collect();
             Read_db_signin();
+            
             CloseMySqlDB();
 
         }
+
+        
+
+
+        /// <summary>
+        /// 读取签到信息
+        /// </summary>
         private void Read_db_signin()
         {
             mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_signin);
@@ -384,7 +393,9 @@ namespace MVC
             {
                 while (mysqlReader.Read())
                 {
+                   
                     SumSave.db_maps.Add(ReadDb.Read(mysqlReader, new user_map_vo()));
+                    
                 }
             }
 
