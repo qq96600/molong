@@ -50,11 +50,6 @@ namespace MVC
             }
             return transform.Find(name).GetComponent<T>();
         }
-
-        protected bool Batch_Resources(Dictionary<string, int> resources,string dec)
-        {
-            return true;
-        }
         /// <summary>
         /// 将时间转换为 HH:MM:SS
         /// </summary>

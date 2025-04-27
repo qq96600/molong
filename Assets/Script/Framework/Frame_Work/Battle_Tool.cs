@@ -7,6 +7,8 @@ using System;
 using System.Security.Cryptography;
 using Random = UnityEngine.Random;
 using Components;
+using UnityEditor;
+using System.IO;
 /// <summary>
 /// 战斗工具类
 /// </summary>
@@ -30,6 +32,33 @@ public static class Battle_Tool
         Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.material_value, SumSave.crt_bag_resources.GetData());
     }
 
+    private static Dictionary<string, GameObject> prefabs = new Dictionary<string, GameObject>();
+
+    /// <summary>
+    /// 查找预制体
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="prefabName"></param>
+    /// <returns></returns>
+    public static T Find_Prefabs<T>(string prefabName)
+    {
+        if (!prefabs.ContainsKey(prefabName))
+        {
+            string[] guids = AssetDatabase.FindAssets("t:Prefab");
+            foreach (string guid in guids)
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guid);
+                if (Path.GetFileNameWithoutExtension(path) == prefabName)
+                {
+                    prefabs.Add(prefabName, AssetDatabase.LoadAssetAtPath<GameObject>(path));
+                    return prefabs[prefabName].GetComponent<T>();
+                }
+            }
+            return default(T);
+        }
+        return prefabs[prefabName].GetComponent<T>();
+    }
+    
     /// <summary>
     /// 加成属性
     /// </summary>

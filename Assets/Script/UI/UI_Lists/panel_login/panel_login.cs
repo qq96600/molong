@@ -35,6 +35,29 @@ namespace MVC
             fightPanel = UI_Manager.I.GetPanel<panel_fight>();
             TaploginBt=Find<Button>("Taplogin");
             TaploginBt.onClick.AddListener(TapLogin);
+
+#if UNITY_EDITOR
+            TaploginBt.gameObject.SetActive(false);
+            loginBt.gameObject.SetActive(true);
+#elif UNITY_ANDROID
+
+            TaploginBt.gameObject.SetActive(true);//true
+            loginBt.gameObject.SetActive(false);
+           
+#elif UNITY_IPHONE
+            LoginBtn.gameObject.SetActive(false);
+            crt_haoyouLoginBtn.gameObject.SetActive(false);
+            Ok.gameObject.SetActive(true);
+
+            if (!PlayerPrefs.HasKey(BaseUserID))
+            {
+                string dec=System.Guid.NewGuid().ToString("N");
+
+                PlayerPrefs.SetString(BaseUserID,dec);
+
+                baseUserIdShow.text=dec;
+            }
+#endif
             #region 用户协议
             AgreementButter = GameObject.Find("AgreementButter");
             if (AgreementButter == null)
