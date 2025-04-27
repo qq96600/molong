@@ -48,6 +48,36 @@ namespace MVC
             Read_Instace();
             CloseMySqlDB();
         }
+
+        internal void Read_Crate_Uid(string[] id)
+        {
+            Tap_Login(id);
+        }
+        /// <summary>
+        /// 读取TapId
+        /// </summary>
+        /// 
+        private void Tap_Login(string[] id)
+        {
+            OpenMySqlDB();
+            mysqlReader = MysqlDb.SelectWhere(Mysql_Table_Name.mo_user_tap, new string[] { "par", "Tapid" }, new string[] { "=", "=" }, new string[] { SumSave.par.ToString(), id[0] });
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.uid = mysqlReader.GetString(mysqlReader.GetOrdinal("uid"));
+                }
+            }
+            else
+            {
+                SumSave.uid = Guid.NewGuid().ToString("N");
+                ///新用户
+                MysqlDb.InsertInto(Mysql_Table_Name.mo_user_tap, new string[] { GetStr(0), GetStr(SumSave.par), GetStr(id[0]), GetStr(id[1]), GetStr(SumSave.uid) });
+
+            }
+            CloseMySqlDB();
+        }
+
         //初始化文件
         private void Init()
         {

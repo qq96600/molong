@@ -32,8 +32,8 @@ namespace MVC
                 NotiList.Refresh_Max_Hero_Attribute,
                 NotiList.Delete,
                 NotiList.loglist,
-                NotiList.Read_User_Ranks
-
+                NotiList.Read_User_Ranks,
+                NotiList.Read_Crate_Uid,
 
             };
 
@@ -48,7 +48,11 @@ namespace MVC
         {
             switch (name)
             {
-                    case NotiList.User_Login:
+                case NotiList.Read_Crate_Uid:
+                    user.Read_Crate_Uid(data as string[]);
+                    break;
+
+                case NotiList.User_Login:
                     user.User_Login();
                     Game_Omphalos.i.activation();
                     break;

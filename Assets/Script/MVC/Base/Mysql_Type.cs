@@ -55,5 +55,5 @@ public enum Mysql_Table_Name
     mo_user_collect,//用户收集完成信息
     db_signin,//签到信息
     mo_user_signin,
-
+    mo_user_tap,//tap登录
 }

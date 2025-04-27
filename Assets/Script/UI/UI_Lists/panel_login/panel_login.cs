@@ -1,6 +1,7 @@
 
 using Common;
 using Components;
+using System;
 using UI;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,6 +21,7 @@ namespace MVC
         private  Toggle Toggle;//协议确定开关
 
         private panel_fight fightPanel;
+        private  Button TaploginBt;
         private void Start()
         {
             SendNotification(NotiList.Read_Instace);
@@ -29,7 +31,10 @@ namespace MVC
             base.Initialize();
             loginBt = Find<Button>("login");
             loginBt.onClick.AddListener(OnLoginClick);
+            loginBt.gameObject.SetActive(false);
             fightPanel = UI_Manager.I.GetPanel<panel_fight>();
+            TaploginBt=Find<Button>("Taplogin");
+            TaploginBt.onClick.AddListener(TapLogin);
             #region 用户协议
             AgreementButter = GameObject.Find("AgreementButter");
             if (AgreementButter == null)
@@ -56,6 +61,21 @@ namespace MVC
             #endregion
 
         }
+        //tap登录完成之后打开开关
+        internal void ShowStartBtn(bool v)
+        {
+            TaploginBt.gameObject.SetActive(!v);
+            loginBt.gameObject.SetActive(v);
+        }
+
+        /// <summary>
+        /// Tap登录
+        /// </summary>
+        private void TapLogin()
+        {
+            _ = GameLogin.Instance.Login();
+        }
+
         private void OpenUser()//打开用户协议
         {
             if (IsAgreementWdNull())

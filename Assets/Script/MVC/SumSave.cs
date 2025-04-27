@@ -13,6 +13,7 @@ namespace Common
         /// 用户ID
         /// </summary>
         public static string uid = "DSFSDFSDFSDF3";
+        public static string Tapid ;
         /// <summary>
         /// 服务器几区
         /// </summary>

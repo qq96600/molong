@@ -1,5 +1,6 @@
 using Common;
 using Components;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -99,6 +100,12 @@ namespace MVC
 
             /// <summary>
         }
+
+        internal void Crate_Tap(string[] vs)
+        {
+            SendNotification(NotiList.Read_Crate_Uid, vs);
+        }
+
         /// <summary>
         /// 执行写入队列
         /// </summary>

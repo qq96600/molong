@@ -230,19 +230,11 @@ public class MysqlDbAccess
         return ExecuteQuery(query);
     }
     /// <summary>
-    /// 按条件查询数据 param tableName=表名 items=查询字段 col=查找字段 operation=运算符 values=内容
+    /// 按条件查询数据 param tableName=表名 col=查找字段 operation=运算符 values=内容
     /// </summary>
-    public MySqlDataReader SelectWhere(string tableName, string[] items, string[] col, string[] operation, string[] values)
+    public MySqlDataReader SelectWhere(Mysql_Table_Name tableName, string[] col, string[] operation, string[] values)
     {
-        //if (col.Length != operation.Length || operation.Length != values.Length) {	
-        //	throw new mysqlException ("col.Length != operation.Length != values.Length");	
-        //}
-        string query = "SELECT " + items[0];
-        for (int i = 1; i < items.Length; ++i)
-        {
-            query += ", " + items[i];
-        }
-        query += " FROM " + tableName + " WHERE " + col[0] + operation[0] + "'" + values[0] + "' ";
+        string query = " SELECT * FROM " + tableName + " WHERE " + col[0] + operation[0] + "'" + values[0] + "' ";
         for (int i = 1; i < col.Length; ++i)
         {
             query += " AND " + col[i] + operation[i] + "'" + values[i] + "' ";
