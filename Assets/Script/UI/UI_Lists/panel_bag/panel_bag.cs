@@ -63,9 +63,11 @@ public class panel_bag : Panel_Base
         base.Initialize();
         crt_btn = Find<Transform>("bg_main/show_bag/btns");
         crt_bag = Find<Transform>("bg_main/show_bag/Scroll View/Viewport/Content");
-        btn_item_Prefabs = Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
-        bag_item_Prefabs = Resources.Load<bag_item>("Prefabs/panel_bag/bag_item");
-        material_item_Prefabs= Resources.Load<material_item>("Prefabs/panel_bag/material_item"); 
+        //btn_item_Prefabs = Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
+        btn_item_Prefabs = Battle_Tool.Find_Prefabs<btn_item>("btn_item");
+        bag_item_Prefabs = Battle_Tool.Find_Prefabs<bag_item>("bag_item");
+        material_item_Prefabs = Battle_Tool.Find_Prefabs<material_item>("material_item");
+        //material_item_Prefabs= Resources.Load<material_item>("Prefabs/panel_bag/material_item"); 
         panel_equip = UI_Manager.I.GetPanel<panel_equip>();
 
         int hero_index = int.Parse(SumSave.crt_hero.hero_index);

@@ -38,8 +38,6 @@ public class panel_Mian : Panel_Base
             }
             offect_list.gameObject.SetActive(false);
         }
-        else
-            base.Hide();
     }
 
     public override void Initialize()
@@ -50,28 +48,29 @@ public class panel_Mian : Panel_Base
         pos_otain = Find<Transform>("bg_main/panel_list/otainlist/Scroll View/Viewport/Content");
         btn_item_Prefabs = Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
         offect_list = Find<Image>("bg_main/offect_list");
-        ClearObject(pos_hero);
-        ClearObject(pos_map);
-        ClearObject(pos_otain);
-        for (int i = 0; i < SumSave.db_halls.herolist_btn.Count; i++)
-        {
-            btn_item item = Instantiate(btn_item_Prefabs, pos_hero);
+        //ClearObject(pos_hero);
+        //ClearObject(pos_map);
+        //ClearObject(pos_otain);
 
-            item.Show(i, SumSave.db_halls.herolist_btn[i]);
-            item.GetComponent<Button>().onClick.AddListener(() => { OnClickHeroItem(item); });
-        }
-        for (int i = 0; i < SumSave.db_halls.maplist_btn.Count; i++)
-        {
-            btn_item item = Instantiate(btn_item_Prefabs, pos_map);
-            item.Show(i, SumSave.db_halls.maplist_btn[i]);
-            item.GetComponent<Button>().onClick.AddListener(() => { OnClickMapItem(item); });
-        }
-        for (int i = 0; i < SumSave.db_halls.otainlist_btn.Count; i++)
-        {
-            btn_item item = Instantiate(btn_item_Prefabs, pos_otain);
-            item.Show(i, SumSave.db_halls.otainlist_btn[i]);
-            item.GetComponent<Button>().onClick.AddListener(() => { OnClickOtainItem(item); });
-        }
+        //for (int i = 0; i < SumSave.db_halls.herolist_btn.Count; i++)
+        //{
+        //    btn_item item = Instantiate(btn_item_Prefabs, pos_hero);
+
+        //    item.Show(i, SumSave.db_halls.herolist_btn[i]);
+        //    item.GetComponent<Button>().onClick.AddListener(() => { OnClickHeroItem(item); });
+        //}
+        //for (int i = 0; i < SumSave.db_halls.maplist_btn.Count; i++)
+        //{
+        //    btn_item item = Instantiate(btn_item_Prefabs, pos_map);
+        //    item.Show(i, SumSave.db_halls.maplist_btn[i]);
+        //    item.GetComponent<Button>().onClick.AddListener(() => { OnClickMapItem(item); });
+        //}
+        //for (int i = 0; i < SumSave.db_halls.otainlist_btn.Count; i++)
+        //{
+        //    btn_item item = Instantiate(btn_item_Prefabs, pos_otain);
+        //    item.Show(i, SumSave.db_halls.otainlist_btn[i]);
+        //    item.GetComponent<Button>().onClick.AddListener(() => { OnClickOtainItem(item); });
+        //}
     }
     /// <summary>
     /// 打开资源提升开关
@@ -97,6 +96,12 @@ public class panel_Mian : Panel_Base
     {
         Show_GameObject(SumSave.db_halls.heropanel[item.index], true);
     }
+
+    protected void OnClickMap(string map)
+    {
+        Show_GameObject(map, true);
+    }
+
     /// <summary>
     /// 打开开关
     /// </summary>

@@ -60,9 +60,9 @@ namespace MVC
             TheServerObg= Find<Transform>("TheServer");
             TheServerObg.gameObject.SetActive(false);
             TheServerList=Find<Transform>("TheServer/TheServerList/Viewport/Content");
-            TheServerText=Find<Text>("TheServer/CurrentTheServer/TheServerText");
+            TheServerText=Find<Text>("TheServer/CurrentTheServer/TheServerText/Text");
             TheServerUP=Find<Button>("TheServer/CurrentTheServer/TheServerUP");
-            btn_Item= Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
+            btn_Item= Resources.Load<btn_item>("Prefabs/base_tool/btn_item"); 
             TheServerUP.onClick.AddListener(OnLoginClick);
 
             loginBt = Find<Button>("login");
@@ -72,7 +72,28 @@ namespace MVC
             TaploginBt=Find<Button>("Taplogin");
             TaploginBt.onClick.AddListener(TapLogin);
 
+#if UNITY_EDITOR
+            //TaploginBt.gameObject.SetActive(false);
+            //loginBt.gameObject.SetActive(true);
+#elif UNITY_ANDROID
 
+            TaploginBt.gameObject.SetActive(true);//true
+            loginBt.gameObject.SetActive(false);
+           
+#elif UNITY_IPHONE
+            LoginBtn.gameObject.SetActive(false);
+            crt_haoyouLoginBtn.gameObject.SetActive(false);
+            Ok.gameObject.SetActive(true);
+
+            if (!PlayerPrefs.HasKey(BaseUserID))
+            {
+                string dec=System.Guid.NewGuid().ToString("N");
+
+                PlayerPrefs.SetString(BaseUserID,dec);
+
+                baseUserIdShow.text=dec;
+            }
+#endif
 
             #region 用户协议
             AgreementButter = GameObject.Find("AgreementButter");
@@ -125,7 +146,8 @@ namespace MVC
         private void SelectPar(btn_item item)
         {
             Alert_Dec.Show("选择了"+ (item.index).ToString() + "区");
-            select_par =item;
+            select_par = new btn_item();
+            select_par = item;
             TheServerText.text ="选中"+(item.index).ToString()+"区";
         }
 
