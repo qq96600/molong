@@ -137,6 +137,7 @@ public class panel_map : Panel_Base
             return;
         //打开地图
         Debug.Log("打开地图");
+        fight_panel.Show();
         fight_panel.Open_Map(maplists[crt_map]);
         Hide();
     }

@@ -63,7 +63,7 @@ namespace MVC
         /// <summary>
         public string suit_dec;
         /// <summary>
-        /// 判断值 1 名称 2 强化等级 3品质 4附加值 5套装
+        /// 判断值 1 名称 2 强化等级 3品质 4附加值 5套装6锁定
         /// </summary>
         //public string user_value;
         

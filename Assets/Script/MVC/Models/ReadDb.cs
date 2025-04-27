@@ -373,7 +373,7 @@ public static class ReadDb
     public static user_base_setting_vo Read(MySqlDataReader reader, user_base_setting_vo item)
     {
         item.user_value = reader.GetString(reader.GetOrdinal("setting_value"));
-        item.user_setting = item.Data_Decrypt(item.user_value);
+        item.Init();
         return item;
     }
 

@@ -61,19 +61,6 @@ public class panel_fight : Panel_Base
     /// 列表位置
     /// </summary>
     private Transform pos_btn;
-
-    /// <summary>
-    /// 角色皮肤
-    /// </summary>
-    private enum_skin_state skin_state;
-    /// <summary>
-    /// 角色皮肤预制体
-    /// </summary>
-   private GameObject skin_prefabs;
-    /// <summary>
-    /// 角色头像
-    /// </summary>
-    private Transform panel_role_health;
     protected override void Awake()
     {
         base.Awake();
@@ -93,19 +80,14 @@ public class panel_fight : Panel_Base
         close_btn = Find<Button>("btn_list/close_btn");
         close_btn.onClick.AddListener(() => { Close(); });
         pos_btn = Find<Transform>("btn_list");
-
-        int hero_index = int.Parse(SumSave.crt_hero.hero_index);
-        skin_state = (enum_skin_state)hero_index;
-        skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/内观_" + skin_state.ToString());
-        panel_role_health = Find<Transform>("panel_role_health/profile_picture");
-
-        Instantiate(skin_prefabs, panel_role_health);
     }
     /// <summary>
     /// 关闭列表
     /// </summary>
     private void Close()
     {
+        transform.SetAsFirstSibling();
+        return;
         close_panel_state=!close_panel_state;
         for (int i = 1; i < pos_btn.childCount; i++)
         { 
@@ -173,11 +155,14 @@ public class panel_fight : Panel_Base
 
     public void Refresh_Max_Hero_Attribute()
     {
-        crate_Skill();
-        foreach (var item in SumSave.battleHeroHealths)
+        if (gameObject.activeInHierarchy)
         {
-            item.GetComponent<BattleAttack>().Refresh(SumSave.crt_MaxHero);
-            item.GetComponent<BattleAttack>().Refresh_Skill(battle_skills);
+            crate_Skill();
+            foreach (var item in SumSave.battleHeroHealths)
+            {
+                item.GetComponent<BattleAttack>().Refresh(SumSave.crt_MaxHero);
+                item.GetComponent<BattleAttack>().Refresh_Skill(battle_skills);
+            }
         }
     }
     private void crate_Skill()

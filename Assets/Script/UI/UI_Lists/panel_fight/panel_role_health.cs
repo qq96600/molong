@@ -18,6 +18,18 @@ public class panel_role_health : Base_Mono
     private Button btn_back;
 
     private BattleHealth health;
+    /// <summary>
+    /// 角色皮肤
+    /// </summary>
+    private enum_skin_state skin_state;
+    /// <summary>
+    /// 角色皮肤预制体
+    /// </summary>
+    private GameObject skin_prefabs;
+    /// <summary>
+    /// 角色头像
+    /// </summary>
+    private Transform pos_health;
     private void Awake()
     {
         role_Hp = Find<Slider>("panel_Hp");
@@ -32,6 +44,8 @@ public class panel_role_health : Base_Mono
         });
         show_moeny = Find<Text>("show_unit/moeny/info");
         show_point = Find<Text>("show_unit/Point/info");
+        pos_health = Find<Transform>("profile_picture");
+        Instance_Skin();
     }
     public void SetHealth(BattleHealth _health)
     {
@@ -43,11 +57,28 @@ public class panel_role_health : Base_Mono
         show_name.text = SumSave.crt_MaxHero.show_name;
         role_exp.maxValue=SumSave.db_lvs.hero_lv_list[SumSave.crt_MaxHero.Lv];
     }
-    
+    /// <summary>
+    /// 初始化角色皮肤
+    /// </summary>
+    private void Instance_Skin()
+    {
+        for (int i = pos_health.childCount - 1; i >= 0; i--)//清空区域内按钮
+        {
+            Destroy(pos_health.GetChild(i).gameObject);
+        }
+        int hero_index = int.Parse(SumSave.crt_hero.hero_index);
+        skin_state = (enum_skin_state)hero_index;
+        skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/内观_" + skin_state.ToString());
+        Instantiate(skin_prefabs, pos_health);
+    }
     private void Update()
     {
         if (health != null)
         {
+            if (int.Parse(SumSave.crt_hero.hero_index) != (int)skin_state)
+            {
+                Instance_Skin();
+            }
             show_name.text = SumSave.crt_MaxHero.show_name + " Lv." + SumSave.crt_MaxHero.Lv +
                "(" + SumSave.crt_MaxHero.Exp * 100 / SumSave.db_lvs.hero_lv_list[SumSave.crt_MaxHero.Lv] + "%)";
             role_exp.value = SumSave.crt_MaxHero.Exp;
