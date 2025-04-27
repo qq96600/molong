@@ -545,7 +545,7 @@ namespace MVC
             else
             {
                 SumSave.crt_setting.user_value = "0 0 0 0 0 0 0 0 0";
-                SumSave.crt_setting.user_setting = SumSave.crt_setting.Data_Decrypt(SumSave.crt_setting.user_value);
+                SumSave.crt_setting.Init();
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_setting, SumSave.crt_setting.Set_Instace_String());
             }
         }
@@ -571,7 +571,6 @@ namespace MVC
         /// <param name="data"></param>
         public void Refresh_User_Setting(user_base_setting_vo data)
         {
-            data.user_value = data.data_combination(data.user_setting);
             Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_setting, data.Set_Uptade_String(), data.Get_Update_Character());
         }
         /// <summary>

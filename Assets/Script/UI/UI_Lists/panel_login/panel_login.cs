@@ -127,9 +127,10 @@ namespace MVC
             //Debug.Log("已阅读并勾选同意协议");
             PlayerPrefs.SetInt("同意阅读协议", 1);
             Hide();
-            fightPanel.Show();
-            //计算离线收益
-            fightPanel.offline();
+            UI_Manager.I.GetPanel<panel_Mian>().Show();
+            //fightPanel.Show();
+            ////计算离线收益
+            //fightPanel.offline();
         }
 
         public override void Show()

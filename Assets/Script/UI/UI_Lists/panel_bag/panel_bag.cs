@@ -26,7 +26,7 @@ public class panel_bag : Panel_Base
     /// <summary>
     /// 按钮位置
     /// </summary>
-    private Transform crt_btn, crt_bag;
+    private Transform crt_btn, crt_bag, pos_function;
 
     private panel_equip panel_equip;
 
@@ -45,6 +45,14 @@ public class panel_bag : Panel_Base
     private Transform panel_role_health;
 
     private bag_btn_list crt_select_btn = bag_btn_list.装备;
+    /// <summary>
+    /// 功能列表
+    /// </summary>
+    private string[] function_list =new string[] { "一键分解","一键出售"};
+    /// <summary>
+    /// 显示页面
+    /// </summary>
+    private Text page_info;
     protected override void Awake()
     {
         base.Awake();
@@ -72,7 +80,74 @@ public class panel_bag : Panel_Base
             btn_item.Show(i, (bag_btn_list)i);
             btn_item.GetComponent<Button>().onClick.AddListener(delegate { Select_Btn(btn_item); });
         }
+
+        pos_function=Find<Transform>("bg_main/show_bag/function_list");
+        page_info= Find<Text>("bg_main/show_bag/function_list/page_info");
+        for (int i = 0; i < function_list.Length; i++)
+        { 
+            btn_item btn_item = Instantiate(btn_item_Prefabs, pos_function);//实例化背包装备
+            btn_item.Show(i, function_list[i]);
+            btn_item.GetComponent<Button>().onClick.AddListener(delegate { Select_functionBtn(btn_item); });
+        }
     }
+    /// <summary>
+    /// 一键回收分解
+    /// </summary>
+    /// <param name="btn_item"></param>
+    private void Select_functionBtn(btn_item btn_item)
+    {
+
+        switch (function_list[btn_item.index])
+        { 
+            case "一键分解":
+                Alert_Dec.Show("未查询到满足分解条件的物品");
+                break;
+            case "一键出售":
+                SellAll();
+                break;
+        }
+    }
+    /// <summary>
+    /// 全部出售
+    /// </summary>
+    private void SellAll()
+    {
+        int moeny= 0;
+        List<Bag_Base_VO> sell_list = new List<Bag_Base_VO>();
+        foreach (Bag_Base_VO item in SumSave.crt_bag)
+        {
+            if (item.user_value != null)
+            {
+                string[] info_str = item.user_value.Split(' ');
+                if (info_str.Length >= 6)
+                {
+                    if (info_str[6] == "0")
+                    {
+                        sell_list.Add(item);
+                        moeny += item.price;
+                    }
+                }
+                else
+                {
+                    sell_list.Add(item);
+                    moeny += item.price;
+                }
+            }
+        }
+        if (sell_list.Count > 0)
+        {
+            foreach (Bag_Base_VO item in sell_list)
+            { 
+                SumSave.crt_bag.Remove(item);
+            }
+        }
+        Alert_Dec.Show("出售成功，获得灵珠 " + moeny);
+        Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.bag_value, SumSave.crt_bag);
+        Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user, SumSave.crt_user_unit.Set_Uptade_String(), SumSave.crt_user_unit.Get_Update_Character());
+        SumSave.crt_user_unit.verify_data(currency_unit.灵珠, moeny);
+        Show_Bag();
+    }
+
     /// <summary>
     /// 选中功能
     /// </summary>
@@ -154,6 +229,7 @@ public class panel_bag : Panel_Base
                     item.Data = SumSave.crt_bag[i];
                     item.GetComponent<Button>().onClick.AddListener(delegate { Select_Bag(item); });
                 }
+                page_info.text= SumSave.crt_bag.Count+"/"+ SumSave.crt_resources.pages[0];
                 break;
             case bag_btn_list.材料:
                 List<(string, int)> lists = SumSave.crt_bag_resources.Set();
@@ -166,8 +242,9 @@ public class panel_bag : Panel_Base
                         item.Init(data);
                         item.GetComponent<Button>().onClick.AddListener(delegate { Select_Material(item); });
                     }
-                    
                 }
+                page_info.text = lists.Count + "/" + SumSave.crt_resources.pages[0];
+
                 break;   
                case bag_btn_list.丹囊:
                 List<(string, List<string>)> list = SumSave.crt_seeds.Getformulalist();
@@ -177,6 +254,8 @@ public class panel_bag : Panel_Base
                     item.Init(list[i]);
                     item.GetComponent<Button>().onClick.AddListener(delegate { Select_Getformula_Material(item); });
                 }
+                page_info.text = list.Count + "/" + SumSave.crt_resources.pages[1];
+
                 break;
             case bag_btn_list.消耗品:
                 List<(string, List<string>)> Seedlist = SumSave.crt_seeds.GetSeedList();
@@ -186,6 +265,7 @@ public class panel_bag : Panel_Base
                     item.Init(Seedlist[i]);
                     item.GetComponent<Button>().onClick.AddListener(delegate { Select_SeedMaterial(item); });
                 }
+                page_info.text = Seedlist.Count + "/" + SumSave.crt_resources.pages[1];
                 break;
             default:
                 break;

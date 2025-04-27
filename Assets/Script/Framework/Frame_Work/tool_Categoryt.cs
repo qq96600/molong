@@ -343,6 +343,8 @@ public class tool_Categoryt : MonoBehaviour
                 user_value += " " + type + " " + value;
             }
         }
+        //是否可以锁定
+        user_value += " " + 0;
         bag.user_value = user_value;
         return bag;
     }

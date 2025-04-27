@@ -26,6 +26,7 @@ namespace MVC
         /// </summary>
         public virtual void Show()
         {
+            transform.SetAsLastSibling();
             this.gameObject.SetActive(true);
         }
 

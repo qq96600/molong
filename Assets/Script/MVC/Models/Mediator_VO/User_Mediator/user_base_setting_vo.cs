@@ -1,17 +1,33 @@
 using Common;
 using MVC;
+using System.Collections.Generic;
 
 public class user_base_setting_vo : Base_VO
 {
     /// <summary>
-    /// 读取用户设置数据
+    /// 0回收等级 1回收品质 
     /// </summary>
-    public string user_value;
-    /// <summary>
-    /// 转译设置
-    /// </summary>
-    public int[] user_setting;
+    public List<int> user_setting;
 
+    public void Init()
+    {
+        user_setting = new List<int>();
+        string[] str = user_value.Split(' ');
+        for (int i = 0; i < str.Length; i++)
+        {
+            if (!string.IsNullOrEmpty(str[i]))
+                user_setting.Add(int.Parse(str[i]));
+        }
+    }
+    private string Setdata()
+    {
+        string value="";
+        for (int i = 0; i < user_setting.Count; i++)
+        {
+            value+= (value == ""?"":" ")+ user_setting[i].ToString();
+        }
+        return value;
+    }
    
     public override string[] Set_Instace_String()
     {
@@ -40,7 +56,7 @@ public class user_base_setting_vo : Base_VO
     public override string[] Set_Uptade_String()
     {
         return new string[] {
-            GetStr(user_value)
+            GetStr(Setdata())
         };
     }
 }
