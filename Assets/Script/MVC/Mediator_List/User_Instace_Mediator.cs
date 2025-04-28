@@ -34,6 +34,8 @@ namespace MVC
                 NotiList.loglist,
                 NotiList.Read_User_Ranks,
                 NotiList.Read_Crate_Uid,
+                NotiList.Read_Message_Window,
+                NotiList.Read_Huser_MessageWindow,
             };
 
         }
@@ -72,6 +74,12 @@ namespace MVC
                     break;
                 case NotiList.Read_User_Ranks:
                     user.Read_User_Rank();
+                    break;
+                case NotiList.Read_Message_Window:
+                    user.Read_user_messageWindow();
+                    break;
+                case NotiList.Read_Huser_MessageWindow:
+                    user.Refres_huser_messageWindow(data.ToString());
                     break;
             }
         }

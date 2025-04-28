@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UI;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class panel_Mian : Panel_Base
 {
@@ -28,6 +29,24 @@ public class panel_Mian : Panel_Base
     /// offect打开类型
     /// </summary>
     private int index = -1;
+
+
+    /// <summary>
+    /// 消息飘窗显示文本
+    /// </summary>
+    private Text BayWindowText;
+    /// <summary>
+    /// 消息飘窗编号
+    /// </summary>
+    private int BayWindow_index = 0;
+    /// <summary>
+    /// 刷新飘窗按钮
+    /// </summary>
+    private Button BayWindow_btn;
+    /// <summary>
+    /// 滚动视图窗口
+    /// </summary>
+    private ScrollRect scrollRect;
     public override void Hide()
     {
         if (offect_list.gameObject.activeInHierarchy)
@@ -43,11 +62,18 @@ public class panel_Mian : Panel_Base
     public override void Initialize()
     {
         base.Initialize();
+        scrollRect = Find<ScrollRect>("BayWindow/BayWindoText");
         pos_hero = Find<Transform>("bg_main/panel_list/herolist/Scroll View/Viewport/Content");//
         pos_map = Find<Transform>("bg_main/panel_list/maplist/Scroll View/Viewport/Content");
         pos_otain = Find<Transform>("bg_main/panel_list/otainlist/Scroll View/Viewport/Content");
         btn_item_Prefabs = Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
         offect_list = Find<Image>("bg_main/offect_list");
+        BayWindowText = Find<Text>("BayWindow/BayWindoText/Viewport/came/Text");
+        BayWindow_btn = Find<Button>("BayWindow/Button");
+        BayWindow_btn.onClick.AddListener(Read_prizedraw_info);
+
+        Obtain_PrizeDraw_info();
+        StartCoroutine(AutoScroll());
         //ClearObject(pos_hero);
         //ClearObject(pos_map);
         //ClearObject(pos_otain);
@@ -72,6 +98,68 @@ public class panel_Mian : Panel_Base
         //    item.GetComponent<Button>().onClick.AddListener(() => { OnClickOtainItem(item); });
         //}
     }
+    /// <summary>
+    /// 文本自动滚动
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator AutoScroll()
+    {
+        while (true)
+        {
+
+            // 横向垂直滚动
+            scrollRect.horizontalNormalizedPosition -= 0.001f;
+            yield return new WaitForSeconds(0.005f);
+
+            // 如果滚动到底部，重置位置
+            if (scrollRect.horizontalNormalizedPosition <= 0)
+            {
+                scrollRect.horizontalNormalizedPosition = 1;
+                Obtain_PrizeDraw_info();
+            }
+        }
+    }
+
+    /// <summary>
+    /// 调用抽取列表
+    /// </summary>
+    private void Obtain_PrizeDraw_info()
+    {
+        SendNotification(NotiList.Read_Message_Window);
+        if (SumSave.crt_message_window.Count > 0)
+        {
+            BayWindowText.text = SumSave.crt_message_window[Random.Range(0, SumSave.crt_message_window.Count)].Item3;
+        }
+    }
+
+    /// <summary>
+    /// 随机数据
+    /// </summary>
+    private void Read_prizedraw_info()
+    {
+        if (SumSave.crt_message_window.Count > 0)
+            BayWindowText.text = SumSave.crt_message_window[BayWindow_index].Item3;
+        else Obtain_PrizeDraw_info();
+    }
+
+    /// <summary>
+    /// 自动跳转
+    /// </summary>
+    protected void Read_prizedraw()
+    {
+        if (SumSave.crt_message_window.Count == 0)
+        {
+            Obtain_PrizeDraw_info();
+            return;
+        }
+        BayWindow_index++;
+        if (BayWindow_index > SumSave.crt_message_window.Count) BayWindow_index = 0;
+        BayWindowText.text = SumSave.crt_message_window[BayWindow_index].Item3;
+
+    }
+
+
+
     /// <summary>
     /// 打开资源提升开关
     /// </summary>

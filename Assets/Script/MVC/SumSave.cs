@@ -139,6 +139,10 @@ namespace Common
         /// 自身签到数据
         /// </summary>
         public static user_signin_vo crt_signin;
+        /// <summary>
+        /// 滚动消息列表
+        /// </summary>
+        public static List<(int, string, string)> crt_message_window;
 
         #endregion
 

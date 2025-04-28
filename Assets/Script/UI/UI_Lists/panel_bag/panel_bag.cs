@@ -70,9 +70,8 @@ public class panel_bag : Panel_Base
         //material_item_Prefabs= Resources.Load<material_item>("Prefabs/panel_bag/material_item"); 
         panel_equip = UI_Manager.I.GetPanel<panel_equip>();
 
-        int hero_index = int.Parse(SumSave.crt_hero.hero_index);
-        skin_state = (enum_skin_state)hero_index;
-        skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/内观_" + skin_state.ToString());
+       
+        skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/内观_" + SumSave.crt_hero.hero_pos);
         panel_role_health = Find<Transform>("bg_main/bag_equips/panel_role_health");
         Instantiate(skin_prefabs, panel_role_health);
 

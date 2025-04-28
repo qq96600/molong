@@ -175,6 +175,66 @@ namespace MVC
             Read_User_Pet();
             refresh_Max_Hero_Attribute();
         }
+
+
+
+        /// <summary>
+        /// 读取飘窗消息
+        /// </summary>
+        public void Read_user_messageWindow()
+        {
+            OpenMySqlDB();
+            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.user_message_window);
+
+            SumSave.crt_message_window = new List<(int, string, string)>();
+
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.crt_message_window.Add((mysqlReader.GetInt32(mysqlReader.GetOrdinal("id")), mysqlReader.GetString(mysqlReader.GetOrdinal("prizedraw_uid")), mysqlReader.GetString(mysqlReader.GetOrdinal("prizedraw_value"))));
+
+                }
+            }
+            if (SumSave.crt_message_window.Count > 50)
+            {
+                int max = SumSave.crt_message_window.Count - 50;
+                for (int i = 0; i < max; i++)
+                {
+                    MysqlDb.InsertInto(Mysql_Table_Name.user_message_window, new string[] { GetStr(0), GetStr(SumSave.crt_message_window[i].Item2), GetStr(SumSave.crt_message_window[i].Item3) });
+                    MysqlDb.Delete(Mysql_Table_Name.user_message_window, new string[] { "id" }, new string[] { GetStr(SumSave.crt_message_window[i].Item1) });
+                }
+                for (int i = 0; i < max; i++)
+                {
+                    SumSave.crt_message_window.RemoveAt(0);
+                }
+
+            }
+            CloseMySqlDB();
+        }
+        /// <summary>
+        /// 写入飘窗消息
+        /// </summary>
+        /// <param name="value"></param>
+        public void Refres_huser_messageWindow(string value)
+        {
+
+
+            int index = SumSave.crt_message_window.Count > 0 ? SumSave.crt_message_window[SumSave.crt_message_window.Count - 1].Item1 + 1 : 1;
+
+            SumSave.crt_message_window.Add((index, SumSave.crt_user.uid, value));
+            Read_user_messageWindow();
+            index = (SumSave.crt_message_window.Count > 0 ? SumSave.crt_message_window[SumSave.crt_message_window.Count - 1].Item1 + 1 : 1);
+
+            OpenMySqlDB();
+            MysqlDb.InsertInto(Mysql_Table_Name.user_message_window, new string[] { GetStr(0), GetStr(index), GetStr(SumSave.crt_user.uid), GetStr(value) });
+            CloseMySqlDB();
+        }
+
+
+
+
+
         /// <summary>
         /// 读取签到
         /// </summary>

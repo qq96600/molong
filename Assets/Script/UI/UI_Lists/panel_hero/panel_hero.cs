@@ -6,6 +6,7 @@ using UI;
 using System;
 using Common;
 using UnityEngine.UI;
+using Components;
 
 public class panel_hero : Panel_Base
 {
@@ -86,10 +87,11 @@ public class panel_hero : Panel_Base
         hero_name=Find<Text>("bg_main/select_hero/show_hero_info/hero_name/info");
         show_hero_info_close_btn = Find<Button>("bg_main/select_hero/show_hero_info/close");
         show_hero_info_close_btn.onClick.AddListener(() => { show_hero_info.gameObject.SetActive(false); });
+        crate_btn = Find<Button>("bg_main/select_hero/show_hero_info/crate_btn");
+        crate_btn.onClick.AddListener(() => { SwitchRoles(); });
 
-        int hero_index = int.Parse(SumSave.crt_hero.hero_index);
-        skin_state = (enum_skin_state)hero_index;
-        skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/内观_" + skin_state.ToString());
+       
+        skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/内观_" + SumSave.crt_hero.hero_pos);
         panel_role_health = Find<Transform>("bg_main/hero_icon/panel_role_health");
         Instantiate(skin_prefabs, panel_role_health);
 
@@ -109,6 +111,17 @@ public class panel_hero : Panel_Base
         }
         select_hero.gameObject.SetActive(false);
     }
+
+    /// <summary>
+    /// 点击切换角色
+    /// </summary>
+    private void SwitchRoles()
+    {
+        SumSave.crt_hero.hero_pos = crt_hero.SetData().hero_name;
+        Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_hero,
+            SumSave.crt_hero.Set_Uptade_String(), SumSave.crt_hero.Get_Update_Character());
+        Alert_Dec.Show("切换角色 " + crt_hero.SetData().hero_name + " 成功");
+    }
     /// <summary>
     /// 选择角色
     /// </summary>
@@ -117,7 +130,7 @@ public class panel_hero : Panel_Base
     {
         crt_hero = item;
         show_hero_info.gameObject.SetActive(true);
-        Show_Hero_Type_Attribute(item);
+        Show_Hero_Type_Attribute(crt_hero);
 
     }
     private void Show_Hero_Type_Attribute(hero_item item)
