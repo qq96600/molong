@@ -122,7 +122,7 @@ namespace Common
         /// </summary>
         public static rank_vo user_ranks;
         /// <summary>
-        /// 成就
+        /// 自身成就
         /// </summary>
         public static user_achievement_vo crt_achievement;
 
@@ -143,6 +143,7 @@ namespace Common
         /// 滚动消息列表
         /// </summary>
         public static List<(int, string, string)> crt_message_window;
+      
 
         #endregion
 

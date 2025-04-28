@@ -17,6 +17,7 @@ public class NotiList
     public const string Read_Obtain_Par = "读取服务器列表";
     public const string Read_Message_Window = "读取飘窗消息";
     public const string Read_Huser_MessageWindow = "写入飘窗消息";
+    public const string Refresh_achieve = "刷新成就";
 
     #endregion
 

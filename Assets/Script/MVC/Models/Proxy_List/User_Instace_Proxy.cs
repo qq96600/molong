@@ -218,8 +218,6 @@ namespace MVC
         /// <param name="value"></param>
         public void Refres_huser_messageWindow(string value)
         {
-
-
             int index = SumSave.crt_message_window.Count > 0 ? SumSave.crt_message_window[SumSave.crt_message_window.Count - 1].Item1 + 1 : 1;
 
             SumSave.crt_message_window.Add((index, SumSave.crt_user.uid, value));
@@ -230,7 +228,23 @@ namespace MVC
             MysqlDb.InsertInto(Mysql_Table_Name.user_message_window, new string[] { GetStr(0), GetStr(index), GetStr(SumSave.crt_user.uid), GetStr(value) });
             CloseMySqlDB();
         }
+        /// <summary>
+        /// 刷新成就
+        /// </summary>
+        /// <param name="state">1升级0加经验</param>
+        public void Refresh_achieve(int state)
+        {
+            SumSave.crt_achievement.Refresh();
 
+            OpenMySqlDB();
+            MysqlDb.UpdateInto(Mysql_Table_Name.mo_user_achieve, new string[] { "achieve_exp", "achieve_lvs" }, 
+                new string[] { GetStr(SumSave.crt_achievement.achievement_exp), GetStr(SumSave.crt_achievement.achievement_lvs) },
+                "userid", GetStr(SumSave.crt_user.uid));
+
+            CloseMySqlDB();
+            //刷新属性
+            if (state == 1) SendNotification(NotiList.Refresh_Max_Hero_Attribute);
+        }
 
 
 

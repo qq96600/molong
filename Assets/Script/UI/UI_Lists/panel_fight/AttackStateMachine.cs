@@ -78,7 +78,7 @@ public class AttackStateMachine : MonoBehaviour
         Animator_State();
 
 
-        if (arrowType == Arrow_Type.idle&& SumSave.battleMonsterHealths.Count>0&& SumSave.battleHeroHealths.Count >0)
+        if (arrowType == Arrow_Type.idle&& SumSave.battleMonsterHealths.Count>0)
         {
             AttackSpeedCounter -= Time.deltaTime;
   
@@ -183,10 +183,8 @@ public class AttackStateMachine : MonoBehaviour
 
         if (StateMachine.isAttackDistance()) 
         {
-            if (AttackSpeed > 0)
-            {
-                arrowType = Arrow_Type.idle;
-            }
+            arrowType = Arrow_Type.idle;
+            is_anim = true;
         }
         else
         {
