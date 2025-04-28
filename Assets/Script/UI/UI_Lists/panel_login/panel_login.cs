@@ -73,8 +73,8 @@ namespace MVC
             TaploginBt.onClick.AddListener(TapLogin);
 
 #if UNITY_EDITOR
-            //TaploginBt.gameObject.SetActive(false);
-            //loginBt.gameObject.SetActive(true);
+            TaploginBt.gameObject.SetActive(false);
+            loginBt.gameObject.SetActive(true);
 #elif UNITY_ANDROID
 
             TaploginBt.gameObject.SetActive(true);//true

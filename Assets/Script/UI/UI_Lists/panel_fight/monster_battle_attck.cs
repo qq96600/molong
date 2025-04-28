@@ -32,7 +32,7 @@ public class monster_battle_attck : BattleAttack
         if (Random.Range(0, 100) > Data.hit - monster.Data.dodge)
         {
             //传递消息，未命中;
-            monster.target.TakeDamage(1, DamageEnum.技能未命中, monster);
+            monster.target.TakeDamage(1, DamageEnum.技能未命中);
             return;
         }
         bool crit_rate = false;
@@ -43,8 +43,8 @@ public class monster_battle_attck : BattleAttack
         }
         damage = 1;
         if (crit_rate)
-        monster.target.TakeDamage(damage,DamageEnum.暴击伤害, monster);
-        else monster.target.TakeDamage(damage, DamageEnum.普通伤害, monster);
+        monster.target.TakeDamage(damage,DamageEnum.暴击伤害);
+        else monster.target.TakeDamage(damage, DamageEnum.普通伤害);
 
 
     }

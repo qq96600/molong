@@ -121,7 +121,7 @@ namespace MVC
             if (Random.Range(0, 100) > Data.hit - monster.Data.dodge)
             {
                 //传递消息，未命中;
-                monster.target.TakeDamage(1, DamageEnum.技能未命中, monster);
+                monster.target.TakeDamage(1, DamageEnum.技能未命中);
                 return;
             }
             damage = damage * (skill.skill_damage + (skill.skill_power * int.Parse(skill.user_values[1]))) / 100;
@@ -133,7 +133,7 @@ namespace MVC
                 damage = damage * data.crit_damage / 100;
             }
             damage = 100;
-            monster.target.TakeDamage(damage, isCrit ? DamageEnum.暴击技能伤害 : DamageEnum.技能伤害, monster);
+            monster.target.TakeDamage(damage, isCrit ? DamageEnum.暴击技能伤害 : DamageEnum.技能伤害);
         }
 
         /// <summary>

@@ -42,14 +42,27 @@ namespace MVC
             Read_Db_Seed();
             Read_Db_Collect();
             Read_db_signin();
-            
+            Read_db_par();
             CloseMySqlDB();
-
         }
+        /// <summary>
+        /// 读取服务器
+        /// </summary>
+        public void Read_db_par()
+        {
+            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_par);
 
-        
+            SumSave.db_pars = new List<db_base_par>();
 
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.db_pars.Add(ReadDb.Read(mysqlReader, new db_base_par()));
 
+                }
+            }
+        }
         /// <summary>
         /// 读取签到信息
         /// </summary>

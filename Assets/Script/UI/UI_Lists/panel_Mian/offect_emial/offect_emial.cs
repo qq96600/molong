@@ -5,26 +5,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 /// <summary>
-/// 邮件列表
+/// 閭欢鍒楄〃
 /// </summary>
 public class offect_emial : Base_Mono
 {
     /// <summary>
-    /// 邮件位置
+    /// 閭欢浣嶇疆
     /// </summary>
     private Transform pos_list, pos_receive;
     /// <summary>
-    /// 邮件列表
+    /// 閭欢鍒楄〃
     /// </summary>
     private emial_item emial_Item_Prefab;
 
     private material_item material_Item_Prefab;
     /// <summary>
-    /// 显示信息
+    /// 鏄剧ず淇℃伅
     /// </summary>
     private Text title, content;
     /// <summary>
-    /// 接收按钮
+    /// 鎺ユ敹鎸夐挳
     /// </summary>
     private Button btn_receive;
     private void Awake()
@@ -35,7 +35,6 @@ public class offect_emial : Base_Mono
         pos_receive= Find<Transform>("offect/show_offect/Scroll View/Viewport/Content");
         material_Item_Prefab= Battle_Tool.Find_Prefabs<material_item>("material_item");
     }
-
     public override void Show()
     {
         base.Show();

@@ -14,4 +14,5 @@ public enum Main_List
     panel_achievement,
     panel_collect,
     Daily_copies,
+    offect_emial
 }

@@ -106,7 +106,7 @@ public class player_battle_attck : BattleAttack
         if (Random.Range(0, 100) > Data.hit - monster.Data.dodge)
         {
             //传递消息，未命中;
-            monster.target.TakeDamage(1,DamageEnum.未命中, monster);
+            monster.target.TakeDamage(1,DamageEnum.未命中);
             return;
         }
         bool isCrit = false;
@@ -118,7 +118,7 @@ public class player_battle_attck : BattleAttack
         damage = 100;
 
         Debug.Log("伤害" + damage);
-        monster.target.TakeDamage(damage, isCrit ? DamageEnum.暴击伤害 : DamageEnum.普通伤害, monster);
+        monster.target.TakeDamage(damage, isCrit ? DamageEnum.暴击伤害 : DamageEnum.普通伤害);
     }
 
 }

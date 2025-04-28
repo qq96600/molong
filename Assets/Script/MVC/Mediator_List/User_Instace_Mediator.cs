@@ -34,7 +34,6 @@ namespace MVC
                 NotiList.loglist,
                 NotiList.Read_User_Ranks,
                 NotiList.Read_Crate_Uid,
-                NotiList.Read_Obtain_Par,
             };
 
         }
@@ -73,9 +72,6 @@ namespace MVC
                     break;
                 case NotiList.Read_User_Ranks:
                     user.Read_User_Rank();
-                    break;
-                    case NotiList.Read_Obtain_Par:
-                    user.Read_db_par();
                     break;
             }
         }

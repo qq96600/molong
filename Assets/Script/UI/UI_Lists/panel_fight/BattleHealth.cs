@@ -80,27 +80,24 @@ namespace MVC
             MP = Mathf.Max(0, MP);
 
         }
-        public void TakeDamage(float damage, DamageEnum damageEnum , BattleAttack monster)
+        public void TakeDamage(float damage, DamageEnum damageEnum )
         {
             if (HP <= 0) return;
             //damage = 1000;
             HP -= damage;
-            Hurt(damage);
+            Hurt(damage, damageEnum);
             //测试掉落
             //ConfigBattle.LoadSetting(monster, 2);
             //if (monster.GetComponent<monster_battle_attck>() != null) WaitAndDestory(monster);
             if (HP <= 0)
             {
                 //死亡 掉落
-                if(monster.GetComponent<monster_battle_attck>()!=null)  WaitAndDestory(monster); 
-                else if(monster.GetComponent<player_battle_attck>() != null)
+                if(GetComponent<monster_battle_attck>()!=null)  WaitAndDestory(); 
+                else if(GetComponent<player_battle_attck>() != null)
                 {
                     SumSave.battleHeroHealths.Remove(this);
                 }
-                //monster.newValueClear();
-
-                StartCoroutine(WaitAndDestory(monster.Data.show_name));
-                // WaitAndDestory(monster.Data.show_name);
+                StartCoroutine(WaitAndDestory(GetComponent<BattleAttack>().Data.show_name));
             }
         }
         
@@ -109,47 +106,49 @@ namespace MVC
         /// </summary>
         /// <param name="dec"></param>
         /// <param name="type">1伤害2治疗</param>
-        private void Hurt(float dec,int type = 1)
+        private void Hurt(float dec, DamageEnum type)
         {
             string _dec=dec.ToString("F0");
-            DamageTextManager.Instance.ShowDamageText(DamageEnum.普通伤害, _dec, this.transform);
-           
+            DamageTextManager.Instance.ShowDamageText(type, _dec, this.transform);
+            transform.parent.parent.parent.SendMessage("show_battle_info",
+                    GetComponent<BattleAttack>().Data.show_name+" 受到 "+type+" 效果"+"造成"+dec+"伤害");
         }
-        /// <summary>
-        /// 显示消息
-        /// </summary>
-        /// <param name="dec"></param>
-        private void Show_info(string dec)
-        {
-            transform.parent.parent.parent.SendMessage("show_info", dec);
-        }
-
-        private void Show_info(List<string> dec)
-        {
-            foreach (string item in dec)
-            {
-                Show_info(item);
-            }
-        }
-
         /// <summary>
         /// 延时销毁，掉落物品
         /// </summary>
         /// <param name="monster"></param>
         /// <returns></returns>
-        private void WaitAndDestory(BattleAttack monster)//MonsterBattleAttack monster)
+        private void WaitAndDestory()
         {
             OnDestroy();
+            BattleAttack monster = GetComponent<BattleAttack>();
             SumSave.battleMonsterHealths.Remove(this);
-            ConfigBattle.LoadSetting(monster, 2);
+
+            List<string> lists = ConfigBattle.LoadSetting(monster, 2);
             //增加经验
             Battle_Tool.Obtain_Exp(monster.Data.Exp);
+            if (SumSave.crt_setting.user_setting[2] == 0)
+            {
+                transform.parent.parent.parent.SendMessage("show_battle_info",
+            "击杀 " + monster.Data.show_name + " 获得 " + monster.Data.Exp + "经验");
+                transform.parent.parent.parent.SendMessage("show_battle_info",
+            "击杀 " + monster.Data.show_name + " 获得 " + monster.Data.unit + "灵珠");
+                if (lists.Count > 0)
+                {
+                    for (int i = 0; i < lists.Count; i++)
+                    {
+                        transform.parent.parent.parent.SendMessage("show_battle_info", lists[i]);
+                    }
+                }
+            }
             //获取金币
             SumSave.crt_user_unit.verify_data(currency_unit.灵珠, monster.Data.unit);
             //判断是否增加历练值
             if (SumSave.crt_resources.user_map_index != "1")
             {
                 SumSave.crt_user_unit.verify_data(currency_unit.历练, monster.Data.Point);
+                transform.parent.parent.parent.SendMessage("show_battle_info",
+"击杀 " + monster.Data.show_name + " 获得 " + monster.Data.Point + "历练");
             }
             Game_Omphalos.i.GetQueue(
                         Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user, SumSave.crt_user_unit.Set_Uptade_String(), SumSave.crt_user_unit.Get_Update_Character());

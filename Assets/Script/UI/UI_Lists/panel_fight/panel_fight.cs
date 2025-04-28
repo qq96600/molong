@@ -60,7 +60,15 @@ public class panel_fight : Panel_Base
     /// <summary>
     /// 列表位置
     /// </summary>
-    private Transform pos_btn;
+    private Transform pos_btn,pos_show_info;
+    /// <summary>
+    /// 信息框
+    /// </summary>
+    private show_info_item show_info_prefabs;
+    /// <summary>
+    /// 存储信息
+    /// </summary>
+    private List<show_info_item> show_info_list = new List<show_info_item>();
     protected override void Awake()
     {
         base.Awake();
@@ -80,6 +88,8 @@ public class panel_fight : Panel_Base
         close_btn = Find<Button>("btn_list/close_btn");
         close_btn.onClick.AddListener(() => { Close(); });
         pos_btn = Find<Transform>("btn_list");
+        pos_show_info = Find<Transform>("info_list/Viewport/Content");
+        show_info_prefabs = Battle_Tool.Find_Prefabs<show_info_item>("show_info_item");
     }
     /// <summary>
     /// 关闭列表
@@ -214,8 +224,6 @@ public class panel_fight : Panel_Base
             {
                 crt_map_monsters.Add(SumSave.db_monsters[i]);
             }
-            else crt_map_monsters.Add(SumSave.db_monsters[i]);
-
         }
     }
 
@@ -258,13 +266,12 @@ public class panel_fight : Panel_Base
 
         while (time > 0)
         {
-            Show_Battle_State("刷新时间 " + time.ToString("F1") +"s") ;//[..Math.Min(2, time.ToString().Length)]); ;
+            Show_Battle_State("刷新时间 " + time.ToString("F1") +"s") ;
             time -= basetime;
             yield return new WaitForSeconds(basetime);
         }
         Show_Battle_State("战斗中...");
         crate_monster();
-        //StartCoroutine(ProduceMonster(SumSave.WaitTime));
     }
 
     private void crate_monster()
@@ -280,5 +287,26 @@ public class panel_fight : Panel_Base
         //item.GetComponent<Button>().enabled = true;
         SumSave.battleMonsterHealths.Add(item.GetComponent<BattleHealth>());
         Open_Monster_State=true;
+    }
+    /// <summary>
+    /// 显示战斗信息
+    /// </summary>
+    /// <param name="str"></param>
+    protected void show_battle_info(string str)
+    {
+        if (show_info_list.Count <= 80)
+        {
+            show_info_item item = Instantiate(show_info_prefabs, pos_show_info);
+            item.GetComponent<Text>().text = str;
+            show_info_list.Add(item);
+        }
+        else
+        {
+            show_info_item item = show_info_list[0];
+            item.GetComponent<Text>().text = str;
+            item.transform.SetAsLastSibling();
+            show_info_list.Remove(item);
+            show_info_list.Add(item);
+        }    
     }
 }

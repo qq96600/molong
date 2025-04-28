@@ -37,11 +37,10 @@ namespace MVC
         {
             CalculationBattle.Clear();
         }
-
         /// <summary>
         ///  读取设置
         /// </summary>
-        public static void LoadSetting(BattleAttack monster, int number)
+        public static List<string> LoadSetting(BattleAttack monster, int number)
         {
             string base_name = SumSave.crt_resources.user_map_index;
             if (!CalculationBattle.ContainsKey(SumSave.crt_resources.user_map_index))
@@ -53,9 +52,9 @@ namespace MVC
             {
                 string countEquip = CalculationBattle[base_name][Random.Range(0, CalculationBattle[base_name].Length)];
                 CalculationBag(countEquip,monster.Data.show_name,false);
-
             }
             Show_Info();
+            return Calculations;
         }
         /// <summary>
         /// 获取物品掉落
@@ -98,7 +97,6 @@ namespace MVC
 
             Bag_Base_VO bag = new Bag_Base_VO();
             bag = ArrayHelper.Find(SumSave.db_stditems, e => e.Name == result.Item2);
-            Calculations.Add(bag.Name);
             bool exist = true;
             switch ((EquipConfigTypeList)Enum.Parse(typeof(EquipConfigTypeList), bag.StdMode))
             {
@@ -128,21 +126,23 @@ namespace MVC
             {
                 if (SumSave.crt_resources.pages[0] > SumSave.crt_bag.Count)
                 {
-                    SumSave.crt_bag.Add(bag);
-                    Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.bag_value, SumSave.crt_bag);
-                    Obtian_Bag(bag);
                     //判断回收
                     if (SumSave.crt_setting.user_setting[0] > bag.need_lv)
                     {
-                    }
+                        SumSave.crt_bag.Add(bag);
+                        Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.bag_value, SumSave.crt_bag);
+                        Calculations.Add( "获得 " + (enum_equip_quality_list)int.Parse(bag.user_value.Split(' ')[2]) + " " + bag.Name);
+                    }else Calculations.Add("过滤 " + (enum_equip_quality_list)int.Parse(bag.user_value.Split(' ')[2]) + " " + bag.Name);
                 }
-                
+                else Calculations.Add("丢弃 " + (enum_equip_quality_list)int.Parse(bag.user_value.Split(' ')[2]) + " " + bag.Name);
+
             }
             else
             {
                 //Debug.Log(bag.Name);
                 //获取材料
                 Battle_Tool.Obtain_Resources(bag.Name, 1);
+                Calculations.Add("获得 " + bag.Name + " * " + 1);
             }
 
         }
@@ -160,7 +160,7 @@ namespace MVC
         private static void Show_Info()
         { 
             //Alert_Dec.Show(info);
-            Alert_Icon.Show(Calculations);
+            //Alert_Icon.Show(Calculations);
          
         }
 
