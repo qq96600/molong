@@ -91,8 +91,9 @@ namespace MVC
             //if (monster.GetComponent<monster_battle_attck>() != null) WaitAndDestory(monster);
             if (HP <= 0)
             {
+                SendNotification(NotiList.Refresh_achieve, 1);
                 //死亡 掉落
-                if(GetComponent<monster_battle_attck>()!=null)  WaitAndDestory(); 
+                if (GetComponent<monster_battle_attck>()!=null)  WaitAndDestory(); 
                 else if(GetComponent<player_battle_attck>() != null)
                 {
                     SumSave.battleHeroHealths.Remove(this);

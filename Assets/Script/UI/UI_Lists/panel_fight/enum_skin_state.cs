@@ -13,7 +13,8 @@ public enum enum_skin_state
 
 public enum enum_monster_type
 {
-    虫子=1,
+    黑鳞君 = 1,
+    鹿妖,
 
 
 }

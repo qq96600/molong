@@ -71,12 +71,12 @@ namespace StateMachine
             {
                 int hero_index = int.Parse(SumSave.crt_hero.hero_index);
                 skin_state = (enum_skin_state)hero_index;
-                skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/外观_" + skin_state.ToString());
+                skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/外观_" + SumSave.crt_hero.hero_pos);
                 panel_role_health = transform.Find("Appearance");
                 Instantiate(skin_prefabs, panel_role_health);
             }else if(GetComponent<Monster>() != null)
             {
-                monster_type = enum_monster_type.虫子;
+                monster_type = enum_monster_type.黑鳞君;
                 skin_prefabs = Resources.Load<GameObject>("Prefabs/monsters/mon_" + monster_type.ToString());
                 panel_role_health = transform.Find("Appearance");
                 Instantiate(skin_prefabs, panel_role_health);
