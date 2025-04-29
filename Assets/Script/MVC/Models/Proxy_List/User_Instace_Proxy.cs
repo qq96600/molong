@@ -229,20 +229,19 @@ namespace MVC
             CloseMySqlDB();
         }
         /// <summary>
-        /// 刷新成就
+        /// 成就经验++
         /// </summary>
         /// <param name="state">1升级0加经验</param>
-        public void Refresh_achieve(int state)
+        public void Refresh_achieve(string achieve_collect)
         {
-            //OpenMySqlDB();
-            //MysqlDb.UpdateInto(Mysql_Table_Name.mo_user_achieve, new string[] { "achieve_exp", "achieve_lvs" }, 
-            //    new string[] { GetStr(SumSave.crt_achievement.achievement_exp), GetStr(SumSave.crt_achievement.achievement_lvs) },
-            //    "userid", GetStr(SumSave.crt_user.uid));
-
-            //CloseMySqlDB();
-            ////刷新属性
-            //if (state == 1) SendNotification(NotiList.Refresh_Max_Hero_Attribute);
+            Dictionary<string, int> ach_dir = SumSave.crt_achievement.Set_Exp();//成就经验++
+            ach_dir[achieve_collect]++;
+            SumSave.crt_achievement.Get_Exp(ach_dir);
+            Game_Omphalos.i.GetQueue(
+                       Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_achieve,
+                       SumSave.crt_achievement.Set_Uptade_String(), SumSave.crt_achievement.Get_Update_Character());
         }
+
 
 
 

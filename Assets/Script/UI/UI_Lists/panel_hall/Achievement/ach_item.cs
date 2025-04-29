@@ -49,6 +49,9 @@ public class ach_item : Base_Mono
         if (dic_lv[data.achievement_value] >= data.achievement_needs.Count)
             info.text = data.achievement_show_lv[data.achievement_show_lv.Length - 1] + " (" + dic_exp[data.achievement_value] + "/Max)";
         else
+        {
             info.text = data.achievement_show_lv[dic_lv[data.achievement_value]] + " (" + dic_exp[data.achievement_value] + "/" + data.achievement_needs[dic_lv[data.achievement_value]] + ")";
+        }
+
     }
 }

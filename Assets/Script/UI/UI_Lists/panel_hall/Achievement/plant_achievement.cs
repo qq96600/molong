@@ -8,12 +8,7 @@ using UI;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum Achieve_Type//成就类型枚举
-{
-    收集系列 = 1,
-    击杀系列 ,
 
-}
 
 public class plant_achievement : Base_Mono
 {
@@ -59,7 +54,6 @@ public class plant_achievement : Base_Mono
     /// 自身经验值
     /// </summary>
     private Dictionary<string, int> dic_exp = new Dictionary<string, int>();
-    private Dictionary<string, Dictionary<int, int>> dic_exchange = new Dictionary<string, Dictionary<int, int>>();
     /// <summary>
     /// 自身等级
     /// </summary>
@@ -101,6 +95,9 @@ public class plant_achievement : Base_Mono
     /// </summary>
     private void Receive()
     {
+
+        dic_exp = SumSave.crt_achievement.Set_Exp();
+        dic_lv = SumSave.crt_achievement.Set_Lv();
         int lv = dic_lv[crt_achieve_Item.Data.achievement_value];
         if (true)
         {
@@ -109,15 +106,25 @@ public class plant_achievement : Base_Mono
                 Alert_Dec.Show("当前阶段已满");
                 return;
             }
+
+            
             if (crt_achieve_Item.Data.achievement_needs[lv] > dic_exp[crt_achieve_Item.Data.achievement_value])
             {
                 Alert_Dec.Show("未达到领取条件");
                 return;
             }
         }
-        dic_lv[crt_achieve_Item.Data.achievement_value]++;
+
+        dic_lv[crt_achieve_Item.Data.achievement_value]++;//成就等级++
+        SumSave.crt_achievement.Get_lv(dic_lv);
+        Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_achieve,
+                   SumSave.crt_achievement.Set_Uptade_String(), SumSave.crt_achievement.Get_Update_Character());
+        
+
         string[] temp = crt_achieve_Item.Data.achievement_rewards[lv].Split(' ');
-        Battle_Tool.Obtain_Resources(temp[1], int .Parse( temp[2]));
+
+        Battle_Tool.Obtain_Resources(temp[1], int .Parse( temp[2]));//获得奖励
+
         Alert_Dec.Show("领取成功");
         show_offect.gameObject.SetActive(false);
         crt_achieve_Item.Init(); 
@@ -141,6 +148,16 @@ public class plant_achievement : Base_Mono
             {
                 if (SumSave.db_Achievement_dic[j].achievement_type == i + 1)//判断是否在当前类型
                 {
+                    if(SumSave.db_Achievement_dic[j].achievement_value==( Achieve_collect.等级升级).ToString())
+                    {
+                        Dictionary<string, int> ach_dir = SumSave.crt_achievement.Set_Exp();//更具角色等级设置成就信息
+                        ach_dir[(Achieve_collect.等级升级).ToString()] = SumSave.crt_hero.hero_Lv;
+                        SumSave.crt_achievement.Get_Exp(ach_dir);
+                        Game_Omphalos.i.GetQueue(
+                                   Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_achieve,
+                                   SumSave.crt_achievement.Set_Uptade_String(), SumSave.crt_achievement.Get_Update_Character());
+                    }
+
                     ach_item item = Instantiate(Achieve_Item_Prefab, crt);//实例化具体成就
                     item.Data = SumSave.db_Achievement_dic[j];//获取成就信息
                     //读取数据
@@ -180,6 +197,7 @@ public class plant_achievement : Base_Mono
         string dec = (Achieve_Type)crt_achieve_Item.Data.achievement_type + " " + crt_achieve_Item.Data.achievement_value;
         dic_exp = SumSave.crt_achievement.Set_Exp();
         dic_lv = SumSave.crt_achievement.Set_Lv();
+
         if (dic_lv[crt_achieve_Item.Data.achievement_value] > 0)
         {
             int max = (int)MathF.Min(dic_lv[crt_achieve_Item.Data.achievement_value], crt_achieve_Item.Data.achievement_needs.Count);
@@ -188,6 +206,7 @@ public class plant_achievement : Base_Mono
                 dec += "\n" + Show_Color.Green(InSetInfo(i) + "(已领取)");
             }
         }
+
         if (dic_lv[crt_achieve_Item.Data.achievement_value] < crt_achieve_Item.Data.achievement_needs.Count)
         {
             int number = dic_lv[crt_achieve_Item.Data.achievement_value];

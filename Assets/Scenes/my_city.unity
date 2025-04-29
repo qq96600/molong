@@ -3835,6 +3835,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: panel_map
       objectReference: {fileID: 0}
+    - target: {fileID: 767340782379044380, guid: 4a498742a8631cb4881b4ff22f9375bf, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8952911807744546555, guid: 4a498742a8631cb4881b4ff22f9375bf, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

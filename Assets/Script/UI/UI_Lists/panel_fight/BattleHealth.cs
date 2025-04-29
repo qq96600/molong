@@ -126,12 +126,8 @@ namespace MVC
             BattleAttack monster = GetComponent<BattleAttack>();
             SumSave.battleMonsterHealths.Remove(this);
 
-            Dictionary<string, int> ach_dir = SumSave.crt_achievement.Set_Exp();
-            ach_dir["击杀怪物"]++;
-            SumSave.crt_achievement.Get_Exp(ach_dir);
-            Game_Omphalos.i.GetQueue(
-                       Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_achieve, 
-                       SumSave.crt_achievement.Set_Uptade_String(), SumSave.crt_achievement.Get_Update_Character());
+            SendNotification(NotiList.Refresh_achieve, Achieve_collect.击杀怪物);//成就经验++
+
             List<string> lists = ConfigBattle.LoadSetting(monster, 2);
             //增加经验
             Battle_Tool.Obtain_Exp(monster.Data.Exp);

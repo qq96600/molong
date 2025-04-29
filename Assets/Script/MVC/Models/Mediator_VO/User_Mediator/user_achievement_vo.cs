@@ -44,6 +44,11 @@ public class user_achievement_vo : Base_VO
     {
         user_achievements = data;
     }
+    public void Get_lv(Dictionary<string, int> data)
+    {
+        user_achievements_lv = data;
+    }
+
     /// <summary>
     /// 获取等级
     /// </summary>
@@ -84,7 +89,7 @@ public class user_achievement_vo : Base_VO
         foreach (var item in user_achievements_lv)
         {
             ++number;
-            achievement_lvs += item.Key + " " + item.Value + (number == user_achievements.Count ? "" : "|");
+            achievement_lvs += item.Key + " " + item.Value + (number == user_achievements_lv.Count ? "" : "|");
         }
     }
     public override string[] Set_Instace_String()
@@ -102,8 +107,8 @@ public class user_achievement_vo : Base_VO
     {
         return new string[]
         {
-            "achievement_exp",
-            "achievement_lvs"
+            "achieve_exp",
+            "achieve_lvs"
         };
 
     }

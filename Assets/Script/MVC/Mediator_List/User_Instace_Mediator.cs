@@ -9,7 +9,7 @@ namespace MVC
         /// <summary>
         ///  NAME
         /// </summary>
-        public new const string NAME = "DSFSDFSDFSDF";// "User_Instace_Mediator";
+        public new const string NAME = "DSFSDFSDFSDF1";// "User_Instace_Mediator";
 
         private User_Instace_Proxy user;
         /// <summary>
@@ -83,7 +83,7 @@ namespace MVC
                     user.Refres_huser_messageWindow(data.ToString());
                     break;
                 case NotiList.Refresh_achieve:
-                    user.Refresh_achieve(int.Parse(data.ToString()));
+                    user.Refresh_achieve(data.ToString());
                     break;
             }
         }
