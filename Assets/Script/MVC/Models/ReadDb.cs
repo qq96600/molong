@@ -21,7 +21,7 @@ public static class ReadDb
     public static user_greenhand_vo Read(MySqlDataReader reader, user_greenhand_vo item)
     {
         item.user_value = reader.GetString(reader.GetOrdinal("valuelist"));
-        item.crt_task = reader.GetString(reader.GetOrdinal("crt_task"));
+        item.crt_task = reader.GetInt32(reader.GetOrdinal("crt_task"));
         item.Init();
         return item;
     }

@@ -20,16 +20,6 @@ public class tool_Categoryt : MonoBehaviour
         return transform.Find(name).GetComponent<T>();
     }
     /// <summary>
-    /// 创造怪物
-    /// </summary>
-    /// <param name="crt"></param>
-    /// <param name="lv">1小怪2精英3boss</param>
-    public void crate_monster(crtMaxHeroVO crt,int lv=1)
-    { 
-    
-
-    }
-    /// <summary>
     /// 获得单位
     /// </summary>
     /// <param name="index"></param>
@@ -268,7 +258,7 @@ public class tool_Categoryt : MonoBehaviour
     /// 创建装备
     /// </summary>
     /// <param name="bag"></param>
-    public static Bag_Base_VO crate_equip(string bag_name)
+    public static Bag_Base_VO crate_equip(string bag_name,int lv=-1)
     {
         Bag_Base_VO bag = new Bag_Base_VO();
         foreach (var item in SumSave.db_stditems)
@@ -284,6 +274,7 @@ public class tool_Categoryt : MonoBehaviour
         user_value += " " + 0;
         //品质
         int quality = Quality();
+        if (lv != -1) quality = lv;
         user_value += " " + quality;
 
         if (quality > 0)

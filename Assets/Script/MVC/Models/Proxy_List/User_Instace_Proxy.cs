@@ -173,6 +173,7 @@ namespace MVC
             Read_Seed();
             Read_Signin();
             Read_User_Pet();
+            Read_user_Greenhand();
             refresh_Max_Hero_Attribute();
         }
 
@@ -190,6 +191,11 @@ namespace MVC
             else//为空的话初始化数据
             {
                 SumSave.crt_greenhand.user_value = "";
+                foreach (var item in SumSave.GreenhandGuide_TotalTasks.Keys)
+                {
+                    SumSave.crt_greenhand.crt_task = item;
+                    break;
+                }
                 SumSave.crt_greenhand.Init();
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_greenhandguide, SumSave.crt_greenhand.Set_Instace_String());
             }

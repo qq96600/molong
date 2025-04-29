@@ -295,6 +295,75 @@ public static class Battle_Tool
         SumSave.crt_world.Set(value);
         return value;
     }
+    /// <summary>
+    /// 获取货币
+    /// </summary>
+    /// <param name="unit"></param>
+    /// <param name="value"></param>
+    public static void Obtain_Unit(currency_unit unit, int value)
+    {
+        SumSave.crt_user_unit.verify_data(unit, value);
+        Game_Omphalos.i.GetQueue(
+                       Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user, SumSave.crt_user_unit.Set_Uptade_String(), SumSave.crt_user_unit.Get_Update_Character());
+    }
+
+
+    /// <summary>
+    /// 获得宠物
+    /// </summary>
+    /// <param name="unit"></param>
+    /// <param name="lv"></param>
+    public static void Obtain_GreenhandGuide(int task_id)
+    {
+        if (SumSave.crt_greenhand.crt_task == task_id)
+        {
+            SumSave.crt_greenhand.crt_progress++;
+        }
+
+    }
+    /// <summary>
+    /// 获得宠物
+    /// </summary>
+    /// <param name="unit"></param>
+    /// <param name="lv"></param>
+    public static void Obtain_Pet(string data, int lv)
+    {
+        db_pet_vo pet_init = SumSave.db_pet_dic[data];
+        string value_data = "";
+        value_data += pet_init.petName + ",";
+        value_data += SumSave.nowtime + ",";
+        value_data += (SumSave.crt_world.World_Lv / 5 + 1) + ",";
+        value_data += pet_init.level + ",";
+        value_data += pet_init.exp + ",";
+        value_data +=lv + ",";
+        value_data += 0.ToString();
+        SumSave.crt_pet.crt_pet_list.Add(value_data);
+        db_pet_vo pet = new db_pet_vo();
+        string[] splits = SumSave.crt_pet.crt_pet_list[SumSave.crt_pet.crt_pet_list.Count - 1].Split(',');
+
+        if (splits.Length == 7)
+        {
+            pet.petName = splits[0];
+            pet.startHatchingTime = DateTime.Parse(splits[1]);
+            pet.quality = splits[2];
+            pet.level = int.Parse(splits[3]);
+            pet.exp = int.Parse(splits[4]);
+
+            string[] attributes = splits[5].Split('|');
+            if (attributes.Length == 3)
+            {
+                pet.crate_value = attributes[0];
+                pet.up_value = attributes[1];
+                pet.up_base_value = attributes[2];
+                pet.GetNumerical();
+            }
+            pet.pet_state = splits[6];
+        }
+        SumSave.crt_pet_list.Add(pet);
+        Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_pet,
+        SumSave.crt_pet.Set_Uptade_String(), SumSave.crt_pet.Get_Update_Character());
+
+    }
 
     /// <summary>
     /// 获取经验
