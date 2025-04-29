@@ -250,7 +250,7 @@ public class plant_achievement : Base_Mono
         string dec = "";
         //string[] temp = crt_achieve_Item.Data.achieve_rewards[i].Split(' ');
         //if (temp.Length < 1) return "";
-        ////dec += (Achieve_Rewards_Type)int.Parse(temp[0]) + " ";
+        //dec += (Achieve_Rewards_Type)int.Parse(temp[0]) + " ";
         //switch ((Achieve_Rewards_Type)int.Parse(temp[0]))
         //{
         //    case Achieve_Rewards_Type.Boss点: dec += "Boss点 +" + temp[1]; break;
@@ -297,7 +297,7 @@ public class plant_achievement : Base_Mono
         //        dec += (Skill_List)(int.Parse(temp[1])) + " 领域伤害 + " + temp[2] + "";
         //        break;
 
-        //}
+        }
 
         return dec;
     }
