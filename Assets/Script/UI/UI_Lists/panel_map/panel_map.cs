@@ -84,7 +84,7 @@ public class panel_map : Panel_Base
                 { 
                     maplists.Add(item, map);
                     btn_item btn = Instantiate(btn_item_prefab, item.transform);
-                    btn.Show(item.index, map.map_name);
+                    btn.Show(item.index, map.map_name+"\n(Lv."+map.need_lv+"级)");
                     btn.GetComponent<Button>().onClick.AddListener(delegate { Select_Map(item); });
                 }
             }

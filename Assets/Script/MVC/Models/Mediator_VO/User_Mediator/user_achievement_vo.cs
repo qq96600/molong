@@ -1,5 +1,6 @@
 using Common;
 using MVC;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -37,6 +38,11 @@ public class user_achievement_vo : Base_VO
     public Dictionary<string, int> Set_Exp()
     {
         return user_achievements;
+    }
+
+    public void Get_Exp(Dictionary<string, int> data)
+    {
+        user_achievements = data;
     }
     /// <summary>
     /// 获取等级
@@ -90,5 +96,38 @@ public class user_achievement_vo : Base_VO
             GetStr(achievement_exp),
             GetStr(achievement_lvs) 
         };
+    }
+
+    public override string[] Get_Update_Character()
+    {
+        return new string[]
+        {
+            "achievement_exp",
+            "achievement_lvs"
+        };
+
+    }
+    public override string[] Set_Uptade_String()
+    {
+        return new string[]
+        {
+        GetStr(data_achievement_value(user_achievements)),
+        GetStr(data_achievement_value(user_achievements_lv))
+        };
+    }
+
+   /// <summary>
+   /// 转化数据
+   /// </summary>
+   /// <param name="data"></param>
+   /// <returns></returns>
+    private string data_achievement_value(Dictionary<string,int> data)
+    {
+        string value = "";
+        foreach (var item in data)
+        {
+            value+=(value == "" ? "" : "|") + item.Key + " " + item.Value;
+        }
+        return value;
     }
 }
