@@ -66,6 +66,10 @@ public class panel_hero : Panel_Base
     /// 角色内观位置
     /// </summary>
     private Transform panel_role_health;
+    /// <summary>
+    /// 装备类型
+    /// </summary>
+    private Dictionary<EquipTypeList, show_equip_item> dic_equips = new Dictionary<EquipTypeList, show_equip_item>();
     protected override void Awake()
     {
         base.Awake();
@@ -76,7 +80,7 @@ public class panel_hero : Panel_Base
         base.Initialize();
         crt = Find<Transform>("bg_main/base_info/Scroll View/Viewport/Content");
         crt_pos_hero = Find<Transform>("bg_main/select_hero/Scroll View/Viewport/Content");
-        open_activation = Find<Button>("bg_main/hero_icon/open_activation");
+        open_activation = Find<Button>("bg_main/bag_equips/hero_icon/open_activation");
         open_activation.onClick.AddListener(() => { select_hero.gameObject.SetActive(true); });
         hero_item_prefabs = Resources.Load<hero_item>("Prefabs/panel_hero/hero_item");
         select_hero=Find<Image>("bg_main/select_hero");
@@ -92,7 +96,7 @@ public class panel_hero : Panel_Base
 
        
         skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/内观_" + SumSave.crt_hero.hero_pos);
-        panel_role_health = Find<Transform>("bg_main/hero_icon/panel_role_health");
+        panel_role_health = Find<Transform>("bg_main/bag_equips/hero_icon/panel_role_health");
         Instantiate(skin_prefabs, panel_role_health);
 
         for (int i = 0; i < Enum.GetNames(typeof(enum_attribute_list)).Length; i++)
@@ -143,10 +147,43 @@ public class panel_hero : Panel_Base
         }
         hero_info.text = dec;
     }
+
+
+ 
+    /// <summary>
+    /// 初始化位置
+    /// </summary>
+    /// <param name="item"></param>
+    protected void Instance_Pos(show_equip_item item)
+    {
+        if (!dic_equips.ContainsKey(item.type)) dic_equips.Add(item.type, item);
+    }
+
+    /// <summary>
+    /// 显示穿戴装备列表
+    /// </summary>
+    private void Base_Show()
+    {
+        foreach (var item in dic_equips.Keys)
+        {
+            dic_equips[item].Init();
+
+            foreach (Bag_Base_VO equip in SumSave.crt_euqip)
+            {
+                if (equip.StdMode == item.ToString())
+                {
+                    dic_equips[item].Data = equip;
+                }
+            }
+
+        }
+    }
+
     public override void Show()
     {
         base.Show();
         base_show();
+        Base_Show();
     }
     /// <summary>
     /// 显示属性表

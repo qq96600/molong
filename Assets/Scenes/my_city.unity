@@ -3316,6 +3316,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5579923845726669418, guid: 39202a1915586eb48bacd0cd2521f1b6, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5958372655924307583, guid: 39202a1915586eb48bacd0cd2521f1b6, type: 3}
       propertyPath: m_Name
       value: panel_hero
@@ -4057,6 +4061,10 @@ PrefabInstance:
     - target: {fileID: 8089330080796420417, guid: 713b765fb7dfc6d4d8e526cb12719de8, type: 3}
       propertyPath: m_Name
       value: panel_setting
+      objectReference: {fileID: 0}
+    - target: {fileID: 8089330080796420417, guid: 713b765fb7dfc6d4d8e526cb12719de8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
