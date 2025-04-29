@@ -297,7 +297,7 @@ public class plant_achievement : Base_Mono
         //        dec += (Skill_List)(int.Parse(temp[1])) + " 领域伤害 + " + temp[2] + "";
         //        break;
 
-        }
+        //}
 
         return dec;
     }
