@@ -153,7 +153,7 @@ public class hatching_progress : Base_Mono
                 }
                 break;
             case "守护":
-                transform.parent.parent.SendMessage("Get_pet_guard", crt_pet.SetPet());
+                Get_pet_guard();
                 break;
             case "丢弃":
                 DeletePet();
@@ -169,6 +169,42 @@ public class hatching_progress : Base_Mono
                 break;
         }
     }
+    private void Get_pet_guard()
+    {
+        for (int i = 0; i < SumSave.crt_pet_list.Count; i++)
+        {
+            if (SumSave.crt_pet_list[i].pet_state == "1")
+            {
+                string v1 = IntegrationData(SumSave.crt_pet_list[i]);//升级之前的数据
+                SumSave.crt_pet_list[i].pet_state = "1";
+                string v2 = IntegrationData(SumSave.crt_pet_list[i]);//升级之后的数据
+                for (int h = 0; h < SumSave.crt_pet.crt_pet_list.Count; h++)
+                {
+                    if (SumSave.crt_pet.crt_pet_list[h] == v1)
+                    {
+                        SumSave.crt_pet.crt_pet_list[h] = "";
+                        SumSave.crt_pet.crt_pet_list[h] = v2;
+                    }
+                }
+            }
+        }
+        db_pet_vo crt_pet_vo = crt_pet.SetPet();
+        string value = IntegrationData(crt_pet_vo);//升级之前的数据
+        crt_pet_vo.pet_state = "1";
+        string value1 = IntegrationData(crt_pet_vo);//升级之后的数据
+        for (int i = 0; i < SumSave.crt_pet.crt_pet_list.Count; i++)
+        {
+            if (SumSave.crt_pet.crt_pet_list[i] == value)
+            {
+                SumSave.crt_pet.crt_pet_list[i] = "";
+                SumSave.crt_pet.crt_pet_list[i] = value1;
+            }
+        }
+        Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_pet,
+        SumSave.crt_pet.Set_Uptade_String(), SumSave.crt_pet.Get_Update_Character());
+       
+    }
+
     /// <summary>
     /// 宠物探险
     /// </summary>

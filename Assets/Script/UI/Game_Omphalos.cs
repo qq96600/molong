@@ -44,11 +44,12 @@ namespace MVC
             SendNotification(NotiList.loglist, log);
         }
         /// <summary>
+
         /// 时间计数器
         /// </summary>
         private int performTime=0;
         /// <summary>
-        /// 写入数据
+        /// 写入数据 每1s写入一次
         /// </summary>
         private void CountTime()
         {
