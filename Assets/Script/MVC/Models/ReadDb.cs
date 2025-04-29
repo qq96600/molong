@@ -18,6 +18,35 @@ public static class ReadDb
         item.par = reader.GetInt32(reader.GetOrdinal("par"));
         return item;
     }
+    public static user_greenhand_vo Read(MySqlDataReader reader, user_greenhand_vo item)
+    {
+        item.user_value = reader.GetString(reader.GetOrdinal("valuelist"));
+        item.crt_task = reader.GetString(reader.GetOrdinal("crt_task"));
+        item.Init();
+        return item;
+    }
+    public static GreenhandGuide_TotalTaskVO Read(MySqlDataReader reader, GreenhandGuide_TotalTaskVO item)
+    {
+        item.id = reader.GetInt32(reader.GetOrdinal("id"));
+        item.TaskDesc = reader.GetString(reader.GetOrdinal("TaskDesc"));
+        item.tasktype = (GreenhandGuideTaskType)Enum.Parse(typeof(GreenhandGuideTaskType), reader.GetString(reader.GetOrdinal("tasktype")));
+        item.Award = reader.GetString(reader.GetOrdinal("Award")).Split(';');
+        string[] data = reader.GetString(reader.GetOrdinal("AwardNumber")).Split(';');
+        item.taskorder = reader.GetInt32(reader.GetOrdinal("taskorder"));
+        item.taskid = reader.GetInt32(reader.GetOrdinal("taskid"));
+        item.task_dec_type = item.TaskDesc;
+        item.task_dec_value = reader.GetString(reader.GetOrdinal("task_dec_value"));
+        item.AwardNumber = new int[data.Length];
+        int i = 0;
+        foreach (string value in data)
+        {
+            item.AwardNumber[i] = int.Parse(value);
+            i++;
+        }
+        item.AwardType = reader.GetString(reader.GetOrdinal("AwardType")).Split(';');
+        item.progress = reader.GetInt32(reader.GetOrdinal("progress"));
+        return item;
+    }
     public static bag_seed_vo Read(MySqlDataReader reader, bag_seed_vo item)
     {
         item.user_value = reader.GetString(reader.GetOrdinal("user_value"));

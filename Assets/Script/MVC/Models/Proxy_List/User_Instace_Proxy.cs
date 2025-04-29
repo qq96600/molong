@@ -176,6 +176,24 @@ namespace MVC
             refresh_Max_Hero_Attribute();
         }
 
+        public void Read_user_Greenhand()
+        {
+            mysqlReader = MysqlDb.Select(Mysql_Table_Name.mo_user_greenhandguide, "uid", GetStr(SumSave.crt_user.uid));
+            SumSave.crt_greenhand = new user_greenhand_vo();
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.crt_greenhand = ReadDb.Read(mysqlReader, new user_greenhand_vo());
+                }
+            }
+            else//为空的话初始化数据
+            {
+                SumSave.crt_greenhand.user_value = "";
+                SumSave.crt_greenhand.Init();
+                Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_greenhandguide, SumSave.crt_greenhand.Set_Instace_String());
+            }
+        }
 
 
         /// <summary>
@@ -219,15 +237,14 @@ namespace MVC
         public void Refres_huser_messageWindow(string value)
         {
             int index = SumSave.crt_message_window.Count > 0 ? SumSave.crt_message_window[SumSave.crt_message_window.Count - 1].Item1 + 1 : 1;
-
             SumSave.crt_message_window.Add((index, SumSave.crt_user.uid, value));
             Read_user_messageWindow();
             index = (SumSave.crt_message_window.Count > 0 ? SumSave.crt_message_window[SumSave.crt_message_window.Count - 1].Item1 + 1 : 1);
-
             OpenMySqlDB();
             MysqlDb.InsertInto(Mysql_Table_Name.user_message_window, new string[] { GetStr(0), GetStr(index), GetStr(SumSave.crt_user.uid), GetStr(value) });
             CloseMySqlDB();
         }
+
         /// <summary>
         /// 刷新成就
         /// </summary>
