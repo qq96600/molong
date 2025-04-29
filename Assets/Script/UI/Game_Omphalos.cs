@@ -44,7 +44,7 @@ namespace MVC
             SendNotification(NotiList.loglist, log);
         }
         /// <summary>
-        /// 写入数据
+        /// 写入数据 每1s写入一次
         /// </summary>
         private void CountTime()
         {

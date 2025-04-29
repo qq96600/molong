@@ -11,14 +11,6 @@ using Random = UnityEngine.Random;
 public class panel_Mian : Panel_Base
 {
     /// <summary>
-    /// 资源，提升，地图父物体
-    /// </summary>
-    private Transform pos_hero, pos_map, pos_otain;
-    /// <summary>
-    /// 预制体组件
-    /// </summary>
-    private btn_item btn_item_Prefabs;
-    /// <summary>
     /// 存储面板列表
     /// </summary>
     private Dictionary<string, GameObject> offect_list_dic = new Dictionary<string, GameObject>();
@@ -51,7 +43,7 @@ public class panel_Mian : Panel_Base
     {
         if (offect_list.gameObject.activeInHierarchy)
         {
-            for (int i = offect_list.transform.childCount - 1; i >= 0; i--)//关闭区域内的UI
+            for (int i = offect_list.transform.childCount - 1; i >= 1; i--)//关闭区域内的UI
             {
                 offect_list.transform.GetChild(i).gameObject.SetActive(false);
             }
@@ -62,41 +54,16 @@ public class panel_Mian : Panel_Base
     public override void Initialize()
     {
         base.Initialize();
+        closeButton=Find<Button>("offect_list/close_button");
+        closeButton.onClick.AddListener(() => { Hide(); });
         scrollRect = Find<ScrollRect>("BayWindow/BayWindoText");
-        pos_hero = Find<Transform>("bg_main/panel_list/herolist/Scroll View/Viewport/Content");//
-        pos_map = Find<Transform>("bg_main/panel_list/maplist/Scroll View/Viewport/Content");
-        pos_otain = Find<Transform>("bg_main/panel_list/otainlist/Scroll View/Viewport/Content");
-        btn_item_Prefabs = Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
-        offect_list = Find<Image>("bg_main/offect_list");
+        offect_list = Find<Image>("offect_list");
         BayWindowText = Find<Text>("BayWindow/BayWindoText/Viewport/came/Text");
         BayWindow_btn = Find<Button>("BayWindow/Button");
         BayWindow_btn.onClick.AddListener(Read_prizedraw_info);
 
         Obtain_PrizeDraw_info();
         StartCoroutine(AutoScroll());
-        //ClearObject(pos_hero);
-        //ClearObject(pos_map);
-        //ClearObject(pos_otain);
-
-        //for (int i = 0; i < SumSave.db_halls.herolist_btn.Count; i++)
-        //{
-        //    btn_item item = Instantiate(btn_item_Prefabs, pos_hero);
-
-        //    item.Show(i, SumSave.db_halls.herolist_btn[i]);
-        //    item.GetComponent<Button>().onClick.AddListener(() => { OnClickHeroItem(item); });
-        //}
-        //for (int i = 0; i < SumSave.db_halls.maplist_btn.Count; i++)
-        //{
-        //    btn_item item = Instantiate(btn_item_Prefabs, pos_map);
-        //    item.Show(i, SumSave.db_halls.maplist_btn[i]);
-        //    item.GetComponent<Button>().onClick.AddListener(() => { OnClickMapItem(item); });
-        //}
-        //for (int i = 0; i < SumSave.db_halls.otainlist_btn.Count; i++)
-        //{
-        //    btn_item item = Instantiate(btn_item_Prefabs, pos_otain);
-        //    item.Show(i, SumSave.db_halls.otainlist_btn[i]);
-        //    item.GetComponent<Button>().onClick.AddListener(() => { OnClickOtainItem(item); });
-        //}
     }
     /// <summary>
     /// 文本自动滚动
@@ -106,7 +73,6 @@ public class panel_Mian : Panel_Base
     {
         while (true)
         {
-
             // 横向垂直滚动
             scrollRect.horizontalNormalizedPosition -= 0.001f;
             yield return new WaitForSeconds(0.005f);
@@ -221,6 +187,6 @@ public class panel_Mian : Panel_Base
 
     protected override void Awake()
     {
-        base.Awake();
+        Initialize();
     }
 }

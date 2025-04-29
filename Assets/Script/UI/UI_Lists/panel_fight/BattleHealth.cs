@@ -122,7 +122,6 @@ namespace MVC
         private void WaitAndDestory()
         {
             OnDestroy();
-           
             BattleAttack monster = GetComponent<BattleAttack>();
             SumSave.battleMonsterHealths.Remove(this);
 

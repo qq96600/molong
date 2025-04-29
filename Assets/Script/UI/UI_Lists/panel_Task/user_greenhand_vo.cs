@@ -18,7 +18,6 @@ public class user_greenhand_vo : Base_VO
         { 
             task_list[i] = int.Parse(parts[i]);
         }
-        //task_list = string.Joint(" ", crt_task);
     }
 
     public override string[] Set_Instace_String()

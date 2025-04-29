@@ -507,6 +507,7 @@ public static class Battle_Tool
     public static crtMaxHeroVO crate_monster(crtMaxHeroVO crt, int lv = 1)
     {
         crtMaxHeroVO base_crt = new crtMaxHeroVO();
+        base_crt.Lv = lv;
         base_crt.show_name = crt.show_name;
         base_crt.index = crt.index;
         base_crt.Lv = crt.Lv;
@@ -586,7 +587,6 @@ public static class Battle_Tool
         }
         base_crt.monster_attrList.Add((int)state);
         return base_crt;
-
     }
 
     /// <summary>
