@@ -91,7 +91,7 @@ namespace MVC
             //if (monster.GetComponent<monster_battle_attck>() != null) WaitAndDestory(monster);
             if (HP <= 0)
             {
-                SendNotification(NotiList.Refresh_achieve, 1);
+                //SendNotification(NotiList.Refresh_achieve, 1);
                 //死亡 掉落
                 if (GetComponent<monster_battle_attck>()!=null)  WaitAndDestory(); 
                 else if(GetComponent<player_battle_attck>() != null)
@@ -122,9 +122,16 @@ namespace MVC
         private void WaitAndDestory()
         {
             OnDestroy();
+           
             BattleAttack monster = GetComponent<BattleAttack>();
             SumSave.battleMonsterHealths.Remove(this);
 
+            Dictionary<string, int> ach_dir = SumSave.crt_achievement.Set_Exp();
+            ach_dir["击杀怪物"]++;
+            SumSave.crt_achievement.Get_Exp(ach_dir);
+            Game_Omphalos.i.GetQueue(
+                       Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_achieve, 
+                       SumSave.crt_achievement.Set_Uptade_String(), SumSave.crt_achievement.Get_Update_Character());
             List<string> lists = ConfigBattle.LoadSetting(monster, 2);
             //增加经验
             Battle_Tool.Obtain_Exp(monster.Data.Exp);

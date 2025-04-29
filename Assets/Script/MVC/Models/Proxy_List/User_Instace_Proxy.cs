@@ -234,16 +234,14 @@ namespace MVC
         /// <param name="state">1升级0加经验</param>
         public void Refresh_achieve(int state)
         {
-            SumSave.crt_achievement.Refresh();
+            //OpenMySqlDB();
+            //MysqlDb.UpdateInto(Mysql_Table_Name.mo_user_achieve, new string[] { "achieve_exp", "achieve_lvs" }, 
+            //    new string[] { GetStr(SumSave.crt_achievement.achievement_exp), GetStr(SumSave.crt_achievement.achievement_lvs) },
+            //    "userid", GetStr(SumSave.crt_user.uid));
 
-            OpenMySqlDB();
-            MysqlDb.UpdateInto(Mysql_Table_Name.mo_user_achieve, new string[] { "achieve_exp", "achieve_lvs" }, 
-                new string[] { GetStr(SumSave.crt_achievement.achievement_exp), GetStr(SumSave.crt_achievement.achievement_lvs) },
-                "userid", GetStr(SumSave.crt_user.uid));
-
-            CloseMySqlDB();
-            //刷新属性
-            if (state == 1) SendNotification(NotiList.Refresh_Max_Hero_Attribute);
+            //CloseMySqlDB();
+            ////刷新属性
+            //if (state == 1) SendNotification(NotiList.Refresh_Max_Hero_Attribute);
         }
 
 
