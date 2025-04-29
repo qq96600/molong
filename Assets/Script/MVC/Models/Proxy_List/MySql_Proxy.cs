@@ -43,7 +43,25 @@ namespace MVC
             Read_Db_Collect();
             Read_db_signin();
             Read_db_par();
+            Read_Guide_TotalTask();
             CloseMySqlDB();
+        }
+        /// <summary>
+        /// 读取大世界列表
+        /// </summary>
+        public void Read_Guide_TotalTask()
+        {
+            SumSave.GreenhandGuide_TotalTasks = new Dictionary<int, GreenhandGuide_TotalTaskVO>();
+            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_basetask);
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    GreenhandGuide_TotalTaskVO item = new GreenhandGuide_TotalTaskVO();
+                    item = ReadDb.Read(mysqlReader, item);
+                    SumSave.GreenhandGuide_TotalTasks.Add(item.taskid, item);
+                }
+            }
         }
         /// <summary>
         /// 读取服务器

@@ -140,6 +140,10 @@ namespace Common
         /// </summary>
         public static user_signin_vo crt_signin;
         /// <summary>
+        /// 自身任务引导
+        /// </summary>
+        public static user_greenhand_vo crt_greenhand;
+        /// <summary>
         /// 滚动消息列表
         /// </summary>
         public static List<(int, string, string)> crt_message_window;
@@ -260,6 +264,10 @@ namespace Common
         /// 战斗刷新时间
         /// </summary>
         public static float WaitTime = 5f;
+        /// <summary>
+        /// 大世界新手引导
+        /// </summary>
+        public static Dictionary<int, GreenhandGuide_TotalTaskVO> GreenhandGuide_TotalTasks;
         #endregion
     }
 }
