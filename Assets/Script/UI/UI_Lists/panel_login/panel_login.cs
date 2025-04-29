@@ -226,6 +226,9 @@ namespace MVC
             PlayerPrefs.SetInt("同意阅读协议", 1);
             Hide();
             UI_Manager.I.GetPanel<panel_Mian>().Show();
+
+
+
             //fightPanel.Show();
             ////计算离线收益
             //fightPanel.offline();

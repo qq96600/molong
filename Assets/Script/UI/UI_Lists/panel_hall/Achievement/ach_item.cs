@@ -45,12 +45,28 @@ public class ach_item : Base_Mono
         Dictionary<string, int> dic_exp = SumSave.crt_achievement.Set_Exp();
         Dictionary<string, int> dic_lv = SumSave.crt_achievement.Set_Lv();
         //info.text = "显示成就具体信息";
-
+        info.text = "";
         if (dic_lv[data.achievement_value] >= data.achievement_needs.Count)
             info.text = data.achievement_show_lv[data.achievement_show_lv.Length - 1] + " (" + dic_exp[data.achievement_value] + "/Max)";
         else
         {
-            info.text = data.achievement_show_lv[dic_lv[data.achievement_value]] + " (" + dic_exp[data.achievement_value] + "/" + data.achievement_needs[dic_lv[data.achievement_value]] + ")";
+            Debug.Log("长度"+ data.achievement_show_lv.Length+"等级：" + dic_lv[data.achievement_value]);
+            if(data.achievement_show_lv.Length-1 <= dic_lv[data.achievement_value])
+            {
+                info.text += data.achievement_show_lv[data.achievement_show_lv.Length-1];
+            }
+            else
+            {
+                if (dic_lv[data.achievement_value] == 0)
+                {
+                    info.text += data.achievement_show_lv[0];
+                }else
+                {
+                    info.text += data.achievement_show_lv[dic_lv[data.achievement_value]];
+                }
+               
+            }
+            info.text+=" (" + dic_exp[data.achievement_value] + "/" + data.achievement_needs[dic_lv[data.achievement_value]] + ")";//
         }
 
     }

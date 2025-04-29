@@ -44,10 +44,21 @@ namespace MVC
             SendNotification(NotiList.loglist, log);
         }
         /// <summary>
+        /// 时间计数器
+        /// </summary>
+        private int performTime=0;
+        /// <summary>
         /// 写入数据
         /// </summary>
         private void CountTime()
         {
+            performTime++;
+            if(performTime==60)
+            {
+                performTime = 0;
+                SendNotification(NotiList.Refresh_achieve, Achieve_collect.在线时间);//成就经验++
+            }
+
             SendNotification(NotiList.Execute_Write, wirtes);
         }
         /// <summary>
