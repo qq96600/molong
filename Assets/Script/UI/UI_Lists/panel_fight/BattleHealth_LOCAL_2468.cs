@@ -134,6 +134,7 @@ namespace MVC
             OnDestroy();
             BattleAttack monster = GetComponent<BattleAttack>();
             SumSave.battleMonsterHealths.Remove(this);
+
             SendNotification(NotiList.Refresh_achieve, Achieve_collect.击杀怪物);//成就经验++
             Battle_Tool.Obtain_Exp(monster.Data.Exp);
             SumSave.crt_user_unit.verify_data(currency_unit.灵珠, monster.Data.unit);
@@ -145,9 +146,7 @@ namespace MVC
                 number = Random.Range(2, 5);
                 if (monster.Data.Monster_Lv == 3)
                 {
-
                     SendNotification(NotiList.Refresh_achieve, Achieve_collect.击杀Boss);//成就经验++
-
                     number = Random.Range(5, 11);
                     Combat_statistics.AddBossNumber();
                 }

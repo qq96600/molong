@@ -83,16 +83,7 @@ namespace MVC
         public void TakeDamage(float damage, DamageEnum damageEnum )
         {
             if (HP <= 0) return;
-
-            //if (GetComponent<player_battle_attck>() != null)//测试玩家死亡
-            //{
-            //    damage = 1000;
-            //}
-            //else
-            //{
-            //    damage = 1;
-            //}
-                
+            //damage = 1000;
             HP -= damage;
             Hurt(damage, damageEnum);
             //测试掉落
@@ -105,7 +96,6 @@ namespace MVC
                 if (GetComponent<monster_battle_attck>()!=null)  WaitAndDestory(); 
                 else if(GetComponent<player_battle_attck>() != null)
                 {
-                    SendNotification(NotiList.Refresh_achieve, Achieve_collect.死亡);//成就经验++
                     SumSave.battleHeroHealths.Remove(this);
                 }
                 StartCoroutine(WaitAndDestory(GetComponent<BattleAttack>().Data.show_name));
@@ -134,35 +124,12 @@ namespace MVC
             OnDestroy();
             BattleAttack monster = GetComponent<BattleAttack>();
             SumSave.battleMonsterHealths.Remove(this);
+
             SendNotification(NotiList.Refresh_achieve, Achieve_collect.击杀怪物);//成就经验++
-            Battle_Tool.Obtain_Exp(monster.Data.Exp);
-            SumSave.crt_user_unit.verify_data(currency_unit.灵珠, monster.Data.unit);
-            int number = 1;
-            Combat_statistics.AddMaxNumber();
-            //判断是否增加历练值
-            if (monster.Data.Monster_Lv != 1)
-            {
-                number = Random.Range(2, 5);
-                if (monster.Data.Monster_Lv == 3)
-                {
 
-                    SendNotification(NotiList.Refresh_achieve, Achieve_collect.击杀Boss);//成就经验++
-
-                    number = Random.Range(5, 11);
-                    Combat_statistics.AddBossNumber();
-                }
-                else if (monster.Data.Monster_Lv == 2)
-                {
-                    Combat_statistics.AddEliteNumber();
-                }
-                SumSave.crt_user_unit.verify_data(currency_unit.历练, monster.Data.Point);
-                transform.parent.parent.parent.SendMessage("show_battle_info",
-                "击杀 " + monster.Data.show_name + " 获得 " + monster.Data.Point + "历练");
-            }
-            Game_Omphalos.i.GetQueue(
-                        Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user, SumSave.crt_user_unit.Set_Uptade_String(), SumSave.crt_user_unit.Get_Update_Character());
-            List<string> lists = ConfigBattle.LoadSetting(monster, number);
+            List<string> lists = ConfigBattle.LoadSetting(monster, 2);
             //增加经验
+            Battle_Tool.Obtain_Exp(monster.Data.Exp);
             if (SumSave.crt_setting.user_setting[2] == 0)
             {
                 transform.parent.parent.parent.SendMessage("show_battle_info",
@@ -178,6 +145,17 @@ namespace MVC
                 }
             }
             //获取金币
+            SumSave.crt_user_unit.verify_data(currency_unit.灵珠, monster.Data.unit);
+            //判断是否增加历练值
+            if (SumSave.crt_resources.user_map_index != "1")
+            {
+                SumSave.crt_user_unit.verify_data(currency_unit.历练, monster.Data.Point);
+                transform.parent.parent.parent.SendMessage("show_battle_info",
+                "击杀 " + monster.Data.show_name + " 获得 " + monster.Data.Point + "历练");
+            }
+            Game_Omphalos.i.GetQueue(
+                        Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user, SumSave.crt_user_unit.Set_Uptade_String(), SumSave.crt_user_unit.Get_Update_Character());
+
             /*
             StartCoroutine(WaitAndDestory(monster.Data.Name));
             long tempEXP = monster.Data.Exp;
