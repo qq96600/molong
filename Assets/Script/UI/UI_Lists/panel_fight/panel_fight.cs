@@ -1,4 +1,5 @@
 using Common;
+using Components;
 using MVC;
 using System;
 using System.Collections;
@@ -69,9 +70,18 @@ public class panel_fight : Panel_Base
     /// 存储信息
     /// </summary>
     private List<show_info_item> show_info_list = new List<show_info_item>();
+    /// <summary>
+    /// 战斗信息汇总
+    /// </summary>
+    private Text battle_info_list;
+    /// <summary>
+    /// 战斗统计清空
+    /// </summary>
+    private Button btn_Combat_statistics;
     protected override void Awake()
     {
         base.Awake();
+        Combat_statistics.Init();
     }
 
     public override void Initialize()
@@ -90,7 +100,35 @@ public class panel_fight : Panel_Base
         pos_btn = Find<Transform>("btn_list");
         pos_show_info = Find<Transform>("info_list/Viewport/Content");
         show_info_prefabs = Battle_Tool.Find_Prefabs<show_info_item>("show_info_item");
+        btn_Combat_statistics = Find<Button>("Combat_statistics");
+        btn_Combat_statistics.onClick.AddListener(() => { clear_Combat_statistics(); });
+        battle_info_list= Find<Text>("Combat_statistics/info");
     }
+    /// <summary>
+    /// 初始状态
+    /// </summary>
+    private void clear_Combat_statistics()
+    {
+        Alert.Show("清空战斗信息", "是否清空战斗信息", Clear_Combat_statistics);
+       
+    }
+    /// <summary>
+    /// 清空战斗信息
+    /// </summary>
+    /// <param name="arg0"></param>
+    private void Clear_Combat_statistics(object arg0)
+    {
+        Combat_statistics.Init();
+    }
+
+    /// <summary>
+    /// 显示战斗信息
+    /// </summary>
+    public void Show_Combat_statistics()
+    {
+        battle_info_list.text = Combat_statistics.Show_Info();
+    }
+
     /// <summary>
     /// 关闭列表
     /// </summary>
@@ -105,7 +143,6 @@ public class panel_fight : Panel_Base
         }
         close_btn.GetComponent<Image>().sprite = Resources.Load<Sprite>(close_panel_state ? "UI/btn_list/隐藏" : "UI/btn_list/展开");
     }
-    
     public override void Show()
     {
         base.Show();
@@ -114,6 +151,7 @@ public class panel_fight : Panel_Base
     { 
         base.Hide();
     }
+
     /// <summary>
     /// 游戏结束
     /// </summary>
@@ -129,7 +167,8 @@ public class panel_fight : Panel_Base
     }
 
     public void Open_Map(user_map_vo map)
-    { 
+    {
+        Combat_statistics.isTime = true;
         select_map = map;
         init();
         Crate_Init();
@@ -234,7 +273,8 @@ public class panel_fight : Panel_Base
     /// <returns></returns>
     private IEnumerator Game_WaitTime(float time)
     {
-        
+        Combat_statistics.AddDead();
+        Combat_statistics.isTime = false;
         while (time > 0)
         {
             Show_Battle_State("复活剩余时间 " + time.ToString("F1") + "s");
@@ -259,11 +299,10 @@ public class panel_fight : Panel_Base
             StartCoroutine(ProduceMonster(SumSave.WaitTime));
         }
     }
-
     private IEnumerator ProduceMonster(float time)
     {
         float basetime = 0.1f;
-
+        Combat_statistics.isTime = false;
         while (time > 0)
         {
             Show_Battle_State("刷新时间 " + time.ToString("F1") +"s") ;
@@ -276,6 +315,7 @@ public class panel_fight : Panel_Base
 
     private void crate_monster()
     {
+        Combat_statistics.isTime = true;
         crtMaxHeroVO crt = crt_map_monsters[Random.Range(0, crt_map_monsters.Count)];
         crt = Battle_Tool.crate_monster(crt);
         GameObject item = ObjectPoolManager.instance.GetObjectFormPool(crt.show_name, monster_battle_attack_prefabs,
