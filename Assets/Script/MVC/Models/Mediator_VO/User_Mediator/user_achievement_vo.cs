@@ -40,6 +40,34 @@ public class user_achievement_vo : Base_VO
         return user_achievements;
     }
 
+    /// <summary>
+    /// 增加经验值
+    /// </summary>
+    /// <param name="data"></param>
+    /// <param name="lv"></param>
+    public void increase_date_Exp(string data, int lv)
+    {
+        user_achievements[data] += lv;
+        Game_Omphalos.i.GetQueue(
+                   Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_achieve,
+                   SumSave.crt_achievement.Set_Uptade_String(), SumSave.crt_achievement.Get_Update_Character());
+    }
+
+    /// <summary>
+    /// 更新经验值
+    /// </summary>
+    /// <param name="data"></param>
+
+    public void up_date_Exp(string data ,int lv)
+    {
+        user_achievements[data] = lv;
+        Game_Omphalos.i.GetQueue(
+                   Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_achieve,
+                   SumSave.crt_achievement.Set_Uptade_String(), SumSave.crt_achievement.Get_Update_Character());
+    }
+
+
+
     public void Get_Exp(Dictionary<string, int> data)
     {
         user_achievements = data;

@@ -66,6 +66,11 @@ public class user_vo : Base_VO
         {
             case currency_unit.灵珠:
                 if (value > 0) Combat_statistics.AddMoeny(value);
+                else if(value<0)//扣除灵珠成就
+                {
+
+                }
+
                 list[0] += value;
                 verify_list[0] += value;
                 break;

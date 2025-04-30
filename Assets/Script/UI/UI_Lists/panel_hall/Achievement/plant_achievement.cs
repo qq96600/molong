@@ -150,13 +150,18 @@ public class plant_achievement : Base_Mono
                 {
                     if(SumSave.db_Achievement_dic[j].achievement_value==( Achieve_collect.等级升级).ToString())
                     {
-                        Dictionary<string, int> ach_dir = SumSave.crt_achievement.Set_Exp();//更具角色等级设置成就信息
-                        ach_dir[(Achieve_collect.等级升级).ToString()] = SumSave.crt_hero.hero_Lv;
-                        SumSave.crt_achievement.Get_Exp(ach_dir);
-                        Game_Omphalos.i.GetQueue(
-                                   Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_achieve,
-                                   SumSave.crt_achievement.Set_Uptade_String(), SumSave.crt_achievement.Get_Update_Character());
+                        SumSave.crt_achievement.up_date_Exp((Achieve_collect.等级升级).ToString(), SumSave.crt_hero.hero_Lv);//更新等级
                     }
+                    else if(SumSave.db_Achievement_dic[j].achievement_value == (Achieve_collect.技能数量).ToString())
+                    {
+
+                        SumSave.crt_achievement.up_date_Exp((Achieve_collect.技能数量).ToString(), SumSave.crt_skills.Count);//更新技能数量
+                    }
+
+
+
+
+
 
                     ach_item item = Instantiate(Achieve_Item_Prefab, crt);//实例化具体成就
                     item.Data = SumSave.db_Achievement_dic[j];//获取成就信息

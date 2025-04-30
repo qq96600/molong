@@ -251,20 +251,7 @@ namespace MVC
             CloseMySqlDB();
         }
 
-        /// <summary>
-        /// 成就经验++
-        /// </summary>
-        /// <param name="state">1升级0加经验</param>
-        public void Refresh_achieve(string achieve_collect)
-        {
-            Dictionary<string, int> ach_dir = SumSave.crt_achievement.Set_Exp();//成就经验++
-            ach_dir[achieve_collect]++;
-            SumSave.crt_achievement.Get_Exp(ach_dir);
-            Game_Omphalos.i.GetQueue(
-                       Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_achieve,
-                       SumSave.crt_achievement.Set_Uptade_String(), SumSave.crt_achievement.Get_Update_Character());
-        }
-
+       
 
 
 

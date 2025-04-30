@@ -36,7 +36,7 @@ namespace MVC
                 NotiList.Read_Crate_Uid,
                 NotiList.Read_Message_Window,
                 NotiList.Read_Huser_MessageWindow,
-                NotiList.Refresh_achieve
+
             };
 
         }
@@ -82,9 +82,7 @@ namespace MVC
                 case NotiList.Read_Huser_MessageWindow:
                     user.Refres_huser_messageWindow(data.ToString());
                     break;
-                case NotiList.Refresh_achieve:
-                    user.Refresh_achieve(data.ToString());
-                    break;
+
             }
         }
     }
