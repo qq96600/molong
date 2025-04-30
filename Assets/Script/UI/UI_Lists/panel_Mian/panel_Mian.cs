@@ -127,30 +127,9 @@ public class panel_Mian : Panel_Base
 
 
     /// <summary>
-    /// 打开资源提升开关
+    /// 子物品打开资源提升开关
     /// </summary>
     /// <param name="item"></param>
-    private void OnClickOtainItem(btn_item item)
-    {
-        Show_GameObject(SumSave.db_halls.otainpanel[item.index], true);
-    }
-    /// <summary>
-    /// 打开地图
-    /// </summary>
-    /// <param name="item"></param>
-    private void OnClickMapItem(btn_item item)
-    {
-        Show_GameObject(SumSave.db_halls.mappanel[item.index], true);
-    }
-    /// <summary>
-    /// 打开提升开关
-    /// </summary>
-    /// <param name="item"></param>
-    private void OnClickHeroItem(btn_item item)
-    {
-        Show_GameObject(SumSave.db_halls.heropanel[item.index], true);
-    }
-
     protected void OnClickMap(string map)
     {
         Show_GameObject(map, true);

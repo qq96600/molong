@@ -55,7 +55,7 @@ namespace MVC
         /// </summary>
         /// <param name="totalSeconds"></param>
         /// <returns></returns>
-        public  string ConvertSecondsToHHMMSS(int totalSeconds)
+        public string ConvertSecondsToHHMMSS(int totalSeconds)
         {
             int hours = totalSeconds / 3600;
             int minutes = (totalSeconds % 3600) / 60;

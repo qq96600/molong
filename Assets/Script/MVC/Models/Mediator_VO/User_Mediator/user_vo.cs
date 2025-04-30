@@ -65,6 +65,7 @@ public class user_vo : Base_VO
         switch (_index)
         {
             case currency_unit.灵珠:
+                if (value > 0) Combat_statistics.AddMoeny(value);
                 list[0] += value;
                 verify_list[0] += value;
                 break;
@@ -72,6 +73,8 @@ public class user_vo : Base_VO
                 if (value >= SumSave.base_setting[0]) Game_Omphalos.i.Delete("获得" + (currency_unit)_index + value);
                 else
                 {
+                    if (value > 0) Combat_statistics.AddPoint(value);
+
                     list[1] += value;
                     verify_list[1] += value;
                 }

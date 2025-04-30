@@ -51,7 +51,7 @@ namespace MVC
             for (int i = 0; i < number; i++)
             {
                 string countEquip = CalculationBattle[base_name][Random.Range(0, CalculationBattle[base_name].Length)];
-                CalculationBag(countEquip,monster.Data.show_name,false);
+                CalculationBag(countEquip, monster.Data.Monster_Lv == 3);
             }
             Show_Info();
             return Calculations;
@@ -89,7 +89,7 @@ namespace MVC
         /// <param name="Name"></param>
         /// <param name="boss"></param>
         /// <param name="age"></param>
-        private static void CalculationBag(string line, string Name, bool boss,int age=1)
+        private static void CalculationBag(string line,bool boss,int age=1)
         {
 
             (bool, string) result = Obtain_ProfitList(line);
@@ -116,7 +116,7 @@ namespace MVC
                 case EquipConfigTypeList.饰品:
                 case EquipConfigTypeList.玉佩:
                 case EquipConfigTypeList.披风:
-                    bag = tool_Categoryt.crate_equip(bag.Name);
+                    bag = tool_Categoryt.crate_equip(bag.Name, boss);
                     break;
                 default:
                     exist = false;
@@ -124,6 +124,7 @@ namespace MVC
             }
             if (exist)
             {
+                Combat_statistics.AddBag(1);
                 if (SumSave.crt_resources.pages[0] > SumSave.crt_bag.Count)
                 {
                     //判断回收
@@ -131,8 +132,15 @@ namespace MVC
                     {
                         SumSave.crt_bag.Add(bag);
                         Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.bag_value, SumSave.crt_bag);
-                        Calculations.Add( "获得 " + (enum_equip_quality_list)int.Parse(bag.user_value.Split(' ')[2]) + " " + bag.Name);
-                    }else Calculations.Add("过滤 " + (enum_equip_quality_list)int.Parse(bag.user_value.Split(' ')[2]) + " " + bag.Name);
+                        Calculations.Add("获得 " + (enum_equip_quality_list)int.Parse(bag.user_value.Split(' ')[2]) + " " + bag.Name);
+                    }
+                    else
+                    {
+                        Calculations.Add("过滤 " + (enum_equip_quality_list)int.Parse(bag.user_value.Split(' ')[2]) + " " + bag.Name);
+                        Calculations.Add("过滤 收益灵珠" + bag.price);
+                        Battle_Tool.Obtain_Unit(currency_unit.灵珠, bag.price);
+
+                    }
                 }
                 else Calculations.Add("丢弃 " + (enum_equip_quality_list)int.Parse(bag.user_value.Split(' ')[2]) + " " + bag.Name);
 

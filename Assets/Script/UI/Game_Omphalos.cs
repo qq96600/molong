@@ -3,6 +3,7 @@ using Components;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UI;
 using UnityEngine;
 namespace MVC
 {
@@ -11,11 +12,13 @@ namespace MVC
     /// </summary>
     public class Game_Omphalos : Base_Mono
     {
+        private panel_fight panel_fight;
         public static Game_Omphalos i;
         private void Awake()
         {
             i= this;
             AppFacade.I.Startup();
+            panel_fight = UI_Manager.I.GetPanel<panel_fight>();
         }
         private List<Base_Wirte_VO> wirtes = new List<Base_Wirte_VO>();
         /// <summary>
@@ -54,12 +57,17 @@ namespace MVC
         private void CountTime()
         {
             performTime++;
-            if(performTime==60)
+            if (panel_fight.gameObject.activeInHierarchy)
+            {
+                Combat_statistics.Time();
+                panel_fight.Show_Combat_statistics();
+            }
+            if (performTime==60)
             {
                 performTime = 0;
                 SendNotification(NotiList.Refresh_achieve, Achieve_collect.在线时间);//成就经验++
+                SumSave.crt_pass.day_state[0] += 1;
             }
-
             SendNotification(NotiList.Execute_Write, wirtes);
         }
         /// <summary>
@@ -68,7 +76,6 @@ namespace MVC
         private void Read_User_Ranks()
         {
             //每日任务 在线时长
-            SumSave.crt_pass.day_state[0] += 10;
             SendNotification(NotiList.Read_User_Ranks);
             Battle_Tool.validate_rank();
         }

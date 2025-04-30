@@ -371,6 +371,8 @@ public static class Battle_Tool
     /// <param name="exp"></param>
     public static void Obtain_Exp(long exp)
     {
+        Combat_statistics.AddExp(exp); 
+
         SumSave.crt_MaxHero.Exp += exp;
         SumSave.crt_hero.hero_Exp += exp;
         Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_hero,
