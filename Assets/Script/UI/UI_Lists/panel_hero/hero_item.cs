@@ -41,7 +41,7 @@ public class hero_item : Base_Mono
             {
                 if (data.hero_name == ((enum_skin_state)(j + 1)).ToString())
                 {
-                    skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/内观_" + data.hero_name.ToString());
+                    skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/within_" + data.hero_name.ToString());
                     Instantiate(skin_prefabs, skin);
                     return;
                 }

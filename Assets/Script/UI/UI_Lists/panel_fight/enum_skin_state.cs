@@ -5,7 +5,7 @@ using UnityEngine;
 public enum enum_skin_state 
 {
     璃心=1,
-    昭月,
+    夜狩,
     苍霆, 
 
 

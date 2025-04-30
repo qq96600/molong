@@ -41,7 +41,7 @@ public class monster_battle_attck : BattleAttack
             crit_rate = true;
             damage = damage * data.crit_damage / 100;
         }
-        damage = 1;
+        damage = 100;
         if (crit_rate)
         monster.target.TakeDamage(damage,DamageEnum.暴击伤害);
         else monster.target.TakeDamage(damage, DamageEnum.普通伤害);

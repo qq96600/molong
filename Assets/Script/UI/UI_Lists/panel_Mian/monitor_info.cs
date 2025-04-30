@@ -142,7 +142,7 @@ public class monitor_info : Base_Mono
         {
             Destroy(pos_health.GetChild(i).gameObject);
         }
-        skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/内观_" + SumSave.crt_hero.hero_pos);
+        skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/within_" + SumSave.crt_hero.hero_pos);
         Instantiate(skin_prefabs, pos_health);
     }
     private void Update()

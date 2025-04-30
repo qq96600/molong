@@ -964,7 +964,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 120
-  startAngle: 0
+  startAngle: 90
   uniformDistribution: 1
   axis: {x: 1, y: 1, z: 0}
   autoAdjustRadius: 0
@@ -2244,7 +2244,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6167906619340741529
 RectTransform:
   m_ObjectHideFlags: 0

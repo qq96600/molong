@@ -83,7 +83,16 @@ namespace MVC
         public void TakeDamage(float damage, DamageEnum damageEnum )
         {
             if (HP <= 0) return;
-            //damage = 1000;
+
+            //if (GetComponent<player_battle_attck>() != null)//测试玩家死亡
+            //{
+            //    damage = 1000;
+            //}
+            //else
+            //{
+            //    damage = 1;
+            //}
+                
             HP -= damage;
             Hurt(damage, damageEnum);
             //测试掉落
@@ -96,6 +105,7 @@ namespace MVC
                 if (GetComponent<monster_battle_attck>()!=null)  WaitAndDestory(); 
                 else if(GetComponent<player_battle_attck>() != null)
                 {
+                    SendNotification(NotiList.Refresh_achieve, Achieve_collect.死亡);//成就经验++
                     SumSave.battleHeroHealths.Remove(this);
                 }
                 StartCoroutine(WaitAndDestory(GetComponent<BattleAttack>().Data.show_name));
@@ -124,6 +134,10 @@ namespace MVC
             OnDestroy();
             BattleAttack monster = GetComponent<BattleAttack>();
             SumSave.battleMonsterHealths.Remove(this);
+           if(monster.Data.Monster_Lv==3)
+            {
+                SendNotification(NotiList.Refresh_achieve, Achieve_collect.击杀Boss);//成就经验++
+            }
 
             SendNotification(NotiList.Refresh_achieve, Achieve_collect.击杀怪物);//成就经验++
 

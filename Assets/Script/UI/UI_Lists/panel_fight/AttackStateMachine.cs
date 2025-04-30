@@ -62,8 +62,19 @@ public class AttackStateMachine : MonoBehaviour
     /// </summary>
     private float  animTime=0f;
 
-
-     private void Awake()
+    /// <summary>
+    /// 是否在攻击动作中
+    /// </summary>
+    private bool isAttacking = false;
+    /// <summary>
+    /// 冲撞距离
+    /// </summary>
+    private float dashDistance =2f; // 最大冲撞距离
+    /// <summary>
+    /// 开始位置
+    /// </summary>
+    private Vector2 startPosition;
+    private void Awake()
     {
         StateMachine = GetComponent<RolesManage>();
         battle= GetComponent<BattleAttack>();
@@ -82,10 +93,15 @@ public class AttackStateMachine : MonoBehaviour
         {
             AttackSpeedCounter -= Time.deltaTime;
   
-            if (AttackSpeedCounter <= 0)
+            if (AttackSpeedCounter <= 0&&!isAttacking)
             {
                 //Debug.Log("触发攻击"+Time.time);
+                Transform pos= battle.transform;
+                startPosition = transform.position;
+
                 StateMachine.Animator_State(Arrow_Type.attack);
+
+                StartCoroutine(AttackDash());
                 battle.OnAuto();
                 AttackSpeedCounter = AttackSpeed;//battle.Data.attack_speed; 
             }
@@ -100,6 +116,88 @@ public class AttackStateMachine : MonoBehaviour
         }
       
     }
+
+
+    IEnumerator AttackDash()
+    {
+        isAttacking = true;
+        float dashDuration = 1f / AttackSpeed;
+        float startTime = Time.time;
+
+        // 冲刺阶段
+        while (Time.time - startTime < dashDuration)
+        {
+            transform.position = Vector2.Lerp(
+                transform.position,
+                new Vector2(transform.position.x + dashDistance, transform.position.y),
+                (Time.time - startTime) / dashDuration
+            );
+            transform.Translate(Vector2.right * AttackSpeed * Time.deltaTime);
+            yield return null;
+        }
+
+        // 返回阶段
+        float returnDuration = 0.5f;
+        startTime = Time.time;
+        while (Time.time - startTime < returnDuration)
+        {
+            transform.position = Vector2.Lerp(
+                transform.position,
+                startPosition,
+                (Time.time - startTime) / returnDuration
+            );
+            yield return null;
+        }
+
+        transform.position = startPosition;
+        isAttacking = false;
+    }
+
+
+
+
+    /// <summary>
+    ///// 向前冲撞
+    ///// </summary>
+    ///// <returns></returns>
+    //IEnumerator AttackDash()
+    //{
+    //    isAttacking = true;
+
+    //    // 计算冲撞参数
+    //    float dashDuration = 1f / AttackSpeed; // 攻击速度越快，冲撞时间越短
+    //    float dashVelocity = dashDistance / dashDuration;
+
+    //    // 施加冲撞力
+    //    rb.velocity = Vector2.right * (dashVelocity*1000);
+
+    //    // 等待冲撞完成
+    //    yield return new WaitForSeconds(dashDuration);
+
+    //    // 返回原位
+    //    StopAllCoroutines();    
+    //    StartCoroutine(SmoothReturn());
+    //}
+    ////返回原来位置
+    //IEnumerator SmoothReturn()
+    //{
+    //    float duration = 0.5f;
+    //    float elapsed = 0f;
+
+    //    while (elapsed < duration)
+    //    {
+    //        transform.position = Vector2.Lerp(
+    //            transform.position,
+    //            startPosition,
+    //            elapsed / duration
+    //        );
+    //        elapsed += Time.deltaTime;
+    //        yield return null;
+    //    }
+
+    //    transform.position = startPosition;
+    //    isAttacking = false;
+    //}
 
 
 

@@ -8,15 +8,19 @@ using UnityEngine;
 public class user_collect_vo : Base_VO
 {
     /// <summary>
-    /// 成就是否收集列表
+    /// 是否收集列表
     /// </summary>
-    public List<(string,int)> user_collect_list;
+    public string collect_value;
     /// <summary>
-    /// 成就是否收集dic
+    /// 是否收集dic
     /// </summary>
     public Dictionary<string, int> user_collect_dic= new Dictionary<string, int>();
 
-
+    /// <summary>
+    /// 收集套装
+    /// </summary>
+    /// <returns></returns>
+    public Dictionary<string ,(string,int)> user_collect_suit_dic = new Dictionary<string, (string, int)>();
     /// <summary>
     /// 合并是否收集列表
     /// </summary>

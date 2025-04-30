@@ -124,24 +124,32 @@ public class panel_collect : Base_Mono
     /// </summary>
     private void PutItem()
     {
-        Debug.Log("放入物品");
-        db_collect_vo coll = crt_collect;
-        for (int i = 0; i < typeNames.Length; i++)
+        if (crt_collect.isCollect == 0)
         {
-            if(coll.StdMode==typeNames[i])
+            db_collect_vo coll = crt_collect;
+            Debug.Log("放入物品");
+            for (int i = 0; i < typeNames.Length; i++)
             {
-                //查找背包是否有该物品 
-                NeedConsumables(coll.Name, 1);
-                if (RefreshConsumables())
+                if (coll.StdMode == typeNames[i])
                 {
-                    coll.isCollect = 1;
-                    //添加属性 创建user_collect_vo 
-                    //AddAttribute(collect.bonuses_types[j], collect.bonuses_values[j]);
-                    return;
-                }  
+                    //查找背包是否有该物品 
+                    NeedConsumables(coll.Name, 1);
+                    if (RefreshConsumables())
+                    {
+                        coll.isCollect = 1;
+                        //添加属性 创建user_collect_vo 
+                        //AddAttribute(collect.bonuses_types[j], collect.bonuses_values[j]);
+                        return;
+                    }
+                }
             }
+            Alert_Dec.Show("背包没有" + coll.Name);
         }
-        Alert_Dec.Show("背包没有" + coll.Name);
+        else
+        {
+            Alert_Dec.Show("改物品已收集" );
+        }
+
     }
 
     public void Init()

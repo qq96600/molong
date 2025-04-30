@@ -33,7 +33,7 @@ public class panel_Buff : Panel_Base
     /// </summary>
     private GameObject skin_prefabs;
     /// <summary>
-    /// 角色内观位置
+    /// 角色within位置
     /// </summary>
     private Transform panel_role_health;
     public override void Hide()
@@ -50,7 +50,7 @@ public class panel_Buff : Panel_Base
         confirm.onClick.AddListener(OnConfirmClick);
 
        
-        skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/内观_" + SumSave.crt_hero.hero_pos);
+        skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/within_" + SumSave.crt_hero.hero_pos);
         panel_role_health = Find<Transform>("bg_main/bg");
         Instantiate(skin_prefabs, panel_role_health);
 

@@ -23,7 +23,7 @@ namespace MVC
         /// </summary>
         private void Show_Panel()
         {
-            transform.parent.parent.SendMessage("OnClickMap", select_panel.ToString());
+            transform.parent.parent.parent.parent.SendMessage("OnClickMap", select_panel.ToString());
         }
     }
 
