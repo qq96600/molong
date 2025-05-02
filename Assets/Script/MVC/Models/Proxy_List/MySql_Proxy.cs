@@ -381,6 +381,8 @@ namespace MVC
                     SumSave.db_stditems.Add(ReadDb.Read(mysqlReader, new Bag_Base_VO()));
                 }
             }
+
+
             Battle_Tool.tool_item();
         }
         /// <summary>

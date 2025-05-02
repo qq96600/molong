@@ -65,8 +65,9 @@ namespace MVC
             if (performTime==60)
             {
                 performTime = 0;
-                SendNotification(NotiList.Refresh_achieve, Achieve_collect.在线时间);//成就经验++
-                SumSave.crt_pass.day_state[0] += 1;
+                
+                SumSave.crt_achievement.increase_date_Exp((Achieve_collect.在线时间).ToString(), 1);
+                 SumSave.crt_pass.day_state[0] += 1;
             }
             SendNotification(NotiList.Execute_Write, wirtes);
         }

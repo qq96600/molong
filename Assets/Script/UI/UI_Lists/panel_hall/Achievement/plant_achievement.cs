@@ -53,11 +53,11 @@ public class plant_achievement : Base_Mono
     /// <summary>
     /// 自身经验值
     /// </summary>
-    private Dictionary<string, int> dic_exp = new Dictionary<string, int>();
+    private Dictionary<string, long> dic_exp = new Dictionary<string, long>();
     /// <summary>
     /// 自身等级
     /// </summary>
-    private Dictionary<string, int> dic_lv = new Dictionary<string, int>();
+    private Dictionary<string, long> dic_lv = new Dictionary<string, long>();
     
     /// <summary>
     /// 关闭按钮
@@ -98,7 +98,7 @@ public class plant_achievement : Base_Mono
 
         dic_exp = SumSave.crt_achievement.Set_Exp();
         dic_lv = SumSave.crt_achievement.Set_Lv();
-        int lv = dic_lv[crt_achieve_Item.Data.achievement_value];
+        int lv = (int)dic_lv[crt_achieve_Item.Data.achievement_value];
         if (true)
         {
             if (lv >= crt_achieve_Item.Data.achievement_needs.Count)
@@ -150,13 +150,18 @@ public class plant_achievement : Base_Mono
                 {
                     if(SumSave.db_Achievement_dic[j].achievement_value==( Achieve_collect.等级升级).ToString())
                     {
-                        Dictionary<string, int> ach_dir = SumSave.crt_achievement.Set_Exp();//更具角色等级设置成就信息
-                        ach_dir[(Achieve_collect.等级升级).ToString()] = SumSave.crt_hero.hero_Lv;
-                        SumSave.crt_achievement.Get_Exp(ach_dir);
-                        Game_Omphalos.i.GetQueue(
-                                   Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_achieve,
-                                   SumSave.crt_achievement.Set_Uptade_String(), SumSave.crt_achievement.Get_Update_Character());
+                        SumSave.crt_achievement.up_date_Exp((Achieve_collect.等级升级).ToString(), SumSave.crt_hero.hero_Lv);//更新等级
                     }
+                    else if(SumSave.db_Achievement_dic[j].achievement_value == (Achieve_collect.技能数量).ToString())
+                    {
+
+                        SumSave.crt_achievement.up_date_Exp((Achieve_collect.技能数量).ToString(), SumSave.crt_skills.Count);//更新技能数量
+                    }
+
+
+
+
+
 
                     ach_item item = Instantiate(Achieve_Item_Prefab, crt);//实例化具体成就
                     item.Data = SumSave.db_Achievement_dic[j];//获取成就信息
@@ -209,9 +214,9 @@ public class plant_achievement : Base_Mono
 
         if (dic_lv[crt_achieve_Item.Data.achievement_value] < crt_achieve_Item.Data.achievement_needs.Count)
         {
-            int number = dic_lv[crt_achieve_Item.Data.achievement_value];
+            int number = (int)dic_lv[crt_achieve_Item.Data.achievement_value];
             dec += "\nLv" + (number + 1) + ".成就阶段 " + dic_exp[crt_achieve_Item.Data.achievement_value] + "/" + crt_achieve_Item.Data.achievement_needs[number];
-            dec += "\n奖励 " + Show_Color.Yellow(InSetInfo(number));
+            //dec += "\n奖励 " + Show_Color.Yellow(InSetInfo(number));
         }
         show_info.text = dec;
     }

@@ -100,12 +100,12 @@ namespace MVC
             //if (monster.GetComponent<monster_battle_attck>() != null) WaitAndDestory(monster);
             if (HP <= 0)
             {
-                //SendNotification(NotiList.Refresh_achieve, 1);
                 //死亡 掉落
                 if (GetComponent<monster_battle_attck>()!=null)  WaitAndDestory(); 
                 else if(GetComponent<player_battle_attck>() != null)
                 {
-                    SendNotification(NotiList.Refresh_achieve, Achieve_collect.死亡);//成就经验++
+                    
+                    SumSave.crt_achievement.increase_date_Exp((Achieve_collect.死亡).ToString(), 1);
                     SumSave.battleHeroHealths.Remove(this);
                 }
                 StartCoroutine(WaitAndDestory(GetComponent<BattleAttack>().Data.show_name));
@@ -134,7 +134,7 @@ namespace MVC
             OnDestroy();
             BattleAttack monster = GetComponent<BattleAttack>();
             SumSave.battleMonsterHealths.Remove(this);
-            SendNotification(NotiList.Refresh_achieve, Achieve_collect.击杀怪物);//成就经验++
+            SumSave.crt_achievement.increase_date_Exp((Achieve_collect.击杀怪物).ToString(), 1);
             Battle_Tool.Obtain_Exp(monster.Data.Exp);
             SumSave.crt_user_unit.verify_data(currency_unit.灵珠, monster.Data.unit);
             int number = 1;
@@ -145,8 +145,7 @@ namespace MVC
                 number = Random.Range(2, 5);
                 if (monster.Data.Monster_Lv == 3)
                 {
-
-                    SendNotification(NotiList.Refresh_achieve, Achieve_collect.击杀Boss);//成就经验++
+                    SumSave.crt_achievement.increase_date_Exp((Achieve_collect.击杀Boss).ToString(), 1);
 
                     number = Random.Range(5, 11);
                     Combat_statistics.AddBossNumber();

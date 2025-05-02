@@ -174,8 +174,59 @@ namespace MVC
             Read_Signin();
             Read_User_Pet();
             Read_user_Greenhand();
+            Read_user_Collect();
             refresh_Max_Hero_Attribute();
         }
+
+        /// <summary>
+        /// 读取收集信息
+        /// </summary>
+        public void Read_user_Collect()
+        {
+            mysqlReader = MysqlDb.Select(Mysql_Table_Name.mo_user_collect, "uid", GetStr(SumSave.crt_user.uid));
+            SumSave.crt_collect = new user_collect_vo();
+
+
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.crt_collect= ReadDb.Read(mysqlReader, new user_collect_vo());
+                }
+                string[] Splits = SumSave.crt_collect.collect_value.Split('|');
+                for (int i = 0; i < Splits.Length; i++)
+                {
+                    if (Splits[i].Length > 0)
+                    {
+                        string[] Splits2 = Splits[i].Split(' ');
+                        SumSave.crt_collect.user_collect_dic.Add(Splits2[0],int.Parse(Splits2[1]));
+                    }
+                }
+
+                //SumSave.crt_collect.collect_suit_complete();
+
+            }
+            else//为空的话初始化数据
+            {
+                foreach (db_collect_vo item in SumSave.db_collect_vo)
+                {
+                    if(!SumSave.crt_collect.user_collect_dic.ContainsKey(item.Name))
+                    {
+                        SumSave.crt_collect.user_collect_dic.Add(item.Name, 0);
+                    }
+                    
+                 }
+                SumSave.crt_collect.collect_Merge();
+                //SumSave.crt_collect.findCollectSuit();
+                //SumSave.crt_collect.collect_suit_Merge();
+
+                Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_collect, SumSave.crt_collect.Set_Instace_String());
+            }
+
+        }
+
+
+
 
         public void Read_user_Greenhand()
         {
@@ -251,20 +302,7 @@ namespace MVC
             CloseMySqlDB();
         }
 
-        /// <summary>
-        /// 成就经验++
-        /// </summary>
-        /// <param name="state">1升级0加经验</param>
-        public void Refresh_achieve(string achieve_collect)
-        {
-            Dictionary<string, int> ach_dir = SumSave.crt_achievement.Set_Exp();//成就经验++
-            ach_dir[achieve_collect]++;
-            SumSave.crt_achievement.Get_Exp(ach_dir);
-            Game_Omphalos.i.GetQueue(
-                       Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_achieve,
-                       SumSave.crt_achievement.Set_Uptade_String(), SumSave.crt_achievement.Get_Update_Character());
-        }
-
+       
 
 
 
@@ -414,7 +452,7 @@ namespace MVC
                 {
                     SumSave.crt_achievement = ReadDb.Read(mysqlReader, new user_achievement_vo());
                 }
-                Dictionary<string, int> achieves = SumSave.crt_achievement.Set_Exp();
+                Dictionary<string, long> achieves = SumSave.crt_achievement.Set_Exp();
                 if (achieves.Count == SumSave.db_Achievement_dic.Count)
                 {
 
