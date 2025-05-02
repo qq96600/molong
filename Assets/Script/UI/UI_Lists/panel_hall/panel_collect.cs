@@ -10,12 +10,12 @@ using UnityEngine.UI;
 
 public enum suit_Type//套装类型
 {
-    地脉套装,
+    地脉套装=0,
     祈愿套装,
     回忆套装,
     血夜套装, 
     虚空套装, 
-    冥噬套装
+    冥噬套装,
 }
 
 
@@ -71,7 +71,8 @@ public class panel_collect : Base_Mono
     /// <summary>
     /// 装备类型
     /// </summary>
-    private string[] typeNames;
+    private List<string> typeNames;
+ 
     /// <summary>
     /// 收集物品类型位置
     /// </summary>
@@ -124,11 +125,10 @@ public class panel_collect : Base_Mono
     /// </summary>
     private void PutItem()
     {
-        if (crt_collect.isCollect == 0)
+        if (SumSave.crt_collect.user_collect_dic[crt_collect.Name]==0)
         {
             db_collect_vo coll = crt_collect;
-            Debug.Log("放入物品");
-            for (int i = 0; i < typeNames.Length; i++)
+            for (int i = 0; i < typeNames.Count; i++)
             {
                 if (coll.StdMode == typeNames[i])
                 {
@@ -136,9 +136,8 @@ public class panel_collect : Base_Mono
                     NeedConsumables(coll.Name, 1);
                     if (RefreshConsumables())
                     {
-                        coll.isCollect = 1;
-                        //添加属性 创建user_collect_vo 
-                        //AddAttribute(collect.bonuses_types[j], collect.bonuses_values[j]);
+                        SumSave.crt_collect.collect_complete(coll.Name);//收集完成
+                        Alert_Dec.Show(coll.Name + " 收集成功");
                         return;
                     }
                 }
@@ -156,15 +155,44 @@ public class panel_collect : Base_Mono
     {
        
         ClearObject(pos_collect_type);
-        typeNames = Enum.GetNames(typeof(EquipTypeList));
+        typeNames= new List<string>();
+        string[] type= Enum.GetNames(typeof(EquipTypeList));
+        string[] type2= Enum.GetNames(typeof(suit_Type));
+        for (int i = 0; i < type.Length; i++)
+        {
+            typeNames.Add(type[i]);
+        }
+        for (int i = 0; i < type2.Length; i++)
+        {
+            typeNames.Add(type2[i]);
+        }
+
+        
         //显示单个物品
-        for (int i = 0; i < typeNames.Length; i++)
+        for (int i = 0; i < typeNames.Count; i++)
         {
             string typeName = typeNames[i];
             btn_item but_type = Instantiate(btn_Item, pos_collect_type);
             but_type.Show(i, typeName);
             but_type.GetComponent<Button>().onClick.AddListener(() => { ShowCollectItem(typeName); });
         }
+        
+
+
+        //foreach (var item in SumSave.crt_collect.user_collect_suit_dic)
+        //{
+        //    for(int i=0;i<SumSave.db_collect_vo.Count;i++)
+        //    {
+        //        if (item.Key == SumSave.db_collect_vo[i].Name)
+        //        {
+        //            string typeName = item.Value.ToString();
+        //            btn_item but_type = Instantiate(btn_Item, pos_collect_type);
+        //            but_type.Show(i, typeName);
+        //        }
+        //    }
+
+        //}
+
 
         ShowCollectItem(typeNames[0]);
 
@@ -181,7 +209,7 @@ public class panel_collect : Base_Mono
         List<db_collect_vo> item_Type = new List<db_collect_vo>();
         for (int i = 0; i < SumSave.db_collect_vo.Count; i++)
         {
-            if (SumSave.db_collect_vo[i].StdMode == Type)
+            if (SumSave.db_collect_vo[i].StdMode == Type)//找到同类型的物品
             {
                 item_Type.Add(SumSave.db_collect_vo[i]);
             }
@@ -226,31 +254,31 @@ public class panel_collect : Base_Mono
 
         but.gameObject.SetActive(true);
         collect_info.gameObject.SetActive(true);
-        db_collect_vo coll =new db_collect_vo();
-        coll= collect;
-        collect_Title.text= coll.Name;
+
+        
+        crt_collect = collect;
+        collect_Title.text= crt_collect.Name;
 
         Bag_Base_VO Dat =new Bag_Base_VO();
-        Dat.Name = coll.Name;
-        Dat.StdMode = coll.StdMode;
+        Dat.Name = crt_collect.Name;
+        Dat.StdMode = crt_collect.StdMode;
         item_image.Data = Dat;
 
         
         collect_info_text.text = "";
-        for (int i = 0; i < coll.bonuses_types.Length; i++) 
+        for (int i = 0; i < crt_collect.bonuses_types.Length; i++) 
         {
-            string type =(Attribute_Type.GetValue(int.Parse(coll.bonuses_types[i]))).ToString();
-            collect_info_text.text += type + "+" + coll.bonuses_values[i] + "\n";
+            string type =(Attribute_Type.GetValue(int.Parse(crt_collect.bonuses_types[i]))).ToString();
+            collect_info_text.text += type + "+" + crt_collect.bonuses_values[i] + "\n";
         }
 
-        if (coll.isCollect == 0)
+        if (SumSave.crt_collect.user_collect_dic[crt_collect.Name] == 0)
         {
-            crt_collect= coll;
             Put_but_text.text = "放入";
         }
         else
         {
-            Put_but.onClick.AddListener(() => { Alert_Dec.Show(coll.Name + " 已收集"); });
+            Put_but.onClick.AddListener(() => { Alert_Dec.Show(crt_collect.Name + " 已收集"); });
             Put_but_text.text = "已收集";
         }
     }

@@ -65,10 +65,14 @@ public class user_vo : Base_VO
         switch (_index)
         {
             case currency_unit.灵珠:
-                if (value > 0) Combat_statistics.AddMoeny(value);
-                else if(value<0)//扣除灵珠成就
+                if (value > 0)
                 {
-
+                    Combat_statistics.AddMoeny(value);
+                    SumSave.crt_achievement.increase_date_Exp((Achieve_collect.获得灵珠).ToString(), value);
+                }
+                else if (value < 0)//扣除灵珠成就
+                {
+                    SumSave.crt_achievement.increase_date_Exp((Achieve_collect.花费灵珠).ToString(), value);
                 }
 
                 list[0] += value;

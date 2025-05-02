@@ -132,6 +132,11 @@ public class hatching_progress : Base_Mono
         {
             case "孵化":
                 Dictionary<string, int> dic = new Dictionary<string, int>();
+                if(crt_egg.Item2 <= 0)
+                {
+                    Alert_Dec.Show("请选择需要孵化的宠物");
+                    return;
+                }
                 dic.Add(crt_egg.Item1, -crt_egg.Item2);
                 string EggsName = SumSave.db_pet_dic[crt_egg.Item1].petEggsName;//根据宠物找到宠物蛋名字
                 SumSave.crt_bag_resources.Get(dic);
@@ -320,6 +325,7 @@ public class hatching_progress : Base_Mono
         Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_pet,
         SumSave.crt_pet.Set_Uptade_String(), SumSave.crt_pet.Get_Update_Character());
         Alert_Dec.Show("宠物" + crt_pet_vo.petName + "已丢弃");
+        SumSave.crt_achievement.increase_date_Exp((Achieve_collect.放生宠物).ToString(), 1);
     }
 
     private IEnumerator ShowPlant(db_pet_vo pet)
@@ -408,6 +414,9 @@ public class hatching_progress : Base_Mono
 
         Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_pet,
         SumSave.crt_pet.Set_Uptade_String(), SumSave.crt_pet.Get_Update_Character());
+
+
+        SumSave.crt_achievement.increase_date_Exp((Achieve_collect.孵化宠物).ToString(), 1);
 
     }
 

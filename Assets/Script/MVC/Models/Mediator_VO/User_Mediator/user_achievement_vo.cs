@@ -27,15 +27,15 @@ public class user_achievement_vo : Base_VO
     /// <summary>
     /// 具体成就以及成就等级
     /// </summary>
-    private Dictionary<string, int> user_achievements = new Dictionary<string, int>();
-    private Dictionary<string, int> user_achievements_lv = new Dictionary<string, int>();
+    private Dictionary<string, long> user_achievements = new Dictionary<string, long>();
+    private Dictionary<string, long> user_achievements_lv = new Dictionary<string, long>();
   
 
     /// <summary>
     /// 获取经验值
     /// </summary>
     /// <returns></returns>
-    public Dictionary<string, int> Set_Exp()
+    public Dictionary<string, long> Set_Exp()
     {
         return user_achievements;
     }
@@ -45,7 +45,7 @@ public class user_achievement_vo : Base_VO
     /// </summary>
     /// <param name="data"></param>
     /// <param name="lv"></param>
-    public void increase_date_Exp(string data, int lv)
+    public void increase_date_Exp(string data, long lv)
     {
         user_achievements[data] += lv;
         Game_Omphalos.i.GetQueue(
@@ -68,11 +68,11 @@ public class user_achievement_vo : Base_VO
 
 
 
-    public void Get_Exp(Dictionary<string, int> data)
+    public void Get_Exp(Dictionary<string, long> data)
     {
         user_achievements = data;
     }
-    public void Get_lv(Dictionary<string, int> data)
+    public void Get_lv(Dictionary<string, long> data)
     {
         user_achievements_lv = data;
     }
@@ -81,7 +81,7 @@ public class user_achievement_vo : Base_VO
     /// 获取等级
     /// </summary>
     /// <returns></returns>
-    public Dictionary<string, int> Set_Lv()
+    public Dictionary<string, long> Set_Lv()
     {
         return user_achievements_lv;
     }
@@ -154,7 +154,7 @@ public class user_achievement_vo : Base_VO
    /// </summary>
    /// <param name="data"></param>
    /// <returns></returns>
-    private string data_achievement_value(Dictionary<string,int> data)
+    private string data_achievement_value(Dictionary<string,long> data)
     {
         string value = "";
         foreach (var item in data)

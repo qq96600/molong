@@ -34,10 +34,7 @@ public class db_collect_vo : Base_VO
     /// 收集完成增加的属性值数组
     /// </summary>
     public string[] bonuses_values;
-    /// <summary>
-    /// 物品是否被收集 0：未收集 1：已收集
-    /// </summary>
-    public int isCollect = 0;
+
     public void Init()
     {
         bonuses_types = bonuses_type.Split(' ');

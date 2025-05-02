@@ -18,6 +18,16 @@ public static class ReadDb
         item.par = reader.GetInt32(reader.GetOrdinal("par"));
         return item;
     }
+
+
+
+    public static user_collect_vo Read(MySqlDataReader reader, user_collect_vo item)
+    {
+        item.collect_value = reader.GetString(reader.GetOrdinal("collect_value"));
+        //item.collect_suit_value = reader.GetString(reader.GetOrdinal("collect_suit_value"));
+        return item;
+    }
+
     public static user_greenhand_vo Read(MySqlDataReader reader, user_greenhand_vo item)
     {
         item.user_value = reader.GetString(reader.GetOrdinal("valuelist"));
@@ -106,6 +116,7 @@ public static class ReadDb
         item.StdMode = reader.GetString(reader.GetOrdinal("StdMode"));
         item.bonuses_type= reader.GetString(reader.GetOrdinal("Collect bonuses type"));
         item.bonuses_value = reader.GetString(reader.GetOrdinal("Collect bonuses value"));
+
         item.Init();
         return item;
     }

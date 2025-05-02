@@ -53,11 +53,11 @@ public class plant_achievement : Base_Mono
     /// <summary>
     /// 自身经验值
     /// </summary>
-    private Dictionary<string, int> dic_exp = new Dictionary<string, int>();
+    private Dictionary<string, long> dic_exp = new Dictionary<string, long>();
     /// <summary>
     /// 自身等级
     /// </summary>
-    private Dictionary<string, int> dic_lv = new Dictionary<string, int>();
+    private Dictionary<string, long> dic_lv = new Dictionary<string, long>();
     
     /// <summary>
     /// 关闭按钮
@@ -98,7 +98,7 @@ public class plant_achievement : Base_Mono
 
         dic_exp = SumSave.crt_achievement.Set_Exp();
         dic_lv = SumSave.crt_achievement.Set_Lv();
-        int lv = dic_lv[crt_achieve_Item.Data.achievement_value];
+        int lv = (int)dic_lv[crt_achieve_Item.Data.achievement_value];
         if (true)
         {
             if (lv >= crt_achieve_Item.Data.achievement_needs.Count)
@@ -214,9 +214,9 @@ public class plant_achievement : Base_Mono
 
         if (dic_lv[crt_achieve_Item.Data.achievement_value] < crt_achieve_Item.Data.achievement_needs.Count)
         {
-            int number = dic_lv[crt_achieve_Item.Data.achievement_value];
+            int number = (int)dic_lv[crt_achieve_Item.Data.achievement_value];
             dec += "\nLv" + (number + 1) + ".成就阶段 " + dic_exp[crt_achieve_Item.Data.achievement_value] + "/" + crt_achieve_Item.Data.achievement_needs[number];
-            dec += "\n奖励 " + Show_Color.Yellow(InSetInfo(number));
+            //dec += "\n奖励 " + Show_Color.Yellow(InSetInfo(number));
         }
         show_info.text = dec;
     }

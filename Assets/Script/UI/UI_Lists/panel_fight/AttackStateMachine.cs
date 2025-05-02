@@ -69,7 +69,7 @@ public class AttackStateMachine : MonoBehaviour
     /// <summary>
     /// 冲撞距离
     /// </summary>
-    private float dashDistance =2f; // 最大冲撞距离
+    private float dashDistance =1f; // 最大冲撞距离
     /// <summary>
     /// 开始位置
     /// </summary>
@@ -102,7 +102,8 @@ public class AttackStateMachine : MonoBehaviour
                 StateMachine.Animator_State(Arrow_Type.attack);
 
                 StartCoroutine(AttackDash());
-                battle.OnAuto();
+
+               // battle.OnAuto();
                 AttackSpeedCounter = AttackSpeed;//battle.Data.attack_speed; 
             }
             else
@@ -136,6 +137,7 @@ public class AttackStateMachine : MonoBehaviour
             yield return null;
         }
 
+        battle.OnAuto();
         // 返回阶段
         float returnDuration = 0.5f;
         startTime = Time.time;
@@ -153,51 +155,6 @@ public class AttackStateMachine : MonoBehaviour
         isAttacking = false;
     }
 
-
-
-
-    /// <summary>
-    ///// 向前冲撞
-    ///// </summary>
-    ///// <returns></returns>
-    //IEnumerator AttackDash()
-    //{
-    //    isAttacking = true;
-
-    //    // 计算冲撞参数
-    //    float dashDuration = 1f / AttackSpeed; // 攻击速度越快，冲撞时间越短
-    //    float dashVelocity = dashDistance / dashDuration;
-
-    //    // 施加冲撞力
-    //    rb.velocity = Vector2.right * (dashVelocity*1000);
-
-    //    // 等待冲撞完成
-    //    yield return new WaitForSeconds(dashDuration);
-
-    //    // 返回原位
-    //    StopAllCoroutines();    
-    //    StartCoroutine(SmoothReturn());
-    //}
-    ////返回原来位置
-    //IEnumerator SmoothReturn()
-    //{
-    //    float duration = 0.5f;
-    //    float elapsed = 0f;
-
-    //    while (elapsed < duration)
-    //    {
-    //        transform.position = Vector2.Lerp(
-    //            transform.position,
-    //            startPosition,
-    //            elapsed / duration
-    //        );
-    //        elapsed += Time.deltaTime;
-    //        yield return null;
-    //    }
-
-    //    transform.position = startPosition;
-    //    isAttacking = false;
-    //}
 
 
 

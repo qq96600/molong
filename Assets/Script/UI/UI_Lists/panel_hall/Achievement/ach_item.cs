@@ -42,8 +42,8 @@ public class ach_item : Base_Mono
     /// </summary>
     public void Init()
     {
-        Dictionary<string, int> dic_exp = SumSave.crt_achievement.Set_Exp();
-        Dictionary<string, int> dic_lv = SumSave.crt_achievement.Set_Lv();
+        Dictionary<string, long> dic_exp = SumSave.crt_achievement.Set_Exp();
+        Dictionary<string,long> dic_lv = SumSave.crt_achievement.Set_Lv();
         //info.text = "显示成就具体信息";
         info.text = "";
         if (dic_lv[data.achievement_value] >= data.achievement_needs.Count)
@@ -66,7 +66,7 @@ public class ach_item : Base_Mono
                 }
                
             }
-            info.text+=" (" + dic_exp[data.achievement_value] + "/" + data.achievement_needs[dic_lv[data.achievement_value]] + ")";//
+            info.text+=" (" + dic_exp[data.achievement_value] + "/" + data.achievement_needs[(int)dic_lv[data.achievement_value]] + ")";//
         }
 
     }
