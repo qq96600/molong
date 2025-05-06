@@ -653,6 +653,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4087432528111805209, guid: 4b9eae64d908c704cbbd0006a4d76496, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 63.409058
+      objectReference: {fileID: 0}
     - target: {fileID: 5367911618118043261, guid: 4b9eae64d908c704cbbd0006a4d76496, type: 3}
       propertyPath: m_Name
       value: panel_fight
@@ -704,6 +708,14 @@ PrefabInstance:
     - target: {fileID: 6907276945796186713, guid: 4b9eae64d908c704cbbd0006a4d76496, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -591.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 7282936241143621057, guid: 4b9eae64d908c704cbbd0006a4d76496, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 15.100098
+      objectReference: {fileID: 0}
+    - target: {fileID: 7282936241143621057, guid: 4b9eae64d908c704cbbd0006a4d76496, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -6.535034
       objectReference: {fileID: 0}
     - target: {fileID: 7546339636521362300, guid: 4b9eae64d908c704cbbd0006a4d76496, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1131,6 +1143,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1756962928705028456, guid: 43ca75a0f80bed640b2b89cf6734289b, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4650371923269806828, guid: 43ca75a0f80bed640b2b89cf6734289b, type: 3}
       propertyPath: m_Pivot.x
       value: 0
