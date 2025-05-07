@@ -159,7 +159,7 @@ namespace Common
         /// <summary>
         /// 服务器列表
         /// </summary>
-        public static List<db_base_par> db_pars = new List<db_base_par>();
+        public static List<db_base_par> db_pars;
         /// <summary>
         /// 签到奖励列表
         /// </summary>

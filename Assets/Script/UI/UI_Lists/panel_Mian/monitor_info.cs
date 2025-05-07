@@ -77,8 +77,16 @@ public class monitor_info : Base_Mono
         {
             string dec = "";
             GreenhandGuide_TotalTaskVO task = SumSave.GreenhandGuide_TotalTasks[SumSave.crt_greenhand.crt_task];
-            if (SumSave.crt_greenhand.crt_progress <= task.progress)
+            if (SumSave.crt_greenhand.crt_progress >= task.progress)    
             {
+                foreach (var item in SumSave.crt_greenhand.task_list)
+                {
+                    if (item == task.taskid)
+                    {
+                        Alert_Dec.Show("任务已完成");
+                        return;
+                    } 
+                }
                 SumSave.crt_greenhand.task_list.Add(task.taskid);
                 bool exist= false;
                 foreach (var item in SumSave.GreenhandGuide_TotalTasks.Keys)
@@ -86,7 +94,7 @@ public class monitor_info : Base_Mono
                     //获取下一个进度条列表
                     if (exist)
                     { 
-                        SumSave.crt_greenhand.crt_task = item;
+                        SumSave.crt_greenhand.crt_task = item;  
                         SumSave.crt_greenhand.crt_progress = 0;
                         exist = false;
                         break;

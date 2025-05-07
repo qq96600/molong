@@ -75,16 +75,16 @@ public class panel_smallWorld : Panel_Base
         _explore = Find<Pet_explore>("small_World/Pet_explore");
         pos_btn=Find<Transform>("bg_main/btn_list");
         base_info = Find<Text>("bg_main/base_info/info");
-        btn_item = Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
+        btn_item = Battle_Tool.Find_Prefabs<btn_item>("btn_item");// Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
         
         hatching_progress = Find<hatching_progress>("small_World/hatching_progress");
         close_hatching = Find<Button>("small_World/hatching_progress/but");
         close_hatching.onClick.AddListener(() => { CloseHatching(); });
 
         pos_btn_explore = Find<Transform>("small_World/Pet_explore/explore/pet_pos_btn");
-        pet_item_Prefabs = Resources.Load<pet_item>("Prefabs/panel_smallWorld/pets/pet_item");
+        pet_item_Prefabs = Battle_Tool.Find_Prefabs<pet_item>("pet_item"); //Resources.Load<pet_item>("Prefabs/panel_smallWorld/pets/pet_item");
         pos_items_reward= Find<Transform>("small_World/Pet_explore/Income/Viewport/Items");
-        material_item_Prefabs= Resources.Load<material_item>("Prefabs/panel_bag/material_item");
+        material_item_Prefabs= Battle_Tool.Find_Prefabs<material_item>("material_item"); //Resources.Load<material_item>("Prefabs/panel_bag/material_item");
         show_plant=Find<show_Plant>("small_World/show_plant");
         for (int i = 0; i < btn_list.Length; i++)
         {

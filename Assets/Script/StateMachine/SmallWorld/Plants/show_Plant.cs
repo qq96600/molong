@@ -42,7 +42,7 @@ public class show_Plant : Base_Mono
     private void Awake()
     {
         pos_btn=Find<Transform>("btn_list");
-        btn_item_Prefabs = Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
+        btn_item_Prefabs = Battle_Tool.Find_Prefabs<btn_item>("btn_item"); 
         for (int i = 0; i < btn_list.Count; i++)
         {
             btn_item item= Instantiate(btn_item_Prefabs, pos_btn);
@@ -56,7 +56,7 @@ public class show_Plant : Base_Mono
             plantDropdown.options.Add(new Dropdown.OptionData() { text = SumSave.db_plants[i].plantName });
         }
         plantDropdown.onValueChanged.AddListener(OnSelect);
-        panltItemPrefab = Resources.Load<seed_item>("Prefabs/panel_smallWorld/seeditem"); //Assets / Resources / Prefabs / panel_smallWorld / seeditem.prefab
+        panltItemPrefab = Battle_Tool.Find_Prefabs<seed_item>("seeditem"); //Resources.Load<seed_item>("Prefabs/panel_smallWorld/seeditem"); //Assets / Resources / Prefabs / panel_smallWorld / seeditem.prefab
         pos_panlt = Find<Transform>("Scroll View/Viewport/Content");
     }
     /// <summary>

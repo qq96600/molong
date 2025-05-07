@@ -45,8 +45,8 @@ public class panel_Artifact : Base_Mono
     {
         crt_btn = Find<Transform>("bg_main/btn_list");
         pos_artifact= Find<Transform>("bg_main/Scroll View/Viewport/Content");
-        btn_itm_prefabs = Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
-        artifact_itm_prefabs = Resources.Load<artifact_item>("Prefabs/panel_hall/panel_Artifact/artifact_item");
+        btn_itm_prefabs = Battle_Tool.Find_Prefabs<btn_item>("btn_item"); //Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
+        artifact_itm_prefabs = Battle_Tool.Find_Prefabs<artifact_item>("artifact_item"); //R//esources.Load<artifact_item>("Prefabs/panel_hall/panel_Artifact/artifact_item");
         offect = Find<artifact_offect>("bg_main/artifact_offect");
         for (int i = 0; i < btn_list.Count; i++)
         {

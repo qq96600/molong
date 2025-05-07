@@ -2,24 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Achieve_collect//³É¾Í³É³¤ÏµÁĞ
+public enum Achieve_collect//æˆå°±æˆé•¿ç³»åˆ—
 {
-    µÈ¼¶Éı¼¶=1,
-    ÔÚÏßÊ±¼ä,
-    »÷É±¹ÖÎï,
-    »÷É±Boss,
-    »ñµÃÁéÖé,
-    ¼¼ÄÜÊıÁ¿,
-    »¨·ÑÁéÖé,
-    ËÀÍö,
-    ·õ»¯³èÎï,
-    ·ÅÉú³èÎï,
+    ç­‰çº§å‡çº§=1,
+    åœ¨çº¿æ—¶é—´,
+    å‡»æ€æ€ªç‰©,
+    å‡»æ€Boss,
+    è·å¾—çµç ,
+    æŠ€èƒ½æ•°é‡,
+    èŠ±è´¹çµç ,
+    æ­»äº¡,
+    å­µåŒ–å® ç‰©,
+    æ”¾ç”Ÿå® ç‰©,
 
 }
 
-public enum Achieve_Type//³É¾ÍÀàĞÍÃ¶¾Ù
+public enum Achieve_Type//æˆå°±ç±»å‹æšä¸¾
 {
-    ³É³¤³É¾Í = 1,
-    ÌØÊâ³É¾Í,
+    æˆé•¿æˆå°± = 1,
+    ç‰¹æ®Šæˆå°±,
 
 }

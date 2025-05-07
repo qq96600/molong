@@ -28,8 +28,8 @@ public class offect_up_skill : Base_Mono
     {
         crt_attack_skill=Find<Transform>("attack_skill");
         crt_special_skill = Find<Transform>("special_skill");
-        btn_Item_parfabs = Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
-        skill_item_parfabs = Resources.Load<skill_offect_item>("Prefabs/panel_skill/skill_offect_item");
+        btn_Item_parfabs = Battle_Tool.Find_Prefabs<btn_item>("btn_item"); //Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
+        skill_item_parfabs = Battle_Tool.Find_Prefabs<skill_offect_item>("skill_offect_item"); //Resources.Load<skill_offect_item>("Prefabs/panel_skill/skill_offect_item");
         close = Find<Button>("close_button");
         close.onClick.AddListener(() => { On_Close(); });
 

@@ -23,6 +23,7 @@ namespace MVC
         public void Read_Instace()
         {
             OpenMySqlDB();
+            if (MysqlDb.MysqlClose) return;//未联网
             QueryTime();
             Read_Db_Monster();
             Read_Db_Magic();

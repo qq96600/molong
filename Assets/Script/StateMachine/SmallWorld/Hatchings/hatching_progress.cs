@@ -67,11 +67,11 @@ public class hatching_progress : Base_Mono
         pos_btn = Find<Transform>("btn_list");
         pos_info = Find<Transform>("Pet_info/base_info/Scroll View/Viewport/Content");
         pos_pet_btn = Find<Transform>("Pet_info/btn_list");
-        material_item_Prefabs = Resources.Load<material_item>("Prefabs/panel_bag/material_item");
-        btn_item_Prefabs = Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
-        pet_item_Prefabs = Resources.Load<pet_item>("Prefabs/panel_smallWorld/pets/pet_item");
-        store_item_Prefabs = Resources.Load<store_item>("Prefabs/panel_hall/panel_store/store_item");
-        info_item_prefabs = Resources.Load<info_item>("Prefabs/base_tool/info_item");
+        material_item_Prefabs = Battle_Tool.Find_Prefabs<material_item>("material_item"); //Resources.Load<material_item>("Prefabs/panel_bag/material_item");
+        btn_item_Prefabs = Battle_Tool.Find_Prefabs<btn_item>("btn_item"); //Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
+        pet_item_Prefabs = Battle_Tool.Find_Prefabs<pet_item>("pet_item"); //Resources.Load<pet_item>("Prefabs/panel_smallWorld/pets/pet_item");
+        store_item_Prefabs = Battle_Tool.Find_Prefabs<store_item>("store_item"); //Resources.Load<store_item>("Prefabs/panel_hall/panel_store/store_item");
+        info_item_prefabs = Battle_Tool.Find_Prefabs<info_item>("info_item"); //Resources.Load<info_item>("Prefabs/base_tool/info_item");
         hatching_Slider = Find<Slider>("Pet_info/hatching_Slider");
         countdown_text = Find<Text>("Pet_info/hatching_Slider/countdown_text/info");
         hatching_Slider.gameObject.SetActive(false);

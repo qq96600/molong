@@ -48,7 +48,7 @@ public class panel_hall : Panel_Base
         pos_hero = Find<Transform>("bg_main/panel_list/herolist/Scroll View/Viewport/Content");//
         pos_map = Find<Transform>("bg_main/panel_list/maplist/Scroll View/Viewport/Content");
         pos_otain = Find<Transform>("bg_main/panel_list/otainlist/Scroll View/Viewport/Content");
-        btn_item_Prefabs = Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
+        btn_item_Prefabs = Battle_Tool.Find_Prefabs<btn_item>("btn_item");// Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
         offect_list=Find<Image>("bg_main/offect_list");
         ClearObject(pos_hero);
         ClearObject(pos_map);

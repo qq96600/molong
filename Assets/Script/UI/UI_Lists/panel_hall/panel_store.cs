@@ -87,10 +87,10 @@ public class panel_store : Base_Mono
     private void Awake()
     {
         store_type = Find<Transform>("store_type");
-        btn_item = Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
+        btn_item = Battle_Tool.Find_Prefabs<btn_item>("btn_item"); //Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
         store_item = Find<Transform>("store_item/Viewport/Content");
-        material_item = Resources.Load<material_item>("Prefabs/panel_bag/material_item");
-        store_item_Prefabs= Resources.Load<store_item>("Prefabs/panel_hall/panel_store/store_item");
+        material_item = Battle_Tool.Find_Prefabs<material_item>("material_item"); //Resources.Load<material_item>("Prefabs/panel_bag/material_item");
+        store_item_Prefabs= Battle_Tool.Find_Prefabs<store_item>("store_item"); //Resources.Load<store_item>("Prefabs/panel_hall/panel_store/store_item");
         btn = Find<Button>("but");
 
         btn.onClick.AddListener(() =>{ CloseBuyInterface(); });

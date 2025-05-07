@@ -68,8 +68,8 @@ public class plant_achievement : Base_Mono
 
     private void Awake()
     {
-        Achieve_Item_Prefab = Resources.Load<ach_item>("Prefabs/base_tool/ach_item"); 
-        Achieve_Type_Prefab = Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
+        Achieve_Item_Prefab = Battle_Tool.Find_Prefabs<ach_item>("ach_item"); //Resources.Load<ach_item>("Prefabs/base_tool/ach_item"); 
+        Achieve_Type_Prefab = Battle_Tool.Find_Prefabs<btn_item>("btn_item"); //Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
         crt= Find<Transform>("achievementList/Viewport/Content");
         show_offect= Find<Image>("show_offect");
         show_name= Find<Text>("show_offect/show_name/info");

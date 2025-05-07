@@ -46,9 +46,9 @@ public class panel_pass : Base_Mono
         pos_item = Find<Transform>("bg_main/Scroll View/Viewport/Content");
         pos_task = Find<Transform>("bg_main/task/task_list");
         task_info = Find<Text>("bg_main/task/info/info");
-        btn_itm_prefabs = Resources.Load<btn_item>("Prefabs/base_tool/btn_item"); 
-        pass_item_prefabs = Resources.Load<pass_item>("Prefabs/panel_hall/panel_pass/pass_item"); 
-        task_item_prefabs = Resources.Load<task_item>("Prefabs/panel_hall/panel_pass/task_item");
+        btn_itm_prefabs = Battle_Tool.Find_Prefabs<btn_item>("btn_item"); //Resources.Load<btn_item>("Prefabs/base_tool/btn_item"); 
+        pass_item_prefabs = Battle_Tool.Find_Prefabs<pass_item>("pass_item"); //Resources.Load<pass_item>("Prefabs/panel_hall/panel_pass/pass_item"); 
+        task_item_prefabs = Battle_Tool.Find_Prefabs<task_item>("task_item"); //Resources.Load<task_item>("Prefabs/panel_hall/panel_pass/task_item");
         for (int i = 0; i < btn_list.Count; i++)
         {
             btn_item btn = Instantiate(btn_itm_prefabs, pos_btn);
