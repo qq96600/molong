@@ -12,7 +12,6 @@ namespace MVC
 {
     public class panel_login : Panel_Base
     {
-        private const string BaseUserID = "账户ID";
         private Button loginBt, userBt, selfBt;//开始按钮, 用户，隐私
 
         private GameObject AgreementButter, AgreementWindow, userWd, selfWd;//协议点击组件，协议面板
@@ -79,7 +78,7 @@ namespace MVC
             TheServerUP.onClick.AddListener(OnLoginClick);
 
             loginBt = Find<Button>("login");
-            loginBt.onClick.AddListener(UpTheServer);
+            loginBt.onClick.AddListener(Open_function);
             loginBt.gameObject.SetActive(false);
             fightPanel = UI_Manager.I.GetPanel<panel_fight>();
             TaploginBt=Find<Button>("Taplogin");
@@ -92,23 +91,10 @@ namespace MVC
 
             TaploginBt.gameObject.SetActive(true);//true
             loginBt.gameObject.SetActive(false);
-           
 #elif UNITY_IPHONE
             TaploginBt.gameObject.SetActive(false);
             loginBt.gameObject.SetActive(true);
-
-            if (!PlayerPrefs.HasKey(BaseUserID))
-            {
-                string dec=System.Guid.NewGuid().ToString("N");
-
-                PlayerPrefs.SetString(BaseUserID,dec);
-
-                //baseUserIdShow.text=dec;
-            }
-            SumSave.uid = PlayerPrefs.GetString(BaseUserID);
-
 #endif
-
             #region 用户协议
 
             AgreementButter = GameObject.Find("AgreementButter");
@@ -137,10 +123,22 @@ namespace MVC
 
         }
 
+        private void Open_function()
+        {
+#if UNITY_EDITOR
+            UpTheServer();
+            //UI_Manager.Instance.GetPanel<Panel_cratehero>().Show();
+#elif UNITY_ANDROID
+            UpTheServer();
+#elif UNITY_IPHONE
+            UI_Manager.Instance.GetPanel<Panel_cratehero>().Show();
+#endif
+        }
+
         /// <summary>
         /// 打开服务器选择界面
         /// </summary>
-        private void UpTheServer()
+        public void UpTheServer()
         {
             if (SumSave.db_pars==null)
             {
@@ -169,10 +167,11 @@ namespace MVC
             select_par = new btn_item();
             select_par = item;
             TheServerText.text ="选中"+(item.index).ToString()+"区";
+            SumSave.par = item.index;
         }
 
         //tap登录完成之后打开开关
-        internal void ShowStartBtn(bool v)
+        public void ShowStartBtn(bool v)
         {
             TaploginBt.gameObject.SetActive(!v);
             loginBt.gameObject.SetActive(v);
@@ -183,14 +182,15 @@ namespace MVC
         /// </summary>
         private void TapLogin()
         {
-#if UNITY_EDITOR
+            #if UNITY_EDITOR
             TaploginBt.gameObject.SetActive(false);
             loginBt.gameObject.SetActive(true);
-#elif UNITY_ANDROID
-_ = GameLogin.Instance.Login();
+            #elif UNITY_ANDROID
+            _ = GameLogin.Instance.Login();
            
-#elif UNITY_IPHONE
-             
+            #elif UNITY_IPHONE
+            UI_Manager.Instance.GetPanel<Panel_cratehero>().Show();
+
 #endif
         }
 
@@ -249,13 +249,32 @@ _ = GameLogin.Instance.Login();
                 PlayerPrefs.SetInt("同意阅读协议", 0);
                 return;
             }
-            SendNotification(NotiList.User_Login);
-            //Debug.Log("已阅读并勾选同意协议");
             PlayerPrefs.SetInt("同意阅读协议", 1);
-            Hide();
-            UI_Manager.I.GetPanel<panel_Mian>().Show();
+#if UNITY_EDITOR
+            SumSave.uid= "05c8cc2e26234ec0acc690343a598eba";
+#elif UNITY_ANDROID
+            Game_Omphalos.i.Wirte_Tap();
+#elif UNITY_IPHONE
+            Game_Omphalos.i.Wirte_Iphone();
+#endif
+            TheServerObg.gameObject.SetActive(false);
+            if (SumSave.uid != null)
+            {
+                SendNotification(NotiList.User_Login);
+                UI_Manager.I.GetPanel<panel_Mian>().Show();
+                Hide();
+            }
+            else
+            {
+                #if UNITY_EDITOR
 
+#elif UNITY_ANDROID
+                _ = GameLogin.Instance.Login();
 
+#elif UNITY_IPHONE
+                UI_Manager.Instance.GetPanel<Panel_cratehero>().Show();
+#endif
+            }
 
             //fightPanel.Show();
             ////计算离线收益
