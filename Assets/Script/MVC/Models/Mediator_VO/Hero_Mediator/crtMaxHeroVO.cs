@@ -163,7 +163,7 @@ public class crtMaxHeroVO
     /// </summary>
     public int bonus_Mp;
     /// <summary>
-    /// s伤害加成
+    /// 物理伤害加成
     /// </summary>
     public int bonus_Damage;
     /// <summary>
