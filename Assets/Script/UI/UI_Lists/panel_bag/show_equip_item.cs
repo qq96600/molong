@@ -19,7 +19,7 @@ public class show_equip_item : Base_Mono
     private void Awake()
     {
         transform.parent.parent.parent.parent.SendMessage("Instance_Pos", this);
-        BagItemPrefabs = Resources.Load<bag_item>("Prefabs/panel_bag/bag_item");
+        BagItemPrefabs = Battle_Tool.Find_Prefabs<bag_item>("bag_item");// Resources.Load<bag_item>("Prefabs/panel_bag/bag_item");
         show_type = GetComponent<Image>();
     }
     private void Start()

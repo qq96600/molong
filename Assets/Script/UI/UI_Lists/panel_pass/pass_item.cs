@@ -18,12 +18,8 @@ public class pass_item : Base_Mono
     {
         info_lv =  Find<Transform>("pos_index"); 
         info_value = Find<Transform>("info_value");
-        upinfo_value = Find<Transform>("upinfo_value");
-        //receive = Find<Button>("receive");
-        //upLvreceive = Find<Button>("upLvreceive");
-        //receive.onClick.AddListener(OnReceive);
-        //upLvreceive.onClick.AddListener(OnupLvReceive);
-        material_item_parfabs = Resources.Load<material_item>("Prefabs/panel_bag/material_item");
+        upinfo_value = Find<Transform>("upinfo_value"); 
+        material_item_parfabs = Battle_Tool.Find_Prefabs<material_item>("material_item"); //Resources.Load<material_item>("Prefabs/panel_bag/material_item");
         Image_parfabs = Resources.Load<Image>("Prefabs/panel_text/Image_text");
     }
     /// <summary>

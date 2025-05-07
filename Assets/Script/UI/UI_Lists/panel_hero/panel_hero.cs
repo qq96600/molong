@@ -82,7 +82,7 @@ public class panel_hero : Panel_Base
         crt_pos_hero = Find<Transform>("bg_main/select_hero/Scroll View/Viewport/Content");
         open_activation = Find<Button>("bg_main/bag_equips/hero_icon/open_activation");
         open_activation.onClick.AddListener(() => { select_hero.gameObject.SetActive(true); });
-        hero_item_prefabs = Resources.Load<hero_item>("Prefabs/panel_hero/hero_item");
+        hero_item_prefabs = Battle_Tool.Find_Prefabs<hero_item>("hero_item");// Resources.Load<hero_item>("Prefabs/panel_hero/hero_item");
         select_hero=Find<Image>("bg_main/select_hero");
         select_hero_close_btn = Find<Button>("bg_main/select_hero/close");
         select_hero_close_btn.onClick.AddListener(() => { select_hero.gameObject.SetActive(false); });

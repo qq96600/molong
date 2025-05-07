@@ -27,7 +27,7 @@ public class panel_equip : Panel_Base
     public override void Initialize()
     {
         base.Initialize();
-        equip_item_prafabs = Resources.Load<equip_item>("Prefabs/panel_equip/equip_item");
+        equip_item_prafabs = Battle_Tool.Find_Prefabs<equip_item>("equip_item"); //Resources.Load<equip_item>("Prefabs/panel_equip/equip_item");
         show_material_prafabs= Resources.Load<Show_Material>("Prefabs/panel_equip/Show_Material");
         crt_pos_equip = Find<Transform>("bg_main");
         panel_bag=UI_Manager.I.GetPanel<panel_bag>();

@@ -27,7 +27,7 @@ public class store_item : Base_Mono
     {
         baseinfo=Find<Text>("info");
         icon=Find<Image>("icon");
-        material_item_Prefabs = Resources.Load<material_item>("Prefabs/panel_bag/material_item");
+        material_item_Prefabs = Battle_Tool.Find_Prefabs<material_item>("material_item"); //Resources.Load<material_item>("Prefabs/panel_bag/material_item");
     }
     /// <summary>
     /// 初始化

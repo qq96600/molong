@@ -21,8 +21,8 @@ public class equip_item : Base_Mono
     {
         crt_bag=Find<Transform>("show_icon");
         crt_btn=Find<Transform>("btn_list");
-        btn_item_Prefabs = Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
-        bag_item_Prefabs = Resources.Load<bag_item>("Prefabs/panel_bag/bag_item");
+        btn_item_Prefabs = Battle_Tool.Find_Prefabs<btn_item>("btn_item"); //Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
+        bag_item_Prefabs = Battle_Tool.Find_Prefabs<bag_item>("bag_item"); //Resources.Load<bag_item>("Prefabs/panel_bag/bag_item");
         show_name = Find<Text>("show_name/info");
         show_base_need = Find<Text>("show_base_need");
         show_info = Find<Text>("show_info");

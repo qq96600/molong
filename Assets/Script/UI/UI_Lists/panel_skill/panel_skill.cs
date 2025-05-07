@@ -70,15 +70,15 @@ public class panel_skill : Panel_Base
         crt_btn = Find<Transform>("bg_main/skills/btns");
         crt_skill = Find<Transform>("bg_main/skills/Scroll View/Viewport/Content");
         crt_offect_btn=Find<Transform>("bg_main/show_skill/btn_list");
-        btn_item_Prefabs = Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
-        skill_item_Prefabs = Resources.Load<skill_item>("Prefabs/panel_skill/skill_item");
+        btn_item_Prefabs = Battle_Tool.Find_Prefabs<btn_item>("btn_item");// Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
+        skill_item_Prefabs = Battle_Tool.Find_Prefabs<skill_item>("skill_item"); //Resources.Load<skill_item>("Prefabs/panel_skill/skill_item");
         base_info = Find<Text>("bg_main/show_skill/bg_info/Viewport/base_info");
         offect_skill = Find<offect_up_skill>("bg_main/offect_up_skill");
         allocation_skill_damage = Find<allocation_skill_damage>("bg_main/allocation_skill_damage");
         page_info = Find<Text>("bg_main/item_list/page_info");
         page_info.GetComponent<Button>().onClick.AddListener(delegate { Page_Change(); });
         pos_skill = Find<Transform>("bg_main/item_list/list");
-        skill_item_parfabs = Resources.Load<skill_offect_item>("Prefabs/panel_skill/skill_offect_item");
+        skill_item_parfabs = Battle_Tool.Find_Prefabs<skill_offect_item>("skill_offect_item"); //Resources.Load<skill_offect_item>("Prefabs/panel_skill/skill_offect_item");
         for (int i = 0; i < Enum.GetNames(typeof(skill_btn_list)).Length; i++)
         {
             btn_item btn_item = Instantiate(btn_item_Prefabs, crt_btn);

@@ -18,7 +18,7 @@ public class pight_show_skill : Base_Mono
     {
         crt_attack_skill = Find<Transform>("attack_skill");
         crt_special_skill = Find<Transform>("special_skill");
-        skill_item_parfabs = Resources.Load<skill_offect_item>("Prefabs/panel_skill/skill_offect_item");
+        skill_item_parfabs = Battle_Tool.Find_Prefabs<skill_offect_item>("skill_offect_item"); //Resources.Load<skill_offect_item>("Prefabs/panel_skill/skill_offect_item");
     }
     public List<skill_offect_item> Init()
     {

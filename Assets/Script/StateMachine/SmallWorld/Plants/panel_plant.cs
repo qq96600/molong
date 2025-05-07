@@ -79,7 +79,7 @@ public class panel_plant : Panel_Base
         #endregion
 
         #region 植物预制体初始化
-        plantPrefab= Resources.Load<panltItem>("Prefabs/panel_smallWorld/plantItem");
+        plantPrefab= Battle_Tool.Find_Prefabs<panltItem>("panltItem"); //Resources.Load<panltItem>("Prefabs/panel_smallWorld/plantItem");
         plantFields= transform.Find("plantFields").transform;
         plantInfo=transform.Find("plant_info").transform;
         plantText=plantInfo.Find("plant_Text").GetComponent<Text>();

@@ -47,7 +47,7 @@ public class Show_Material : Base_Mono
         confirm.onClick.AddListener(() => { Confirm(); });
         discard.onClick.AddListener(() => { Discard(); });
         pos_icon = Find<Transform>("iocn");
-        material_item_Prefabs = Resources.Load<material_item>("Prefabs/panel_bag/material_item");
+        material_item_Prefabs = Battle_Tool.Find_Prefabs<material_item>("material_item"); //Resources.Load<material_item>("Prefabs/panel_bag/material_item");
     }
     /// <summary>
     /// 丢弃

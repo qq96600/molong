@@ -14,7 +14,7 @@ public class Daily_copies : Base_Mono
     private void Awake()
     {
         pos_crtmap=Find<Transform>("Scroll View/Viewport/Content");
-        copies_item_Prefabs = Resources.Load<copies_item>("Prefabs/panel_hall/Daily_copies/copies_item");
+        copies_item_Prefabs = Battle_Tool.Find_Prefabs<copies_item>("copies_item"); //Resources.Load<copies_item>("Prefabs/panel_hall/Daily_copies/copies_item");
         for (int i = 0; i < 10; i++)
         { 
             copies_item item = Instantiate(copies_item_Prefabs, pos_crtmap);

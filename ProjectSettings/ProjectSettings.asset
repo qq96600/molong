@@ -164,6 +164,7 @@ PlayerSettings:
   applicationIdentifier:
     Android: com.molong.zwfc.cn
     Standalone: com.DefaultCompany.2DProject
+    iPhone: com.molong.zwfc.cn
   buildNumber:
     Standalone: 0
     VisionOS: 0

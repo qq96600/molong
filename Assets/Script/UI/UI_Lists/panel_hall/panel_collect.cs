@@ -88,8 +88,8 @@ public class panel_collect : Base_Mono
     private void Awake()
     {
         collect_item = Find<Transform>("collect_Scroll/Viewport/collect_items");
-        bag_Item=Resources.Load<bag_item>("Prefabs/panel_bag/bag_item");
-        btn_Item=Resources.Load<btn_item>("Prefabs/base_tool/btn_item"); 
+        bag_Item= Battle_Tool.Find_Prefabs<bag_item>("bag_item"); //Resources.Load<bag_item>("Prefabs/panel_bag/bag_item");
+        btn_Item= Battle_Tool.Find_Prefabs<btn_item>("btn_item"); //Resources.Load<btn_item>("Prefabs/base_tool/btn_item"); 
         pos_collect_type = Find<Transform>("Type_but/Viewport/Type");
         Attribute_Type = Enum.GetValues(typeof(enum_skill_attribute_list));       
         but=Find<Button>("but"); 

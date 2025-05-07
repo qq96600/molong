@@ -2,6 +2,7 @@
 using Common;
 using Components;
 using System;
+using System.Collections;
 using UI;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,7 +12,7 @@ namespace MVC
 {
     public class panel_login : Panel_Base
     {
-
+        private const string BaseUserID = "账户ID";
         private Button loginBt, userBt, selfBt;//开始按钮, 用户，隐私
 
         private GameObject AgreementButter, AgreementWindow, userWd, selfWd;//协议点击组件，协议面板
@@ -53,6 +54,18 @@ namespace MVC
         private void Start()
         {
             SendNotification(NotiList.Read_Instace);
+
+            StartCoroutine("Read_Instace");
+        }
+
+        private IEnumerator Read_Instace()
+        {
+            while (SumSave.db_monsters==null)
+            {
+                yield return new WaitForSeconds(1f);
+                SendNotification(NotiList.Read_Instace);
+                Alert_Dec.Show("网络链接中断，请重试");
+            }
         }
         public override void Initialize()
         {
@@ -62,7 +75,7 @@ namespace MVC
             TheServerList=Find<Transform>("TheServer/TheServerList/Viewport/Content");
             TheServerText=Find<Text>("TheServer/CurrentTheServer/TheServerText/Text");
             TheServerUP=Find<Button>("TheServer/CurrentTheServer/TheServerUP");
-            btn_Item= Resources.Load<btn_item>("Prefabs/base_tool/btn_item"); 
+            btn_Item= Battle_Tool.Find_Prefabs<btn_item>("btn_item");// Resources.Load<btn_item>("Prefabs/base_tool/btn_item"); 
             TheServerUP.onClick.AddListener(OnLoginClick);
 
             loginBt = Find<Button>("login");
@@ -81,9 +94,8 @@ namespace MVC
             loginBt.gameObject.SetActive(false);
            
 #elif UNITY_IPHONE
-            LoginBtn.gameObject.SetActive(false);
-            crt_haoyouLoginBtn.gameObject.SetActive(false);
-            Ok.gameObject.SetActive(true);
+            TaploginBt.gameObject.SetActive(false);
+            loginBt.gameObject.SetActive(true);
 
             if (!PlayerPrefs.HasKey(BaseUserID))
             {
@@ -91,11 +103,14 @@ namespace MVC
 
                 PlayerPrefs.SetString(BaseUserID,dec);
 
-                baseUserIdShow.text=dec;
+                //baseUserIdShow.text=dec;
             }
+            SumSave.uid = PlayerPrefs.GetString(BaseUserID);
+
 #endif
 
             #region 用户协议
+
             AgreementButter = GameObject.Find("AgreementButter");
             if (AgreementButter == null)
             {
@@ -127,6 +142,11 @@ namespace MVC
         /// </summary>
         private void UpTheServer()
         {
+            if (SumSave.db_pars==null)
+            {
+                Alert_Dec.Show("网络链接中断，请重试");
+                return;
+            }
             TheServerObg.gameObject.SetActive(true);
             ClearObject(TheServerList);
             for(int i=0;i<SumSave.db_pars.Count; i++)
@@ -163,7 +183,15 @@ namespace MVC
         /// </summary>
         private void TapLogin()
         {
-            _ = GameLogin.Instance.Login();
+#if UNITY_EDITOR
+            TaploginBt.gameObject.SetActive(false);
+            loginBt.gameObject.SetActive(true);
+#elif UNITY_ANDROID
+_ = GameLogin.Instance.Login();
+           
+#elif UNITY_IPHONE
+             
+#endif
         }
 
         private void OpenUser()//打开用户协议

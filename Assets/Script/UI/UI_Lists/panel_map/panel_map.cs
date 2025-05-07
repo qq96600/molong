@@ -52,7 +52,13 @@ public class panel_map : Panel_Base
     protected override void Awake()
     {
         base.Awake();
-        map_name= Find<Text>("bg_main/base_info/map_name");
+    }
+
+
+    public override void Initialize()
+    {
+        base.Initialize();
+        map_name = Find<Text>("bg_main/base_info/map_name");
         need_lv = Find<Text>("bg_main/base_info/need_lv");
         monster_list = Find<Text>("bg_main/base_info/monster_list");
         need_Required = Find<Text>("bg_main/base_info/need_Required");
@@ -61,15 +67,8 @@ public class panel_map : Panel_Base
         enter_map_button.onClick.AddListener(Open_Map);
         fight_panel = UI_Manager.I.GetPanel<panel_fight>();
         base_show_info = Find<Transform>("bg_main/base_info");
-        material_item_parfabs = Resources.Load<material_item>("Prefabs/panel_bag/material_item");
-    }
-
-
-    public override void Initialize()
-    {
-        base.Initialize();
-
-        btn_item_prefab = Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
+        material_item_parfabs = Battle_Tool.Find_Prefabs<material_item>("material_item");  //Resources.Load<material_item>("Prefabs/panel_bag/material_item");
+        btn_item_prefab = Battle_Tool.Find_Prefabs<btn_item>("btn_item"); //Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
        
     }
 

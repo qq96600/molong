@@ -82,12 +82,12 @@ public class Pet_explore : Base_Mono
     {
         pos_btn = Find<Transform>("explore/pet_pos_btn");
         pos_Items = Find<Transform>("Income/Viewport/Items");
-        pos_item_Prefabs = Resources.Load<Transform>("Prefabs/base_tool/pos_item");
+        pos_item_Prefabs = Battle_Tool.Find_Prefabs<Transform>("pos_item"); //Resources.Load<Transform>("Prefabs/base_tool/pos_item");
         function_pos_btn = Find<Transform>("explore/function_pos_btn");
-        btn_item_Prefabs = Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
-        info_item_Prefabs = Resources.Load<material_item>("Prefabs/panel_bag/material_item");
-        explore_item_Prefabs= Resources.Load<explore_item>("Prefabs/panel_smallWorld/pets/explore_item");
-        material_item_Prefabs = Resources.Load<material_item>("Prefabs/panel_bag/material_item");
+        btn_item_Prefabs = Battle_Tool.Find_Prefabs<btn_item>("btn_item"); //Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
+        info_item_Prefabs = Battle_Tool.Find_Prefabs<material_item>("material_item"); //Resources.Load<material_item>("Prefabs/panel_bag/material_item");
+        explore_item_Prefabs= Battle_Tool.Find_Prefabs<explore_item>("explore_item"); //Resources.Load<explore_item>("Prefabs/panel_smallWorld/pets/explore_item");
+        material_item_Prefabs = Battle_Tool.Find_Prefabs<material_item>("material_item");// Resources.Load<material_item>("Prefabs/panel_bag/material_item");
         explore_map=Find<Image>("explore_map");
         explore_map.gameObject.SetActive(true);
         pos_map =Find<Transform>("explore_map/Buttons_map");

@@ -27,7 +27,7 @@ public class panel_setting : Panel_Base
     {
         base.Initialize();
         crt_setting=Find<Transform>("bg_main/Scroll View/Viewport/Content");
-        setting_Item_prefab=Resources.Load<setting_item>("Prefabs/panel_setting/setting_item");
+        setting_Item_prefab= Battle_Tool.Find_Prefabs<setting_item>("setting_item"); //Resources.Load<setting_item>("Prefabs/panel_setting/setting_item");
 
         for (int i = 0; i < SumSave.db_sttings.Count; i++)
         {

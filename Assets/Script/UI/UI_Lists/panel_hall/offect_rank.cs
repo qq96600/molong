@@ -20,7 +20,7 @@ namespace MVC
         private void Awake()
         {
             crt = Find<Transform>("Scroll View/Viewport/Content");
-            rank_itemPrefab= Resources.Load<rank_item>("Prefabs/panel_hall/rank_item");
+            rank_itemPrefab= Battle_Tool.Find_Prefabs<rank_item>("rank_item"); //Resources.Load<rank_item>("Prefabs/panel_hall/rank_item");
         }
 
         public override void Show()

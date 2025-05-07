@@ -28,7 +28,7 @@ public class signIn : Base_Mono
     private void Awake()
     {
         pos_list=Find<Transform>("Scroll View/Viewport/Content");
-        signln_item_prafabs = Resources.Load<signln_item>("prefabs/panel_hall/signIn/signln_item");
+        signln_item_prafabs = Battle_Tool.Find_Prefabs<signln_item>("signln_item"); //Resources.Load<signln_item>("prefabs/panel_hall/signIn/signln_item");
         info = Find<Text>("bg/info");
         btn_signln = Find<Button>("btn_signln");
         btn_signln.onClick.AddListener(OnClick_signln);

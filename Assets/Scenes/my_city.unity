@@ -810,7 +810,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1242, y: 2208}
+  m_ReferenceResolution: {x: 1284, y: 2778}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -2954,6 +2954,14 @@ PrefabInstance:
     - target: {fileID: 1521298618515803161, guid: c46d1e67d8a706f439bb453980260562, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -47.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1718287999023299003, guid: c46d1e67d8a706f439bb453980260562, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 10.200012
+      objectReference: {fileID: 0}
+    - target: {fileID: 1718287999023299003, guid: c46d1e67d8a706f439bb453980260562, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -15
       objectReference: {fileID: 0}
     - target: {fileID: 1881703057851084121, guid: c46d1e67d8a706f439bb453980260562, type: 3}
       propertyPath: m_AnchoredPosition.y

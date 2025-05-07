@@ -60,7 +60,7 @@ public class Alchemy : Base_Mono
     private void Awake()
     {
         pos_materials=Find<Transform>("Scroll View/Viewport/Content");
-        material_item_Prefabs = Resources.Load<material_item>("Prefabs/panel_bag/material_item");
+        material_item_Prefabs = Battle_Tool.Find_Prefabs<material_item>("material_item");// Resources.Load<material_item>("Prefabs/panel_bag/material_item");
         lists = Find<Dropdown>("list");
         confirm = Find<Button>("confirm");
         confirm.onClick.AddListener(() => { btn_Confirm(); });
