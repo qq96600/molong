@@ -13,6 +13,7 @@ namespace MVC
         ///  NAME
         /// </summary>
         public new const string NAME = "User_Instace_Proxy";
+        private const string BaseUserID = "验证信息";
         /// <summary>
         ///  构造函数
         /// </summary>
@@ -48,8 +49,86 @@ namespace MVC
             Read_Instace();
             CloseMySqlDB();
         }
+        public void Read_Crate_IPhone_Uid(string[] id)
+        {
+            IPhone_Login(id);
+        }
 
-        internal void Read_Crate_Uid(string[] id)
+        private void IPhone_Login(string[] id)
+        {
+            OpenMySqlDB();
+            mysqlReader = MysqlDb.SelectWhere(Mysql_Table_Name.mo_user_iphone, new string[] { "par", "account", "password" }, new string[] { "=", "=", "=" },
+                new string[] { SumSave.par.ToString(), id[0], id[1] });
+            string crt_verify = "";
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    crt_verify= mysqlReader.GetString(mysqlReader.GetOrdinal("verify"));
+                    SumSave.uid = mysqlReader.GetString(mysqlReader.GetOrdinal("uid"));
+                }
+              
+            }
+            else
+            {
+                SumSave.uid = Guid.NewGuid().ToString("N");
+                Game_Omphalos.i.Alert_Show("创建角色成功");
+                crt_verify = Guid.NewGuid().ToString("N");
+                Wirte_Id(crt_verify);
+                ///新用户
+                MysqlDb.InsertInto(Mysql_Table_Name.mo_user_iphone, new string[] { 
+                    GetStr(0), GetStr(SumSave.par), GetStr(id[0]), GetStr(id[1]), GetStr(SumSave.uid), GetStr(crt_verify)});
+            }
+            if (!Crt_Verify(crt_verify))
+            {
+                SumSave.uid = null;
+                Game_Omphalos.i.Alert_Info("查询不到设备信息,请联系管理\nqq 386246268");
+            }
+            else Game_Omphalos.i.Alert_Show("登录成功");
+            CloseMySqlDB();
+        }
+        /// <summary>
+        /// 读取实例
+        /// </summary>
+        /// <param name="crt_verify"></param>
+        /// <returns></returns>
+        private bool Crt_Verify(string crt_verify)
+        {
+            if(crt_verify == "99") return true;
+            bool exsit = false;
+            if (PlayerPrefs.HasKey(BaseUserID))
+            {
+                string[] password = PlayerPrefs.GetString(BaseUserID).Split(' ');
+                foreach (var item in password)
+                {
+                    if (item == crt_verify)
+                    {
+                        return true;
+                    }
+                }
+            }
+            if (crt_verify == "-1")//更换设备
+            {
+                exsit = true;
+                crt_verify = Guid.NewGuid().ToString("N");
+                Wirte_Id(crt_verify);
+                MysqlDb.UpdateInto(Mysql_Table_Name.mo_user_iphone, new string[] {
+                     "verify"}, new string[] { GetStr(crt_verify) }, "uid", GetStr(SumSave.uid));
+            }
+            return exsit;
+        }
+        private void Wirte_Id(string crt_verify)
+        {
+            string password = "";
+            if (PlayerPrefs.HasKey(BaseUserID))
+            {
+                password = PlayerPrefs.GetString(BaseUserID);
+            }
+            password += (password == "" ? "" : " ") + crt_verify;
+            PlayerPrefs.SetString(BaseUserID, password);
+        }
+
+        public void Read_Crate_Uid(string[] id)
         {
             Tap_Login(id);
         }

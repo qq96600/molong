@@ -38,6 +38,14 @@ namespace MVC
             Alert.Show("异常提示", dec);
         }
         /// <summary>
+        /// 显示消息
+        /// </summary>
+        /// <param name="dec"></param>
+        public void Alert_Show(string dec)
+        {
+            Alert_Dec.Show(dec);
+        }
+        /// <summary>
         /// 写入日志
         /// </summary>
         /// <param name="log"></param>
@@ -121,14 +129,32 @@ namespace MVC
             /// <summary>
         }
         /// <summary>
+        /// 主账户
+        /// </summary>
+        private string[] Accout;
+        /// <summary>
         /// 写入角色Tapid
         /// </summary>
         /// <param name="vs"></param>
-        internal void Crate_Tap(string[] vs)
+        public void Crate_Accout(string[] vs)
         {
-            SendNotification(NotiList.Read_Crate_Uid, vs);
+            Accout= vs;
         }
+        /// <summary>
+        /// 写入tap账户
+        /// </summary>
+        public void Wirte_Tap()
+        {
+            SendNotification(NotiList.Read_Crate_Uid, Accout);
 
+        }
+        /// <summary>
+        /// 写入苹果账户
+        /// </summary>
+        public void Wirte_Iphone()
+        {
+            SendNotification(NotiList.Read_Crate_IPhone_Uid, Accout);
+        }
         /// <summary>
         /// 读取服务器列表
         /// </summary>

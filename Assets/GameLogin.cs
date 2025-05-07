@@ -97,15 +97,8 @@ public class GameLogin : Singleton<GameLogin>
     private void Crate_Tap(TapTapAccount userInfo)
     {
         string[] vs = new string[] { userInfo.openId, userInfo.name };
-        Game_Omphalos.i.Crate_Tap(vs);
+        Game_Omphalos.i.Crate_Accout(vs);
     }
-
-
-    private void Crate_Par()
-    {
-        Game_Omphalos.i.Crate_Par();
-    }
-
 
     /// <summary>
     /// 防沉迷回调
@@ -116,7 +109,7 @@ public class GameLogin : Singleton<GameLogin>
         {
             Debug.Log("玩家未受到限制，正常进入游戏");
             UI_Manager.Instance.GetPanel<panel_login>().ShowStartBtn(true);
-            Crate_Par();
+            //Crate_Par();
         }
         //else if (code == 1001)
         //{
