@@ -21,6 +21,7 @@ namespace MVC
         public float maxHP, HP, maxMP, MP, add_hp = 0;
 
         public float internalforceMP, EnergyMp, internalforcemaxMP, EnergymaxMp;
+        
         /// <summary>
         /// 战斗位置
         /// </summary>
@@ -34,9 +35,6 @@ namespace MVC
             MP = maxMP;
             internalforceMP = internalforcemaxMP;
             EnergyMp = EnergymaxMp;
-
-
-           
         }
         public void Clear()
         {
@@ -83,16 +81,6 @@ namespace MVC
         public void TakeDamage(float damage, DamageEnum damageEnum )
         {
             if (HP <= 0) return;
-
-            //if (GetComponent<player_battle_attck>() != null)//测试玩家死亡
-            //{
-            //    damage = 1000;
-            //}
-            //else
-            //{
-            //    damage = 1;
-            //}
-                
             HP -= damage;
             Hurt(damage, damageEnum);
             //测试掉落

@@ -85,18 +85,24 @@ public class DamageTextManager : MonoBehaviour// MonoSingleton <DamageTextManage
         damageText.transform.position = parent.position;
         damageText.transform.SetParent(parent);
         char[] characters = (damageEnum + damage).ToCharArray();
-        if (damageText.transform.childCount < damage.Length)
+        int max = Mathf.Max(characters.Length, damageText.transform.childCount);
+        for (int i = 0; i < max; i++)// damageText.transform.childCount
         {
-            for (int i = damageText.transform.childCount; i < characters.Length; i++)
-            {
-                 Instantiate(Image_text, damageText.transform);
+            if (damageText.transform.childCount <= i)
+            { 
+               Instantiate(Image_text, damageText.transform);
             }
+            damageText.transform.GetChild(i).gameObject.SetActive(true);
+            if (characters.Length > i)
+            {
+                damageText.transform.GetChild(i).GetComponent<Image>().sprite = UI.UI_Manager.I.GetEquipSprite("base_bg/文字/", characters[i].ToString()); ;
+                damageText.transform.GetChild(i).GetComponent<Image>().color = color;
+            }
+            else damageText.transform.GetChild(i).gameObject.SetActive(false);
+
+
         }
-        for (int i = 0; i < characters.Length; i++)// damageText.transform.childCount
-        {
-            damageText.transform.GetChild(i).GetComponent<Image>().sprite = UI.UI_Manager.I.GetEquipSprite("base_bg/文字/", characters[i].ToString());// Resources.Load<Sprite> ("base_bg/文字"+ characters[i]);  //UI.UI_Manager.I.GetEquipSprite("base_bg/文字/", characters[i]);
-            damageText.transform.GetChild(i).GetComponent<Image>().color = color;
-        }
+
         damageText.transform.GetOrAddComponent<DamageAnimiton>().Init();
 
     }

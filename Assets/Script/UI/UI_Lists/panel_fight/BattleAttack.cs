@@ -100,42 +100,7 @@ namespace MVC
                 return data;
             }
         }
-        /// <summary>
-        /// 对目标造成伤害
-        /// </summary>
-        /// <param name="skill"></param>
-        public void skill_damage(base_skill_vo skill) 
-        {
-            float damage = 0f;
-            BattleAttack monster = Terget.GetComponent<BattleAttack>();
-            if (monster.target.HP <= 0) return;//结战斗
-            if (Data.Type == 1)
-            {
-                damage = Random.Range(Data.damageMin, Data.damageMax) - Random.Range(monster.Data.DefMin, monster.Data.DefMax);
-            }
-            else
-            if (Data.Type == 2)
-            {
-                damage = Random.Range(Data.MagicdamageMin, Data.MagicdamageMax) - Random.Range(monster.Data.MagicDefMin, monster.Data.MagicDefMax);
-            }
-            if (Random.Range(0, 100) > Data.hit - monster.Data.dodge)
-            {
-                //传递消息，未命中;
-                monster.target.TakeDamage(1, DamageEnum.技能未命中);
-                return;
-            }
-            damage = damage * (skill.skill_damage + (skill.skill_power * int.Parse(skill.user_values[1]))) / 100;
-
-            bool isCrit = false;
-            if (Random.Range(0, 100) > data.crit_rate - monster.Data.resistance)
-            {
-                isCrit = true;
-                damage = damage * data.crit_damage / 100;
-            }
-            damage = 100;
-            monster.target.TakeDamage(damage, isCrit ? DamageEnum.暴击技能伤害 : DamageEnum.技能伤害);
-        }
-
+     
         /// <summary>
         /// 指定目标
         /// </summary>
@@ -264,6 +229,134 @@ namespace MVC
         {
             yield return new WaitForSeconds(1f);
             frame.gameObject.SetActive(false);
+        }
+
+        /// <summary>
+        /// 对目标造成伤害
+        /// </summary>
+        /// <param name="skill"></param>
+        public void skill_damage(base_skill_vo skill)
+        {
+            BattleAttack monster = Terget.GetComponent<BattleAttack>();
+            if (monster.target.HP <= 0) return;//结战斗
+            float damage = Base_Damage(monster);
+            damage = damage * (skill.skill_damage + (skill.skill_power * int.Parse(skill.user_values[1]))) / 100;
+            if (iSnHit(monster))
+            {
+                //传递消息，未命中;
+                monster.target.TakeDamage(1, DamageEnum.技能未命中);
+                return;
+            }
+            bool isCrit = isCrate(monster);
+            if (isCrit)
+            {
+                damage = damage * data.crit_damage / 100;
+            }
+            monster.target.TakeDamage(damage, isCrit ? DamageEnum.暴击技能伤害 : DamageEnum.技能伤害);
+        }
+
+        protected virtual void BaseAttack()//判断伤害
+        {
+            BattleAttack monster = Terget.GetComponent<BattleAttack>();
+            if (monster.target.HP <= 0) return;//结战斗
+            float damage = Base_Damage(monster);
+            if (iSnHit(monster))
+            {
+                monster.target.TakeDamage(1, DamageEnum.未命中);
+                return;
+            }
+            bool isCrit = iSnHit(monster);
+            if (isCrit)
+            {
+                damage = damage * data.crit_damage / 100;
+            }
+            monster.target.TakeDamage(damage, isCrit ? DamageEnum.暴击伤害 : DamageEnum.普通伤害);
+            if (data.Real_harm > 0)
+            {
+                monster.target.TakeDamage(data.Real_harm, DamageEnum.真实伤害);
+            }
+        }
+
+        private int Base_Damage(BattleAttack monster)
+        {
+            float damage = 0f;
+            if (Data.Type == 1)
+            {
+                damage = Lucky(Data.damageMin, Data.damageMax, data.Lucky) -
+                    (Random.Range(monster.Data.DefMin, monster.Data.DefMax) * (100 + monster.Data.bonus_Def) / 100);
+                damage = damage * (100 + data.bonus_Damage) / 100;
+            }
+            else
+            if (Data.Type == 2)
+            {
+                damage = Lucky(Data.MagicdamageMin, Data.MagicdamageMax, data.Lucky) -
+                    (Random.Range(monster.Data.MagicDefMin, monster.Data.MagicDefMax) * (100 + monster.Data.bonus_MagicDef) / 100);
+                damage = damage * (100 + data.bonus_MagicDamage) / 100;
+            }
+            if (monster.Data.Damage_absorption > 0)
+            {
+                damage = damage * (100 - monster.Data.Damage_absorption) / 100;
+            }
+            damage = damage * (100 + penetrate(monster)) / 100;
+            damage = damage * (data.double_damage - monster.Data.double_damage) / 100;
+            return (int)damage;
+        }
+        /// <summary>
+        /// 判断命中
+        /// </summary>
+        /// <param name="monster"></param>
+        /// <returns></returns>
+        private bool iSnHit(BattleAttack monster)
+        {
+            bool exist= false;
+            if (Data.hit < monster.Data.dodge && Random.Range(0, 100) > 10)//命中不达标也有10%的概率
+            {
+                //传递消息，未命中;
+                exist = true;
+            }
+            return exist;
+        }
+
+        /// <summary>
+        /// 判断是否暴击
+        /// </summary>
+        /// <param name="monster"></param>
+        /// <returns></returns>
+        private bool isCrate(BattleAttack monster)
+        {
+            bool isCrit= false;
+            if (Random.Range(0, 100) > data.crit_rate - monster.Data.crit_rate)
+            {
+                isCrit = true;
+            }
+            return isCrit;
+        }
+        /// <summary>
+        /// 幸运加成
+        /// </summary>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <param name="lucky"></param>
+        private int Lucky(int min, int max, int lucky)
+        {
+            int value = 0;
+            value = Random.Range(min + (max - min) * lucky / 10, max);
+            if (lucky > 10)
+            {
+                value = value * (100 + (lucky * 10)) / 100;
+            }
+            return value;
+        }
+        /// <summary>
+        /// 计算穿透效果 
+        /// </summary>
+        /// <param name="monster"></param>
+        /// <returns></returns>
+        private int penetrate(BattleAttack monster)
+        {
+            int value = (data.penetrate - monster.Data.block) * 100 / (data.penetrate + 500);
+            if (value < 0) value = 0;
+            return value;
         }
     }
 }
