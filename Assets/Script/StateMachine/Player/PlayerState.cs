@@ -21,7 +21,7 @@ namespace StateMachine
 
         public virtual void Enter()//进入
         {
-            player.anim.SetBool(animBoolName, true);
+            //player.anim.SetBool(animBoolName, true);
             player.FlipControl(player.Direction(player.TargetPosition));
         }
 
@@ -31,7 +31,7 @@ namespace StateMachine
         }
         public virtual void Exit()//退出
         {
-            player.anim.SetBool(animBoolName, false);
+            //player.anim.SetBool(animBoolName, false);
 
         }
     }

@@ -50,7 +50,7 @@ public class ach_item : Base_Mono
             info.text = data.achievement_show_lv[data.achievement_show_lv.Length - 1] + " (" + dic_exp[data.achievement_value] + "/Max)";
         else
         {
-            Debug.Log("长度"+ data.achievement_show_lv.Length+"等级：" + dic_lv[data.achievement_value]);
+            //Debug.Log("长度"+ data.achievement_show_lv.Length+"等级：" + dic_lv[data.achievement_value]);
             if(data.achievement_show_lv.Length-1 <= dic_lv[data.achievement_value])
             {
                 info.text += data.achievement_show_lv[data.achievement_show_lv.Length-1];

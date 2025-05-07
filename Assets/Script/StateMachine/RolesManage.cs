@@ -3,6 +3,7 @@ using MVC;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace StateMachine
 {
@@ -51,6 +52,12 @@ namespace StateMachine
         /// 皮肤预制体
         /// </summary>
         private GameObject skin_prefabs;
+
+        /// <summary>
+        /// 怪物头像
+        /// </summary>
+        private Sprite mon_profilePicture;
+
         /// <summary>
         /// 角色外观位置
         /// </summary>
@@ -69,6 +76,8 @@ namespace StateMachine
             #region 角色外观初始化
             if(GetComponent<Player>()!= null)
             {
+            
+
                 int hero_index = int.Parse(SumSave.crt_hero.hero_index);
                 skin_state = (enum_skin_state)hero_index;
                 skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/skin_" + SumSave.crt_hero.hero_pos);
@@ -76,27 +85,28 @@ namespace StateMachine
                 Instantiate(skin_prefabs, panel_role_health);
             }else if(GetComponent<Monster>() != null)
             {
-                monster_type = enum_monster_type.黑鳞君;
-                skin_prefabs = Resources.Load<GameObject>("Prefabs/monsters/mon_" + monster_type.ToString());
-                panel_role_health = transform.Find("Appearance");
-                Instantiate(skin_prefabs, panel_role_health);
+                monster_type = enum_monster_type.磷火兵;
+                //skin_prefabs = Resources.Load<GameObject>("Prefabs/monsters/mon_" + monster_type.ToString());
+                mon_profilePicture= Resources.Load<Sprite>("Prefabs/monsters/mon_" + monster_type.ToString());
+
+                panel_role_health = transform.Find("Appearance/profilePicture");
+                panel_role_health.GetComponent<Image>().sprite = mon_profilePicture;
+                //Instantiate(skin_prefabs, panel_role_health);
             }
 
 
-           
+
             #endregion
 
-            anim = GetComponentInChildren<Animator>();
-            if (anim == null)
-                Debug.LogError("怪物没有Animator组件");
+            
             rb = GetComponent<Rigidbody2D>();
-            if (rb == null)
-                Debug.LogError("怪物没有Rigidbody2D组件");
 
-            attack= GetComponent<AttackStateMachine>();
+            //anim = GetComponentInChildren<Animator>();//获取动画组件
+            //animSpeed = anim.speed;
+            attack = GetComponent<AttackStateMachine>();
             TargetPosition = new Vector2(transform.position.x, transform.position.y);
             BackstabPosition = new Vector2(transform.position.x, transform.position.y);
-            animSpeed = anim.speed;
+           
         }
 
         protected virtual void Start()

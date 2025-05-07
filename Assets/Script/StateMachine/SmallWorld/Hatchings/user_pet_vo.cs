@@ -73,7 +73,7 @@ public class user_pet_vo : Base_VO
         {
            GetStr(0),
            GetStr(SumSave.crt_user.uid),
-           GetStr(crt_pet_list),
+           GetStr(pet_value),
         };
     }
 

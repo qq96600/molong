@@ -52,7 +52,7 @@ public class Panel_cratehero : Panel_Base
             PlayerPrefs.SetInt(BaseUserRemember, 1);
         }
         isRemember.isOn = PlayerPrefs.GetInt(BaseUserRemember) == 1;
-        if (PlayerPrefs.GetInt(BaseUserRemember) == 1)
+        if (PlayerPrefs.GetInt(BaseUserRemember) == 1)//当记住密码为1时，找到本地的账号密码并显示在输入框中
         {
             if (PlayerPrefs.HasKey(BaseUserID))
                 account.text = PlayerPrefs.GetString(BaseUserID);
@@ -62,7 +62,7 @@ public class Panel_cratehero : Panel_Base
 
     }
 
-    private void OnPasswordt(string arg0)
+    private void OnPasswordt(string arg0)//值改变时记录到本地
     {
         PlayerPrefs.SetString(BaseUserPwd, arg0);
     }

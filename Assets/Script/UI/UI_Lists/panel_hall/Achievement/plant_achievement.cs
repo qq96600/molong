@@ -10,6 +10,8 @@ using UnityEngine.UI;
 
 
 
+
+
 public class plant_achievement : Base_Mono
 {
     /// <summary>
@@ -119,13 +121,38 @@ public class plant_achievement : Base_Mono
         SumSave.crt_achievement.Get_lv(dic_lv);
         Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_achieve,
                    SumSave.crt_achievement.Set_Uptade_String(), SumSave.crt_achievement.Get_Update_Character());
-        
+
 
         string[] temp = crt_achieve_Item.Data.achievement_rewards[lv].Split(' ');
+        if(int.Parse(temp[0])>1)//temp[0]为属性加成类型
+        {
+            string reward = "";
 
-        Battle_Tool.Obtain_Resources(temp[1], int .Parse( temp[2]));//获得奖励
+            switch (int.Parse(temp[0]))//成就完成奖励
+            { 
+                case 1://获得属性
+                    break;
+                case 2://获得材料
+                    reward = temp[1];
+                    break;
+                case 3://获得灵珠
+                    reward = currency_unit.灵珠.ToString();
+                    break;
+                case 4://获得魔丸
+                    reward = currency_unit.魔丸.ToString();
+                    break;
+            
+            }
 
-        Alert_Dec.Show("领取成功");
+            Battle_Tool.Obtain_Resources(reward, int.Parse(temp[2]));//获得奖励
+            Alert_Dec.Show("领取 " + reward+"X"+ temp[2]+" 成功");
+        }else if (int.Parse(temp[0]) == 1)
+        {
+            Alert_Dec.Show("获得 "+(enum_skill_attribute_list)(int.Parse(temp[1]))+"X"+temp[2]+" 属性加成"); 
+        }
+       
+
+        
         show_offect.gameObject.SetActive(false);
         crt_achieve_Item.Init(); 
     }

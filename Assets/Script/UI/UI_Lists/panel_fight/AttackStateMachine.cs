@@ -118,7 +118,10 @@ public class AttackStateMachine : MonoBehaviour
       
     }
 
-
+    /// <summary>
+    /// 攻击动作
+    /// </summary>
+    /// <returns></returns>
     IEnumerator AttackDash()
     {
         isAttacking = true;
@@ -133,7 +136,15 @@ public class AttackStateMachine : MonoBehaviour
                 new Vector2(transform.position.x + dashDistance, transform.position.y),
                 (Time.time - startTime) / dashDuration
             );
-            transform.Translate(Vector2.right * AttackSpeed * Time.deltaTime);
+           if (GetComponent<player_battle_attck>() != null)
+            {
+                transform.Translate(Vector2.right * AttackSpeed * Time.deltaTime);
+            }else if(GetComponent<monster_battle_attck>() != null)
+            {
+                transform.Translate(Vector2.left * AttackSpeed * Time.deltaTime);
+            }
+
+            
             yield return null;
         }
 

@@ -133,7 +133,7 @@ namespace MVC
         /// </summary>
         private string[] Accout;
         /// <summary>
-        /// 写入角色Tapid
+        /// 写入角色id
         /// </summary>
         /// <param name="vs"></param>
         public void Crate_Accout(string[] vs)

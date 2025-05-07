@@ -22,7 +22,7 @@ namespace StateMachine
 
         public virtual void Enter()
         {
-            monster.anim.SetBool(animBoolName, true);
+            //monster.anim.SetBool(animBoolName, true);
            
         }
 
@@ -34,7 +34,7 @@ namespace StateMachine
 
         public virtual void Exit()
         {
-            monster.anim.SetBool(animBoolName, false);
+            //monster.anim.SetBool(animBoolName, false);
         }
 
     }

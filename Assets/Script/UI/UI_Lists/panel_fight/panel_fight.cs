@@ -89,8 +89,8 @@ public class panel_fight : Panel_Base
         base.Initialize();
         pos_monster = Find<Transform>("battle_pos/monster_pos");
         pos_player = Find<Transform>("battle_pos/player_pos");
-        player_battle_attack_prefabs= Resources.Load<GameObject>("Prefabs/panel_fight/player_battle_attck_item"); ; //Battle_Tool.Find_Prefabs<GameObject>("player_battle_attck_item")
-        monster_battle_attack_prefabs = Resources.Load<GameObject>("Prefabs/panel_fight/monster_battle_attck_item");// Battle_Tool.Find_Prefabs<GameObject>("monster_battle_attck_item"); 
+        player_battle_attack_prefabs= Resources.Load<GameObject>("Prefabs/prefab/player_battle_attck_item"); ; //Battle_Tool.Find_Prefabs<GameObject>("player_battle_attck_item")
+        monster_battle_attack_prefabs = Resources.Load<GameObject>("Prefabs/prefab/monster_battle_attck_item");// Battle_Tool.Find_Prefabs<GameObject>("monster_battle_attck_item"); 
         pight_show_skill = Find<pight_show_skill>("skill_list");
         role_health = Find<panel_role_health>("panel_role_health");
         map_name = Find<Text>("battle_pos/map_name/info");

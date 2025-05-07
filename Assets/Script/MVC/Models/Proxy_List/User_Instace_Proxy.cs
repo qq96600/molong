@@ -1,6 +1,7 @@
 using Common;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UI;
 using UnityEngine;
 
@@ -874,9 +875,38 @@ namespace MVC
                     }
                 }
             }
-            //添加收集效果
+            //添加成就效果
+            Dictionary<string, long> achievements_lv= SumSave.crt_achievement.Set_Lv();
+            foreach (var item in achievements_lv)
+            {
+                if(item.Value>=1)
+                {
+                    string achievementName = item.Key; // 获取成就名称
 
-            //添加技能效果
+                    // 在 db_Achievement_dic 中查找匹配的成就对象
+                    var matchedAchievement =SumSave.db_Achievement_dic.FirstOrDefault(achievement => achievement.achievement_value == achievementName);
+
+                    if (matchedAchievement != null)
+                    { 
+                        // 找到匹配的成就对象，可以在这里处理
+                        string[] vare= matchedAchievement.achievement_reward.Split("|");//拆解成就对应奖励
+                        string[] var =vare[item.Value - 1].Split(" ");
+                        if(int.Parse(var[0])==1)//此成就奖励为属性加成
+                        {
+                            Enum_Value(crt, int.Parse(var[1]),int.Parse(var[2]));
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"未找到成就: {achievementName}");
+                    }
+                }
+            
+            }
+
+
+
+                //添加技能效果
             foreach (base_skill_vo skill in SumSave.crt_skills)
             {
                 if (skill.skill_open_type.Count > 0)
@@ -946,7 +976,7 @@ namespace MVC
          
             
             //称号属性
-            //成就属性
+            //收集属性
             //丹药属性
             List<(string, List<int>)> seeds = SumSave.crt_seeds.GetuseList();
             if (seeds.Count > 0)
