@@ -69,7 +69,7 @@ public class AttackStateMachine : MonoBehaviour
     /// <summary>
     /// 冲撞距离
     /// </summary>
-    private float dashDistance =1f; // 最大冲撞距离
+    private float dashDistance =3f; // 最大冲撞距离
     /// <summary>
     /// 开始位置
     /// </summary>
@@ -122,7 +122,7 @@ public class AttackStateMachine : MonoBehaviour
     IEnumerator AttackDash()
     {
         isAttacking = true;
-        float dashDuration = 1f / AttackSpeed;
+        float dashDuration = 1f / (AttackSpeed*10);
         float startTime = Time.time;
 
         // 冲刺阶段
