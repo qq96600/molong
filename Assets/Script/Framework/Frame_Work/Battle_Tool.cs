@@ -44,7 +44,7 @@ public static class Battle_Tool
     {
         if (!prefabs.ContainsKey(prefabName))
         {
-            GameObject obj = Resources.Load<GameObject>("Prefabs/prefab/"+prefabName);
+            GameObject obj = Resources.Load<GameObject>("Prefabs/prefab/"+prefabName); 
             prefabs.Add(prefabName,obj);
         }
         return prefabs[prefabName].GetComponent<T>();
