@@ -960,10 +960,10 @@ MonoBehaviour:
   animSpeed: 0
   attack: {fileID: 0}
   attackDamage: 10
-  AttackDistance: 700
+  AttackDistance: 600
   BehindDistance: 100
   AttackSpeed: 1
-  MoveSpeed: 0.1
+  MoveSpeed: 1
   skillRelease: 50
   IsCentre: 1
 --- !u!50 &2653692686807080668

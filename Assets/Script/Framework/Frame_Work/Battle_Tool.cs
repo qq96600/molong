@@ -291,8 +291,16 @@ public static class Battle_Tool
     /// </summary>
     /// <param name="unit"></param>
     /// <param name="value"></param>
-    public static void Obtain_Unit(currency_unit unit, int value)
+    /// <param name="state">2为打怪收益</param>
+    public static void Obtain_Unit(currency_unit unit, long value,int state=1)
     {
+        if (state == 2)
+        {
+            if (unit == currency_unit.历练)
+            {
+                value = (int)(value * IsBuff(2));
+            }
+        }
         SumSave.crt_user_unit.verify_data(unit, value);
         Game_Omphalos.i.GetQueue(
                        Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user, SumSave.crt_user_unit.Set_Uptade_String(), SumSave.crt_user_unit.Get_Update_Character());
@@ -362,22 +370,90 @@ public static class Battle_Tool
     /// <param name="exp"></param>
     public static void Obtain_Exp(long exp)
     {
-        if (SumSave.crt_player_buff.player_Buffs.ContainsKey("下品经验丹"))
-        {
-            Debug.Log("经验丹加成之前经验："+exp);
-            exp = (long)(exp * 1.5f);
-            Debug.Log("经验丹加成之后经验：" + exp);
-        }
-        if (SumSave.crt_player_buff.player_Buffs.ContainsKey("中品经验丹"))
-        {
-            exp = (long)(exp * 2f);
-        }
+        exp= (long)(exp * IsBuff(1));
         Combat_statistics.AddExp(exp); 
-
         SumSave.crt_MaxHero.Exp += exp;
         SumSave.crt_hero.hero_Exp += exp;
         Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_hero,
             SumSave.crt_hero.Set_Uptade_String(), SumSave.crt_hero.Get_Update_Character());
+    }
+    /// <summary>
+    /// 获取加成buff
+    /// </summary>
+    /// <param name="index">1经验 2历练</param>
+    /// <returns></returns>
+    private static float IsBuff(int index)
+    {
+        float base_value = 1;
+        
+        foreach (var item in SumSave.crt_player_buff.player_Buffs)
+        {
+            if (index == 1)
+            {
+                if (item.Key == "下品经验丹")
+                {
+                    (DateTime, int) time = item.Value;
+                    if ((SumSave.nowtime - time.Item1).Minutes < time.Item2)
+                    {
+                        base_value = 1.5f;
+                    }
+                    else
+                    {
+                        SumSave.crt_player_buff.player_Buffs.Remove(item.Key);
+                        Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.user_player_buff, SumSave.crt_player_buff.Set_Uptade_String(), SumSave.crt_player_buff.Get_Update_Character());//角色丹药Buff更新数据库
+                        break;
+                    }
+                }
+                if (item.Key == "中品经验丹")
+                {
+                    (DateTime, int) time = item.Value;
+                    if ((SumSave.nowtime - time.Item1).Minutes < time.Item2)
+                    {
+                        base_value = 2;
+                    }
+                    else
+                    {
+                        SumSave.crt_player_buff.player_Buffs.Remove(item.Key);
+                        Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.user_player_buff, SumSave.crt_player_buff.Set_Uptade_String(), SumSave.crt_player_buff.Get_Update_Character());//角色丹药Buff更新数据库
+                        break;
+                    }
+                }
+            }else
+            if (index == 2)
+            {
+                if (item.Key == "下品历练丹")
+                {
+                    (DateTime, int) time = item.Value;
+                    if ((SumSave.nowtime - time.Item1).Minutes < time.Item2)
+                    {
+                        base_value = 1.5f;
+                    }
+                    else
+                    {
+                        SumSave.crt_player_buff.player_Buffs.Remove(item.Key);
+                        Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.user_player_buff, SumSave.crt_player_buff.Set_Uptade_String(), SumSave.crt_player_buff.Get_Update_Character());//角色丹药Buff更新数据库
+                        break;
+                    }
+                }
+                if (item.Key == "中品历练丹")
+                {
+                    (DateTime, int) time = item.Value;
+                    if ((SumSave.nowtime - time.Item1).Minutes < time.Item2)
+                    {
+                        base_value = 2;
+                    }
+                    else
+                    {
+                        SumSave.crt_player_buff.player_Buffs.Remove(item.Key);
+                        Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.user_player_buff, SumSave.crt_player_buff.Set_Uptade_String(), SumSave.crt_player_buff.Get_Update_Character());//角色丹药Buff更新数据库
+                        break;
+                    }
+                }
+            }
+
+        }
+       
+        return base_value;
     }
 
     /// <summary>

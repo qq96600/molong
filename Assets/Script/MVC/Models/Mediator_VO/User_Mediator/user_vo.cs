@@ -83,16 +83,6 @@ public class user_vo : Base_VO
             case currency_unit.历练:
                 if (value >= SumSave.base_setting[0])
                 {
-                    //判断是否有历练丹，更具历练丹加成历练
-                    if (SumSave.crt_player_buff.player_Buffs.ContainsKey("下品历练丹"))
-                    {
-                        value = (long)(value * 1.5f); 
-                    }
-                    if (SumSave.crt_player_buff.player_Buffs.ContainsKey("中品历练丹"))
-                    {
-
-                        value = (long)(value * 1.5f);
-                    }
                     Game_Omphalos.i.Delete("获得" + (currency_unit)_index + value); 
                 }
                 else

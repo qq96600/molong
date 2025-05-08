@@ -46,7 +46,7 @@ public class panel_Buff : Panel_Base
         base.Initialize();
         inputField = Find<InputField>("bg_main/InputField");
         confirm = Find<Button>("bg_main/confirm");
-        info = Find<Text>("bg_main/info/info");
+        info = Find<Text>("bg_main/ScrollView/Viewport/Content/info");
         confirm.onClick.AddListener(OnConfirmClick);
 
        
