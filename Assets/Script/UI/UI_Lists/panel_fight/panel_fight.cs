@@ -78,6 +78,8 @@ public class panel_fight : Panel_Base
     /// 战斗统计清空
     /// </summary>
     private Button btn_Combat_statistics;
+
+    public Button close_battle; 
     protected override void Awake()
     {
         base.Awake();
@@ -134,6 +136,7 @@ public class panel_fight : Panel_Base
     /// </summary>
     private void Close()
     {
+        close_battle.gameObject.SetActive(true);
         transform.SetAsFirstSibling();
         return;
         close_panel_state=!close_panel_state;
@@ -265,7 +268,6 @@ public class panel_fight : Panel_Base
             }
         }
     }
-
     /// <summary>
     /// 死亡等待
     /// </summary>
@@ -317,7 +319,7 @@ public class panel_fight : Panel_Base
     {
         Combat_statistics.isTime = true;
         crtMaxHeroVO crt = crt_map_monsters[Random.Range(0, crt_map_monsters.Count)];
-        crt = Battle_Tool.crate_monster(crt);
+        crt = Battle_Tool.crate_monster(crt, select_map);
         GameObject item = ObjectPoolManager.instance.GetObjectFormPool(crt.show_name, monster_battle_attack_prefabs,
             new Vector3(pos_monster.position.x, pos_monster.position.y,pos_monster.position.z), Quaternion.identity, pos_monster);
         // 设置Data
@@ -337,13 +339,13 @@ public class panel_fight : Panel_Base
         if (show_info_list.Count <= 80)
         {
             show_info_item item = Instantiate(show_info_prefabs, pos_show_info);
-            item.GetComponent<Text>().text = str;
+            item.GetComponent<Text>().text = " " + str;
             show_info_list.Add(item);
         }
         else
         {
             show_info_item item = show_info_list[0];
-            item.GetComponent<Text>().text = str;
+            item.GetComponent<Text>().text = " " + str;
             item.transform.SetAsLastSibling();
             show_info_list.Remove(item);
             show_info_list.Add(item);

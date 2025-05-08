@@ -20,7 +20,7 @@ public class Hero_VO : Base_VO
     /// <summary>
     /// 已有英雄列表
     /// </summary>
-    public string hero_list;
+    public string hero_list1;
     /// <summary>
     /// 角色等级
     /// </summary>
@@ -42,7 +42,7 @@ public class Hero_VO : Base_VO
     /// </summary>
     public string hero_pos;
     /// <summary>
-    /// 备用栏
+    /// 角色存储
     /// </summary>
     public string hero_value;
     /// <summary>

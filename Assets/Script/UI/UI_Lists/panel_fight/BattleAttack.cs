@@ -92,16 +92,38 @@ namespace MVC
                 target.HP = data.MaxHP;
                 show_hp.maxValue = target.maxHP;
                 show_hp.value = target.HP;
-
                 hp_text.text = target.HP + "/" + target.maxHP;
-
                 target.maxMP= data.MaxMp;
                 target.MP= data.MaxMp;
-                if (data.monster_attrList.Count > 0)
+                string dec = "";
+               
+                if (data.Monster_Lv >= 1)
                 {
-                    name_text.text = (enum_monster_state)data.monster_attrList[0] + " " + data.show_name;
+                    for (int i = 0; i < data.life.Length; i++)
+                    {
+                        if (data.life[i] != 0)
+                        {
+                            dec += " " + Show_Color.Green((enum_skill_attribute_list)(201 + i));
+                        }
+                    }
+                    if (data.monster_attrList.Count > 0)
+                    {
+                        dec += " " + (enum_monster_state)data.monster_attrList[0];
+                    }
+                    switch (data.Monster_Lv)
+                    {
+                        case 2:
+                            dec += " " + Show_Color.Red("[精英级]");
+                            break;
+                        case 3:
+                            dec += " " + Show_Color.Red("【Boss级】");
+                            break;
+                        default:
+                            break;
+                    }
                 }
-                else name_text.text = data.show_name;
+                dec += " " + data.show_name;
+                name_text.text = dec;
             }
             get
             {
@@ -261,7 +283,7 @@ namespace MVC
             {
                 damage = damage * data.crit_damage / 100;
             }
-            monster.target.TakeDamage(damage, isCrit ? DamageEnum.暴击技能伤害 : DamageEnum.技能伤害);
+            monster.target.TakeDamage((int)damage, isCrit ? DamageEnum.暴击技能伤害 : DamageEnum.技能伤害);
         }
 
         protected virtual void BaseAttack()//判断伤害
@@ -307,7 +329,8 @@ namespace MVC
                 damage = damage * (100 - monster.Data.Damage_absorption) / 100;
             }
             damage = damage * (100 + penetrate(monster)) / 100;
-            damage = damage * (data.double_damage - monster.Data.double_damage) / 100;
+            //damage = damage * (100 - (data.double_damage - monster.Data.double_damage)) / 100;免伤
+            damage = Mathf.Max(1, damage);
             return (int)damage;
         }
         /// <summary>

@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// 战斗统计
+/// </summary>
 public static class Combat_statistics 
 {
     public static long bossnumber, elitenumber, maxnumber, exp, moeny, Point, bag, time,detead;

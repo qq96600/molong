@@ -815,11 +815,13 @@ namespace MVC
         {
             SumSave.crt_MaxHero = new crtMaxHeroVO();
             crtMaxHeroVO crt = new crtMaxHeroVO();
+            crt.Lv = SumSave.crt_hero.hero_Lv;
             crt.show_name= SumSave.crt_hero.hero_name;
             for (int i = 0; i < SumSave.db_heros.Count; i++)
             {
                 if (SumSave.db_heros[i].hero_name == SumSave.crt_hero.hero_pos)
                 {
+                    crt.Type=SumSave.db_heros[i].hero_type;
                     for (int j = 0; j < SumSave.db_heros[i].crate_value.Length; j++)
                     {
                         int value = SumSave.db_heros[i].crate_value[j] + (SumSave.db_heros[i].up_value[j] * (SumSave.crt_hero.hero_Lv / SumSave.db_heros[i].up_base_value[j]));
@@ -1309,7 +1311,7 @@ namespace MVC
             else
             {
                 SumSave.crt_hero.hero_name = "墨龙新星";
-                SumSave.crt_hero.hero_list = SumSave.db_heros[0].hero_name;
+                SumSave.crt_hero.hero_value = SumSave.db_heros[0].hero_name;
                 SumSave.crt_hero.hero_lv = "1";
                 SumSave.crt_hero.hero_exp = "0";
                 SumSave.crt_hero.hero_Lv = 1;

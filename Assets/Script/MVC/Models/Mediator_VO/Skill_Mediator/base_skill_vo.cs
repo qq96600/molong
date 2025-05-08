@@ -61,7 +61,7 @@ public class base_skill_vo : Base_VO
     /// <summary>
     /// 技能初始化升级经验
     /// </summary>
-    public int skill_need_exp;
+    public int skill_life;
     /// <summary>
     /// 技能升级系数 [0]*mathf.pow([1],[2])
     /// </summary>
