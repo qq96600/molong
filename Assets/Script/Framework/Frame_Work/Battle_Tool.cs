@@ -417,7 +417,6 @@ public static class Battle_Tool
 
     public static void tool_item()
     {
-        return;
         foreach (var item in SumSave.db_stditems)
         {
             UI.UI_Manager.I.GetEquipSprite("icon/", item.Name);
@@ -566,32 +565,70 @@ public static class Battle_Tool
     /// </summary>
     /// <param name="crt"></param>
     /// <param name="lv">1小怪2精英3boss</param>
-    public static crtMaxHeroVO crate_monster(crtMaxHeroVO crt, int lv = 1)
+    public static crtMaxHeroVO crate_monster(crtMaxHeroVO crt, user_map_vo map,bool isBoss=false)
     {
         crtMaxHeroVO base_crt = new crtMaxHeroVO();
-        base_crt.Lv = lv;
+        if (map.map_life != 0)
+        {
+            base_crt.life[map.map_life] = map.need_lv * 2;
+        }
+        base_crt.Monster_Lv = map.map_type;
+
+        //标准战斗系数
+        int coefficient = 1;
+        if (Random.Range(0, 100) < 10)
+        {
+            coefficient = 2;
+            //boss模版
+            if (Random.Range(0, 100) < 10)
+            {
+                coefficient = 3;
+            }
+        }
+        //普通地图
+        if (map.map_type == 1)
+        {
+            //精英模版
+            if (isBoss)
+            {
+                coefficient = 3;
+            }
+            base_crt.Monster_Lv = coefficient;
+        }
+        else if (map.map_type == 2)
+        {
+            if (isBoss)
+            { 
+                coefficient = 1;
+            } 
+        }
+        else if (map.map_type == 3)
+        {
+            base_crt.Monster_Lv = 3;
+            coefficient = 1;
+        }
         base_crt.show_name = crt.show_name;
         base_crt.index = crt.index;
         base_crt.Lv = crt.Lv;
-        base_crt.Exp = crt.Exp;
+        base_crt.Exp = (int)(crt.Exp * MathF.Pow(2, coefficient-1));
         base_crt.icon = crt.icon;
-        base_crt.MaxHP = crt.MaxHP;
+        base_crt.MaxHP = (int)(crt.MaxHP * MathF.Pow(3, coefficient-1));
         base_crt.MaxMp = crt.MaxMp;
         base_crt.internalforceMP = crt.internalforceMP;
         base_crt.EnergyMp = crt.EnergyMp;
-        base_crt.DefMin = crt.DefMin;
-        base_crt.DefMax = crt.DefMax;
-        base_crt.MagicDefMin = crt.MagicDefMin;
-        base_crt.MagicDefMax = crt.MagicDefMax;
-        base_crt.damageMin = crt.damageMin;
-        base_crt.damageMax = crt.damageMax;
-        base_crt.MagicdamageMin = crt.MagicdamageMin;
-        base_crt.MagicdamageMax = crt.MagicdamageMax;
-        base_crt.hit = crt.hit;
-        base_crt.dodge = crt.dodge;
-        base_crt.penetrate = crt.penetrate;
-        base_crt.block = crt.block;
-        base_crt.crit_rate = crt.crit_rate;
+        base_crt.DefMin = crt.DefMin * coefficient;
+        base_crt.DefMax = crt.DefMax* coefficient;
+        base_crt.MagicDefMin = crt.MagicDefMin* coefficient;
+        base_crt.MagicDefMax = crt.MagicDefMax* coefficient;
+        base_crt.damageMin = crt.damageMin* coefficient;
+        base_crt.damageMax = crt.damageMax* coefficient;
+        base_crt.MagicdamageMin = crt.MagicdamageMin* coefficient;
+        base_crt.MagicdamageMax = crt.MagicdamageMax* coefficient;
+        base_crt.hit = (crt.hit + map.need_lv) * coefficient;
+        base_crt.dodge = crt.dodge* coefficient;
+        base_crt.penetrate = crt.penetrate* coefficient;
+        base_crt.block = crt.block* coefficient;
+        base_crt.crit_rate = crt.crit_rate* coefficient;
         base_crt.crit_damage = crt.crit_damage;
         base_crt.double_damage = crt.double_damage;
         base_crt.Lucky = crt.Lucky;
@@ -608,9 +645,10 @@ public static class Battle_Tool
         base_crt.bonus_MagicDamage = crt.bonus_MagicDamage;
         base_crt.bonus_Def = crt.bonus_Def;
         base_crt.bonus_MagicDef = crt.bonus_MagicDef;
-        base_crt.Heal_Hp = crt.Heal_Hp;
-        base_crt.Heal_Mp = crt.Heal_Mp;
+        base_crt.Heal_Hp = crt.Heal_Hp * coefficient;
+        base_crt.Heal_Mp = crt.Heal_Mp * coefficient;
         base_crt.unit = Random.Range(crt.Lv * 5, crt.Lv * 10) + 1;
+       
         Array values = Enum.GetValues(typeof(enum_monster_state));
         enum_monster_state state = (enum_monster_state)values.GetValue(RandomNumberGenerator.GetInt32(values.Length));
         switch (state)

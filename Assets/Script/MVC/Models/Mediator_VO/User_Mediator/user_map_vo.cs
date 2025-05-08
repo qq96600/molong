@@ -33,5 +33,9 @@ public class user_map_vo : Base_VO
     /// 怪物列表
     /// </summary>
     public string monster_list;
+    /// <summary>
+    /// 地图五行
+    /// </summary>
+    public int map_life;
 
 }

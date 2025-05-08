@@ -16,13 +16,6 @@ public class panel_Mian : Panel_Base
     private Dictionary<string, GameObject> offect_list_dic = new Dictionary<string, GameObject>();
 
     private Image offect_list;
-
-    /// <summary>
-    /// offect打开类型
-    /// </summary>
-    private int index = -1;
-
-
     /// <summary>
     /// 消息飘窗显示文本
     /// </summary>

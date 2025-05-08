@@ -239,10 +239,14 @@ public class Alchemy : Base_Mono
             if (item != null)
             {
                 if (item.StdMode == EquipConfigTypeList.炼丹材料.ToString())
-                { 
-                    material_item item1 = Instantiate(material_item_Prefabs, pos_materials);
-                    item1.Init(list[i]);
-                    item1.GetComponent<Button>().onClick.AddListener(() => { btn_Select_Material(item1); });
+                {
+                    if (list[i].Item2 > 0)
+                    {
+                        material_item item1 = Instantiate(material_item_Prefabs, pos_materials);
+                        item1.Init(list[i]);
+                        item1.GetComponent<Button>().onClick.AddListener(() => { btn_Select_Material(item1); });
+                    }
+                    
                 }
             }
         }
@@ -330,7 +334,7 @@ public class Alchemy : Base_Mono
             {
                 if (Select_Materials[item].Item2 == 0)
                 {
-                    if (item1.GetItemData().Item2 > 1)
+                    if (item1.GetItemData().Item2 >= 1)
                     {
                         Select_Materials[item] = (item1.GetItemData().Item1, 1);
                         if (pos_list.ContainsKey(item))
@@ -343,7 +347,11 @@ public class Alchemy : Base_Mono
                         Show_Slider();
                         return;
                     }
-                    else Alert_Dec.Show("当前材料不足");
+                    else
+                    {
+                        Alert_Dec.Show("当前材料不足");
+                        return;
+                    } 
                 }
             }
             Alert_Dec.Show("当前材料位已满");

@@ -1,12 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
 using Common;
-using Components;
-using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace MVC
@@ -94,7 +89,6 @@ namespace MVC
 
             (bool, string) result = Obtain_ProfitList(line);
             if (!result.Item1) return;
-
             Bag_Base_VO bag = new Bag_Base_VO();
             bag = ArrayHelper.Find(SumSave.db_stditems, e => e.Name == result.Item2);
             bool exist = true;
@@ -124,26 +118,25 @@ namespace MVC
             }
             if (exist)
             {
+                int quality = int.Parse(bag.user_value.Split(' ')[2]);
                 Combat_statistics.AddBag(1);
                 if (SumSave.crt_resources.pages[0] > SumSave.crt_bag.Count)
                 {
                     //判断回收
-                    if (SumSave.crt_setting.user_setting[0] > bag.need_lv)
+                    if (SumSave.crt_setting.user_setting[0] > quality)
                     {
                         SumSave.crt_bag.Add(bag);
                         Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.bag_value, SumSave.crt_bag);
-                        Calculations.Add("获得 " + (enum_equip_quality_list)int.Parse(bag.user_value.Split(' ')[2]) + " " + bag.Name);
+                        Calculations.Add("获得 " + (enum_equip_quality_list)quality + " " + bag.Name);
                     }
                     else
                     {
-                        Calculations.Add("过滤 " + (enum_equip_quality_list)int.Parse(bag.user_value.Split(' ')[2]) + " " + bag.Name);
-                        Calculations.Add("过滤 收益灵珠" + bag.price);
+                        Calculations.Add("过滤 " + (enum_equip_quality_list)quality + " " + bag.Name);
+                        Calculations.Add("过滤 收益 灵珠 + " + bag.price);
                         Battle_Tool.Obtain_Unit(currency_unit.灵珠, bag.price);
-
                     }
                 }
-                else Calculations.Add("丢弃 " + (enum_equip_quality_list)int.Parse(bag.user_value.Split(' ')[2]) + " " + bag.Name);
-
+                else Calculations.Add("丢弃 " + (enum_equip_quality_list)quality + " " + bag.Name);
             }
             else
             {

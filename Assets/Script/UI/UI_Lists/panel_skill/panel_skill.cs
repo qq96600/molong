@@ -241,6 +241,10 @@ public class panel_skill : Panel_Base
         need_exp = 0;
         string dec = user_skill.Data.skillname + "\nLv." + user_skill.Data.user_values[1]+"级\n";
         int lv= int.Parse(user_skill.Data.user_values[1]);
+        if (user_skill.Data.skill_life != 100)
+        {
+            dec += "技能属性 " + Show_Color.Red((enum_skill_attribute_list)(200 + user_skill.Data.skill_life)) + "\n";
+        }
         dec += "消耗法力 " + user_skill.Data.skill_spell + "%\n";
         dec += "技能cd " + user_skill.Data.skill_cd.ToString("F0") + "秒\n";
         dec += "对目标造成" + (user_skill.Data.skill_damage + (user_skill.Data.skill_power * lv)) + "%伤害\n";

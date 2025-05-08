@@ -70,6 +70,11 @@ public class panel_hero : Panel_Base
     /// 装备类型
     /// </summary>
     private Dictionary<EquipTypeList, show_equip_item> dic_equips = new Dictionary<EquipTypeList, show_equip_item>();
+    /// <summary>
+    /// 显示装备
+    /// </summary>
+    private panel_equip panel_equip;
+
     protected override void Awake()
     {
         base.Awake();
@@ -94,6 +99,7 @@ public class panel_hero : Panel_Base
         crate_btn.onClick.AddListener(() => { SwitchRoles(); });
         skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/within_" + SumSave.crt_hero.hero_pos);
         panel_role_health = Find<Transform>("bg_main/bag_equips/hero_icon/panel_role_health");
+        panel_equip = UI_Manager.I.GetPanel<panel_equip>();
         Instantiate(skin_prefabs, panel_role_health);
 
         for (int i = 0; i < Enum.GetNames(typeof(enum_attribute_list)).Length; i++)
@@ -118,10 +124,19 @@ public class panel_hero : Panel_Base
     /// </summary>
     private void SwitchRoles()
     {
-        SumSave.crt_hero.hero_pos = crt_hero.SetData().hero_name;
-        Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_hero,
-            SumSave.crt_hero.Set_Uptade_String(), SumSave.crt_hero.Get_Update_Character());
-        Alert_Dec.Show("切换角色 " + crt_hero.SetData().hero_name + " 成功");
+        string[] herolists = SumSave.crt_hero.hero_value.Split(',');
+        foreach (var item in herolists)
+        {
+            if (crt_hero.SetData().hero_name == item)
+            {
+                SumSave.crt_hero.hero_pos = crt_hero.SetData().hero_name;
+                Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_hero,
+                    SumSave.crt_hero.Set_Uptade_String(), SumSave.crt_hero.Get_Update_Character());
+                Alert_Dec.Show("切换角色 " + crt_hero.SetData().hero_name + " 成功");
+                return;
+            }
+        }
+      Alert_Dec.Show("该角色尚未获取");
     }
     /// <summary>
     /// 选择角色
@@ -140,7 +155,7 @@ public class panel_hero : Panel_Base
         string dec = "伤害类型:" + (item.Data.hero_type == 1 ? "物理伤害" : "魔法伤害") + "\n";
         for (int i = 0; i < item.Data.crate_value.Length; i++)
         {
-            dec += (enum_attribute_list)i + ":" + item.Data.crate_value[i] + "(成长 " + item.Data.up_value[i] + "/" + item.Data.up_base_value[i] + "级)\n";
+            dec += (enum_attribute_list)i + ":" + item.Data.crate_value[i] + "(每" + item.Data.up_base_value[i] + "级 + " + item.Data.up_value[i] + ")\n";
         }
         hero_info.text = dec;
     }
@@ -172,7 +187,6 @@ public class panel_hero : Panel_Base
                     dic_equips[item].Data = equip;
                 }
             }
-
         }
     }
 
@@ -285,5 +299,16 @@ public class panel_hero : Panel_Base
                     break;
             }
         }
+    }
+
+    /// <summary>
+    /// 显示自身装备
+    /// </summary>
+    /// <param name="item"></param>
+    protected void Select_Equip(bag_item item)
+    {
+        panel_equip.Show();
+        panel_equip.Select_Equip(item);
+
     }
 }

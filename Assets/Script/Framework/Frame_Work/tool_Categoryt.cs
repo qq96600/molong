@@ -1,7 +1,5 @@
 using Common;
 using MVC;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -27,6 +25,13 @@ public class tool_Categoryt : MonoBehaviour
     public static string Obtain_unit(int index)
     {
         string dec = "";
+        switch ((enum_skill_attribute_list)index)
+        {
+           
+            default:
+                break;
+        }
+
         switch ((enum_skill_attribute_list)index)
         {
             case enum_skill_attribute_list.生命值:
@@ -194,6 +199,30 @@ public class tool_Categoryt : MonoBehaviour
             case enum_skill_attribute_list.血刀刀法伤害:
                 dec = "%";
 
+                break;
+            case enum_skill_attribute_list.鞭尸:
+                break;
+            case enum_skill_attribute_list.无视防御:
+                break;
+            case enum_skill_attribute_list.灵气上限:
+                break;
+            case enum_skill_attribute_list.灵珠加成:
+            case enum_skill_attribute_list.攻击回血:
+            case enum_skill_attribute_list.攻击回蓝:
+            case enum_skill_attribute_list.最终伤害:
+            case enum_skill_attribute_list.物品双倍掉落概率:
+                dec = "%";
+                break;
+            case enum_skill_attribute_list.吐纳经验:
+                break;
+            case enum_skill_attribute_list.法宝匣数量:
+                break;
+            case enum_skill_attribute_list.厚土大法技能伤害:
+            case enum_skill_attribute_list.蛊毒大法技能伤害:
+            case enum_skill_attribute_list.血河大法技能伤害:
+                dec = "%";
+                break;
+            case enum_skill_attribute_list.复活:
                 break;
             default:
                 break;

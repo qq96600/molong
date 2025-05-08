@@ -144,7 +144,7 @@ public class effect_gather : Base_Mono
         slider_speed += Random.Range(1, 5);
         if (LimitNumber <= 0)
         {
-            Alert_Dec.Show("当前注灵不足");
+            Obtain_Other_Receive();
             return;
         }
         LimitNumber--;
@@ -165,9 +165,7 @@ public class effect_gather : Base_Mono
 
         if (LimitNumber <= 0)
         {
-            Obtain_Other_Receive();
-            Show();
-            return;
+           
         }
         else getlist();
 

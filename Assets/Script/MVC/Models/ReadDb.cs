@@ -507,6 +507,7 @@ public static class ReadDb
         item.need_Required = reader.GetString(reader.GetOrdinal("need_Required"));
         item.ProfitList = reader.GetString(reader.GetOrdinal("ProfitList"));
         item.monster_list = reader.GetString(reader.GetOrdinal("monster_list"));
+        item.map_life= reader.GetInt32(reader.GetOrdinal("map_life"));
         return item;
     }
 
@@ -584,7 +585,7 @@ public static class ReadDb
         item.skill_damage_type = reader.GetInt32(reader.GetOrdinal("skill_damage_type"));
         item.skilllv = 1; 
         item.skill_max_lv = reader.GetInt32(reader.GetOrdinal("skill_max_lv"));
-        item.skill_need_exp = reader.GetInt32(reader.GetOrdinal("skill_need_exp"));
+        item.skill_life = reader.GetInt32(reader.GetOrdinal("skill_need_exp"));
         string skill_need_coefficient= reader.GetString(reader.GetOrdinal("skill_need_coefficient"));
         string[] skill_need_coefficient_array = skill_need_coefficient.Split(' ');
         item.skill_need_coefficient = new System.Collections.Generic.List<int>();

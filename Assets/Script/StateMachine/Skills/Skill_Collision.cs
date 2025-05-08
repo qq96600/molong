@@ -39,30 +39,10 @@ namespace StateMachine
         {
             if(SkillPosType == skill_pos_type.move)
             TargetMove(TatgetPosition.transform.position, MoveSpeed);
-
-
-            //if(SkillPosType== skill_pos_type.situ&&!is_collider)
-            //{
-            //    anim.SetBool("Explosion", true);
-            //    ObjectPoolManager.instance.PushObjectToPool("Skll_HuoQiu", this.gameObject);
-            //    TatgetPosition.GetComponent<BattleAttack>().injured();
-            //}
-
             if (isExplosion)
             {
                 rb.velocity = Vector2.zero;
-               
-                //animStateInfo = anim.GetCurrentAnimatorStateInfo(0);//需要在每一帧更新动画状态信息
-                
-                //if(animStateInfo.normalizedTime >= 1f)
-                //{
-                //    ObjectPoolManager.instance.PushObjectToPool("Skll_HuoQiu", this.gameObject);
-                //}
-
             }
-             
-        
-                  
             
         }
 
