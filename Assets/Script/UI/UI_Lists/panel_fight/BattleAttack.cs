@@ -40,6 +40,10 @@ namespace MVC
         /// 计数器
         /// </summary>
         protected Slider show_hp;
+        /// <summary>
+        /// 生命值显示文本
+        /// </summary>
+        protected Text hp_text;
 
         /// <summary>
         /// 角色状态机
@@ -69,6 +73,7 @@ namespace MVC
             frame = Find<Image>("frame");
             show_hp = Find<Slider>("Slider");
             name_text = Find<Text>("base_info/info");
+            hp_text = Find<Text>("Slider/Hp_text");
         }
 
 
@@ -87,6 +92,9 @@ namespace MVC
                 target.HP = data.MaxHP;
                 show_hp.maxValue = target.maxHP;
                 show_hp.value = target.HP;
+
+                hp_text.text = target.HP + "/" + target.maxHP;
+
                 target.maxMP= data.MaxMp;
                 target.MP= data.MaxMp;
                 if (data.monster_attrList.Count > 0)
@@ -217,6 +225,7 @@ namespace MVC
                 }
                 else Find_Terget();
                 show_hp.value = target.HP;
+                hp_text.text = target.HP + "/" + target.maxHP;
             }
            
         }

@@ -10,15 +10,20 @@ public class DamageAnimiton : MonoBehaviour
     private Vector3 doMoveVec3;
     private Vector3 initialPosition;
     private bool isStart = false;
+    /// <summary>
+    /// 文本移动偏移量
+    /// </summary>
+    private int offset = 1;
     private void Awake()
     {
-        doMoveVec3 = new Vector3(5, 5);
+       
         textComponent = GetComponent<Text>();
     }
     private void Update()
     {
         if (isStart)
         {
+            
             // ��ȡ������ĵ�ǰλ��
             Vector3 parentOffset = transform.parent.position - initialPosition;
             // �����ƶ�Ŀ��λ�ã����Ǹ������λ��
@@ -27,8 +32,10 @@ public class DamageAnimiton : MonoBehaviour
         }
     }
 
-    public void Init()
+    public void Init(int _offset)
     {
+        doMoveVec3 = new Vector3(5 * offset, 5);
+        offset = _offset;
         initialPosition = transform.position;
         DOTween.Kill(transform);
         textComponent.DOFade(0, 1.0f).OnComplete(() =>

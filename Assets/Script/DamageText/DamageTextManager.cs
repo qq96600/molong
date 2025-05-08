@@ -60,6 +60,11 @@ public class DamageTextManager : MonoBehaviour// MonoSingleton <DamageTextManage
         }
     }
     /// <summary>
+    /// 偏移计数器
+    /// </summary>
+    private int offset_count=1;
+
+    /// <summary>
     /// 显示伤害文本
     /// </summary>
     /// <param name="damageEnum"></param>
@@ -103,7 +108,18 @@ public class DamageTextManager : MonoBehaviour// MonoSingleton <DamageTextManage
 
         }
 
-        damageText.transform.GetOrAddComponent<DamageAnimiton>().Init();
+        int offset = 1;
+        if (offset_count >= 2)
+        {
+            offset = -1;
+            offset_count = 1; 
+        }
+        else
+        {
+            offset = 1;
+        }
+        offset_count++; 
+        damageText.transform.GetOrAddComponent<DamageAnimiton>().Init(offset);
 
     }
    
