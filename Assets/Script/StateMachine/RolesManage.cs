@@ -36,7 +36,7 @@ namespace StateMachine
         [Header("攻击速度")]
         public float AttackSpeed = 5f;
         [Header("移动速度")]
-        public float MoveSpeed = 0.1f;
+        public float MoveSpeed = 1f;
         [Header("技能释放概率")]
         public float skillRelease = 50f;
         [Header("是否面向左")]

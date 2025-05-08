@@ -61,4 +61,5 @@ public enum Mysql_Table_Name
     user_message_window,//消息窗口
     db_basetask,//大世界信息
     mo_user_greenhandguide,//新手引导
+    user_player_buff,//玩家buff
 }

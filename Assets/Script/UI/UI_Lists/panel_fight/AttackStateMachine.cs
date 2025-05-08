@@ -141,7 +141,7 @@ public class AttackStateMachine : MonoBehaviour
                 transform.Translate(Vector2.right * AttackSpeed * Time.deltaTime);
             }else if(GetComponent<monster_battle_attck>() != null)
             {
-                transform.Translate(Vector2.left * AttackSpeed * Time.deltaTime);
+                transform.Translate(Vector2.left * AttackSpeed * Time.deltaTime*0.8f);
             }
 
             

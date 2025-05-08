@@ -93,6 +93,8 @@ public class hatching_progress : Base_Mono
             btn.Show(i, pet_list_btn[i]);
             btn.GetComponent<Button>().onClick.AddListener(() => { onPetClick(btn); });
         }
+
+
     }
 
     /// <summary>
@@ -138,11 +140,11 @@ public class hatching_progress : Base_Mono
                     return;
                 }
                 dic.Add(crt_egg.Item1, -crt_egg.Item2);
-                string EggsName = SumSave.db_pet_dic[crt_egg.Item1].petEggsName;//根据宠物找到宠物蛋名字
+                
                 SumSave.crt_bag_resources.Get(dic);
                 Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.material_value, SumSave.crt_bag_resources.GetData());
 
-                db_pet_vo pet = ArrayHelper.Find(SumSave.db_pet, e => e.petEggsName == EggsName);
+                db_pet_vo pet = ArrayHelper.Find(SumSave.db_pet, e => e.petEggsName == crt_egg.Item1);
                 if (pet != null)
                 {
                     incubate_Time = "";
@@ -375,7 +377,9 @@ public class hatching_progress : Base_Mono
         string data = incubate_Time;
         SumSave.crt_pet.crt_pet_list.Remove(data);//孵化宠物只有这一个类型可以直接找到删除
         SumSave.crt_pet.crt_pet_list.Remove("");
-        db_pet_vo pet_init = SumSave.db_pet_dic[crt_egg.Item1];
+        //db_pet_vo _pet = ArrayHelper.Find(SumSave.db_pet, e => e.petEggsName == crt_egg.Item1);//更具宠物蛋找到对应宠物
+        //db_pet_vo pet_init = SumSave.db_pet_dic[_pet.petName];
+        db_pet_vo pet_init= ArrayHelper.Find(SumSave.db_pet, e => e.petEggsName == crt_egg.Item1);
 
         string value_data = "";
         value_data += pet_init.petName + ",";
@@ -627,8 +631,9 @@ public class hatching_progress : Base_Mono
     private void Select_Egg((string, int) bag)
     {
         Show_Btn(false, 0);
-        crt_egg = bag;
+        
         db_pet_vo pet = ArrayHelper.Find(SumSave.db_pet, e => e.petName == bag.Item1);
+        crt_egg = bag;
         UpProperties(pet);
         Obtain_Pet(pet, 1);
     }

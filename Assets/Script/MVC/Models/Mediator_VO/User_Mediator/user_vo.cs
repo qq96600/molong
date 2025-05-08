@@ -67,6 +67,8 @@ public class user_vo : Base_VO
             case currency_unit.灵珠:
                 if (value > 0)
                 {
+                    
+
                     Combat_statistics.AddMoeny(value);
                     SumSave.crt_achievement.increase_date_Exp((Achieve_collect.获得灵珠).ToString(), value);
                 }
@@ -79,7 +81,10 @@ public class user_vo : Base_VO
                 verify_list[0] += value;
                 break;
             case currency_unit.历练:
-                if (value >= SumSave.base_setting[0]) Game_Omphalos.i.Delete("获得" + (currency_unit)_index + value);
+                if (value >= SumSave.base_setting[0])
+                {
+                    Game_Omphalos.i.Delete("获得" + (currency_unit)_index + value); 
+                }
                 else
                 {
                     if (value > 0) Combat_statistics.AddPoint(value);

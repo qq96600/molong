@@ -19,7 +19,12 @@ public static class ReadDb
         return item;
     }
 
-
+    public static user_player_Buff Read(MySqlDataReader reader, user_player_Buff item)
+    {
+        item.player_baff = reader.GetString(reader.GetOrdinal("player_Buff"));
+        item.SplitBuff();
+        return item;
+    }
 
     public static user_collect_vo Read(MySqlDataReader reader, user_collect_vo item)
     {

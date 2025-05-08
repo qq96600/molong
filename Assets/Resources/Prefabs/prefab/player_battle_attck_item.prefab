@@ -344,7 +344,7 @@ MonoBehaviour:
   AttackDistance: 700
   BehindDistance: 100
   AttackSpeed: 1
-  MoveSpeed: 0.1
+  MoveSpeed: 1
   skillRelease: 50
   skillStoragePos: {fileID: 0}
   skills_HuoQiu: {fileID: 0}

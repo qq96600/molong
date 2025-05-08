@@ -46,7 +46,7 @@ public class panel_Buff : Panel_Base
         base.Initialize();
         inputField = Find<InputField>("bg_main/InputField");
         confirm = Find<Button>("bg_main/confirm");
-        info = Find<Text>("bg_main/info/info");
+        info = Find<Text>("bg_main/ScrollView/Viewport/Content/info");
         confirm.onClick.AddListener(OnConfirmClick);
 
        
@@ -81,6 +81,7 @@ public class panel_Buff : Panel_Base
         inputField.text = SumSave.crt_hero.hero_name;
         string dec = "";
         dec += enum_skill_attribute_list.经验加成 + ": " + Show_Buff(enum_skill_attribute_list.经验加成) + "%\n";
+        dec += enum_skill_attribute_list.人物历练 + ": " + Show_Buff(enum_skill_attribute_list.人物历练) + "%\n";
         dec += enum_skill_attribute_list.灵珠收益 + ": " + Show_Buff(enum_skill_attribute_list.灵珠收益) + "%\n";
         dec += enum_skill_attribute_list.装备爆率 + ": " + Show_Buff(enum_skill_attribute_list.装备爆率) + "%\n";
         dec += enum_skill_attribute_list.装备掉落 + ": " + Show_Buff(enum_skill_attribute_list.装备掉落) + "%\n";

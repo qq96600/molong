@@ -128,7 +128,7 @@ namespace MVC
             Dictionary<string, int> bagdic = new Dictionary<string, int>();
             long count = 0;
             //0灵珠 1历练 2元宝 3灵气
-            List<long> currency_unit_list = new List<long>(5);
+            List<long> currency_unit_list = new List<long> {0,0,0,0,0};
             List<long> listunit = SumSave.crt_user_unit.Set();
 
             foreach (string item in keys.Keys)
