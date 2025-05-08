@@ -255,8 +255,33 @@ namespace MVC
             Read_User_Pet();
             Read_user_Greenhand();
             Read_user_Collect();
+            Read_user_player_Buff();
             refresh_Max_Hero_Attribute();
         }
+
+
+        public void Read_user_player_Buff()
+        {
+            mysqlReader = MysqlDb.Select(Mysql_Table_Name.user_player_buff, "uid", GetStr(SumSave.crt_user.uid));
+            SumSave.crt_player_buff = new user_player_Buff();
+
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.crt_player_buff = ReadDb.Read(mysqlReader, new user_player_Buff());
+                    //DateTime times = SumSave.nowtime;
+                    //SumSave.crt_plyer_buff.player_Buffs.Add("修炼丹",(times, 10));
+                }
+
+            }
+            else//为空的话初始化数据
+            {
+                Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.user_player_buff, SumSave.crt_player_buff.Set_Instace_String());
+            }
+
+        }
+
 
         /// <summary>
         /// 读取收集信息
@@ -608,16 +633,15 @@ namespace MVC
                         pet.exp = int.Parse(splits[4]);
 
                         string[] attributes = splits[5].Split('|');
-                        if (attributes.Length == 3)
-                        {
-                            pet.crate_value = "";
-                            pet.up_value = "";
-                            pet.up_base_value = "";
-                            pet.crate_value = attributes[0];
-                            pet.up_value = attributes[1];
-                            pet.up_base_value = attributes[2];
-                            pet.GetNumerical();
-                        }
+                     
+                        pet.crate_value = "";
+                        pet.up_value = "";
+                        pet.up_base_value = "";
+                        pet.crate_value = attributes[0];
+                        pet.up_value = attributes[1];
+                        pet.up_base_value = attributes[2];
+                        pet.GetNumerical();
+                    
                         pet.pet_state = splits[6];
                     }
                     SumSave.crt_pet_list.Add(pet);

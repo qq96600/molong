@@ -75,7 +75,7 @@ public class db_pet_vo : Base_VO
     /// </summary>
     public string quality;
     /// <summary>
-    /// 宠物此时的状态
+    /// 宠物此时的状态 0闲置1守护庄园2是探索
     /// </summary>
     public string pet_state;
     /// <summary>

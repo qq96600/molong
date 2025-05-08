@@ -59,10 +59,7 @@ public class DamageTextManager : MonoBehaviour// MonoSingleton <DamageTextManage
             }, parent.transform);
         }
     }
-    /// <summary>
-    /// 偏移计数器
-    /// </summary>
-    private int offset_count=1;
+  
 
     /// <summary>
     /// 显示伤害文本
@@ -70,7 +67,7 @@ public class DamageTextManager : MonoBehaviour// MonoSingleton <DamageTextManage
     /// <param name="damageEnum"></param>
     /// <param name="damage"></param>
     /// <param name="parent"></param>
-    public void ShowDamageText(DamageEnum damageEnum, string damage, Transform parent)
+    public void ShowDamageText(DamageEnum damageEnum, string damage, Transform parent,int offset)
     {
         Color color = normalColor;
         switch (damageEnum)
@@ -108,17 +105,8 @@ public class DamageTextManager : MonoBehaviour// MonoSingleton <DamageTextManage
 
         }
 
-        int offset = 1;
-        if (offset_count >= 2)
-        {
-            offset = -1;
-            offset_count = 1; 
-        }
-        else
-        {
-            offset = 1;
-        }
-        offset_count++; 
+       
+      
         damageText.transform.GetOrAddComponent<DamageAnimiton>().Init(offset);
 
     }

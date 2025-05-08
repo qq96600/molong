@@ -99,7 +99,13 @@ namespace MVC
                 StartCoroutine(WaitAndDestory(GetComponent<BattleAttack>().Data.show_name));
             }
         }
-        
+
+      
+        /// <summary>
+        /// 文字偏移量
+        /// </summary>
+        int offset = 1;
+
         /// <summary>
         /// 显示信息
         /// </summary>
@@ -107,8 +113,10 @@ namespace MVC
         /// <param name="type">1伤害2治疗</param>
         private void Hurt(float dec, DamageEnum type)
         {
+            offset *= -1;
+
             string _dec=dec.ToString("F0");
-            DamageTextManager.Instance.ShowDamageText(type, _dec, this.transform);
+            DamageTextManager.Instance.ShowDamageText(type, _dec, this.transform, offset);
             transform.parent.parent.parent.SendMessage("show_battle_info",
                     GetComponent<BattleAttack>().Data.show_name+" 受到 "+type+" 效果"+"造成"+dec+"伤害");
         }

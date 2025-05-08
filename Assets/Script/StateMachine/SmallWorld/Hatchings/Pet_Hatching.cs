@@ -209,8 +209,7 @@ public class Pet_Hatching : Panel_Base
     /// </summary>
     private void OnDisplayPet()
     {
-            hatching_progress.gameObject.SetActive(true);
-
+        hatching_progress.gameObject.SetActive(true);
     }
 
 

@@ -960,7 +960,7 @@ MonoBehaviour:
   animSpeed: 0
   attack: {fileID: 0}
   attackDamage: 10
-  AttackDistance: 300
+  AttackDistance: 700
   BehindDistance: 100
   AttackSpeed: 1
   MoveSpeed: 0.1

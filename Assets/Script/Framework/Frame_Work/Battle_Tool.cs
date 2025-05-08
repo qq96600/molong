@@ -362,6 +362,16 @@ public static class Battle_Tool
     /// <param name="exp"></param>
     public static void Obtain_Exp(long exp)
     {
+        if (SumSave.crt_player_buff.player_Buffs.ContainsKey("下品经验丹"))
+        {
+            Debug.Log("经验丹加成之前经验："+exp);
+            exp = (long)(exp * 1.5f);
+            Debug.Log("经验丹加成之后经验：" + exp);
+        }
+        if (SumSave.crt_player_buff.player_Buffs.ContainsKey("中品经验丹"))
+        {
+            exp = (long)(exp * 2f);
+        }
         Combat_statistics.AddExp(exp); 
 
         SumSave.crt_MaxHero.Exp += exp;

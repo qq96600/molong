@@ -4,6 +4,7 @@ using MVC;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -37,7 +38,14 @@ public class show_Plant : Base_Mono
     /// 浇水减少时间
     /// </summary>
     private int reduceTime = 10;
-
+    /// <summary>
+    /// 守护兽显示
+    /// </summary>
+    private Image pet_guardImage;
+    /// <summary>
+    /// 守护兽名字显示
+    /// </summary>
+    private Text pet_guardtext;
     private int[] need_list = new int[] { 500, 5000, 10000, 20000, 30000, 40000, 50000, 60000, 200000, 200000, 200000, 200000, 200000, 200000, 200000, 200000, 200000, 200000 };
     private void Awake()
     {
@@ -58,6 +66,10 @@ public class show_Plant : Base_Mono
         plantDropdown.onValueChanged.AddListener(OnSelect);
         panltItemPrefab = Battle_Tool.Find_Prefabs<seed_item>("seeditem"); //Resources.Load<seed_item>("Prefabs/panel_smallWorld/seeditem"); //Assets / Resources / Prefabs / panel_smallWorld / seeditem.prefab
         pos_panlt = Find<Transform>("Scroll View/Viewport/Content");
+
+        pet_guardImage = Find<Image>("pet_guard/display/icon");
+        pet_guardtext = Find<Text>("pet_guard/info/name");
+
     }
     /// <summary>
     /// 选择植物
@@ -76,11 +88,13 @@ public class show_Plant : Base_Mono
     public override void Show()
     {
         base.Show();
+        
         Base_Show();
     }
 
     private void Base_Show()
     {
+        pet_Init();
         List<(string, DateTime)> Set = SumSave.crt_plant.Set();
         StopAllCoroutines();
         ClearObject(pos_panlt);
@@ -132,15 +146,24 @@ public class show_Plant : Base_Mono
         else Alert_Dec.Show("当前土地种植" + item.db_plant.plantName);
     }
     /// <summary>
-    /// 获取守护植物园的宠物
+    /// 守护兽初始化
     /// </summary>
-    public void Get_pet_guard(db_pet_vo _pet_guard)
+    public void pet_Init()
     {
-        //Alert_Dec.Show("设置 " + _pet_guard.petName + " 为植物园守护兽");
-        //pet_guard = _pet_guard;
-        //display_image.sprite = UI_Manager.I.GetEquipSprite("icon/", pet_guard.petName);
-        //display_info.text = pet_guard.petName + " Lv." + pet_guard.level;
-
+        if(SumSave.crt_pet_list.Count==0)
+        {
+            pet_guardImage.sprite = null;
+            pet_guardtext.text = "无守护兽";
+            return;
+        }
+        for (int i = 0; i < SumSave.crt_pet_list.Count; i++)
+        {
+            if (SumSave.crt_pet_list[i].pet_state == "1")
+            {
+                pet_guardImage.sprite= UI.UI_Manager.I.GetEquipSprite("UI/pet/", SumSave.crt_pet_list[i].petName);
+                pet_guardtext.text = SumSave.crt_pet_list[i].petName+"lv:"+ SumSave.crt_pet_list[i].level;
+            }
+        }
     }
     /// <summary>
     /// 点击植物按钮

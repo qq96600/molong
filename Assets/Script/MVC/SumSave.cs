@@ -35,7 +35,11 @@ namespace Common
         /// 当前玩家总属性
         /// </summary>
         public static crtMaxHeroVO crt_MaxHero;
-      
+        /// <summary>
+        /// 玩家Buff
+        /// </summary>
+        public static user_player_Buff crt_player_buff;
+
         /// <summary>
         /// 玩家技能
         /// </summary>

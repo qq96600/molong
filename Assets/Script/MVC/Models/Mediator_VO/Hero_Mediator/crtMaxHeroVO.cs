@@ -201,6 +201,7 @@ public class crtMaxHeroVO
 
     public int totalPower;
 
+
     /// <summary>
     /// 判断是否为boss 1普通 2精英 3boss
     /// </summary>

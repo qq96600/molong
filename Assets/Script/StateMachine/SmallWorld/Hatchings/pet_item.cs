@@ -24,7 +24,7 @@ public class pet_item : Base_Mono
     /// <summary>
     /// 可能获得宠物奖励
     /// </summary>
-    private string[] va= { "下品修为丹" , "下品经验丹", "下品灵石" };//Assets/Resources/Prefabs/panel_smallWorld/pets/pet_item.prefab
+    private string[] va= { "下品历练丹" , "下品经验丹", "下品灵石" };//Assets/Resources/Prefabs/panel_smallWorld/pets/pet_item.prefab
 
     private Image iocn, frame, state;
 

@@ -251,7 +251,7 @@ namespace MVC
             }
             PlayerPrefs.SetInt("同意阅读协议", 1);
 #if UNITY_EDITOR
-            SumSave.uid = "DSFSDFSDFSDF3";//"05c8cc2e26234ec0acc690343a598eba";
+            SumSave.uid = "DSFSDFSDFSDF";//"05c8cc2e26234ec0acc690343a598eba";
 #elif UNITY_ANDROID
             Game_Omphalos.i.Wirte_Tap();
 #elif UNITY_IPHONE
