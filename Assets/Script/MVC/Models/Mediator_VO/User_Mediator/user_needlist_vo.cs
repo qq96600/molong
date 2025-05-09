@@ -22,11 +22,6 @@ public class user_needlist_vo : Base_VO
     /// 地图进入次数列表
     /// </summary>
     private List<(string, int)> map_value_list=new List<(string, int)>();
-
-    /// <summary>
-    /// 扩展
-    /// </summary>
-    public string user_value;
     /// <summary>
     /// 解析商店限购物品
     /// </summary>
@@ -39,11 +34,33 @@ public class user_needlist_vo : Base_VO
             if(store.Length == 2)
             store_value_list.Add(store);
         }
-     
     }
 
-
-
+    /// <summary>
+    /// 获取地图进入次数
+    /// </summary>
+    /// <returns></returns>
+    public List<(string, int)> SetMap()
+    { 
+     return map_value_list;
+    }
+    /// <summary>
+    /// 更新状态
+    /// </summary>
+    /// <param name="map"></param>
+    public void SetMap((string, int) map)
+    {
+        bool exist = true;
+        for (int i = 0; i < map_value_list.Count; i++)
+        {
+            if (map_value_list[i].Item1 == map.Item1)
+            {
+                exist = false;
+                map_value_list[i] = map;
+            }
+        }
+        if(exist)map_value_list.Add(map);
+    }
     /// <summary>
     /// 解析进入地图次数
     /// </summary>

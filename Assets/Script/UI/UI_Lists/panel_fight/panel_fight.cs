@@ -79,7 +79,11 @@ public class panel_fight : Panel_Base
     /// </summary>
     private Button btn_Combat_statistics;
 
-    public Button close_battle; 
+    public Button close_battle;
+    /// <summary>
+    /// 当前出现怪物数量 总怪物数量
+    /// </summary>
+    private int crt_monster_number = 0, maxnumber = 0;
     protected override void Awake()
     {
         base.Awake();
@@ -168,14 +172,14 @@ public class panel_fight : Panel_Base
             StartCoroutine(Game_WaitTime(5));
         }
     }
-
+    
     public void Open_Map(user_map_vo map)
     {
         Combat_statistics.isTime = true;
         select_map = map;
+        map_name.text = map.map_name;
         init();
         Crate_Init();
-        map_name.text=map.map_name;
         Show_Battle_State("战斗中...");
     }
     /// <summary>
@@ -243,6 +247,16 @@ public class panel_fight : Panel_Base
     /// </summary>
     private void init()
     {
+        crt_monster_number = 0;
+        maxnumber = 100;
+        switch (select_map.map_type)
+        {
+            case 2: maxnumber = 10; break;
+            case 3: maxnumber = 1; break;
+            case 4: maxnumber = 1; break;
+            default:
+                break;
+        }
         if (SumSave.battleMonsterHealths != null)
         {
             for (int i = pos_monster.childCount - 1; i >= 0; i--)
@@ -318,8 +332,21 @@ public class panel_fight : Panel_Base
     private void crate_monster()
     {
         Combat_statistics.isTime = true;
+        if (crt_monster_number >= maxnumber) crt_monster_number = 0;
+        crt_monster_number++;
         crtMaxHeroVO crt = crt_map_monsters[Random.Range(0, crt_map_monsters.Count)];
-        crt = Battle_Tool.crate_monster(crt, select_map);
+        if (crt_monster_number == maxnumber)
+        {
+            crt = crt_map_monsters[crt_map_monsters.Count - 1];
+        }
+        else
+        {
+            if (maxnumber == 10)
+            {
+                crt = crt_map_monsters[0];
+            }
+        }
+        crt = Battle_Tool.crate_monster(crt, select_map, crt_monster_number == maxnumber);
         GameObject item = ObjectPoolManager.instance.GetObjectFormPool(crt.show_name, monster_battle_attack_prefabs,
             new Vector3(pos_monster.position.x, pos_monster.position.y,pos_monster.position.z), Quaternion.identity, pos_monster);
         // 设置Data
@@ -329,6 +356,12 @@ public class panel_fight : Panel_Base
         //item.GetComponent<Button>().enabled = true;
         SumSave.battleMonsterHealths.Add(item.GetComponent<BattleHealth>());
         Open_Monster_State=true;
+        ShowInfoMap();
+    }
+
+    private void ShowInfoMap()
+    {
+        map_name.text = select_map.map_name + "(" + crt_monster_number + "/" + maxnumber + ")";
     }
     /// <summary>
     /// 显示战斗信息

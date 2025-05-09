@@ -15,6 +15,7 @@ public class panel_equip : Panel_Base
     private equip_item equip_item_prafabs;
     private Transform crt_pos_equip;
     private panel_bag panel_bag;
+    private panel_hero panel_hero;
     private bag_item crt_bag;
     private Bag_Base_VO crt_equip;
     private GridLayoutGroup gridLayoutgroup;
@@ -32,6 +33,7 @@ public class panel_equip : Panel_Base
         crt_pos_equip = Find<Transform>("bg_main");
         panel_bag=UI_Manager.I.GetPanel<panel_bag>();
         gridLayoutgroup = Find<GridLayoutGroup>("bg_main");
+        panel_hero= UI_Manager.I.GetPanel<panel_hero>();
     }
 
     public override void Show()
@@ -180,6 +182,7 @@ public class panel_equip : Panel_Base
     protected void Refresh()
     {
         Hide();
-        panel_bag.Show();
+        if (panel_bag.gameObject.activeInHierarchy) panel_bag.Show();
+        if (panel_hero.gameObject.activeInHierarchy) panel_hero.Show();
     }
 }

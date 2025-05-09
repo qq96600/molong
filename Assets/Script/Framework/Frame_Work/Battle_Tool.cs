@@ -651,7 +651,7 @@ public static class Battle_Tool
     /// 创造怪物
     /// </summary>
     /// <param name="crt"></param>
-    /// <param name="lv">1小怪2精英3boss</param>
+    /// <param name="lv">1小怪2精英3boss4副本地图</param>
     public static crtMaxHeroVO crate_monster(crtMaxHeroVO crt, user_map_vo map,bool isBoss=false)
     {
         crtMaxHeroVO base_crt = new crtMaxHeroVO();
@@ -660,7 +660,6 @@ public static class Battle_Tool
             base_crt.life[map.map_life] = map.need_lv * 2;
         }
         base_crt.Monster_Lv = map.map_type;
-
         //标准战斗系数
         int coefficient = 1;
         if (Random.Range(0, 100) < 10)
@@ -692,6 +691,11 @@ public static class Battle_Tool
         else if (map.map_type == 3)
         {
             base_crt.Monster_Lv = 3;
+            coefficient = 1;
+        }
+        else if (map.map_type == 3)
+        {
+            base_crt.Monster_Lv = 4;
             coefficient = 1;
         }
         base_crt.show_name = crt.show_name;
