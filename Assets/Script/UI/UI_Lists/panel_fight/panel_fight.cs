@@ -159,7 +159,63 @@ public class panel_fight : Panel_Base
     { 
         base.Hide();
     }
-
+    /// <summary>
+    /// 副本初始化
+    /// </summary>
+    /// <param name="damage"></param>
+    protected void DailyCopies(BattleHealth target)
+    {
+        int damge = (int)(target.maxHP - target.HP);
+        long max = 0;
+        long value = 0;
+        switch (select_map.map_index)
+        {
+            case 37: //历练
+                max = SumSave.crt_MaxHero.Lv * 1000;
+                value = (long)(damge * max / target.maxHP);
+                Alert.Show(select_map.map_name, "副本战斗结束,造成伤害 " + damge + "\n获得历练 " + value);
+                Battle_Tool.Obtain_Unit(currency_unit.历练, value) ;
+                break;
+            case 36: //魔丸
+                max = SumSave.crt_MaxHero.Lv / 5 + 20;
+                value = (long)(damge * max / target.maxHP);
+                Alert.Show(select_map.map_name, "副本战斗结束,造成伤害 " + damge + "\n获得魔丸 " + value);
+                Battle_Tool.Obtain_Unit(currency_unit.魔丸, value);
+                break;
+            case 35: //灵气
+                if (SumSave.crt_world != null)
+                {
+                    max = (SumSave.crt_world.World_Lv + 1) * 100;
+                    value = (long)(damge * max / target.maxHP);
+                    Alert.Show(select_map.map_name, "副本战斗结束,造成伤害 " + damge + "\n获得灵气 " + value);
+                    SumSave.crt_world.Set((int)value);
+                    Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_world, SumSave.crt_world.Set_Uptade_String(), SumSave.crt_world.Get_Update_Character());
+                }
+                break;
+            case 34: //经验
+                max = SumSave.db_lvs.hero_lv_list[SumSave.crt_MaxHero.Lv];
+                value = (long)(damge * max / target.maxHP );
+                Alert.Show(select_map.map_name, "副本战斗结束,造成伤害 " + damge + "\n获得经验 " + value);
+                Battle_Tool.Obtain_Exp(value);
+                break;
+            case 33://灵珠
+                max = SumSave.crt_MaxHero.Lv * 100000;
+                value = (long)(damge * max / target.maxHP);
+                Alert.Show(select_map.map_name, "副本战斗结束,造成伤害 " + damge + "\n获得灵珠 " + value);
+                Battle_Tool.Obtain_Unit(currency_unit.灵珠, value);
+                break;
+            case 32://魔丹
+                max = SumSave.crt_MaxHero.Lv + 50;
+                value = (int)(damge * max / target.maxHP);
+                (string,int) str = SumSave.db_lvs.world_lv_list[0];
+                Alert.Show(select_map.map_name, "副本战斗结束,造成伤害 " + damge + "\n获得 " + str.Item1+" * "+value);
+                Battle_Tool.Obtain_Resources(str.Item1,(int)value);
+                break;
+            default:
+                break;
+        }
+        Open_Map(ArrayHelper.Find(SumSave.db_maps, e => e.map_name == SumSave.crt_resources.user_map_index));
+    }
     /// <summary>
     /// 游戏结束
     /// </summary>
@@ -173,12 +229,22 @@ public class panel_fight : Panel_Base
             StartCoroutine(Game_WaitTime(5));
         }
     }
-    
-    public void Open_Map(user_map_vo map)
+    /// <summary>
+    /// 进入地图
+    /// </summary>
+    /// <param name="map"></param>
+    /// <param name="isCopies">是否副本</param>
+    public void Open_Map(user_map_vo map,bool isCopies = false)
     {
+        if (!isCopies)
+        {
+            SumSave.crt_resources.user_map_index = map.map_name;
+        }
+
         Combat_statistics.isTime = true;
         select_map = map;
         map_name.text = map.map_name;
+        
         init();
         Crate_Init();
         Show_Battle_State("战斗中...");
@@ -222,6 +288,7 @@ public class panel_fight : Panel_Base
             }
         }
     }
+    
     private void crate_Skill()
     {
         battle_skills = pight_show_skill.Init();

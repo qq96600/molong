@@ -929,9 +929,6 @@ namespace MVC
                 }
             
             }
-
-
-
                 //添加技能效果
             foreach (base_skill_vo skill in SumSave.crt_skills)
             {

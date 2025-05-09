@@ -427,9 +427,7 @@ namespace MVC
             {
                 while (mysqlReader.Read())
                 {
-                   
                     SumSave.db_maps.Add(ReadDb.Read(mysqlReader, new user_map_vo()));
-                    
                 }
             }
 
