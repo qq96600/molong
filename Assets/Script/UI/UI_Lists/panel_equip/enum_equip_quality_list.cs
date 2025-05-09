@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum enum_equip_quality_list
 {
-    普通,
+    普通=1,
     精良,
     完美,
     史诗,

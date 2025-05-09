@@ -1,3 +1,4 @@
+using Common;
 using Components;
 using MVC;
 using System;
@@ -11,15 +12,19 @@ public class Daily_copies : Base_Mono
     private Transform pos_crtmap;
 
     private copies_item copies_item_Prefabs;
+    
     private void Awake()
     {
         pos_crtmap=Find<Transform>("Scroll View/Viewport/Content");
-        copies_item_Prefabs = Battle_Tool.Find_Prefabs<copies_item>("copies_item"); //Resources.Load<copies_item>("Prefabs/panel_hall/Daily_copies/copies_item");
-        for (int i = 0; i < 10; i++)
-        { 
-            copies_item item = Instantiate(copies_item_Prefabs, pos_crtmap);
-            item.Init(i);
-            item.GetComponent<Button>().onClick.AddListener( ()=> { OnClick(item); });
+        copies_item_Prefabs = Battle_Tool.Find_Prefabs<copies_item>("copies_item");
+        for (int i = SumSave.db_maps.Count; i > 0; i--)
+        {
+            if (SumSave.db_maps[i].map_type == 4)
+            {
+                copies_item item = Instantiate(copies_item_Prefabs, pos_crtmap);
+                item.Init(SumSave.db_maps[i],1);
+                item.GetComponent<Button>().onClick.AddListener(() => { OnClick(item); });
+            }
         }
     }
     /// <summary>
@@ -43,5 +48,10 @@ public class Daily_copies : Base_Mono
     public override void Show()
     {
         base.Show();
+        if (int.Parse( SumSave.crt_hero.hero_lv) > 30)
+        {
+            Alert_Dec.Show("副本开启等级为30级");
+            gameObject.SetActive(false);
+        }
     }
 }

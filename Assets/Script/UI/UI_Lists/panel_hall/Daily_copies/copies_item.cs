@@ -15,16 +15,17 @@ public class copies_item : Base_Mono
     /// </summary>
     private Text info;
 
-    public int index;
+    public user_map_vo index;
     private void Awake()
     {
         icon=Find<Image>("bg/icon");
         info=Find<Text>("info");
     }
 
-    public void Init(int _index)
+    public void Init(user_map_vo map,int number)
     {
-        index = _index;
-        info.text = "第" + index + "关";
+        index = map;
+        info.text = map.map_name+"("+number+"/2)";
+        //icon.sprite = Resources.Load<Sprite>("Image/Map/" + map.monster_list);
     }
 }
