@@ -50,4 +50,13 @@ public class copies_item : Base_Mono
     {
         return number < maxnumber;
     }
+    /// <summary>
+    /// 刷新状态
+    /// </summary>
+    public void updatestate()
+    {
+        number++;
+        info.text = index.map_name + "(" + number + "/" + maxnumber + ")";
+
+    }
 }

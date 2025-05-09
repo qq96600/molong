@@ -205,7 +205,7 @@ public class crtMaxHeroVO
     /// <summary>
     /// 判断是否为boss 1普通 2精英 3boss
     /// </summary>
-    public int Monster_Lv=1;
+    public int Monster_Lv=0;
     /// <summary>
     /// 显示战斗力
     /// </summary>

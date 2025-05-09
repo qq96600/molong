@@ -82,8 +82,8 @@ public class Daily_copies : Base_Mono
         Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_needlist, 
             SumSave.crt_needlist.Set_Uptade_String(), SumSave.crt_needlist.Get_Update_Character());
         fight_panel.Show();
-        fight_panel.Open_Map(item.index);
-
+        fight_panel.Open_Map(item.index,true);
+        item.updatestate();
     }
 
     public override void Show()

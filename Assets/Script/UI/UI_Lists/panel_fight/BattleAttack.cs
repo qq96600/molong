@@ -74,13 +74,6 @@ namespace MVC
             show_hp = Find<Slider>("Slider");
             name_text = Find<Text>("base_info/info");
             hp_text = Find<Text>("Slider/Hp_text");
-            if (Terget!=null)
-            {
-                if (!Terget.gameObject.activeInHierarchy)
-                {
-                    Terget = null;
-                }
-            }
         }
 
 
@@ -102,6 +95,7 @@ namespace MVC
                 hp_text.text = target.HP + "/" + target.maxHP;
                 target.maxMP= data.MaxMp;
                 target.MP= data.MaxMp;
+                Terget = null;
                 string dec = "";
                
                 if (data.Monster_Lv >= 1)
@@ -162,7 +156,13 @@ namespace MVC
         /// </summary>
         public virtual void OnAuto()
         {
-
+            //副本怪物属性自动增长
+            if (data.Monster_Lv == 4)
+            {
+                data.damageMax = (int)(data.damageMax * 1.2f);
+                data.hit= (int)(data.hit * 1.2f);
+                data.MagicdamageMax= (int)(data.MagicdamageMax * 1.2f);
+            }
         }
 
         /// <summary>
@@ -232,6 +232,11 @@ namespace MVC
         /// </summary>
         private void game_over()
         {
+            if (data.Monster_Lv == 4)
+            {
+                transform.parent.parent.parent.SendMessage("DailyCopies",target);
+
+            }
             transform.parent.parent.parent.SendMessage("Game_Over");
         }
 
@@ -254,7 +259,7 @@ namespace MVC
                 }
                 else Find_Terget();
                 show_hp.value = target.HP;
-                hp_text.text = target.HP + "/" + target.maxHP;
+                hp_text.text = (int)target.HP + "/" + target.maxHP;
             }
            
         }

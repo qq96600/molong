@@ -266,7 +266,7 @@ public class panel_hero : Panel_Base
                     info_item_dic[item].Show(item, SumSave.crt_MaxHero.resistance+tool_Categoryt.Obtain_unit((int)item));
                     break;
                 case enum_attribute_list.攻击速度:
-                    info_item_dic[item].Show(item, SumSave.crt_MaxHero.attack_speed+tool_Categoryt.Obtain_unit((int)item));
+                    info_item_dic[item].Show(item, (SumSave.crt_MaxHero.attack_speed / 60F).ToString("F2") + "s");
                     break;
                 case enum_attribute_list.移动速度:
                     info_item_dic[item].Show(item, SumSave.crt_MaxHero.move_speed+tool_Categoryt.Obtain_unit((int)item));

@@ -657,9 +657,10 @@ public static class Battle_Tool
         crtMaxHeroVO base_crt = new crtMaxHeroVO();
         if (map.map_life != 0)
         {
-            base_crt.life[map.map_life] = map.need_lv * 2;
+            base_crt.life[map.map_life-1] = map.need_lv * 2;
         }
         base_crt.Monster_Lv = map.map_type;
+        base_crt.Type= crt.damageMax>crt.MagicdamageMax?1:2;
         //标准战斗系数
         int coefficient = 1;
         if (Random.Range(0, 100) < 10)
