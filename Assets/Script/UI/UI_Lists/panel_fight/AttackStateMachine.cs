@@ -188,11 +188,11 @@ public class AttackStateMachine : MonoBehaviour
         switch ((skill_pos_type)skill.skill_damage_pos_type)
         {
             case skill_pos_type.move:
-                skill_prefabs = Resources.Load<GameObject>("Prefabs/panel_skill/Skill_Effects/HuoQiu");
+                skill_prefabs = Resources.Load<GameObject>("Prefabs/panel_skill/Skill_Effects/驭火术");
                 pos = battle.transform;
                 break;
             case skill_pos_type.situ:
-                skill_prefabs = Resources.Load<GameObject>("Prefabs/panel_skill/Skill_Effects/BaoZha");
+                skill_prefabs = Resources.Load<GameObject>("Prefabs/panel_skill/Skill_Effects/强力一击");
                 pos = Target.transform;
                 break;
             default:
