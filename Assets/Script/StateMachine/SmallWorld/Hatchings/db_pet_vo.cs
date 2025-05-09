@@ -156,7 +156,7 @@ public class db_pet_vo : Base_VO
     public string Set_data()
     {
         string dec = "";
-        dec= crt_hatching.Item1+ "|"+ crt_hatching.Item2.ToString();
+        dec= crt_hatching.Item1+ "|"+ crt_hatching.Item2.ToString()+"|"+ hatchingTime;
         return dec;
 
     }

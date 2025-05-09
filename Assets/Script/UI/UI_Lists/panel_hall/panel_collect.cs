@@ -72,7 +72,10 @@ public class panel_collect : Base_Mono
     /// 装备类型
     /// </summary>
     private List<string> typeNames;
- 
+    /// <summary>
+    /// 当前选择的套装
+    /// </summary>
+    private List<db_collect_vo> suitItem;
     /// <summary>
     /// 收集物品类型位置
     /// </summary>
@@ -99,7 +102,7 @@ public class panel_collect : Base_Mono
         #region 收集物品信息窗口
         collect_info = Find<Transform>("collect_info");
         collect_Title = Find<Text>("collect_info/collect_Title/Title");
-        item_image = Find<bag_item>("collect_info/item_image/bag_item");
+        item_image = Battle_Tool.Find_Prefabs<bag_item>("bag_item"); //Find<bag_item>("collect_info/item_image/bag_item");
         collect_info_text = Find<Text>("collect_info/collect_info_text/info_text");
         Put_but = Find<Button>("collect_info/Put_but");
         Put_but_text= Find<Text>("collect_info/Put_but/Item_state");
@@ -125,30 +128,70 @@ public class panel_collect : Base_Mono
     /// </summary>
     private void PutItem()
     {
-        if (SumSave.crt_collect.user_collect_dic[crt_collect.Name]==0)
+        if (SumSave.crt_collect.user_collect_dic[crt_collect.Name]==0)//是否为已收集
         {
-            db_collect_vo coll = crt_collect;
-            for (int i = 0; i < typeNames.Count; i++)
-            {
-                if (coll.StdMode == typeNames[i])
-                {
+           
+          
                     //查找背包是否有该物品 
-                    NeedConsumables(coll.Name, 1);
-                    if (RefreshConsumables())
-                    {
-                        SumSave.crt_collect.collect_complete(coll.Name);//收集完成
-                        Alert_Dec.Show(coll.Name + " 收集成功");
-                        return;
-                    }
-                }
-            }
-            Alert_Dec.Show("背包没有" + coll.Name);
-        }
+            //NeedConsumables(coll.Name, 1);
+            //if (RefreshConsumables())
+            //{
+                SumSave.crt_collect.collect_complete(crt_collect.Name);//收集完成
+                Alert_Dec.Show(crt_collect.Name + " 收集成功");
+                SuitCollect(crt_collect);
+            //}
+            //else
+            //{
+            //    Alert_Dec.Show("背包没有" + coll.Name);
+            //}
+        }        
         else
         {
             Alert_Dec.Show("改物品已收集" );
         }
 
+    }
+    /// <summary>
+    /// 判断套装是否收集完成
+    /// </summary>
+    /// <param name="coll"></param>
+    private void SuitCollect(db_collect_vo coll)
+    {
+        for (int j = 0; j < suit_Type.GetNames(typeof(suit_Type)).Length; j++)
+        {
+            if (coll.StdMode == suit_Type.GetNames(typeof(suit_Type))[j])//是否为套装
+            {
+                List<db_collect_vo> suit = new List<db_collect_vo>();
+                for (int z = 0; z < SumSave.db_collect_vo.Count; z++)//获得该套装未收集的装备
+                {
+                    if (SumSave.db_collect_vo[z].StdMode == coll.StdMode && SumSave.crt_collect.user_collect_dic[SumSave.db_collect_vo[z].Name] == 0)
+                    {
+                        suit.Add(SumSave.db_collect_vo[z]);
+                    }
+                }
+                if (suit.Count == 0)
+                {
+                    string str = "";
+                    for (int i = 0; i < crt_collect.bonuses_types.Length; i++)
+                    {
+                        string type = (Attribute_Type.GetValue(int.Parse(coll.bonuses_types[i]))).ToString();
+                        str += type + "+" + coll.bonuses_values[i] + ",";
+                    }
+
+                    Alert_Dec.Show("该套装已收集,增加的属性为：" + str);
+                }
+                else
+                {
+                    string str = "";
+                    for (int i = 0; i < suit.Count; i++)
+                    {
+                        str += suit[i].Name + " ";
+                    }
+                    Alert_Dec.Show("该套装中的" + str + "未收集");
+                }
+            }
+
+        }
     }
 
     public void Init()
@@ -278,7 +321,6 @@ public class panel_collect : Base_Mono
         }
         else
         {
-            Put_but.onClick.AddListener(() => { Alert_Dec.Show(crt_collect.Name + " 已收集"); });
             Put_but_text.text = "已收集";
         }
     }

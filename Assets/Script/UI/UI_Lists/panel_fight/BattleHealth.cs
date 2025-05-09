@@ -81,6 +81,7 @@ namespace MVC
         public void TakeDamage(float damage, DamageEnum damageEnum )
         {
             if (HP <= 0) return;
+            damage = 10000;
             HP -= damage;
             Hurt(damage, damageEnum);
             //测试掉落

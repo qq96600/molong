@@ -65,21 +65,15 @@ namespace StateMachine
                     //this.GetComponent<BattleAttack>().injured();
                     //StartCoroutine(WaitForExplosionEnd());
                 }else
-                if (collision.gameObject.tag == "Moster" && SkillPosType == skill_pos_type.situ)
+                if (SkillPosType == skill_pos_type.situ)
                 {
-                    if (DamageTextManager.Instance == null)
-                    {
-                        Debug.LogError("DamageTextManager instance is null!");
-                        return;
-                    }
-
                     is_collider = false;
-
                     StartCoroutine(WaitForExplosionEnd());
+                    //StartCoroutine(SpecificTimeDestroy());
                 }
             }
 
-            StartCoroutine(SpecificTimeDestroy());
+           
 
         }
         /// <summary>

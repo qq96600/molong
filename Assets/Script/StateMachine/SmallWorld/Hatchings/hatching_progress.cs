@@ -350,6 +350,7 @@ public class hatching_progress : Base_Mono
     /// <param name="time"></param>
     private void Fixed_Update(int time, db_pet_vo pet)
     {
+        
         if (hatchingTimeCounter > 0)
         {
             hatchingTimeCounter -= time;
@@ -632,7 +633,7 @@ public class hatching_progress : Base_Mono
     {
         Show_Btn(false, 0);
         
-        db_pet_vo pet = ArrayHelper.Find(SumSave.db_pet, e => e.petName == bag.Item1);
+        db_pet_vo pet = ArrayHelper.Find(SumSave.db_pet, e => e.petEggsName == bag.Item1);
         crt_egg = bag;
         UpProperties(pet);
         Obtain_Pet(pet, 1);

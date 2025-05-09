@@ -93,7 +93,7 @@ public class AttackStateMachine : MonoBehaviour
         {
             AttackSpeedCounter -= Time.deltaTime;
   
-            if (AttackSpeedCounter <= 0&&!isAttacking)
+            if (AttackSpeedCounter <= 0)
             {
                 //Debug.Log("触发攻击"+Time.time);
                 Transform pos= battle.transform;
@@ -101,6 +101,7 @@ public class AttackStateMachine : MonoBehaviour
 
                 StateMachine.Animator_State(Arrow_Type.attack);
 
+                if(!isAttacking)
                 StartCoroutine(AttackDash());
 
                // battle.OnAuto();
@@ -109,6 +110,7 @@ public class AttackStateMachine : MonoBehaviour
             else
             {
                 StateMachine.Animator_State(Arrow_Type.idle);
+                isAttacking = false;
             }
         }
         else
