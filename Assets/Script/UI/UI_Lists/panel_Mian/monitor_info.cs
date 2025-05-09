@@ -35,6 +35,10 @@ public class monitor_info : Base_Mono
     /// </summary>
     private Button btn_base_task;
     /// <summary>
+    /// 名称按钮
+    /// </summary>
+    private Button btn_back;
+    /// <summary>
     /// 任务信息
     /// </summary>
     private Text show_task;
@@ -50,6 +54,10 @@ public class monitor_info : Base_Mono
         btn_base_task = Find<Button>("base_task");
         show_task = Find<Text>("base_task/task_info");
         btn_base_task.onClick.AddListener(Show_GreenhandGuide);
+        btn_back = Find<Button>("base_info/role_name");
+        btn_back.onClick.AddListener(() => {
+            UI_Manager.I.TogglePanel(Panel_List.panel_Buff, true);
+        });
         Instance_Skin();
     }
     /// <summary>

@@ -218,7 +218,6 @@ namespace MVC
                     Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.material_value, SumSave.crt_bag_resources.GetData());
                 }
             }
-            //else SumSave.UserConsumables.Clear();
             exist = count == keys.Count;
             dic.Clear();
             return exist;

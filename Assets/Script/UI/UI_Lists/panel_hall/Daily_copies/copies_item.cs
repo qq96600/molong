@@ -13,18 +13,41 @@ public class copies_item : Base_Mono
     /// <summary>
     /// 显示信息
     /// </summary>
-    private Text info;
+    private Text info,base_name;
 
-    public int index;
+    public user_map_vo index;
+
+    private int number, maxnumber;
     private void Awake()
     {
         icon=Find<Image>("bg/icon");
-        info=Find<Text>("info");
+        base_name = Find<Text>("bg/icon/name");
+        info =Find<Text>("info");
     }
 
-    public void Init(int _index)
+    public void Init(user_map_vo map,int _number,int _maxnumber)
     {
-        index = _index;
-        info.text = "第" + index + "关";
+        index = map;
+        number = _number;
+        maxnumber = _maxnumber;
+        info.text = map.map_name + "(" + number + "/" + maxnumber + ")";
+        icon.sprite = Resources.Load<Sprite>("base_bg/怪物/国风怪物/" + map.monster_list);
+        base_name.text = "[Boss]" + map.monster_list;
+    }
+    /// <summary>
+    /// 显示信息
+    /// </summary>
+    /// <returns></returns>
+    public string ShowInfo()
+    {
+        return "\n 挑战次数 " + number + "/" + maxnumber + " 次";
+    }
+    /// <summary>
+    /// 是否可以挑战
+    /// </summary>
+    /// <returns></returns>
+    public bool IsSate()
+    {
+        return number < maxnumber;
     }
 }

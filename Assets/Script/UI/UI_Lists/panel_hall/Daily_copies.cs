@@ -1,26 +1,27 @@
+using Common;
 using Components;
 using MVC;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UI;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Daily_copies : Base_Mono
 {
     private Transform pos_crtmap;
-
     private copies_item copies_item_Prefabs;
+    /// <summary>
+    /// 战斗地图
+    /// </summary>
+    private panel_fight fight_panel;
+
     private void Awake()
     {
         pos_crtmap=Find<Transform>("Scroll View/Viewport/Content");
-        copies_item_Prefabs = Battle_Tool.Find_Prefabs<copies_item>("copies_item"); //Resources.Load<copies_item>("Prefabs/panel_hall/Daily_copies/copies_item");
-        for (int i = 0; i < 10; i++)
-        { 
-            copies_item item = Instantiate(copies_item_Prefabs, pos_crtmap);
-            item.Init(i);
-            item.GetComponent<Button>().onClick.AddListener( ()=> { OnClick(item); });
-        }
+        copies_item_Prefabs = Battle_Tool.Find_Prefabs<copies_item>("copies_item");
+        fight_panel = UI_Manager.I.GetPanel<panel_fight>();
     }
     /// <summary>
     /// 点击事件
@@ -28,8 +29,14 @@ public class Daily_copies : Base_Mono
     /// <param name="item"></param>
     private void OnClick(copies_item item)
     {
-        string dec="第"+item.index+"副本";
-        Alert.Show("进入副本", dec, confirm);
+        string dec = "";
+        dec = "是否进入"+item.index.map_name+"";
+        if (item.index.need_Required != "")
+        {
+            dec += "\n 挑战门票 " + item.index.need_Required + " * 1";
+        }
+        dec += item.ShowInfo();
+        Alert.Show("挑战副本", dec, confirm,item);
     }
     /// <summary>
     /// 确认进入
@@ -37,11 +44,84 @@ public class Daily_copies : Base_Mono
     /// <param name="arg0"></param>
     private void confirm(object arg0)
     {
-        Alert_Dec.Show("等级不足");
+        copies_item item = (arg0 as copies_item);
+        if (item.IsSate())
+        {
+            if (item.index.need_Required != "")
+            {
+                NeedConsumables(item.index.need_Required, 1);
+                if (RefreshConsumables())
+                {
+                    Open_Map(item);
+                }
+            }else Open_Map(item);
+        }
+        else Alert_Dec.Show("挑战次数不足");
+        
+    }
+    /// <summary>
+    /// 进入地图
+    /// </summary>
+    /// <param name="item"></param>
+    private void Open_Map(copies_item item)
+    {
+        bool exist = true;
+        List<(string, int)> list = SumSave.crt_needlist.SetMap();
+        for (int i = 0; i < list.Count; i++)
+        {
+            if (list[i].Item1 == item.index.map_name)
+            {
+                exist = false;
+                list[i] = (list[i].Item1, list[i].Item2 +1);
+                SumSave.crt_needlist.SetMap(list[i]);
+                break;
+            }
+        }
+        if (exist) SumSave.crt_needlist.SetMap((item.index.map_name, 1));
+        //写入数据
+        Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_needlist, 
+            SumSave.crt_needlist.Set_Uptade_String(), SumSave.crt_needlist.Get_Update_Character());
+        fight_panel.Show();
+        fight_panel.Open_Map(item.index);
+
     }
 
     public override void Show()
     {
         base.Show();
+        //if (int.Parse( SumSave.crt_hero.hero_lv) < 30)
+        //{
+        //    Alert_Dec.Show("副本开启等级为30级");
+        //    gameObject.SetActive(false);
+        //    return;
+        //}
+        base_Show();
+    }
+    /// <summary>
+    /// 初始化
+    /// </summary>
+    private void base_Show()
+    {
+        ClearObject(pos_crtmap);
+        List<(string, int)> list = SumSave.crt_needlist.SetMap();
+        int maxnumber = SumSave.crt_MaxHero.Lv / 100 + 1;
+        for (int i = SumSave.db_maps.Count - 1; i > 0; i--)
+        {
+            if (SumSave.db_maps[i].map_type == 4)
+            {
+                int number = 0;
+                for (int j = 0; j < list.Count; j++)
+                {
+                    if (list[j].Item1 == SumSave.db_maps[i].map_name)
+                    { 
+                        number = list[j].Item2;
+                        break;
+                    }
+                }
+                copies_item item = Instantiate(copies_item_Prefabs, pos_crtmap);
+                item.Init(SumSave.db_maps[i], number, maxnumber);
+                item.GetComponent<Button>().onClick.AddListener(() => { OnClick(item); });
+            }
+        }
     }
 }

@@ -74,6 +74,13 @@ namespace MVC
             show_hp = Find<Slider>("Slider");
             name_text = Find<Text>("base_info/info");
             hp_text = Find<Text>("Slider/Hp_text");
+            if (Terget!=null)
+            {
+                if (!Terget.gameObject.activeInHierarchy)
+                {
+                    Terget = null;
+                }
+            }
         }
 
 
