@@ -78,9 +78,27 @@ namespace StateMachine
                     StartCoroutine(WaitForExplosionEnd());
                 }
             }
+
+            StartCoroutine(SpecificTimeDestroy());
+
+        }
+        /// <summary>
+        /// 技能经过某段时间后返回对象池
+        /// </summary>
+        /// <returns></returns>
+       private IEnumerator SpecificTimeDestroy()
+        {
+            yield return new WaitForSeconds(3f);
+            ObjectPoolManager.instance.PushObjectToPool(skill.skillname, this.gameObject);
         }
 
 
+
+
+        /// <summary>
+        /// 动画播放完成销毁返回对象池
+        /// </summary>
+        /// <returns></returns>
         private IEnumerator WaitForExplosionEnd()
         {
             rb.velocity = Vector2.zero;

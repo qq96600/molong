@@ -188,11 +188,11 @@ public class AttackStateMachine : MonoBehaviour
         switch ((skill_pos_type)skill.skill_damage_pos_type)
         {
             case skill_pos_type.move:
-                skill_prefabs = Resources.Load<GameObject>("Prefabs/panel_skill/Skill_Effects/驭火术");
+                skill_prefabs = Resources.Load<GameObject>("Prefabs/panel_skill/Skill_Effects/"+ skill.skillname);
                 pos = battle.transform;
                 break;
             case skill_pos_type.situ:
-                skill_prefabs = Resources.Load<GameObject>("Prefabs/panel_skill/Skill_Effects/强力一击");
+                skill_prefabs = Resources.Load<GameObject>("Prefabs/panel_skill/Skill_Effects/" + skill.skillname);
                 pos = Target.transform;
                 break;
             default:
@@ -271,7 +271,8 @@ public enum Arrow_Type
 public enum skill_pos_type
 { 
     move,//移动类
-    situ//在目标释放
+    situ,//在目标释放
+    oneself,//自身释放
 
 }
 
