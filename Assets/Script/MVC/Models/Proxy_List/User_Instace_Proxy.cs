@@ -315,15 +315,12 @@ namespace MVC
             {
                 foreach (db_collect_vo item in SumSave.db_collect_vo)
                 {
-                    if(!SumSave.crt_collect.user_collect_dic.ContainsKey(item.Name))
+                    if(!SumSave.crt_collect.user_collect_dic.ContainsKey(item.Name))//不重复写入同装备
                     {
                         SumSave.crt_collect.user_collect_dic.Add(item.Name, 0);
                     }
-                    
                  }
                 SumSave.crt_collect.collect_Merge();
-                //SumSave.crt_collect.findCollectSuit();
-                //SumSave.crt_collect.collect_suit_Merge();
 
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_collect, SumSave.crt_collect.Set_Instace_String());
             }
@@ -996,11 +993,69 @@ namespace MVC
             //        }
             //    }
             //}
-         
-            
+
+
             //称号属性
             //收集属性
-            //丹药属性
+
+            for (int j = 0; j < suit_Type.GetNames(typeof(suit_Type)).Length; j++)//循环所有套装
+            {
+                List<db_collect_vo> suit = new List<db_collect_vo>();
+                for (int z = 0; z < SumSave.db_collect_vo.Count; z++)//获得该套装所有装备
+                {
+                    if(SumSave.db_collect_vo[z].StdMode == suit_Type.GetNames(typeof(suit_Type))[j])//收集该套装装备
+                    {
+                        suit.Add(SumSave.db_collect_vo[z]);
+                    }
+                }
+                int count = 0;//套装收集计数器
+
+                for (int x = 0; x < suit.Count; x++)//循环该套装所有装备
+                {
+                    if(SumSave.crt_collect.user_collect_dic.ContainsKey(suit[x].Name))//是否有数据，没有就是没收集
+                    {
+                        if (SumSave.crt_collect.user_collect_dic[suit[x].Name] == 1)//判断是否收集
+                        {
+                            count++;
+                            if(count== suit.Count)//装备收集完成
+                            {
+                                for(int y = 0; y < suit[x].bonuses_types.Length; y++)//加成属性可能有多个
+                                {
+                                    Enum_Value(crt,int.Parse(suit[x].bonuses_types[y]), int.Parse(suit[x].bonuses_values[y]));//添加属性
+                                }
+                               
+                            }
+                        }
+                    }
+                }
+            }
+
+            for (int j = 0; j < EquipTypeList.GetNames(typeof(EquipTypeList)).Length; j++)
+            {
+                for (int z = 0; z < SumSave.db_collect_vo.Count; z++)
+                {
+                    if (SumSave.db_collect_vo[z].StdMode == EquipTypeList.GetNames(typeof(EquipTypeList))[j])//判断是否为该类型装备
+                    {
+                        if (SumSave.crt_collect.user_collect_dic.ContainsKey(SumSave.db_collect_vo[z].Name))//是否有数据，没有就是没收集
+                        {
+                            if (SumSave.crt_collect.user_collect_dic[SumSave.db_collect_vo[z].Name] == 1)//判断是否收集
+                            {
+                                for (int y = 0; y < SumSave.db_collect_vo[z].bonuses_types.Length; y++)//加成属性可能有多个
+                                {
+                                    Enum_Value(crt, int.Parse(SumSave.db_collect_vo[z].bonuses_types[y]), int.Parse(SumSave.db_collect_vo[z].bonuses_values[y]));//添加属性
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+
+
+
+
+
+                //丹药属性
             List<(string, List<int>)> seeds = SumSave.crt_seeds.GetuseList();
             if (seeds.Count > 0)
             {

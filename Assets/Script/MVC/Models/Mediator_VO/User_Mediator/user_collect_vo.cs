@@ -151,7 +151,7 @@ public class user_collect_vo : Base_VO
             GetStr(0),
             GetStr(SumSave.crt_user.uid),
             GetStr(collect_value),
-            //GetStr(collect_suit_value)
+     
         };
 
     }
@@ -160,7 +160,7 @@ public class user_collect_vo : Base_VO
     {
         return new string[] {
             "collect_value",
-           //"collect_suit_value"
+        
         };
     }
 
@@ -169,7 +169,7 @@ public class user_collect_vo : Base_VO
         return new string[]
          {
             GetStr(collect_value),
-            //GetStr(collect_suit_value)
+            
          };
     }
 }
