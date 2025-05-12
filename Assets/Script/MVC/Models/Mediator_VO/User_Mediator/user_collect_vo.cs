@@ -36,7 +36,16 @@ public class user_collect_vo : Base_VO
 
     public void collect_complete(string name, int num=1)
     {
-        user_collect_dic[name] = num;
+        //user_collect_dic[name] = num;
+        if (!user_collect_dic.ContainsKey(name))
+        {
+            user_collect_dic.Add(name, num);
+        }
+        else
+        {
+            Debug.LogError("装备重复");
+        }
+        
         SumSave.crt_collect.collect_Merge();
         Game_Omphalos.i.GetQueue(
         Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_collect,

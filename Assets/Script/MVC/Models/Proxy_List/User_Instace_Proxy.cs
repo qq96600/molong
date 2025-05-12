@@ -313,13 +313,14 @@ namespace MVC
             }
             else//为空的话初始化数据
             {
-                foreach (db_collect_vo item in SumSave.db_collect_vo)
-                {
-                    if(!SumSave.crt_collect.user_collect_dic.ContainsKey(item.Name))//不重复写入同装备
-                    {
-                        SumSave.crt_collect.user_collect_dic.Add(item.Name, 0);
-                    }
-                 }
+                //foreach (db_collect_vo item in SumSave.db_collect_vo)
+                //{
+                //    if(!SumSave.crt_collect.user_collect_dic.ContainsKey(item.Name))//不重复写入同装备
+                //    {
+                //        SumSave.crt_collect.user_collect_dic.Add(item.Name, 0);
+                //    }
+                // }
+
                 SumSave.crt_collect.collect_Merge();
 
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_collect, SumSave.crt_collect.Set_Instace_String());
@@ -453,23 +454,23 @@ namespace MVC
                 SumSave.crt_needlist.store_value = "";
                 SumSave.crt_needlist.map_value = "";
                 SumSave.crt_needlist.user_value = "";
-                List<db_store_vo> store_vo = new List<db_store_vo>();
-               
-                for (int i = 0; i < SumSave.db_stores_list.Count; i++)
-                {
-                    if (SumSave.db_stores_list[i].ItemMaxQuantity > 0)
-                    {
-                        store_vo.Add(SumSave.db_stores_list[i]);
-                    }
-                }
-                for (int i = 0; i < store_vo.Count; i++)
-                {
-                    if(i>0)
-                    {
-                        SumSave.crt_needlist.store_value += ",";
-                    }
-                    SumSave.crt_needlist.store_value += store_vo[i].ItemName + " " + "0" ;
-                }
+
+                //List<db_store_vo> store_vo = new List<db_store_vo>();   
+                //for (int i = 0; i < SumSave.db_stores_list.Count; i++)
+                //{
+                //    if (SumSave.db_stores_list[i].ItemMaxQuantity > 0)
+                //    {
+                //        store_vo.Add(SumSave.db_stores_list[i]);
+                //    }
+                //}
+                //for (int i = 0; i < store_vo.Count; i++)
+                //{
+                //    if(i>0)
+                //    {
+                //        SumSave.crt_needlist.store_value += ",";
+                //    }
+                //    SumSave.crt_needlist.store_value += store_vo[i].ItemName + " " + "0" ;
+                //}
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_needlist, SumSave.crt_needlist.Set_Instace_String());
             }
         }
@@ -542,7 +543,9 @@ namespace MVC
             CloseMySqlDB();
         }
 
-
+        /// <summary>
+        /// 读取自身成就
+        /// </summary>
         private void Read_User_Achievenment()
         {
             mysqlReader = MysqlDb.Select(Mysql_Table_Name.mo_user_achieve, "uid", GetStr(SumSave.crt_user.uid));
@@ -554,39 +557,37 @@ namespace MVC
                 {
                     SumSave.crt_achievement = ReadDb.Read(mysqlReader, new user_achievement_vo());
                 }
-                Dictionary<string, long> achieves = SumSave.crt_achievement.Set_Exp();
-                if (achieves.Count == SumSave.db_Achievement_dic.Count)
-                {
+                //Dictionary<string, long> achieves = SumSave.crt_achievement.Set_Exp();
+                //if (achieves.Count == SumSave.db_Achievement_dic.Count)
+                //{
 
-                }
-                else
-                {
-                    for (int i = 0; i < SumSave.db_Achievement_dic.Count; i++)
-                    {
-                        bool exist = true;
-                        foreach (string item in achieves.Keys)
-                        {
-                            if (item == SumSave.db_Achievement_dic[i].achievement_value)
-                            {
-                                exist = false;
-                            }
-                        }
-                        if (exist)
-                        {
-                            SumSave.crt_achievement.achievement_exp += "|" + SumSave.db_Achievement_dic[i].achievement_value + " " + 0;
-                            SumSave.crt_achievement.achievement_lvs += "|" + SumSave.db_Achievement_dic[i].achievement_value + " " + 0;
-                        }
-                    }
-                    SumSave.crt_achievement.Init();
-                }
+                //}
+                //else
+                //{
+                //    for (int i = 0; i < SumSave.db_Achievement_dic.Count; i++)
+                //    {
+                //        bool exist = true;
+                //        foreach (string item in achieves.Keys)
+                //        {
+                //            if (item == SumSave.db_Achievement_dic[i].achievement_value)
+                //            {
+                //                exist = false;
+                //            }
+                //        }
+                //        if (exist)
+                //        {
+                //            SumSave.crt_achievement.achievement_exp += "|" + SumSave.db_Achievement_dic[i].achievement_value + " " + 0;
+                //            SumSave.crt_achievement.achievement_lvs += "|" + SumSave.db_Achievement_dic[i].achievement_value + " " + 0;
+                //        }
+                //    }
+                //    SumSave.crt_achievement.Init();
+                //}
             }
             else
             {
-                for (int i = 0; i < SumSave.db_Achievement_dic.Count; i++)
-                {
-                    SumSave.crt_achievement.achievement_exp += SumSave.db_Achievement_dic[i].achievement_value + " " + 0 + (i == SumSave.db_Achievement_dic.Count - 1 ? "" : "|");
-                }
-                SumSave.crt_achievement.achievement_lvs = SumSave.crt_achievement.achievement_exp;
+             
+                SumSave.crt_achievement.achievement_lvs ="";
+                SumSave.crt_achievement.achievement_exp = "";
                 MysqlDb.InsertInto(Mysql_Table_Name.mo_user_achieve, SumSave.crt_achievement.Set_Instace_String());
                 SumSave.crt_achievement.Init();
             }

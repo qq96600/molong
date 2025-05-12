@@ -102,7 +102,7 @@ public class panel_collect : Base_Mono
         #region 收集物品信息窗口
         collect_info = Find<Transform>("collect_info");
         collect_Title = Find<Text>("collect_info/collect_Title/Title");
-        item_image = Battle_Tool.Find_Prefabs<bag_item>("bag_item"); Find<bag_item>("collect_info/item_image/bag_item");
+        item_image =Find<bag_item>("collect_info/item_image/bag_item");
         collect_info_text = Find<Text>("collect_info/collect_info_text/info_text");
         Put_but = Find<Button>("collect_info/Put_but");
         Put_but_text= Find<Text>("collect_info/Put_but/Item_state");
@@ -128,24 +128,29 @@ public class panel_collect : Base_Mono
     /// </summary>
     private void PutItem()
     {
-        if (SumSave.crt_collect.user_collect_dic[crt_collect.Name]==0)//是否为已收集
+        //if (SumSave.crt_collect.user_collect_dic[crt_collect.Name]==0)//是否为已收集
+        if(!SumSave.crt_collect.user_collect_dic.ContainsKey(crt_collect.Name))
         {
-            //查找背包是否有该物品 
-            NeedConsumables(crt_collect.Name, 1);
-            if (RefreshConsumables())
+            if(SumSave.crt_collect.user_collect_dic[crt_collect.Name] == 0)
             {
-                SumSave.crt_collect.collect_complete(crt_collect.Name);//收集完成
+                //查找背包是否有该物品
+                NeedConsumables(crt_collect.Name, 1);
+                if (RefreshConsumables())
+                {
+                    SumSave.crt_collect.collect_complete(crt_collect.Name);//收集完成
                 Alert_Dec.Show(crt_collect.Name + " 收集成功");
                 SuitCollect(crt_collect);
+                }
+                else
+                {
+                    Alert_Dec.Show("背包没有" + crt_collect.Name);
+                }
             }
-            else
-            {
-                Alert_Dec.Show("背包没有" + crt_collect.Name);
-            }
+
         }        
         else
         {
-            Alert_Dec.Show("改物品已收集" );
+            Alert_Dec.Show("该物品已收集" );
         }
 
     }
@@ -313,11 +318,19 @@ public class panel_collect : Base_Mono
             collect_info_text.text += type + "+" + crt_collect.bonuses_values[i] + "\n";
         }
 
-        if (SumSave.crt_collect.user_collect_dic[crt_collect.Name] == 0)
+        //if (SumSave.crt_collect.user_collect_dic[crt_collect.Name] == 0)
+        //{
+        //    Put_but_text.text = "放入";
+        //}
+        //else
+        //{
+        //    Put_but_text.text = "已收集";
+        //}
+
+        if(!SumSave.crt_collect.user_collect_dic.ContainsKey(crt_collect.Name))
         {
             Put_but_text.text = "放入";
-        }
-        else
+        }else
         {
             Put_but_text.text = "已收集";
         }

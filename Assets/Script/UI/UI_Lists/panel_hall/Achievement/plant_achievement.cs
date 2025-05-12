@@ -100,6 +100,11 @@ public class plant_achievement : Base_Mono
 
         dic_exp = SumSave.crt_achievement.Set_Exp();
         dic_lv = SumSave.crt_achievement.Set_Lv();
+        if(!dic_lv.ContainsKey(crt_achieve_Item.Data.achievement_value))
+        {
+            Alert_Dec.Show("未达到领取条件");
+            return;
+        }
         int lv = (int)dic_lv[crt_achieve_Item.Data.achievement_value];
         if (true)
         {
@@ -150,9 +155,6 @@ public class plant_achievement : Base_Mono
         {
             Alert_Dec.Show("获得 "+(enum_skill_attribute_list)(int.Parse(temp[1]))+"X"+temp[2]+" 属性加成"); 
         }
-       
-
-        
         show_offect.gameObject.SetActive(false);
         crt_achieve_Item.Init(); 
     }
@@ -230,22 +232,28 @@ public class plant_achievement : Base_Mono
         dic_exp = SumSave.crt_achievement.Set_Exp();
         dic_lv = SumSave.crt_achievement.Set_Lv();
 
-        if (dic_lv[crt_achieve_Item.Data.achievement_value] > 0)
+        //if (dic_lv[crt_achieve_Item.Data.achievement_value] > 0)
+        //{
+        if(dic_lv.ContainsKey(crt_achieve_Item.Data.achievement_value))
         {
             int max = (int)MathF.Min(dic_lv[crt_achieve_Item.Data.achievement_value], crt_achieve_Item.Data.achievement_needs.Count);
             for (int i = 0; i < max; i++)
             {
                 dec += "\n" + Show_Color.Green(InSetInfo(i) + "(已领取)");
-            }
-        }
 
-        if (dic_lv[crt_achieve_Item.Data.achievement_value] < crt_achieve_Item.Data.achievement_needs.Count)
-        {
-            int number = (int)dic_lv[crt_achieve_Item.Data.achievement_value];
-            dec += "\nLv" + (number + 1) + ".成就阶段 " + dic_exp[crt_achieve_Item.Data.achievement_value] + "/" + crt_achieve_Item.Data.achievement_needs[number];
-            //dec += "\n奖励 " + Show_Color.Yellow(InSetInfo(number));
+            }
+            if (dic_lv[crt_achieve_Item.Data.achievement_value] < crt_achieve_Item.Data.achievement_needs.Count)
+            {
+                int number = (int)dic_lv[crt_achieve_Item.Data.achievement_value];
+                dec += "\nLv" + (number + 1) + ".成就阶段 " + dic_exp[crt_achieve_Item.Data.achievement_value] + "/" + crt_achieve_Item.Data.achievement_needs[number];
+                //dec += "\n奖励 " + Show_Color.Yellow(InSetInfo(number));
+            }
+            show_info.text = dec;
         }
-        show_info.text = dec;
+           
+        //}
+
+        
     }
     /// <summary>
     /// 选择成就类型

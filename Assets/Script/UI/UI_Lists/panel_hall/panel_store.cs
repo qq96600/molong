@@ -154,24 +154,31 @@ public class panel_store : Base_Mono
             if (buy_item.ItemMaxQuantity > 0)//限购物品
             {
                 //减少限购物品可购买的数量
-                for(int i= 0; i < SumSave.crt_needlist.store_value_list.Count; i++)//查找限购物品
+                if (SumSave.crt_needlist.store_value_dic.ContainsKey(buy_item.ItemName))//判断字典中是否含有该物品
                 {
-                    int nums = buy_item.ItemMaxQuantity - int.Parse(SumSave.crt_needlist.store_value_list[i][1]);//判断限购商品是否购买完
-                    if (SumSave.crt_needlist.store_value_list[i][0] == buy_item.ItemName&& nums > 0)//查找限购物品
+                    int nums = buy_item.ItemMaxQuantity - SumSave.crt_needlist.store_value_dic[buy_item.ItemName];//判断限购商品是否购买完
+                    if (nums > 0)//查找限购物品
                     {
                         if(buy_num> nums)//不更改数量多次购买时判断是否超出限购数量
                         {
                             buy_num= nums;
                         }
-                        int num =int.Parse(SumSave.crt_needlist.store_value_list[i][1])+ buy_num;
-                        SumSave.crt_needlist.store_value_list[i][1]= num.ToString();
+                        int num =SumSave.crt_needlist.store_value_dic[buy_item.ItemName] + buy_num;
+                        SumSave.crt_needlist.store_value_dic[buy_item.ItemName] = num;
                         Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_needlist, SumSave.crt_needlist.Set_Uptade_String(), SumSave.crt_needlist.Get_Update_Character());
-
                         SpecialItems();
 
                         Alert_Dec.Show(buy_item.ItemName + "X" + buy_num + " 购买成功(限购物品) ");
                         return;
                     }
+                }
+                else
+                {
+                    SumSave.crt_needlist.store_value_dic.Add(buy_item.ItemName, buy_num);
+                    Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_needlist, SumSave.crt_needlist.Set_Uptade_String(), SumSave.crt_needlist.Get_Update_Character());
+                    SpecialItems();
+                    Alert_Dec.Show(buy_item.ItemName + "X" + buy_num + " 购买成功(限购物品) ");
+                    return;
                 }
                 Alert_Dec.Show("限购商品 " + buy_item.ItemName + " 无购买次数 ");
                 return;
@@ -197,7 +204,7 @@ public class panel_store : Base_Mono
                 Alert_Dec.Show(buy_item.ItemName + "X" + buy_num + " 购买成功 ");
                 break;
             case "2000历练值":
-                SumSave.crt_MaxHero.Exp += 2000 * buy_num;
+                SumSave.crt_user_unit.verify_data(currency_unit.历练, 2000 * buy_num);
                 break;
             case "下品历练丹":
                 //添加1.5倍的历练值
@@ -212,7 +219,7 @@ public class panel_store : Base_Mono
                     Alert_Dec.Show("上品历练丹失效");
                     SumSave.crt_player_buff.player_Buffs.Remove("上品历练丹");
                 }
-                AddBuff(buy_item);
+                AddBuff(buy_item,1.5f);
                 break;
             case "中品历练丹":
                 //添加2倍的历练值
@@ -228,7 +235,7 @@ public class panel_store : Base_Mono
                     SumSave.crt_player_buff.player_Buffs.Remove("上品历练丹");
                 }
 
-                AddBuff(buy_item);
+                AddBuff(buy_item,2f);
                 break;
             case "上品历练丹":
 
@@ -245,7 +252,7 @@ public class panel_store : Base_Mono
                     SumSave.crt_player_buff.player_Buffs.Remove("中品历练丹");
                 }
                 
-                AddBuff(buy_item);
+                AddBuff(buy_item,3f);
                 break;
             case "下品经验丹":
                 //添加1.5倍的经验值
@@ -260,7 +267,7 @@ public class panel_store : Base_Mono
                     Alert_Dec.Show("上品经验丹失效");
                     SumSave.crt_player_buff.player_Buffs.Remove("上品经验丹");
                 }
-                AddBuff(buy_item);
+                AddBuff(buy_item,1.5f);
                 break;
             case "中品经验丹":
                 //添加2倍的经验值
@@ -275,7 +282,7 @@ public class panel_store : Base_Mono
                     Alert_Dec.Show("上品经验丹失效");
                     SumSave.crt_player_buff.player_Buffs.Remove("上品经验丹");
                 }
-                AddBuff(buy_item);
+                AddBuff(buy_item,2f);
                 break;
             case "上品经验丹":
 
@@ -290,7 +297,7 @@ public class panel_store : Base_Mono
                     SumSave.crt_player_buff.player_Buffs.Remove("中品经验丹");
                 }
 
-                AddBuff(buy_item);
+                AddBuff(buy_item,3f);
                 break;
                 default:
                 Battle_Tool.Obtain_Resources(buy_item.ItemName, buy_num);//获取奖励
@@ -304,17 +311,18 @@ public class panel_store : Base_Mono
     /// <summary>
     /// 添加BUff
     /// </summary>
-    private void AddBuff(db_store_vo _buy_item)
+    private void AddBuff(db_store_vo _buy_item,float effect)
     {
         if (SumSave.crt_player_buff.player_Buffs.ContainsKey(_buy_item.ItemName))
         {
             SumSave.crt_player_buff.player_Buffs[_buy_item.ItemName] =
                 (SumSave.crt_player_buff.player_Buffs[_buy_item.ItemName].Item1,
-                SumSave.crt_player_buff.player_Buffs[_buy_item.ItemName].Item2+(60 * buy_num));//当有时，增加buff时间
+                SumSave.crt_player_buff.player_Buffs[_buy_item.ItemName].Item2+(60 * buy_num)
+                , effect);//当有时，增加buff时间
         }
         else
         {
-            SumSave.crt_player_buff.player_Buffs.Add(_buy_item.ItemName, (SumSave.nowtime, 60 * buy_num));
+            SumSave.crt_player_buff.player_Buffs.Add(_buy_item.ItemName, (SumSave.nowtime, 60 * buy_num, effect));
         }
         Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.user_player_buff, SumSave.crt_player_buff.Set_Uptade_String(), SumSave.crt_player_buff.Get_Update_Character());//角色丹药Buff更新数据库
     }
@@ -408,29 +416,29 @@ public class panel_store : Base_Mono
             filteredText = filteredText.Substring(0, maxLength);
         }
 
-        if (buy_item.ItemMaxQuantity > 0)//当有最大购买数量时
+
+        if (buy_item.ItemMaxQuantity > 0)//限购物品
         {
             
-
-
-            if (buy_item.ItemMaxQuantity > 0)//限购物品
+            if(SumSave.crt_needlist.store_value_dic.ContainsKey(buy_item.ItemName))//判断字典中是否含有该物品
             {
-                //减少限购物品可购买的数量
-                for (int i = 0; i < SumSave.crt_needlist.store_value_list.Count; i++)//查找限购物品
+                int num = SumSave.crt_needlist.store_value_dic[buy_item.ItemName];//玩家以购买的数量
+                if (int.Parse(filteredText) > (buy_item.ItemMaxQuantity - num))//判断输入的值是否大于最大购买数量
                 {
-                    if (SumSave.crt_needlist.store_value_list[i][0] == buy_item.ItemName)
-                    {
-                        int num = int.Parse(SumSave.crt_needlist.store_value_list[i][1]);//玩家以购买的数量
-                        if (int.Parse(filteredText) > (buy_item.ItemMaxQuantity - num))//判断输入的值是否大于最大购买数量
-                        {
-                            filteredText = (buy_item.ItemMaxQuantity - num).ToString();
-                            Alert_Dec.Show("超过最大购买数量");
-                        }
-
-                    }
+                    filteredText = (buy_item.ItemMaxQuantity - num).ToString();
+                    Alert_Dec.Show("超过最大购买数量");
+                }
+            }else
+            {
+                if (int.Parse(filteredText) > buy_item.ItemMaxQuantity)//判断输入的值是否大于最大购买数量
+                {
+                    filteredText = buy_item.ItemMaxQuantity.ToString();
+                    Alert_Dec.Show("超过最大购买数量");
                 }
             }
+            
         }
+        
 
         // 同步输入框内容
         if (filteredText != inputField.text)
