@@ -181,7 +181,7 @@ namespace Common
         /// </summary>
         public static List<db_artifact_vo> db_Artifacts;
         /// <summary>
-        /// 装备列表
+        /// 物品列表
         /// </summary>
         public static List<Bag_Base_VO> db_stditems;
         /// <summary>

@@ -50,5 +50,7 @@ public enum EquipConfigTypeList
     特殊技能,
     炼丹材料,
     配方,
-    丹药
+    丹药,
+    秘籍,
+    魔装武器
 }

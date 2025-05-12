@@ -81,6 +81,7 @@ public static class ReadDb
         item.index= reader.GetInt32(reader.GetOrdinal("par"));
         item.opentime = Convert.ToDateTime(reader.GetString(reader.GetOrdinal("time")));
         item.openstate= reader.GetInt32(reader.GetOrdinal("openstate"));
+        item.device = reader.GetInt32(reader.GetOrdinal("device"));
         return item;
     }
 

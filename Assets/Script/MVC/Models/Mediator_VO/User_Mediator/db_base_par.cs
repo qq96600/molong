@@ -19,6 +19,10 @@ public class db_base_par : Base_VO
     /// 开启状态 1开启2关闭
     /// </summary>
     public int openstate;
+    /// <summary>
+    /// 设备类型
+    /// </summary>
+    public int device;
 
 
 }
