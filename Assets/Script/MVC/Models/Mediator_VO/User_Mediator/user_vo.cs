@@ -1,8 +1,10 @@
 using Common;
 using MVC;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class user_vo : Base_VO
 {
@@ -67,14 +69,12 @@ public class user_vo : Base_VO
             case currency_unit.灵珠:
                 if (value > 0)
                 {
-                    
-
                     Combat_statistics.AddMoeny(value);
-                    SumSave.crt_achievement.increase_date_Exp((Achieve_collect.获得灵珠).ToString(), value);
+                    SumSave.crt_achievement.increase_date_Exp((Achieve_collect.获得灵珠).ToString(), Math.Abs(value));
                 }
                 else if (value < 0)//扣除灵珠成就
                 {
-                    SumSave.crt_achievement.increase_date_Exp((Achieve_collect.花费灵珠).ToString(), value);
+                    SumSave.crt_achievement.increase_date_Exp((Achieve_collect.花费灵珠).ToString(), Math.Abs(value));
                 }
 
                 list[0] += value;

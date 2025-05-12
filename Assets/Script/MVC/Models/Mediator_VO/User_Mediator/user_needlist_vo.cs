@@ -13,7 +13,8 @@ public class user_needlist_vo : Base_VO
     /// <summary>
     /// 商店限购物品列表
     /// </summary>
-    public List<string[]> store_value_list=new List<string[]>();
+    //public List<string[]> store_value_list=new List<string[]>();
+    public Dictionary<string, int> store_value_dic = new Dictionary<string, int>();
     /// <summary>
     /// 地图进入次数
     /// </summary>
@@ -32,7 +33,8 @@ public class user_needlist_vo : Base_VO
         {
             string[] store = store_list[i].Split(' '); 
             if(store.Length == 2)
-            store_value_list.Add(store);
+                //store_value_list.Add(store);
+            store_value_dic.Add(store[0], int.Parse(store[1]));
         }
     }
 
@@ -80,13 +82,21 @@ public class user_needlist_vo : Base_VO
     private string store_Merge()
     {
         string item="";
-        for (int i = 0; i < store_value_list.Count; i++)
+       
+        //for (int i = 0; i < store_value_list.Count; i++)
+        //{
+        //    if(i>0)
+        //    {
+        //        item += ",";
+        //    }
+        //    item += store_value_list[i][0] + " " + store_value_list[i][1] ;
+        //}
+        foreach (KeyValuePair<string, int> store in store_value_dic)
         {
-            if(i>0)
-            {
+            if (item != "")
                 item += ",";
-            }
-            item += store_value_list[i][0] + " " + store_value_list[i][1] ;
+
+            item += store.Key + " " + store.Value;
         }
 
         return item;

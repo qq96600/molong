@@ -80,14 +80,25 @@ public class panel_Buff : Panel_Base
         confirm.gameObject.SetActive(SumSave.crt_hero.hero_material_list[0] == 0);
         inputField.text = SumSave.crt_hero.hero_name;
         string dec = " ";
-        dec += enum_skill_attribute_list.经验加成 + ": " + Show_Buff(enum_skill_attribute_list.经验加成) + "%\n ";
-        dec += enum_skill_attribute_list.人物历练 + ": " + Show_Buff(enum_skill_attribute_list.人物历练) + "%\n ";
-        dec += enum_skill_attribute_list.灵珠收益 + ": " + Show_Buff(enum_skill_attribute_list.灵珠收益) + "%\n ";
-        dec += enum_skill_attribute_list.装备爆率 + ": " + Show_Buff(enum_skill_attribute_list.装备爆率) + "%\n ";
-        dec += enum_skill_attribute_list.装备掉落 + ": " + Show_Buff(enum_skill_attribute_list.装备掉落) + "%\n ";
-        dec += enum_skill_attribute_list.宠物获取 + ": " + Show_Buff(enum_skill_attribute_list.宠物获取) + "%\n ";
-        dec += enum_skill_attribute_list.寻怪间隔 + ": -" + (Show_Buff(enum_skill_attribute_list.寻怪间隔) / 10f) + "s\n ";
-        dec += enum_skill_attribute_list.复活次数 + ": " + Show_Buff(enum_skill_attribute_list.复活次数) + "次\n ";
+        foreach (var item in SumSave.crt_player_buff.player_Buffs)
+        {
+            int time = (int)(SumSave.nowtime - item.Value.Item1).TotalMinutes;
+            if (time <= item.Value.Item2)
+            {
+                dec += item.Key + ": " + item.Value.Item3 + "% 剩余时间"+ time;
+            }
+            
+        }
+
+
+        //dec += enum_skill_attribute_list.经验加成 + ": " + Show_Buff(enum_skill_attribute_list.经验加成) + "%\n ";
+        //dec += enum_skill_attribute_list.人物历练 + ": " + Show_Buff(enum_skill_attribute_list.人物历练) + "%\n ";
+        //dec += enum_skill_attribute_list.灵珠收益 + ": " + Show_Buff(enum_skill_attribute_list.灵珠收益) + "%\n ";
+        //dec += enum_skill_attribute_list.装备爆率 + ": " + Show_Buff(enum_skill_attribute_list.装备爆率) + "%\n ";
+        //dec += enum_skill_attribute_list.装备掉落 + ": " + Show_Buff(enum_skill_attribute_list.装备掉落) + "%\n ";
+        //dec += enum_skill_attribute_list.宠物获取 + ": " + Show_Buff(enum_skill_attribute_list.宠物获取) + "%\n ";
+        //dec += enum_skill_attribute_list.寻怪间隔 + ": -" + (Show_Buff(enum_skill_attribute_list.寻怪间隔) / 10f) + "s\n ";
+        //dec += enum_skill_attribute_list.复活次数 + ": " + Show_Buff(enum_skill_attribute_list.复活次数) + "次\n ";
         info.text = dec;
 
     }
@@ -99,8 +110,10 @@ public class panel_Buff : Panel_Base
     private int Show_Buff(enum_skill_attribute_list index)
     {
         int value = 0;
-        if ( (int)index < SumSave.crt_MaxHero.bufflist.Count)
+
+        if ((int)index < SumSave.crt_MaxHero.bufflist.Count)
             value = SumSave.crt_MaxHero.bufflist[(int)index];
+        
         return value;
     }
 
@@ -109,3 +122,4 @@ public class panel_Buff : Panel_Base
         base.Awake();
     }
 }
+

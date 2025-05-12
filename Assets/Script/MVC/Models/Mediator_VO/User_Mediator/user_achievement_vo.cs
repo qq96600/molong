@@ -47,7 +47,15 @@ public class user_achievement_vo : Base_VO
     /// <param name="lv"></param>
     public void increase_date_Exp(string data, long lv)
     {
-        user_achievements[data] += lv;
+        if(user_achievements.ContainsKey(data.ToString()))
+        {
+            user_achievements[data] += lv;
+        }
+        else
+        {
+            user_achievements.Add(data, lv);
+            user_achievements_lv.Add(data, 0);
+        }
         Game_Omphalos.i.GetQueue(
                    Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_achieve,
                    SumSave.crt_achievement.Set_Uptade_String(), SumSave.crt_achievement.Get_Update_Character());
@@ -60,7 +68,16 @@ public class user_achievement_vo : Base_VO
 
     public void up_date_Exp(string data ,int lv)
     {
-        user_achievements[data] = lv;
+        if (user_achievements.ContainsKey(data.ToString()))
+        {
+            user_achievements[data] = lv;
+
+        }
+        else
+        {
+            user_achievements.Add(data, lv);
+            user_achievements_lv.Add(data, 0);
+        }
         Game_Omphalos.i.GetQueue(
                    Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_achieve,
                    SumSave.crt_achievement.Set_Uptade_String(), SumSave.crt_achievement.Get_Update_Character());
@@ -91,16 +108,27 @@ public class user_achievement_vo : Base_VO
     /// </summary>
     public void Init()
     {
+        if(achievement_exp==""|| achievement_lvs == "")
+        {
+            return;
+        }
         string[] strs = achievement_exp.Split('|');
         string[] lvs = achievement_lvs.Split('|');
-
         for (int i = 0; i < strs.Length; i++)
         {
             string[] str = strs[i].Split(' ');
             string[] lv = lvs[i].Split(' ');
-            if (!user_achievements.ContainsKey(str[0])) user_achievements.Add(str[0], int.Parse(str[1]));
-            if (!user_achievements_lv.ContainsKey(lv[0])) user_achievements_lv.Add(lv[0], int.Parse(lv[1]));
+            if (!user_achievements.ContainsKey(str[0]))
+            {
+                user_achievements.Add(str[0], int.Parse(str[1]));
+            }
+            if (!user_achievements_lv.ContainsKey(lv[0]))
+            {
+                user_achievements_lv.Add(lv[0], int.Parse(lv[1]));
+
+            }
         }
+        
     }
 
     public void Refresh()
