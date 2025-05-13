@@ -272,6 +272,10 @@ namespace Common
         /// 大世界新手引导
         /// </summary>
         public static Dictionary<int, GreenhandGuide_TotalTaskVO> GreenhandGuide_TotalTasks;
+        /// <summary>
+        /// 邮件列表
+        /// </summary>
+        public static List<user_mail_vo> CrtMail;
         #endregion
     }
 }

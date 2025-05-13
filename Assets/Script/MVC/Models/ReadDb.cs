@@ -19,6 +19,14 @@ public static class ReadDb
         return item;
     }
 
+    public static user_mail_vo Read(MySqlDataReader reader, user_mail_vo item)
+    {
+        item.mail_id = reader.GetInt32(reader.GetOrdinal("id"));
+        item.mail_par= reader.GetInt32(reader.GetOrdinal("mail_par"));
+        item.mail_recipient= reader.GetString(reader.GetOrdinal("mail_recipient"));
+        item.user_value= reader.GetString(reader.GetOrdinal("user_value"));
+        return item;
+    }
     public static user_player_Buff Read(MySqlDataReader reader, user_player_Buff item)
     {
         item.player_baff = reader.GetString(reader.GetOrdinal("player_Buff"));

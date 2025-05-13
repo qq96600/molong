@@ -31,7 +31,7 @@ namespace MVC
         public override string[] ListNotificationInterests()
         {
             return new string[] {
-                NotiList.Read_Instace
+                NotiList.Read_Instace,
 
 
             };
@@ -48,6 +48,7 @@ namespace MVC
                 case NotiList.Read_Instace:
                     MySql.Read_Instace();
                     break;
+              
             }
         }
         }

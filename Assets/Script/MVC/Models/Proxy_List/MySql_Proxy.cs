@@ -20,6 +20,7 @@ namespace MVC
             this.ProxyName = NAME;
         }
 
+
         public void Read_Instace()
         {
             OpenMySqlDB();
