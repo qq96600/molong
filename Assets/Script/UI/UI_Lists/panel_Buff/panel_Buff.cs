@@ -80,25 +80,17 @@ public class panel_Buff : Panel_Base
         confirm.gameObject.SetActive(SumSave.crt_hero.hero_material_list[0] == 0);
         inputField.text = SumSave.crt_hero.hero_name;
         string dec = " ";
-        foreach (var item in SumSave.crt_player_buff.player_Buffs)
-        {
-            int time = (int)(SumSave.nowtime - item.Value.Item1).TotalMinutes;
-            if (time <= item.Value.Item2)
-            {
-                dec += item.Key + ": " + item.Value.Item3 + "% 剩余时间"+ time;
-            }
-            
-        }
+ 
 
 
-        //dec += enum_skill_attribute_list.经验加成 + ": " + Show_Buff(enum_skill_attribute_list.经验加成) + "%\n ";
-        //dec += enum_skill_attribute_list.人物历练 + ": " + Show_Buff(enum_skill_attribute_list.人物历练) + "%\n ";
-        //dec += enum_skill_attribute_list.灵珠收益 + ": " + Show_Buff(enum_skill_attribute_list.灵珠收益) + "%\n ";
-        //dec += enum_skill_attribute_list.装备爆率 + ": " + Show_Buff(enum_skill_attribute_list.装备爆率) + "%\n ";
-        //dec += enum_skill_attribute_list.装备掉落 + ": " + Show_Buff(enum_skill_attribute_list.装备掉落) + "%\n ";
-        //dec += enum_skill_attribute_list.宠物获取 + ": " + Show_Buff(enum_skill_attribute_list.宠物获取) + "%\n ";
-        //dec += enum_skill_attribute_list.寻怪间隔 + ": -" + (Show_Buff(enum_skill_attribute_list.寻怪间隔) / 10f) + "s\n ";
-        //dec += enum_skill_attribute_list.复活次数 + ": " + Show_Buff(enum_skill_attribute_list.复活次数) + "次\n ";
+        dec += enum_skill_attribute_list.经验加成 + ": " + Show_Buff(enum_skill_attribute_list.经验加成) + "%\n ";
+        dec += enum_skill_attribute_list.人物历练 + ": " + Show_Buff(enum_skill_attribute_list.人物历练) + "%\n ";
+        dec += enum_skill_attribute_list.灵珠收益 + ": " + Show_Buff(enum_skill_attribute_list.灵珠收益) + "%\n ";
+        dec += enum_skill_attribute_list.装备爆率 + ": " + Show_Buff(enum_skill_attribute_list.装备爆率) + "%\n ";
+        dec += enum_skill_attribute_list.装备掉落 + ": " + Show_Buff(enum_skill_attribute_list.装备掉落) + "%\n ";
+        dec += enum_skill_attribute_list.宠物获取 + ": " + Show_Buff(enum_skill_attribute_list.宠物获取) + "%\n ";
+        //dec += enum_skill_attribute_list.寻怪间隔 + ": -" + (int.Parse(Show_Buff(enum_skill_attribute_list.寻怪间隔))/ 10f) + "s\n ";
+        dec += enum_skill_attribute_list.复活次数 + ": " + Show_Buff(enum_skill_attribute_list.复活次数) + "次\n ";
         info.text = dec;
 
     }
@@ -107,13 +99,60 @@ public class panel_Buff : Panel_Base
     /// </summary>
     /// <param name="index"></param>
     /// <returns></returns>
-    private int Show_Buff(enum_skill_attribute_list index)
+    private string Show_Buff(enum_skill_attribute_list index)
     {
-        int value = 0;
+        string value = "";
 
-        if ((int)index < SumSave.crt_MaxHero.bufflist.Count)
-            value = SumSave.crt_MaxHero.bufflist[(int)index];
+        //if ((int)index < SumSave.crt_MaxHero.bufflist.Count)
+        //    value = SumSave.crt_MaxHero.bufflist[(int)index];
+
         
+        
+        switch (index)
+        {
+            case enum_skill_attribute_list.经验加成:
+
+                foreach (var item in SumSave.crt_player_buff.player_Buffs)
+                {
+                    string name = item.Key.ToString();
+
+                    if (name == (store_Item.下品经验丹).ToString()|| name == (store_Item.中品经验丹).ToString()|| name == (store_Item.上品经验丹).ToString())
+                    {
+                        value +=item.Value.Item3*100;
+                        return value;
+                    }
+                }
+                break;
+            case enum_skill_attribute_list.人物历练:
+                foreach (var item in SumSave.crt_player_buff.player_Buffs)
+                {
+                    string name = item.Key.ToString();
+
+                    if (name == (store_Item.上品历练丹).ToString() || name == (store_Item.下品历练丹).ToString() || name == (store_Item.中品历练丹).ToString())
+                    {
+                        value += item.Value.Item3 * 100;
+                        return value;
+                    }
+                }
+
+                break;
+            case enum_skill_attribute_list.灵珠收益:
+                break;
+            case enum_skill_attribute_list.装备爆率:
+                break;
+            case enum_skill_attribute_list.装备掉落:
+                break;
+            case enum_skill_attribute_list.宠物获取:
+                break;
+            case enum_skill_attribute_list.寻怪间隔:
+                break;
+            case enum_skill_attribute_list.复活次数:
+                break;
+                    
+                default:
+                break;
+        }
+        value = "0";
         return value;
     }
 
