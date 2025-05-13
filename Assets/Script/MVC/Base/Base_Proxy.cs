@@ -30,7 +30,6 @@ namespace MVC
 
         protected MySqlDataReader mysqlReader;
 
-        bool OpenSelect = true;
         /// <summary>
         ///  打开网络数据库
         /// </summary>

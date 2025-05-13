@@ -1,3 +1,4 @@
+using Common;
 using MVC;
 using System;
 using System.Collections;
@@ -38,11 +39,20 @@ public class offect_emial : Base_Mono
     public override void Show()
     {
         base.Show();
+        SendNotification(NotiList.Read_Mail);
         Base_Show();
     }
 
     private void Base_Show()
     {
-
+        ClearObject(pos_list);
+        for (int i = 0; i < SumSave.CrtMail.Count; i++)
+        {
+            if (SumSave.CrtMail[i].mail_par == -1 || SumSave.CrtMail[i].mail_recipient == SumSave.crt_user.uid)
+            { 
+                emial_item item = Instantiate(emial_Item_Prefab, pos_list);
+                //item.Show(SumSave.CrtMail[i]);
+            }
+        }
     }
 }

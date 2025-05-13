@@ -62,4 +62,7 @@ public enum Mysql_Table_Name
     db_basetask,//大世界信息
     mo_user_greenhandguide,//新手引导
     user_player_buff,//玩家buff
+    user_emial,//自身邮件
+    server_mail,//当前邮件
+    history_server_mail,//历史邮件
 }

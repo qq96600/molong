@@ -543,6 +543,22 @@ namespace MVC
             CloseMySqlDB();
         }
 
+        public void Read_Mail()
+        {
+            OpenMySqlDB();
+            if (MysqlDb.MysqlClose) return;//未联网
+            SumSave.CrtMail = new List<user_mail_vo>();
+            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.server_mail);
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.CrtMail.Add(ReadDb.Read(mysqlReader, new user_mail_vo()));
+                }
+            }
+
+            CloseMySqlDB();
+        }
         /// <summary>
         /// 读取自身成就
         /// </summary>

@@ -37,6 +37,7 @@ namespace MVC
                 NotiList.Read_Crate_IPhone_Uid,
                 NotiList.Read_Message_Window,
                 NotiList.Read_Huser_MessageWindow,
+                NotiList.Read_Mail
 
             };
 
@@ -85,6 +86,10 @@ namespace MVC
                 case NotiList.Read_Huser_MessageWindow:
                     user.Refres_huser_messageWindow(data.ToString());
                     break;
+                case NotiList.Read_Mail:
+                    user.Read_Mail();
+                    break;
+
 
             }
         }
