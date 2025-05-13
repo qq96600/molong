@@ -270,6 +270,15 @@ public static class Battle_Tool
 
     }
     /// <summary>
+    /// 获取字符串
+    /// </summary>
+    /// <param name="o"></param>
+    /// <returns></returns>
+    public static string GetStr(object o)
+    {
+        return "'" + o + "'";
+    }
+    /// <summary>
     /// 获取灵气
     /// </summary>
     /// <returns></returns>

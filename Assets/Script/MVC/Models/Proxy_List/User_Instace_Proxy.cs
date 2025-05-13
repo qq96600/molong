@@ -210,7 +210,7 @@ namespace MVC
         public void Delete(string dec)
         {
             OpenMySqlDB();
-            if (MysqlDb.MysqlClose)
+            if (!MysqlDb.MysqlClose)
             {
                 MysqlDb.UpdateInto(Mysql_Table_Name.mo_user_base, new string[] { "Nowdate" }, new string[] { GetStr(dec) }, "uid", GetStr(SumSave.crt_user.uid));//login
                 MysqlDb.UpdateInto(Mysql_Table_Name.user_login, new string[] { "login" }, new string[] { GetStr(-1) }, "uid", GetStr(SumSave.crt_user.uid));
@@ -222,7 +222,7 @@ namespace MVC
         {
             log_list.Add(dec);
             OpenMySqlDB();  
-            if (MysqlDb.MysqlClose)
+            if (!MysqlDb.MysqlClose)
             {
                 for (int i = 0; i < log_list.Count; i++)
                 {
@@ -256,10 +256,9 @@ namespace MVC
             Read_user_Greenhand();
             Read_user_Collect();
             Read_user_player_Buff();
+            Read_User_Mail();
             refresh_Max_Hero_Attribute();
         }
-
-
         public void Read_user_player_Buff()
         {
             mysqlReader = MysqlDb.Select(Mysql_Table_Name.user_player_buff, "uid", GetStr(SumSave.crt_user.uid));
@@ -278,6 +277,29 @@ namespace MVC
             else//为空的话初始化数据
             {
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.user_player_buff, SumSave.crt_player_buff.Set_Instace_String());
+            }
+
+        }
+
+
+        public void Read_User_Mail()
+        {
+            mysqlReader = MysqlDb.Select(Mysql_Table_Name.user_emial, "uid", GetStr(SumSave.crt_user.uid));
+            SumSave.CrtMail = new user_mail_vo();
+
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.CrtMail = ReadDb.Read(mysqlReader, new user_mail_vo());
+                }
+
+            }
+            else//为空的话初始化数据
+            {
+                SumSave.CrtMail.user_value = "";
+                SumSave.CrtMail.Init(); 
+                Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.user_emial, SumSave.CrtMail.Set_Instace_String());
             }
 
         }
@@ -405,11 +427,6 @@ namespace MVC
             CloseMySqlDB();
         }
 
-       
-
-
-
-
         /// <summary>
         /// 读取签到
         /// </summary>
@@ -454,23 +471,6 @@ namespace MVC
                 SumSave.crt_needlist.store_value = "";
                 SumSave.crt_needlist.map_value = "";
                 SumSave.crt_needlist.user_value = "";
-
-                //List<db_store_vo> store_vo = new List<db_store_vo>();   
-                //for (int i = 0; i < SumSave.db_stores_list.Count; i++)
-                //{
-                //    if (SumSave.db_stores_list[i].ItemMaxQuantity > 0)
-                //    {
-                //        store_vo.Add(SumSave.db_stores_list[i]);
-                //    }
-                //}
-                //for (int i = 0; i < store_vo.Count; i++)
-                //{
-                //    if(i>0)
-                //    {
-                //        SumSave.crt_needlist.store_value += ",";
-                //    }
-                //    SumSave.crt_needlist.store_value += store_vo[i].ItemName + " " + "0" ;
-                //}
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_needlist, SumSave.crt_needlist.Set_Instace_String());
             }
         }
@@ -547,13 +547,13 @@ namespace MVC
         {
             OpenMySqlDB();
             if (MysqlDb.MysqlClose) return;//未联网
-            SumSave.CrtMail = new List<user_mail_vo>();
+            SumSave.Db_Mails = new List<db_mail_vo>();
             mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.server_mail);
             if (mysqlReader.HasRows)
             {
                 while (mysqlReader.Read())
                 {
-                    SumSave.CrtMail.Add(ReadDb.Read(mysqlReader, new user_mail_vo()));
+                    SumSave.Db_Mails.Add(ReadDb.Read(mysqlReader, new db_mail_vo()));
                 }
             }
 
@@ -573,31 +573,6 @@ namespace MVC
                 {
                     SumSave.crt_achievement = ReadDb.Read(mysqlReader, new user_achievement_vo());
                 }
-                //Dictionary<string, long> achieves = SumSave.crt_achievement.Set_Exp();
-                //if (achieves.Count == SumSave.db_Achievement_dic.Count)
-                //{
-
-                //}
-                //else
-                //{
-                //    for (int i = 0; i < SumSave.db_Achievement_dic.Count; i++)
-                //    {
-                //        bool exist = true;
-                //        foreach (string item in achieves.Keys)
-                //        {
-                //            if (item == SumSave.db_Achievement_dic[i].achievement_value)
-                //            {
-                //                exist = false;
-                //            }
-                //        }
-                //        if (exist)
-                //        {
-                //            SumSave.crt_achievement.achievement_exp += "|" + SumSave.db_Achievement_dic[i].achievement_value + " " + 0;
-                //            SumSave.crt_achievement.achievement_lvs += "|" + SumSave.db_Achievement_dic[i].achievement_value + " " + 0;
-                //        }
-                //    }
-                //    SumSave.crt_achievement.Init();
-                //}
             }
             else
             {

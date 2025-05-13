@@ -148,31 +148,35 @@ public class panel_store : Base_Mono
     /// </summary>
     private void BuyItem()
     {
-        NeedConsumables(buy_item.unit,(buy_num * buy_item.ItemPrice));//需要购买的商品以及价格
-        if (RefreshConsumables())//判断是否购买成功
+        if (buy_item.ItemMaxQuantity > 0)//限购物品
         {
-            if (buy_item.ItemMaxQuantity > 0)//限购物品
+            //减少限购物品可购买的数量
+            if (SumSave.crt_needlist.store_value_dic.ContainsKey(buy_item.ItemName))//判断字典中是否含有该物品
             {
-                //减少限购物品可购买的数量
-                if (SumSave.crt_needlist.store_value_dic.ContainsKey(buy_item.ItemName))//判断字典中是否含有该物品
+                int nums = buy_item.ItemMaxQuantity - SumSave.crt_needlist.store_value_dic[buy_item.ItemName];//判断限购商品是否购买完
+                if (nums > 0)//查找限购物品
                 {
-                    int nums = buy_item.ItemMaxQuantity - SumSave.crt_needlist.store_value_dic[buy_item.ItemName];//判断限购商品是否购买完
-                    if (nums > 0)//查找限购物品
+                    NeedConsumables(buy_item.unit, (buy_num * buy_item.ItemPrice));
+                    if (RefreshConsumables())
                     {
-                        if(buy_num> nums)//不更改数量多次购买时判断是否超出限购数量
+                        if (buy_num > nums)//不更改数量多次购买时判断是否超出限购数量
                         {
-                            buy_num= nums;
+                            buy_num = nums;
                         }
-                        int num =SumSave.crt_needlist.store_value_dic[buy_item.ItemName] + buy_num;
+                        int num = SumSave.crt_needlist.store_value_dic[buy_item.ItemName] + buy_num;
                         SumSave.crt_needlist.store_value_dic[buy_item.ItemName] = num;
                         Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_needlist, SumSave.crt_needlist.Set_Uptade_String(), SumSave.crt_needlist.Get_Update_Character());
                         SpecialItems();
-
                         Alert_Dec.Show(buy_item.ItemName + "X" + buy_num + " 购买成功(限购物品) ");
                         return;
                     }
+
                 }
-                else
+            }
+            else
+            {
+                NeedConsumables(buy_item.unit, (buy_num * buy_item.ItemPrice));
+                if (RefreshConsumables())
                 {
                     SumSave.crt_needlist.store_value_dic.Add(buy_item.ItemName, buy_num);
                     Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_needlist, SumSave.crt_needlist.Set_Uptade_String(), SumSave.crt_needlist.Get_Update_Character());
@@ -180,19 +184,19 @@ public class panel_store : Base_Mono
                     Alert_Dec.Show(buy_item.ItemName + "X" + buy_num + " 购买成功(限购物品) ");
                     return;
                 }
-                Alert_Dec.Show("限购商品 " + buy_item.ItemName + " 无购买次数 ");
-                return;
+
             }
-            //Battle_Tool.Obtain_Resources(buy_item.ItemName, buy_num);//获取奖励
-            SpecialItems();
-            Alert_Dec.Show(buy_item.ItemName + "X" + buy_num + " 购买成功 ");
+            Alert_Dec.Show("限购商品 " + buy_item.ItemName + " 无购买次数 ");
+            return;
         }
         else
         {
-            Alert_Dec.Show(buy_item.unit + " 数量不够");
-            
+            NeedConsumables(buy_item.unit, (buy_num * buy_item.ItemPrice));
+            if (RefreshConsumables())
+            {
+                SpecialItems();
+            }
         }
-
     }
 
     private void SpecialItems()

@@ -109,7 +109,6 @@ public class panel_fight : Panel_Base
         btn_Combat_statistics = Find<Button>("Combat_statistics");
         btn_Combat_statistics.onClick.AddListener(() => { clear_Combat_statistics(); });
         battle_info_list= Find<Text>("Combat_statistics/info");
-        close_battle= Find<Button>("btn_list/close_btn");
     }
     /// <summary>
     /// 初始状态

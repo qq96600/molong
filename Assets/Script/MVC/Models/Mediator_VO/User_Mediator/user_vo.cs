@@ -88,7 +88,6 @@ public class user_vo : Base_VO
                 else
                 {
                     if (value > 0) Combat_statistics.AddPoint(value);
-
                     list[1] += value;
                     verify_list[1] += value;
                 }
