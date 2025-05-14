@@ -94,7 +94,6 @@ public class hatching_progress : Base_Mono
             btn.GetComponent<Button>().onClick.AddListener(() => { onPetClick(btn); });
         }
 
-
     }
 
     /// <summary>
@@ -142,7 +141,10 @@ public class hatching_progress : Base_Mono
                 dic.Add(crt_egg.Item1, -crt_egg.Item2);
                 
                 SumSave.crt_bag_resources.Get(dic);
+               
                 Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.material_value, SumSave.crt_bag_resources.GetData());
+
+               
 
                 db_pet_vo pet = ArrayHelper.Find(SumSave.db_pet, e => e.petEggsName == crt_egg.Item1);
                 if (pet != null)
@@ -150,12 +152,21 @@ public class hatching_progress : Base_Mono
                     incubate_Time = "";
                     incubate_Time = pet.petName + "," + SumSave.nowtime;
                     SumSave.crt_pet.crt_pet_list.Add(incubate_Time);
+                    Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_pet,
+                    SumSave.crt_pet.Set_Uptade_String(), SumSave.crt_pet.Get_Update_Character());
+
+
                     Alert_Dec.Show("宠物" + pet.petName + " 孵化开始");
                     pos_pet_btn.gameObject.SetActive(false);
                     hatchingTimeCounter = pet.hatchingTime;
                     hatching_Slider.gameObject.SetActive(true);
                     hatching_Slider.maxValue = pet.hatchingTime;
                     StartCoroutine(ShowPlant(pet));
+
+
+                    Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_pet,
+                    SumSave.crt_pet.Set_Uptade_String(), SumSave.crt_pet.Get_Update_Character());
+
 
                 }
                 break;

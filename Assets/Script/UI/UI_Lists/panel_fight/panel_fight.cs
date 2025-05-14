@@ -153,6 +153,7 @@ public class panel_fight : Panel_Base
     public override void Show()
     {
         base.Show();
+        AudioManager.Instance.ChangeBGM(BGMenum.开启);
     }
     public override void Hide()
     { 
@@ -246,6 +247,7 @@ public class panel_fight : Panel_Base
         
         init();
         Crate_Init();
+        StopAllCoroutines();
         Show_Battle_State("战斗中...");
     }
     /// <summary>

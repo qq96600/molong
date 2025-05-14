@@ -44,7 +44,18 @@ namespace StateMachine
             {
                 rb.velocity = Vector2.zero;
             }
-            
+            if (SkillPosType == skill_pos_type.situ)
+            {
+                is_collider = false;
+                StartCoroutine(WaitForExplosionEnd());
+                //StartCoroutine(SpecificTimeDestroy());
+            }
+            else if (SkillPosType == skill_pos_type.oneself)
+            {
+                is_collider = false;
+                StartCoroutine(WaitForAnimationEnd());
+            }
+
         }
 
 
@@ -53,7 +64,7 @@ namespace StateMachine
         {
             if (is_collider)
             {
-                if (collision.gameObject.tag == "Moster"&& SkillPosType== skill_pos_type.move)
+                if (collision.gameObject.tag == "Moster" && SkillPosType == skill_pos_type.move)
                 {
                     if (DamageTextManager.Instance == null)
                     {
@@ -65,17 +76,18 @@ namespace StateMachine
                     ObjectPoolManager.instance.PushObjectToPool(skill.skillname, this.gameObject);
                     //this.GetComponent<BattleAttack>().injured();
                     //StartCoroutine(WaitForExplosionEnd());
-                }else
-                if (SkillPosType == skill_pos_type.situ)
-                {
-                    is_collider = false;
-                    StartCoroutine(WaitForExplosionEnd());
-                    //StartCoroutine(SpecificTimeDestroy());
-                }else if(SkillPosType == skill_pos_type.oneself)
-                {
-                    is_collider = false;
-                    StartCoroutine(WaitForAnimationEnd());
                 }
+                //else
+                //if (SkillPosType == skill_pos_type.situ)
+                //{
+                //    is_collider = false;
+                //    StartCoroutine(WaitForExplosionEnd());
+                //    //StartCoroutine(SpecificTimeDestroy());
+                //}else if(SkillPosType == skill_pos_type.oneself)
+                //{
+                //    is_collider = false;
+                //    StartCoroutine(WaitForAnimationEnd());
+                //}
              
             }
 
@@ -160,6 +172,8 @@ namespace StateMachine
             attack = _attack;
             TatgetPosition =_target;
             SkillPosType= _skill_pos_type;
+
+            AudioManager.Instance.playAudio(ClipEnum.释放雷电术);
 
         }
     }

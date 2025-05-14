@@ -300,6 +300,7 @@ namespace MVC
 
         protected virtual void BaseAttack()//判断伤害
         {
+            AudioManager.Instance.playAudio(ClipEnum.攻击敌人);
             BattleAttack monster = Terget.GetComponent<BattleAttack>();
             if (monster.target.HP <= 0) return;//结战斗
             float damage = Base_Damage(monster);

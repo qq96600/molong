@@ -83,6 +83,8 @@ namespace MVC
             if (HP <= 0) return;
             //damage = 10000;
             HP -= damage;
+            AudioManager.Instance.playAudio(ClipEnum.被敌人攻击);
+
             Hurt(damage, damageEnum);
             //测试掉落
             //ConfigBattle.LoadSetting(monster, 2);
@@ -90,10 +92,14 @@ namespace MVC
             if (HP <= 0)
             {
                 //死亡 掉落
-                if (GetComponent<monster_battle_attck>()!=null)  WaitAndDestory(); 
-                else if(GetComponent<player_battle_attck>() != null)
+                if (GetComponent<monster_battle_attck>() != null)
                 {
-                    
+                    WaitAndDestory();
+                    AudioManager.Instance.playAudio(ClipEnum.男角色死亡);
+                }
+                else if (GetComponent<player_battle_attck>() != null)
+                {
+
                     SumSave.crt_achievement.increase_date_Exp((Achieve_collect.死亡).ToString(), 1);
                     SumSave.battleHeroHealths.Remove(this);
                 }
