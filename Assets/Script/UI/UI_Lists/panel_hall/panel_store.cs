@@ -385,7 +385,17 @@ public class panel_store : Base_Mono
         buy_item= item;
         if(buy_item.ItemMaxQuantity > 0)
         {
-           buy_text.text = "最大购买数量：" + buy_item.ItemMaxQuantity;
+            int nums = 0;
+            if (SumSave.crt_needlist.store_value_dic.ContainsKey(buy_item.ItemName))//判断字典中是否含有该物品
+            {
+                nums = buy_item.ItemMaxQuantity - SumSave.crt_needlist.store_value_dic[buy_item.ItemName];
+            }
+            else
+            {
+                nums= buy_item.ItemMaxQuantity;
+            }
+            
+            buy_text.text = "购买数量:\n" + nums + "/"+ buy_item.ItemMaxQuantity;
         }else
         {
             buy_text.text = " ";

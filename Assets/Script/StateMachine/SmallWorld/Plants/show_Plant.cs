@@ -47,6 +47,10 @@ public class show_Plant : Base_Mono
     /// </summary>
     private Text pet_guardtext;
     private int[] need_list = new int[] { 500, 5000, 10000, 20000, 30000, 40000, 50000, 60000, 200000, 200000, 200000, 200000, 200000, 200000, 200000, 200000, 200000, 200000 };
+    /// <summary>
+    /// 透明Sprite 
+    /// </summary>
+    private Sprite transparent;
     private void Awake()
     {
         pos_btn=Find<Transform>("btn_list");
@@ -69,6 +73,7 @@ public class show_Plant : Base_Mono
 
         pet_guardImage = Find<Image>("pet_guard/display/icon");
         pet_guardtext = Find<Text>("pet_guard/info/name");
+        transparent= pet_guardImage.sprite;
 
     }
     /// <summary>
@@ -140,6 +145,10 @@ public class show_Plant : Base_Mono
                 Set[item.index] = (currentPlant, SumSave.nowtime);
                 user_plant_vo vo = ArrayHelper.Find(SumSave.db_plants, e => e.plantName == currentPlant);
                 if (vo != null) item.Init(vo, Set[item.index].Item2);
+
+                SumSave.crt_plant.Up_user_plants(Set);//更新角色数据
+                Wirte(Set);//写入数据库
+
                 Alert_Dec.Show("播种成功");
             }else Alert_Dec.Show("种子不足");
         }
@@ -152,7 +161,7 @@ public class show_Plant : Base_Mono
     {
         if(SumSave.crt_pet_list.Count==0)
         {
-            pet_guardImage.sprite = null;
+            pet_guardImage.sprite = transparent;
             pet_guardtext.text = "无守护兽";
             return;
         }

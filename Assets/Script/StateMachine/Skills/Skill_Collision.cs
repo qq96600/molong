@@ -1,4 +1,5 @@
 using MVC;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -70,27 +71,47 @@ namespace StateMachine
                     is_collider = false;
                     StartCoroutine(WaitForExplosionEnd());
                     //StartCoroutine(SpecificTimeDestroy());
+                }else if(SkillPosType == skill_pos_type.oneself)
+                {
+                    is_collider = false;
+                    StartCoroutine(WaitForAnimationEnd());
                 }
+             
             }
 
-           
-
         }
         /// <summary>
-        /// 技能经过某段时间后返回对象池
+        /// 对自己释放的技能效果播放动画
         /// </summary>
         /// <returns></returns>
-       private IEnumerator SpecificTimeDestroy()
+        private IEnumerator WaitForAnimationEnd()
         {
-            yield return new WaitForSeconds(3f);
+            rb.velocity = Vector2.zero;
+            AnimatorStateInfo animStateInfo = anim.GetCurrentAnimatorStateInfo(0);
+
+            // 等待动画播放完成
+            yield return new WaitForSeconds(animStateInfo.length);
+            // 将对象返回对象池
             ObjectPoolManager.instance.PushObjectToPool(skill.skillname, this.gameObject);
+
+            SelfEffect();
+        }
+        /// <summary>
+        /// 技能对自己产生的效果
+        /// </summary>
+        private void SelfEffect()
+        {
+            if(skill.skillname== "治愈疗法")
+            {
+                Debug.Log("治疗");
+            }
         }
 
 
 
 
         /// <summary>
-        /// 动画播放完成销毁返回对象池
+        /// 动画播放完成销毁返回对象池 对敌人造成伤害
         /// </summary>
         /// <returns></returns>
         private IEnumerator WaitForExplosionEnd()
@@ -102,7 +123,7 @@ namespace StateMachine
             yield return new WaitForSeconds(animStateInfo.length);
             // 将对象返回对象池
             ObjectPoolManager.instance.PushObjectToPool(skill.skillname, this.gameObject);
-            attack.skill_damage(skill); 
+            attack.skill_damage(skill);
 
 
         }

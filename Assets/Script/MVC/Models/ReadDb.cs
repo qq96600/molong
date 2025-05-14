@@ -679,6 +679,7 @@ public static class ReadDb
         item.skill_suit_value = reader.GetInt32(reader.GetOrdinal("skill_suit_value"));
         item.skill_spell= reader.GetInt32(reader.GetOrdinal("skill_spell"));
         item.skill_cd = reader.GetInt32(reader.GetOrdinal("skill_cd")) / 60f;
+        item.skill_state= reader.GetInt32(reader.GetOrdinal("skill_state"));
         return item;
     } 
 

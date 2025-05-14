@@ -97,10 +97,6 @@ public class base_skill_vo : Base_VO
     /// </summary>
     public List<int> skill_pos_value;
     /// <summary>
-    /// 技能释放效果激活所在位置是移动攻击 还是在目标身上释放
-    /// </summary>
-    public int skill_damage_pos_type;
-    /// <summary>
     /// 技能伤害
     /// </summary>
     public int skill_damage;
@@ -132,5 +128,9 @@ public class base_skill_vo : Base_VO
     /// 1技能名称 2技能等级 3技能位置 4技能内力 5技能类型 6技能伤害类型 7技能最大等级 8技能初始化升级经验 9技能升级
     /// </summary>
     public string[] user_values;
+    /// <summary>
+    /// 技能释放效果激活所在位置是移动攻击 还是在目标身上释放
+    /// </summary>
+    public int skill_state;
 
 }

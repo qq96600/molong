@@ -186,16 +186,18 @@ public class AttackStateMachine : MonoBehaviour
     public void Skill(base_skill_vo skill)
     {
         Transform pos=battle.transform;
-        skill.skill_damage_pos_type = 1;
-        switch ((skill_pos_type)skill.skill_damage_pos_type)
+        
+        skill_prefabs = Resources.Load<GameObject>("Prefabs/panel_skill/Skill_Effects/" + skill.skillname);
+        switch ((skill_pos_type)skill.skill_state)
         {
             case skill_pos_type.move:
-                skill_prefabs = Resources.Load<GameObject>("Prefabs/panel_skill/Skill_Effects/"+ skill.skillname);
                 pos = battle.transform;
                 break;
             case skill_pos_type.situ:
-                skill_prefabs = Resources.Load<GameObject>("Prefabs/panel_skill/Skill_Effects/" + skill.skillname);
                 pos = Target.transform;
+                break;
+            case skill_pos_type.oneself:
+                pos = battle.transform;
                 break;
             default:
                 break;
@@ -203,7 +205,7 @@ public class AttackStateMachine : MonoBehaviour
         GameObject go = ObjectPoolManager.instance.GetObjectFormPool(skill.skillname, skill_prefabs,
               new Vector3(pos.transform.position.x, pos.transform.position.y, pos.transform.position.z)
               , Quaternion.identity, pos.transform);
-        go.GetComponent<Skill_Collision>().Init(skill, battle, Target, (skill_pos_type)skill.skill_damage_pos_type);
+        go.GetComponent<Skill_Collision>().Init(skill, battle, Target, (skill_pos_type)skill.skill_state);
     }
 
 
@@ -272,7 +274,7 @@ public enum Arrow_Type
 
 public enum skill_pos_type
 { 
-    move,//移动类
+    move=1,//移动类
     situ,//在目标释放
     oneself,//自身释放
 

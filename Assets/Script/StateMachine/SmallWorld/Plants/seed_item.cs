@@ -63,6 +63,7 @@ public class seed_item : Base_Mono
         }
         else
         {
+            icon.sprite = UI.UI_Manager.I.GetEquipSprite("icon/", db_plant.HarvestMaterials);
             info.text = "已成熟";
             growTimeInt = -1;
             isMature = 1;
