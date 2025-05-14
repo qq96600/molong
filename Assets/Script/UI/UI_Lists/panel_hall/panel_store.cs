@@ -223,7 +223,7 @@ public class panel_store : Base_Mono
                     Alert_Dec.Show("上品历练丹失效");
                     SumSave.crt_player_buff.player_Buffs.Remove("上品历练丹");
                 }
-                AddBuff(buy_item,1.5f);
+                AddBuff(buy_item,1.5f,2);
                 break;
             case "中品历练丹":
                 //添加2倍的历练值
@@ -239,7 +239,7 @@ public class panel_store : Base_Mono
                     SumSave.crt_player_buff.player_Buffs.Remove("上品历练丹");
                 }
 
-                AddBuff(buy_item,2f);
+                AddBuff(buy_item,2f,2);
                 break;
             case "上品历练丹":
 
@@ -256,7 +256,7 @@ public class panel_store : Base_Mono
                     SumSave.crt_player_buff.player_Buffs.Remove("中品历练丹");
                 }
                 
-                AddBuff(buy_item,3f);
+                AddBuff(buy_item,3f,2);
                 break;
             case "下品经验丹":
                 //添加1.5倍的经验值
@@ -271,7 +271,7 @@ public class panel_store : Base_Mono
                     Alert_Dec.Show("上品经验丹失效");
                     SumSave.crt_player_buff.player_Buffs.Remove("上品经验丹");
                 }
-                AddBuff(buy_item,1.5f);
+                AddBuff(buy_item,1.5f,1);
                 break;
             case "中品经验丹":
                 //添加2倍的经验值
@@ -286,7 +286,7 @@ public class panel_store : Base_Mono
                     Alert_Dec.Show("上品经验丹失效");
                     SumSave.crt_player_buff.player_Buffs.Remove("上品经验丹");
                 }
-                AddBuff(buy_item,2f);
+                AddBuff(buy_item,2f,1);
                 break;
             case "上品经验丹":
 
@@ -301,7 +301,7 @@ public class panel_store : Base_Mono
                     SumSave.crt_player_buff.player_Buffs.Remove("中品经验丹");
                 }
 
-                AddBuff(buy_item,3f);
+                AddBuff(buy_item,3f,1);
                 break;
                 default:
                 Battle_Tool.Obtain_Resources(buy_item.ItemName, buy_num);//获取奖励
@@ -315,18 +315,18 @@ public class panel_store : Base_Mono
     /// <summary>
     /// 添加BUff
     /// </summary>
-    private void AddBuff(db_store_vo _buy_item,float effect)
+    private void AddBuff(db_store_vo _buy_item,float effect,int icon)
     {
         if (SumSave.crt_player_buff.player_Buffs.ContainsKey(_buy_item.ItemName))
         {
             SumSave.crt_player_buff.player_Buffs[_buy_item.ItemName] =
                 (SumSave.crt_player_buff.player_Buffs[_buy_item.ItemName].Item1,
                 SumSave.crt_player_buff.player_Buffs[_buy_item.ItemName].Item2+(60 * buy_num)
-                , effect,1);//当有时，增加buff时间
+                , effect, icon);//当有时，增加buff时间
         }
         else
         {
-            SumSave.crt_player_buff.player_Buffs.Add(_buy_item.ItemName, (SumSave.nowtime, 60 * buy_num, effect,1));
+            SumSave.crt_player_buff.player_Buffs.Add(_buy_item.ItemName, (SumSave.nowtime, 60 * buy_num, effect, icon));
         }
         Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.user_player_buff, SumSave.crt_player_buff.Set_Uptade_String(), SumSave.crt_player_buff.Get_Update_Character());//角色丹药Buff更新数据库
     }

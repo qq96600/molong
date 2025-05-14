@@ -14,7 +14,7 @@ public class user_player_Buff : Base_VO
     public string player_baff="";
 
     /// <summary>
-    /// 玩家buff 1，buff名字 2，buff开始时间 3，buff持续时间
+    /// 玩家buff 1，buff名字 2，buff开始时间 3，buff持续时间4，buff效果5，buff种类（1，经验加成2，历练加成）
     /// </summary>
     //public  List<(string, DateTime,int)> player_Buffs = new List<(string, DateTime, int)>();
     public Dictionary<string ,(DateTime,int,float,int)> player_Buffs= new Dictionary<string, (DateTime, int,float,int)>();
@@ -23,7 +23,7 @@ public class user_player_Buff : Base_VO
     /// </summary>
     public string IntegrationBuff()
     {
-        List<(string, DateTime, int,float)>buff= player_Buffs.Keys.Select(x => (x, player_Buffs[x].Item1, player_Buffs[x].Item2, player_Buffs[x].Item3)).ToList();
+        List<(string, DateTime,int,float,int)> buff= player_Buffs.Keys.Select(x => (x, player_Buffs[x].Item1, player_Buffs[x].Item2, player_Buffs[x].Item3,player_Buffs[x].Item4)).ToList();
         player_baff = "";
         for (int i = 0; i < buff.Count; i++)
         {
@@ -31,7 +31,7 @@ public class user_player_Buff : Base_VO
             {
                 player_baff += "&";
             }
-            player_baff += buff[i].Item1 + "," + buff[i].Item2.ToString("yyyy-MM-dd HH:mm:ss") + "," + buff[i].Item3+","+buff[i].Item4;
+            player_baff += buff[i].Item1 + "," + buff[i].Item2.ToString("yyyy-MM-dd HH:mm:ss") + "," + buff[i].Item3+","+buff[i].Item4+","+ buff[i].Item5;
         }
         return player_baff;
     }

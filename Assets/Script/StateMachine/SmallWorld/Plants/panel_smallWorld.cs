@@ -74,7 +74,7 @@ public class panel_smallWorld : Panel_Base
         small_World_bg = Find<Image>("small_World");
         _explore = Find<Pet_explore>("small_World/Pet_explore");
         pos_btn=Find<Transform>("bg_main/btn_list");
-        base_info = Find<Text>("bg_main/base_info/info");
+        base_info = Find<Text>("bg_main/Scroll View/Viewport/base_info/info");
         btn_item = Battle_Tool.Find_Prefabs<btn_item>("btn_item");// Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
         
         hatching_progress = Find<hatching_progress>("small_World/hatching_progress");
