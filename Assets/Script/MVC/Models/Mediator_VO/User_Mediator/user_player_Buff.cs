@@ -17,7 +17,7 @@ public class user_player_Buff : Base_VO
     /// 玩家buff 1，buff名字 2，buff开始时间 3，buff持续时间
     /// </summary>
     //public  List<(string, DateTime,int)> player_Buffs = new List<(string, DateTime, int)>();
-    public Dictionary<string ,(DateTime,int,float)> player_Buffs= new Dictionary<string, (DateTime, int,float)>();
+    public Dictionary<string ,(DateTime,int,float,int)> player_Buffs= new Dictionary<string, (DateTime, int,float,int)>();
     /// <summary>
     /// 整合Buff
     /// </summary>
@@ -46,11 +46,8 @@ public class user_player_Buff : Base_VO
             if(buff[i] != "")
             {
                 string[] buff_info = buff[i].Split(',');
-                player_Buffs.Add(buff_info[0], (DateTime.Parse(buff_info[1]), int.Parse(buff_info[2]), float.Parse(buff_info[3])));
+                player_Buffs.Add(buff_info[0], (DateTime.Parse(buff_info[1]), int.Parse(buff_info[2]), float.Parse(buff_info[3]),int.Parse(buff_info[4])));
             }
-             
-
-
         }
 
     }

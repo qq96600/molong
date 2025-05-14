@@ -72,6 +72,14 @@ namespace MVC
             }
             else
             {
+                mysqlReader = MysqlDb.SelectWhere(Mysql_Table_Name.mo_user_iphone, new string[] { "par", "account" }, new string[] { "=", "=" },
+                new string[] { SumSave.par.ToString(), id[0]});
+                if (mysqlReader.HasRows)
+                {
+                    Game_Omphalos.i.Alert_Info("账号已存在");
+                    CloseMySqlDB();
+                    return;
+                }
                 SumSave.uid = Guid.NewGuid().ToString("N");
                 Game_Omphalos.i.Alert_Show("创建角色成功");
                 crt_verify = Guid.NewGuid().ToString("N");
@@ -269,8 +277,6 @@ namespace MVC
                 while (mysqlReader.Read())
                 {
                     SumSave.crt_player_buff = ReadDb.Read(mysqlReader, new user_player_Buff());
-                    //DateTime times = SumSave.nowtime;
-                    //SumSave.crt_plyer_buff.player_Buffs.Add("修炼丹",(times, 10));
                 }
 
             }
@@ -1043,12 +1049,16 @@ namespace MVC
 
             }
 
-
+            if (SumSave.crt_player_buff.player_Buffs.Count > 0)
+            {
+                Enum_Value(crt, (int)enum_skill_attribute_list.经验加成, Battle_Tool.IsBuff(1));
+                Enum_Value(crt, (int)enum_skill_attribute_list.人物历练, Battle_Tool.IsBuff(2));
+            }
 
 
 
                 //丹药属性
-            List<(string, List<int>)> seeds = SumSave.crt_seeds.GetuseList();
+                List<(string, List<int>)> seeds = SumSave.crt_seeds.GetuseList();
             if (seeds.Count > 0)
             {
                 foreach (var item in seeds)

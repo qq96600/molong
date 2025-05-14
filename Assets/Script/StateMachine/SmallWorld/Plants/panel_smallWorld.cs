@@ -278,10 +278,13 @@ public class panel_smallWorld : Panel_Base
         {
             case 1:
                 ///判断越界
-                ArrayHelper.SafeGet(SumSave.db_lvs.world_offect_list, SumSave.crt_world.World_Lv, out int se);
-                value = time * SumSave.db_lvs.world_offect_list[SumSave.crt_world.World_Lv];
-                value+= crt_value;
-                value = Mathf.Min(value, SumSave.db_lvs.word_lv_max_value[SumSave.crt_world.World_Lv]);
+                if (ArrayHelper.SafeGet(SumSave.db_lvs.world_offect_list, SumSave.crt_world.World_Lv, out int se))
+                {
+                    value = time * SumSave.db_lvs.world_offect_list[SumSave.crt_world.World_Lv];
+                    value += crt_value;
+                    value = Mathf.Min(value, SumSave.db_lvs.word_lv_max_value[SumSave.crt_world.World_Lv]);
+                }
+                
                 break;
             case 2:
                 value = SumSave.db_lvs.word_lv_max_value[SumSave.crt_world.World_Lv];

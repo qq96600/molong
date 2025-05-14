@@ -322,11 +322,11 @@ public class panel_store : Base_Mono
             SumSave.crt_player_buff.player_Buffs[_buy_item.ItemName] =
                 (SumSave.crt_player_buff.player_Buffs[_buy_item.ItemName].Item1,
                 SumSave.crt_player_buff.player_Buffs[_buy_item.ItemName].Item2+(60 * buy_num)
-                , effect);//当有时，增加buff时间
+                , effect,1);//当有时，增加buff时间
         }
         else
         {
-            SumSave.crt_player_buff.player_Buffs.Add(_buy_item.ItemName, (SumSave.nowtime, 60 * buy_num, effect));
+            SumSave.crt_player_buff.player_Buffs.Add(_buy_item.ItemName, (SumSave.nowtime, 60 * buy_num, effect,1));
         }
         Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.user_player_buff, SumSave.crt_player_buff.Set_Uptade_String(), SumSave.crt_player_buff.Get_Update_Character());//角色丹药Buff更新数据库
     }
