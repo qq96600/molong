@@ -147,12 +147,24 @@ namespace MVC
             }
             TheServerObg.gameObject.SetActive(true);
             ClearObject(TheServerList);
-            for(int i=0;i<SumSave.db_pars.Count; i++)
+            int device = 1;
+#if UNITY_EDITOR
+            device = 1;
+#elif UNITY_ANDROID
+            device = 1;
+#elif UNITY_IPHONE
+            device = 2;
+#endif
+            for (int i=0;i<SumSave.db_pars.Count; i++)
             {
-                btn_item item=Instantiate(btn_Item, TheServerList);
-                item.Show(SumSave.db_pars[i].index, (SumSave.db_pars[i].index).ToString()+ "区");
-                item.GetComponent<Button>().onClick.AddListener(()=> { SelectPar(item); });
-               
+                if (SumSave.db_pars[i].device == device)
+                {
+                    btn_item item = Instantiate(btn_Item, TheServerList);
+                    item.Show(SumSave.db_pars[i].index, (SumSave.db_pars[i].index).ToString() + "区");
+                    item.GetComponent<Button>().onClick.AddListener(() => { SelectPar(item); });
+
+                }
+
             }
             
         }

@@ -133,13 +133,26 @@ public class panel_map : Panel_Base
     /// 打开地图
     /// </summary>
     private void Open_Map()
-    { 
+    {
         if(crt_map==null)
             return;
+        Base_Task();
         //打开地图
         Debug.Log("打开地图");
         fight_panel.Show();
         fight_panel.Open_Map(maplists[crt_map]);
         Hide();
+    }
+
+    private void Base_Task()
+    {
+        if (crt_map.index == 1)//新手任务
+        {
+            if (SumSave.crt_greenhand.crt_task == 1001)//完成当前任务开启下个任务
+            {
+                SumSave.crt_greenhand.crt_progress++;
+            }
+        }
+        
     }
 }

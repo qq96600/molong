@@ -1,32 +1,55 @@
+using Common;
 using MVC;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class user_mail_vo : Base_VO
 {
-    /// <summary>
-    /// 邮件id
-    /// </summary>
-    public int mail_id;
-    /// <summary>
-    /// 几区
-    /// </summary>
-    public int mail_par;
-    /// <summary>
-    /// 接受人 -1代表全区 uid代表个人
-    /// </summary>
-    public string mail_recipient;
+    public List<int> lists = new List<int>();
+    public void Init()
+    {
+        string[] strs = user_value.Split(',');
+        for (int i = 0; i < strs.Length; i++)
+        { 
+            if(!string.IsNullOrEmpty(strs[i]))
+            lists.Add(int.Parse(strs[i]));
+        }
+     }
 
     public override string[] Set_Instace_String()
     {
         return new string[]
+
         {
-            GetStr(0),
-            GetStr(mail_par),
-            GetStr(mail_recipient),
-            GetStr(user_value)
+        GetStr(0),
+        GetStr(SumSave.crt_user.uid),
+        GetStr(user_value)
         };
     }
 
+    public override string[] Get_Update_Character()
+    {
+        return new string[] { "user_value" };
+
+    }
+
+    public override string[] Set_Uptade_String()
+    {
+        return new string[] { GetData() };
+    }
+    /// <summary>
+    /// 获取数据
+    /// </summary>
+    /// <returns></returns>
+    private string GetData()
+    {
+        string value = "";
+        for (int i = 0; i < lists.Count; i++)
+        {
+            value += (value == "" ? "" : ",") + lists[i];
+        }
+        return value;
+    }
 }

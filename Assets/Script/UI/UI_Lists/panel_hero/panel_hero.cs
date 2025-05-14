@@ -129,10 +129,10 @@ public class panel_hero : Panel_Base
         {
             if (crt_hero.SetData().hero_name == item)
             {
-                SumSave.crt_hero.hero_pos = crt_hero.SetData().hero_name;
+                SumSave.crt_hero.hero_pos = item;
                 Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_hero,
                     SumSave.crt_hero.Set_Uptade_String(), SumSave.crt_hero.Get_Update_Character());
-                Alert_Dec.Show("切换角色 " + crt_hero.SetData().hero_name + " 成功");
+                Alert_Dec.Show("切换角色 " + item + " 成功");
                 return;
             }
         }
