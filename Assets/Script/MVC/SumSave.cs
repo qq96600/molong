@@ -151,7 +151,10 @@ namespace Common
         /// 滚动消息列表
         /// </summary>
         public static List<(int, string, string)> crt_message_window;
-      
+        /// <summary>
+        /// 自身累计奖励
+        /// </summary>
+        public static user_Accumulatedrewards_vo crt_accumulatedrewards;
 
         #endregion
 
@@ -251,6 +254,10 @@ namespace Common
         /// 收集物品列表
         /// </summary>
         public static List<db_collect_vo> db_collect_vo;
+        /// <summary>
+        /// 累积奖励列表
+        /// </summary>
+        public static db_Accumulatedrewards_vo db_Accumulatedrewards;
 
         #endregion
 

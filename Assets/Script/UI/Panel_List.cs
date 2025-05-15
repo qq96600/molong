@@ -29,4 +29,5 @@ public enum  Panel_List
     panel_hall,//大厅面板
     panel_Buff,//buff面板
     panel_email,//邮件面板
+    Panel_Accumulatedrewards//累计奖励面板
 }

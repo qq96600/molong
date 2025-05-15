@@ -51,7 +51,6 @@ public class user_pass_vo : Base_VO
     /// 用户领取状态
     /// </summary>
     private List<int> data_day_state = new List<int>();
-
     ///领取状态
     private Dictionary<int,List<int>> dic_user_values = new Dictionary<int, List<int>>();
 
@@ -83,6 +82,7 @@ public class user_pass_vo : Base_VO
                 day_state.Add(0);
             }
         }
+       
     }
     /// <summary>
     /// 返回用户领取状态

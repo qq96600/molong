@@ -18,7 +18,12 @@ public static class ReadDb
         item.par = reader.GetInt32(reader.GetOrdinal("par"));
         return item;
     }
-
+    public static user_Accumulatedrewards_vo Read(MySqlDataReader reader, user_Accumulatedrewards_vo item)
+    {
+        item.user_value = reader.GetString(reader.GetOrdinal("accumulated_rewards"));
+        item.Init();
+        return item;
+    }
     public static db_mail_vo Read(MySqlDataReader reader, db_mail_vo item)
     {
         item.mail_id = reader.GetInt32(reader.GetOrdinal("id"));
@@ -374,7 +379,13 @@ public static class ReadDb
         item.Init();
         return item;
     }
-
+    public static db_Accumulatedrewards_vo Read(MySqlDataReader reader, db_Accumulatedrewards_vo item)
+    {
+        item.pass_value = reader.GetString(reader.GetOrdinal("pass_value"));
+        item.signin_value = reader.GetString(reader.GetOrdinal("signin_value"));
+        item.Init();
+        return item;
+    }
     public static user_plant_vo Read(MySqlDataReader reader, user_plant_vo item)
     {
         item.plantLeve= reader.GetInt32(reader.GetOrdinal("plantLeve"));
@@ -407,7 +418,6 @@ public static class ReadDb
         item.GetNumerical();
         return item;
     }
-
     public static user_pass_vo Read(MySqlDataReader reader, user_pass_vo item)
     {
         item.data_lv = reader.GetInt32(reader.GetOrdinal("pass_lv"));

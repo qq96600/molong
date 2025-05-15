@@ -46,7 +46,20 @@ namespace MVC
             Read_db_signin();
             Read_db_par();
             Read_Guide_TotalTask();
+            Read_db_Accumulatedrewards();
             CloseMySqlDB();
+        }
+        public void Read_db_Accumulatedrewards()
+        {
+            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_accumulatedrewards);
+            SumSave.db_Accumulatedrewards = new db_Accumulatedrewards_vo();
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.db_Accumulatedrewards = ReadDb.Read(mysqlReader, new db_Accumulatedrewards_vo());
+                }
+            }
         }
         /// <summary>
         /// 读取大世界列表

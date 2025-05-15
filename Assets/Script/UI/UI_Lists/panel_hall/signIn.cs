@@ -6,6 +6,7 @@ using Common;
 using UnityEngine.UI;
 using System;
 using Components;
+using UI;
 
 public class signIn : Base_Mono
 {
@@ -24,7 +25,10 @@ public class signIn : Base_Mono
     /// <summary>
     /// 签到按钮
     /// </summary>
-    private Button btn_signln;
+    private Button btn_signln,max_signln;
+
+    private Panel_Accumulatedrewards panel_accumulatedrewards;
+
     private void Awake()
     {
         pos_list=Find<Transform>("Scroll View/Viewport/Content");
@@ -32,6 +36,9 @@ public class signIn : Base_Mono
         info = Find<Text>("bg/info");
         btn_signln = Find<Button>("btn_signln");
         btn_signln.onClick.AddListener(OnClick_signln);
+        max_signln=Find<Button>("btn_maxsignln");
+        max_signln.onClick.AddListener(OnClick_maxsignln);
+        panel_accumulatedrewards = UI_Manager.I.GetPanel<Panel_Accumulatedrewards>();
         ClearObject(pos_list);
         List<int> list = SumSave.crt_signin.Set();
         for (int i = 0; i < SumSave.db_Signins.Count; i++)
@@ -45,6 +52,13 @@ public class signIn : Base_Mono
             item.GetComponent<Button>().onClick.AddListener(() => { OnClick(item); });
         }
     }
+
+    private void OnClick_maxsignln()
+    {
+        panel_accumulatedrewards.Show();
+        panel_accumulatedrewards.Init(2);
+    }
+
     /// <summary>
     /// 签到
     /// </summary>

@@ -13,7 +13,7 @@ public class panel_pass : Base_Mono
     /// <summary>
     /// 通行证列表
     /// </summary>
-    private List<string> btn_list = new List<string>() { "S1", "S2" }; 
+    private List<string> btn_list = new List<string>() { "S1" }; //, "S2"
 
 
     private Transform pos_btn, pos_item,pos_task;
@@ -35,6 +35,10 @@ public class panel_pass : Base_Mono
     /// 第几个通行证
     /// </summary>
     private int index=0;
+    /// <summary>
+    /// 累积奖励
+    /// </summary>
+    private Panel_Accumulatedrewards panel_accumulatedrewards;
 
     protected void Awake()
     {
@@ -46,9 +50,11 @@ public class panel_pass : Base_Mono
         pos_item = Find<Transform>("bg_main/Scroll View/Viewport/Content");
         pos_task = Find<Transform>("bg_main/task/task_list");
         task_info = Find<Text>("bg_main/task/info/info");
+        task_info.GetComponent<Button>().onClick.AddListener(() => { OnTaskInfoClick(); });
         btn_itm_prefabs = Battle_Tool.Find_Prefabs<btn_item>("btn_item"); //Resources.Load<btn_item>("Prefabs/base_tool/btn_item"); 
         pass_item_prefabs = Battle_Tool.Find_Prefabs<pass_item>("pass_item"); //Resources.Load<pass_item>("Prefabs/panel_hall/panel_pass/pass_item"); 
         task_item_prefabs = Battle_Tool.Find_Prefabs<task_item>("task_item"); //Resources.Load<task_item>("Prefabs/panel_hall/panel_pass/task_item");
+        panel_accumulatedrewards= UI_Manager.I.GetPanel<Panel_Accumulatedrewards>();
         for (int i = 0; i < btn_list.Count; i++)
         {
             btn_item btn = Instantiate(btn_itm_prefabs, pos_btn);
@@ -65,6 +71,15 @@ public class panel_pass : Base_Mono
             dic_task.Add(i, item);
         }
     }
+    /// <summary>
+    /// 显示累积奖励
+    /// </summary>
+    private void OnTaskInfoClick()
+    {
+        panel_accumulatedrewards.Show();
+        panel_accumulatedrewards.Init(1);
+    }
+
     /// <summary>
     /// 点击事件
     /// </summary>

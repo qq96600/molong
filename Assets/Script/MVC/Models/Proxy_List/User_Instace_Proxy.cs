@@ -265,8 +265,32 @@ namespace MVC
             Read_user_Collect();
             Read_user_player_Buff();
             Read_User_Mail();
+            Read_User_Reward();
             refresh_Max_Hero_Attribute();
         }
+
+        private void Read_User_Reward()
+        {
+            mysqlReader = MysqlDb.Select(Mysql_Table_Name.mo_user_rewards_state, "uid", GetStr(SumSave.crt_user.uid));
+            SumSave.crt_accumulatedrewards = new user_Accumulatedrewards_vo();
+
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.crt_accumulatedrewards = ReadDb.Read(mysqlReader, new user_Accumulatedrewards_vo());
+                }
+
+            }
+            else//为空的话初始化数据
+            {
+                SumSave.crt_accumulatedrewards.user_value = "";
+                SumSave.crt_accumulatedrewards.Init();
+                Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_rewards_state, SumSave.crt_accumulatedrewards.Set_Instace_String());
+            }
+
+        }
+
         public void Read_user_player_Buff()
         {
             mysqlReader = MysqlDb.Select(Mysql_Table_Name.user_player_buff, "uid", GetStr(SumSave.crt_user.uid));
