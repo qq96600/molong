@@ -25,7 +25,7 @@ public class bag_item : Base_Mono
             data = value;
             if (data == null) return;
             item_icon.sprite = UI.UI_Manager.I.GetEquipSprite("icon/", data.Name);
-            if(data.user_value!=null)
+            if (data.user_value != null)
             {
                 string[] info_str = data.user_value.Split(' ');
                 info.text = info_str[1] == "0" ? "" : ("+" + info_str[1]);
@@ -33,7 +33,7 @@ public class bag_item : Base_Mono
                 if (lv <= 5)
                 {
                     item_frame.sprite = UI.UI_Manager.I.GetEquipSprite("frame/", lv.ToString());
-                    item_frame.color= Color.white;
+                    item_frame.color = Color.white;
                 }
                 else
                 {
@@ -43,7 +43,7 @@ public class bag_item : Base_Mono
                     Instantiate(Resources.Load<GameObject>("Prefabs/frame/" + lv), item_frame.transform);
                 }
             }
-            
+
         }
         get
         {

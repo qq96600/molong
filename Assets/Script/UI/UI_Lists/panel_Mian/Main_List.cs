@@ -15,4 +15,5 @@ public enum Main_List
     panel_collect,//收集
     Daily_copies,//日常副本
     offect_emial,//邮件
+    panel_fatePalace,//命运殿堂
 }

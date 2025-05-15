@@ -251,6 +251,10 @@ namespace Common
         /// 收集物品列表
         /// </summary>
         public static List<db_collect_vo> db_collect_vo;
+        /// <summary>
+        /// 命运殿堂列表
+        /// </summary>
+        public static List<db_fate_vo> db_fate_list;
 
         #endregion
 

@@ -61,6 +61,10 @@ namespace Components
         {
             instance.Info(dec);
         }
+        public static void Show(List<(string,int)> dec)
+        {
+            instance.Info(dec);
+        }
         public static void Show(Dictionary<string,int> dec)
         {
             instance.Info(dec);
@@ -75,6 +79,18 @@ namespace Components
             for (int i = 0; i < dec.Count; i++)
             {
                 Instantiate(TextPrefabs, container).Init((dec[i], 0));
+            }
+        }
+        public void Info(List<(string,int)> dec)
+        {
+            Show();
+            for (int i = container.childCount - 1; i >= 0; i--)//清空区域内按钮
+            {
+                Destroy(container.GetChild(i).gameObject);
+            }
+            for (int i = 0; i < dec.Count; i++)
+            {
+                Instantiate(TextPrefabs, container).Init((dec[i].Item1, dec[i].Item2));
             }
         }
 

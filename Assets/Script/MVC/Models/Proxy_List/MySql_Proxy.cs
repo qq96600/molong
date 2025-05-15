@@ -46,8 +46,26 @@ namespace MVC
             Read_db_signin();
             Read_db_par();
             Read_Guide_TotalTask();
+            Read_Guide_Fate();
             CloseMySqlDB();
         }
+
+        /// <summary>
+        /// 读取命运殿堂列表
+        /// </summary>
+        public void Read_Guide_Fate()
+        {
+            SumSave.db_fate_list = new List<db_fate_vo>();
+            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_fate);
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.db_fate_list.Add(ReadDb.Read(mysqlReader, new db_fate_vo()));
+                }
+            }
+        }
+
         /// <summary>
         /// 读取大世界列表
         /// </summary>
