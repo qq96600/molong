@@ -23,6 +23,63 @@ public class user_needlist_vo : Base_VO
     /// 地图进入次数列表
     /// </summary>
     private List<(string, int)> map_value_list=new List<(string, int)>();
+
+    /// <summary>
+    /// 命运殿堂抽奖次数
+    /// </summary>
+    public string fate_value;
+    /// <summary>
+    /// 命运殿堂抽奖次数 <期数,<(物品名字，物品单抽获得的数量)，物品抽取的次数>>
+    /// </summary>
+    public Dictionary<int, Dictionary<(string, int), int>> fate_value_dic = new Dictionary<int, Dictionary<(string, int), int>>();
+
+
+
+    /// <summary>
+    /// 解析命运殿堂抽奖次数
+    /// </summary>
+    public void fate_Init()
+    {
+        string[] store_list = fate_value.Split('&');//分解每一期
+        for (int i = 0; i < store_list.Length; i++)
+        {
+            string[] fate = store_list[i].Split('|');//分解每一个物品 第一个为期数，后面为物品
+            for(int x=0;x< fate.Length;x++)
+            {
+                string[] fate_list = fate[1].Split(' ');//分解物品属性
+                Dictionary<(string, int), int> dic = new Dictionary<(string, int), int>();
+                if (fate_list.Length == 3)//等于3为物品否则为期数
+                {
+                    for (int j = 0; j < fate_list.Length; j++)
+                    {
+                        dic.Add((fate_list[0], int.Parse(fate_list[1])), int.Parse(fate_list[2]));
+                    }
+                }
+                fate_value_dic.Add(int.Parse(fate[0]), dic);
+            }
+        }
+    }
+
+    private string fate_Merge()
+    {
+        string item = "";
+        foreach (KeyValuePair<int, Dictionary<(string, int), int>> fate in fate_value_dic)
+        {
+            if (item != "")
+            {
+                item += "&";
+            }
+            item += fate.Key;
+            foreach (KeyValuePair<(string, int), int> fate_list in fate.Value)
+            {
+                item += "|" + fate_list.Key.Item1 + " " + fate_list.Key.Item2 + " " + fate_list.Value;
+            }
+        }
+        return item;
+    }
+
+
+
     /// <summary>
     /// 解析商店限购物品
     /// </summary>
@@ -129,7 +186,9 @@ public class user_needlist_vo : Base_VO
             GetStr(SumSave.crt_user.uid),
             GetStr(store_value),
             GetStr(map_value),
+            GetStr(fate_value),
             GetStr(user_value),
+
         };
 
     }
@@ -139,6 +198,7 @@ public class user_needlist_vo : Base_VO
         return new string[] {
             "store_value",
             "map_value",
+            "fate_value"
         };
     }
 
@@ -147,7 +207,8 @@ public class user_needlist_vo : Base_VO
         return new string[]
          {
             GetStr(store_Merge()),
-            GetStr(map_Merge()),    
+            GetStr(map_Merge()),   
+            GetStr(fate_Merge()),
          };
     }
 }

@@ -10,6 +10,14 @@ using UnityEngine;
 /// </summary>
 public static class ReadDb
 {
+
+    public static db_fate_vo Read(MySqlDataReader reader, db_fate_vo item)
+    {
+        item.fate_id= reader.GetInt32(reader.GetOrdinal("fate_index"));
+        item.fate_value= reader.GetString(reader.GetOrdinal("fate_value"));
+        item.Init();
+        return item;
+    }
     public static user_base_vo Read(MySqlDataReader reader, user_base_vo item)
     {
         item.uid = reader.GetString(reader.GetOrdinal("uid"));
@@ -113,6 +121,7 @@ public static class ReadDb
         item.now_time = Convert.ToDateTime(reader.GetString(reader.GetOrdinal("now_time")));
         item.number = reader.GetInt32(reader.GetOrdinal("number"));
         item.user_value = reader.GetString(reader.GetOrdinal("user_value"));
+        item.max_number= reader.GetInt32(reader.GetOrdinal("max_number"));
         item.Init();
         return item;
     }
@@ -152,8 +161,10 @@ public static class ReadDb
     {
         item.store_value = reader.GetString(reader.GetOrdinal("store_value"));
         item.map_value = reader.GetString(reader.GetOrdinal("map_value"));
+        item.fate_value = reader.GetString(reader.GetOrdinal("fate_value"));
         item.store_Init();
         item.map_Init();
+        item.fate_Init();
         return item;
     }
 

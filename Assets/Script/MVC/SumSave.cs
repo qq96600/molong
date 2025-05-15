@@ -258,6 +258,9 @@ namespace Common
         /// 累积奖励列表
         /// </summary>
         public static db_Accumulatedrewards_vo db_Accumulatedrewards;
+        /// 命运殿堂列表
+        /// </summary>
+        public static List<db_fate_vo> db_fate_list;
 
         #endregion
 

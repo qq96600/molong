@@ -19,7 +19,7 @@ public class user_signin_vo : Base_VO
     /// 是否领取奖励
     /// </summary>
     private List<int> values = new List<int>();
-
+    public int max_number;
     public void Init()
     { 
     
@@ -83,7 +83,8 @@ public class user_signin_vo : Base_VO
             {
                 "now_time",
                 "number",
-                "user_value"
+                "user_value",
+                "max_number"
             };
     }
 
@@ -93,7 +94,9 @@ public class user_signin_vo : Base_VO
             {
               GetStr(now_time.ToString("yyyy-MM-dd")),
               GetStr(number),
-              GetStr(DataSet())
+              GetStr(DataSet()),
+              GetStr(max_number)
+
             };
     }
 
@@ -105,7 +108,8 @@ public class user_signin_vo : Base_VO
         GetStr(SumSave.crt_user.uid),
         GetStr(now_time),
         GetStr(number),
-        GetStr(DataSet())
+        GetStr(DataSet()),
+        GetStr(max_number)
         };
     }
 

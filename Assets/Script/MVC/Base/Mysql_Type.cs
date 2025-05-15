@@ -67,4 +67,5 @@ public enum Mysql_Table_Name
     history_server_mail,//历史邮件
     db_accumulatedrewards,//累计奖励
     mo_user_rewards_state,//用户累计奖励状态
+    db_fate,//命运殿堂
 }

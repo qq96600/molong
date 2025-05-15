@@ -69,12 +69,21 @@ public class signIn : Base_Mono
             SumSave.crt_user_unit.verify_data(currency_unit.灵珠, 1000000);
             SumSave.crt_signin.now_time = Convert.ToDateTime(SumSave.nowtime.ToString("yyyy-MM-dd"));
             SumSave.crt_signin.number++;
+            SumSave.crt_signin.max_number++;
+            Clear();
             Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_signin, SumSave.crt_signin.Set_Uptade_String(),
                 SumSave.crt_signin.Get_Update_Character());
             Alert_Dec.Show("签到成功");
             base_show();
         }
         else Alert_Dec.Show("今日已签到");
+    }
+    /// <summary>
+    /// 重置需求
+    /// </summary>
+    private void Clear()
+    {
+
     }
 
     /// <summary>

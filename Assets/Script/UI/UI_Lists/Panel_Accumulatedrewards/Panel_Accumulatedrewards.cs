@@ -6,6 +6,7 @@ using UI;
 using UnityEngine;
 using UnityEngine.UI;
 using MVC;
+using Components;
 /// <summary>
 /// 累积奖励
 /// </summary>
@@ -54,7 +55,10 @@ public class Panel_Accumulatedrewards : Panel_Base
         }
         GetList(index);
     }
-
+    /// <summary>
+    /// 初始化
+    /// </summary>
+    /// <param name="index"></param>
     private void GetList(int index)
     {
         ClearObject(pos_list);
@@ -100,7 +104,6 @@ public class Panel_Accumulatedrewards : Panel_Base
     protected void Reward(int index)
     {
         Dictionary<int, List<int>> dic = SumSave.crt_accumulatedrewards.Set();
-        List<int> list = new List<int>();
         if (type == 1)
         {
             if (index < SumSave.db_Accumulatedrewards.pass_list.Count)
@@ -108,19 +111,7 @@ public class Panel_Accumulatedrewards : Panel_Base
                 //满足领取条件
                 if (SumSave.crt_pass.Max_task_number > SumSave.db_Accumulatedrewards.pass_list[index].Item1)
                 {
-                    if (dic.ContainsKey(type))
-                    {
-                        list = dic[type];
-                    }else dic.Add(type, list);
-                    while (list.Count < index)
-                    { 
-                        list.Add(0);
-                    }
-                    list[index] = 1;
-                    dic[type] = list;
-                    SetData(dic);
-                    Receive_Reward(SumSave.db_Accumulatedrewards.pass_list[index].Item2);
-                    GetList(type);
+                    operate(SumSave.db_Accumulatedrewards.pass_list, dic, index);
                 }
             }
         }
@@ -129,26 +120,37 @@ public class Panel_Accumulatedrewards : Panel_Base
             if (index < SumSave.db_Accumulatedrewards.signin_list.Count)
             {
                 //满足领取条件
-                if (SumSave.crt_signin.number > SumSave.db_Accumulatedrewards.signin_list[index].Item1)
+                if (SumSave.crt_signin.max_number > SumSave.db_Accumulatedrewards.signin_list[index].Item1)
                 {
-                    if (dic.ContainsKey(type))
-                    {
-                        list = dic[type];
-                    }
-                    else dic.Add(type, list);
-                    while (list.Count < index)
-                    {
-                        list.Add(0);
-                    }
-                    list[index] = 1;
-                    dic[type] = list;
-                    SetData(dic);
-                    Receive_Reward(SumSave.db_Accumulatedrewards.signin_list[index].Item2);
-                    GetList(type);
+                    operate(SumSave.db_Accumulatedrewards.signin_list, dic, index);
                 }
             }
         }
 
+    }
+    /// <summary>
+    /// 数据判断
+    /// </summary>
+    /// <param name="value"></param>
+    /// <param name="dic"></param>
+    /// <param name="index"></param>
+    private void operate(List<(int, string)> value, Dictionary<int, List<int>> dic,int index)
+    {
+        List<int> list = new List<int>();
+        if (dic.ContainsKey(type))
+        {
+            list = dic[type];
+        }
+        else dic.Add(type, list);
+        while (list.Count < index)
+        {
+            list.Add(0);
+        }
+        list[index] = 1;
+        dic[type] = list;
+        SetData(dic);
+        Receive_Reward(value[index].Item2);
+        GetList(type);
     }
     /// <summary>
     /// 领取奖励
@@ -178,6 +180,7 @@ public class Panel_Accumulatedrewards : Panel_Base
                     break;
             }
         }
+        Alert_Icon.Show(dic);
     
     }
     private void SetData(Dictionary<int, List<int>> dic)
