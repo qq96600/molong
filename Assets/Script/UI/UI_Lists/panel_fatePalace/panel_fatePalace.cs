@@ -75,22 +75,33 @@ public class panel_fatePalace : Panel_Base
 
 
 
-        /// <summary>
-        /// 切换到对应的期数物品
-        /// </summary>
+    /// <summary>
+    /// 切换到对应的期数物品
+    /// </summary>
     private void On_btn_item_click(btn_item btn_item)
     {
-        int fate_id = btn_item.index - 1;
+        int fate_id = btn_item.index;
         ClearObject(fale_items);
         current_designated = btn_item;
         for (int j = 1; j <= 3; j++)
         {
-            for (int i = 0; i < SumSave.db_fate_list[fate_id].fate_value_list.Count; i++)//实例化第一期物品列表
+            for (int i = 0; i < SumSave.db_fate_list[fate_id-1].fate_value_list.Count; i++)//实例化第一期物品列表
             {
-                if (SumSave.db_fate_list[fate_id].fate_value_list[i].Item2 == j)
+                (string, int, int, int, int) data = SumSave.db_fate_list[fate_id-1].fate_value_list[i];
+                if (data.Item2 == j)//按物品类型排序
                 {
                     fate_item fate_item = Instantiate(fate_item_prefab, fale_items);
-                    fate_item.Init(SumSave.db_fate_list[fate_id].fate_value_list[i]);
+                    int num= 0;
+                    if (SumSave.crt_needlist.fate_value_dic[fate_id].ContainsKey((data.Item1, data.Item3)))
+                    {
+                        num = data.Item4 - SumSave.crt_needlist.fate_value_dic[fate_id][(data.Item1, data.Item3)];//获得剩余数量
+
+                    }else
+                    {
+                        num= data.Item4;
+                    }
+
+                    fate_item.Init(data,num);
                 }
             }
         }
@@ -111,57 +122,119 @@ public class panel_fatePalace : Panel_Base
         List<(string, int )> dic = new List<(string, int)>();//存储奖励
         for (int i=0;i<10;i++)
         {
-            while (true)
+            if (isExhaust())
             {
-                int rand = Random.Range(0, data.Count);//随机抽取一个物品
-                if (Random.Range(0, weight) < data[rand].Item5)//判断是否抽中
+                while (true)
                 {
-                    GetRewards(data, rand);
-                    dic.Add((data[rand].Item1, data[rand].Item3));
-                    break;
+                    int rand = Random.Range(0, data.Count);//随机抽取一个物品
+                    if (Random.Range(0, weight) < data[rand].Item5)//判断是否抽中
+                    {
+                        GetRewards(data, rand);
+                        dic.Add((data[rand].Item1, data[rand].Item3));
+                        break;
+                    }
                 }
             }
+           
         }
         Alert_Icon.Show(dic);
+        On_btn_item_click(current_designated);
 
     }
+    
 
     /// <summary>
     /// 单抽
     /// </summary>
     private void Single_draw()
     {
+
         int weight= 0;
         List<(string, int, int, int, int)> data = SumSave.db_fate_list[current_designated.index - 1].fate_value_list;
-       for (int i=0;i < data.Count;i++)//获取总权重
+
+        
+
+        for (int i=0;i < data.Count;i++)//获取总权重
         {
             weight+= data[i].Item5;
         }
-        while (true)
+       if( isExhaust())
         {
-            int rand = Random.Range(0, data.Count);//随机抽取一个物品
-            if (Random.Range(0, weight) < data[rand].Item5)//判断是否抽中
+            while (true)
             {
-                GetRewards(data, rand);
-                List<(string, int)> dic = new List<(string, int)>();//存储奖励
-                dic.Add((data[rand].Item1, data[rand].Item3));
-                Alert_Icon.Show(dic);
-                break;
+                int rand = Random.Range(0, data.Count);//随机抽取一个物品
+                int count = data[rand].Item4 - SumSave.crt_needlist.fate_value_dic[current_designated.index][(data[rand].Item1, data[rand].Item3)];//命运宝典该剩余抽取次数
+
+                if (Random.Range(0, weight) < data[rand].Item5 && count > 0)//判断是否抽中
+                {
+
+                    GetRewards(data, rand);
+                    List<(string, int)> dic = new List<(string, int)>();//存储奖励
+                    dic.Add((data[rand].Item1, data[rand].Item3));
+                    Alert_Icon.Show(dic);
+                    break;
+                }
+            }
+       
+        }
+        On_btn_item_click(current_designated);
+    }
+    /// <summary>
+    /// 当期是否抽完
+    /// </summary>
+    /// <param name="data"></param>
+    /// <returns></returns>
+    public bool isExhaust()
+    {
+        int SumCount = 0;
+        List<(string, int, int, int, int)> data = SumSave.db_fate_list[current_designated.index - 1].fate_value_list;
+        for (int i = 0; i < SumSave.db_fate_list[current_designated.index - 1].fate_value_list.Count; i++)//判断该期数是否抽完
+        {
+            if (SumSave.crt_needlist.fate_value_dic[current_designated.index].ContainsKey((data[i].Item1, data[i].Item3)))
+            {
+                if (data[i].Item4 - SumSave.crt_needlist.fate_value_dic[current_designated.index][(data[i].Item1, data[i].Item3)] == 0)
+                {
+                    SumCount++;
+                }
+                if (SumCount == data.Count)
+                {
+                    Alert_Dec.Show("该期数已抽完");
+                    return false;
+                }
             }
         }
-        
+        return true;
     }
+
     /// <summary>
     /// 获得奖励
     /// </summary>
-    /// <param name="data">奖励列表</param>
+    /// <param name="data">（名字，奖励数量，抽奖次数，抽奖次数上限，权重）奖励列表</param>
     /// <param name="rand">具体奖励序列</param>
-    private static void GetRewards(List<(string, int, int, int, int)> data, int rand)
+    private void GetRewards(List<(string, int, int, int, int)> data, int rand)
     {
-        //if(SumSave.crt_needlist.fate_value_dic.ContainsKey(current_designated.index))
-        //{
 
-        //}
+   
+
+        if (SumSave.crt_needlist.fate_value_dic.ContainsKey(current_designated.index))//判断是否已经存在该期数
+        {
+            if(SumSave.crt_needlist.fate_value_dic[current_designated.index].ContainsKey((data[rand].Item1, data[rand].Item3)))
+            {
+                SumSave.crt_needlist.fate_value_dic[current_designated.index][(data[rand].Item1, data[rand].Item3)]++;//更具期数，物品，物品单抽获取的数量找到对应的字典，并增加数量
+            }else
+            {
+                SumSave.crt_needlist.fate_value_dic[current_designated.index].Add((data[rand].Item1, data[rand].Item3), 1);//不存在则创建
+            }
+
+            Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_needlist, SumSave.crt_needlist.Set_Uptade_String(), SumSave.crt_needlist.Get_Update_Character());
+        }
+        else
+        {
+            Dictionary<(string, int), int> dic = new Dictionary<(string, int), int>();
+            dic.Add((data[rand].Item1, data[rand].Item3), 1);
+            SumSave.crt_needlist.fate_value_dic.Add(current_designated.index, dic);//不存在则创建
+            Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_needlist, SumSave.crt_needlist.Set_Uptade_String(), SumSave.crt_needlist.Get_Update_Character());
+        }
 
         switch (data[rand].Item2)
         {

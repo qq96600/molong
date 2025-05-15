@@ -40,23 +40,25 @@ public class user_needlist_vo : Base_VO
     /// </summary>
     public void fate_Init()
     {
+        if (fate_value == "")
+        {
+            return;
+        }
         string[] store_list = fate_value.Split('&');//分解每一期
         for (int i = 0; i < store_list.Length; i++)
         {
             string[] fate = store_list[i].Split('|');//分解每一个物品 第一个为期数，后面为物品
-            for(int x=0;x< fate.Length;x++)
+            Dictionary<(string, int), int> dic = new Dictionary<(string, int), int>();
+            for (int x=0;x< fate.Length;x++)
             {
-                string[] fate_list = fate[1].Split(' ');//分解物品属性
-                Dictionary<(string, int), int> dic = new Dictionary<(string, int), int>();
+                string[] fate_list = fate[x].Split(' ');//分解物品属性
+                
                 if (fate_list.Length == 3)//等于3为物品否则为期数
                 {
-                    for (int j = 0; j < fate_list.Length; j++)
-                    {
-                        dic.Add((fate_list[0], int.Parse(fate_list[1])), int.Parse(fate_list[2]));
-                    }
+                    dic.Add((fate_list[0], int.Parse(fate_list[1])), int.Parse(fate_list[2]));
                 }
-                fate_value_dic.Add(int.Parse(fate[0]), dic);
             }
+            fate_value_dic.Add(int.Parse(fate[0]), dic);
         }
     }
 
