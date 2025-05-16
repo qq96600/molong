@@ -47,6 +47,7 @@ namespace MVC
             Read_db_par();
             Read_Guide_TotalTask();
             Read_db_Accumulatedrewards();
+            Read_Guide_Fate();
             CloseMySqlDB();
         }
         public void Read_db_Accumulatedrewards()
