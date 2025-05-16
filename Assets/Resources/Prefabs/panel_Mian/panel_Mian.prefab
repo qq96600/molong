@@ -3180,12 +3180,12 @@ GameObject:
   - component: {fileID: 4249088801797782301}
   - component: {fileID: 6096735049904675597}
   m_Layer: 5
-  m_Name: Button (Legacy) (2)
+  m_Name: mail_btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4594193374632222361
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3234,8 +3234,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 6614c44aa1b20b44fadc00530418c51b, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4

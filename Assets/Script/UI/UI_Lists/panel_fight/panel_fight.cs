@@ -143,12 +143,12 @@ public class panel_fight : Panel_Base
         close_battle.gameObject.SetActive(true);
         transform.SetAsFirstSibling();
         return;
-        close_panel_state=!close_panel_state;
-        for (int i = 1; i < pos_btn.childCount; i++)
-        { 
-            pos_btn.GetChild(i).gameObject.SetActive(close_panel_state);
-        }
-        close_btn.GetComponent<Image>().sprite = Resources.Load<Sprite>(close_panel_state ? "UI/btn_list/隐藏" : "UI/btn_list/展开");
+        //close_panel_state=!close_panel_state;
+        //for (int i = 1; i < pos_btn.childCount; i++)
+        //{ 
+        //    pos_btn.GetChild(i).gameObject.SetActive(close_panel_state);
+        //}
+        //close_btn.GetComponent<Image>().sprite = Resources.Load<Sprite>(close_panel_state ? "UI/btn_list/隐藏" : "UI/btn_list/展开");
     }
     public override void Show()
     {
