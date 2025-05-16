@@ -9,8 +9,10 @@ public class db_Accumulatedrewards_vo : Base_VO
 {
     public string pass_value;
     public string signin_value;
+    public string fate_value;
     public List<(int,string)> pass_list = new List<(int, string)>();
     public List<(int,string)> signin_list = new List<(int, string)>();
+    public Dictionary<int, Dictionary<int, List<int>>> fate_dic = new Dictionary<int, Dictionary<int, List<int>>>();
     public void Init()
     { 
         string[] pass = pass_value.Split('*');
@@ -29,6 +31,31 @@ public class db_Accumulatedrewards_vo : Base_VO
             { 
                 string[] signin2 = signin[i].Split('|');
                 signin_list.Add((int.Parse(signin2[0]), signin2[1]));
+            }
+        }
+        string[] fate = fate_value.Split(';');
+        for (int i = 0; i < fate.Length; i++)
+        {
+            if (fate[i] != "")
+            { 
+                string[] fate2 = fate[i].Split('|');
+                if(!fate_dic.ContainsKey(int.Parse(fate2[0])))
+                    fate_dic.Add(int.Parse(fate2[0]), new Dictionary<int, List<int>>());
+                Dictionary<int, List<int>> fate_list = new Dictionary<int, List<int>>();
+                string[] fate3 = fate2[1].Split(',');
+                for (int j = 0; j < fate3.Length; j++)
+                {
+                    if (fate3[j] != "")
+                    { 
+                        if(!fate_list.ContainsKey(j)) fate_list.Add(j, new List<int>());
+                        string[] fate4 = fate3[j].Split(' ');
+                        for (int k = 0; k < fate4.Length; k++)
+                        {
+                            fate_list[j].Add(int.Parse(fate4[k]));
+                        }
+                    }
+                }
+                fate_dic[int.Parse(fate2[0])] = fate_list;
             }
         }
 

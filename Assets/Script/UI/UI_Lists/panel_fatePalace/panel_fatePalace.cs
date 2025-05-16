@@ -12,30 +12,43 @@ using Random = UnityEngine.Random;
 public class panel_fatePalace : Panel_Base
 {
     /// <summary>
-    /// µ¥³é£¬Ê®Á¬³é°´Å¥
+    /// å•æŠ½ï¼Œåè¿æŠ½æŒ‰é’®,æŠ½å¥–å±æ€§æŒ‰é’®ï¼Œå…³é—­æŠ½å¥–å±æ€§æŒ‰é’®
     /// </summary>
-    private Button single_draw, ten_consecutive_draws;
+    private Button single_draw, ten_consecutive_draws, Lottery_attribute,CloseAttribute;
     /// <summary>
-    /// ¾ßÌåÆÚÊıÁĞ±í £¬¾ßÌåÎïÆ·ÁĞ±íÎ»ÖÃ
+    /// å…·ä½“æœŸæ•°åˆ—è¡¨ ï¼Œå…·ä½“ç‰©å“åˆ—è¡¨ä½ç½®
     /// </summary>
     private Transform designatedTime_items, fale_items;
 
     /// <summary>
-    /// ÏÔÊ¾½±ÀøÔ¤ÖÆ¼ş
+    /// æ˜¾ç¤ºå¥–åŠ±é¢„åˆ¶ä»¶
     /// </summary>
     private fate_item fate_item_prefab;
     /// <summary>
-    /// ¾ßÌåÆÚÊıÔ¤ÖÆ¼ş
+    /// å…·ä½“æœŸæ•°é¢„åˆ¶ä»¶
     /// </summary>
     private btn_item btn_item_prefab;
     /// <summary>
-    /// µ±Ç°µã»÷µÄÆÚÊı
+    /// å½“å‰ç‚¹å‡»çš„æœŸæ•°
     /// </summary>
     private btn_item current_designated;
     /// <summary>
-    /// Ñ¡ÖĞÆÚÊıÎïÆ·
+    /// é€‰ä¸­æœŸæ•°ç‰©å“
     /// </summary>
     private List<(string, int, int, int, int)> CurrentItems;
+
+ 
+
+    /// <summary>
+    /// æŠ½å¥–å±æ€§ç•Œé¢
+    /// </summary>
+    private Transform LotteryAttribute;
+    /// <summary>
+    /// æŠ½å¥–å±æ€§æ–‡æœ¬
+    /// </summary>
+    private Text AttributeText;
+
+
 
     public override void Show()
     {
@@ -61,12 +74,19 @@ public class panel_fatePalace : Panel_Base
         fate_item_prefab=Battle_Tool.Find_Prefabs<fate_item>("fate_item");
         btn_item_prefab=Battle_Tool.Find_Prefabs<btn_item>("btn_item");
 
+        LotteryAttribute= Find<Transform>("LotteryAttribute");
+        AttributeText= Find<Text>("LotteryAttribute/Attribute/Viewport/Text");
+        LotteryAttribute.gameObject.SetActive(false);
+        Lottery_attribute= Find<Button>("Lottery_attribute");
+        Lottery_attribute.onClick.AddListener(()=> { OpenLotteryAttribute(); });
+        CloseAttribute= Find<Button>("LotteryAttribute/CloseAttribute");
+        CloseAttribute.onClick.AddListener(()=> { LotteryAttribute.gameObject.SetActive(false); });
         ClearObject(designatedTime_items);
 
-        for(int i = 0; i < SumSave.db_fate_list.Count; i++)//ÊµÀı»¯ÆÚÊıÁĞ±í
+        for(int i = 0; i < SumSave.db_fate_list.Count; i++)//å®ä¾‹åŒ–æœŸæ•°åˆ—è¡¨
         {
             btn_item btn_item = Instantiate(btn_item_prefab, designatedTime_items);
-            string text="µÚ"+SumSave.db_fate_list[i].fate_id+"ÆÚ";
+            string text="ç¬¬"+SumSave.db_fate_list[i].fate_id+"æœŸ";
             btn_item.Show(SumSave.db_fate_list[i].fate_id, text);
             btn_item.GetComponent<Button>().onClick.AddListener(()=> { On_btn_item_click(btn_item); });
             if(btn_item.index==1)
@@ -75,12 +95,70 @@ public class panel_fatePalace : Panel_Base
             }
         }
     }
+    /// <summary>
+    ///æ‰“å¼€æŠ½å¥–å±æ€§ç•Œé¢
+    /// </summary>
+    private void OpenLotteryAttribute()
+    {
+        LotteryAttribute.gameObject.SetActive(true);
+        string text = "";
+        int num = NumberOfLuckyDraws();
+        text = "å½“å‰å·²å¼€å¯:"+ num + "æ¬¡\n";
+        Dictionary<int, List<int>> dic = SumSave.db_Accumulatedrewards.fate_dic[current_designated.index];
+        foreach (var item in dic.Keys)
+        {
+            string dec = (enum_skill_attribute_list)dic[item][1] + " + " + dic[item][2] + tool_Categoryt.Obtain_unit(dic[item][1]);
+            if(dic[item][0]<num)dec=Show_Color.Green(dec);
+            else dec=Show_Color.Grey(dec);
+            text +="å‘½è¿å¼€å¯æ¬¡æ•°"+ dic[item][0] + "æ¬¡:" +  dec+"\n";
+        }
+        //if(num>10)
+        //{
+        //    text += "æŠ½å¥–æ¬¡æ•°è¾¾åˆ°10æ¬¡:"+Show_Color.Blue("ç»éªŒåŠ æˆ+30%");
+        //}else if(num>100)
+        //{
+        //    text += "æŠ½å¥–æ¬¡æ•°è¾¾åˆ°100æ¬¡:" + Show_Color.Blue("ç»éªŒåŠ æˆ+50%");
+        //}
+        //else if (num > 1000)
+        //{
+        //    text += "æŠ½å¥–æ¬¡æ•°è¾¾åˆ°1000æ¬¡:" + Show_Color.Blue("ç»éªŒåŠ æˆ+100%");
+        //}
+        //else if (num > 10000)
+        //{
+        //    text += "æŠ½å¥–æ¬¡æ•°è¾¾åˆ°10000æ¬¡:" + Show_Color.Blue("ç»éªŒåŠ æˆ+200%");
+        //}
+
+
+        AttributeText.text = text;
+    }
+
+    /// <summary>
+    /// å•æœŸæŠ½äº†å¤šå°‘æ¬¡
+    /// </summary>
+    /// <returns></returns>
+    private int NumberOfLuckyDraws()
+    {
+        int num = 0;
+        foreach (var item in SumSave.crt_needlist.fate_value_dic)
+        {
+            if (item.Key == current_designated.index)
+            {
+                foreach (var item2 in item.Value)
+                {
+                    num += item2.Value;
+                }
+            }
+          
+        }
+
+        return num;
+    }
 
 
 
 
     /// <summary>
-    /// ÇĞ»»µ½¶ÔÓ¦µÄÆÚÊıÎïÆ·
+    /// åˆ‡æ¢åˆ°å¯¹åº”çš„æœŸæ•°ç‰©å“
     /// </summary>
     private void On_btn_item_click(btn_item btn_item)
     {
@@ -90,20 +168,20 @@ public class panel_fatePalace : Panel_Base
         CurrentItems = SumSave.db_fate_list[current_designated.index - 1].fate_value_list;
         for (int j = 1; j <= 3; j++)
         {
-            for (int i = 0; i < SumSave.db_fate_list[current_designated .index- 1].fate_value_list.Count; i++)//ÊµÀı»¯µÚÒ»ÆÚÎïÆ·ÁĞ±í
+            for (int i = 0; i < SumSave.db_fate_list[current_designated .index- 1].fate_value_list.Count; i++)//å®ä¾‹åŒ–ç¬¬ä¸€æœŸç‰©å“åˆ—è¡¨
             {
-                if (CurrentItems[i].Item2 == j)//°´ÎïÆ·ÀàĞÍÅÅĞò
+                if (CurrentItems[i].Item2 == j)//æŒ‰ç‰©å“ç±»å‹æ’åº
                 {
                     fate_item fate_item = Instantiate(fate_item_prefab, fale_items);
                     int num = 0;
                     if (isDic(i))
                     {
               
-                        num = CurrentItems[i].Item4 - SumSave.crt_needlist.fate_value_dic[current_designated.index][(CurrentItems[i].Item1, CurrentItems[i].Item3)];//»ñµÃÊ£ÓàÊıÁ¿
+                        num = SumSave.crt_needlist.fate_value_dic[current_designated.index][(CurrentItems[i].Item1, CurrentItems[i].Item3)];//è·å¾—å‰©ä½™æ•°é‡
                     }
                     else
                     {
-                        num = CurrentItems[i].Item4;
+                        num =0;
                     }
 
 
@@ -114,7 +192,7 @@ public class panel_fatePalace : Panel_Base
 
     }
     /// <summary>
-    /// ÅĞ¶Ï×ÖµäÖĞÊÇ·ñÓĞ¸ÃÆÚºÍ¸ÃÎïÆ·
+    /// åˆ¤æ–­å­—å…¸ä¸­æ˜¯å¦æœ‰è¯¥æœŸå’Œè¯¥ç‰©å“
     /// </summary>
     /// <param name="i"></param>
     /// <returns></returns>
@@ -124,32 +202,32 @@ public class panel_fatePalace : Panel_Base
     }
 
     /// <summary>
-    /// Ê®Á¬³é
+    /// åè¿æŠ½
     /// </summary>
     private void Ten_consecutive_draws()
     {
-        //NeedConsumables("ÃüÔË±Ò", 10);
+        //NeedConsumables("å‘½è¿å¸", 10);
         //if (!RefreshConsumables())
         //{
-        //    Alert_Dec.Show("ÃüÔË±Ò²»×ã");
+        //    Alert_Dec.Show("å‘½è¿å¸ä¸è¶³");
         //    return;
         //}
         int weight = 0;
        // List<(string, int, int, int, int)> data = SumSave.db_fate_list[current_designated.index-1].fate_value_list;
-        for (int i = 0; i < CurrentItems.Count; i++)//»ñÈ¡×ÜÈ¨ÖØ
+        for (int i = 0; i < CurrentItems.Count; i++)//è·å–æ€»æƒé‡
         {
             weight += CurrentItems[i].Item5;
         }
-        List<(string, int )> dic = new List<(string, int)>();//´æ´¢½±Àø
+        List<(string, int )> dic = new List<(string, int)>();//å­˜å‚¨å¥–åŠ±
         if (isExhaust(10))
         {
             for (int i=0;i<10;i++)
             {
                 while (true)
                 {
-                    int rand = Random.Range(0, CurrentItems.Count);//Ëæ»ú³éÈ¡Ò»¸öÎïÆ·
+                    int rand = Random.Range(0, CurrentItems.Count);//éšæœºæŠ½å–ä¸€ä¸ªç‰©å“
 
-                    if (Random.Range(0, weight) < CurrentItems[rand].Item5 && isCount(rand))//ÅĞ¶ÏÊÇ·ñ³éÖĞ
+                    if (Random.Range(0, weight) < CurrentItems[rand].Item5 && isCount(rand))//åˆ¤æ–­æ˜¯å¦æŠ½ä¸­
                     {
                         GetRewards(rand);
                         dic.Add((CurrentItems[rand].Item1, CurrentItems[rand].Item3));
@@ -162,21 +240,18 @@ public class panel_fatePalace : Panel_Base
             Alert_Icon.Show(dic);
             On_btn_item_click(current_designated);
         }
-     
-
-
     }
     /// <summary>
-    /// ÅĞ¶Ïµ±Ç°ÎïÆ·ÊÇ·ñ³éÍê
+    /// åˆ¤æ–­å½“å‰ç‰©å“æ˜¯å¦æŠ½å®Œ
     /// </summary>
-    /// <param name="rand">ÄÄÒ»¸öÎïÆ·</param>
+    /// <param name="rand">å“ªä¸€ä¸ªç‰©å“</param>
     /// <returns></returns>
     private bool isCount(int rand)
     {
         bool isCount = true;
         if (isDic(rand))
         {
-            //Debug.Log(CurrentItems[rand].Item1+ "µ±Ç°³éÈ¡µÄÊıÁ¿"+ SumSave.crt_needlist.fate_value_dic[current_designated.index][(CurrentItems[rand].Item1, CurrentItems[rand].Item3)]+"¸ÃÎïÆ·¿É³éÈ¡µÄÊıÁ¿£º"+ CurrentItems[rand].Item4);
+            //Debug.Log(CurrentItems[rand].Item1+ "å½“å‰æŠ½å–çš„æ•°é‡"+ SumSave.crt_needlist.fate_value_dic[current_designated.index][(CurrentItems[rand].Item1, CurrentItems[rand].Item3)]+"è¯¥ç‰©å“å¯æŠ½å–çš„æ•°é‡ï¼š"+ CurrentItems[rand].Item4);
             if (CurrentItems[rand].Item4 - SumSave.crt_needlist.fate_value_dic[current_designated.index][(CurrentItems[rand].Item1, CurrentItems[rand].Item3)] <= 0)
             {
                 isCount = false;
@@ -193,36 +268,37 @@ public class panel_fatePalace : Panel_Base
 
 
     /// <summary>
-    /// µ¥³é
+    /// å•æŠ½
     /// </summary>
     private void Single_draw()
     {
 
-        //NeedConsumables("ÃüÔË±Ò", 1);
+        //NeedConsumables("å‘½è¿å¸", 1);
         //if (!RefreshConsumables())
         //{
-        //    Alert_Dec.Show("ÃüÔË±Ò²»×ã");
+        //    Alert_Dec.Show("å‘½è¿å¸ä¸è¶³");
         //    return;
         //}
 
         int weight = 0;
 
-        for (int i=0;i < CurrentItems.Count;i++)//»ñÈ¡×ÜÈ¨ÖØ
+        for (int i=0;i < CurrentItems.Count;i++)//è·å–æ€»æƒé‡
         {
             weight+= CurrentItems[i].Item5;
         }
        if( isExhaust())
         {
-            while (true)//£¨Ãû×Ö£¬ÀàĞÍ£¬ÎïÆ·»ñµÃÊıÁ¿£¬³é½±´ÎÊıÉÏÏŞ£¬È¨ÖØ£©
+            while (true)//ï¼ˆåå­—ï¼Œç±»å‹ï¼Œç‰©å“è·å¾—æ•°é‡ï¼ŒæŠ½å¥–æ¬¡æ•°ä¸Šé™ï¼Œæƒé‡ï¼‰
             {
-                int rand = Random.Range(0, CurrentItems.Count);//Ëæ»ú³éÈ¡Ò»¸öÎïÆ·
-                int count = CurrentItems[rand].Item4 - SumSave.crt_needlist.fate_value_dic[current_designated.index][(CurrentItems[rand].Item1, CurrentItems[rand].Item3)];//ÃüÔË±¦µä¸ÃÊ£Óà³éÈ¡´ÎÊı
+                int rand = Random.Range(0, CurrentItems.Count);//éšæœºæŠ½å–ä¸€ä¸ªç‰©å“
+                
+                //int count = CurrentItems[rand].Item4 - SumSave.crt_needlist.fate_value_dic[current_designated.index][(CurrentItems[rand].Item1, CurrentItems[rand].Item3)];//å‘½è¿å®å…¸è¯¥å‰©ä½™æŠ½å–æ¬¡æ•°
 
-                if (Random.Range(0, weight) < CurrentItems[rand].Item5 &&isCount(rand))//ÅĞ¶ÏÊÇ·ñ³éÖĞ
+                if (Random.Range(0, weight) < CurrentItems[rand].Item5 &&isCount(rand))//åˆ¤æ–­æ˜¯å¦æŠ½ä¸­
                 {
 
                     GetRewards(rand);
-                    List<(string, int)> dic = new List<(string, int)>();//´æ´¢½±Àø
+                    List<(string, int)> dic = new List<(string, int)>();//å­˜å‚¨å¥–åŠ±
                     dic.Add((CurrentItems[rand].Item1, CurrentItems[rand].Item3));
                     Alert_Icon.Show(dic);
                     break;
@@ -233,14 +309,14 @@ public class panel_fatePalace : Panel_Base
    
     }
     /// <summary>
-    /// ÅĞ¶Ïµ±ÆÚÊÇ·ñ»¹ÓĞ¶àÉÙ³é½±½±Àø
+    /// åˆ¤æ–­å½“æœŸæ˜¯å¦è¿˜æœ‰å¤šå°‘æŠ½å¥–å¥–åŠ±
     /// </summary>
     /// <param name="data"></param>
     /// <returns></returns>
     public bool isExhaust(int num=1)
     {
         int SumCount = 0;
-        for (int i = 0; i < CurrentItems.Count; i++)//ÅĞ¶Ï¸ÃÆÚÊıÊÇ·ñ³éÍê
+        for (int i = 0; i < CurrentItems.Count; i++)//åˆ¤æ–­è¯¥æœŸæ•°æ˜¯å¦æŠ½å®Œ
         {
             if (isDic(i))
             {
@@ -254,7 +330,7 @@ public class panel_fatePalace : Panel_Base
 
         if (num > SumCount)
         {
-            Alert_Dec.Show("¸ÃÆÚÊı½±Àø²»×ã");
+            Alert_Dec.Show("è¯¥æœŸæ•°å¥–åŠ±ä¸è¶³");
             return false;
         }
 
@@ -262,21 +338,21 @@ public class panel_fatePalace : Panel_Base
     }
 
     /// <summary>
-    /// »ñµÃ½±Àø
+    /// è·å¾—å¥–åŠ±
     /// </summary>
-    /// <param name="data">£¨Ãû×Ö£¬ÀàĞÍ£¬ÎïÆ·»ñµÃÊıÁ¿£¬³é½±´ÎÊıÉÏÏŞ£¬È¨ÖØ£©½±ÀøÁĞ±í</param>
-    /// <param name="rand">¾ßÌå½±ÀøĞòÁĞ</param>
+    /// <param name="data">ï¼ˆåå­—ï¼Œç±»å‹ï¼Œç‰©å“è·å¾—æ•°é‡ï¼ŒæŠ½å¥–æ¬¡æ•°ä¸Šé™ï¼Œæƒé‡ï¼‰å¥–åŠ±åˆ—è¡¨</param>
+    /// <param name="rand">å…·ä½“å¥–åŠ±åºåˆ—</param>
     private void GetRewards(int rand)
     {
 
-        if (SumSave.crt_needlist.fate_value_dic.ContainsKey(current_designated.index))//ÅĞ¶ÏÊÇ·ñÒÑ¾­´æÔÚ¸ÃÆÚÊı
+        if (SumSave.crt_needlist.fate_value_dic.ContainsKey(current_designated.index))//åˆ¤æ–­æ˜¯å¦å·²ç»å­˜åœ¨è¯¥æœŸæ•°
         {
             if(SumSave.crt_needlist.fate_value_dic[current_designated.index].ContainsKey((CurrentItems[rand].Item1, CurrentItems[rand].Item3)))
             {
-                SumSave.crt_needlist.fate_value_dic[current_designated.index][(CurrentItems[rand].Item1, CurrentItems[rand].Item3)]++;//¸ü¾ßÆÚÊı£¬ÎïÆ·£¬ÎïÆ·µ¥³é»ñÈ¡µÄÊıÁ¿ÕÒµ½¶ÔÓ¦µÄ×Öµä£¬²¢Ôö¼ÓÊıÁ¿
+                SumSave.crt_needlist.fate_value_dic[current_designated.index][(CurrentItems[rand].Item1, CurrentItems[rand].Item3)]++;//æ›´å…·æœŸæ•°ï¼Œç‰©å“ï¼Œç‰©å“å•æŠ½è·å–çš„æ•°é‡æ‰¾åˆ°å¯¹åº”çš„å­—å…¸ï¼Œå¹¶å¢åŠ æ•°é‡
             }else
             {
-                SumSave.crt_needlist.fate_value_dic[current_designated.index].Add((CurrentItems[rand].Item1, CurrentItems[rand].Item3), 1);//²»´æÔÚÔò´´½¨
+                SumSave.crt_needlist.fate_value_dic[current_designated.index].Add((CurrentItems[rand].Item1, CurrentItems[rand].Item3), 1);//ä¸å­˜åœ¨åˆ™åˆ›å»º
             }
 
             Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_needlist, SumSave.crt_needlist.Set_Uptade_String(), SumSave.crt_needlist.Get_Update_Character());
@@ -285,28 +361,33 @@ public class panel_fatePalace : Panel_Base
         {
             Dictionary<(string, int), int> dic = new Dictionary<(string, int), int>();
             dic.Add((CurrentItems[rand].Item1, CurrentItems[rand].Item3), 1);
-            SumSave.crt_needlist.fate_value_dic.Add(current_designated.index, dic);//²»´æÔÚÔò´´½¨
+            SumSave.crt_needlist.fate_value_dic.Add(current_designated.index, dic);//ä¸å­˜åœ¨åˆ™åˆ›å»º
             Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_needlist, SumSave.crt_needlist.Set_Uptade_String(), SumSave.crt_needlist.Get_Update_Character());
         }
 
         switch (CurrentItems[rand].Item2)
         {
             case 1:
-                //»ñµÃ²ÄÁÏ¼¼ÄÜÊéÉñÆ÷
+                //è·å¾—ææ–™æŠ€èƒ½ä¹¦ç¥å™¨
                 Battle_Tool.Obtain_Resources(CurrentItems[rand].Item1, CurrentItems[rand].Item3);
                 break;
             case 2:
-                //»ñµÃ»õ±Ò
+                //è·å¾—è´§å¸
                 Battle_Tool.Obtain_Unit((currency_unit)Enum.Parse(typeof(currency_unit), CurrentItems[rand].Item1), CurrentItems[rand].Item3);
                 break;
             case 3:
-                //»ñµÃÆ¤·ô
+                //è·å¾—çš®è‚¤
                 SumSave.crt_hero.hero_value += (SumSave.crt_hero.hero_value == "" ? "" : ",") + CurrentItems[rand].Item1;
                 Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_hero, new string[] { Battle_Tool.GetStr(SumSave.crt_hero.hero_value) },
                     new string[] { "hero_value" });
                 break;
         }
 
+        if(CurrentItems[rand].Item5<=100)
+        {
+            string vale="æ­å–œç©å®¶ "+SumSave.crt_MaxHero.show_name+" è·å¾—"+CurrentItems[rand].Item1+"x"+CurrentItems[rand].Item3;
+            SendNotification(NotiList.Read_Huser_MessageWindow, vale);
+        }
 
        
     }

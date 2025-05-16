@@ -394,6 +394,7 @@ public static class ReadDb
     {
         item.pass_value = reader.GetString(reader.GetOrdinal("pass_value"));
         item.signin_value = reader.GetString(reader.GetOrdinal("signin_value"));
+        item.fate_value= reader.GetString(reader.GetOrdinal("fate_value"));
         item.Init();
         return item;
     }
