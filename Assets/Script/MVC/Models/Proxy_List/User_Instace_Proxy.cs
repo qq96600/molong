@@ -1016,6 +1016,8 @@ namespace MVC
             //        }
             //    }
             //}
+
+
             //命运神殿属性
             if (SumSave.crt_needlist.fate_value_dic.Count > 0)
             {
@@ -1023,7 +1025,7 @@ namespace MVC
                 foreach (var item in SumSave.crt_needlist.fate_value_dic)
                 {
                     int number = 0;
-                    Dictionary < int, List<int> > fate = dic[item.Key];
+                    Dictionary<int, List<int>> fate = dic[item.Key];
                     foreach (var item2 in item.Value)
                     {
                         number += item2.Value;
@@ -1031,12 +1033,14 @@ namespace MVC
                     foreach (var index in fate.Keys)
                     {
                         if (number >= fate[index][0])
-                        { 
+                        {
                             Enum_Value(crt, fate[index][1], fate[index][2]);
                         }
                     }
                 }
             }
+
+
             //收集属性
             for (int j = 0; j < suit_Type.GetNames(typeof(suit_Type)).Length; j++)//循环所有套装
             {
