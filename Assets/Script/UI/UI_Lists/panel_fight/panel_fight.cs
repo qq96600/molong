@@ -373,7 +373,16 @@ public class panel_fight : Panel_Base
     /// </summary>
     public void Game_Start()
     {
-        StartCoroutine(ProduceMonster(SumSave.WaitTime));
+        StartCoroutine(ProduceMonster(WaitTime()));
+    }
+
+    private float WaitTime()
+    {
+        float Waittime = 5f;
+        if(SumSave.crt_MaxHero.bufflist.Count> (int)enum_skill_attribute_list.寻怪间隔)
+        Waittime -= SumSave.crt_MaxHero.bufflist[(int)enum_skill_attribute_list.寻怪间隔]/10f;
+        Waittime = Mathf.Clamp(Waittime, 1f, 5f);
+        return Waittime;
     }
     // 下一波怪
     protected void Game_Next_Map()
@@ -381,7 +390,7 @@ public class panel_fight : Panel_Base
         if (Open_Monster_State)
         {
             Open_Monster_State = false;
-            StartCoroutine(ProduceMonster(SumSave.WaitTime));
+            StartCoroutine(ProduceMonster(WaitTime()));
         }
     }
     private IEnumerator ProduceMonster(float time)
