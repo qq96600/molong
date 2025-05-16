@@ -8,10 +8,19 @@ public class user_Accumulatedrewards_vo : Base_VO
     /// 0通行证累积1签到累积2充值累积奖励
     /// </summary>
     private Dictionary<int,List<int>> accumulated_rewards;
-
-    public void Init()
+    /// <summary>
+    /// 真实充值
+    /// </summary>
+    private int Real_recharge;
+    /// <summary>
+    /// 累积充值
+    /// </summary>
+    private int sum_recharge;
+    public void Init(int Realrecharge,int sumrecharge)
     {
-        accumulated_rewards= new Dictionary<int, List<int>>();
+        Real_recharge= Realrecharge;
+        sum_recharge = sumrecharge;
+        accumulated_rewards = new Dictionary<int, List<int>>();
         string[] str = user_value.Split('|');
         for (int i = 0; i < str.Length; i++)
         { 
@@ -39,14 +48,56 @@ public class user_Accumulatedrewards_vo : Base_VO
     {
         return accumulated_rewards;
     }
+    /// <summary>
+    /// 获取
+    /// </summary>
+    /// <param name="index">1真实2累积</param>
+    /// <returns></returns>
+    public int Set(int index)
+    {
+        int value = 0;
+        switch (index)
+        {
+            case 1:value= Real_recharge; break;
+            case 2:value = sum_recharge; break;
+            default:break;
+        }
+        return value;
+    }
+    /// <summary>
+    /// 写入
+    /// </summary>
+    /// <param name="index">1真实2累积</param>
+    /// <param name="value"></param>
+    public void Set(int index,int value)
+    {
+        switch (index)
+        {
+            case 1: 
+                Real_recharge += value;
+                sum_recharge += value;
+                break;
+            case 2: sum_recharge += value; break;
+            default: break;
+        }
+        MysqlData();
+    }
 
+    public override void MysqlData()
+    {
+        base.MysqlData();
+        Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_rewards_state,
+SumSave.crt_accumulatedrewards.Set_Uptade_String(), SumSave.crt_accumulatedrewards.Get_Update_Character());
+    }
     public override string[] Set_Instace_String()
     {
         return new string[]
         {
             GetStr(0),
             GetStr(SumSave.crt_user.uid),
-            GetStr(DataSet())
+            GetStr(DataSet()),
+            GetStr(Real_recharge),
+            GetStr(sum_recharge)
         };
     }
     /// <summary>
@@ -56,16 +107,22 @@ public class user_Accumulatedrewards_vo : Base_VO
     public void Set(Dictionary<int, List<int>> value)
     {
         accumulated_rewards = value;
+        MysqlData();
     }
 
     public override string[] Get_Update_Character()
     {
-        return new string[] { "accumulated_rewards" };
+
+        return new string[] { "Real_recharge", "sum_recharge", "accumulated_rewards" };
     }
 
     public override string[] Set_Uptade_String()
     {
-        return new string[] { GetStr(DataSet()) };
+        return new string[] 
+        {
+            GetStr(Real_recharge),
+            GetStr(sum_recharge),
+            GetStr(DataSet()) };
     }
     /// <summary>
     /// 写入数据

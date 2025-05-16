@@ -83,7 +83,8 @@ public class signIn : Base_Mono
     /// </summary>
     private void Clear()
     {
-
+        //累积vip经验
+        SumSave.crt_accumulatedrewards.Set(2, 2);
     }
 
     /// <summary>

@@ -285,7 +285,7 @@ namespace MVC
             else//为空的话初始化数据
             {
                 SumSave.crt_accumulatedrewards.user_value = "";
-                SumSave.crt_accumulatedrewards.Init();
+                SumSave.crt_accumulatedrewards.Init(0,0);
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_rewards_state, SumSave.crt_accumulatedrewards.Set_Instace_String());
             }
 

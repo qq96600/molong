@@ -186,8 +186,6 @@ public class Panel_Accumulatedrewards : Panel_Base
     private void SetData(Dictionary<int, List<int>> dic)
     {
         SumSave.crt_accumulatedrewards.Set(dic);
-        Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_rewards_state,
-            SumSave.crt_accumulatedrewards.Set_Uptade_String(), SumSave.crt_accumulatedrewards.Get_Update_Character());
     }
 
     protected override void Awake()

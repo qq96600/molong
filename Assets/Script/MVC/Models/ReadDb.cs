@@ -29,7 +29,9 @@ public static class ReadDb
     public static user_Accumulatedrewards_vo Read(MySqlDataReader reader, user_Accumulatedrewards_vo item)
     {
         item.user_value = reader.GetString(reader.GetOrdinal("accumulated_rewards"));
-        item.Init();
+        int Real_recharge= reader.GetInt32(reader.GetOrdinal("Real_recharge"));
+        int sum_recharge = reader.GetInt32(reader.GetOrdinal("sum_recharge"));
+        item.Init(Real_recharge, sum_recharge);
         return item;
     }
     public static db_mail_vo Read(MySqlDataReader reader, db_mail_vo item)
@@ -40,6 +42,7 @@ public static class ReadDb
         item.uid= reader.GetString(reader.GetOrdinal("uid"));
         item.user_value= reader.GetString(reader.GetOrdinal("user_value"));
         item.dec = reader.GetString(reader.GetOrdinal("dec"));
+        item.moeny= reader.GetInt32(reader.GetOrdinal("money"));
         item.Init();
         return item;
     }

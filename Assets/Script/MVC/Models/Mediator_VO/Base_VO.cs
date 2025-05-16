@@ -54,6 +54,13 @@ namespace MVC
 
         }
         /// <summary>
+        /// 写入数据库
+        /// </summary>
+        public virtual void MysqlData()
+        { 
+        
+        }
+        /// <summary>
         /// 数据组合
         /// </summary>
         /// <param name="base_value"></param>
