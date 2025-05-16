@@ -113,6 +113,12 @@ public class panel_fatePalace : Panel_Base
     /// </summary>
     private void Ten_consecutive_draws()
     {
+        NeedConsumables("命运币", 10);
+        if (!RefreshConsumables())
+        {
+            Alert_Dec.Show("命运币不足");
+            return;
+        }
         int weight = 0;
         List<(string, int, int, int, int)> data = SumSave.db_fate_list[current_designated.index-1].fate_value_list;
         for (int i = 0; i < data.Count; i++)//获取总权重
@@ -120,9 +126,9 @@ public class panel_fatePalace : Panel_Base
             weight += data[i].Item5;
         }
         List<(string, int )> dic = new List<(string, int)>();//存储奖励
-        for (int i=0;i<10;i++)
+        if (isExhaust(10))
         {
-            if (isExhaust())
+            for (int i=0;i<10;i++)
             {
                 while (true)
                 {
@@ -149,10 +155,15 @@ public class panel_fatePalace : Panel_Base
     private void Single_draw()
     {
 
-        int weight= 0;
-        List<(string, int, int, int, int)> data = SumSave.db_fate_list[current_designated.index - 1].fate_value_list;
+        NeedConsumables("命运币", 1);
+        if (!RefreshConsumables())
+        {
+            Alert_Dec.Show("命运币不足");
+            return;
+        }
 
-        
+        int weight = 0;
+        List<(string, int, int, int, int)> data = SumSave.db_fate_list[current_designated.index - 1].fate_value_list;
 
         for (int i=0;i < data.Count;i++)//获取总权重
         {
@@ -184,26 +195,39 @@ public class panel_fatePalace : Panel_Base
     /// </summary>
     /// <param name="data"></param>
     /// <returns></returns>
-    public bool isExhaust()
+    public bool isExhaust(int num=1)
     {
         int SumCount = 0;
         List<(string, int, int, int, int)> data = SumSave.db_fate_list[current_designated.index - 1].fate_value_list;
-        for (int i = 0; i < SumSave.db_fate_list[current_designated.index - 1].fate_value_list.Count; i++)//判断该期数是否抽完
+        for (int i = 0; i < data.Count; i++)//判断该期数是否抽完
         {
             if (SumSave.crt_needlist.fate_value_dic[current_designated.index].ContainsKey((data[i].Item1, data[i].Item3)))
             {
-                if (data[i].Item4 - SumSave.crt_needlist.fate_value_dic[current_designated.index][(data[i].Item1, data[i].Item3)] == 0)
-                {
-                    SumCount++;
-                }
-                if (SumCount == data.Count)
-                {
-                    Alert_Dec.Show("该期数已抽完");
-                    return false;
-                }
+                //if (data[i].Item4 - SumSave.crt_needlist.fate_value_dic[current_designated.index][(data[i].Item1, data[i].Item3)] == 0)
+                //{
+                //    SumCount++;
+                //}
+                //if (SumCount == data.Count)
+                //{
+                //    Alert_Dec.Show("该期数已抽完");
+                //    return false;
+                //}
+
+                SumCount += data[i].Item4 - SumSave.crt_needlist.fate_value_dic[current_designated.index][(data[i].Item1, data[i].Item3)];
+            }
+            else
+            {
+                SumCount += data[i].Item4;
             }
         }
-        return true;
+
+        if (num > SumCount)
+        {
+            Alert_Dec.Show("该期数奖励不足");
+            return false;
+        }
+
+            return true;
     }
 
     /// <summary>
