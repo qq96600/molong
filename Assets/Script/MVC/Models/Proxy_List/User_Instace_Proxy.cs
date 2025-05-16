@@ -803,6 +803,14 @@ namespace MVC
                 SumSave.crt_setting.Init();
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_setting, SumSave.crt_setting.Set_Instace_String());
             }
+            if (SumSave.crt_setting.user_setting.Count < SumSave.db_sttings.Count)
+            {
+                for (int i = SumSave.crt_setting.user_setting.Count; i < SumSave.db_sttings.Count; i++)
+                { 
+                    SumSave.crt_setting.user_setting.Add(0);
+                }
+            }
+            
         }
         /// <summary>
         /// 读取世界数据

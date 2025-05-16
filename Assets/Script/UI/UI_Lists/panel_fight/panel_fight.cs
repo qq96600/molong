@@ -143,12 +143,12 @@ public class panel_fight : Panel_Base
         close_battle.gameObject.SetActive(true);
         transform.SetAsFirstSibling();
         return;
-        close_panel_state=!close_panel_state;
-        for (int i = 1; i < pos_btn.childCount; i++)
-        { 
-            pos_btn.GetChild(i).gameObject.SetActive(close_panel_state);
-        }
-        close_btn.GetComponent<Image>().sprite = Resources.Load<Sprite>(close_panel_state ? "UI/btn_list/隐藏" : "UI/btn_list/展开");
+        //close_panel_state=!close_panel_state;
+        //for (int i = 1; i < pos_btn.childCount; i++)
+        //{ 
+        //    pos_btn.GetChild(i).gameObject.SetActive(close_panel_state);
+        //}
+        //close_btn.GetComponent<Image>().sprite = Resources.Load<Sprite>(close_panel_state ? "UI/btn_list/隐藏" : "UI/btn_list/展开");
     }
     public override void Show()
     {
@@ -373,7 +373,16 @@ public class panel_fight : Panel_Base
     /// </summary>
     public void Game_Start()
     {
-        StartCoroutine(ProduceMonster(SumSave.WaitTime));
+        StartCoroutine(ProduceMonster(WaitTime()));
+    }
+
+    private float WaitTime()
+    {
+        float Waittime = 5f;
+        if(SumSave.crt_MaxHero.bufflist.Count> (int)enum_skill_attribute_list.寻怪间隔)
+        Waittime -= SumSave.crt_MaxHero.bufflist[(int)enum_skill_attribute_list.寻怪间隔]/10f;
+        Waittime = Mathf.Clamp(Waittime, 1f, 5f);
+        return Waittime;
     }
     // 下一波怪
     protected void Game_Next_Map()
@@ -381,7 +390,7 @@ public class panel_fight : Panel_Base
         if (Open_Monster_State)
         {
             Open_Monster_State = false;
-            StartCoroutine(ProduceMonster(SumSave.WaitTime));
+            StartCoroutine(ProduceMonster(WaitTime()));
         }
     }
     private IEnumerator ProduceMonster(float time)
