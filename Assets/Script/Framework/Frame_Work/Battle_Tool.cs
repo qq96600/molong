@@ -421,7 +421,7 @@ public static class Battle_Tool
     /// 获取资源
     /// </summary>
     /// <param name="result"></param>
-    public static void Obtain_result(string result)
+    public static void Obtain_result(string result)//进阶奖励1、材料2、灵物3、灵珠4、魔丸5、皮肤6、灵气
     {
         if (result == "0") return;
         string[] result_list = result.Split('*');
@@ -436,13 +436,13 @@ public static class Battle_Tool
             case 3:
                 SumSave.crt_user_unit.verify_data(currency_unit.灵珠, int.Parse(result_list[1]));
                 break;
-
             case 4:
                 SumSave.crt_user_unit.verify_data(currency_unit.魔丸, int.Parse(result_list[1]));
                 break;
-
             case 5:
-              
+                SumSave.crt_hero.hero_value += (SumSave.crt_hero.hero_value == "" ? "" : ",") +result_list[0];
+                Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_hero, new string[] { Battle_Tool.GetStr(SumSave.crt_hero.hero_value) },
+                    new string[] { "hero_value" });
                 break;
             case 6:
                 if (SumSave.crt_world != null)

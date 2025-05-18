@@ -501,7 +501,7 @@ namespace MVC
                 SumSave.crt_needlist.store_value = "";
                 SumSave.crt_needlist.map_value = "";
                 SumSave.crt_needlist.fate_value = "";
-                SumSave.crt_needlist.user_value = "";
+                SumSave.crt_needlist.user_value = "100 100,0,0,0,0";
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_needlist, SumSave.crt_needlist.Set_Instace_String());
             }
         }

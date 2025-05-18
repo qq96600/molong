@@ -235,7 +235,7 @@ public class panel_pass : Base_Mono
     /// 获取奖励
     /// </summary>
     /// <param name="result"></param>
-    private void Obtain_result(string result)
+    private void Obtain_result(string result)//进阶奖励1、材料2、灵物3、灵珠4、魔丸5、皮肤6、灵气
     {
         Battle_Tool.Obtain_result(result);
     }

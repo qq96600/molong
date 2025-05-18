@@ -77,6 +77,15 @@ public class Pet_explore : Base_Mono
 
     private material_item material_item_Prefabs;
 
+    /// <summary>
+    /// 探索体力条
+    /// </summary>
+    private Text physicalStrength;
+    /// <summary>
+    /// 探索体力滚动条
+    /// </summary>
+    private Slider physicalStrengthSlider;
+
     private Text info;
     protected void Awake()
     {
@@ -86,12 +95,17 @@ public class Pet_explore : Base_Mono
         function_pos_btn = Find<Transform>("explore/function_pos_btn");
         btn_item_Prefabs = Battle_Tool.Find_Prefabs<btn_item>("btn_item"); //Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
         info_item_Prefabs = Battle_Tool.Find_Prefabs<material_item>("material_item"); //Resources.Load<material_item>("Prefabs/panel_bag/material_item");
-        explore_item_Prefabs= Battle_Tool.Find_Prefabs<explore_item>("explore_item"); //Resources.Load<explore_item>("Prefabs/panel_smallWorld/pets/explore_item");
+        explore_item_Prefabs = Battle_Tool.Find_Prefabs<explore_item>("explore_item"); //Resources.Load<explore_item>("Prefabs/panel_smallWorld/pets/explore_item");
         material_item_Prefabs = Battle_Tool.Find_Prefabs<material_item>("material_item");// Resources.Load<material_item>("Prefabs/panel_bag/material_item");
-        explore_map=Find<Image>("explore_map");
+        explore_map = Find<Image>("explore_map");
         explore_map.gameObject.SetActive(true);
-        pos_map =Find<Transform>("explore_map/Buttons_map");
+        pos_map = Find<Transform>("explore_map/Buttons_map");
         info = Find<Text>("Income/Viewport/info");
+
+        physicalStrength = Find<Text>("explore_map/Title/Slider/physicalStrength");
+        physicalStrengthSlider = Find<Slider>("explore_map/Title/Slider");
+        displayPhysical();
+
         for (int i = 0; i < 3; i++)
         {
             Transform btn = Instantiate(pos_item_Prefabs, pos_btn);
@@ -115,6 +129,16 @@ public class Pet_explore : Base_Mono
         explore_map.gameObject.SetActive(false);
 
     }
+    /// <summary>
+    /// 显示探索体力
+    /// </summary>
+    private void displayPhysical()
+    {
+        physicalStrengthSlider.maxValue = float.Parse(SumSave.crt_needlist.user_value_list[0][1]);
+        physicalStrengthSlider.value = float.Parse(SumSave.crt_needlist.user_value_list[0][0]);
+        physicalStrength.text = "当前体力值为" + SumSave.crt_needlist.user_value_list[0][0] + "/" + SumSave.crt_needlist.user_value_list[0][1];
+    }
+
     /// <summary>
     /// 点击事件
     /// </summary>
@@ -377,6 +401,7 @@ public class Pet_explore : Base_Mono
             int r = Random.Range(0, SumSave.db_pet_explore.Count);
             button_map[i].Show(r, SumSave.db_pet_explore[r].petExploreMapName);
        }
+        displayPhysical();
     }
     /// <summary>
     /// 点击探索
@@ -385,7 +410,11 @@ public class Pet_explore : Base_Mono
     {
         explore = SumSave.db_pet_explore[index].petExploreMapName;//获得探索地图的名字
 
-        if (IsExploring>=0 && SumSave.db_pet_explore_dic.TryGetValue(explore, out user_pet_explore_vo vo)) //判断次数并且更具名字找到该地图的信息
+
+        IsExploring =int.Parse( SumSave.crt_needlist.user_value_list[0][0]) - 5;//判断体力是否足够
+
+
+        if (IsExploring>= 0 && SumSave.db_pet_explore_dic.TryGetValue(explore, out user_pet_explore_vo vo)) //判断次数并且更具名字找到该地图的信息
         {
             string[] Explore_list = vo.petEvent_reward.Split("&");//获取该地图的奖励列表
 
@@ -394,19 +423,17 @@ public class Pet_explore : Base_Mono
             {
                 r++;
                 string[] data = Explore_list[Random.Range(0, Explore_list.Length)].Split(" ");//根据空格拆分奖励列表
-                if (data.Length == 3)//判断奖励格式
+                string[] odds = data[2].Split("/");
+                if (Random.Range(0, int.Parse(odds[1])) < int.Parse(odds[0]))//判断是否获得奖励
                 {
-                    string[] odds = data[2].Split("/");
-                    if (Random.Range(0, int.Parse(odds[1])) < int.Parse(odds[0]))//判断是否获得奖励
-                    {
-                        GainRewards(data);
-                        return;
-                    }
+                    GainRewards(data);
+                    return;
                 }
+               
 
                 if (r >= 1000)
                 {
-                    data = Explore_list[1].Split(" ");
+                    data = Explore_list[0].Split(" ");
                     GainRewards(data);
                     return;
                 }
@@ -422,11 +449,50 @@ public class Pet_explore : Base_Mono
     /// <param name="data"></param>
     private void GainRewards(string[] data)
     {
-        int i=Random.Range(1, int.Parse(data[1])+1);//随机获得奖励数量
+        int i = Random.Range(1, int.Parse(data[1]) + 1);//随机获得奖励数量
 
-        Battle_Tool.Obtain_Resources(data[0], i);//获取奖励
+        NGetRewards(data, i);
+
         Alert_Dec.Show("探索收益 " + data[0] + " x " + i);
-        IsExploring--;
+        int r = int.Parse(SumSave.crt_needlist.user_value_list[0][0]) - 5;//每次探索消耗的体力
+        SumSave.crt_needlist.user_value_list[0][0] = r.ToString();
+        Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_needlist,
+           SumSave.crt_needlist.Set_Uptade_String(), SumSave.crt_needlist.Get_Update_Character());
         Init();
     }
+
+    private static void NGetRewards(string[] data, int i)
+    {
+       
+
+        switch (int.Parse(data[3]))
+        {
+            case 1:
+                //获得材料技能书神器
+                Battle_Tool.Obtain_Resources(i, i);
+                break;
+            case 2:
+                //获得货币
+                Battle_Tool.Obtain_Unit((currency_unit)Enum.Parse(typeof(currency_unit), data[0]), i);
+                break;
+            case 3:
+                //获得皮肤
+                SumSave.crt_hero.hero_value += (SumSave.crt_hero.hero_value == "" ? "" : ",") + data[0];
+                Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_hero, new string[] { Battle_Tool.GetStr(SumSave.crt_hero.hero_value) },
+                    new string[] { "hero_value" });
+                break;
+            case 4:
+                //获得灵气
+                SumSave.crt_world.Set(i);
+                Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_world, SumSave.crt_world.Set_Uptade_String(), SumSave.crt_world.Get_Update_Character());
+                break;
+              
+
+
+        }
+
+
+    }
+
+
 }

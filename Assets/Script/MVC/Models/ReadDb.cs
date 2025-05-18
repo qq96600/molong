@@ -165,9 +165,8 @@ public static class ReadDb
         item.store_value = reader.GetString(reader.GetOrdinal("store_value"));
         item.map_value = reader.GetString(reader.GetOrdinal("map_value"));
         item.fate_value = reader.GetString(reader.GetOrdinal("fate_value"));
-        item.store_Init();
-        item.map_Init();
-        item.fate_Init();
+        item.user_value= reader.GetString(reader.GetOrdinal("user_value"));
+        item.Init();
         return item;
     }
 
