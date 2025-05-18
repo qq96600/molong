@@ -27,7 +27,7 @@ public class panel_setting : Panel_Base
     {
         base.Initialize();
         crt_setting=Find<Transform>("bg_main/Scroll View/Viewport/Content");
-        setting_Item_prefab= Battle_Tool.Find_Prefabs<setting_item>("setting_item"); //Resources.Load<setting_item>("Prefabs/panel_setting/setting_item");
+        setting_Item_prefab= Battle_Tool.Find_Prefabs<setting_item>("setting_item"); 
 
         for (int i = 0; i < SumSave.db_sttings.Count; i++)
         {
@@ -44,6 +44,18 @@ public class panel_setting : Panel_Base
     {
         SumSave.crt_setting.user_setting[data.index] = data.value;
         SendNotification(NotiList.Refresh_User_Setting, SumSave.crt_setting);
+
+        if (SumSave.crt_setting.user_setting[4] == 1)//1为静音
+        {
+            AudioListener.pause = true;
+            AudioManager.Instance.audioSource.Stop(); 
+        }
+        else
+        { 
+            AudioListener.pause = false;
+        }
+
+
         Alert_Dec.Show("设置成功");
     }
 

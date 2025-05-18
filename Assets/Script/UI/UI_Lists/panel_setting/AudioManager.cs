@@ -26,6 +26,9 @@ public class AudioManager : MonoBehaviour
         audioSource = this.gameObject.GetComponent<AudioSource>();
     }
 
+
+
+
     public IEnumerator GetClip()
     {
         foreach (var item in ClipList)

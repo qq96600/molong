@@ -177,7 +177,7 @@ namespace MVC
             }
             else
             {
-                string index = "1";
+                string index = SumSave.db_pars[0].index.ToString();
                 TheServerText.text = "选中" + index + "区";
                 SumSave.par = int.Parse(index);
             }

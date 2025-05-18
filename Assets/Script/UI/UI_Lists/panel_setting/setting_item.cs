@@ -1,3 +1,4 @@
+using Common;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -40,5 +41,16 @@ public class setting_item : MonoBehaviour
         }
         dropdown.value = value;
         dropdown.onValueChanged.AddListener(OnValueChange);
+
+        if (SumSave.crt_setting.user_setting[4] == 1)//1为静音
+        {
+            AudioListener.pause = true;
+            AudioManager.Instance.audioSource.Stop();
+        }
+        else
+        {
+            AudioListener.pause = false;
+        }
+
     }
 }
