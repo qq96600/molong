@@ -28,10 +28,11 @@ public class player_battle_attck : BattleAttack
         {
             if (battle_skills[i].IsState())
             {
-                if (target.MP >= battle_skills[i].Data.skill_spell * target.maxMP / 100)
+                int mp = (int)(battle_skills[i].Data.skill_spell * target.maxMP / 100);
+                if (target.MP >= mp)
                 {
                     skill_offect_item skill = battle_skills[i];
-                    target.MP -= battle_skills[i].Data.skill_spell * target.maxMP / 100;
+                    target.MP -= mp;
                     //释放技能
                     BaseAttack(battle_skills[i].Data);
                     battle_skills[i].Battle();

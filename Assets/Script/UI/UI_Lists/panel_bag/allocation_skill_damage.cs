@@ -5,7 +5,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+/// <summary>
+/// 分配技能伤害
+/// </summary>
 public class allocation_skill_damage : Base_Mono
 {
     /// <summary>

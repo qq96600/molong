@@ -23,11 +23,12 @@ public static class Battle_Tool
     /// </summary>
     /// <param name="resources_name">名称</param>
     /// <param name="number">数量</param>
-    public static void Obtain_Resources( object resources_name,int number)
+    /// <param name="isverify">是否取消检测</param>
+    public static void Obtain_Resources( object resources_name,int number,bool isverify = false)
     { 
         Dictionary<string, int> dic = new Dictionary<string, int>();
         dic.Add(resources_name.ToString(), number);
-        SumSave.crt_bag_resources.Get(dic);
+        SumSave.crt_bag_resources.Get(dic, isverify);
         //写入数据库
         Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.material_value, SumSave.crt_bag_resources.GetData());
     }

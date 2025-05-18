@@ -1,4 +1,5 @@
 using Common;
+using MVC;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -83,7 +84,17 @@ public class panel_map : Panel_Base
                 { 
                     maplists.Add(item, map);
                     btn_item btn = Instantiate(btn_item_prefab, item.transform);
-                    btn.Show(item.index, map.map_name+"\n(Lv."+map.need_lv+"级)");
+                    string dec = map.map_name + "\n(Lv." + map.need_lv + "级)";
+                    switch (map.map_type)
+                    {
+                        case 2:
+                            dec = Show_Color.Yellow(dec);
+                            break;
+                        case 3:
+                            dec= Show_Color.Red(dec);
+                            break;
+                    }
+                    btn.Show(item.index, dec);
                     btn.GetComponent<Button>().onClick.AddListener(delegate { Select_Map(item); });
                 }
             }

@@ -133,6 +133,23 @@ public class panel_fight : Panel_Base
     public void Show_Combat_statistics()
     {
         battle_info_list.text = Combat_statistics.Show_Info();
+        IsReply(SumSave.battleHeroHealths);
+        IsReply(SumSave.battleMonsterHealths);
+    }
+    /// <summary>
+    /// 回复生命魔法
+    /// </summary>
+    /// <param name="list"></param>
+    private void IsReply(List<BattleHealth> list)
+    {
+        for (int i = 0; i < list.Count; i++)
+        {
+            BattleAttack attack = list[i].GetComponent<BattleAttack>();
+            if (attack.Data.Heal_Hp > 0|| attack.Data.Heal_Mp > 0)
+            {
+                list[i].HealConsumables(attack.Data.Heal_Hp, attack.Data.Heal_Mp);
+            }
+        }
     }
 
     /// <summary>

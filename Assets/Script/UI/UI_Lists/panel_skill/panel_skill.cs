@@ -287,6 +287,10 @@ public class panel_skill : Panel_Base
                 dec += user_skill.Data.skill_need_state[i].Item1+"级 激活 "+(user_skill.Data.skill_need_state[i].Item2) + "\n";
             }
         }
+        if (user_skill.Data.user_values[3] != "")
+        {
+            dec+= Show_Color.Red("附加内力值 "+ user_skill.Data.user_values[3]);
+        }
         base_info.text = dec;
     }
 }

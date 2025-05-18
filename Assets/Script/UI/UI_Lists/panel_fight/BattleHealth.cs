@@ -46,24 +46,14 @@ namespace MVC
         /// <param name="value"></param>
         /// <param name="type"></param>
         /// <param name="dec"></param>
-        public void HealConsumables(float value, int type, string dec)
+        public void HealConsumables(int hp, int mp)
         {
-            if (type == 1)
-            {
-                HP += value; HP = Mathf.Min(maxHP, HP);
-            }
-            if (type == 2)
-            {
-                MP += value; MP = Mathf.Min(maxMP, MP);
-            }
-            if (type == 3)
-            {
-                HP += value; HP = Mathf.Min(maxHP , HP);
-
-                MP += value; MP = Mathf.Min(maxMP, MP);
-            }
-
-            //Hurt(dec, 2);
+            HP = Mathf.Clamp(HP + hp, 0, maxHP);
+            MP = Mathf.Clamp(MP + mp, 0, maxMP);
+            //if (hp > 0) Hurt(hp, DamageEnum.回血);
+            //if (mp > 0) Hurt(mp, DamageEnum.回蓝);
+            if (internalforcemaxMP > 0) internalforceMP = Mathf.Clamp(internalforceMP + 2, 0, internalforcemaxMP);
+            if (EnergymaxMp > 0) EnergyMp = Mathf.Clamp(EnergyMp + 1, 0, EnergymaxMp);
         }
         /// <summary>
         /// 消耗蓝

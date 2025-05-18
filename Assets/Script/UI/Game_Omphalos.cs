@@ -64,7 +64,7 @@ namespace MVC
         /// </summary>
         private void CountTime()
         {
-            performTime++;
+            performTime+=1;
             if (panel_fight.gameObject.activeInHierarchy)
             {
                 Combat_statistics.Time();

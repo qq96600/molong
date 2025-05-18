@@ -21,7 +21,7 @@ namespace Common
         /// <summary>
         /// 验证单次收益 0 金币 1声望 2元宝 3材料获取量
         /// </summary>
-        public static List<int> base_setting = new List<int>() { 9000, 9000, 9000, 9000 };
+        public static List<int> base_setting = new List<int>() { 9000, 9000, 9000, 200};
         /// <summary>
         /// 当前时间
         /// </summary>

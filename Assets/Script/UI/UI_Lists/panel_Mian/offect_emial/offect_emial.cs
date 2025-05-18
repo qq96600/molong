@@ -97,7 +97,7 @@ public class offect_emial : Base_Mono
                         ((currency_unit)Enum.Parse(typeof(currency_unit), material), str[index][material]);
                         break;
                     case 2://道具
-                        Battle_Tool.Obtain_Resources(material, str[index][material]);
+                        Battle_Tool.Obtain_Resources(material, str[index][material],true);
                         break;
                     case 3://通行证
                         break;

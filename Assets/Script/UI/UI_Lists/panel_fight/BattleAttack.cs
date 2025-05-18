@@ -90,6 +90,9 @@ namespace MVC
                 frame.gameObject.SetActive(false);
                 target.maxHP = data.MaxHP;
                 target.HP = data.MaxHP;
+                target.EnergymaxMp=data.EnergyMp;
+                target.internalforcemaxMP = data.internalforceMP;
+                target.internalforceMP= data.internalforceMP;
                 show_hp.maxValue = target.maxHP;
                 show_hp.value = target.HP;
                 hp_text.text = target.HP + "/" + target.maxHP;
@@ -283,7 +286,24 @@ namespace MVC
             BattleAttack monster = Terget.GetComponent<BattleAttack>();
             if (monster.target.HP <= 0) return;//结战斗
             float damage = Base_Damage(monster);
+            damage += skill.skill_spell * target.maxMP / 100;
             damage = damage * (skill.skill_damage + (skill.skill_power * int.Parse(skill.user_values[1]))) / 100;
+            //内力伤害
+            if (skill.user_values[3] != "")
+            {
+                int internalforce= int.Parse(skill.user_values[3]);
+                if (target.internalforceMP >= internalforce)
+                { 
+                    target.internalforceMP -= internalforce;
+                    damage = damage * (100 + internalforce) / 100;
+                }
+            }
+            //爆发伤害
+            if (target.EnergyMp > 0 && target.EnergyMp >= target.EnergymaxMp)
+            {
+                target.EnergyMp = 0;
+                damage = damage * (100 + target.EnergymaxMp) / 100;
+            }
             if (iSnHit(monster))
             {
                 //传递消息，未命中;

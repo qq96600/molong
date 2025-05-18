@@ -42,7 +42,7 @@ public static class ReadDb
         item.uid= reader.GetString(reader.GetOrdinal("uid"));
         item.user_value= reader.GetString(reader.GetOrdinal("user_value"));
         item.dec = reader.GetString(reader.GetOrdinal("dec"));
-        item.moeny= reader.GetInt32(reader.GetOrdinal("money"));
+        item.moeny= reader.GetInt32(reader.GetOrdinal("moeny"));
         item.Init();
         return item;
     }
