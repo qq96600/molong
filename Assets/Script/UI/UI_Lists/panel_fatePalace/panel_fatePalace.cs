@@ -206,14 +206,13 @@ public class panel_fatePalace : Panel_Base
     /// </summary>
     private void Ten_consecutive_draws()
     {
-        //NeedConsumables("命运币", 10);
-        //if (!RefreshConsumables())
-        //{
-        //    Alert_Dec.Show("命运币不足");
-        //    return;
-        //}
+        NeedConsumables("命运金币", 10);
+        if (!RefreshConsumables())
+        {
+            Alert_Dec.Show("命运金币不足");
+            return;
+        }
         int weight = 0;
-       // List<(string, int, int, int, int)> data = SumSave.db_fate_list[current_designated.index-1].fate_value_list;
         for (int i = 0; i < CurrentItems.Count; i++)//获取总权重
         {
             weight += CurrentItems[i].Item5;
@@ -273,12 +272,12 @@ public class panel_fatePalace : Panel_Base
     private void Single_draw()
     {
 
-        //NeedConsumables("命运币", 1);
-        //if (!RefreshConsumables())
-        //{
-        //    Alert_Dec.Show("命运币不足");
-        //    return;
-        //}
+        NeedConsumables("命运金币", 1);
+        if (!RefreshConsumables())
+        {
+            Alert_Dec.Show("命运金币不足");
+            return;
+        }
 
         int weight = 0;
 
@@ -292,8 +291,6 @@ public class panel_fatePalace : Panel_Base
             {
                 int rand = Random.Range(0, CurrentItems.Count);//随机抽取一个物品
                 
-                //int count = CurrentItems[rand].Item4 - SumSave.crt_needlist.fate_value_dic[current_designated.index][(CurrentItems[rand].Item1, CurrentItems[rand].Item3)];//命运宝典该剩余抽取次数
-
                 if (Random.Range(0, weight) < CurrentItems[rand].Item5 &&isCount(rand))//判断是否抽中
                 {
 

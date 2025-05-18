@@ -85,6 +85,8 @@ public class signIn : Base_Mono
     {
         //累积vip经验
         SumSave.crt_accumulatedrewards.Set(2, 2);
+        //限购商店,地图次数刷新
+        SumSave.crt_needlist.DailyClear();
     }
 
     /// <summary>

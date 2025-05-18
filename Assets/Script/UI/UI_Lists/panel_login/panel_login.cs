@@ -49,7 +49,10 @@ namespace MVC
         /// 当前选择的服务器
         /// </summary>
         private btn_item select_par;
-
+        /// <summary>
+        /// 记住上一次登录的服务器
+        /// </summary>
+        private string lastServer;
         private void Start()
         {
             SendNotification(NotiList.Read_Instace);
@@ -164,9 +167,21 @@ namespace MVC
                     item.GetComponent<Button>().onClick.AddListener(() => { SelectPar(item); });
 
                 }
-
             }
-            
+
+            if (PlayerPrefs.HasKey(lastServer))
+            {
+                string index= PlayerPrefs.GetString(lastServer);
+                TheServerText.text = "选中" + index + "区";
+                SumSave.par = int.Parse(index);
+            }
+            else
+            {
+                string index = "1";
+                TheServerText.text = "选中" + index + "区";
+                SumSave.par = int.Parse(index);
+            }
+
         }
 
         /// <summary>
@@ -176,7 +191,6 @@ namespace MVC
         private void SelectPar(btn_item item)
         {
             Alert_Dec.Show("选择了"+ (item.index).ToString() + "区");
-            select_par = new btn_item();
             select_par = item;
             TheServerText.text ="选中"+(item.index).ToString()+"区";
             SumSave.par = item.index;
@@ -273,6 +287,8 @@ namespace MVC
             TheServerObg.gameObject.SetActive(false);
             if (SumSave.uid != null)
             {
+                PlayerPrefs.SetString(lastServer, select_par.index.ToString());
+
                 SendNotification(NotiList.User_Login);
                 UI_Manager.I.GetPanel<panel_Mian>().Show();
                 Hide();
