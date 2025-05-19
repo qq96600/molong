@@ -100,6 +100,9 @@ public class offect_emial : Base_Mono
                         Battle_Tool.Obtain_Resources(material, str[index][material],true);
                         break;
                     case 3://通行证
+                        Dictionary<int, List<int>> dic = SumSave.crt_pass.Set();
+                        dic.Add(int.Parse(material), new List<int>());
+                        SumSave.crt_pass.Get(dic);
                         break;
                     case 4://皮肤
                         SumSave.crt_hero.hero_value += (SumSave.crt_hero.hero_value == "" ? "" : ",") + material;

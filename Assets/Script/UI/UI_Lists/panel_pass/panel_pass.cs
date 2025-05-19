@@ -105,8 +105,6 @@ public class panel_pass : Base_Mono
                 SumSave.crt_pass.data_lv++;
                 SumSave.crt_pass.data_exp -= 10;
             }
-            Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_pass,
-                SumSave.crt_pass.Set_Uptade_String(), SumSave.crt_pass.Get_Update_Character());
             Show_Pass_Progress();
         }
         else
@@ -197,7 +195,6 @@ public class panel_pass : Base_Mono
                         item.Set(dic[index][item.Data.lv], dic[index + 1][item.Data.lv]);
                     else item.Set(dic[index][item.Data.lv], 1);
                     SumSave.crt_pass.Get(dic);
-                    Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_pass, SumSave.crt_pass.Set_Uptade_String(), SumSave.crt_pass.Get_Update_Character());
                     Alert_Dec.Show("领取成功");
                 }
                 else Alert_Dec.Show("已经领取");
@@ -223,7 +220,7 @@ public class panel_pass : Base_Mono
                     dic[index+1][item.Data.lv] = 1;
                     item.Set(dic[index][item.Data.lv], dic[index + 1][item.Data.lv]);
                     SumSave.crt_pass.Get(dic);
-                    Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_pass, SumSave.crt_pass.Set_Uptade_String(), SumSave.crt_pass.Get_Update_Character());
+                    //Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_pass, SumSave.crt_pass.Set_Uptade_String(), SumSave.crt_pass.Get_Update_Character());
                     Alert_Dec.Show("领取成功");
                 }
                 else Alert_Dec.Show("已经领取");

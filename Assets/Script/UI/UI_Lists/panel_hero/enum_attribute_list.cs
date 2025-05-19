@@ -143,7 +143,7 @@ public enum enum_skill_attribute_list
     蛊毒大法技能伤害,//517
     血河大法技能伤害,//518
     复活,//519
-    
+    强化费用,//520
 
 }
 
