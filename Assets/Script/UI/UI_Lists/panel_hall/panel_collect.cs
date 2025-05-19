@@ -16,6 +16,13 @@ public enum suit_Type//套装类型
     血夜套装, 
     虚空套装, 
     冥噬套装,
+    天启套装,
+    灭魂套装,
+    奥术套装, 
+    雷狱套装,
+    风息套装,
+    岩兽套装
+
 }
 
 
@@ -131,21 +138,24 @@ public class panel_collect : Base_Mono
         //if (SumSave.crt_collect.user_collect_dic[crt_collect.Name]==0)//是否为已收集
         if(!SumSave.crt_collect.user_collect_dic.ContainsKey(crt_collect.Name))
         {
-            if(SumSave.crt_collect.user_collect_dic[crt_collect.Name] == 0)
+
+            if ( !SumSave.crt_collect.user_collect_dic.ContainsKey(crt_collect.Name)|| SumSave.crt_collect.user_collect_dic[crt_collect.Name] == 0)
             {
                 //查找背包是否有该物品
                 NeedConsumables(crt_collect.Name, 1);
                 if (RefreshConsumables())
                 {
                     SumSave.crt_collect.collect_complete(crt_collect.Name);//收集完成
-                Alert_Dec.Show(crt_collect.Name + " 收集成功");
-                SuitCollect(crt_collect);
+                    Alert_Dec.Show(crt_collect.Name + " 收集成功");
+                    SuitCollect(crt_collect);
                 }
                 else
                 {
                     Alert_Dec.Show("背包没有" + crt_collect.Name);
                 }
             }
+
+            
 
         }        
         else
