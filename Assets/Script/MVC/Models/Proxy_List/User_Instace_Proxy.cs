@@ -1024,8 +1024,31 @@ namespace MVC
             //        }
             //    }
             //}
-            int exp = SumSave.crt_accumulatedrewards.Set(1);
-
+            List<string>  exp = SumSave.crt_accumulatedrewards.SetSum_recharge();
+            if (int.Parse(exp[0]) > 0)
+            {
+                int lv = int.Parse(exp[0]);
+                for (int i = SumSave.db_vip_list.Count - 1; i >= 0; i--)
+                {
+                    if (lv == SumSave.db_vip_list[i].vip_lv)
+                    {
+                        Enum_Value(crt, (int)enum_skill_attribute_list.经验加成, SumSave.db_vip_list[i].experienceBonus);
+                        Enum_Value(crt, (int)enum_skill_attribute_list.灵珠收益, SumSave.db_vip_list[i].lingzhuIncome);
+                        Enum_Value(crt, (int)enum_skill_attribute_list.装备爆率, SumSave.db_vip_list[i].equipmentExplosionRate);
+                        Enum_Value(crt, (int)enum_skill_attribute_list.人物历练, SumSave.db_vip_list[i].characterExperience);
+                        Enum_Value(crt, (int)enum_skill_attribute_list.寻怪间隔, SumSave.db_vip_list[i].monsterHuntingInterval);
+                        Enum_Value(crt, (int)enum_skill_attribute_list.生命回复, SumSave.db_vip_list[i].hpRecovery);
+                        Enum_Value(crt, (int)enum_skill_attribute_list.法力回复, SumSave.db_vip_list[i].manaRegeneration);
+                        Enum_Value(crt, (int)enum_skill_attribute_list.幸运, SumSave.db_vip_list[i].goodFortune);
+                        Enum_Value(crt, (int)enum_skill_attribute_list.强化费用, SumSave.db_vip_list[i].strengthenCosts);
+                        Enum_Value(crt, (int)enum_skill_attribute_list.离线间隔, SumSave.db_vip_list[i].offlineInterval);
+                        Enum_Value(crt, (int)enum_skill_attribute_list.签到收益, SumSave.db_vip_list[i].signInIncome);
+                        Enum_Value(crt, (int)enum_skill_attribute_list.鞭尸, SumSave.db_vip_list[i].whippingCorpses);
+                        Enum_Value(crt, (int)enum_skill_attribute_list.灵气上限, SumSave.db_vip_list[i].upperLimitOfSpiritualEnergy);
+                        break;
+                    }
+                }
+            }
             //命运神殿属性
             if (SumSave.crt_needlist.fate_value_dic.Count > 0)
             {
