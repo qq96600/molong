@@ -92,6 +92,10 @@ public class panel_skill : Panel_Base
             btn_item.GetComponent<Button>().onClick.AddListener(delegate { Select_Offect_Btn(btn_item); });
             btn_item_dic.Add((skill_Offect_btn_list)i, btn_item);
         }
+        for (int i = 0; i < SumSave.db_skills.Count; i++)
+        {
+            SumSave.crt_skills.Add(tool_Categoryt.crate_skill(SumSave.db_skills[i].skillname));//添加技能
+        }
     }
     /// <summary>
     /// 翻页
@@ -134,11 +138,9 @@ public class panel_skill : Panel_Base
     {
         if (user_skill.Data.skill_max_lv > int.Parse(user_skill.Data.user_values[1]))
         {
-            if (SumSave.crt_hero.hero_material_list[2] >= need_exp)
+            NeedConsumables(currency_unit.历练, need_exp);
+            if (RefreshConsumables())
             {
-                SumSave.crt_hero.hero_material_list[2]-=need_exp;
-                //更新英雄信息
-                Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto,Mysql_Table_Name.mo_user_hero, SumSave.crt_hero.Set_Uptade_String(),SumSave.crt_hero.Get_Update_Character());
                 Alert_Dec.Show("升级消耗  " + need_exp + user_skill.Data.skillname + "等级提升");
                 int lv = int.Parse(user_skill.Data.user_values[1]);
                 lv++;
@@ -163,7 +165,6 @@ public class panel_skill : Panel_Base
                 user_skill.Refresh();
                 Select_skill(user_skill);
             }else Alert_Dec.Show("历练值不足");
-            
         }
         else Alert_Dec.Show("技能等级已满");
     }
@@ -228,7 +229,7 @@ public class panel_skill : Panel_Base
     private void Open_Select_Btn()
     {
         if (user_skill.Data.skill_max_lv > user_skill.Data.skilllv) btn_item_dic[skill_Offect_btn_list.升级].gameObject.SetActive(true);
-        if ((skill_btn_list)user_skill.Data.skill_type != skill_btn_list.特殊) btn_item_dic[skill_Offect_btn_list.上阵].gameObject.SetActive(true);
+        if ((skill_btn_list)user_skill.Data.skill_type != skill_btn_list.秘笈) btn_item_dic[skill_Offect_btn_list.上阵].gameObject.SetActive(true);
         if ((skill_btn_list)user_skill.Data.skill_type == skill_btn_list.战斗) btn_item_dic[skill_Offect_btn_list.分配].gameObject.SetActive(true);
 
     }
@@ -245,9 +246,13 @@ public class panel_skill : Panel_Base
         {
             dec += "技能属性 " + Show_Color.Red((enum_skill_attribute_list)(200 + user_skill.Data.skill_life)) + "\n";
         }
-        dec += "消耗法力 " + user_skill.Data.skill_spell + "%\n";
-        dec += "技能cd " + user_skill.Data.skill_cd.ToString("F0") + "秒\n";
-        dec += "对目标造成" + (user_skill.Data.skill_damage + (user_skill.Data.skill_power * lv)) + "%伤害\n";
+        if ((skill_btn_list)user_skill.Data.skill_type == skill_btn_list.战斗)
+        {
+            dec += "消耗法力 " + user_skill.Data.skill_spell + "%\n";
+            dec += "技能cd " + user_skill.Data.skill_cd.ToString("F0") + "秒\n";
+            dec += "对目标造成" + (user_skill.Data.skill_damage + (user_skill.Data.skill_power * lv)) + "%伤害\n";
+        }
+       
         if (lv >= user_skill.Data.skill_max_lv)
         {
             dec += Show_Color.Red("已满级\n");
@@ -271,7 +276,7 @@ public class panel_skill : Panel_Base
                 dec += (enum_attribute_list)user_skill.Data.skill_open_type[i] + " + " + (user_skill.Data.skill_open_value[i] * lv / user_skill.Data.skill_max_lv) + "\n";
             }
         }
-        if (user_skill.Data.skill_pos_type.Count > 0)
+        if (user_skill.Data.skill_pos_type.Count > 0 && (skill_btn_list)user_skill.Data.skill_type != skill_btn_list.秘笈)
         {
             dec += Show_Color.Yellow("上阵特效 \n");
             for (int i = 0; i < user_skill.Data.skill_pos_type.Count; i++)
@@ -287,7 +292,7 @@ public class panel_skill : Panel_Base
                 dec += user_skill.Data.skill_need_state[i].Item1+"级 激活 "+(user_skill.Data.skill_need_state[i].Item2) + "\n";
             }
         }
-        if (user_skill.Data.user_values[3] != "")
+        if (user_skill.Data.user_values[3] != "" && (skill_btn_list)user_skill.Data.skill_type == skill_btn_list.战斗)
         {
             dec+= Show_Color.Red("附加内力值 "+ user_skill.Data.user_values[3]);
         }

@@ -75,27 +75,29 @@ public class panel_map : Panel_Base
 
     protected void Instance_Pos(map_pos_item item)
     {
-
         if (!maplists.ContainsKey(item))
         {
             foreach (var map in SumSave.db_maps)
             {
                 if (map.map_index == item.index)
-                { 
-                    maplists.Add(item, map);
-                    btn_item btn = Instantiate(btn_item_prefab, item.transform);
-                    string dec = map.map_name + "\n(Lv." + map.need_lv + "级)";
-                    switch (map.map_type)
+                {
+                    if (map.need_lv <= SumSave.crt_MaxHero.Lv)
                     {
-                        case 2:
-                            dec = Show_Color.Yellow(dec);
-                            break;
-                        case 3:
-                            dec= Show_Color.Red(dec);
-                            break;
+                        maplists.Add(item, map);
+                        btn_item btn = Instantiate(btn_item_prefab, item.transform);
+                        string dec = map.map_name + "\n(Lv." + map.need_lv + "级)";
+                        switch (map.map_type)
+                        {
+                            case 2:
+                                dec = Show_Color.Yellow(dec);
+                                break;
+                            case 3:
+                                dec = Show_Color.Red(dec);
+                                break;
+                        }
+                        btn.Show(item.index, dec);
+                        btn.GetComponent<Button>().onClick.AddListener(delegate { Select_Map(item); });
                     }
-                    btn.Show(item.index, dec);
-                    btn.GetComponent<Button>().onClick.AddListener(delegate { Select_Map(item); });
                 }
             }
         }

@@ -25,7 +25,7 @@ public class reward_item : Base_Mono
 
     private void Reward()
     {
-        transform.parent.parent.parent.parent.parent.parent.SendMessage("Reward", index);
+        transform.parent.parent.parent.parent.parent.SendMessage("Reward", index);
     }
 
     public void Init(int _index,(int,string) value,bool exist,int type)
@@ -33,7 +33,7 @@ public class reward_item : Base_Mono
         reward.gameObject.SetActive(exist);
         index = _index;
         string[] info = value.Item2.Split(',');
-        need_info.text = "累积需求 " + value.Item1 + (type == 1 ? "天" : "次");
+        need_info.text = "累积需求 " + value.Item1 + (type == 1 ? "次" : "天");
         for (int i = 0; i < info.Length; i++)
         {
             if (info[0] != "")

@@ -43,14 +43,14 @@ public class Panel_Accumulatedrewards : Panel_Base
         if (index == 1)
         {
             type_info.text = "累积通行证奖励";
-            base_info.text = "累积通行证次数 " + 1000;
+            base_info.text = "累积通行证次数 " + SumSave.crt_pass.Max_task_number;
         }
         else
         {
             if (index == 2)
             {
                 type_info.text = "累积签到奖励";
-                base_info.text = "累积签到天数 " + 1000;
+                base_info.text = "累积签到天数 " + SumSave.crt_signin.max_number;
             }
         }
         GetList(index);
@@ -109,10 +109,11 @@ public class Panel_Accumulatedrewards : Panel_Base
             if (index < SumSave.db_Accumulatedrewards.pass_list.Count)
             {
                 //满足领取条件
-                if (SumSave.crt_pass.Max_task_number > SumSave.db_Accumulatedrewards.pass_list[index].Item1)
+                if (SumSave.crt_pass.Max_task_number >= SumSave.db_Accumulatedrewards.pass_list[index].Item1)
                 {
                     operate(SumSave.db_Accumulatedrewards.pass_list, dic, index);
                 }
+                else Alert_Dec.Show("未满足领取条件");
             }
         }
         if (type == 2)//签到
@@ -120,10 +121,10 @@ public class Panel_Accumulatedrewards : Panel_Base
             if (index < SumSave.db_Accumulatedrewards.signin_list.Count)
             {
                 //满足领取条件
-                if (SumSave.crt_signin.max_number > SumSave.db_Accumulatedrewards.signin_list[index].Item1)
+                if (SumSave.crt_signin.max_number >= SumSave.db_Accumulatedrewards.signin_list[index].Item1)
                 {
                     operate(SumSave.db_Accumulatedrewards.signin_list, dic, index);
-                }
+                }else Alert_Dec.Show("未满足领取条件");
             }
         }
 
@@ -142,7 +143,7 @@ public class Panel_Accumulatedrewards : Panel_Base
             list = dic[type];
         }
         else dic.Add(type, list);
-        while (list.Count < index)
+        while (list.Count <= index)
         {
             list.Add(0);
         }

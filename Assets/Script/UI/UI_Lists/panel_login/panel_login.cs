@@ -309,7 +309,12 @@ namespace MVC
             ////计算离线收益
             //fightPanel.offline();
         }
+        public override void Hide()
+        {
+            base.Hide();
+            ////计算离线收益
 
+        }
         public override void Show()
         {
             base.Show();

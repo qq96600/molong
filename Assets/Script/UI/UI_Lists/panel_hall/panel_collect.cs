@@ -187,7 +187,7 @@ public class panel_collect : Base_Mono
                     string str = "";
                     for (int i = 0; i < crt_collect.bonuses_types.Length; i++)
                     {
-                        string type = (Attribute_Type.GetValue(int.Parse(coll.bonuses_types[i]))).ToString();
+                        string type = (enum_skill_attribute_list)(int.Parse(coll.bonuses_types[i])) + "";
                         str += type + "+" + coll.bonuses_values[i] + ",";
                     }
 

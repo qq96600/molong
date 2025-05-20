@@ -1024,7 +1024,7 @@ namespace MVC
             //        }
             //    }
             //}
-
+            int exp = SumSave.crt_accumulatedrewards.Set(1);
 
             //命运神殿属性
             if (SumSave.crt_needlist.fate_value_dic.Count > 0)
@@ -1047,7 +1047,6 @@ namespace MVC
                     }
                 }
             }
-
 
             //收集属性
             for (int j = 0; j < suit_Type.GetNames(typeof(suit_Type)).Length; j++)//循环所有套装
