@@ -48,8 +48,31 @@ namespace MVC
             Read_Guide_TotalTask();
             Read_db_Accumulatedrewards();
             Read_Guide_Fate();
+            Read_db_vip();
             CloseMySqlDB();
         }
+
+
+        /// <summary>
+        /// 读取vip列表
+        /// </summary>
+        public void Read_db_vip()
+        {
+            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_vip);
+            SumSave.db_vip_list = new List<db_vip>();
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.db_vip_list.Add(ReadDb.Read(mysqlReader, new db_vip()));
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// 累计奖励
+        /// </summary>
         public void Read_db_Accumulatedrewards()
         {
             mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_accumulatedrewards);

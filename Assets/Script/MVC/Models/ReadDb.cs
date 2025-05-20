@@ -400,6 +400,29 @@ public static class ReadDb
         item.Init();
         return item;
     }
+
+    public static db_vip Read(MySqlDataReader reader, db_vip item)
+    {
+        item.vip_lv= reader.GetInt32(reader.GetOrdinal("vip_lv"));
+        item.vip_exp= reader.GetInt32(reader.GetOrdinal("vip_exp"));
+        item.experienceBonus= reader.GetInt32(reader.GetOrdinal("experienceBonus"));
+        item.lingzhuIncome= reader.GetInt32(reader.GetOrdinal("lingzhuIncome"));
+        item.equipmentExplosionRate= reader.GetInt32(reader.GetOrdinal("equipmentExplosionRate"));
+        item.characterExperience= reader.GetInt32(reader.GetOrdinal("characterExperience"));
+        item.monsterHuntingInterval= reader.GetInt32(reader.GetOrdinal("monsterHuntingInterval"));
+        item.hpRecovery= reader.GetInt32(reader.GetOrdinal("hpRecovery"));
+        item.manaRegeneration= reader.GetInt32(reader.GetOrdinal("manaRegeneration"));
+        item.goodFortune= reader.GetInt32(reader.GetOrdinal("goodFortune"));
+        item.strengthenCosts= reader.GetInt32(reader.GetOrdinal("strengthenCosts"));
+        item.offlineInterval= reader.GetInt32(reader.GetOrdinal("offlineInterval"));
+        item.signInIncome= reader.GetInt32(reader.GetOrdinal("signInIncome"));
+        item.whippingCorpses= reader.GetInt32(reader.GetOrdinal("whippingCorpses"));
+        item.upperLimitOfSpiritualEnergy= reader.GetInt32(reader.GetOrdinal("upperLimitOfSpiritualEnergy"));
+        return item;
+    }
+
+
+
     public static user_plant_vo Read(MySqlDataReader reader, user_plant_vo item)
     {
         item.plantLeve= reader.GetInt32(reader.GetOrdinal("plantLeve"));
@@ -516,6 +539,7 @@ public static class ReadDb
         item.hero_pos= reader.GetString(reader.GetOrdinal("hero_pos"));
         item.hero_value= reader.GetString(reader.GetOrdinal("hero_value"));
         item.hero_material= reader.GetString(reader.GetOrdinal("hero_material"));
+        item.hero_vip_lv_exp= reader.GetString(reader.GetOrdinal("hero_vip_lv_exp"));
         string[] hero_material_array = item.hero_material.Split(' ');
         item.hero_material_list = new int[hero_material_array.Length];
         for (int i = 0; i < hero_material_array.Length; i++)

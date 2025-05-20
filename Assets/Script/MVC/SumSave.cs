@@ -261,6 +261,10 @@ namespace Common
         /// 命运殿堂列表
         /// </summary>
         public static List<db_fate_vo> db_fate_list;
+        /// <summary>
+        /// VIP列表
+        /// </summary>
+        public static List<db_vip> db_vip_list;
 
         #endregion
 

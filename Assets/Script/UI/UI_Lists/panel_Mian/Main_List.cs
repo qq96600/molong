@@ -16,4 +16,5 @@ public enum Main_List
     Daily_copies,//日常副本
     offect_emial,//邮件
     panel_fatePalace,//命运殿堂
+    panel_vip,//vip
 }
