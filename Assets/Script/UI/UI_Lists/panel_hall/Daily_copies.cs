@@ -89,12 +89,12 @@ public class Daily_copies : Base_Mono
     public override void Show()
     {
         base.Show();
-        //if (int.Parse( SumSave.crt_hero.hero_lv) < 30)
-        //{
-        //    Alert_Dec.Show("副本开启等级为30级");
-        //    gameObject.SetActive(false);
-        //    return;
-        //}
+        if (SumSave.crt_MaxHero.Lv < 30)
+        {
+            Alert_Dec.Show("副本开启等级为30级");
+            gameObject.SetActive(false);
+            return;
+        }
         base_Show();
     }
     /// <summary>

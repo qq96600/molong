@@ -55,7 +55,7 @@ public class user_Accumulatedrewards_vo : Base_VO
     /// <returns></returns>
     public List<string> SetSum_recharge()
     {
-        List<string> list = new List<string>();
+        List<string> list = new List<string>(); 
         for (int i = SumSave.db_vip_list.Count; i > 0; i--)//实例化vip信息
         {
             if (sum_recharge >= SumSave.db_vip_list[i-1].vip_exp)

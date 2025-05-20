@@ -68,7 +68,7 @@ public class Panel_Accumulatedrewards : Panel_Base
         if (dic.ContainsKey(index))
         {
             list= dic[index];
-        }
+        }else dic.Add(index, list);
         if (index==1)
         {
             for (int i = 0; i < SumSave.db_Accumulatedrewards.pass_list.Count; i++)
@@ -93,7 +93,7 @@ public class Panel_Accumulatedrewards : Panel_Base
                     if (list[i] == 1) exist = false;
                 }
                 reward_item item = Instantiate(reward_item_prefabs, pos_list);
-                item.Init(i, SumSave.db_Accumulatedrewards.pass_list[i], exist, index);
+                item.Init(i, SumSave.db_Accumulatedrewards.signin_list[i], exist, index);
             }
         }
     }
@@ -176,6 +176,21 @@ public class Panel_Accumulatedrewards : Panel_Base
                     Battle_Tool.Obtain_Resources(str[1], int.Parse(str[2]));
                     break;
                 case 3://次数礼包
+                    if (str[0] == "次数福利礼包")
+                    {
+                        dic.Add(("魔丸", 200));
+                        dic.Add(("荣耀点", 50));
+                        SumSave.crt_accumulatedrewards.Set(2, 50);
+                        Battle_Tool.Obtain_Unit(currency_unit.魔丸, 200);
+                    }
+                    else
+                    if (str[0] == "新手福利礼包")
+                    {
+                        dic.Add(("魔丸", 300));
+                        dic.Add(("荣耀点", 100));
+                        SumSave.crt_accumulatedrewards.Set(2, 100);
+                        Battle_Tool.Obtain_Unit(currency_unit.魔丸, 300);
+                    }
                     break;
                 default:
                     break;
