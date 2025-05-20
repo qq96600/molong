@@ -3,6 +3,7 @@ using Common;
 using Components;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UI;
 using UnityEngine;
 using UnityEngine.UI;
@@ -52,7 +53,11 @@ namespace MVC
         /// <summary>
         /// 记住上一次登录的服务器
         /// </summary>
-        private string lastServer;
+        private int lastServer;
+        /// <summary>
+        /// 服务器列表
+        /// </summary>
+        private List<btn_item> select_par_list=new List<btn_item>();
         private void Start()
         {
             SendNotification(NotiList.Read_Instace);
@@ -165,21 +170,26 @@ namespace MVC
                     btn_item item = Instantiate(btn_Item, TheServerList);
                     item.Show(SumSave.db_pars[i].index, (SumSave.db_pars[i].index).ToString() + "区");
                     item.GetComponent<Button>().onClick.AddListener(() => { SelectPar(item); });
-
+                    select_par_list.Add(item);
                 }
             }
 
-            if (PlayerPrefs.HasKey(lastServer))
+           
+            if (PlayerPrefs.HasKey("lastServer"))
             {
-                string index= PlayerPrefs.GetString(lastServer);
-                TheServerText.text = "选中" + index + "区";
-                SumSave.par = int.Parse(index);
+                lastServer=PlayerPrefs.GetInt("lastServer");
+                btn_item par = select_par_list[lastServer-1];
+                select_par= par;
+                TheServerText.text = "选中" + select_par.index.ToString()  + "区";
+                SumSave.par = select_par.index;
+
             }
             else
             {
-                string index = SumSave.db_pars[0].index.ToString();
-                TheServerText.text = "选中" + index + "区";
-                SumSave.par = int.Parse(index);
+                btn_item par = select_par_list[0];
+                select_par = par;
+                TheServerText.text = "选中" + select_par.index.ToString() + "区";
+                SumSave.par = select_par.index;
             }
 
         }
@@ -287,7 +297,7 @@ namespace MVC
             TheServerObg.gameObject.SetActive(false);
             if (SumSave.uid != null)
             {
-                PlayerPrefs.SetString(lastServer, select_par.index.ToString());
+                PlayerPrefs.SetInt("lastServer", select_par.index);
 
                 SendNotification(NotiList.User_Login);
                 UI_Manager.I.GetPanel<panel_Mian>().Show();
