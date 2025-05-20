@@ -90,7 +90,6 @@ public class db_pet_vo : Base_VO
     /// </summary>
     public void Init()
     {
-
         string[] str = user_value.Split('|');
 
         if (str.Length == 2)

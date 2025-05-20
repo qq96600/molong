@@ -12,6 +12,7 @@ using Random = UnityEngine.Random;
 /// </summary>
 public class hatching_progress : Base_Mono
 {
+
     private Transform pos_list, pos_btn, pos_info, pos_pet_btn;
 
     /// <summary>
@@ -367,7 +368,7 @@ public class hatching_progress : Base_Mono
             hatchingTimeCounter -= time;
             countdown_text.text = ConvertSecondsToHHMMSS(hatchingTimeCounter);
             hatching_Slider.value = pet.hatchingTime - hatchingTimeCounter;
-            Debug.Log("倒计时" + hatchingTimeCounter + "进度条：" + hatching_Slider.value);
+            //Debug.Log("倒计时" + hatchingTimeCounter + "进度条：" + hatching_Slider.value);
         }
         else if (hatchingTimeCounter <= 0)//孵化完成
         {
@@ -433,6 +434,7 @@ public class hatching_progress : Base_Mono
 
 
         SumSave.crt_achievement.increase_date_Exp((Achieve_collect.孵化宠物).ToString(), 1);
+        DisplayPetEggs();
 
     }
 
@@ -490,44 +492,69 @@ public class hatching_progress : Base_Mono
         pos_pet_btn.gameObject.SetActive(true);
         if (index == 0)
         {
-
-            for (int i = 0; i < SumSave.crt_pet_list.Count; i++)//显示宠物
+            for (int i = 0; i < SumSave.crt_pet.crt_pet_list.Count; i++)//显示宠物
             {
-             
-                pet_item item = Instantiate(pet_item_Prefabs, pos_list);
-                item.Init(SumSave.crt_pet_list[i]);
-                item.GetComponent<Button>().onClick.AddListener(() => { Select_Pet(item); });
-                if (crt_pet == null)
+                string[] data = SumSave.crt_pet.crt_pet_list[i].Split(",");
+                if (data.Length!=2)
                 {
-                    Select_Pet(item);
+                    pet_item item = Instantiate(pet_item_Prefabs, pos_list);
+                    item.Init(SumSave.crt_pet_list[i]);
+                    item.GetComponent<Button>().onClick.AddListener(() => { Select_Pet(item); });
+                    if (crt_pet == null)
+                    {
+                        Select_Pet(item);
+                    }
+                    else
+                    {
+                        if (item == crt_pet) Select_Pet(item);
+                    }
                 }
-                else
-                {
-                    if (item == crt_pet) Select_Pet(item);
-                }
+               
             }
         }
         if (index == 1)
         {
-            List<(string, int)> list = SumSave.crt_bag_resources.Set();
-            for (int i = 0; i < list.Count; i++)
+            DisplayPetEggs();
+        }
+           
+    }
+    /// <summary>
+    /// 显示宠物蛋列表
+    /// </summary>
+    private void DisplayPetEggs()
+    {
+        for (int i = 0; i < SumSave.crt_pet.crt_pet_list.Count; i++)
+        {
+            string[] data = SumSave.crt_pet.crt_pet_list[i].Split(",");
+            if (data.Length == 2)
             {
-                if (list[i].Item2 <= 0) continue;
-                Bag_Base_VO bag = ArrayHelper.Find(SumSave.db_stditems, e => e.Name == list[i].Item1);
-                if (bag != null)
+                db_pet_vo pet_init = ArrayHelper.Find(SumSave.db_pet, e => e.petName == data[0]);//更具宠物名字找到宠物蛋名字
+                store_item item = Instantiate(store_item_Prefabs, pos_list);
+                (string, int) lists = (pet_init.petEggsName, -1);
+                item.PetInit(lists, "");
+                item.GetComponent<Button>().onClick.AddListener(() => { Select_Egg(lists); });
+            }
+        }
+
+
+        List<(string, int)> list = SumSave.crt_bag_resources.Set();//获得背包物品名字和数量
+        for (int i = 0; i < list.Count; i++)
+        {
+            if (list[i].Item2 <= 0) continue;
+            Bag_Base_VO bag = ArrayHelper.Find(SumSave.db_stditems, e => e.Name == list[i].Item1);
+            if (bag != null)
+            {
+                switch ((EquipConfigTypeList)Enum.Parse(typeof(EquipConfigTypeList), bag.StdMode))
                 {
-                    switch ((EquipConfigTypeList)Enum.Parse(typeof(EquipConfigTypeList), bag.StdMode))
-                    {
-                        case EquipConfigTypeList.宠物蛋:
-                            (string, int) lists = list[i];
-                            store_item item = Instantiate(store_item_Prefabs, pos_list);
-                            item.PetInit(list[i], "");
-                            item.GetComponent<Button>().onClick.AddListener(() => { Select_Egg(lists); });
-                            if (crt_egg.Item2 == 0) Select_Egg(lists);
-                            break;
-                        default:
-                            break;
-                    }
+                    case EquipConfigTypeList.宠物蛋:
+                        (string, int) lists = list[i];
+                        store_item item = Instantiate(store_item_Prefabs, pos_list);
+                        item.PetInit(list[i], "");
+                        item.GetComponent<Button>().onClick.AddListener(() => { Select_Egg(lists); });
+                        if (crt_egg.Item2 == 0) Select_Egg(lists);
+                        break;
+                    default:
+                        break;
                 }
             }
         }
@@ -642,9 +669,30 @@ public class hatching_progress : Base_Mono
     /// <param name="bag"></param>
     private void Select_Egg((string, int) bag)
     {
-        Show_Btn(false, 0);
-        
         db_pet_vo pet = ArrayHelper.Find(SumSave.db_pet, e => e.petEggsName == bag.Item1);
+        if (bag.Item2 == -1)
+        {
+            for (int i = 0; i < SumSave.crt_pet.crt_pet_list.Count; i++)
+            {
+                string[] data = SumSave.crt_pet.crt_pet_list[i].Split(",");
+                if(data.Length==2)
+                {
+                    db_pet_vo _pet=new db_pet_vo();
+                    pos_pet_btn.gameObject.SetActive(false);
+                    hatchingTimeCounter = (int)(SumSave.nowtime - Convert.ToDateTime(data[1])).TotalMinutes;
+                    hatching_Slider.gameObject.SetActive(true);
+                    hatching_Slider.maxValue = pet.hatchingTime;
+                    StartCoroutine(ShowPlant(pet));
+                }
+            }
+
+        }
+        else
+        {
+            Show_Btn(false, 0);
+        }
+
+        
         crt_egg = bag;
         UpProperties(pet);
         Obtain_Pet(pet, 1);

@@ -322,6 +322,16 @@ public class panel_collect : Base_Mono
 
         
         collect_info_text.text = "";
+
+        string[] typ = Enum.GetNames(typeof(suit_Type));
+        for (int i = 0; i < typ.Length; i++)
+        {
+            if (crt_collect.StdMode == typ[i])
+            {
+                collect_info_text.text += "套装收集完成后获得:\n";
+            }
+        }
+
         for (int i = 0; i < crt_collect.bonuses_types.Length; i++) 
         {
             string type =(Attribute_Type.GetValue(int.Parse(crt_collect.bonuses_types[i]))).ToString();
