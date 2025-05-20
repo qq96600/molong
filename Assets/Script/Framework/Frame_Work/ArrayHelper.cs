@@ -253,7 +253,7 @@ namespace Common
         public static bool SafeGet<T>(this List<T> list, int index, out T value)
         {
             value = default;
-            if (index >= 0 || index < list.Count)
+            if (index >= 0 && index < list.Count)
             {
                 value = list[index];
                 return true;
