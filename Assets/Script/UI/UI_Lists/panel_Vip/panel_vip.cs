@@ -18,7 +18,7 @@ public class panel_vip : Panel_Base
     /// <summary>
     /// vip信息标题
     /// </summary>
-    private List<string> Title_list = new List<string>() { "VIP等级", "升级经验", "经验加成", "灵珠收益", "装备爆率", "人物历练", "寻怪间隔", "生命回复", "法力回复", "幸运", "强化费用", "离线间隔", "签到收益", "鞭尸", "灵气上限"};
+    private List<string> Title_list = new List<string>() { "殿堂等级", "荣耀点", "经验加成", "灵珠收益", "装备爆率", "人物历练", "寻怪间隔", "生命回复", "法力回复", "幸运", "强化费用", "离线间隔", "签到收益", "鞭尸", "灵气上限"};
     /// <summary>
     /// vip等级显示位置
     /// </summary>
@@ -48,9 +48,9 @@ public class panel_vip : Panel_Base
         {
             SumSave.crt_hero.hero_vip_lv_exp= "0 0";
         }
-        string[] lv_exp = SumSave.crt_hero.hero_vip_lv_exp.Split(' ');
+        List<int> lv_exp = SumSave.crt_hero.hero_vip_lv_exp_list;
         show_vip_lv_text.text.Clone();
-        show_vip_lv_text.text = "VIP等级:" + lv_exp[0]+" 经验:"+lv_exp[1];//显示vip等级和经验
+        show_vip_lv_text.text = "VIP等级:" + lv_exp[0].ToString()+" 经验:"+lv_exp[1].ToString();//显示vip等级和经验
 
         vip_effect Title = Instantiate(vip_effect_obj, Information);//实例化vip信息标题
         Title.Init(-1, Title_list);

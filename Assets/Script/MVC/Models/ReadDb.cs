@@ -540,6 +540,13 @@ public static class ReadDb
         item.hero_value= reader.GetString(reader.GetOrdinal("hero_value"));
         item.hero_material= reader.GetString(reader.GetOrdinal("hero_material"));
         item.hero_vip_lv_exp= reader.GetString(reader.GetOrdinal("hero_vip_lv_exp"));
+
+        string[] hero_vip_array = item.hero_vip_lv_exp.Split(' ');
+        for(int i = 0; i < hero_vip_array.Length; i++)
+        {
+            item.hero_vip_lv_exp_list.Add(int.Parse(hero_vip_array[i]));
+        }
+        //item.hero_vip_lv_exp_list =
         string[] hero_material_array = item.hero_material.Split(' ');
         item.hero_material_list = new int[hero_material_array.Length];
         for (int i = 0; i < hero_material_array.Length; i++)

@@ -21,6 +21,18 @@ namespace Common
             }
             return dec;
         }
+
+        public static string Data_Encryption<T>(this List<T> str)
+        {
+            string dec = "";
+
+            for (int i = 0; i < str.Count; i++)
+            {
+                dec += (dec == "" ? "" : " ") + str[i];
+            }
+            return dec;
+        }
+
         public static List<T> FindAll<T>(List<T> array, Func<T, bool> handler)
         {
             List<T> result = new List<T>(array.Count);
