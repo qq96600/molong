@@ -404,6 +404,7 @@ public static class ReadDb
     public static db_vip Read(MySqlDataReader reader, db_vip item)
     {
         item.vip_lv= reader.GetInt32(reader.GetOrdinal("vip_lv"));
+        item.vip_name= reader.GetString(reader.GetOrdinal("vip_name"));
         item.vip_exp= reader.GetInt32(reader.GetOrdinal("vip_exp"));
         item.experienceBonus= reader.GetInt32(reader.GetOrdinal("experienceBonus"));
         item.lingzhuIncome= reader.GetInt32(reader.GetOrdinal("lingzhuIncome"));
@@ -539,7 +540,6 @@ public static class ReadDb
         item.hero_pos= reader.GetString(reader.GetOrdinal("hero_pos"));
         item.hero_value= reader.GetString(reader.GetOrdinal("hero_value"));
         item.hero_material= reader.GetString(reader.GetOrdinal("hero_material"));
-        item.hero_vip_lv_exp= reader.GetString(reader.GetOrdinal("hero_vip_lv_exp"));
         string[] hero_material_array = item.hero_material.Split(' ');
         item.hero_material_list = new int[hero_material_array.Length];
         for (int i = 0; i < hero_material_array.Length; i++)

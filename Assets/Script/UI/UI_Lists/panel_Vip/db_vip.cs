@@ -9,6 +9,7 @@ public class db_vip : Base_VO
     /// VIP等级
     /// </summary>
     public int vip_lv;
+    public string vip_name;
     /// <summary>
     /// VIP经验
     /// </summary>
