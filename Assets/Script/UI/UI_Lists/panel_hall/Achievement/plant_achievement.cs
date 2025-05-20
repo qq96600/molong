@@ -243,12 +243,16 @@ public class plant_achievement : Base_Mono
                 dec += "\nLv" + (number + 1) + ".成就阶段 " + dic_exp[crt_achieve_Item.Data.achievement_value] + "/" + crt_achieve_Item.Data.achievement_needs[number];
                 //dec += "\n奖励 " + Show_Color.Yellow(InSetInfo(number));
             }
-            show_info.text = dec;
         }
-           
+        else
+        {
+            
+            dec += "\nLv1.成就阶段 0/" + crt_achieve_Item.Data.achievement_needs[0];
+        }
+        show_info.text = dec;
         //}
 
-        
+
     }
     /// <summary>
     /// 选择成就类型

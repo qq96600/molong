@@ -13,7 +13,7 @@ public class show_Plant : Base_Mono
 
     private Transform pos_btn,pos_panlt;
 
-    private List<string> btn_list= new List<string>() { "扩容", "播种","浇水","收获"};
+    private List<string> btn_list= new List<string>() { "扩容", "播种","收获"};//"浇水",
     /// <summary>
     /// 植物按钮
     /// </summary>
@@ -240,13 +240,20 @@ public class show_Plant : Base_Mono
         int number = 0;
         for (int i = 0; i < panltList.Count; i++)
         {
-            if (!panltList[i].state())//判断是否可以浇水且植物不为空&& Set[i].Item1 != "0"
+            if (!panltList[i].state()&& !panltList[i].isMatured())//判断是否可以浇水且植物不为空&& Set[i].Item1 != "0"
             {
                 number++;
             }
         }
-        Alert.Show("浇水", "浇水需要" + currency_unit.灵气 + " " + (200 * number) + "\n是否需要？",
+        if (number > 0)
+        {
+            Alert.Show("浇水", "浇水需要" + currency_unit.灵气 + " " + (200 * number) + "\n是否需要？",
     ConfigWatering, number);
+        }else
+        {
+            Alert_Dec.Show("没有需要浇水的植物");
+        }
+        
     }
     /// <summary>
     /// 浇水
@@ -264,12 +271,16 @@ public class show_Plant : Base_Mono
                 if (!panltList[i].state())//判断是否可以浇水且植物不为空&& Set[i].Item1 != "0"
                 {
                     Set[i] = (Set[i].Item1, Set[i].Item2.AddSeconds(-reduceTime));//更新成熟时间
-                    Alert_Dec.Show("已浇水，" + Set[i].Item1 + "生长时间减少" + reduceTime + "分钟");
+                    Alert_Dec.Show("已浇水，" + Set[i].Item1 + "生长时间减少" + reduceTime + "秒");
                     panltList[i].updata_time(Set[i].Item2);
                 }
             }
             SumSave.crt_plant.Up_user_plants(Set);//更新角色数据
             Wirte(Set);//写入数据库
+        }
+        else
+        {
+            Alert_Dec.Show("灵气不足");
         }
     }
 
