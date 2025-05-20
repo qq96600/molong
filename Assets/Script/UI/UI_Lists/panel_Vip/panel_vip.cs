@@ -18,7 +18,7 @@ public class panel_vip : Panel_Base
     /// <summary>
     /// vip信息标题
     /// </summary>
-    private List<string> Title_list = new List<string>() { "VIP等级", "升级经验", "经验加成", "灵珠收益", "装备爆率", "人物历练", "寻怪间隔", "生命回复", "法力回复", "幸运", "强化费用", "离线间隔", "签到收益", "鞭尸", "灵气上限"};
+    private List<string> Title_list = new List<string>() { "荣耀殿堂", "荣耀点", "经验加成", "灵珠收益", "装备爆率", "人物历练", "寻怪间隔", "生命回复", "法力回复", "幸运", "强化费用", "离线间隔", "签到收益", "鞭尸", "灵气上限"};
     /// <summary>
     /// vip等级显示位置
     /// </summary>
@@ -43,13 +43,19 @@ public class panel_vip : Panel_Base
     {
         ClearObject(Information);
 
-        //if(SumSave.crt_hero.hero_vip_lv_exp=="")
-        //{
-        //    SumSave.crt_hero.hero_vip_lv_exp= "0 0";
-        //}
-        //string[] lv_exp = SumSave.crt_hero.hero_vip_lv_exp.Split(' ');
-        //show_vip_lv_text.text.Clone();
-        //show_vip_lv_text.text = "VIP等级:" + lv_exp[0]+" 经验:"+lv_exp[1];//显示vip等级和经验
+        List<string> price =SumSave.crt_accumulatedrewards.SetSum_recharge();
+        show_vip_lv_text.text.Clone();
+        if (price.Count == 0)
+        {
+            show_vip_lv_text.text = "未进入荣耀殿堂";
+        }   else
+        {
+            
+            show_vip_lv_text.text = "荣耀殿堂进度:" + price[2] + "\n荣耀点:" + price[1];//显示vip等级和经验
+        }
+        
+
+
 
         vip_effect Title = Instantiate(vip_effect_obj, Information);//实例化vip信息标题
         Title.Init(-1, Title_list);
@@ -58,6 +64,10 @@ public class panel_vip : Panel_Base
         {
             vip_effect vip_effect = Instantiate(vip_effect_obj, Information);
             vip_effect.Init(i, SumSave.db_vip_list[i]);
+            if((int.Parse(price[0])+1)== SumSave.db_vip_list[i].vip_lv)
+            {
+                return;
+            }
         }
     }
 

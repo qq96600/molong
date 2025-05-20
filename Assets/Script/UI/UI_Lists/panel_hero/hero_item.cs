@@ -46,7 +46,7 @@ public class hero_item : Base_Mono
                     return;
                 }
             }
-            Debug.LogError("enum_attribute_list枚举类中没有该皮肤");
+            Debug.LogError("enum_attribute_list枚举类中没有该皮肤:" + data.hero_name.ToString());
 
 
             //读取显示图标

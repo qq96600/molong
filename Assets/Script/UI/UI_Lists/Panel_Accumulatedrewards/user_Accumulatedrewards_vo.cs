@@ -48,6 +48,27 @@ public class user_Accumulatedrewards_vo : Base_VO
     {
         return accumulated_rewards;
     }
+
+    /// <summary>
+    /// 取出累计充值的值 0等级 1经验 2名字
+    /// </summary>
+    /// <returns></returns>
+    public List<string> SetSum_recharge()
+    {
+        List<string> list = new List<string>();
+        for (int i = SumSave.db_vip_list.Count; i > 0; i--)//实例化vip信息
+        {
+            if (sum_recharge >= SumSave.db_vip_list[i-1].vip_exp)
+            {
+               list.Add(SumSave.db_vip_list[i-1].vip_lv.ToString());
+               list.Add(sum_recharge.ToString());
+               list.Add(SumSave.db_vip_list[i-1].vip_name);
+               return list;
+            }
+        }
+        return list;
+    }
+
     /// <summary>
     /// 获取
     /// </summary>
