@@ -12,7 +12,7 @@ public class panel_map : Panel_Base
     /// <summary>
     /// 掉落列表
     /// </summary>
-    private Transform pos_life;
+    private Transform pos_life,pos_map;
     private btn_item btn_item_prefab;
     /// <summary>
     /// 地图名称
@@ -59,6 +59,7 @@ public class panel_map : Panel_Base
     public override void Initialize()
     {
         base.Initialize();
+        pos_map = Find<Transform>("bg_main/Scroll View/Viewport/Content/bg_map");
         map_name = Find<Text>("bg_main/base_info/map_name");
         need_lv = Find<Text>("bg_main/base_info/need_lv");
         monster_list = Find<Text>("bg_main/base_info/monster_list");
@@ -73,7 +74,7 @@ public class panel_map : Panel_Base
        
     }
 
-    protected void Instance_Pos(map_pos_item item)
+    private void Instance_Pos(map_pos_item item)
     {
         if (!maplists.ContainsKey(item))
         {
@@ -140,8 +141,18 @@ public class panel_map : Panel_Base
     public override void Show()
     {
         base.Show();
+        Base_Show();
         base_show_info.gameObject.SetActive(false);
     }
+
+    private void Base_Show()
+    {
+        for (int i = 0; i < pos_map.childCount; i++)
+        { 
+            Instance_Pos(pos_map.GetChild(i).GetComponent<map_pos_item>());
+        }
+    }
+
     /// <summary>
     /// 打开地图
     /// </summary>
