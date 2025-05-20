@@ -133,6 +133,17 @@ public class hatching_progress : Base_Mono
         switch (pet_list_btn[btn.index])
         {
             case "孵化":
+                for (int i = 0; i < SumSave.crt_pet.crt_pet_list.Count; i++)
+                {
+                    string[] data = SumSave.crt_pet.crt_pet_list[i].Split(",");
+                    if (data.Length == 2)
+                    {
+                        Alert_Dec.Show("宠物" + data[0] + " 正在孵化");
+                        return;
+                    }
+
+                }
+
                 Dictionary<string, int> dic = new Dictionary<string, int>();
                 if(crt_egg.Item2 <= 0)
                 {
@@ -341,7 +352,11 @@ public class hatching_progress : Base_Mono
         Alert_Dec.Show("宠物" + crt_pet_vo.petName + "已丢弃");
         SumSave.crt_achievement.increase_date_Exp((Achieve_collect.放生宠物).ToString(), 1);
     }
-
+    /// <summary>
+    /// 孵化倒计时
+    /// </summary>
+    /// <param name="pet"></param>
+    /// <returns></returns>
     private IEnumerator ShowPlant(db_pet_vo pet)
     {
 
@@ -490,12 +505,14 @@ public class hatching_progress : Base_Mono
 
         ClearObject(pos_list);
         pos_pet_btn.gameObject.SetActive(true);
+        
         if (index == 0)
         {
+            hatching_Slider.gameObject.SetActive(false);
             for (int i = 0; i < SumSave.crt_pet.crt_pet_list.Count; i++)//显示宠物
             {
                 string[] data = SumSave.crt_pet.crt_pet_list[i].Split(",");
-                if (data.Length!=2)
+                if (data.Length!=2&& SumSave.crt_pet.crt_pet_list[i]!="")
                 {
                     pet_item item = Instantiate(pet_item_Prefabs, pos_list);
                     item.Init(SumSave.crt_pet_list[i]);
@@ -677,9 +694,11 @@ public class hatching_progress : Base_Mono
                 string[] data = SumSave.crt_pet.crt_pet_list[i].Split(",");
                 if(data.Length==2)
                 {
+                   
                     db_pet_vo _pet=new db_pet_vo();
+                    incubate_Time = SumSave.crt_pet.crt_pet_list[i];
                     pos_pet_btn.gameObject.SetActive(false);
-                    hatchingTimeCounter = (int)(SumSave.nowtime - Convert.ToDateTime(data[1])).TotalMinutes;
+                    hatchingTimeCounter = ((int)(SumSave.nowtime - Convert.ToDateTime(data[1])).TotalMinutes)*60;
                     hatching_Slider.gameObject.SetActive(true);
                     hatching_Slider.maxValue = pet.hatchingTime;
                     StartCoroutine(ShowPlant(pet));
