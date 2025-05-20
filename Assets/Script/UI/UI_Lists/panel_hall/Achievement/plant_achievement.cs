@@ -153,7 +153,7 @@ public class plant_achievement : Base_Mono
             Alert_Dec.Show("领取 " + reward+"X"+ temp[2]+" 成功");
         }else if (int.Parse(temp[0]) == 1)
         {
-            Alert_Dec.Show("获得 "+(enum_skill_attribute_list)(int.Parse(temp[1]))+"X"+temp[2]+" 属性加成"); 
+            Alert_Dec.Show("获得 "+(enum_skill_attribute_list)(int.Parse(temp[1]))+"+"+temp[2]); 
         }
         show_offect.gameObject.SetActive(false);
         crt_achieve_Item.Init(); 
@@ -186,11 +186,6 @@ public class plant_achievement : Base_Mono
 
                         SumSave.crt_achievement.up_date_Exp((Achieve_collect.技能数量).ToString(), SumSave.crt_skills.Count);//更新技能数量
                     }
-
-
-
-
-
 
                     ach_item item = Instantiate(Achieve_Item_Prefab, crt);//实例化具体成就
                     item.Data = SumSave.db_Achievement_dic[j];//获取成就信息
@@ -231,16 +226,16 @@ public class plant_achievement : Base_Mono
         string dec = (Achieve_Type)crt_achieve_Item.Data.achievement_type + " " + crt_achieve_Item.Data.achievement_value;
         dic_exp = SumSave.crt_achievement.Set_Exp();
         dic_lv = SumSave.crt_achievement.Set_Lv();
-
         //if (dic_lv[crt_achieve_Item.Data.achievement_value] > 0)
         //{
-        if(dic_lv.ContainsKey(crt_achieve_Item.Data.achievement_value))
+        if (dic_lv.ContainsKey(crt_achieve_Item.Data.achievement_value))
         {
             int max = (int)MathF.Min(dic_lv[crt_achieve_Item.Data.achievement_value], crt_achieve_Item.Data.achievement_needs.Count);
+            
             for (int i = 0; i < max; i++)
             {
-                dec += "\n" + Show_Color.Green(InSetInfo(i) + "(已领取)");
-
+                string[] temp = crt_achieve_Item.Data.achievement_rewards[i].Split(' ');
+                dec += "\n" + Show_Color.Green(InSetInfo(i) + "(已领取)" + "获得 " + (enum_skill_attribute_list)(int.Parse(temp[1])) + "+" + temp[2]);
             }
             if (dic_lv[crt_achieve_Item.Data.achievement_value] < crt_achieve_Item.Data.achievement_needs.Count)
             {

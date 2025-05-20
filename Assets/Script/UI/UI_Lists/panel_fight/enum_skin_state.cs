@@ -4,7 +4,8 @@ using UnityEngine;
 
 public enum enum_skin_state 
 {
-    璃心=1,
+    职业人=1,
+    璃心,
     夜狩,
     苍霆,
     昭月,
