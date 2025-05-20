@@ -8,26 +8,25 @@ using UnityEngine.UI;
 public class panel_vip : Panel_Base
 {
     /// <summary>
-    /// VIPĞÅÏ¢ÏÔÊ¾Î»ÖÃ
+    /// VIPä¿¡æ¯æ˜¾ç¤ºä½ç½®
     /// </summary>
     private Transform Information;
     /// <summary>
-    /// vipĞÅÏ¢Ô¤ÖÆÌå
+    /// vipä¿¡æ¯é¢„åˆ¶ä½“
     /// </summary>
     private vip_effect vip_effect_obj;
     /// <summary>
-    /// vipĞÅÏ¢±êÌâ
+    /// vipä¿¡æ¯æ ‡é¢˜
     /// </summary>
-    private List<string> Title_list = new List<string>() { "µîÌÃµÈ¼¶", "ÈÙÒ«µã", "¾­Ñé¼Ó³É", "ÁéÖéÊÕÒæ", "×°±¸±¬ÂÊ", "ÈËÎïÀúÁ·", "Ñ°¹Ö¼ä¸ô", "ÉúÃü»Ø¸´", "·¨Á¦»Ø¸´", "ĞÒÔË", "Ç¿»¯·ÑÓÃ", "ÀëÏß¼ä¸ô", "Ç©µ½ÊÕÒæ", "±ŞÊ¬", "ÁéÆøÉÏÏŞ"};
+    private List<string> Title_list = new List<string>() { "è£è€€æ®¿å ‚", "è£è€€ç‚¹", "ç»éªŒåŠ æˆ", "çµç æ”¶ç›Š", "è£…å¤‡çˆ†ç‡", "äººç‰©å†ç»ƒ", "å¯»æ€ªé—´éš”", "ç”Ÿå‘½å›å¤", "æ³•åŠ›å›å¤", "å¹¸è¿", "å¼ºåŒ–è´¹ç”¨", "ç¦»çº¿é—´éš”", "ç­¾åˆ°æ”¶ç›Š", "é­å°¸", "çµæ°”ä¸Šé™"};
     /// <summary>
-    /// vipµÈ¼¶ÏÔÊ¾Î»ÖÃ
+    /// vipç­‰çº§æ˜¾ç¤ºä½ç½®
     /// </summary>
     private Text show_vip_lv_text;
-    private void Awake()
+    private new void Awake()
     {
         Initialize();
     }
-
     public override void Initialize()
     {
         base.Initialize();
@@ -38,24 +37,24 @@ public class panel_vip : Panel_Base
     }
 
     /// <summary>
-    /// ÏÔÊ¾vipĞÅÏ¢
+    /// æ˜¾ç¤ºvipä¿¡æ¯
     /// </summary>
     public void Show_Vip_Info()
     {
         ClearObject(Information);
-       
-        if(SumSave.crt_hero.hero_vip_lv_exp=="")
-        {
-            SumSave.crt_hero.hero_vip_lv_exp= "0 0";
-        }
-        List<int> lv_exp = SumSave.crt_hero.hero_vip_lv_exp_list;
-        show_vip_lv_text.text.Clone();
-        show_vip_lv_text.text = "VIPµÈ¼¶:" + lv_exp[0].ToString()+" ¾­Ñé:"+lv_exp[1].ToString();//ÏÔÊ¾vipµÈ¼¶ºÍ¾­Ñé
 
-        vip_effect Title = Instantiate(vip_effect_obj, Information);//ÊµÀı»¯vipĞÅÏ¢±êÌâ
+        //if(SumSave.crt_hero.hero_vip_lv_exp=="")
+        //{
+        //    SumSave.crt_hero.hero_vip_lv_exp= "0 0";
+        //}
+        //string[] lv_exp = SumSave.crt_hero.hero_vip_lv_exp.Split(' ');
+        //show_vip_lv_text.text.Clone();
+        //show_vip_lv_text.text = "VIPç­‰çº§:" + lv_exp[0]+" ç»éªŒ:"+lv_exp[1];//æ˜¾ç¤ºvipç­‰çº§å’Œç»éªŒ
+
+        vip_effect Title = Instantiate(vip_effect_obj, Information);//å®ä¾‹åŒ–vipä¿¡æ¯æ ‡é¢˜
         Title.Init(-1, Title_list);
 
-        for (int i = 0; i < SumSave.db_vip_list.Count; i++)//ÊµÀı»¯vipĞÅÏ¢
+        for (int i = 0; i < SumSave.db_vip_list.Count; i++)//å®ä¾‹åŒ–vipä¿¡æ¯
         {
             vip_effect vip_effect = Instantiate(vip_effect_obj, Information);
             vip_effect.Init(i, SumSave.db_vip_list[i]);

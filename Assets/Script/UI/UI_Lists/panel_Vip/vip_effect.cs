@@ -1,10 +1,11 @@
+using MVC;
 using System.Collections;
 using System.Collections.Generic;
 using UI;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class vip_effect : Panel_Base
+public class vip_effect : Base_Mono
 {
     /// <summary>
     /// 编号
@@ -54,8 +55,7 @@ public class vip_effect : Panel_Base
     private void ShowInit()
     {
         ClearObject(transform);
-        List<int> title = CollectingInformation();
-
+        List<object> title = CollectingInformation();
         for (int i = 0; i < title.Count; i++)
         {
             btn_item go = Instantiate(btn_item, transform);
@@ -67,24 +67,24 @@ public class vip_effect : Panel_Base
     /// 收集信息
     /// </summary>
     /// <param name="title"></param>
-    private List<int> CollectingInformation()
+    private List<object> CollectingInformation()
     {
-        List<int> title = new List<int>();
-        title.Add(vip_data.vip_lv);
+        List<object> title = new List<object>();
+        title.Add(vip_data.vip_name);
         title.Add(vip_data.vip_exp);
-        title.Add(vip_data.experienceBonus);
-        title.Add(vip_data.lingzhuIncome);
-        title.Add(vip_data.equipmentExplosionRate);
-        title.Add(vip_data.characterExperience);
-        title.Add(vip_data.monsterHuntingInterval);
-        title.Add(vip_data.hpRecovery);
-        title.Add(vip_data.manaRegeneration);
-        title.Add(vip_data.goodFortune);
-        title.Add(vip_data.strengthenCosts);
-        title.Add(vip_data.offlineInterval);
-        title.Add(vip_data.signInIncome);
-        title.Add(vip_data.whippingCorpses);
-        title.Add(vip_data.upperLimitOfSpiritualEnergy);
+        title.Add("+" + vip_data.experienceBonus + tool_Categoryt.Obtain_unit((int)enum_skill_attribute_list.经验加成));
+        title.Add("+" + vip_data.lingzhuIncome + tool_Categoryt.Obtain_unit((int)enum_skill_attribute_list.灵珠收益));
+        title.Add("+" + vip_data.equipmentExplosionRate + tool_Categoryt.Obtain_unit((int)enum_skill_attribute_list.装备爆率));
+        title.Add("+" + vip_data.characterExperience + tool_Categoryt.Obtain_unit((int)enum_skill_attribute_list.人物历练));
+        title.Add("+" + vip_data.monsterHuntingInterval+ tool_Categoryt.Obtain_unit((int)enum_skill_attribute_list.寻怪间隔));
+        title.Add("+" + vip_data.hpRecovery + tool_Categoryt.Obtain_unit((int)enum_skill_attribute_list.生命回复));
+        title.Add("+" + vip_data.manaRegeneration + tool_Categoryt.Obtain_unit((int)enum_skill_attribute_list.法力回复));
+        title.Add("+" + vip_data.goodFortune + tool_Categoryt.Obtain_unit((int)enum_skill_attribute_list.幸运));
+        title.Add("+" + vip_data.strengthenCosts+ tool_Categoryt.Obtain_unit((int)enum_skill_attribute_list.强化费用));
+        title.Add("+" + vip_data.offlineInterval + tool_Categoryt.Obtain_unit((int)enum_skill_attribute_list.离线间隔));
+        title.Add("+" + vip_data.signInIncome + tool_Categoryt.Obtain_unit((int)enum_skill_attribute_list.签到收益));
+        title.Add("+" + vip_data.whippingCorpses + tool_Categoryt.Obtain_unit((int)enum_skill_attribute_list.鞭尸));
+        title.Add("+" + vip_data.upperLimitOfSpiritualEnergy + tool_Categoryt.Obtain_unit((int)enum_skill_attribute_list.灵气上限));
         return title;
     }
 

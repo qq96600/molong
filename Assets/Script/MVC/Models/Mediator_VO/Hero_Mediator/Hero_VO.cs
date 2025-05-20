@@ -1,6 +1,5 @@
 using Common;
 using MVC;
-using System.Collections.Generic;
 /// <summary>
 /// 角色数据
 /// </summary>
@@ -41,11 +40,7 @@ public class Hero_VO : Base_VO
     /// <summary>
     /// 角色VIP 等级 经验
     /// </summary>
-    public string hero_vip_lv_exp;
-    /// <summary>
-    /// 角色VIP 等级 经验
-    /// </summary>
-    public List<int> hero_vip_lv_exp_list;
+    public string hero_vip_lv_exp1;
 
     /// <summary>
     /// 角色上阵选择
@@ -63,10 +58,6 @@ public class Hero_VO : Base_VO
     /// 英雄资源 转生 强化
     /// </summary>
     public int[] hero_material_list;
-
-   
-
-
     public override string[] Set_Instace_String()
     {
         return new string[]
@@ -76,7 +67,7 @@ public class Hero_VO : Base_VO
             GetStr(hero_name),
             GetStr(hero_lv),
             GetStr(hero_exp),
-            GetStr(hero_vip_lv_exp),
+            //GetStr(hero_vip_lv_exp),
             GetStr(hero_pos),
             GetStr(hero_value),
             GetStr(ArrayHelper.Data_Encryption(hero_material_list)),
@@ -89,7 +80,7 @@ public class Hero_VO : Base_VO
         {
             "hero_lv",
             "hero_exp",
-            "hero_vip_lv_exp",
+            //"hero_vip_lv_exp",
             "hero_pos",
             "hero_material"
         };
@@ -101,7 +92,7 @@ public class Hero_VO : Base_VO
        {
             GetStr(hero_Lv),
             GetStr(hero_Exp),
-            GetStr(ArrayHelper.Data_Encryption(hero_vip_lv_exp_list)),
+            //GetStr(hero_vip_lv_exp),
             GetStr(hero_pos),
             GetStr(ArrayHelper.Data_Encryption(hero_material_list))
        };
