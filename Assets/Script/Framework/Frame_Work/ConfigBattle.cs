@@ -64,7 +64,7 @@ namespace MVC
                 string[] values2 = values1[1].Split('/');
                 if (values2.Length > 1)
                 {
-                    if (true || Random.Range(0, int.Parse(values2[1])) < int.Parse(values2[0]))
+                    if (Random.Range(0, int.Parse(values2[1])) < int.Parse(values2[0]))
                     {
                         result = (true, values1[0]);
                         return result;
@@ -123,7 +123,7 @@ namespace MVC
                 if (SumSave.crt_resources.pages[0] > SumSave.crt_bag.Count)
                 {
                     //判断回收
-                    if (SumSave.crt_setting.user_setting[0] > quality)
+                    if (SumSave.crt_setting.user_setting[0] < quality)
                     {
                         SumSave.crt_bag.Add(bag);
                         Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.bag_value, SumSave.crt_bag);

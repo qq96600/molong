@@ -334,6 +334,7 @@ namespace MVC
             {
                 damage = damage * data.crit_damage / 100;
             }
+            damage = (int)damage;
             monster.target.TakeDamage(damage, isCrit ? DamageEnum.暴击伤害 : DamageEnum.普通伤害);
             if (data.Real_harm > 0)
             {
