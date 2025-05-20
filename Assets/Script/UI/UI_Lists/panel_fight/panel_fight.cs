@@ -255,7 +255,8 @@ public class panel_fight : Panel_Base
     {
         if (!isCopies)
         {
-            SumSave.crt_resources.user_map_index = map.map_name;
+            if(map.map_type==1)//普通地图记录切换
+                SumSave.crt_resources.user_map_index = map.map_name;
         }
 
         Combat_statistics.isTime = true;
@@ -383,7 +384,10 @@ public class panel_fight : Panel_Base
             time -= 0.1f;
             yield return new WaitForSeconds(0.1f);
         }
-        Open_Map(select_map);
+        //判断是否切换地图
+        if (iSOpenMap())
+            Open_Map(select_map);
+        else Open_Map(ArrayHelper.Find(SumSave.db_maps, e => e.map_name == SumSave.crt_resources.user_map_index));
     }
     /// <summary>
     /// 开始游戏
@@ -407,8 +411,30 @@ public class panel_fight : Panel_Base
         if (Open_Monster_State)
         {
             Open_Monster_State = false;
-            StartCoroutine(ProduceMonster(WaitTime()));
+            if(iSOpenMap())
+                StartCoroutine(ProduceMonster(WaitTime()));
+            else Open_Map(ArrayHelper.Find(SumSave.db_maps, e => e.map_name == SumSave.crt_resources.user_map_index));
         }
+    }
+    /// <summary>
+    /// 判断地图是否可以打开
+    /// </summary>
+    /// <returns></returns>
+    private bool iSOpenMap()
+    {
+        bool exist = true;
+        if (select_map.need_Required != null)
+        {
+            NeedConsumables(select_map.need_Required, 1);
+            if (!RefreshConsumables())
+            {
+                exist = false;
+            }
+        }
+        return exist;
+        //if (exist)
+        //    StartCoroutine(ProduceMonster(WaitTime()));
+        //else Open_Map(ArrayHelper.Find(SumSave.db_maps, e => e.map_name == SumSave.crt_resources.user_map_index));
     }
     private IEnumerator ProduceMonster(float time)
     {

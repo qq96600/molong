@@ -297,6 +297,11 @@ namespace MVC
             TheServerObg.gameObject.SetActive(false);
             if (SumSave.uid != null)
             {
+#if UNITY_EDITOR
+#elif UNITY_ANDROID
+#elif UNITY_IPHONE
+                UI_Manager.Instance.GetPanel<Panel_cratehero>().Hide();
+#endif
                 PlayerPrefs.SetInt("lastServer", select_par.index);
 
                 SendNotification(NotiList.User_Login);
