@@ -287,7 +287,7 @@ namespace MVC
             }
             PlayerPrefs.SetInt("同意阅读协议", 1);
 #if UNITY_EDITOR
-            SumSave.uid = "DSFSDFSDFsSDF";//"05c8cc2e26234ec0acc690343a598eba";
+            SumSave.uid = "DSFSDFSDFSDF";//"05c8cc2e26234ec0acc690343a598eba";
             //Game_Omphalos.i.Wirte_Iphone();
 #elif UNITY_ANDROID
             Game_Omphalos.i.Wirte_Tap();
@@ -326,10 +326,43 @@ namespace MVC
         }
         public override void Hide()
         {
-            base.Hide();
             ////计算离线收益
-
+            offline();
+            base.Hide();
         }
+        /// <summary>
+        /// 获取离线积分
+        /// </summary>
+        private void offline()
+        {
+            //过了多少秒
+            int number = (int)(SumSave.nowtime - SumSave.crt_resources.now_time).TotalSeconds;
+            if (number > 300)
+            {
+                int maxnumber = 3600 * 2;
+                (int,int,string) exp = SumSave.crt_accumulatedrewards.SetSum_recharge();
+                if (exp.Item1 > 0)
+                {
+                    for (int i = SumSave.db_vip_list.Count - 1; i >= 0; i--)
+                    {
+                        if (exp.Item1 == SumSave.db_vip_list[i].vip_lv)
+                        {
+                            maxnumber += SumSave.db_vip_list[i].offlineInterval * 3600;
+                            break;
+                        }
+                    }
+                }
+                //记录离线收益
+                string dec = "离线时长 " + ConvertSecondsToHHMMSS(number)
+                    + "\n有效时长 " + (maxnumber > number ? ConvertSecondsToHHMMSS(number) : ConvertSecondsToHHMMSS(maxnumber));
+                number = Math.Clamp(number, 0, maxnumber);
+                Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_value, SumSave.crt_resources.Set_Uptade_String(), SumSave.crt_resources.Get_Update_Character());
+                Battle_Tool.Obtain_Unit(currency_unit.离线积分, number / 30);
+                dec+="\n获得离线积分 "+ number / 30;
+                Alert.Show("离线收益", dec);
+            }
+        }
+
         public override void Show()
         {
             base.Show();

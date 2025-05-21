@@ -503,6 +503,8 @@ public static class Battle_Tool
     /// </summary>
     private static void Refresh_Rank()
     {
+        //SumSave.user_ranks.lists.Sort((x, y) => y.value.CompareTo(x.value));
+        SumSave.user_ranks.lists = ArrayHelper.OrderDescding(SumSave.user_ranks.lists, x => x.value);
         Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.user_rank, SumSave.user_ranks.Set_Uptade_String(), SumSave.user_ranks.Get_Update_Character());
     }
 
@@ -537,10 +539,10 @@ public static class Battle_Tool
                 if (SumSave.user_ranks.lists[i].uid == SumSave.crt_user.uid)
                 {
                     exist = true;
+                    SumSave.crt_MaxHero.Init();
                     SumSave.user_ranks.lists[i].value = (int)SumSave.crt_MaxHero.totalPower;
                     SumSave.user_ranks.lists[i].lv = SumSave.crt_MaxHero.Lv;
                     SumSave.user_ranks.lists[i].type = SumSave.crt_hero.hero_type;// SumSave.crtHeroMaxs[0].Type;  
-                    Refresh_Rank();
                     if (SumSave.crt_MaxHero.totalPower < SumSave.user_ranks.lists[i].value)//小于的情况 写入排行榜战力 且替换排行榜战力
                     {
                         Game_Omphalos.i.Alert_Info($"你的战力降低了{"原战斗力" + SumSave.user_ranks.lists[i].value + " 当前" + (int)SumSave.crt_MaxHero.totalPower}");

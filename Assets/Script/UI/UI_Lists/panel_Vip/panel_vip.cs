@@ -43,15 +43,15 @@ public class panel_vip : Panel_Base
     {
         ClearObject(Information);
 
-        List<string> price =SumSave.crt_accumulatedrewards.SetSum_recharge();
+        (int,int,string) price =SumSave.crt_accumulatedrewards.SetSum_recharge();
         show_vip_lv_text.text.Clone();
-        if (price.Count == 0)
+        if (price.Item1 == 0)
         {
             show_vip_lv_text.text = "未进入荣耀殿堂";
         }   else
         {
             
-            show_vip_lv_text.text = "荣耀殿堂进度:" + price[2] + "\n荣耀点:" + price[1];//显示vip等级和经验
+            show_vip_lv_text.text = "荣耀殿堂进度:" + price.Item2 + "\n荣耀点:" + price.Item3;//显示vip等级和经验
         }
         
 
@@ -64,7 +64,7 @@ public class panel_vip : Panel_Base
         {
             vip_effect vip_effect = Instantiate(vip_effect_obj, Information);
             vip_effect.Init(i, SumSave.db_vip_list[i]);
-            if((int.Parse(price[0])+1)== SumSave.db_vip_list[i].vip_lv)
+            if((price.Item1 + 1)== SumSave.db_vip_list[i].vip_lv)
             {
                 return;
             }
