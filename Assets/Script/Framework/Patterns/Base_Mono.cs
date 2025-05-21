@@ -78,45 +78,6 @@ namespace MVC
         /// </summary>
         protected Dictionary<string, long> dic = new Dictionary<string, long>();
         /// <summary>
-        /// 类型
-        /// </summary>
-        /// <summary>
-        /// 元宝消耗
-        /// </summary>
-        /// <param name="moeny"></param>
-        protected void silverCoin(int moeny, string value = "", int type = 1)
-        {
-            /*
-            if (type == 1)
-            {
-                if (SumSave.crt_user.Silver >= moeny)
-                {
-                    //绑定元宝
-                    SendNotification(NotiList.silverCoin, -moeny);
-                }
-                else
-                {
-                    //充值元宝
-                    moeny -= SumSave.UserBase.Silver;
-
-                    SendNotification(NotiList.silverCoin, -SumSave.UserBase.Silver + "");
-
-                    SendNotification(NotiList.SubtractDiamonds, moeny + "+" + value);
-
-                }
-            }
-            else
-            {
-                SendNotification(NotiList.SubtractDiamonds, moeny + "+" + value);
-            }
-
-
-            */
-
-
-        }
-
-        /// <summary>
         /// 消耗物品
         /// </summary>
         /// <param name="keys"></param>
@@ -127,8 +88,8 @@ namespace MVC
             Dictionary<string, long> keys = dic;
             Dictionary<string, int> bagdic = new Dictionary<string, int>();
             long count = 0;
-            //0灵珠 1历练 2元宝 3灵气
-            List<long> currency_unit_list = new List<long> {0,0,0,0,0};
+            //0灵珠 1历练 2元宝 3灵气4离线积分
+            List<long> currency_unit_list = new List<long> { 0, 0, 0, 0, 0, 0 };
             List<long> listunit = SumSave.crt_user_unit.Set();
 
             foreach (string item in keys.Keys)
@@ -160,15 +121,25 @@ namespace MVC
                     }
                 }
                 else
-                if (item == currency_unit.灵气.ToString())
+                 if (item == currency_unit.离线积分.ToString())
                 {
-                    int value = Battle_Tool.Obtain_World();
-                    if (value >= Mathf.Abs(keys[item]))
+                    if (listunit[3] >= Mathf.Abs(keys[item]))
                     {
                         currency_unit_list[3] += (long)Mathf.Abs(keys[item]);
                         count++;
                     }
                 }
+                else
+                if (item == currency_unit.灵气.ToString())
+                {
+                    int value = Battle_Tool.Obtain_World();
+                    if (value >= Mathf.Abs(keys[item]))
+                    {
+                        currency_unit_list[4] += (long)Mathf.Abs(keys[item]);
+                        count++;
+                    }
+                }
+                
                 else
                 {
                     List<(string,int)> list = SumSave.crt_bag_resources.Set();
@@ -198,6 +169,7 @@ namespace MVC
                             case currency_unit.灵珠:
                             case currency_unit.历练:
                             case currency_unit.魔丸:
+                            case currency_unit.离线积分:
                                 SumSave.crt_user_unit.verify_data((currency_unit)i, -currency_unit_list[i]);
                                 Game_Omphalos.i.GetQueue(
                        Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user, SumSave.crt_user_unit.Set_Uptade_String(), SumSave.crt_user_unit.Get_Update_Character());
@@ -257,6 +229,7 @@ namespace MVC
        灵珠,
        历练,
        魔丸,
-       灵气
+       离线积分,
+       灵气,
     }
 }

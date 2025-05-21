@@ -33,7 +33,7 @@ public class panel_store : Base_Mono
     /// <summary>
     /// 商店类型名字
     /// </summary>
-    private string[] type_name = { "道具", "限购", "离线" };
+    private string[] type_name = { "道具", "限购", "离线","荣耀商店" };
     /// <summary>
     /// 商店类型按钮
     /// </summary>
@@ -50,14 +50,6 @@ public class panel_store : Base_Mono
     /// 商店预制体
     /// </summary>
     private store_item store_item_Prefabs;
-    /// <summary>
-    /// 当前商店物品字典
-    /// </summary>
-    private Dictionary<string, db_store_vo> items_dic = new Dictionary<string, db_store_vo>();
-    /// <summary>
-    /// 当前商店物品列表
-    /// </summary>
-    private List<db_store_vo> items_list = new List<db_store_vo>();
     /// <summary>
     /// 商店物品购买界面
     /// </summary>
@@ -195,7 +187,7 @@ public class panel_store : Base_Mono
             if (RefreshConsumables())
             {
                 SpecialItems();
-            }
+            }else Alert_Dec.Show("购买失败");
         }
     }
 
@@ -308,9 +300,10 @@ public class panel_store : Base_Mono
                
                 break;
         }
+        Alert_Dec.Show("购买" + buy_item.ItemName + " * " + buy_num + " 成功");
 
     }
-    
+
 
     /// <summary>
     /// 添加BUff
@@ -340,42 +333,28 @@ public class panel_store : Base_Mono
     /// <returns></returns>
     private void ShowItem(int index)
     {
-        items_dic.Clear();
-        items_list.Clear();
         ClearObject(store_item);
+        (int, int, string) vip = SumSave.crt_accumulatedrewards.SetSum_recharge();
+        if (index == 3)
+        {
+            if (vip.Item1 <= 3)
+            {
+                Alert_Dec.Show("当前荣耀等级暂无商品");
+                return;
+
+            }
+        }
         for (int i = 0; i < SumSave.db_stores_list.Count; i++)//判断是否为当前商店类型
         {
             if (SumSave.db_stores_list[i].store_Type == (index + 1))
             {
-                if (!items_dic.ContainsKey(SumSave.db_stores_list[i].ItemName))
-                {
-                    items_dic.Add(SumSave.db_stores_list[i].ItemName, SumSave.db_stores_list[i]);
-                    items_list.Add(SumSave.db_stores_list[i]);
-                }
-                else
-                {
-                    Debug.LogError("商店内" + SumSave.db_stores_list[i].ItemName + "物品重复");
-                }
+                store_item item = Instantiate(store_item_Prefabs, store_item);
+                db_store_vo items = SumSave.db_stores_list[i];
+                item.Init(items);
+                item.GetComponent<Button>().onClick.AddListener(() => { ShowItemInfo(items); });
+                
             }
         }
-        for (int i = 0; i < items_list.Count; i++)//显示商店内物品
-        {
-
-            store_item item = Instantiate(store_item_Prefabs, store_item);
-            db_store_vo items = items_list[i];
-            item.Init((items_list[i].ItemName, items_list[i].ItemPrice),items.unit);
-            item.GetComponent<Button>().onClick.AddListener(() => { ShowItemInfo(items); });
-        }
-        //for (int i = 0; i < items_list.Count; i++)//显示商店内物品
-        //{
-
-        //    material_item item = Instantiate(material_item, store_item);
-
-        //    item.Init((items_list[i].ItemName, items_list[i].ItemPrice));
-        //    db_store_vo items = items_list[i];
-        //    item.GetComponent<Button>().onClick.AddListener(() => { ShowItemInfo(items); });
-        //}
-       
     }
     /// <summary>
     /// 点击物品显示物品信息

@@ -43,6 +43,18 @@ public class store_item : Base_Mono
         material_item item = Instantiate(material_item_Prefabs, icon.transform);
         item.Init((bag_Resources.Item1,1));
     }
+    /// <summary>
+    /// 显示物品信息
+    /// </summary>
+    /// <param name="store"></param>
+    public void Init(db_store_vo store)
+    {
+        baseinfo.text = Show_Color.White(store.ItemName) + "\n单价"
+            + Battle_Tool.FormatNumberToChineseUnit(store.ItemPrice)
+            + " " + store.unit
+            + "\n" + Show_Color.Green("购买");
+        Instantiate(material_item_Prefabs, icon.transform).Init((store.ItemName, 1));
+    }
 
     public void PetInit((string, int) bag_Resources, string unit)
     {

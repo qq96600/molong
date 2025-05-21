@@ -100,6 +100,14 @@ public class user_vo : Base_VO
                     verify_list[2] += value;
                 }
                 return;
+            case currency_unit.离线积分://单次获得离线积分获取最高7440
+                if (value >=10000) Game_Omphalos.i.Delete("获得" + (currency_unit)_index + value);
+                else
+                {
+                    list[3] += value;
+                    verify_list[3] += value;
+                }
+                return;
         }
         
     }
