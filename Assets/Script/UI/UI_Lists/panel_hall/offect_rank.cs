@@ -32,10 +32,7 @@ namespace MVC
 
         private void GetList()
         {
-            for (int i = crt.childCount - 1; i >= 0; i--)
-            {
-                Destroy(crt.GetChild(i).gameObject);
-            }
+            ClearObject(crt);
             for (int i = 0; i < SumSave.user_ranks.lists.Count; i++)
             {
                 rank_item item = Instantiate(rank_itemPrefab, crt);
