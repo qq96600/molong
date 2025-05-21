@@ -287,7 +287,7 @@ namespace MVC
             }
             PlayerPrefs.SetInt("同意阅读协议", 1);
 #if UNITY_EDITOR
-            SumSave.uid = "DSFSDFSDFSDF3";//"05c8cc2e26234ec0acc690343a598eba";
+            SumSave.uid = "DSFSDFSDFsSDF";//"05c8cc2e26234ec0acc690343a598eba";
             //Game_Omphalos.i.Wirte_Iphone();
 #elif UNITY_ANDROID
             Game_Omphalos.i.Wirte_Tap();
@@ -297,6 +297,11 @@ namespace MVC
             TheServerObg.gameObject.SetActive(false);
             if (SumSave.uid != null)
             {
+#if UNITY_EDITOR
+#elif UNITY_ANDROID
+#elif UNITY_IPHONE
+                UI_Manager.Instance.GetPanel<Panel_cratehero>().Hide();
+#endif
                 PlayerPrefs.SetInt("lastServer", select_par.index);
 
                 SendNotification(NotiList.User_Login);

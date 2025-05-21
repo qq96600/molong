@@ -1,4 +1,5 @@
 using Common;
+using Components;
 using MVC;
 using System;
 using System.Collections;
@@ -12,7 +13,7 @@ public class panel_map : Panel_Base
     /// <summary>
     /// 掉落列表
     /// </summary>
-    private Transform pos_life;
+    private Transform pos_life,pos_map,pos_btn_map;
     private btn_item btn_item_prefab;
     /// <summary>
     /// 地图名称
@@ -42,13 +43,18 @@ public class panel_map : Panel_Base
     /// <summary>
     /// 当前选择地图
     /// </summary>
-    private map_pos_item crt_map;
+    private user_map_vo crt_map;
     /// <summary>
     /// 进入地图按钮
     /// </summary>
     private Button enter_map_button;
+    /// <summary>
+    /// 展示列表
+    /// </summary>
+    private Button btnOpen_list;
     private Transform base_show_info;
     private material_item material_item_parfabs;
+    private Image show_map_list;
 
     protected override void Awake()
     {
@@ -59,6 +65,7 @@ public class panel_map : Panel_Base
     public override void Initialize()
     {
         base.Initialize();
+        pos_map = Find<Transform>("bg_main/Scroll View/Viewport/Content/bg_map");
         map_name = Find<Text>("bg_main/base_info/map_name");
         need_lv = Find<Text>("bg_main/base_info/need_lv");
         monster_list = Find<Text>("bg_main/base_info/monster_list");
@@ -70,10 +77,70 @@ public class panel_map : Panel_Base
         base_show_info = Find<Transform>("bg_main/base_info");
         material_item_parfabs = Battle_Tool.Find_Prefabs<material_item>("material_item");  //Resources.Load<material_item>("Prefabs/panel_bag/material_item");
         btn_item_prefab = Battle_Tool.Find_Prefabs<btn_item>("btn_item"); //Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
-       
+        btnOpen_list=Find<Button>("bg_main/btn_list");
+        btnOpen_list.onClick.AddListener(Open_List);
+        pos_btn_map= Find<Transform>("bg_main/Reward_map/Viewport/maps");
+        show_map_list = Find<Image>("bg_main/Reward_map");
+    }
+    /// <summary>
+    /// 展示地图列表
+    /// </summary>
+    private void Open_List()
+    {
+        show_map_list.gameObject.SetActive(true);
+        ClearObject(pos_btn_map);
+        foreach (var map in SumSave.db_maps)
+        {
+            if (map.need_lv <= SumSave.crt_MaxHero.Lv)
+            {
+                btn_item btn = Instantiate(btn_item_prefab, pos_btn_map);
+                string dec = map.map_name + "\n(Lv." + map.need_lv + "级)";
+                switch (map.map_type)
+                {
+                    case 2:
+                        dec = Show_Color.Yellow(dec);
+                        break;
+                    case 3:
+                        dec = Show_Color.Red(dec);
+                        break;
+                }
+                btn.Show(map.map_index, dec);
+                btn.GetComponent<Button>().onClick.AddListener(delegate { Select_Map(btn); });
+            }
+
+        }
+
+    }
+    private void Select_Map(btn_item item)
+    {
+        base_show_info.gameObject.SetActive(true);
+        user_map_vo map = ArrayHelper.Find(SumSave.db_maps, m => m.map_index == item.index);
+        Show_Info(map);
+    }
+    /// <summary>
+    /// 显示信息
+    /// </summary>
+    /// <param name="map"></param>
+    private void Show_Info(user_map_vo map)
+    {
+        crt_map = map;
+        map_name.text = map.map_name;
+        need_lv.text = "等级要求： " + map.need_lv.ToString();
+        monster_list.text = "怪物列表： " + map.monster_list.ToString();
+        need_Required.text = "门票要求： " + map.need_Required.ToString();
+        for (int i = pos_life.childCount - 1; i >= 0; i--)//清空区域内按钮
+        {
+            Destroy(pos_life.GetChild(i).gameObject);
+        }
+        foreach (string str in map.ProfitList.Split('&'))
+        {
+            str.Split(' ');
+            string[] str1 = str.Split(' ');
+            Instantiate(material_item_parfabs, pos_life).Init(((str1[0]), 0));
+        }
     }
 
-    protected void Instance_Pos(map_pos_item item)
+    private void Instance_Pos(map_pos_item item)
     {
         if (!maplists.ContainsKey(item))
         {
@@ -108,23 +175,10 @@ public class panel_map : Panel_Base
     /// <param name="item"></param>
     private void Select_Map(map_pos_item item)
     {
-        crt_map = item;
+        //crt_map = item;
         base_show_info.gameObject.SetActive(true);
         user_map_vo map = maplists[item];
-        map_name.text = map.map_name;
-        need_lv.text = "等级要求： "+ map.need_lv.ToString();
-        monster_list.text = "怪物列表： "+map.monster_list.ToString();
-        need_Required.text = "门票要求： "+map.need_Required.ToString();
-        for (int i = pos_life.childCount - 1; i >= 0; i--)//清空区域内按钮
-        {
-            Destroy(pos_life.GetChild(i).gameObject);
-        }
-        foreach (string str in map.ProfitList.Split('&'))
-        {
-            str.Split(' ');
-            string[] str1 = str.Split(' ');
-            Instantiate(material_item_parfabs, pos_life).Init(((str1[0]), 0));
-        }
+        Show_Info(map);
     }
 
     public override void Hide()
@@ -140,26 +194,55 @@ public class panel_map : Panel_Base
     public override void Show()
     {
         base.Show();
+        Base_Show();
         base_show_info.gameObject.SetActive(false);
     }
+
+    private void Base_Show()
+    {
+        for (int i = 0; i < pos_map.childCount; i++)
+        { 
+            Instance_Pos(pos_map.GetChild(i).GetComponent<map_pos_item>());
+        }
+        if (show_map_list.gameObject.activeInHierarchy)
+        {
+            Open_List();
+        }
+    }
+
     /// <summary>
     /// 打开地图
     /// </summary>
     private void Open_Map()
     {
-        if(crt_map==null)
-            return;
+        if(crt_map==null)  return;
+        if (crt_map.need_Required != "")
+        {
+            NeedConsumables(crt_map.need_Required, 1);
+            if (RefreshConsumables())
+            {
+                Set_Map();
+            }else Alert_Dec.Show("门票不足");
+        }
+        else
+        {
+            Set_Map();
+        }
+       
+    }
+
+    private void Set_Map()
+    {
         Base_Task();
-        //打开地图
-        Debug.Log("打开地图");
+
         fight_panel.Show();
-        fight_panel.Open_Map(maplists[crt_map]);
+        fight_panel.Open_Map(crt_map);
         Hide();
     }
 
     private void Base_Task()
     {
-        if (crt_map.index == 1)//新手任务
+        if (crt_map.map_index == 1)//新手任务
         {
             if (SumSave.crt_greenhand.crt_task == 1001)//完成当前任务开启下个任务
             {
