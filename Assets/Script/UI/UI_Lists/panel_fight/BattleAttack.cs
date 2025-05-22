@@ -281,10 +281,28 @@ namespace MVC
         public void skill_damage(base_skill_vo skill)
         {
             BattleAttack monster = Terget.GetComponent<BattleAttack>();
+            int lv = int.Parse(skill.user_values[1]);
+            if (skill.skill_damage_type == 7)
+            {
+                /*
+                 *    case 4: dec += "对自身生成 " + (user_skill.Data.skill_damage + (user_skill.Data.skill_power * lv)) + "%" + Show_Color.Red("护盾") + "\n"; break;
+                    case 6: dec += "对自身回复 " + (user_skill.Data.skill_damage + (user_skill.Data.skill_power * lv)) + "%" + Show_Color.Red("魔法伤害") + "的血量\n"; break;
+                    case 7: dec += "对自身回复 " + (user_skill.Data.skill_damage + (user_skill.Data.skill_power * lv)) + "%"  + "的魔法值\n"; break;
+                 */
+                target.MP += (skill.skill_damage + (skill.skill_power * lv)) * target.maxMP / 100;
+                if (target.MP > target.maxMP) target.MP = target.maxMP;
+                return;
+            }
+            if (skill.skill_damage_type == 6)
+            {
+                target.HP += (skill.skill_damage + (skill.skill_power * lv)) * Data.MagicdamageMax/ 100;
+                if (target.HP > target.maxHP) target.HP = target.maxHP;
+                return;
+            }
             if (monster.target.HP <= 0) return;//结战斗
             float damage = Base_Damage(monster);
             damage += skill.skill_spell * target.maxMP / 100;
-            damage = damage * (skill.skill_damage + (skill.skill_power * int.Parse(skill.user_values[1]))) / 100;
+            damage = damage * (skill.skill_damage + (skill.skill_power * lv)) / 100;
             //内力伤害
             if (skill.user_values[3] != "")
             {

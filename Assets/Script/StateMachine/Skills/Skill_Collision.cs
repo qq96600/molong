@@ -78,7 +78,7 @@ namespace StateMachine
             {
                 if (collision.gameObject.tag == "Moster")
                 {
-                    if (TatgetPosition.gameObject.activeInHierarchy &&TatgetPosition.HP > 0)
+                    if (TatgetPosition.gameObject.activeInHierarchy && TatgetPosition.HP > 0)
                     {
                         if (DamageTextManager.Instance == null)
                         {
@@ -96,12 +96,12 @@ namespace StateMachine
             /// <summary>
             /// 对自己释放的技能效果播放动画
             /// </summary>
+            /// 
             /// <returns></returns>
             private IEnumerator WaitForAnimationEnd()
         {
             rb.velocity = Vector2.zero;
             AnimatorStateInfo animStateInfo = anim.GetCurrentAnimatorStateInfo(0);
-
             // 等待动画播放完成
             yield return new WaitForSeconds(animStateInfo.length);
             // 将对象返回对象池

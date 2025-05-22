@@ -278,6 +278,18 @@ public class panel_skill : Panel_Base
         {
             dec += "消耗法力 " + user_skill.Data.skill_spell + "%\n";
             dec += "技能cd " + user_skill.Data.skill_cd.ToString("F0") + "秒\n";
+            switch (user_skill.Data.skill_damage_type)
+            {
+                case 1: dec += "对目标造成 " + (user_skill.Data.skill_damage + (user_skill.Data.skill_power * lv)) + "%"+Show_Color.Red("物理")+"伤害\n";break;
+                case 2: dec += "对目标造成 " + (user_skill.Data.skill_damage + (user_skill.Data.skill_power * lv)) + "%" + Show_Color.Red("魔法") + "伤害\n"; break;
+                case 3: dec += "对目标造成 " + (user_skill.Data.skill_damage + (user_skill.Data.skill_power * lv)) + "%" + Show_Color.Red("真实") + "伤害\n"; break;
+                case 4: dec += "对自身生成 " + (user_skill.Data.skill_damage + (user_skill.Data.skill_power * lv)) + "%" + Show_Color.Red("护盾") + "\n"; break;
+                case 6: dec += "对自身回复 " + (user_skill.Data.skill_damage + (user_skill.Data.skill_power * lv)) + "%" + Show_Color.Red("魔法伤害") + "的血量\n"; break;
+                case 7: dec += "对自身回复 " + (user_skill.Data.skill_damage + (user_skill.Data.skill_power * lv)) + "%"  + "的魔法值\n"; break;
+
+                default:
+                    break;
+            }
             dec += "对目标造成" + (user_skill.Data.skill_damage + (user_skill.Data.skill_power * lv)) + "%伤害\n";
         }
        

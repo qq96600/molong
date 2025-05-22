@@ -34,10 +34,6 @@ public class ObjectPoolManager : MonoBehaviour
     {
         //被实例化的对象
         GameObject go;
-        if (objName == "血光之灾")
-        { 
-        
-        }
         //判断是否存在对应的池子（通过字典的键值对判断是否包含objname的键）
         //并判断池子里是否包含对象，有对象才能取出来（通过判断List里的元素个数，大于0说明至少有一个）
         if (pool.ContainsKey(objName) && pool[objName].Count > 0)
