@@ -9,7 +9,7 @@ namespace StateMachine
     public class Skill_Collision : MonoBehaviour
     {
         private Rigidbody2D rb;
-        private float MoveSpeed = 1f;//移动速度
+        private float MoveSpeed = 3f;//移动速度
         private BattleHealth TatgetPosition;//目标位置
         private Transform Axle;//转向轴
         private base_skill_vo skill;//技能伤害
@@ -56,6 +56,11 @@ namespace StateMachine
                 StartCoroutine(WaitForAnimationEnd());
             }
 
+            if(TatgetPosition.HP <= 0)
+            {
+                StopAllCoroutines();
+                ObjectPoolManager.instance.PushObjectToPool(skill.skillname, this.gameObject);
+            }
         }
 
 
@@ -66,19 +71,18 @@ namespace StateMachine
             {
                 if (collision.gameObject.tag == "Moster")
                 {
-                    if (DamageTextManager.Instance == null)
+                    if (TatgetPosition.HP > 0)
                     {
-                        Debug.LogError("DamageTextManager instance is null!");
-                        return;
+                        if (DamageTextManager.Instance == null)
+                        {
+                            Debug.LogError("DamageTextManager instance is null!");
+                            return;
+                        }
+                        is_collider = false;
+                        transform.parent.SendMessage("skill_damage", skill);
+                        ObjectPoolManager.instance.PushObjectToPool(skill.skillname, this.gameObject);
                     }
-                    is_collider = false;
-                    transform.parent.SendMessage("skill_damage", skill);
-                    ObjectPoolManager.instance.PushObjectToPool(skill.skillname, this.gameObject);
 
-                }
-                else
-                {
-                    StartCoroutine(DelayedDestruction());
                 }
                 
             }
@@ -91,7 +95,7 @@ namespace StateMachine
         /// <returns></returns>
         private IEnumerator DelayedDestruction()
         {
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(10f);
             ObjectPoolManager.instance.PushObjectToPool(skill.skillname, this.gameObject);
         }
 
