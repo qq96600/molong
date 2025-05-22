@@ -1,6 +1,7 @@
 using Common;
 using Components;
 using MVC;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UI;
@@ -122,6 +123,7 @@ public class panel_equip : Panel_Base
                 SumSave.crt_bag.Add(euqip[i]);
                 SumSave.crt_euqip.Remove(euqip[i]);
             }
+            BaseTask();
             SumSave.crt_bag.Remove(crt_bag.Data);
             SumSave.crt_euqip.Add(crt_bag.Data);
             Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.bag_value, SumSave.crt_bag);
@@ -139,6 +141,13 @@ public class panel_equip : Panel_Base
 
         }
         Refresh();
+    }
+    /// <summary>
+    /// 基础任务
+    /// </summary>
+    private void BaseTask()
+    {
+        if (crt_bag.Data.Name == "木剑") tool_Categoryt.Base_Task(1002);
     }
 
     #endregion

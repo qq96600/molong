@@ -244,11 +244,8 @@ public class panel_map : Panel_Base
     {
         if (crt_map.map_index == 1)//新手任务
         {
-            if (SumSave.crt_greenhand.crt_task == 1001)//完成当前任务开启下个任务
-            {
-                SumSave.crt_greenhand.crt_progress++;
-            }
+            tool_Categoryt.Base_Task(1001);
         }
-        
+
     }
 }
