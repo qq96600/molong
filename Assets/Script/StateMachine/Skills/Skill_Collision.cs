@@ -68,10 +68,7 @@ namespace StateMachine
                 StopAllCoroutines();
                 PushObjectToPool();
             }
-            else
-            {
-                StartCoroutine(DelayedDestruction());
-            }
+
         }
 
 
