@@ -9,7 +9,7 @@ namespace StateMachine
     public class Skill_Collision : MonoBehaviour
     {
         private Rigidbody2D rb;
-        private float MoveSpeed = 3f;//移动速度
+        private float MoveSpeed = 10f;//移动速度
         /// <summary>
         /// 目标
         /// </summary>
@@ -54,18 +54,17 @@ namespace StateMachine
             if (SkillPosType == skill_pos_type.situ)
             {
                 is_collider = false;
-                StartCoroutine(WaitForExplosionEnd());
+                //StartCoroutine(WaitForExplosionEnd());
                 //StartCoroutine(SpecificTimeDestroy());
             }
             else if (SkillPosType == skill_pos_type.oneself)
             {
                 is_collider = false;
-                StartCoroutine(WaitForAnimationEnd());
+                //StartCoroutine(WaitForAnimationEnd());
             }
 
             if(TatgetPosition.HP <= 0)
             {
-                StopAllCoroutines();
                 PushObjectToPool();
             }
 
@@ -77,7 +76,7 @@ namespace StateMachine
         {
             if (is_collider)
             {
-                if (collision.gameObject.tag == "Moster")
+                if (collision.gameObject.tag == "Moster"&& SkillPosType== skill_pos_type.move)
                 {
                     if (TatgetPosition.gameObject.activeInHierarchy &&TatgetPosition.HP > 0)
                     {
@@ -116,7 +115,11 @@ namespace StateMachine
         {
             if(skill.skillname== "治愈疗法")
             {
-                Debug.Log("治疗");
+                
+            }
+            if(skill.skillname== "冥想心经")
+            {
+
             }
         }
         /// <summary>
@@ -135,6 +138,7 @@ namespace StateMachine
             if (isPushObjectToPool)
             {
                 isPushObjectToPool = false;
+                StopAllCoroutines();
                 ObjectPoolManager.instance.PushObjectToPool(skill.skillname, this.gameObject);
 
             }
@@ -149,6 +153,7 @@ namespace StateMachine
         {
             rb.velocity = Vector2.zero;
             AnimatorStateInfo animStateInfo = anim.GetCurrentAnimatorStateInfo(0);
+            Debug.Log(animStateInfo.length);
             // 等待动画播放完成
             yield return new WaitForSeconds(animStateInfo.length);
             // 将对象返回对象池
@@ -197,6 +202,20 @@ namespace StateMachine
             TatgetPosition =_target;
             SkillPosType= _skill_pos_type;
             isPushObjectToPool = true;
+            switch (_skill_pos_type)
+            {
+                case skill_pos_type.move:
+                    break;
+                case skill_pos_type.situ:
+                    StartCoroutine(WaitForExplosionEnd());
+                    break;
+                case skill_pos_type.oneself:
+                    StartCoroutine(WaitForAnimationEnd());
+
+                    break;
+                default:
+                    break;
+            }
             AudioManager.Instance.playAudio(ClipEnum.释放雷电术);
 
         }
