@@ -63,7 +63,7 @@ public class artifact_offect : Base_Mono
                     }
                     if(result.Item1== "驭火术")
                     {
-                        Battle_Tool.NewbieTask(1003);
+                        tool_Categoryt.Base_Task(1003);
                     }
 
                     Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_artifact, SumSave.crt_artifact.Set_Uptade_String(), SumSave.crt_artifact.Get_Update_Character());

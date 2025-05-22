@@ -1,6 +1,7 @@
 using Common;
 using Components;
 using MVC;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UI;
@@ -122,10 +123,14 @@ public class panel_equip : Panel_Base
                 SumSave.crt_bag.Add(euqip[i]);
                 SumSave.crt_euqip.Remove(euqip[i]);
             }
+
             if(crt_bag.Data.StdMode == "武器")
             {
-                Battle_Tool.NewbieTask(1002);
+                tool_Categoryt.Base_Task(1002);
             }
+
+
+          
 
             SumSave.crt_bag.Remove(crt_bag.Data);
             SumSave.crt_euqip.Add(crt_bag.Data);
@@ -145,6 +150,7 @@ public class panel_equip : Panel_Base
         }
         Refresh();
     }
+
 
     #endregion
     /// <summary>

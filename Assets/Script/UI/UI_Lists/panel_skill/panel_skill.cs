@@ -119,7 +119,7 @@ public class panel_skill : Panel_Base
             case skill_Offect_btn_list.上阵:
                 offect_skill.gameObject.SetActive(true);
                 offect_skill.Show(user_skill.Data);
-                Battle_Tool.NewbieTask(1004);
+                tool_Categoryt.Base_Task(1004);
                 break;
             case skill_Offect_btn_list.升级:
                 UpLv();

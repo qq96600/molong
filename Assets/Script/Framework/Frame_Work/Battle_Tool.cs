@@ -793,13 +793,13 @@ public static class Battle_Tool
     /// <summary>
     /// 完成新手任务
     /// </summary>
-    public static void NewbieTask(int number)
-    {
-        if (SumSave.crt_greenhand.crt_task == number)//完成当前任务开启下个任务
-        {
-            SumSave.crt_greenhand.crt_progress++;
-        }
-    }
+    //public static void NewbieTask(int number)
+    //{
+    //    if (SumSave.crt_greenhand.crt_task == number)//完成当前任务开启下个任务
+    //    {
+    //        SumSave.crt_greenhand.crt_progress++;
+    //    }
+    //}
 
 }
 

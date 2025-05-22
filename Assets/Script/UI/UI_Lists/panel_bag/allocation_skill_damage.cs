@@ -53,7 +53,7 @@ public class allocation_skill_damage : Base_Mono
         user_skill.user_value = ArrayHelper.Data_Encryption(user_skill.user_values);
         Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.skill_value, SumSave.crt_skills);
         SendNotification(NotiList.Refresh_Max_Hero_Attribute);
-        Battle_Tool.NewbieTask(1005);
+        tool_Categoryt.Base_Task(1005);
     }
 
     public void Show(base_skill_vo skill)

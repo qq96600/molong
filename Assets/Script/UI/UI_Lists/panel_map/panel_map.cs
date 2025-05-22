@@ -237,15 +237,18 @@ public class panel_map : Panel_Base
 
         fight_panel.Show();
         fight_panel.Open_Map(crt_map);
-        Hide();
+        Hide(); 
     }
 
     private void Base_Task()
     {
         if (crt_map.map_index == 1)//新手任务
         {
-            Battle_Tool.NewbieTask(1001);
+
+            //Battle_Tool.NewbieTask(1001);
+            tool_Categoryt.Base_Task(1001);
+
         }
-        
+
     }
 }

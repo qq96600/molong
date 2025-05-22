@@ -230,6 +230,18 @@ public class tool_Categoryt : MonoBehaviour
         return dec;
     }
     /// <summary>
+    /// 任务完成进度
+    /// </summary>
+    /// <param name="index"></param>
+    public static void Base_Task(int index)
+    {
+        if (SumSave.crt_greenhand.crt_task == index)//完成当前任务开启下个任务
+        {
+            SumSave.crt_greenhand.crt_progress++;
+        }
+    }
+
+    /// <summary>
     /// 获取数据列表
     /// </summary>
     /// <param name="bag"></param>
@@ -474,7 +486,7 @@ public class tool_Categoryt : MonoBehaviour
         }
 
 
-        Battle_Tool.NewbieTask(1003);
+        tool_Categoryt.Base_Task(1003);
 
         return skill;
 
