@@ -64,7 +64,7 @@ namespace StateMachine
         {
             if (is_collider)
             {
-                if (collision.gameObject.tag == "Moster" && SkillPosType == skill_pos_type.move)
+                if (collision.gameObject.tag == "Moster")
                 {
                     if (DamageTextManager.Instance == null)
                     {
@@ -74,29 +74,34 @@ namespace StateMachine
                     is_collider = false;
                     transform.parent.SendMessage("skill_damage", skill);
                     ObjectPoolManager.instance.PushObjectToPool(skill.skillname, this.gameObject);
-                    //this.GetComponent<BattleAttack>().injured();
-                    //StartCoroutine(WaitForExplosionEnd());
-                }
-                //else
-                //if (SkillPosType == skill_pos_type.situ)
-                //{
-                //    is_collider = false;
-                //    StartCoroutine(WaitForExplosionEnd());
-                //    //StartCoroutine(SpecificTimeDestroy());
-                //}else if(SkillPosType == skill_pos_type.oneself)
-                //{
-                //    is_collider = false;
-                //    StartCoroutine(WaitForAnimationEnd());
-                //}
-             
-            }
 
+                }
+                else
+                {
+                    StartCoroutine(DelayedDestruction());
+                }
+                
+            }
+          
         }
+
         /// <summary>
-        /// 对自己释放的技能效果播放动画
+        /// 延时销毁
         /// </summary>
         /// <returns></returns>
-        private IEnumerator WaitForAnimationEnd()
+        private IEnumerator DelayedDestruction()
+        {
+            yield return new WaitForSeconds(1f);
+            ObjectPoolManager.instance.PushObjectToPool(skill.skillname, this.gameObject);
+        }
+
+
+
+            /// <summary>
+            /// 对自己释放的技能效果播放动画
+            /// </summary>
+            /// <returns></returns>
+            private IEnumerator WaitForAnimationEnd()
         {
             rb.velocity = Vector2.zero;
             AnimatorStateInfo animStateInfo = anim.GetCurrentAnimatorStateInfo(0);
