@@ -196,9 +196,6 @@ namespace MVC
                     //寻找距离自身最近的目标    
                     Terget = ArrayHelper.GetMin(SumSave.battleMonsterHealths, e => Vector2.Distance(transform.position, e.transform.position));
 
-                    // StateMachine.Init(data.attack_speed, data.attack_distance, data.move_speed, Terget,this);
-
-
                     AttackStateMachine.Init(this, Terget);
                     StateMachine.Init(this, Terget);
                 }

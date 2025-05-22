@@ -423,7 +423,7 @@ public class panel_fight : Panel_Base
     private bool iSOpenMap()
     {
         bool exist = true;
-        if (select_map.need_Required != null)
+        if (select_map.need_Required != "")
         {
             NeedConsumables(select_map.need_Required, 1);
             if (!RefreshConsumables())
@@ -432,9 +432,7 @@ public class panel_fight : Panel_Base
             }
         }
         return exist;
-        //if (exist)
-        //    StartCoroutine(ProduceMonster(WaitTime()));
-        //else Open_Map(ArrayHelper.Find(SumSave.db_maps, e => e.map_name == SumSave.crt_resources.user_map_index));
+      
     }
     private IEnumerator ProduceMonster(float time)
     {
