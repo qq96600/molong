@@ -93,7 +93,11 @@ namespace MVC
                 SumSave.uid = null;
                 Game_Omphalos.i.Alert_Info("查询不到设备信息,请联系管理\nqq 386246268");
             }
-            else Game_Omphalos.i.Alert_Show("登录成功");
+            else
+            {
+                Login();
+                Game_Omphalos.i.Alert_Show("登录成功");
+            } 
             CloseMySqlDB();
         }
         /// <summary>
@@ -164,6 +168,15 @@ namespace MVC
 
             }
             CloseMySqlDB();
+            Login();
+        }
+        /// <summary>
+        /// 登录
+        /// </summary>
+        private void Login()
+        {
+            UI_Manager.Instance.GetPanel<panel_login>().Login();
+
         }
 
         //初始化文件
