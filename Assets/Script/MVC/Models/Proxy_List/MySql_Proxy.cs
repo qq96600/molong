@@ -436,9 +436,13 @@ namespace MVC
                     SumSave.db_stditems.Add(ReadDb.Read(mysqlReader, new Bag_Base_VO()));
                 }
             }
-
-
+#if UNITY_EDITOR
             Battle_Tool.tool_item();
+#elif UNITY_ANDROID
+
+#elif UNITY_IPHONE
+            
+#endif
         }
         /// <summary>
         /// 读取技能数据库
@@ -484,8 +488,13 @@ namespace MVC
                     SumSave.db_maps.Add(ReadDb.Read(mysqlReader, new user_map_vo()));
                 }
             }
-
+#if UNITY_EDITOR
             Battle_Tool.tool_map();
+#elif UNITY_ANDROID
+
+#elif UNITY_IPHONE
+            
+#endif
         }
     }
 }

@@ -13,6 +13,8 @@ namespace MVC
 {
     public class panel_login : Panel_Base
     {
+        private const string lastServer = "选区";
+
         private Button loginBt, userBt, selfBt;//开始按钮, 用户，隐私
 
         private GameObject AgreementButter, AgreementWindow, userWd, selfWd;//协议点击组件，协议面板
@@ -53,7 +55,7 @@ namespace MVC
         /// <summary>
         /// 记住上一次登录的服务器
         /// </summary>
-        private int lastServer;
+        private int lastServer_Index;
         /// <summary>
         /// 服务器列表
         /// </summary>
@@ -133,14 +135,7 @@ namespace MVC
 
         private void Open_function()
         {
-#if UNITY_EDITOR
             UpTheServer();
-            //UI_Manager.Instance.GetPanel<Panel_cratehero>().Show();
-#elif UNITY_ANDROID
-            UpTheServer();
-#elif UNITY_IPHONE
-            UI_Manager.Instance.GetPanel<Panel_cratehero>().Show();
-#endif
         }
 
         /// <summary>
@@ -173,25 +168,19 @@ namespace MVC
                     select_par_list.Add(item);
                 }
             }
-
-           
-            if (PlayerPrefs.HasKey("lastServer"))
+            if (PlayerPrefs.HasKey(lastServer))
             {
-                lastServer=PlayerPrefs.GetInt("lastServer");
-                btn_item par = select_par_list[lastServer-1];
-                select_par= par;
-                TheServerText.text = "选中" + select_par.index.ToString()  + "区";
-                SumSave.par = select_par.index;
-
+                lastServer_Index = PlayerPrefs.GetInt(lastServer);
+                foreach (var item in select_par_list)
+                {
+                    if (item.index == lastServer_Index)
+                    {
+                        select_par = item;
+                        TheServerText.text = "选中" + select_par.index.ToString() + "区";
+                        SumSave.par = select_par.index;
+                    }
+                }
             }
-            else
-            {
-                btn_item par = select_par_list[0];
-                select_par = par;
-                TheServerText.text = "选中" + select_par.index.ToString() + "区";
-                SumSave.par = select_par.index;
-            }
-
         }
 
         /// <summary>
@@ -225,9 +214,8 @@ namespace MVC
             _ = GameLogin.Instance.Login();
            
             #elif UNITY_IPHONE
-            UI_Manager.Instance.GetPanel<Panel_cratehero>().Show();
 
-#endif
+            #endif
         }
 
         private void OpenUser()//打开用户协议
@@ -289,40 +277,36 @@ namespace MVC
 #if UNITY_EDITOR
             SumSave.uid = "DSFSDFSDFSDF";//"05c8cc2e26234ec0acc690343a598eba";
             //Game_Omphalos.i.Wirte_Iphone();
+            Login();
+            //UI_Manager.Instance.GetPanel<Panel_cratehero>().Show();
 #elif UNITY_ANDROID
             Game_Omphalos.i.Wirte_Tap();
 #elif UNITY_IPHONE
-            Game_Omphalos.i.Wirte_Iphone();
+            UI_Manager.Instance.GetPanel<Panel_cratehero>().Show();
 #endif
-            TheServerObg.gameObject.SetActive(false);
-            if (SumSave.uid != null)
-            {
+        }
+        /// <summary>
+        /// 确认登录
+        /// </summary>
+        public void Login()
+        {
 #if UNITY_EDITOR
-#elif UNITY_ANDROID
-#elif UNITY_IPHONE
-                UI_Manager.Instance.GetPanel<Panel_cratehero>().Hide();
-#endif
-                PlayerPrefs.SetInt("lastServer", select_par.index);
-
-                SendNotification(NotiList.User_Login);
-                UI_Manager.I.GetPanel<panel_Mian>().Show();
-                Hide();
-            }
-            else
-            {
-                #if UNITY_EDITOR
+            //UI_Manager.Instance.GetPanel<Panel_cratehero>().Hide();
 
 #elif UNITY_ANDROID
                 _ = GameLogin.Instance.Login();
 
 #elif UNITY_IPHONE
-                UI_Manager.Instance.GetPanel<Panel_cratehero>().Show();
+            UI_Manager.Instance.GetPanel<Panel_cratehero>().Hide();
 #endif
+            TheServerObg.gameObject.SetActive(false);
+            if (SumSave.uid != null)
+            {
+                PlayerPrefs.SetInt(lastServer, select_par.index);
+                SendNotification(NotiList.User_Login);
+                UI_Manager.I.GetPanel<panel_Mian>().Show();
+                Hide();
             }
-
-            //fightPanel.Show();
-            ////计算离线收益
-            //fightPanel.offline();
         }
         public override void Hide()
         {

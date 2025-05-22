@@ -65,6 +65,7 @@ public class artifact_offect : Base_Mono
                     Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_artifact, SumSave.crt_artifact.Set_Uptade_String(), SumSave.crt_artifact.Get_Update_Character());
                     SendNotification(NotiList.Refresh_Max_Hero_Attribute);
                     crt_artifact.Set(1);
+                    set_artifact(crt_artifact);
                     Alert_Dec.Show("激活成功");
                     ActivateArtifactTask();
                 }

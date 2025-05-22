@@ -86,10 +86,20 @@ public class Panel_cratehero : Panel_Base
             Alert_Dec.Show("请输入账户或密码");
             return;
         }
+        if (account.text.Length < 6)
+        { 
+            Alert_Dec.Show("账户长度不能小于6位");
+            return;
+        }
+        if (password.text.Length < 6)
+        { 
+            Alert_Dec.Show("密码长度不能小于6位");
+            return;
+        }
         string[] id = new string[] { account.text, password.text };
         Game_Omphalos.i.Crate_Accout(id);
-        UI_Manager.Instance.GetPanel<panel_login>().UpTheServer();
-        Hide();
+        Game_Omphalos.i.Wirte_Iphone();
+
     }
 
     public override void Show()
