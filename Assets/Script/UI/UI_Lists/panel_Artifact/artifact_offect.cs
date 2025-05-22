@@ -61,6 +61,11 @@ public class artifact_offect : Base_Mono
                         //开启小世界
                         Open_smallWorld();
                     }
+                    if(result.Item1== "驭火术")
+                    {
+                        Battle_Tool.NewbieTask(1003);
+                    }
+
                     Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_artifact, SumSave.crt_artifact.Set_Uptade_String(), SumSave.crt_artifact.Get_Update_Character());
                     SendNotification(NotiList.Refresh_Max_Hero_Attribute);
                     crt_artifact.Set(1);
@@ -121,11 +126,13 @@ public class artifact_offect : Base_Mono
                 if (infos.Length >= 3)
                 {
                     dec += (infos[1] == "0" ? Show_Color.Green("开启加成:") : infos[2] + "级 激活: ") +
-                        (item.base_lv >= int.Parse(infos[2]) ? Show_Color.Red((enum_skill_attribute_list)int.Parse(infos[0]) + " + " + (float.Parse(infos[1]) * item.base_lv)) :
+                        (item.base_lv >= int.Parse(infos[2]) ? Show_Color.Red((enum_skill_attribute_list)int.Parse(infos[0]) +
+                        " + " + (float.Parse(infos[1]) * item.base_lv) + tool_Categoryt.Obtain_unit(int.Parse(infos[0]))):
                         Show_Color.Grey((enum_skill_attribute_list)int.Parse(infos[0]) + " + " + (float.Parse(infos[1]) * item.base_lv) + tool_Categoryt.Obtain_unit(int.Parse(infos[0]))
                         + "(未激活)")) + "\n";
                 }
             }
+           
         }
         splits = crt_artifact.Data.arrifact_needs;
         dec += Show_Color.Green(item.base_lv == 0 ? "\n激活条件: \n" : "\n升级条件: \n");

@@ -90,7 +90,13 @@ public class panel_store : Base_Mono
     /// 显示最大购买数量
     /// </summary>
     private Text buy_text;
-  
+
+    /// <summary>
+    /// 离线积分显示
+    /// </summary>
+    private Text OfflinePointsText;
+
+
     private void Awake()
     {
         store_type = Find<Transform>("store_type");
@@ -99,8 +105,8 @@ public class panel_store : Base_Mono
         material_item = Battle_Tool.Find_Prefabs<material_item>("material_item"); //Resources.Load<material_item>("Prefabs/panel_bag/material_item");
         store_item_Prefabs= Battle_Tool.Find_Prefabs<store_item>("store_item"); //Resources.Load<store_item>("Prefabs/panel_hall/panel_store/store_item");
         btn = Find<Button>("but");
-
         btn.onClick.AddListener(() =>{ CloseBuyInterface(); });
+        OfflinePointsText = Find<Text>("OfflinePoints_Text/Text");
 
         #region 商店物品购买界面
         store_item_info = Find<Transform>("store_item_buy");
@@ -124,6 +130,15 @@ public class panel_store : Base_Mono
         ShowItem(0);
        
     }
+
+    private void Update()
+    {
+        List<long> list = SumSave.crt_user_unit.Set();
+        OfflinePointsText.text= currency_unit.离线积分+";\n"+ Battle_Tool.FormatNumberToChineseUnit(list[3]);
+    }
+
+
+
     /// <summary>
     /// 点击关闭购买界面
     /// </summary>

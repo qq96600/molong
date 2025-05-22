@@ -165,5 +165,6 @@ public class offect_up_skill : Base_Mono
     {
         Init();
         user_skill = skill;
+       
     }
 }

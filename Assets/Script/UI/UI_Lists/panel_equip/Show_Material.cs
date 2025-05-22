@@ -99,6 +99,7 @@ public class Show_Material : Base_Mono
                         }
                     }
                     SumSave.crt_skills.Add(tool_Categoryt.crate_skill(data.Item1));//添加技能
+                    Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.skill_value, SumSave.crt_skills);
                     Alert_Dec.Show("获得技能 " + data.Item1);
                     break;
                 case EquipConfigTypeList.宠物技能:
@@ -106,6 +107,8 @@ public class Show_Material : Base_Mono
                 default:
                     break;
             }
+
+
             Dictionary<string, int> dic = new Dictionary<string, int>();
             dic.Add(data.Item1, -data.Item2);
             SumSave.crt_bag_resources.Get(dic);

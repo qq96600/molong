@@ -127,6 +127,7 @@ public class monitor_info : Base_Mono
                         case GreenhandGuide_Enum_List.物品:
                         case GreenhandGuide_Enum_List.材料:
                         case GreenhandGuide_Enum_List.技能:
+                        case GreenhandGuide_Enum_List.战斗技能:
                         case GreenhandGuide_Enum_List.奇物:
                             Battle_Tool.Obtain_Resources(task.Award[i], task.AwardNumber[i]);
                             break;
@@ -138,6 +139,9 @@ public class monitor_info : Base_Mono
                             break;
                         case GreenhandGuide_Enum_List.宠物:
                             Battle_Tool.Obtain_Pet(task.Award[i], task.AwardNumber[i]);
+                            break;
+                        case GreenhandGuide_Enum_List.荣耀点:
+                            SumSave.crt_accumulatedrewards.Set(2, task.AwardNumber[i]);
                             break;
                         default:
                             break;

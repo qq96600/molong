@@ -4,6 +4,7 @@
 public enum GreenhandGuideTaskType
 {
     收集任务,
+    功能任务,
     击杀怪物,
     等级提升,
     购买道具,

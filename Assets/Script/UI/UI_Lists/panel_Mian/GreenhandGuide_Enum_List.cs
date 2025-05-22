@@ -14,7 +14,9 @@ public enum GreenhandGuide_Enum_List
     材料,
     技能,
     奇物,
-    宠物
+    宠物,
+    战斗技能,
+    荣耀点,
 
 
 }

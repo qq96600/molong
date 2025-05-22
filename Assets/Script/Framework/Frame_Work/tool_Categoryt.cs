@@ -458,7 +458,6 @@ public class tool_Categoryt : MonoBehaviour
     {
         base_skill_vo skill = ArrayHelper.Find(SumSave.db_skills, e => e.skillname == skill_name);
         /// 1技能名称 2技能等级 3技能位置 4技能内力 5技能类型 6技能伤害类型 7技能最大等级 8技能初始化升级经验 9技能升级
-
         skill.user_value = skill_name;
         //等级
         skill.user_value += " " + 1;
@@ -473,6 +472,9 @@ public class tool_Categoryt : MonoBehaviour
         {
             skill.user_values[i] = item[i];
         }
+
+
+        Battle_Tool.NewbieTask(1003);
 
         return skill;
 

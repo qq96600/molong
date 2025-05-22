@@ -318,19 +318,7 @@ public static class Battle_Tool
     }
 
 
-    /// <summary>
-    /// 获得宠物
-    /// </summary>
-    /// <param name="unit"></param>
-    /// <param name="lv"></param>
-    public static void Obtain_GreenhandGuide(int task_id)
-    {
-        if (SumSave.crt_greenhand.crt_task == task_id)
-        {
-            SumSave.crt_greenhand.crt_progress++;
-        }
-
-    }
+  
     /// <summary>
     /// 获得宠物
     /// </summary>
@@ -345,12 +333,12 @@ public static class Battle_Tool
         value_data += (SumSave.crt_world.World_Lv / 5 + 1) + ",";
         value_data += pet_init.level + ",";
         value_data += pet_init.exp + ",";
-        value_data +=lv + ",";
+        //value_data +=lv + ",";
+        value_data += crate_value(pet_init, (SumSave.crt_world.World_Lv / 5 + 1)) + ",";
         value_data += 0.ToString();
         SumSave.crt_pet.crt_pet_list.Add(value_data);
         db_pet_vo pet = new db_pet_vo();
         string[] splits = SumSave.crt_pet.crt_pet_list[SumSave.crt_pet.crt_pet_list.Count - 1].Split(',');
-
         if (splits.Length == 7)
         {
             pet.petName = splits[0];
@@ -374,6 +362,34 @@ public static class Battle_Tool
         SumSave.crt_pet.Set_Uptade_String(), SumSave.crt_pet.Get_Update_Character());
 
     }
+
+    /// <summary>
+    /// 添加宠物属性
+    /// </summary>
+    /// <param name="pet"></param>
+    /// <param name="lv"></param>
+    /// <returns></returns>
+    private static string crate_value(db_pet_vo pet, int lv)
+    {
+        string data = "";
+        for (int i = 0; i < pet.crate_values.Count; i++)
+        {
+            data += Random.Range(int.Parse(pet.crate_values[i]) * (lv * 20 + 100) / 200, int.Parse(pet.crate_values[i]) * (lv * 20 + 100) / 100) + " ";
+        }
+        data += "|";
+        for (int i = 0; i < pet.up_values.Count; i++)
+        {
+            data += Random.Range(int.Parse(pet.up_values[i]) * (lv * 20 + 100) / 200, int.Parse(pet.up_values[i]) * (lv * 20 + 100) / 100) + " ";
+        }
+        data += "|";
+        for (int i = 0; i < pet.up_base_values.Count; i++)
+        {
+            data += Random.Range(int.Parse(pet.up_base_values[i]) * (lv * 20 + 100) / 200, int.Parse(pet.up_base_values[i]) * (lv * 20 + 100) / 100) + " ";
+        }
+
+        return data;
+    }
+
 
     /// <summary>
     /// 获取经验
@@ -773,5 +789,17 @@ public static class Battle_Tool
             }
         }
     }
+
+    /// <summary>
+    /// 完成新手任务
+    /// </summary>
+    public static void NewbieTask(int number)
+    {
+        if (SumSave.crt_greenhand.crt_task == number)//完成当前任务开启下个任务
+        {
+            SumSave.crt_greenhand.crt_progress++;
+        }
+    }
+
 }
 
