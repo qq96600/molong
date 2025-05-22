@@ -153,7 +153,6 @@ namespace StateMachine
         {
             rb.velocity = Vector2.zero;
             AnimatorStateInfo animStateInfo = anim.GetCurrentAnimatorStateInfo(0);
-            Debug.Log(animStateInfo.length);
             // 等待动画播放完成
             yield return new WaitForSeconds(animStateInfo.length);
             // 将对象返回对象池
