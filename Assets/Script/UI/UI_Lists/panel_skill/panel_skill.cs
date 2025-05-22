@@ -119,7 +119,8 @@ public class panel_skill : Panel_Base
             case skill_Offect_btn_list.上阵:
                 offect_skill.gameObject.SetActive(true);
                 offect_skill.Show(user_skill.Data);
-                tool_Categoryt.Base_Task(1004);
+                EquipmentSkillTasks();
+               
                 break;
             case skill_Offect_btn_list.升级:
                 UpLv();
@@ -165,10 +166,36 @@ public class panel_skill : Panel_Base
                 SendNotification(NotiList.Refresh_Max_Hero_Attribute);
                 user_skill.Refresh();
                 Select_skill(user_skill);
-            }else Alert_Dec.Show("历练值不足");
+                SkillUpgradeTask();
+
+            }
+            else Alert_Dec.Show("历练值不足");
         }
         else Alert_Dec.Show("技能等级已满");
     }
+
+    /// <summary>
+    /// 完成升级技能任务
+    /// </summary>
+    private void SkillUpgradeTask()
+    {
+        if(user_skill.Data.skillname== "驭火术")
+        {
+            tool_Categoryt.Base_Task(1028);
+        }
+      
+    }
+    /// <summary>
+    /// 装备技能任务
+    /// </summary>
+    private void EquipmentSkillTasks()
+    {
+        tool_Categoryt.Base_Task(1004);
+        tool_Categoryt.Base_Task(1034);
+        tool_Categoryt.Base_Task(1049);
+    }
+
+
     /// <summary>
     /// 选中功能
     /// </summary>

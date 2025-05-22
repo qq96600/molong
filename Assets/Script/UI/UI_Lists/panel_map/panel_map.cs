@@ -239,7 +239,9 @@ public class panel_map : Panel_Base
         fight_panel.Open_Map(crt_map);
         Hide(); 
     }
-
+    /// <summary>
+    /// 进入地图任务
+    /// </summary>
     private void Base_Task()
     {
         if (crt_map.map_index == 1)//新手任务
@@ -250,5 +252,35 @@ public class panel_map : Panel_Base
 
         }
 
+        if (crt_map.map_name == "葬旧墟")
+        {
+            tool_Categoryt.Base_Task(1030);
+        }
+
+        if (crt_map.map_name == "黄泉岔")
+        {
+            tool_Categoryt.Base_Task(1044);
+        }
+
+        if (crt_map.map_name == "血牙狼窟")
+        {
+            tool_Categoryt.Base_Task(1052);
+        }
+        if (crt_map.map_name == "千悲窟")
+        {
+            tool_Categoryt.Base_Task(1059);
+        }
+        if (crt_map.map_name == "天敕封岳")
+        {
+            tool_Categoryt.Base_Task(1064);
+        }
+        if (crt_map.map_name == "肉棺穴")
+        {
+            tool_Categoryt.Base_Task(1078);
+        }
+        if (crt_map.map_name == "万足渊")
+        {
+            tool_Categoryt.Base_Task(1080);
+        }
     }
 }

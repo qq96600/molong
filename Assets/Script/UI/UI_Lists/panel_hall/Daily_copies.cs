@@ -59,6 +59,7 @@ public class Daily_copies : Base_Mono
         else Alert_Dec.Show("挑战次数不足");
         
     }
+
     /// <summary>
     /// 进入地图
     /// </summary>
@@ -84,8 +85,43 @@ public class Daily_copies : Base_Mono
         fight_panel.Show();
         fight_panel.Open_Map(item.index,true);
         item.updatestate();
+        EnterTheReplicaTask(item);
     }
 
+    /// <summary>
+    /// 进入副本任务
+    /// </summary>
+    private void EnterTheReplicaTask(copies_item item)
+    {
+        if(item.index.map_name == "灵珠副本")
+        {
+            tool_Categoryt.Base_Task(1069);
+        }
+        if (item.index.map_name == "经验副本")
+        {
+            tool_Categoryt.Base_Task(1070);
+        }
+        if (item.index.map_name == "魔种副本")
+        {
+            tool_Categoryt.Base_Task(1071);
+        }
+        if (item.index.map_name == "经验副本")
+        {
+            tool_Categoryt.Base_Task(1072);
+        }
+        if (item.index.map_name == "灵气副本")
+        {
+            tool_Categoryt.Base_Task(1073);
+        }
+        if (item.index.map_name == "魔丸副本")
+        {
+            tool_Categoryt.Base_Task(1074);
+        }
+        if (item.index.map_name == "历练副本")
+        {
+            tool_Categoryt.Base_Task(1075);
+        }
+    }
     public override void Show()
     {
         base.Show();

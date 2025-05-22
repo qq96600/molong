@@ -126,6 +126,7 @@ namespace MVC
         {
             OnDestroy();
             BattleAttack monster = GetComponent<BattleAttack>();
+            KillMonsterMission(monster);
             SumSave.battleMonsterHealths.Remove(this);
             SumSave.crt_achievement.increase_date_Exp((Achieve_collect.击杀怪物).ToString(), 1);
             Battle_Tool.Obtain_Exp(monster.Data.Exp);
@@ -139,7 +140,7 @@ namespace MVC
                 if (monster.Data.Monster_Lv == 3)
                 {
                     SumSave.crt_achievement.increase_date_Exp((Achieve_collect.击杀Boss).ToString(), 1);
-
+                    ClearanceMapTask(monster);
                     number = Random.Range(5, 11);
                     Combat_statistics.AddBossNumber();
                 }
@@ -204,7 +205,110 @@ namespace MVC
             */
 
         }
-       
+        /// <summary>
+        /// 击杀怪物任务
+        /// </summary>
+        private static void KillMonsterMission(BattleAttack monster)
+        {
+            tool_Categoryt.Base_Task(1006);
+            tool_Categoryt.Base_Task(1008);
+            tool_Categoryt.Base_Task(1010);
+            tool_Categoryt.Base_Task(1011);
+            tool_Categoryt.Base_Task(1015);
+
+
+            if (monster.Data.show_name == "昏眼牛")
+            {
+                tool_Categoryt.Base_Task(1017);
+            }
+            if (monster.Data.show_name == "扎纸鬼")
+            {
+                tool_Categoryt.Base_Task(1018);
+            }
+            if (monster.Data.show_name == "黑爪猫")
+            {
+                tool_Categoryt.Base_Task(1019);
+            }
+            if (monster.Data.show_name == "黑鳞君")
+            {
+                tool_Categoryt.Base_Task(1031);
+            }
+            if (monster.Data.show_name == "刺皮将")
+            {
+                tool_Categoryt.Base_Task(1032);
+            }
+            if (monster.Data.show_name == "血刀鬼")
+            {
+                tool_Categoryt.Base_Task(1038);
+            }
+            if (monster.Data.show_name == "独角魔")
+            {
+                tool_Categoryt.Base_Task(1045);
+            }
+            if (monster.Data.show_name == "肉瘤怪")
+            {
+                tool_Categoryt.Base_Task(1046);
+            }
+            if (monster.Data.show_name == "断角尊")
+            {
+                tool_Categoryt.Base_Task(1047);
+            }
+
+            if (monster.Data.show_name == "七爪狼")
+            {
+                tool_Categoryt.Base_Task(1053);
+            }
+            if (monster.Data.show_name == "玄铁帅")
+            {
+                tool_Categoryt.Base_Task(1061);
+            }
+            if (monster.Data.show_name == "血喉尸")
+            {
+                tool_Categoryt.Base_Task(1079);
+            }
+            if (monster.Data.show_name == "地龙虫")
+            {
+                tool_Categoryt.Base_Task(1081);
+            }
+        }
+
+
+
+
+        /// <summary>
+        /// 通关地图任务
+        /// </summary>
+        private static void ClearanceMapTask(BattleAttack monster)
+        {
+            if(monster.Data.show_name == "鹿妖"|| monster.Data.show_name == "猪妖" || monster.Data.show_name == "幽冥鸡")
+            {
+                tool_Categoryt.Base_Task(1016);
+            }
+            if(monster.Data.show_name == "昏眼牛" || monster.Data.show_name == "扎纸鬼" || monster.Data.show_name == "黑爪猫")
+            {
+                tool_Categoryt.Base_Task(1020);
+            }
+            if (monster.Data.show_name == "黑鳞君" || monster.Data.show_name == "刺皮将")
+            {
+                tool_Categoryt.Base_Task(1035);
+            }
+            if (monster.Data.show_name == "疤脸鬼" || monster.Data.show_name == "铁骨兵" || monster.Data.show_name == "血刀鬼")
+            {
+                tool_Categoryt.Base_Task(1039);
+            }
+
+            if(monster.Data.show_name == "啸月鬼")
+            {
+                tool_Categoryt.Base_Task(1054);
+            }
+            if (monster.Data.show_name == "墟界法王")
+            {
+                tool_Categoryt.Base_Task(1066);
+            }
+        }
+
+
+
         /// <summary>
         /// 删除销毁
         /// </summary>

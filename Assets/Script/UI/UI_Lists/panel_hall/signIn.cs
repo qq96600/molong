@@ -74,10 +74,20 @@ public class signIn : Base_Mono
             Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_signin, SumSave.crt_signin.Set_Uptade_String(),
                 SumSave.crt_signin.Get_Update_Character());
             Alert_Dec.Show("签到成功");
+            SignInTask();
             base_show();
         }
         else Alert_Dec.Show("今日已签到");
     }
+
+    /// <summary>
+    /// 完成签到任务
+    /// </summary>
+    private void SignInTask()
+    {
+        tool_Categoryt.Base_Task(1026);
+    }
+
     /// <summary>
     /// 重置需求
     /// </summary>

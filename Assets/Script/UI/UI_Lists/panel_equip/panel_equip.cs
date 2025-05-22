@@ -124,13 +124,7 @@ public class panel_equip : Panel_Base
                 SumSave.crt_euqip.Remove(euqip[i]);
             }
 
-            if(crt_bag.Data.StdMode == "武器")
-            {
-                tool_Categoryt.Base_Task(1002);
-            }
-
-
-          
+            WearingEquipmentTask();
 
             SumSave.crt_bag.Remove(crt_bag.Data);
             SumSave.crt_euqip.Add(crt_bag.Data);
@@ -144,11 +138,38 @@ public class panel_equip : Panel_Base
             SumSave.crt_user_unit.verify_data(currency_unit.灵珠, moeny);
             Alert_Dec.Show("出售成功 获得灵珠" + moeny);
             SumSave.crt_bag.Remove(crt_bag.Data);
+
             Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.bag_value, SumSave.crt_bag);
             Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user, SumSave.crt_user_unit.Set_Uptade_String(), SumSave.crt_user_unit.Get_Update_Character());
 
         }
         Refresh();
+    }
+    /// <summary>
+    /// 回收装备任务
+    /// </summary>
+    private void SellingSellingEquipmentTask()
+    {
+        tool_Categoryt.Base_Task(1014);
+        tool_Categoryt.Base_Task(1021);
+    }
+
+    /// <summary>
+    /// 穿戴装备任务
+    /// </summary>
+    private void WearingEquipmentTask()
+    {
+        tool_Categoryt.Base_Task(1009);
+        if (crt_bag.Data.StdMode == "武器")
+        {
+            tool_Categoryt.Base_Task(1002);
+        }
+        tool_Categoryt.Base_Task(1013);
+        tool_Categoryt.Base_Task(1042);
+        if (crt_bag.Data.StdMode == "玉佩")
+        {
+            tool_Categoryt.Base_Task(1067);
+        }
     }
 
 

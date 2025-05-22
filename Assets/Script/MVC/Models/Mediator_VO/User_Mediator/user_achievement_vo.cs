@@ -32,7 +32,7 @@ public class user_achievement_vo : Base_VO
   
 
     /// <summary>
-    /// 获取经验值
+    /// 成就获取经验值
     /// </summary>
     /// <returns></returns>
     public Dictionary<string, long> Set_Exp()
@@ -41,7 +41,7 @@ public class user_achievement_vo : Base_VO
     }
 
     /// <summary>
-    /// 增加经验值
+    /// 成就增加经验值
     /// </summary>
     /// <param name="data"></param>
     /// <param name="lv"></param>

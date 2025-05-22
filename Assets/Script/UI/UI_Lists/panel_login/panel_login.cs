@@ -134,8 +134,8 @@ namespace MVC
         private void Open_function()
         {
 #if UNITY_EDITOR
-            //UpTheServer();
-            UI_Manager.Instance.GetPanel<Panel_cratehero>().Show();
+            UpTheServer();
+            //UI_Manager.Instance.GetPanel<Panel_cratehero>().Show();
 #elif UNITY_ANDROID
             UpTheServer();
 #elif UNITY_IPHONE
@@ -287,8 +287,8 @@ namespace MVC
             }
             PlayerPrefs.SetInt("同意阅读协议", 1);
 #if UNITY_EDITOR
-            //SumSave.uid = "DSFSDFSDFSDF";//"05c8cc2e26234ec0acc690343a598eba";
-            Game_Omphalos.i.Wirte_Iphone();
+            SumSave.uid = "DSFSDFSDFSDF";//"05c8cc2e26234ec0acc690343a598eba";
+            //Game_Omphalos.i.Wirte_Iphone();
 #elif UNITY_ANDROID
             Game_Omphalos.i.Wirte_Tap();
 #elif UNITY_IPHONE

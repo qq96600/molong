@@ -177,7 +177,22 @@ public class Alchemy : Base_Mono
         SumSave.crt_seeds.Set(split);
         Alert_Dec.Show("获得丹药 " + split[0]);
         Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_seed, SumSave.crt_seeds.Set_Uptade_String(), SumSave.crt_seeds.Get_Update_Character());
+        AlchemyMission(split);
     }
+
+    /// <summary>
+    /// 完成炼丹任务
+    /// </summary>
+    private void AlchemyMission(List<string> split)
+    {
+        if(split[0]== "天麻丸")
+        {
+            tool_Categoryt.Base_Task(1029);
+        }
+
+    }
+
+
     /// <summary>
     /// 生成配方
     /// </summary>

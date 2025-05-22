@@ -205,7 +205,9 @@ public class panel_store : Base_Mono
             }else Alert_Dec.Show("购买失败");
         }
     }
-
+    /// <summary>
+    /// 商城活动物品
+    /// </summary>
     private void SpecialItems()
     {
         switch (buy_item.ItemName)
@@ -316,6 +318,21 @@ public class panel_store : Base_Mono
                 break;
         }
         Alert_Dec.Show("购买" + buy_item.ItemName + " * " + buy_num + " 成功");
+        ShopPurchaseTask(buy_item);
+    }
+    /// <summary>
+    /// 商店购买物品任务
+    /// </summary>
+    private void ShopPurchaseTask(db_store_vo buy_item)
+    {
+       if( buy_item.ItemName == "血牙狼窟通行证")
+        {
+            tool_Categoryt.Base_Task(1050);
+        }
+       if(buy_item.ItemName== "下品经验丹")
+        {
+            tool_Categoryt.Base_Task(1051);
+        }
 
     }
 

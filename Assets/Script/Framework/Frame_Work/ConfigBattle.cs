@@ -120,6 +120,7 @@ namespace MVC
             {
                 int quality = int.Parse(bag.user_value.Split(' ')[2]);
                 Combat_statistics.AddBag(1);
+                
                 if (SumSave.crt_resources.pages[0] > SumSave.crt_bag.Count)
                 {
                     //判断回收
@@ -143,10 +144,46 @@ namespace MVC
                 //Debug.Log(bag.Name);
                 //获取材料
                 Battle_Tool.Obtain_Resources(bag.Name, 1);
+                ObtainEquipmentTasks(bag);
                 Calculations.Add("获得 " + bag.Name + " * " + 1);
             }
 
         }
+        /// <summary>
+        /// 获得装备任务
+        /// </summary>
+        private static void ObtainEquipmentTasks(Bag_Base_VO bag)
+        {
+           
+            tool_Categoryt.Base_Task(1012);
+            if(bag.Name == "无影蝉蜕")
+            {
+                tool_Categoryt.Base_Task(1033);
+            }
+            if (bag.Name == "破军七劫")
+            {
+                tool_Categoryt.Base_Task(1048);
+            }
+            if (bag.Name == "青冥断刃碎片")
+            {
+                tool_Categoryt.Base_Task(1055);
+
+            }
+            if (bag.Name == "冥君诏令通行证")
+            {
+                tool_Categoryt.Base_Task(1056);
+            }
+            if (bag.Name == "龙骸密匙通行证")
+            {
+                tool_Categoryt.Base_Task(1058);
+            }
+            if (bag.Name == "缚魂玉")
+            {
+                tool_Categoryt.Base_Task(1065);
+            }
+        }
+
+
         /// <summary>
         /// 显示获取信息
         /// </summary>

@@ -78,13 +78,25 @@ public class offect_strengthen : Base_Mono
                 Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.equip_value, SumSave.crt_euqip);
             }
             else Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.bag_value, SumSave.crt_bag);
+
+            EquipmentEnhancementTask();
         }
         else Alert_Dec.Show(currency_unit.灵珠 + "不足 " + needs[lv]);
     }
     /// <summary>
-    /// 选择对象
+    /// 装备强化任务
     /// </summary>
-    /// <param name="index"></param>
+    private void EquipmentEnhancementTask()
+    {
+        tool_Categoryt.Base_Task(1027);
+        tool_Categoryt.Base_Task(1037);
+        tool_Categoryt.Base_Task(1041);
+    }
+
+        /// <summary>
+        /// 选择对象
+        /// </summary>
+        /// <param name="index"></param>
     private void Select_Btn(object index)
     {
         this.index = (int)index;

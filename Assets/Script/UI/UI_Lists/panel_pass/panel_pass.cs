@@ -96,7 +96,7 @@ public class panel_pass : Base_Mono
         {
             //领取奖励
             Battle_Tool.Obtain_Resources("命运金币", 1);
-
+            CollectingPassTasks();
             SumSave.crt_pass.data_exp++;
             SumSave.crt_pass.Get(item.index);
             SumSave.crt_pass.Max_task_number++;
@@ -114,6 +114,15 @@ public class panel_pass : Base_Mono
 
     }
 
+    /// <summary>
+    /// 领取通行证任务完成
+    /// </summary>
+    private void CollectingPassTasks()
+    {
+        tool_Categoryt.Base_Task(1057);
+        tool_Categoryt.Base_Task(1077);
+    }
+
     private void OnBtnClick(btn_item btn)
     {
 
@@ -124,8 +133,16 @@ public class panel_pass : Base_Mono
         base.Show();
         Base_Show();
         Show_Pass_Progress();
-
+        viewPass();
     }
+    /// <summary>
+    /// 查看通行证任务
+    /// </summary>
+    private void viewPass()
+    {
+        tool_Categoryt.Base_Task(1076);
+    }
+
     /// <summary>
     /// 显示任务进度
     /// </summary>

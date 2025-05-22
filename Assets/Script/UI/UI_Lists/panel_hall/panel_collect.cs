@@ -148,6 +148,7 @@ public class panel_collect : Base_Mono
                     SumSave.crt_collect.collect_complete(crt_collect.Name);//收集完成
                     Alert_Dec.Show(crt_collect.Name + " 收集成功");
                     SuitCollect(crt_collect);
+                    CollectTasks();
                 }
                 else
                 {
@@ -164,6 +165,16 @@ public class panel_collect : Base_Mono
         }
 
     }
+    /// <summary>
+    /// 完成收集任务
+    /// </summary>
+    private void CollectTasks()
+    {
+        tool_Categoryt.Base_Task(1023);
+        tool_Categoryt.Base_Task(1043);
+    }
+
+
     /// <summary>
     /// 判断套装是否收集完成
     /// </summary>
@@ -191,6 +202,7 @@ public class panel_collect : Base_Mono
                         str += type + "+" + coll.bonuses_values[i] + ",";
                     }
 
+                    SetCollectionTask();
                     Alert_Dec.Show("该套装已收集,增加的属性为：" + str);
                 }
                 else
@@ -205,6 +217,15 @@ public class panel_collect : Base_Mono
             }
 
         }
+    }
+
+    /// <summary>
+    /// 完成套装收集任务
+    /// </summary>
+    private void  SetCollectionTask()
+    {
+        tool_Categoryt.Base_Task(1068);
+
     }
 
     public void Init()

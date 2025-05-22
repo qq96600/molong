@@ -61,16 +61,14 @@ public class artifact_offect : Base_Mono
                         //开启小世界
                         Open_smallWorld();
                     }
-                    if(result.Item1== "驭火术")
-                    {
-                        tool_Categoryt.Base_Task(1003);
-                    }
 
                     Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_artifact, SumSave.crt_artifact.Set_Uptade_String(), SumSave.crt_artifact.Get_Update_Character());
                     SendNotification(NotiList.Refresh_Max_Hero_Attribute);
                     crt_artifact.Set(1);
                     Alert_Dec.Show("激活成功");
-                }else Alert_Dec.Show("激活失败");
+                    ActivateArtifactTask();
+                }
+                else Alert_Dec.Show("激活失败");
                 
             }
             else
@@ -93,6 +91,15 @@ public class artifact_offect : Base_Mono
             }
         }
     }
+    /// <summary>
+    /// 激活神器任务
+    /// </summary>
+    private void ActivateArtifactTask()
+    {
+        tool_Categoryt.Base_Task(1063);
+    }
+
+
     /// <summary>
     /// 开启小世界
     /// </summary>

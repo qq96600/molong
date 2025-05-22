@@ -402,9 +402,37 @@ public static class Battle_Tool
         Combat_statistics.AddExp(exp); 
         SumSave.crt_MaxHero.Exp += exp;
         SumSave.crt_hero.hero_Exp += exp;
+        LevelTask();
         Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_hero,
             SumSave.crt_hero.Set_Uptade_String(), SumSave.crt_hero.Get_Update_Character());
     }
+    /// <summary>
+    /// 等级任务
+    /// </summary>
+    private static void LevelTask()
+    {
+        if(SumSave.crt_hero.hero_Lv == 10)
+        {
+            tool_Categoryt.Base_Task(1024);
+        }
+        if(SumSave.crt_hero.hero_Lv == 15)
+        {
+            tool_Categoryt.Base_Task(1036);
+        }
+        if (SumSave.crt_hero.hero_Lv == 20)
+        {
+            tool_Categoryt.Base_Task(1040);
+        }
+        if (SumSave.crt_hero.hero_Lv == 30)
+        {
+            tool_Categoryt.Base_Task(1062);
+        }
+        if (SumSave.crt_hero.hero_Lv == 40)
+        {
+            tool_Categoryt.Base_Task(1084);
+        }
+    }
+
     /// <summary>
     /// 获取加成buff
     /// </summary>
@@ -790,16 +818,7 @@ public static class Battle_Tool
         }
     }
 
-    /// <summary>
-    /// 完成新手任务
-    /// </summary>
-    //public static void NewbieTask(int number)
-    //{
-    //    if (SumSave.crt_greenhand.crt_task == number)//完成当前任务开启下个任务
-    //    {
-    //        SumSave.crt_greenhand.crt_progress++;
-    //    }
-    //}
+
 
 }
 

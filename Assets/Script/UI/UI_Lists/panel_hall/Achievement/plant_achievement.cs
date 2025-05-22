@@ -83,6 +83,12 @@ public class plant_achievement : Base_Mono
         Insace_Base_Info();
     }
 
+
+    private void Update()
+    {
+        CompleteAchievementTasks();
+    }
+
     /// <summary>
     /// 成就信息栏点击其他区域关闭
     /// </summary>
@@ -151,15 +157,22 @@ public class plant_achievement : Base_Mono
 
             Battle_Tool.Obtain_Resources(reward, int.Parse(temp[2]));//获得奖励
             Alert_Dec.Show("领取 " + reward+"X"+ temp[2]+" 成功");
-        }else if (int.Parse(temp[0]) == 1)
+            CompleteTheAchievementCollectionTask();
+        }
+        else if (int.Parse(temp[0]) == 1)
         {
             Alert_Dec.Show("获得 "+(enum_skill_attribute_list)(int.Parse(temp[1]))+"+"+temp[2]); 
         }
         show_offect.gameObject.SetActive(false);
         crt_achieve_Item.Init(); 
     }
-
-
+    /// <summary>
+    /// 完成领取成就任务
+    /// </summary>
+    private void CompleteTheAchievementCollectionTask()
+    {
+        tool_Categoryt.Base_Task(1025);
+    }
 
 
 
@@ -187,6 +200,9 @@ public class plant_achievement : Base_Mono
                         SumSave.crt_achievement.up_date_Exp((Achieve_collect.技能数量).ToString(), SumSave.crt_skills.Count);//更新技能数量
                     }
 
+
+                    
+
                     ach_item item = Instantiate(Achieve_Item_Prefab, crt);//实例化具体成就
                     item.Data = SumSave.db_Achievement_dic[j];//获取成就信息
                     //读取数据
@@ -205,6 +221,19 @@ public class plant_achievement : Base_Mono
             }
         }
     }
+    /// <summary>
+    /// 完成成就任务
+    /// </summary>
+    private void CompleteAchievementTasks()
+    {
+        Dictionary<string, long> user_achievements = SumSave.crt_achievement.Set_Exp();
+        if (user_achievements[(Achieve_collect.击杀怪物).ToString()] == 1)
+        {
+            tool_Categoryt.Base_Task(1060);
+        }
+    }
+
+
 
     /// <summary>
     /// 读取成就

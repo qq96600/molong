@@ -303,6 +303,7 @@ namespace MVC
             {
                 target.EnergyMp = 0;
                 damage = damage * (100 + target.EnergymaxMp) / 100;
+                tool_Categoryt.Base_Task(1007);
             }
             if (iSnHit(monster))
             {

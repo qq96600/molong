@@ -44,7 +44,7 @@ public class panel_setting : Panel_Base
     {
         SumSave.crt_setting.user_setting[data.index] = data.value;
         SendNotification(NotiList.Refresh_User_Setting, SumSave.crt_setting);
-
+        AutomaticEquipmentRecyclingTask(data);
         if (SumSave.crt_setting.user_setting[4] == 1)//1为静音
         {
             AudioListener.pause = true;
@@ -57,6 +57,18 @@ public class panel_setting : Panel_Base
 
 
         Alert_Dec.Show("设置成功");
+    }
+
+    /// <summary>
+    /// 自动回收装备任务
+    /// </summary>
+    private  void AutomaticEquipmentRecyclingTask((int index, int value) data)
+    {
+        if (data.index == 0)
+        {
+            tool_Categoryt.Base_Task(1019);
+        }
+
     }
 
     public override void Show()

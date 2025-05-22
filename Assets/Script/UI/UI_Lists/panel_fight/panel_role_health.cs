@@ -102,4 +102,7 @@ public class panel_role_health : Base_Mono
             show_point.text = Battle_Tool.FormatNumberToChineseUnit(list[1]) + " " + currency_unit.历练;
         } 
     }
+
+
+
 }
