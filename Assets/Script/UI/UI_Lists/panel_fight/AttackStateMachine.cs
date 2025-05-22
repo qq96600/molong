@@ -5,6 +5,7 @@ using MVC;
 using StateMachine;
 using UI;
 using Common;
+using System;
 
 public class AttackStateMachine : MonoBehaviour
 {
@@ -25,7 +26,7 @@ public class AttackStateMachine : MonoBehaviour
     /// <summary>
     /// 攻击速度
     /// </summary>
-    private float AttackSpeed = 1f;
+    private float AttackSpeed = -1f;
     /// <summary>
     /// 攻击速度计数器
     /// </summary>
@@ -40,10 +41,6 @@ public class AttackStateMachine : MonoBehaviour
     /// </summary>
     /// <returns></returns>
      private RolesManage StateMachine;
-    /// <summary>
-    /// 技能预制体
-    /// </summary>
-    private GameObject skill_prefabs;
     /// <summary>
     /// 刚体组件
     /// </summary>
@@ -87,25 +84,19 @@ public class AttackStateMachine : MonoBehaviour
     {
         IsState();
         Animator_State();
-
-
         if (arrowType == Arrow_Type.idle&& SumSave.battleMonsterHealths.Count>0)
         {
-            AttackSpeedCounter -= Time.deltaTime;
-  
+            AttackSpeedCounter -= Time.deltaTime * 90f;
             if (AttackSpeedCounter <= 0)
             {
                 //Debug.Log("触发攻击"+Time.time);
-                Transform pos= battle.transform;
-                startPosition = transform.position;
-
-                StateMachine.Animator_State(Arrow_Type.attack);
-
-                if(!isAttacking)
-                StartCoroutine(AttackDash());
-
-               // battle.OnAuto();
-                AttackSpeedCounter = AttackSpeed;//battle.Data.attack_speed; 
+                if (!isAttacking)
+                {
+                    Transform pos = battle.transform;
+                    startPosition = transform.position;
+                    StateMachine.Animator_State(Arrow_Type.attack);
+                    StartCoroutine(AttackDash());
+                }
             }
             else
             {
@@ -127,8 +118,9 @@ public class AttackStateMachine : MonoBehaviour
     IEnumerator AttackDash()
     {
         isAttacking = true;
-        float dashDuration = 1f / (AttackSpeed*10);
+        float dashDuration = 10f / (AttackSpeed); // 冲撞持续时间
         float startTime = Time.time;
+        //Debug.Log("冲撞开始" + battle.Data.show_name+" "+DateTime.Now);
 
         // 冲刺阶段
         while (Time.time - startTime < dashDuration)
@@ -149,8 +141,8 @@ public class AttackStateMachine : MonoBehaviour
             
             yield return null;
         }
-
         battle.OnAuto();
+        AttackSpeedCounter = AttackSpeed;
         // 返回阶段
         float returnDuration = 0.5f;
         startTime = Time.time;
@@ -175,9 +167,9 @@ public class AttackStateMachine : MonoBehaviour
     public void Init(BattleAttack _battle,BattleHealth target)
     {
         battle= _battle;
+        AttackSpeed = battle.Data.attack_speed;
+        AttackSpeedCounter = AttackSpeed;
         Target = target;
-        
-       
      }
     /// <summary>
     /// 技能释放控制
@@ -187,7 +179,7 @@ public class AttackStateMachine : MonoBehaviour
     {
         Transform pos=battle.transform;
         
-        skill_prefabs = Resources.Load<GameObject>("Prefabs/panel_skill/Skill_Effects/" + skill.skillname);
+        GameObject skill_prefabs = Resources.Load<GameObject>("Prefabs/panel_skill/Skill_Effects/" + skill.skillname);
         switch ((skill_pos_type)skill.skill_state)
         {
             case skill_pos_type.move:
@@ -202,8 +194,9 @@ public class AttackStateMachine : MonoBehaviour
             default:
                 break;
         }
-        GameObject go = ObjectPoolManager.instance.GetObjectFormPool(skill.skillname, skill_prefabs,
-              new Vector3(pos.transform.position.x, pos.transform.position.y, pos.transform.position.z)
+        GameObject go = ObjectPoolManager.instance.GetObjectFormPool(skill.skillname,
+            skill_prefabs,
+            new Vector3(pos.transform.position.x, pos.transform.position.y, pos.transform.position.z)
               , Quaternion.identity, pos.transform);
         go.GetComponent<Skill_Collision>().Init(skill, battle, Target, (skill_pos_type)skill.skill_state);
     }
@@ -271,7 +264,9 @@ public enum Arrow_Type
     move,
     attack,
 }
-
+/// <summary>
+/// 技能效果类型
+/// </summary>
 public enum skill_pos_type
 { 
     move=1,//移动类

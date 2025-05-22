@@ -50,8 +50,6 @@ namespace MVC
         {
             HP = Mathf.Clamp(HP + hp, 0, maxHP);
             MP = Mathf.Clamp(MP + mp, 0, maxMP);
-            //if (hp > 0) Hurt(hp, DamageEnum.回血);
-            //if (mp > 0) Hurt(mp, DamageEnum.回蓝);
             if (internalforcemaxMP > 0) internalforceMP = Mathf.Clamp(internalforceMP + 2, 0, internalforcemaxMP);
             if (EnergymaxMp > 0) EnergyMp = Mathf.Clamp(EnergyMp + 1, 0, EnergymaxMp);
         }
@@ -124,7 +122,6 @@ namespace MVC
         /// <returns></returns>
         private void WaitAndDestory()
         {
-            OnDestroy();
             BattleAttack monster = GetComponent<BattleAttack>();
             KillMonsterMission(monster);
             SumSave.battleMonsterHealths.Remove(this);
@@ -317,7 +314,7 @@ namespace MVC
         {
             if (gameObject.activeInHierarchy)
             {
-                yield return new WaitForSeconds(0.3f);
+                yield return new WaitForSeconds(0.8f);
                 ObjectPoolManager.instance.PushObjectToPool(healthname, this.gameObject);
             }
         }

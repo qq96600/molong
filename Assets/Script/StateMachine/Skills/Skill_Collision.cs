@@ -10,6 +10,9 @@ namespace StateMachine
     {
         private Rigidbody2D rb;
         private float MoveSpeed = 3f;//移动速度
+        /// <summary>
+        /// 目标
+        /// </summary>
         private BattleHealth TatgetPosition;//目标位置
         private Transform Axle;//转向轴
         private base_skill_vo skill;//技能伤害
@@ -23,6 +26,10 @@ namespace StateMachine
         private BattleAttack attack;
 
         private bool isExplosion= false;//是否爆炸
+        /// <summary>
+        /// 是否回收
+        /// </summary>
+        private bool isPushObjectToPool = false;
         private void Awake()
         {
             rb= GetComponent<Rigidbody2D>();
@@ -59,7 +66,7 @@ namespace StateMachine
             if(TatgetPosition.HP <= 0)
             {
                 StopAllCoroutines();
-                ObjectPoolManager.instance.PushObjectToPool(skill.skillname, this.gameObject);
+                PushObjectToPool();
             }
             else
             {
@@ -75,7 +82,7 @@ namespace StateMachine
             {
                 if (collision.gameObject.tag == "Moster")
                 {
-                    if (TatgetPosition.HP > 0)
+                    if (TatgetPosition.gameObject.activeInHierarchy &&TatgetPosition.HP > 0)
                     {
                         if (DamageTextManager.Instance == null)
                         {
@@ -84,27 +91,12 @@ namespace StateMachine
                         }
                         is_collider = false;
                         transform.parent.SendMessage("skill_damage", skill);
-                        ObjectPoolManager.instance.PushObjectToPool(skill.skillname, this.gameObject);
+                        PushObjectToPool();
                     }
 
                 }
-                
             }
-          
         }
-
-        /// <summary>
-        /// 延时销毁
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerator DelayedDestruction()
-        {
-            yield return new WaitForSeconds(10f);
-            ObjectPoolManager.instance.PushObjectToPool(skill.skillname, this.gameObject);
-        }
-
-
-
             /// <summary>
             /// 对自己释放的技能效果播放动画
             /// </summary>
@@ -117,8 +109,7 @@ namespace StateMachine
             // 等待动画播放完成
             yield return new WaitForSeconds(animStateInfo.length);
             // 将对象返回对象池
-            ObjectPoolManager.instance.PushObjectToPool(skill.skillname, this.gameObject);
-
+            PushObjectToPool();
             SelfEffect();
         }
         /// <summary>
@@ -131,8 +122,26 @@ namespace StateMachine
                 Debug.Log("治疗");
             }
         }
+        /// <summary>
+        /// 关闭后回收自己
+        /// </summary>
+        private void OnDisable()
+        {
+            PushObjectToPool();
+        }
+        /// <summary>
+        /// 回收引用
+        /// </summary>
+        private void PushObjectToPool()
+        {
 
+            if (isPushObjectToPool)
+            {
+                isPushObjectToPool = false;
+                ObjectPoolManager.instance.PushObjectToPool(skill.skillname, this.gameObject);
 
+            }
+        }
 
 
         /// <summary>
@@ -143,13 +152,11 @@ namespace StateMachine
         {
             rb.velocity = Vector2.zero;
             AnimatorStateInfo animStateInfo = anim.GetCurrentAnimatorStateInfo(0);
-            
             // 等待动画播放完成
             yield return new WaitForSeconds(animStateInfo.length);
             // 将对象返回对象池
-            ObjectPoolManager.instance.PushObjectToPool(skill.skillname, this.gameObject);
+            PushObjectToPool();
             attack.skill_damage(skill);
-
 
         }
 
@@ -178,6 +185,13 @@ namespace StateMachine
             TatgetPosition = _tatgetObg;
             skill = base_skill;
         }
+        /// <summary>
+        /// 技能碰撞
+        /// </summary>
+        /// <param name="_skill">技能</param>
+        /// <param name="_attack">自身</param>
+        /// <param name="_target">目标</param>
+        /// <param name="_skill_pos_type">技能效果</param>
         public void Init(base_skill_vo _skill,BattleAttack _attack,BattleHealth _target, skill_pos_type _skill_pos_type)//初始化
         {
             is_collider = true;
@@ -185,7 +199,7 @@ namespace StateMachine
             attack = _attack;
             TatgetPosition =_target;
             SkillPosType= _skill_pos_type;
-
+            isPushObjectToPool = true;
             AudioManager.Instance.playAudio(ClipEnum.释放雷电术);
 
         }

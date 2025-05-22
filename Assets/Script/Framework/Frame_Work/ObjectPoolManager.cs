@@ -34,7 +34,10 @@ public class ObjectPoolManager : MonoBehaviour
     {
         //被实例化的对象
         GameObject go;
-
+        if (objName == "血光之灾")
+        { 
+        
+        }
         //判断是否存在对应的池子（通过字典的键值对判断是否包含objname的键）
         //并判断池子里是否包含对象，有对象才能取出来（通过判断List里的元素个数，大于0说明至少有一个）
         if (pool.ContainsKey(objName) && pool[objName].Count > 0)
@@ -47,12 +50,10 @@ public class ObjectPoolManager : MonoBehaviour
 
             //激活取出的对象                          
             go.SetActive(true);
-
             go.transform.position = pos;
-
             go.transform.rotation = qua;
+            go.transform.parent = crt;
         }
-
         else
         {
             //如果池子中没有该元素，就从Resources文件夹中实例化出来赋值给go
@@ -68,7 +69,10 @@ public class ObjectPoolManager : MonoBehaviour
         //通过Instantiate生成的对象名字均为预设体名字加上（clone），所以需要
         //切割才能得到真正预设体的名字
         //string prefabName = go.name.Split('(')[0];
-
+        //if (path == "血光之灾")
+        //{
+        //    UnityEngine.Debug.LogError("查找路径");
+        //}
         //通过预设体的名字来判断是否已经有对应的池子，如果有直接将go放到池子中
         if (pool.ContainsKey(path))
         {
