@@ -61,6 +61,10 @@ namespace StateMachine
                 StopAllCoroutines();
                 ObjectPoolManager.instance.PushObjectToPool(skill.skillname, this.gameObject);
             }
+            else
+            {
+                StartCoroutine(DelayedDestruction());
+            }
         }
 
 
@@ -105,7 +109,7 @@ namespace StateMachine
             /// 对自己释放的技能效果播放动画
             /// </summary>
             /// <returns></returns>
-            private IEnumerator WaitForAnimationEnd()
+        private IEnumerator WaitForAnimationEnd()
         {
             rb.velocity = Vector2.zero;
             AnimatorStateInfo animStateInfo = anim.GetCurrentAnimatorStateInfo(0);
