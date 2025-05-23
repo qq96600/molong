@@ -103,7 +103,7 @@ namespace MVC
                
                 if (data.Monster_Lv >= 1)
                 {
-                    icon.sprite = Resources.Load<Sprite>("Prefabs/monsters/" + data.show_name);//Assets/Resources/mon_龙.png
+                    //icon.sprite = Resources.Load<Sprite>("Prefabs/monsters/" + data.show_name);//Assets/Resources/mon_龙.png
                     for (int i = 0; i < data.life.Length; i++)
                     {
                         if (data.life[i] != 0)

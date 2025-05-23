@@ -85,12 +85,12 @@ namespace StateMachine
                 Instantiate(skin_prefabs, panel_role_health);
             }else if(GetComponent<Monster>() != null)
             {
-                //monster_type = enum_monster_type.磷火兵;
+                monster_type = enum_monster_type.磷火兵;
                 ////skin_prefabs = Resources.Load<GameObject>("Prefabs/monsters/mon_" + monster_type.ToString());
-                //mon_profilePicture= Resources.Load<Sprite>("Prefabs/monsters/mon_" + monster_type.ToString());
+                mon_profilePicture= Resources.Load<Sprite>("Prefabs/monsters/mon_" + monster_type.ToString());
 
-                //panel_role_health = transform.Find("Appearance/profilePicture");
-                //panel_role_health.GetComponent<Image>().sprite = mon_profilePicture;
+                panel_role_health = transform.Find("Appearance/profilePicture");
+                panel_role_health.GetComponent<Image>().sprite = mon_profilePicture;
                 //Instantiate(skin_prefabs, panel_role_health);
             }
 
@@ -98,9 +98,8 @@ namespace StateMachine
 
             #endregion
 
-            
-            rb = GetComponent<Rigidbody2D>();
 
+            rb = GetComponent<Rigidbody2D>();
             //anim = GetComponentInChildren<Animator>();//获取动画组件
             //animSpeed = anim.speed;
             attack = GetComponent<AttackStateMachine>();

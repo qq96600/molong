@@ -10,7 +10,7 @@ public class monster_battle_attck : BattleAttack
     public override void Awake()
     {
         base.Awake();
-        icon = Find<Image>("Appearance/profilePicture");
+        //icon = Find<Image>("Appearance/profilePicture");
 
     }
     public override void OnAuto()
