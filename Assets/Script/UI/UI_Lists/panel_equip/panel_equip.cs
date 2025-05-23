@@ -133,12 +133,23 @@ public class panel_equip : Panel_Base
             SendNotification(NotiList.Refresh_Max_Hero_Attribute);
         }
         else
+        if (index == 1)//锁定
+        {
+            string[] info_str = crt_bag.Data.user_value.Split(' ');
+            if (info_str.Length >= 6)
+            {
+                crt_bag.Data.user_value = crt_bag.Data.user_value.Replace(info_str[5], info_str[5] == "0" ? "1" : "0");
+            }
+           
+            Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.bag_value, SumSave.crt_bag);
+        }
+        else
+         if (index == 2)
         {
             int moeny= crt_bag.Data.price;
             SumSave.crt_user_unit.verify_data(currency_unit.灵珠, moeny);
             Alert_Dec.Show("出售成功 获得灵珠" + moeny);
             SumSave.crt_bag.Remove(crt_bag.Data);
-
             Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.bag_value, SumSave.crt_bag);
             Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user, SumSave.crt_user_unit.Set_Uptade_String(), SumSave.crt_user_unit.Get_Update_Character());
 

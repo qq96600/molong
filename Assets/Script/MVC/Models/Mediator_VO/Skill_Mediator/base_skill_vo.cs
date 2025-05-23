@@ -59,7 +59,7 @@ public class base_skill_vo : Base_VO
     /// </summary>
     public int skill_max_lv;
     /// <summary>
-    /// 技能初始化升级经验
+    /// 五行
     /// </summary>
     public int skill_life;
     /// <summary>

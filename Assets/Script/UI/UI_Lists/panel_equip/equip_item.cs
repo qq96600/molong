@@ -14,7 +14,7 @@ public class equip_item : Base_Mono
     private bag_item bag_item_Prefabs;
 
     private btn_item btn_item_Prefabs;
-    private string[] btn_list = new string[] { "穿戴", "出售" };
+    private string[] btn_list = new string[] { "穿戴","锁定", "出售" };
     private string[] take_btn_list=new string[] { "卸下" };
     private Text show_name, show_base_need, show_info;
     private void Awake()

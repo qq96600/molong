@@ -1,5 +1,6 @@
 using Common;
 using MVC;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -317,7 +318,6 @@ public class tool_Categoryt : MonoBehaviour
         int quality = Quality();
         if (lv != -1) quality = lv;
         user_value += " " + quality;
-
         if (quality > 0)
         {
             List<(int, int)> list = new List<(int, int)>();
@@ -363,17 +363,17 @@ public class tool_Categoryt : MonoBehaviour
                             }
                         }
                     }
-                }
-                string type = "", value = "";
-                int index = 0;
-                foreach (var item in list)
-                {
-                    index++;
-                    type += item.Item1 + (index == list.Count ? "" : ",");
-                    value += item.Item2 + (index == list.Count ? "" : ",");
-                }
-                user_value += " " + type + " " + value;
+                } 
             }
+            string type = "", value = "";
+            int index = 0;
+            foreach (var item in list)
+            {
+                index++;
+                type += item.Item1 + (index == list.Count ? "" : ",");
+                value += item.Item2 + (index == list.Count ? "" : ",");
+            }
+            user_value += " " + type + " " + value;
         }
         //是否可以锁定
         user_value += " " + 0;
@@ -455,6 +455,10 @@ public class tool_Categoryt : MonoBehaviour
                 user_value += " " + type + " " + value;
             }
         }
+        else
+        { 
+        
+        }
         //是否可以锁定
         user_value += " " + 0;
         bag.user_value = user_value;
@@ -522,6 +526,7 @@ public class tool_Categoryt : MonoBehaviour
                 result = 7;
             }
         }
-        return result;
+        result = Math.Clamp(result, 1, 7);
+        return result; 
     }
 }
