@@ -2100,10 +2100,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8353174079279725051, guid: 8b3838d10677bb043a87e194cf3dfa63, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2242,6 +2238,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1420616014}
     m_Modifications:
+    - target: {fileID: 2851767920134378267, guid: 713b765fb7dfc6d4d8e526cb12719de8, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 121.1151
+      objectReference: {fileID: 0}
+    - target: {fileID: 2851767920134378267, guid: 713b765fb7dfc6d4d8e526cb12719de8, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -68.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2851767920134378267, guid: 713b765fb7dfc6d4d8e526cb12719de8, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 22.6
+      objectReference: {fileID: 0}
     - target: {fileID: 4880811972747022035, guid: 713b765fb7dfc6d4d8e526cb12719de8, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2321,6 +2329,10 @@ PrefabInstance:
     - target: {fileID: 4880811972747022035, guid: 713b765fb7dfc6d4d8e526cb12719de8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5593067854498082701, guid: 713b765fb7dfc6d4d8e526cb12719de8, type: 3}
+      propertyPath: m_Text
+      value: "\u5220\u9664\u8D26\u6237"
       objectReference: {fileID: 0}
     - target: {fileID: 8089330080796420417, guid: 713b765fb7dfc6d4d8e526cb12719de8, type: 3}
       propertyPath: m_Name
@@ -2625,6 +2637,10 @@ PrefabInstance:
     - target: {fileID: 422646994122089123, guid: 28a8dd2ac0cb62643bc5facc012e9f14, type: 3}
       propertyPath: m_Name
       value: Panel_cratehero
+      objectReference: {fileID: 0}
+    - target: {fileID: 422646994122089123, guid: 28a8dd2ac0cb62643bc5facc012e9f14, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

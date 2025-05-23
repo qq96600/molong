@@ -1,9 +1,12 @@
 using Common;
 using Components;
+using MVC;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UI;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class panel_setting : Panel_Base
 {
@@ -16,6 +19,8 @@ public class panel_setting : Panel_Base
     /// </summary>
     private setting_item setting_Item_prefab;
 
+    private Button close;
+
     private string[] setting_name = { "设置1", "设置2", "设置3", "设置4", "设置5" };
 
     protected override void Awake()
@@ -27,8 +32,9 @@ public class panel_setting : Panel_Base
     {
         base.Initialize();
         crt_setting=Find<Transform>("bg_main/Scroll View/Viewport/Content");
-        setting_Item_prefab= Battle_Tool.Find_Prefabs<setting_item>("setting_item"); 
-
+        setting_Item_prefab= Battle_Tool.Find_Prefabs<setting_item>("setting_item");
+        close=Find<Button>("bg_main/btn_close");
+        close.onClick.AddListener(() => { Close_Hide(); });
         for (int i = 0; i < SumSave.db_sttings.Count; i++)
         {
             setting_item item = Instantiate(setting_Item_prefab, crt_setting);
@@ -36,6 +42,28 @@ public class panel_setting : Panel_Base
         }
         
     }
+    /// <summary>
+    /// 关闭游戏
+    /// </summary>
+    private void Close_Hide()
+    {
+        Alert.Show("删除账户", "请确认是否删除当前区账户", Close_Hide1);
+    }
+    /// <summary>
+    /// 删除账户
+    /// </summary>
+    /// <param name="arg0"></param>
+    private void Close_Hide1(object arg0)
+    {
+        Alert.Show("删除账户", "再次确认是否删除当前区账户,\n删除后将锁定账户,7天内无登录后将直接删除\n如希望恢复账户,请在7天内直接使用当前账户再次登录既可激活", Close_Hide2);
+    }
+
+    private void Close_Hide2(object arg0)
+    {
+        Hide();
+        UI_Manager.Instance.GetPanel<panel_login>().Show(); 
+    }
+
     /// <summary>
     /// 设置
     /// </summary>

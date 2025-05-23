@@ -54,7 +54,20 @@ namespace MVC
         {
             IPhone_Login(id);
         }
+        /// <summary>
+        /// 苹果端注销账号
+        /// </summary>
+        /// <param name="id"></param>
+        public void Read_Crate_IPhone_logoff(string[] id)
+        {
+            IPhone_Login(id);
+        }
 
+
+        /// <summary>
+        /// 苹果端登录
+        /// </summary>
+        /// <param name="id"></param>
         private void IPhone_Login(string[] id)
         {
             OpenMySqlDB();
@@ -100,6 +113,41 @@ namespace MVC
             } 
             CloseMySqlDB();
         }
+
+        /// <summary>
+        /// 苹果端注销账号
+        /// </summary>
+        /// <param name="id"></param>
+        private void IPhone_logOff(string[] id)
+        {
+            OpenMySqlDB();
+            mysqlReader = MysqlDb.SelectWhere(Mysql_Table_Name.mo_user_iphone, new string[] { "par", "account", "password" }, new string[] { "=", "=", "=" },
+                new string[] { SumSave.par.ToString(), id[0], id[1] });
+            string crt_verify = "";
+            if (mysqlReader.HasRows)
+            {
+                Game_Omphalos.i.Alert_Show("是否注销该账号");
+
+            }
+            else
+            {
+                mysqlReader = MysqlDb.SelectWhere(Mysql_Table_Name.mo_user_iphone, new string[] { "par", "account" }, new string[] { "=", "=" },
+                new string[] { SumSave.par.ToString(), id[0] });
+                if (mysqlReader.HasRows)
+                {
+                    Game_Omphalos.i.Alert_Info("密码错误");
+                    CloseMySqlDB();
+                    return;
+                }
+                else
+                {
+                    Game_Omphalos.i.Alert_Info("账号不存在");
+                }
+            }
+            CloseMySqlDB();
+        }
+
+
         /// <summary>
         /// 读取实例
         /// </summary>

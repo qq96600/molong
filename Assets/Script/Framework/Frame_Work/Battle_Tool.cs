@@ -815,6 +815,14 @@ public static class Battle_Tool
                     else Debug.Log(SumSave.db_maps[i].map_name + " " + values[j]);
                 }
             }
+            string[] monsters= SumSave.db_maps[i].monster_list.Split(' ');
+            for (int j = 0; j < monsters.Length; j++)
+            {
+                if (monsters[j] != "")
+                {
+                    UI.UI_Manager.I.GetEquipSprite("Prefabs/monsters/", monsters[j]);
+                }
+            }
         }
     }
 

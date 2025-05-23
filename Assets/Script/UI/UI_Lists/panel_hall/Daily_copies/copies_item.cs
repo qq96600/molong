@@ -31,7 +31,7 @@ public class copies_item : Base_Mono
         number = _number;
         maxnumber = _maxnumber;
         info.text = map.map_name + "(" + number + "/" + maxnumber + ")";
-        icon.sprite = Resources.Load<Sprite>("base_bg/怪物/国风怪物/" + map.monster_list);
+        icon.sprite = Resources.Load<Sprite>("Prefabs/monsters/" + map.monster_list);
         base_name.text = "[Boss]" + map.monster_list;
     }
     /// <summary>

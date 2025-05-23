@@ -22,13 +22,14 @@ public class Panel_cratehero : Panel_Base
     /// </summary>
     private InputField password;
     /// <summary>
-    /// 登录
+    /// 登录,注销账号
     /// </summary>
     private Button logon;
     /// <summary>
     /// 记住密码
     /// </summary>
     private Toggle isRemember;
+    
 
 
     public override void Hide()
@@ -45,7 +46,8 @@ public class Panel_cratehero : Panel_Base
         password.onValueChanged.AddListener(OnPasswordt);
         logon =Find<Button>("hero/logon");
         logon.onClick.AddListener(()=> { OnLogon(); });
-        isRemember=Find<Toggle>("hero/isRemember");
+        //logoff.onClick.AddListener(()=> { Game_Omphalos.i.Logoff(); });
+        isRemember =Find<Toggle>("hero/isRemember");
         isRemember.onValueChanged.AddListener(OnRemember);
         if (!PlayerPrefs.HasKey(BaseUserRemember))
         {

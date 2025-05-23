@@ -103,7 +103,7 @@ namespace MVC
                
                 if (data.Monster_Lv >= 1)
                 {
-                    //icon.sprite = Resources.Load<Sprite>("Prefabs/monsters/" + data.show_name);//Assets/Resources/mon_龙.png
+                    icon.sprite = Resources.Load<Sprite>("Prefabs/monsters/" + data.show_name);//Assets/Resources/mon_龙.png
                     for (int i = 0; i < data.life.Length; i++)
                     {
                         if (data.life[i] != 0)
@@ -323,8 +323,8 @@ namespace MVC
             }
             //判断五行伤害
             int life = restrain_value(skill.skill_life, monster.Data.life);
-            if (life < 0) damage = damage / 10 * (100 + (life * 10)) / 100f;
-            else damage = damage * (100 + (life * 10)) / 100f;
+            if (life < 0) damage = damage / 10 * (100 + (life)) / 100f;
+            else damage = damage * (100 + (life)) / 100f;
             if (iSnHit(monster))
             {
                 //传递消息，未命中;
@@ -336,6 +336,7 @@ namespace MVC
             {
                 damage = damage * data.crit_damage / 100;
             }
+            damage = MathF.Max(1, damage);
             monster.target.TakeDamage((int)damage, isCrit ? DamageEnum.暴击技能伤害 : DamageEnum.技能伤害);
         }
 
@@ -388,7 +389,7 @@ namespace MVC
             return (int)damage;
         }
         /// <summary>
-        /// 判断克制关系
+        /// 判断五行伤害克制关系
         /// </summary>
         /// <param name="type">自身技能五行</param>
         /// <param name="monsterlife">怪物五行属性</param>
