@@ -170,7 +170,8 @@ public class hatching_progress : Base_Mono
 
                     Alert_Dec.Show("宠物" + pet.petName + " 孵化开始");
                     pos_pet_btn.gameObject.SetActive(false);
-                    hatchingTimeCounter = pet.hatchingTime;
+                    hatchingTimeCounter=PetIncubationTime();
+
                     hatching_Slider.gameObject.SetActive(true);
                     hatching_Slider.maxValue = pet.hatchingTime;
                     StartCoroutine(ShowPlant(pet));
@@ -199,6 +200,24 @@ public class hatching_progress : Base_Mono
                 break;
         }
     }
+    /// <summary>
+    /// 找到正在孵化宠物的孵化时间
+    /// </summary>
+    /// <returns></returns>
+    private int PetIncubationTime()
+    {
+        int Time = 0;
+        for (int i = 0; i < SumSave.crt_pet.crt_pet_list.Count; i++)
+        {
+            string[] data = SumSave.crt_pet.crt_pet_list[i].Split(",");
+            if (data.Length == 2)
+            {
+                Time = ((int)(SumSave.nowtime - Convert.ToDateTime(data[1])).TotalMinutes) * 60;
+            }
+        }
+        return Time;
+    }
+
     private void Get_pet_guard()
     {
         for (int i = 0; i < SumSave.crt_pet_list.Count; i++)
@@ -359,10 +378,10 @@ public class hatching_progress : Base_Mono
     /// <returns></returns>
     private IEnumerator ShowPlant(db_pet_vo pet)
     {
-
         Fixed_Update(1, pet);
+        int remainingTime = pet.hatchingTime - PetIncubationTime();
         yield return new WaitForSeconds(1f);
-        if (hatchingTimeCounter >= 0)
+        if (remainingTime >= 0)
         {
             StartCoroutine(ShowPlant(pet));
         }
@@ -377,21 +396,24 @@ public class hatching_progress : Base_Mono
     /// <param name="time"></param>
     private void Fixed_Update(int time, db_pet_vo pet)
     {
-        
-        if (hatchingTimeCounter > 0)
+        int remainingTime = pet.hatchingTime - PetIncubationTime();
+        if (remainingTime >= 0)
         {
-            hatchingTimeCounter -= time;
-            countdown_text.text = ConvertSecondsToHHMMSS(hatchingTimeCounter);
-            hatching_Slider.value = pet.hatchingTime - hatchingTimeCounter;
+            //hatchingTimeCounter -= time;
+            //countdown_text.text = ConvertSecondsToHHMMSS(hatchingTimeCounter);
+            //hatching_Slider.value = pet.hatchingTime - hatchingTimeCounter;
             //Debug.Log("倒计时" + hatchingTimeCounter + "进度条：" + hatching_Slider.value);
+
+            countdown_text.text ="剩余时间："+ ConvertSecondsToHHMMSS(remainingTime);
+            hatching_Slider.value = remainingTime;
         }
-        else if (hatchingTimeCounter <= 0)//孵化完成
+        else if (remainingTime < 0)//孵化完成
         {
             hatching_Slider.gameObject.SetActive(false);
-            countdown_text.text = "";
+            //countdown_text.text = "";
             hatchingTimeCounter = -1;
             hatching_Slider.value = 0;
-            Debug.Log("孵化完成");
+            //Debug.Log("孵化完成");
             pet_receive.gameObject.SetActive(true);
 
         }
