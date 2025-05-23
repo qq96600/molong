@@ -4,13 +4,14 @@ using UnityEngine.UI;
 
 public class bag_item : Base_Mono
 {
-    private Image item_icon, item_frame;
+    private Image item_icon, item_frame,lock_On;
     private Text info;
     private void Awake()
     {
         item_icon = Find<Image>("icon");
         item_frame = Find<Image>("frame");
         info = Find<Text>("info");
+        lock_On= Find<Image>("icon/lock");
     }
 
     private Bag_Base_VO data;
@@ -41,6 +42,10 @@ public class bag_item : Base_Mono
                     item_frame.sprite = UI.UI_Manager.I.GetEquipSprite("frame/", "5");
                     item_frame.color = Color.white;
                     Instantiate(Resources.Load<GameObject>("Prefabs/frame/" + lv), item_frame.transform);
+                }
+                if (info_str.Length >= 6)
+                { 
+                    lock_On.gameObject.SetActive(info_str[5] == "1");
                 }
             }
 

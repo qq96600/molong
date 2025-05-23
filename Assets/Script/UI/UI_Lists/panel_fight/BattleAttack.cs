@@ -321,6 +321,10 @@ namespace MVC
                 damage = damage * (100 + target.EnergymaxMp) / 100;
                 tool_Categoryt.Base_Task(1007);
             }
+            //判断五行伤害
+            int life = restrain_value(skill.skill_life, monster.Data.life);
+            if (life < 0) damage = damage / 10 * (100 + (life * 10)) / 100f;
+            else damage = damage * (100 + (life * 10)) / 100f;
             if (iSnHit(monster))
             {
                 //传递消息，未命中;
@@ -380,9 +384,63 @@ namespace MVC
                 damage = damage * (100 - monster.Data.Damage_absorption) / 100;
             }
             damage = damage * (100 + penetrate(monster)) / 100;
-            //damage = damage * (100 - (data.double_damage - monster.Data.double_damage)) / 100;免伤
             damage = Mathf.Max(1, damage);
             return (int)damage;
+        }
+        /// <summary>
+        /// 判断克制关系
+        /// </summary>
+        /// <param name="type">自身技能五行</param>
+        /// <param name="monsterlife">怪物五行属性</param>
+        /// <param name="monsterlifevalue">怪物五行抗性</param>
+        private int restrain_value(int type, int[] monsterlife)
+        {
+            int value = 0;
+            int monsterlifevaluelue = 0;
+            int index = 0;
+            for (int i = 0; i < monsterlife.Length; i++)
+            {
+                if (monsterlife[i] != 0)
+                {
+                    index = i;
+                    monsterlifevaluelue = monsterlife[i];
+                }
+            }
+            //对手五行
+            switch (index)//金克木 木克土 土克水 水克火 火克金   金0 木1 水2 火3 土4
+            {
+                //金属性 同属计算抗性
+                case 0:
+                    if (type == index) value = data.life[type] - monsterlifevaluelue;
+                    //克制计算乘法（火克）
+                    else if (type == 1) value = (int)(data.life[type] * 0.5f - monsterlifevaluelue);
+                    //被克制计算乘法（木克）
+                    else if (type == 3) value = (int)(data.life[type] * 1.5f - monsterlifevaluelue);
+                    break;
+                case 1:
+                    if (type == index) value = data.life[type] - monsterlifevaluelue;
+                    else if (type == 0) value = (int)(data.life[type] * 1.5f - monsterlifevaluelue);
+                    else if (type == 4) value = (int)(data.life[type] * 0.5f - monsterlifevaluelue);
+                    break;
+                case 2:
+                    if (type == index) value = data.life[type] - monsterlifevaluelue;
+                    else if (type == 4) value = (int)(data.life[type] * 1.5f - monsterlifevaluelue);
+                    else if (type == 3) value = (int)(data.life[type] * 0.5f - monsterlifevaluelue);
+                    break;
+                case 3:
+                    if (type == index) value = data.life[type] - monsterlifevaluelue;
+                    else if (type == 2) value = (int)(data.life[type] * 1.5f - monsterlifevaluelue);
+                    else if (type == 0 ) value = (int)(data.life[type] * 0.5f - monsterlifevaluelue);
+                    break;
+                case 4:
+                    if (type == index) value = data.life[type] - monsterlifevaluelue;
+                    else if (type == 1) value = (int)(data.life[type] * 1.5f - monsterlifevaluelue);
+                    else if (type == 2) value = (int)(data.life[type] * 0.5f - monsterlifevaluelue);
+                    break;
+                default:
+                    break;
+            }
+            return value;
         }
         /// <summary>
         /// 判断命中
