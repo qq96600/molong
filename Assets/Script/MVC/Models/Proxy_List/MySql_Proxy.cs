@@ -473,6 +473,26 @@ namespace MVC
                     SumSave.db_monsters.Add(ReadDb.Read(mysqlReader, new crtMaxHeroVO()));
                 }
             }
+
+            List <crtMaxHeroVO> monsters = new List<crtMaxHeroVO>();
+            string str = "未找到怪物: ";
+            for (int i = 0; i < SumSave.db_monsters.Count; i++)
+            {
+                if(Resources.Load<Sprite>("Prefabs/monsters/" + SumSave.db_monsters[i].show_name) ==null) 
+                {
+                    //Debug.Log("没有"+ SumSave.db_monsters[i].show_name);
+                    monsters.Add(SumSave.db_monsters[i]);
+                }
+            }    
+
+            for (int i = 0; i < monsters.Count; i++)
+            {
+                str += monsters[i].show_name + " ";
+            }
+            Debug.Log(str);
+
+
+
         }
         /// <summary>
         /// 读取地图数据库
