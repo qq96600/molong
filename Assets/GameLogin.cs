@@ -1,4 +1,4 @@
-using TapSDK.Core;
+/*using TapSDK.Core;
 using TapSDK.Login;
 using System.Threading.Tasks;
 using System.Collections.Generic;
@@ -87,7 +87,7 @@ public class GameLogin : Singleton<GameLogin>
             // 进入游戏
             SumSave.Tapid = account.openId;
         }
-        */
+        
     }    
     /// <summary>
     /// 创建角色
@@ -206,3 +206,4 @@ public class GameLogin : Singleton<GameLogin>
 }
 
 
+*/
