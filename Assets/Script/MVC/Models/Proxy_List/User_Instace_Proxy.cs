@@ -114,36 +114,57 @@ namespace MVC
             CloseMySqlDB();
         }
 
+
         /// <summary>
-        /// 苹果端注销账号
+        /// 获得世界boos进度
         /// </summary>
         /// <param name="id"></param>
-        private void IPhone_logOff(string[] id)
+        public void Read_Crate_world_boss_Login(string BossName)
+        {
+            world_boss_Login(BossName);
+        }
+
+        /// <summary>
+        /// 获取世界boss进度数据
+        /// </summary>
+        /// <param name="BossName"></param>
+
+        private void world_boss_Login(string BossName)
         {
             OpenMySqlDB();
-            mysqlReader = MysqlDb.SelectWhere(Mysql_Table_Name.mo_user_iphone, new string[] { "par", "account", "password" }, new string[] { "=", "=", "=" },
-                new string[] { SumSave.par.ToString(), id[0], id[1] });
-            string crt_verify = "";
+            mysqlReader = MysqlDb.SelectWhere(Mysql_Table_Name.user_world_boos, new string[] { "par", "boos_Name" }, new string[] { "=", "=" },
+                new string[] { SumSave.par.ToString(), BossName });
             if (mysqlReader.HasRows)
             {
-                Game_Omphalos.i.Alert_Show("是否注销该账号");
-
+                while (mysqlReader.Read())
+                {
+                    SumSave.crt_world_boos.name = mysqlReader.GetString(mysqlReader.GetOrdinal("boos_Name"));
+                    SumSave.crt_world_boos.InitFinalDamage(long.Parse(mysqlReader.GetString(mysqlReader.GetOrdinal("FinalDamage"))));
+                }
             }
             else
             {
-                mysqlReader = MysqlDb.SelectWhere(Mysql_Table_Name.mo_user_iphone, new string[] { "par", "account" }, new string[] { "=", "=" },
-                new string[] { SumSave.par.ToString(), id[0] });
-                if (mysqlReader.HasRows)
-                {
-                    Game_Omphalos.i.Alert_Info("密码错误");
-                    CloseMySqlDB();
-                    return;
-                }
-                else
-                {
-                    Game_Omphalos.i.Alert_Info("账号不存在");
-                }
+                SumSave.crt_world_boos.name = BossName;
+                SumSave.crt_world_boos.InitFinalDamage(0);
+                Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.user_world_boos, SumSave.crt_world_boos.Set_Instace_String());
             }
+            CloseMySqlDB();
+        }
+        /// <summary>
+        /// 更新世界boss进度
+        /// </summary>
+        public void Read_Crate_world_boss_update()
+        {
+            world_boss_update();
+        }
+        /// <summary>
+        /// 更新世界boss进度
+        /// </summary>
+        private void world_boss_update()
+        {
+            OpenMySqlDB();
+            // Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.user_world_boos, SumSave.crt_world_boos.Set_Uptade_String(), SumSave.crt_world_boos.Get_Update_Character());
+            MysqlDb.UpdateInto(Mysql_Table_Name.user_world_boos, SumSave.crt_world_boos.Get_Update_Character(), SumSave.crt_world_boos.Set_Uptade_String(), "par", GetStr(SumSave.par));
             CloseMySqlDB();
         }
 
@@ -301,6 +322,10 @@ namespace MVC
             }
             CloseMySqlDB();
         }
+
+
+
+
 
         /// <summary>
         /// 读取自身数据

@@ -238,6 +238,13 @@ public class panel_fight : Panel_Base
     /// </summary>
     protected void Game_Over()
     {
+       if(select_map.map_type==5)//判断是否为世界Boss
+        {
+            //世界Boss结算
+            WorldBoss_Over();
+            return;
+        }
+
         if (Open_Monster_State)
         {
             Open_Monster_State = false;
@@ -246,6 +253,16 @@ public class panel_fight : Panel_Base
             StartCoroutine(Game_WaitTime(5));
         }
     }
+    /// <summary>
+    /// 世界Boss结算
+    /// </summary>
+    private void WorldBoss_Over()
+    {
+        world_Boss_set(10000);
+        this.gameObject.SetActive(false);
+        Alert.Show(select_map.map_name, "世界Boss已挑战完成");
+    }
+
     /// <summary>
     /// 进入地图
     /// </summary>
@@ -266,8 +283,33 @@ public class panel_fight : Panel_Base
         init();
         Crate_Init();
         StopAllCoroutines();
-        Show_Battle_State("战斗中...");
+        if(select_map.map_type==5)
+        {
+            StopAllCoroutines();
+            StartCoroutine(WorldBossChallengeTime(60));
+        }
+        else
+        {
+            Show_Battle_State("战斗中...");
+        }
+        
     }
+    /// <summary>
+    /// 世界Boss挑战时间
+    /// </summary>
+    /// <param name="time"></param>
+    /// <returns></returns>
+   private IEnumerator WorldBossChallengeTime(float time)
+    {
+        while (time > 0)
+        {
+            Show_Battle_State("剩余时间" + time.ToString("F1") + "s");
+            time -= 0.1f;
+            yield return new WaitForSeconds(0.1f);
+        }
+        WorldBoss_Over();
+    }
+
     /// <summary>
     /// 显示战斗状态
     /// </summary>
@@ -502,5 +544,15 @@ public class panel_fight : Panel_Base
             show_info_list.Remove(item);
             show_info_list.Add(item);
         }    
+    }
+
+    /// <summary>
+    /// 写入对世界boss的伤害
+    /// </summary>
+    /// <param name="finalDamage"></param>
+    private void world_Boss_set(long finalDamage)
+    {
+        SumSave.crt_world_boos.Set(finalDamage);
+        SendNotification(NotiList.Read_Crate_world_boss_update,"");
     }
 }

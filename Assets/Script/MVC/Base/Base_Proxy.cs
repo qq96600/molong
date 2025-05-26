@@ -144,6 +144,13 @@ namespace MVC
                
             }
         }
+
+        public void UpdateIntoWodldBoss()
+        {
+            MysqlDb.UpdateInto( Mysql_Table_Name.user_world_boos,SumSave.crt_world_boos.Get_Update_Character(), SumSave.crt_world_boos.Set_Uptade_String(), "par", GetStr(SumSave.par));
+        }
+
+
         /// <summary>
         /// 读取时间
         /// </summary>

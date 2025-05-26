@@ -155,6 +155,10 @@ namespace Common
         /// 自身累计奖励
         /// </summary>
         public static user_Accumulatedrewards_vo crt_accumulatedrewards;
+        /// <summary>
+        /// 当前世界boss信息
+        /// </summary>
+        public static user_world_boos crt_world_boos= new user_world_boos();
 
         #endregion
 

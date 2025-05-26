@@ -17,4 +17,5 @@ public enum Main_List
     offect_emial,//邮件
     panel_fatePalace,//命运殿堂
     panel_vip,//vip
+    world_Boss,//世界boss
 }
