@@ -158,7 +158,7 @@ namespace Common
         /// <summary>
         /// 当前世界boss信息
         /// </summary>
-        public static user_world_boos crt_world_boos= new user_world_boos();
+        public static db_world_boos crt_world_boos= new db_world_boos();
 
         #endregion
 

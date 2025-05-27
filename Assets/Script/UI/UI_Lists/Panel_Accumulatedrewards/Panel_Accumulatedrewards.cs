@@ -64,6 +64,7 @@ public class Panel_Accumulatedrewards : Panel_Base
         ClearObject(pos_list);
         Dictionary<int, List<int>> dic = SumSave.crt_accumulatedrewards.Set();
         List<int> list = new List<int>();
+        list.Add(0);
         bool exist = true;
         if (dic.ContainsKey(index))
         {

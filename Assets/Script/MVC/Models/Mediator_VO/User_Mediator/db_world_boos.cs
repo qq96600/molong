@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class user_world_boos : Base_VO
+public class db_world_boos : Base_VO
 {
     /// <summary>
     /// 当前世界boss名称
@@ -13,7 +13,11 @@ public class user_world_boos : Base_VO
     /// <summary>
     /// 当前区服玩家总体的伤害
     /// </summary>
-    private long FinalDamage;
+    private long maxHp;
+    /// <summary>
+    /// 期数
+    /// </summary>
+    public int number;
 
 
     /// <summary>
@@ -22,7 +26,7 @@ public class user_world_boos : Base_VO
     /// <returns></returns>
     public long Get()
     {
-        return FinalDamage;
+        return maxHp;
     }
     /// <summary>
     /// 添加当前区服玩家总体的伤害
@@ -30,7 +34,7 @@ public class user_world_boos : Base_VO
     /// <param name="finalDamage"></param>
     public void Set(long finalDamage)
     {
-        FinalDamage += finalDamage;
+        maxHp -= finalDamage;
     }
     
     /// <summary>
@@ -39,7 +43,7 @@ public class user_world_boos : Base_VO
     /// <param name="_FinalDamage"></param>
     public void InitFinalDamage(long _FinalDamage)
     {
-        FinalDamage = _FinalDamage;
+        maxHp = _FinalDamage;
     }
 
     public override string[] Set_Instace_String()
@@ -49,21 +53,26 @@ public class user_world_boos : Base_VO
             GetStr(0),
             GetStr(SumSave.crt_user.par),
             GetStr(name),
-            GetStr(FinalDamage)
+            GetStr(maxHp),
+            GetStr(number)
         };
-
     }
 
     public override string[] Get_Update_Character()
     {
-        return new string[] { "FinalDamage" };
+        return new string[] { 
+            "FinalDamage",
+            "number"
+        };
+
     }
 
     public override string[] Set_Uptade_String()
     {
         return new string[]
          {
-             GetStr(FinalDamage),
+             GetStr(maxHp),
+             GetStr(number)
          };
     }
 
