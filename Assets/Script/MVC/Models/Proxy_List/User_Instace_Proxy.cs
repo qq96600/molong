@@ -464,9 +464,6 @@ namespace MVC
 
         }
 
-
-
-
         public void Read_user_Greenhand()
         {
             mysqlReader = MysqlDb.Select(Mysql_Table_Name.mo_user_greenhandguide, "uid", GetStr(SumSave.crt_user.uid));
