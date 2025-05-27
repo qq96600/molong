@@ -70,6 +70,7 @@ public class signIn : Base_Mono
             SumSave.crt_signin.now_time = Convert.ToDateTime(SumSave.nowtime.ToString("yyyy-MM-dd"));
             SumSave.crt_signin.number++;
             SumSave.crt_signin.max_number++;
+            MonthlyCardRewards(3);
             Clear();
             Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_signin, SumSave.crt_signin.Set_Uptade_String(),
                 SumSave.crt_signin.Get_Update_Character());
@@ -79,10 +80,28 @@ public class signIn : Base_Mono
         }
         else Alert_Dec.Show("今日已签到");
     }
-
     /// <summary>
-    /// 完成签到任务
+    /// 月卡签到获得奖励
     /// </summary>
+    /// <param name="index"></param>
+    private void MonthlyCardRewards(int index)
+    {
+        foreach (var item in SumSave.crt_player_buff.player_Buffs)
+        {
+            (DateTime, int, float, int) time = item.Value;
+            if (index == time.Item4)
+            {
+                if ((SumSave.nowtime - time.Item1).Minutes < time.Item2)
+                {
+                    SumSave.crt_user_unit.verify_data(currency_unit.魔丸, 30);
+                }
+            }
+        }
+    }
+
+        /// <summary>
+        /// 完成签到任务
+        /// </summary>
     private void SignInTask()
     {
         tool_Categoryt.Base_Task(1026);

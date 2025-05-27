@@ -20,7 +20,8 @@ public class NotiList
     public const string Read_Huser_MessageWindow = "写入飘窗消息";
     public const string Read_Mail = "读取邮件";
     public const string Read_Crate_IPhone_logoff = "苹果注销账号";
-
+    public const string Read_Crate_world_boss_Login = "获取世界boss进度";
+    public const string Read_Crate_world_boss_update = "更新世界boss血量";
     #endregion
 
     /*

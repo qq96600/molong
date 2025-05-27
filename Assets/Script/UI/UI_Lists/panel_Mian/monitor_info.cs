@@ -173,10 +173,11 @@ public class monitor_info : Base_Mono
             {
                 Instance_Skin();
             }
-            show_name.text = SumSave.crt_MaxHero.show_name;
-            show_exp.text = " Lv." + SumSave.crt_MaxHero.Lv +
-               "(" + SumSave.crt_MaxHero.Exp * 100 / SumSave.db_lvs.hero_lv_list[SumSave.crt_MaxHero.Lv] + "%)";
-            role_exp.value = SumSave.crt_MaxHero.Exp;
+            show_name.text = SumSave.crt_hero.hero_name;
+            show_exp.text = " Lv." + SumSave.crt_hero.hero_Lv +
+               "(" +  SumSave.crt_hero.hero_Exp * 100 / SumSave.db_lvs.hero_lv_list[SumSave.crt_hero.hero_Lv] + "%)";
+            role_exp.maxValue = SumSave.db_lvs.hero_lv_list[SumSave.crt_hero.hero_Lv];
+            role_exp.value = SumSave.crt_hero.hero_Exp;
             List<long> list = SumSave.crt_user_unit.Set();
             show_moeny.text = Battle_Tool.FormatNumberToChineseUnit(list[0]) + " " + currency_unit.灵珠;
             show_point.text = Battle_Tool.FormatNumberToChineseUnit(list[1]) + " " + currency_unit.历练;

@@ -238,6 +238,7 @@ public class panel_fight : Panel_Base
     /// </summary>
     protected void Game_Over()
     {
+
         if (Open_Monster_State)
         {
             Open_Monster_State = false;
@@ -246,6 +247,7 @@ public class panel_fight : Panel_Base
             StartCoroutine(Game_WaitTime(5));
         }
     }
+  
     /// <summary>
     /// 进入地图
     /// </summary>
@@ -266,8 +268,10 @@ public class panel_fight : Panel_Base
         init();
         Crate_Init();
         StopAllCoroutines();
-        Show_Battle_State("战斗中...");
+        
     }
+
+
     /// <summary>
     /// 显示战斗状态
     /// </summary>
@@ -503,4 +507,6 @@ public class panel_fight : Panel_Base
             show_info_list.Add(item);
         }    
     }
+
+    
 }

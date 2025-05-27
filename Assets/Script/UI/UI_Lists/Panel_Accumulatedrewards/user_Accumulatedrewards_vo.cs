@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class user_Accumulatedrewards_vo : Base_VO
 { 
     /// <summary>
-    /// 0通行证累积1签到累积2充值累积奖励
+    /// 1通行证累积2签到累积3充值累积奖励
     /// </summary>
     private Dictionary<int,List<int>> accumulated_rewards;
     /// <summary>
@@ -29,7 +29,9 @@ public class user_Accumulatedrewards_vo : Base_VO
             {
                 if (!accumulated_rewards.ContainsKey(int.Parse(str1[0])))
                 {
-                    accumulated_rewards.Add(int.Parse(str1[0]), new List<int>());
+                     List<int> list=new List<int>();
+                    list.Add(0);
+                    accumulated_rewards.Add(int.Parse(str1[0]), list);
                 }
                 string[] str2 = str1[1].Split(';');
                 for (int j = 0; j < str2.Length; j++)
@@ -37,7 +39,6 @@ public class user_Accumulatedrewards_vo : Base_VO
                     accumulated_rewards[int.Parse(str1[0])].Add(int.Parse(str2[j]));
                 }
             }
-           
         }
     }
     /// <summary>

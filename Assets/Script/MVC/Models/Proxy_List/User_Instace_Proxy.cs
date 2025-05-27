@@ -114,36 +114,53 @@ namespace MVC
             CloseMySqlDB();
         }
 
+
         /// <summary>
-        /// 苹果端注销账号
+        /// 获得世界boos进度
         /// </summary>
         /// <param name="id"></param>
-        private void IPhone_logOff(string[] id)
+        public void Read_Crate_world_boss_Login()
+        {
+            world_boss_Login();
+        }
+
+        /// <summary>
+        /// 获取世界boss进度数据
+        /// </summary>
+        /// <param name="BossName"></param>
+
+        private void world_boss_Login()
         {
             OpenMySqlDB();
-            mysqlReader = MysqlDb.SelectWhere(Mysql_Table_Name.mo_user_iphone, new string[] { "par", "account", "password" }, new string[] { "=", "=", "=" },
-                new string[] { SumSave.par.ToString(), id[0], id[1] });
-            string crt_verify = "";
+            mysqlReader = MysqlDb.SelectWhere(Mysql_Table_Name.db_world_boos, new string[] { "par" }, new string[] { "="},
+                new string[] { SumSave.par.ToString() });
             if (mysqlReader.HasRows)
             {
-                Game_Omphalos.i.Alert_Show("是否注销该账号");
+                while (mysqlReader.Read())
+                {
+                    SumSave.crt_world_boos.name = mysqlReader.GetString(mysqlReader.GetOrdinal("boos_Name"));
+                    SumSave.crt_world_boos.InitFinalDamage(long.Parse(mysqlReader.GetString(mysqlReader.GetOrdinal("FinalDamage"))));
+                    SumSave.crt_world_boos.number= mysqlReader.GetInt32(mysqlReader.GetOrdinal("number")); 
 
-            }
-            else
-            {
-                mysqlReader = MysqlDb.SelectWhere(Mysql_Table_Name.mo_user_iphone, new string[] { "par", "account" }, new string[] { "=", "=" },
-                new string[] { SumSave.par.ToString(), id[0] });
-                if (mysqlReader.HasRows)
-                {
-                    Game_Omphalos.i.Alert_Info("密码错误");
-                    CloseMySqlDB();
-                    return;
-                }
-                else
-                {
-                    Game_Omphalos.i.Alert_Info("账号不存在");
                 }
             }
+            CloseMySqlDB();
+        }
+        /// <summary>
+        /// 更新世界boss进度
+        /// </summary>
+        public void Read_Crate_world_boss_update()
+        {
+            world_boss_update();
+        }
+        /// <summary>
+        /// 更新世界boss进度
+        /// </summary>
+        private void world_boss_update()
+        {
+            OpenMySqlDB();
+            // Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.user_world_boos, SumSave.crt_world_boos.Set_Uptade_String(), SumSave.crt_world_boos.Get_Update_Character());
+            MysqlDb.UpdateInto(Mysql_Table_Name.db_world_boos, SumSave.crt_world_boos.Get_Update_Character(), SumSave.crt_world_boos.Set_Uptade_String(), "par", GetStr(SumSave.par));
             CloseMySqlDB();
         }
 
@@ -302,6 +319,10 @@ namespace MVC
             CloseMySqlDB();
         }
 
+
+
+
+
         /// <summary>
         /// 读取自身数据
         /// </summary>
@@ -329,7 +350,9 @@ namespace MVC
             Read_User_Reward();
             refresh_Max_Hero_Attribute();
         }
-
+        /// <summary>
+        /// 累计奖励
+        /// </summary>
         private void Read_User_Reward()
         {
             mysqlReader = MysqlDb.Select(Mysql_Table_Name.mo_user_rewards_state, "uid", GetStr(SumSave.crt_user.uid));
@@ -371,7 +394,9 @@ namespace MVC
             }
 
         }
-
+        /// <summary>
+        /// 邮件
+        /// </summary>
 
         public void Read_User_Mail()
         {
@@ -420,22 +445,10 @@ namespace MVC
                         SumSave.crt_collect.user_collect_dic.Add(Splits2[0],int.Parse(Splits2[1]));
                     }
                 }
-
-                //SumSave.crt_collect.collect_suit_complete();
-
             }
             else//为空的话初始化数据
             {
-                //foreach (db_collect_vo item in SumSave.db_collect_vo)
-                //{
-                //    if(!SumSave.crt_collect.user_collect_dic.ContainsKey(item.Name))//不重复写入同装备
-                //    {
-                //        SumSave.crt_collect.user_collect_dic.Add(item.Name, 0);
-                //    }
-                // }
-
                 SumSave.crt_collect.collect_Merge();
-
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_collect, SumSave.crt_collect.Set_Instace_String());
             }
 
@@ -443,7 +456,9 @@ namespace MVC
 
 
 
-
+        /// <summary>
+        /// 新手任务
+        /// </summary>
         public void Read_user_Greenhand()
         {
             mysqlReader = MysqlDb.Select(Mysql_Table_Name.mo_user_greenhandguide, "uid", GetStr(SumSave.crt_user.uid));
@@ -1192,6 +1207,8 @@ namespace MVC
             {
                 Enum_Value(crt, (int)enum_skill_attribute_list.经验加成, Battle_Tool.IsBuff(1));
                 Enum_Value(crt, (int)enum_skill_attribute_list.人物历练, Battle_Tool.IsBuff(2));
+                Enum_Value(crt, (int)enum_skill_attribute_list.经验加成, Battle_Tool.IsBuff(3));
+                Enum_Value(crt, (int)enum_skill_attribute_list.灵珠加成, Battle_Tool.IsBuff(3));
             }
 
 
