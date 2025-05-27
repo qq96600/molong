@@ -64,7 +64,7 @@ namespace MVC
                     user.Read_Crate_IPhone_logoff(data as string[]);
                     break;
                 case NotiList.Read_Crate_world_boss_Login:
-                    user.Read_Crate_world_boss_Login(data as string);
+                    user.Read_Crate_world_boss_Login();
                     break;
                 case NotiList.Read_Crate_world_boss_update:
                     user.Read_Crate_world_boss_update();

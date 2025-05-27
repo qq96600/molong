@@ -119,9 +119,9 @@ namespace MVC
         /// 获得世界boos进度
         /// </summary>
         /// <param name="id"></param>
-        public void Read_Crate_world_boss_Login(string BossName)
+        public void Read_Crate_world_boss_Login()
         {
-            world_boss_Login(BossName);
+            world_boss_Login();
         }
 
         /// <summary>
@@ -129,24 +129,20 @@ namespace MVC
         /// </summary>
         /// <param name="BossName"></param>
 
-        private void world_boss_Login(string BossName)
+        private void world_boss_Login()
         {
             OpenMySqlDB();
-            mysqlReader = MysqlDb.SelectWhere(Mysql_Table_Name.user_world_boos, new string[] { "par", "boos_Name" }, new string[] { "=", "=" },
-                new string[] { SumSave.par.ToString(), BossName });
+            mysqlReader = MysqlDb.SelectWhere(Mysql_Table_Name.db_world_boos, new string[] { "par" }, new string[] { "="},
+                new string[] { SumSave.par.ToString() });
             if (mysqlReader.HasRows)
             {
                 while (mysqlReader.Read())
                 {
                     SumSave.crt_world_boos.name = mysqlReader.GetString(mysqlReader.GetOrdinal("boos_Name"));
                     SumSave.crt_world_boos.InitFinalDamage(long.Parse(mysqlReader.GetString(mysqlReader.GetOrdinal("FinalDamage"))));
+                    SumSave.crt_world_boos.number= mysqlReader.GetInt32(mysqlReader.GetOrdinal("number")); 
+
                 }
-            }
-            else
-            {
-                SumSave.crt_world_boos.name = BossName;
-                SumSave.crt_world_boos.InitFinalDamage(0);
-                Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.user_world_boos, SumSave.crt_world_boos.Set_Instace_String());
             }
             CloseMySqlDB();
         }
@@ -164,7 +160,7 @@ namespace MVC
         {
             OpenMySqlDB();
             // Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.user_world_boos, SumSave.crt_world_boos.Set_Uptade_String(), SumSave.crt_world_boos.Get_Update_Character());
-            MysqlDb.UpdateInto(Mysql_Table_Name.user_world_boos, SumSave.crt_world_boos.Get_Update_Character(), SumSave.crt_world_boos.Set_Uptade_String(), "par", GetStr(SumSave.par));
+            MysqlDb.UpdateInto(Mysql_Table_Name.db_world_boos, SumSave.crt_world_boos.Get_Update_Character(), SumSave.crt_world_boos.Set_Uptade_String(), "par", GetStr(SumSave.par));
             CloseMySqlDB();
         }
 
@@ -354,7 +350,9 @@ namespace MVC
             Read_User_Reward();
             refresh_Max_Hero_Attribute();
         }
-
+        /// <summary>
+        /// 累计奖励
+        /// </summary>
         private void Read_User_Reward()
         {
             mysqlReader = MysqlDb.Select(Mysql_Table_Name.mo_user_rewards_state, "uid", GetStr(SumSave.crt_user.uid));

@@ -8,7 +8,7 @@ using UI;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class world_Boss : Panel_Base
+public class panel_TrialTower : Panel_Base
 {
     /// <summary>
     /// 世界boss图标
