@@ -275,7 +275,7 @@ namespace MVC
             }
             PlayerPrefs.SetInt("同意阅读协议", 1);
 #if UNITY_EDITOR
-            SumSave.uid = "464326ce7bc34ae4b612d53fb9fda084";//"464326ce7bc34ae4b612d53fb9fda084";DSFSDFSDFSDF3
+            SumSave.uid = "DSFSDFSDFSDF3";//"464326ce7bc34ae4b612d53fb9fda084";DSFSDFSDFSDF3
             //Game_Omphalos.i.Wirte_Iphone();
             Login();
             //UI_Manager.Instance.GetPanel<Panel_cratehero>().Show();

@@ -121,7 +121,7 @@ public class world_Boss : Panel_Base
             Hp_Text.text = "世界Boss暂时未开启";
             return;
         }
-
+        //需要获取实时怪物血量 SendNotification(NotiList.Read_Crate_world_boss_Login);
 
 
         SendNotification(NotiList.Read_Crate_world_boss_Login, crt_map.monster_list);

@@ -492,8 +492,6 @@ namespace MVC
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_greenhandguide, SumSave.crt_greenhand.Set_Instace_String());
             }
         }
-
-
         /// <summary>
         /// 读取飘窗消息
         /// </summary>
@@ -566,8 +564,6 @@ namespace MVC
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_signin, SumSave.crt_signin.Set_Instace_String());
             }
         }
-
-
         /// <summary>
         /// 读取需求列表
         /// </summary>
@@ -588,12 +584,10 @@ namespace MVC
                 SumSave.crt_needlist.map_value = "";
                 SumSave.crt_needlist.fate_value = "";
                 SumSave.crt_needlist.user_value = "100 100,0,0,0,0";
+                SumSave.crt_needlist.Init();
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_needlist, SumSave.crt_needlist.Set_Instace_String());
             }
         }
-
-
-
         /// <summary>
         /// 读取炼丹数据
         /// </summary>
