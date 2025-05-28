@@ -1,5 +1,6 @@
 using Common;
 using MVC;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,6 +19,37 @@ public class db_world_boos : Base_VO
     /// 期数
     /// </summary>
     public int number;
+    /// <summary>
+    /// 世界Boss造成伤害等级
+    /// </summary>
+    public string DamageLevel_value;
+    /// <summary>
+    /// 世界Boss造成伤害等级
+    /// </summary>
+    public List<(int,long)> DamageLevel_List= new List<(int, long)>();
+
+
+    /// <summary>
+    /// 初始化
+    /// </summary>
+    public void Init()
+    {
+        SplitDamageLevel();
+    }
+
+    /// <summary>
+    /// 拆分世界Boss造成伤害等级
+    /// </summary>
+    public void SplitDamageLevel()
+    {
+        string[] DamageLevel = DamageLevel_value.Split('|');
+        for (int i = 0; i < DamageLevel.Length; i++)
+        {
+            string[] DamageLevel_ = DamageLevel[i].Split(' ');
+            DamageLevel_List.Add((int.Parse(DamageLevel_[0]), long.Parse(DamageLevel_[1])));
+        }
+    }
+
 
 
     /// <summary>
@@ -60,8 +92,8 @@ public class db_world_boos : Base_VO
 
     public override string[] Get_Update_Character()
     {
-        return new string[] { 
-            "FinalDamage",
+        return new string[] {
+            "maxHp",
             "number"
         };
 

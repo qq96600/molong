@@ -155,14 +155,19 @@ namespace Common
         /// 自身累计奖励
         /// </summary>
         public static user_Accumulatedrewards_vo crt_accumulatedrewards;
+   
         /// <summary>
-        /// 当前世界boss信息
+        /// 世界boss排行榜
         /// </summary>
-        public static db_world_boos crt_world_boos= new db_world_boos();
+        public static user_world_boss_rank crt_world_boss_rank;
 
         #endregion
 
         #region 配置db文件
+        /// <summary>
+        /// 当前世界boss信息
+        /// </summary>
+        public static db_world_boos crt_world_boos = new db_world_boos();
         /// <summary>
         /// 配置通行证
         /// </summary>
@@ -187,6 +192,9 @@ namespace Common
         /// 神器列表
         /// </summary>
         public static List<db_artifact_vo> db_Artifacts;
+
+
+
         /// <summary>
         /// 物品列表
         /// </summary>
