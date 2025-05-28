@@ -95,11 +95,11 @@ public class equip_item : Base_Mono
         }
         if (data.hp > 0)
         { 
-            dec += "\n" + Show_Color.Green("生命值:  " + data.hp);
+            dec += "\n" + Show_Color.White("生命值:  " + data.hp);
         }
         if (data.mp > 0)
         { 
-            dec += "\n" + Show_Color.Green("魔法值:  " + data.mp);
+            dec += "\n" + Show_Color.White("魔法值:  " + data.mp);
         }
         if (info.Length > 4)
         {
@@ -146,9 +146,9 @@ public class equip_item : Base_Mono
                         {
                             dec += "\n" + Show_Color.Yellow("[加成属性]");
                         }
-                        dec += "\n" + Show_Color.Blue((enum_skill_attribute_list)(int.Parse(arr[i])) + ":" + arr_value[i] +"%");
+                        dec += "\n" + Show_Color.Red((enum_skill_attribute_list)(int.Parse(arr[i])) + ":" + arr_value[i] +"%");
                     }else
-                        dec += "\n" + Show_Color.Green((enum_skill_attribute_list)(int.Parse(arr[i])) + ":" + arr_value[i] + "");
+                        dec += "\n" + Show_Color.Orange((enum_skill_attribute_list)(int.Parse(arr[i])) + ":" + arr_value[i] + "");
 
 
                 }
