@@ -394,7 +394,9 @@ namespace MVC
             }
 
         }
-
+        /// <summary>
+        /// 邮件
+        /// </summary>
 
         public void Read_User_Mail()
         {
@@ -443,27 +445,20 @@ namespace MVC
                         SumSave.crt_collect.user_collect_dic.Add(Splits2[0],int.Parse(Splits2[1]));
                     }
                 }
-
-                //SumSave.crt_collect.collect_suit_complete();
-
             }
             else//为空的话初始化数据
             {
-                //foreach (db_collect_vo item in SumSave.db_collect_vo)
-                //{
-                //    if(!SumSave.crt_collect.user_collect_dic.ContainsKey(item.Name))//不重复写入同装备
-                //    {
-                //        SumSave.crt_collect.user_collect_dic.Add(item.Name, 0);
-                //    }
-                // }
-
                 SumSave.crt_collect.collect_Merge();
-
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_collect, SumSave.crt_collect.Set_Instace_String());
             }
 
         }
 
+
+
+        /// <summary>
+        /// 新手任务
+        /// </summary>
         public void Read_user_Greenhand()
         {
             mysqlReader = MysqlDb.Select(Mysql_Table_Name.mo_user_greenhandguide, "uid", GetStr(SumSave.crt_user.uid));
@@ -487,6 +482,8 @@ namespace MVC
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_greenhandguide, SumSave.crt_greenhand.Set_Instace_String());
             }
         }
+
+
         /// <summary>
         /// 读取飘窗消息
         /// </summary>
@@ -559,6 +556,8 @@ namespace MVC
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_signin, SumSave.crt_signin.Set_Instace_String());
             }
         }
+
+
         /// <summary>
         /// 读取需求列表
         /// </summary>
@@ -579,10 +578,12 @@ namespace MVC
                 SumSave.crt_needlist.map_value = "";
                 SumSave.crt_needlist.fate_value = "";
                 SumSave.crt_needlist.user_value = "100 100,0,0,0,0";
-                SumSave.crt_needlist.Init();
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_needlist, SumSave.crt_needlist.Set_Instace_String());
             }
         }
+
+
+
         /// <summary>
         /// 读取炼丹数据
         /// </summary>
@@ -1206,6 +1207,8 @@ namespace MVC
             {
                 Enum_Value(crt, (int)enum_skill_attribute_list.经验加成, Battle_Tool.IsBuff(1));
                 Enum_Value(crt, (int)enum_skill_attribute_list.人物历练, Battle_Tool.IsBuff(2));
+                Enum_Value(crt, (int)enum_skill_attribute_list.经验加成, Battle_Tool.IsBuff(3));
+                Enum_Value(crt, (int)enum_skill_attribute_list.灵珠加成, Battle_Tool.IsBuff(3));
             }
 
 

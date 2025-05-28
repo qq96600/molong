@@ -83,11 +83,19 @@ public class panel_Buff : Panel_Base
 
         if (SumSave.crt_player_buff.player_Buffs.Count > 0)
         {
-            for (int index = 1; index < 3; index++)
+            for (int index = 1; index < SumSave.crt_player_buff.player_Buffs.Count+1; index++)
             {
                 foreach (var item in SumSave.crt_player_buff.player_Buffs)
                 {
                     (DateTime, int, float, int) time = item.Value;
+                    if(time.Item4==3)
+                    {
+                        if ((SumSave.nowtime - time.Item1).Minutes < time.Item2)
+                        {
+                            dec += Show_Color.Red(item.Key + ": 效果 经验值和灵珠值获取增加" + time.Item3 + "倍 剩余" + (time.Item2 - (SumSave.nowtime - time.Item1).Minutes) + "Min\n ");
+                        }
+                    }
+        
                     if (index == time.Item4)
                     {
                         if ((SumSave.nowtime - time.Item1).Minutes < time.Item2)
@@ -97,6 +105,7 @@ public class panel_Buff : Panel_Base
                     }
                 }
             }
+
         }
 
         dec += enum_skill_attribute_list.经验加成 + ": " + Show_Buff(enum_skill_attribute_list.经验加成) + "%\n ";
@@ -107,6 +116,7 @@ public class panel_Buff : Panel_Base
         dec += enum_skill_attribute_list.宠物获取 + ": " + Show_Buff(enum_skill_attribute_list.宠物获取) + "%\n ";
         dec += enum_skill_attribute_list.寻怪间隔 + ": -" + (Show_Buff(enum_skill_attribute_list.寻怪间隔)/ 10f) + "s\n ";
         dec += enum_skill_attribute_list.复活次数 + ": " + Show_Buff(enum_skill_attribute_list.复活次数) + "次\n ";
+    
         
         info.text = dec;
 

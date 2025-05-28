@@ -146,5 +146,6 @@ public enum enum_skill_attribute_list
     强化费用,//520
     离线间隔,//521
     签到收益,//522
+    月卡,//523
 }
 

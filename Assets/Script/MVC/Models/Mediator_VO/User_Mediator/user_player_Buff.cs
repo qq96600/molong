@@ -14,7 +14,7 @@ public class user_player_Buff : Base_VO
     public string player_baff="";
 
     /// <summary>
-    /// 玩家buff 1，buff名字 2，buff开始时间 3，buff持续时间4，buff效果5，buff种类（1，经验加成2，历练加成）
+    /// 玩家buff 1，buff名字 2，buff开始时间 3，buff持续时间4，buff效果5，buff种类（1，经验加成2，历练加成3,月卡）
     /// </summary>
     //public  List<(string, DateTime,int)> player_Buffs = new List<(string, DateTime, int)>();
     public Dictionary<string ,(DateTime,int,float,int)> player_Buffs= new Dictionary<string, (DateTime, int,float,int)>();
