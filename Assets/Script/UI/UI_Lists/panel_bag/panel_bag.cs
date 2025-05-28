@@ -122,7 +122,7 @@ public class panel_bag : Panel_Base
                 string[] info_str = item.user_value.Split(' ');
                 if (info_str.Length >= 6)
                 {
-                    if (info_str[6] == "0")
+                    if (info_str[5] == "0")
                     {
                         sell_list.Add(item);
                         moeny += item.price;
@@ -173,7 +173,7 @@ public class panel_bag : Panel_Base
     {
         base.Show();
         Show_Bag();
-        Base_Show();
+        //Base_Show();
         base_Equip();
        
     }
@@ -196,25 +196,25 @@ public class panel_bag : Panel_Base
         }
     }
 
-    /// <summary>
-    /// 显示穿戴装备列表
-    /// </summary>
-    private void Base_Show()
-    {
-        foreach (var item in dic_equips.Keys)
-        {
-            dic_equips[item].Init();
+    ///// <summary>
+    ///// 显示穿戴装备列表
+    ///// </summary>
+    //private void Base_Show()
+    //{
+    //    foreach (var item in dic_equips.Keys)
+    //    {
+    //        dic_equips[item].Init();
 
-            foreach (Bag_Base_VO equip in SumSave.crt_euqip)
-            {
-                if (equip.StdMode == item.ToString())
-                {
-                    dic_equips[item].Data = equip;
-                }
-            }
+    //        foreach (Bag_Base_VO equip in SumSave.crt_euqip)
+    //        {
+    //            if (equip.StdMode == item.ToString())
+    //            {
+    //                dic_equips[item].Data = equip;
+    //            }
+    //        }
             
-        }
-    }
+    //    }
+    //}
     /// <summary>
     /// 显示背包物品
     /// </summary>

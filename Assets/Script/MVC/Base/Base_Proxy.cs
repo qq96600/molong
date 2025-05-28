@@ -120,7 +120,7 @@ namespace MVC
                                 MysqlDb.InsertInto(wirtes[i].tableName, wirtes[i].columnValues);
                                 break;
                                 case Mysql_Type.UpdateInto:
-                                if (wirtes[i].tableName == Mysql_Table_Name.user_rank)
+                                if (wirtes[i].tableName == Mysql_Table_Name.user_rank|| wirtes[i].tableName== Mysql_Table_Name.user_world_boss_rank)
                                 {
                                     MysqlDb.UpdateInto(wirtes[i].tableName, wirtes[i].columnNames, wirtes[i].columnValues, "par", GetStr(SumSave.par));
                                 }
@@ -147,7 +147,7 @@ namespace MVC
 
         public void UpdateIntoWodldBoss()
         {
-            MysqlDb.UpdateInto( Mysql_Table_Name.db_world_boos,SumSave.crt_world_boos.Get_Update_Character(), SumSave.crt_world_boos.Set_Uptade_String(), "par", GetStr(SumSave.par));
+            MysqlDb.UpdateInto( Mysql_Table_Name.db_world_boss,SumSave.db_world_boos.Get_Update_Character(), SumSave.db_world_boos.Set_Uptade_String(), "par", GetStr(SumSave.par));
         }
 
 

@@ -53,7 +53,7 @@ public class user_pass_vo : Base_VO
     private List<int> data_day_state = new List<int>();
     ///领取状态
     private Dictionary<int,List<int>> dic_user_values = new Dictionary<int, List<int>>();
-
+    public string user_value;
     public void Init()
     {
         string[] str = user_value.Split('|');

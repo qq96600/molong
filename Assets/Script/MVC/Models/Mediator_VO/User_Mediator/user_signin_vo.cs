@@ -20,6 +20,7 @@ public class user_signin_vo : Base_VO
     /// </summary>
     private List<int> values = new List<int>();
     public int max_number;
+    public string user_value;
     public void Init()
     { 
     

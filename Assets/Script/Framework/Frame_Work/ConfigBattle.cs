@@ -52,6 +52,24 @@ namespace MVC
             return Calculations;
         }
         /// <summary>
+        /// 离线收益
+        /// </summary>
+        public static List<string> Offline(int number)
+        {
+            string base_name = SumSave.crt_resources.user_map_index;
+            if (!CalculationBattle.ContainsKey(SumSave.crt_resources.user_map_index))
+            {
+                CalculationBattle.Add(base_name, ArrayHelper.Find(SumSave.db_maps, e => e.map_name == base_name).ProfitList.Split('&'));
+            }
+            Calculations = new List<string>();
+            for (int i = 0; i < number; i++)
+            {
+                string countEquip = CalculationBattle[base_name][Random.Range(0, CalculationBattle[base_name].Length)];
+                CalculationBag(countEquip, false);
+            }
+            return Calculations;
+        }
+        /// <summary>
         /// 获取物品掉落
         /// </summary>
         /// <param name="line"></param>
@@ -73,10 +91,6 @@ namespace MVC
             }
             return result;
         }
-
-
-
-
         /// <summary>
         /// 掉落配置
         /// </summary>
@@ -155,7 +169,7 @@ namespace MVC
         private static void ObtainEquipmentTasks(Bag_Base_VO bag)
         {
            
-            tool_Categoryt.Base_Task(1012);
+            //tool_Categoryt.Base_Task(1012);
             if(bag.Name == "无影蝉蜕")
             {
                 tool_Categoryt.Base_Task(1033);

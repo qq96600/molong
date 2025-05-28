@@ -113,6 +113,7 @@ namespace MVC
                         item.exist = true;
                         //return item.columnValues;
                         return;
+
                     }
                 }
             }
@@ -276,7 +277,7 @@ namespace MVC
 
             foreach (T item in all_list)
             {
-                value += item.user_value;
+                value += item.GetPropertyValue(item);
 
                 value += ';';
             }

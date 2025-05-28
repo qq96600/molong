@@ -13,11 +13,8 @@ namespace MVC
         private void Awake()
         {
             rank_name = Find<Text>("rank_name");
-
             rank_value = Find<Text>("rank_value");
-
             rank_type = Find<Text>("rank_type");
-
             rank_index = Find<Text>("rank_index");
         }
 
@@ -43,6 +40,35 @@ namespace MVC
                 return data;
             }
         }
+        private (string, string, long) data2;
+
+        public (string, string, long) Data2
+        {
+            set
+            {
+                data2 = value;
+
+                if (data2.Item1 == null) return;
+                rank_name.text = data2.Item2;
+
+                rank_value.text =  data2.Item3.ToString();
+
+
+            }
+            get
+            {
+                return data2;
+            }
+        }
+
+
+
+
+        public void Show_index2(int idnex)
+        {
+            rank_type.text = "" + idnex;
+        }
+
         public void Show_index(int idnex)
         {
             rank_index.text = "" + idnex;

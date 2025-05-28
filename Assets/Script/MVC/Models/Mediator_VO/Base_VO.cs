@@ -153,10 +153,6 @@ namespace MVC
             // 返回属性值字符串
             return propertyStr;
         }
-        /// <summary>
-        /// 写入数据库
-        /// </summary>
-        public string user_value;
     }
 
 }

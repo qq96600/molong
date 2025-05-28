@@ -403,11 +403,7 @@ public static class Battle_Tool
         SumSave.crt_MaxHero.Exp += exp;
         SumSave.crt_hero.hero_Exp += exp;
         
-        if(SumSave.crt_hero.hero_Exp>SumSave.db_lvs.hero_lv_list[SumSave.crt_MaxHero.Lv])
-        {
-            SumSave.crt_hero.hero_Exp-= SumSave.db_lvs.hero_lv_list[SumSave.crt_MaxHero.Lv];
-            SumSave.crt_hero.hero_Lv++;
-        }
+       
 
         LevelTask();
         Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_hero,
@@ -515,7 +511,6 @@ public static class Battle_Tool
 
     public static void tool_item()
     {
-        //return;
         foreach (var item in SumSave.db_stditems)
         {
             UI.UI_Manager.I.GetEquipSprite("icon/", item.Name);

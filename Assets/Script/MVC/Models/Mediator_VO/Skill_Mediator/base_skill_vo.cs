@@ -3,49 +3,27 @@ using System.Collections.Generic;
 
 public class base_skill_vo : Base_VO
 {
-    private string skill_name;
+    private string User_value;
+    public string user_value
+    {
+        get { return User_value; }
+
+        set { User_value = value; }
+    }
     /// <summary>
     /// 技能名称
     /// </summary>
-    public string skillname
-    {
-        get { return skill_name; }
-
-        set { skill_name = value; }
-    }
-
-    private int skill_lv;
+    public string skillname;
     /// <summary>
     /// J技能等级
     /// </summary>
-    public int skilllv
-    { 
-        get { return skill_lv; }
-        set { skill_lv = value; }
-    }
-
-    private int skill_pos;
-
+    public int skilllv;
     /// <summary>
     /// 上阵位置
     /// </summary>
-    public int skillpos
-    { 
-        get { return skill_pos; }
-        set { skill_pos = value; }
-    }
+    public int skillpos;
 
-    private int skill_internalforceMP;
-
-    /// <summary>
-    /// 附加内力
-    /// </summary>
-    public int skillinternalforceMP
-    { 
-        get { return skill_internalforceMP; }
-        set { skill_internalforceMP = value; }
-    }
-
+    public int skillinternalforceMP;
     /// <summary>
     /// 技能类型 1战斗2秘笈3特殊
     /// </summary>

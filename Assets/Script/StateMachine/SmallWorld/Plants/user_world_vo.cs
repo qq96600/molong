@@ -14,6 +14,7 @@ public class user_world_vo : Base_VO
     /// 0 最后刷新时间 1灵气值
     /// </summary>
     private List<string> value_lists = new List<string>();
+    public string user_value;
 
     public void Init()
     {

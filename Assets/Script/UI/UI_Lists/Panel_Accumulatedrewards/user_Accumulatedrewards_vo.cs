@@ -16,6 +16,7 @@ public class user_Accumulatedrewards_vo : Base_VO
     /// 累积充值
     /// </summary>
     private int sum_recharge;
+    public string user_value;
     public void Init(int Realrecharge,int sumrecharge)
     {
         Real_recharge= Realrecharge;

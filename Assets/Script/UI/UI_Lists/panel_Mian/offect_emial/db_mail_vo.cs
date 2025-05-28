@@ -30,6 +30,7 @@ public class db_mail_vo : Base_VO
     /// 充值金额
     /// </summary>
     public int moeny;
+    public string user_value;
 
     public Dictionary<int, Dictionary<string, int>> mail_dec = new Dictionary<int, Dictionary<string, int>>();
     public void Init()
