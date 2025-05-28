@@ -67,10 +67,12 @@ public class panel_wodleBoss : Panel_Base
         rank_itemPrefab = Battle_Tool.Find_Prefabs<rank_item>("rank_item");
         information= Find<Transform>("information/Viewport/Content");
 
+
+
         List<(string, int)> list = SumSave.crt_needlist.SetMap();
         for (int i = 0; i < list.Count; i++)
         {
-            if (list[i].Item1 == SumSave.crt_world_boos.name)
+            if (list[i].Item1 == SumSave.db_world_boos.name)
             {
                 boss_number = list[i].Item2;
             }
@@ -102,7 +104,7 @@ public class panel_wodleBoss : Panel_Base
     /// </summary>
     private void Challenge()
     {
-        if(SumSave.crt_world_boos.Get()<=0)
+        if(SumSave.db_world_boos.Get()<=0)
         {
             Alert_Dec.Show("世界Boss已被击败");
             return;
@@ -118,8 +120,6 @@ public class panel_wodleBoss : Panel_Base
         world_Boss_set(hurt);
         crate_rank(hurt);
         GainRewards(hurt);
-
-
         Init();
     }
     /// <summary>
@@ -127,7 +127,7 @@ public class panel_wodleBoss : Panel_Base
     /// </summary>
     private void GainRewards(long hurt)
     {
-        List < (int, long) > list = SumSave.crt_world_boos.DamageLevel_List;
+        List < (int, long) > list = SumSave.db_world_boos.DamageLevel_List;
         for (int i = list.Count-1; i >=0; i--)
         {
             if(list[i].Item2<= hurt)
@@ -153,19 +153,20 @@ public class panel_wodleBoss : Panel_Base
     private void Init()
     {
         SendNotification(NotiList.Read_Crate_world_boss_Login);
-        icon.sprite = Resources.Load<Sprite>("Prefabs/monsters/" + SumSave.crt_world_boos.name);
-        maxHp = 1000000 * SumSave.crt_world_boos.number;
+        icon.sprite = Resources.Load<Sprite>("Prefabs/monsters/" + SumSave.db_world_boos.name);
+        maxHp = 1000000 * SumSave.db_world_boos.number;
         progress.maxValue = maxHp;
-        progress.value = SumSave.crt_world_boos.Get();
+        progress.value = SumSave.db_world_boos.Get();
         numberText.text = "挑战次数:" + boss_number.ToString() + "/3";
-        nameText.text = SumSave.crt_world_boos.name;
+        nameText.text = SumSave.db_world_boos.name;
         GetList();
-        if (SumSave.crt_world_boos.Get() <= 0)
+        if (SumSave.db_world_boos.Get() <= 0)
         {
             Hp_Text.text="世界Boss已被击败,等待下轮Boss";
+
         }else
         {
-            Hp_Text.text = SumSave.crt_world_boos.Get() + "/" + maxHp;
+            Hp_Text.text = SumSave.db_world_boos.Get() + "/" + maxHp;
         }
        
     }
@@ -186,8 +187,10 @@ public class panel_wodleBoss : Panel_Base
     private void world_Boss_set(long finalDamage)
     {
 
-        SumSave.crt_world_boos.Set(finalDamage);
+        SumSave.db_world_boos.Set(finalDamage);
         SendNotification(NotiList.Read_Crate_world_boss_update);
+
+        SumSave.crt_world_boss_hurt.CauseDamage(finalDamage);
     }
 
     /// <summary>
@@ -200,7 +203,7 @@ public class panel_wodleBoss : Panel_Base
         List<(string, int)> list = SumSave.crt_needlist.SetMap();
         for (int i = 0; i < list.Count; i++)
         {
-            if (list[i].Item1 == SumSave.crt_world_boos.name)
+            if (list[i].Item1 == SumSave.db_world_boos.name)
             {
                 exist = false;
                 list[i] = (list[i].Item1, list[i].Item2 + 1);
@@ -210,13 +213,14 @@ public class panel_wodleBoss : Panel_Base
         }
         if (exist)
         {
-            SumSave.crt_needlist.SetMap((SumSave.crt_world_boos.name, 1));
+            SumSave.crt_needlist.SetMap((SumSave.db_world_boos.name, 1));
 
         }
 
         Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_needlist,
            SumSave.crt_needlist.Set_Uptade_String(), SumSave.crt_needlist.Get_Update_Character());
     }
+
 
 
 
@@ -233,6 +237,7 @@ public class panel_wodleBoss : Panel_Base
                 SumSave.crt_world_boss_rank.lists.RemoveAt(i);
             }
         }
+        SumSave.crt_world_boss_rank.SetData();
         Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.user_world_boss_rank, SumSave.crt_world_boss_rank.Set_Uptade_String(), SumSave.crt_world_boss_rank.Get_Update_Character());
     }
     /// <summary>

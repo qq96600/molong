@@ -13,11 +13,8 @@ namespace MVC
         private void Awake()
         {
             rank_name = Find<Text>("rank_name");
-
             rank_value = Find<Text>("rank_value");
-
             rank_type = Find<Text>("rank_type");
-
             rank_index = Find<Text>("rank_index");
         }
 
@@ -63,6 +60,8 @@ namespace MVC
                 return data2;
             }
         }
+
+
 
 
         public void Show_index2(int idnex)

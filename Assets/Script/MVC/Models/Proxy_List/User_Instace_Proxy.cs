@@ -138,11 +138,11 @@ namespace MVC
             {
                 while (mysqlReader.Read())
                 {
-                    SumSave.crt_world_boos.name = mysqlReader.GetString(mysqlReader.GetOrdinal("boos_Name"));
-                    SumSave.crt_world_boos.InitFinalDamage(long.Parse(mysqlReader.GetString(mysqlReader.GetOrdinal("maxhp"))));
-                    SumSave.crt_world_boos.number= mysqlReader.GetInt32(mysqlReader.GetOrdinal("number")); 
-                    SumSave.crt_world_boos.DamageLevel_value=mysqlReader.GetString(mysqlReader.GetOrdinal("DamageLevel"));
-                    SumSave.crt_world_boos.Init();
+                    SumSave.db_world_boos.name = mysqlReader.GetString(mysqlReader.GetOrdinal("boos_Name"));
+                    SumSave.db_world_boos.InitFinalDamage(long.Parse(mysqlReader.GetString(mysqlReader.GetOrdinal("maxhp"))));
+                    SumSave.db_world_boos.number= mysqlReader.GetInt32(mysqlReader.GetOrdinal("number")); 
+                    SumSave.db_world_boos.DamageLevel_value=mysqlReader.GetString(mysqlReader.GetOrdinal("DamageLevel"));
+                    SumSave.db_world_boos.Init();
                 }
             }
             CloseMySqlDB();
@@ -161,7 +161,7 @@ namespace MVC
         {
             OpenMySqlDB();
             // Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.user_world_boos, SumSave.crt_world_boos.Set_Uptade_String(), SumSave.crt_world_boos.Get_Update_Character());
-            MysqlDb.UpdateInto(Mysql_Table_Name.db_world_boss, SumSave.crt_world_boos.Get_Update_Character(), SumSave.crt_world_boos.Set_Uptade_String(), "par", GetStr(SumSave.par));
+            MysqlDb.UpdateInto(Mysql_Table_Name.db_world_boss, SumSave.db_world_boos.Get_Update_Character(), SumSave.db_world_boos.Set_Uptade_String(), "par", GetStr(SumSave.par));
             CloseMySqlDB();
         }
 
@@ -346,9 +346,40 @@ namespace MVC
             Read_user_player_Buff();
             Read_User_Mail();
             Read_User_Reward();
+            Read_user_world_boss();
             world_boss_Login();
             refresh_Max_Hero_Attribute();
         }
+
+        /// <summary>
+        /// 读取自身世界Boss伤害
+        /// </summary>
+        public void Read_user_world_boss()
+        {
+            mysqlReader = MysqlDb.Select(Mysql_Table_Name.user_world_boss, "uid", GetStr(SumSave.crt_user.uid));
+            SumSave.crt_world_boss_hurt= new user_world_boss();
+
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.crt_world_boss_hurt = ReadDb.Read(mysqlReader, new user_world_boss());
+                }
+
+            }else
+            {
+                SumSave.crt_world_boss_hurt.damage=0;
+                SumSave.crt_world_boss_hurt.datetime=SumSave.nowtime;
+                Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.user_world_boss, SumSave.crt_world_boss_hurt.Set_Instace_String());
+            }
+
+        }
+
+
+
+
+
+
         /// <summary>
         /// 累计奖励
         /// </summary>
@@ -641,7 +672,6 @@ namespace MVC
         {
             mysqlReader = MysqlDb.Select(Mysql_Table_Name.user_rank, "par", GetStr(SumSave.par));
             SumSave.user_ranks = new rank_vo();
-            return;
             if (mysqlReader.HasRows)
             {
                 while (mysqlReader.Read())

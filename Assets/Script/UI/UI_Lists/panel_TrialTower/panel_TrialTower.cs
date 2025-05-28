@@ -128,10 +128,10 @@ public class panel_TrialTower : Panel_Base
         icon.sprite = Resources.Load<Sprite>("Prefabs/monsters/" + crt_map.monster_list);
         progress.maxValue = monster.MaxHP;
         numberText.text ="挑战次数:"+ boss_number.ToString()+"/3";
-        progress.value = SumSave.crt_world_boos.Get();
-        if (monster.MaxHP - SumSave.crt_world_boos.Get() > 0)
+        progress.value = SumSave.db_world_boos.Get();
+        if (monster.MaxHP - SumSave.db_world_boos.Get() > 0)
         {
-            Hp_Text.text = (SumSave.crt_world_boos.Get()).ToString() + "/" + monster.MaxHP.ToString();
+            Hp_Text.text = (SumSave.db_world_boos.Get()).ToString() + "/" + monster.MaxHP.ToString();
         }else
         {
             Hp_Text.text= "世界Boss已挑战完成";
@@ -170,7 +170,7 @@ public class panel_TrialTower : Panel_Base
         IncreaseFrequency();
 
         Init();
-        if (monster.MaxHP - SumSave.crt_world_boos.Get() > 0)
+        if (monster.MaxHP - SumSave.db_world_boos.Get() > 0)
         {
             SendNotification(NotiList.Read_Crate_world_boss_Login, crt_map.monster_list);
             fight_panel.Show();

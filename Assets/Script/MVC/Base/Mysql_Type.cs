@@ -71,4 +71,5 @@ public enum Mysql_Table_Name
     db_vip,//vip信息
     db_world_boss,//世界boss
     user_world_boss_rank,//世界boss排行榜
+    user_world_boss,//世界boss伤害
 }

@@ -160,6 +160,10 @@ namespace Common
         /// 世界boss排行榜
         /// </summary>
         public static user_world_boss_rank crt_world_boss_rank;
+        /// <summary>
+        /// 世界boss伤害
+        /// </summary>
+        public static user_world_boss crt_world_boss_hurt;
 
         #endregion
 
@@ -167,7 +171,7 @@ namespace Common
         /// <summary>
         /// 当前世界boss信息
         /// </summary>
-        public static db_world_boos crt_world_boos = new db_world_boos();
+        public static db_world_boos db_world_boos = new db_world_boos();
         /// <summary>
         /// 配置通行证
         /// </summary>

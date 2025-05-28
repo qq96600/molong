@@ -11,6 +11,12 @@ using UnityEngine;
 public static class ReadDb
 {
 
+    public static user_world_boss Read(MySqlDataReader reader, user_world_boss item)
+    {
+        item.damage = reader.GetInt32(reader.GetOrdinal("damage"));
+        item.datetime= Convert.ToDateTime(reader.GetString(reader.GetOrdinal("datetime")));
+        return item;
+    }
     public static db_fate_vo Read(MySqlDataReader reader, db_fate_vo item)
     {
         item.fate_id= reader.GetInt32(reader.GetOrdinal("fate_index"));
