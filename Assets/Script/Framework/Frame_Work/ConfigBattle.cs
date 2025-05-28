@@ -46,10 +46,27 @@ namespace MVC
             for (int i = 0; i < number; i++)
             {
                 string countEquip = CalculationBattle[base_name][Random.Range(0, CalculationBattle[base_name].Length)];
-                countEquip = CalculationBattle[base_name][0];
                 CalculationBag(countEquip, monster.Data.Monster_Lv == 3);
             }
             Show_Info();
+            return Calculations;
+        }
+        /// <summary>
+        /// 离线收益
+        /// </summary>
+        public static List<string> Offline(int number)
+        {
+            string base_name = SumSave.crt_resources.user_map_index;
+            if (!CalculationBattle.ContainsKey(SumSave.crt_resources.user_map_index))
+            {
+                CalculationBattle.Add(base_name, ArrayHelper.Find(SumSave.db_maps, e => e.map_name == base_name).ProfitList.Split('&'));
+            }
+            Calculations = new List<string>();
+            for (int i = 0; i < number; i++)
+            {
+                string countEquip = CalculationBattle[base_name][Random.Range(0, CalculationBattle[base_name].Length)];
+                CalculationBag(countEquip, false);
+            }
             return Calculations;
         }
         /// <summary>
@@ -65,7 +82,7 @@ namespace MVC
                 string[] values2 = values1[1].Split('/');
                 if (values2.Length > 1)
                 {
-                    if (Random.Range(0, int.Parse(values2[1])) > int.Parse(values2[0]))
+                    if (Random.Range(0, int.Parse(values2[1])) < int.Parse(values2[0]))
                     {
                         result = (true, values1[0]);
                         return result;
@@ -74,10 +91,6 @@ namespace MVC
             }
             return result;
         }
-
-
-
-
         /// <summary>
         /// 掉落配置
         /// </summary>

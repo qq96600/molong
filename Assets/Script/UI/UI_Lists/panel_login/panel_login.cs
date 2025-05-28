@@ -343,7 +343,38 @@ namespace MVC
                 Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_value, SumSave.crt_resources.Set_Uptade_String(), SumSave.crt_resources.Get_Update_Character());
                 Battle_Tool.Obtain_Unit(currency_unit.离线积分, number / 30);
                 dec+="\n获得离线积分 "+ number / 30;
+                if (SumSave.crt_resources.user_map_index != "")
+                {
+                    user_map_vo map = ArrayHelper.Find(SumSave.db_maps, e => e.map_name == SumSave.crt_resources.user_map_index);
+                    if (map != null)
+                    {
+                        float numbers = 7;
+                        if (SumSave.crt_MaxHero.totalPower < map.map_index * 10000)
+                        {
+                            numbers += SumSave.crt_MaxHero.totalPower * 3 / (map.map_index * 10000f);
+                        }
+                        numbers = Math.Clamp(numbers, 7, 20);
+                        int monster_number= (int)(number / numbers);
+                        List<string> vs = ConfigBattle.Offline(monster_number);
+                        crtMaxHeroVO monster = ArrayHelper.Find(SumSave.db_monsters, e => e.index == map.map_index);
+                        dec += "\n地图 " + map.map_name + " 收益";
+                        if (monster != null)
+                        {
+                            int moeny = (monster.Lv * 5 + 1) * monster_number;
+                            Battle_Tool.Obtain_Unit(currency_unit.灵珠, moeny);
+                            dec += "\n灵珠收益 " + moeny;
+                            long obexp = (long)(monster.Exp * monster_number * 0.6);
+                            Battle_Tool.Obtain_Exp(obexp);
+                            dec += "\n经验收益 " + obexp;
+                        }
+                        for (int i = 0; i < vs.Count; i++)
+                        {
+                            dec += "\n" + vs[i];
+                        }
+                    }
+                }
                 Alert.Show("离线收益", dec);
+
             }
         }
 
