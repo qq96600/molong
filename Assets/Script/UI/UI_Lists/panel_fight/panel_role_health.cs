@@ -82,8 +82,8 @@ public class panel_role_health : Base_Mono
                "(" + SumSave.crt_hero.hero_Exp * 100 / SumSave.db_lvs.hero_lv_list[SumSave.crt_hero.hero_Lv] + "%)";
             role_exp.maxValue = SumSave.db_lvs.hero_lv_list[SumSave.crt_hero.hero_Lv];
             role_exp.value = SumSave.crt_hero.hero_Exp;
-            if (SumSave.crt_MaxHero.Exp >= SumSave.db_lvs.hero_lv_list[SumSave.crt_MaxHero.Lv])
-            { 
+            if (SumSave.crt_hero.hero_Exp >= SumSave.db_lvs.hero_lv_list[SumSave.crt_hero.hero_Lv])
+            {
                 SumSave.crt_MaxHero.Lv++;
                 SumSave.crt_MaxHero.Exp = 0;
                 SumSave.crt_hero.hero_Exp = 0;

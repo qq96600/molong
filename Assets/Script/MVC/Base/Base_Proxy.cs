@@ -147,7 +147,7 @@ namespace MVC
 
         public void UpdateIntoWodldBoss()
         {
-            MysqlDb.UpdateInto( Mysql_Table_Name.db_world_boos,SumSave.crt_world_boos.Get_Update_Character(), SumSave.crt_world_boos.Set_Uptade_String(), "par", GetStr(SumSave.par));
+            MysqlDb.UpdateInto( Mysql_Table_Name.db_world_boss,SumSave.crt_world_boos.Get_Update_Character(), SumSave.crt_world_boos.Set_Uptade_String(), "par", GetStr(SumSave.par));
         }
 
 
