@@ -159,7 +159,7 @@ namespace Common
         /// <summary>
         /// 世界boss排行榜
         /// </summary>
-        public static user_world_boss_rank crt_world_boss_rank;
+        public static mo_world_boss_rank crt_world_boss_rank;
         /// <summary>
         /// 世界boss伤害
         /// </summary>

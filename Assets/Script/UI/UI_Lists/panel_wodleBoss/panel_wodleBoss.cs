@@ -164,6 +164,7 @@ public class panel_wodleBoss : Panel_Base
         {
             Hp_Text.text="世界Boss已被击败,等待下轮Boss";
 
+
         }else
         {
             Hp_Text.text = SumSave.db_world_boos.Get() + "/" + maxHp;
@@ -238,7 +239,8 @@ public class panel_wodleBoss : Panel_Base
             }
         }
         SumSave.crt_world_boss_rank.SetData();
-        Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.user_world_boss_rank, SumSave.crt_world_boss_rank.Set_Uptade_String(), SumSave.crt_world_boss_rank.Get_Update_Character());
+        Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.user_world_boss_rank,
+          SumSave.crt_world_boss_rank.Set_Uptade_String(), SumSave.crt_world_boss_rank.Get_Update_Character());
     }
     /// <summary>
     /// 创建Boss排行榜

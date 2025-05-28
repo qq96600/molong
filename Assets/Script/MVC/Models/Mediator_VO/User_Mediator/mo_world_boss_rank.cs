@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class user_world_boss_rank : Base_VO
+public class mo_world_boss_rank : Base_VO
 {
     /// <summary>
     /// 世界boss排行榜

@@ -359,7 +359,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1215, y: 1557}
+  m_AnchoredPosition: {x: -1068, y: 1355}
   m_SizeDelta: {x: 2890.6135, y: 1999.9998}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &1529692637161342011
@@ -4061,7 +4061,7 @@ PrefabInstance:
     - target: {fileID: 5095963527127962012, guid: 46803db84df05f04c98edf315fbc98f3, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: b9657702f7917784188a4ee5979a4f86, type: 3}
+      objectReference: {fileID: 21300000, guid: cadd04519f6f8d14d85688883850525d, type: 3}
     - target: {fileID: 5521555945881749950, guid: 46803db84df05f04c98edf315fbc98f3, type: 3}
       propertyPath: select_panel
       value: 13
@@ -4072,7 +4072,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7391435681119431392, guid: 46803db84df05f04c98edf315fbc98f3, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7755377664888674589, guid: 46803db84df05f04c98edf315fbc98f3, type: 3}
       propertyPath: m_Pivot.x

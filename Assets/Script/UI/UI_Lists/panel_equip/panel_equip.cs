@@ -171,6 +171,7 @@ public class panel_equip : Panel_Base
     private void WearingEquipmentTask()
     {
         tool_Categoryt.Base_Task(1009);
+        tool_Categoryt.Base_Task(1012);
         if (crt_bag.Data.StdMode == "武器")
         {
             tool_Categoryt.Base_Task(1002);

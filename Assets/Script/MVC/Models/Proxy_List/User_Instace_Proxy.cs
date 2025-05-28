@@ -645,7 +645,7 @@ namespace MVC
         private void world_boss_read_User_Rank()
         {
             mysqlReader = MysqlDb.Select(Mysql_Table_Name.user_world_boss_rank, "par", GetStr(SumSave.par));
-            SumSave.crt_world_boss_rank = new user_world_boss_rank();
+            SumSave.crt_world_boss_rank = new mo_world_boss_rank();
             if (mysqlReader.HasRows)
             {
                 while (mysqlReader.Read())
