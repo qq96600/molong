@@ -254,40 +254,36 @@ namespace MVC
             SumSave.crt_bag_resources = new bag_Resources_vo();
             if (SumSave.crt_resources.bag_value.Length > 0)
             { 
-                string[] Splits= SumSave.crt_resources.bag_value.Split(';');
-                for (int i = 0; i < Splits.Length; i++)
+                string[] bag_value = SumSave.crt_resources.bag_value.Split(';');
+                for (int i = 0; i < bag_value.Length; i++)
                 {
-                    if (Splits[i].Length > 0)
+                    if (bag_value[i].Length > 0)
                     {
-                        Bag_Base_VO bag = new Bag_Base_VO();
-                        bag.user_value= Splits[i];
-                        SumSave.crt_bag.Add(tool_Categoryt.Read_Bag(bag));
+                        SumSave.crt_bag.Add(tool_Categoryt.Read_Bag(bag_value[i]));
                     }
                 }
                 
             }
             if (SumSave.crt_resources.equip_value.Length > 0)
             {
-                string[] Splits = SumSave.crt_resources.equip_value.Split(';');
-                for (int i = 0; i < Splits.Length; i++)
+                string[] equip_value = SumSave.crt_resources.equip_value.Split(';');
+                for (int i = 0; i < equip_value.Length; i++)
                 {
-                    if (Splits[i].Length > 0)
+                    if (equip_value[i].Length > 0)
                     {
-                        Bag_Base_VO bag = new Bag_Base_VO();
-                        bag.user_value = Splits[i];
-                        SumSave.crt_euqip.Add(tool_Categoryt.Read_Bag(bag));
+                        SumSave.crt_euqip.Add(tool_Categoryt.Read_Bag(equip_value[i]));
                     }
                 }
             }
             if (SumSave.crt_resources.skill_value.Length > 0)
             {
-                string[] Splits = SumSave.crt_resources.skill_value.Split(';');
-                for (int i = 0; i < Splits.Length; i++)
+                string[] skill_value = SumSave.crt_resources.skill_value.Split(';');
+                for (int i = 0; i < skill_value.Length; i++)
                 {
-                    if (Splits[i].Length > 0)
+                    if (skill_value[i].Length > 0)
                     {
                         base_skill_vo skill = new base_skill_vo();
-                        skill.user_value = Splits[i];
+                        skill.user_value = skill_value[i];
                         SumSave.crt_skills.Add(tool_Categoryt.Read_skill(skill));
                     }
                 }
@@ -645,6 +641,7 @@ namespace MVC
         {
             mysqlReader = MysqlDb.Select(Mysql_Table_Name.user_rank, "par", GetStr(SumSave.par));
             SumSave.user_ranks = new rank_vo();
+            return;
             if (mysqlReader.HasRows)
             {
                 while (mysqlReader.Read())

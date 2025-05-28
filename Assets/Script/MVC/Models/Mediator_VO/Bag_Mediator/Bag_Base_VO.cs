@@ -65,7 +65,41 @@ namespace MVC
         /// <summary>
         /// 判断值 1 名称 2 强化等级 3品质 4附加值 5套装6锁定
         /// </summary>
-        //public string user_value;
-        
+        private string User_value;
+
+        public Bag_Base_VO()
+        {
+        }
+
+        public Bag_Base_VO(Bag_Base_VO item)
+        {
+            Name= item.Name;
+            StdMode = item.StdMode;
+            need_lv = item.need_lv;
+            equip_lv = item.equip_lv;
+            price = item.price;
+            hp = item.hp;
+            mp = item.mp;
+            defmin = item.defmin;
+            defmax = item.defmax;
+            macdefmin = item.macdefmin;
+            macdefmax = item.macdefmax;
+            damgemin = item.damgemin;
+            damagemax = item.damagemax;
+            magicmin = item.magicmin;
+            magicmax = item.magicmax;
+            dec = item.dec;
+            suit = item.suit;
+            suit_name = item.suit_name;
+            suit_dec = item.suit_dec;
+
+        }
+
+        public string user_value
+        {
+            get { return User_value; }
+
+            set { User_value = value; }
+        }
     }
 }

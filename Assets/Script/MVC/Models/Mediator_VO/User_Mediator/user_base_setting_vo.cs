@@ -8,7 +8,7 @@ public class user_base_setting_vo : Base_VO
     /// 0回收等级 1回收品质 
     /// </summary>
     public List<int> user_setting;
-
+    public string user_value;
     public void Init()
     {
         user_setting = new List<int>();

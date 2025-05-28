@@ -8,6 +8,7 @@ using UnityEngine;
 public class user_mail_vo : Base_VO
 {
     public List<int> lists = new List<int>();
+    public string user_value;
     public void Init()
     {
         string[] strs = user_value.Split(',');

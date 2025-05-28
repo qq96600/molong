@@ -11,7 +11,7 @@ public class user_explore_vo : Base_VO
     /// 0 名字+" "+ 孵化时间为锚点，1开始时间 2收益节点 3收益（名称+数量）
     /// </summary>
     private Dictionary<string,string> dic;
-
+    public string user_value;
     public void Init()
     { 
         dic = new Dictionary<string, string>();

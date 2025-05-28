@@ -94,7 +94,7 @@ namespace MVC
         public virtual void SetPropertyValue(string value)
         {
             // 根据传入的值拆分为字符串数组
-            string[] values = value.Split(',');
+            string[] values = value.Split(';');
             // 获取当前对象的所有属性信息
             PropertyInfo[] propertyInfos = this.GetType().GetProperties();
             int index = 0;
@@ -148,15 +148,11 @@ namespace MVC
 
                 // 如果不是最后一个属性，则添加逗号分隔符
                 if (i != propertyInfos.Length - 1)
-                    propertyStr += ",";
+                    propertyStr += ";";
             }
             // 返回属性值字符串
             return propertyStr;
         }
-        /// <summary>
-        /// 写入数据库
-        /// </summary>
-        public string user_value;
     }
 
 }

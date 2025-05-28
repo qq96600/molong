@@ -39,6 +39,7 @@ public class user_plant_vo : Base_VO
     private List<(string,DateTime)> user_plants;//种植的植物名称和成熟时间
 
     private List<string> user_valueS;//种植的植物名称和种植时间
+    public string user_value;
     /// <summary>
     /// 解析植物信息
     /// </summary> 

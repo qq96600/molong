@@ -26,7 +26,7 @@ public class bag_seed_vo : Base_VO
     /// 使用列表 名称 0数量 1累积值
     /// </summary>
     private List<(string, List<int>)> useList;
-
+    public string user_value;
     public void Init()
     { 
         seedList = new List<(string,List<string>)>();

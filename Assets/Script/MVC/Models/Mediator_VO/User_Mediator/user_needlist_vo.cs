@@ -39,7 +39,7 @@ public class user_needlist_vo : Base_VO
     public List<List<string>> user_value_list;
 
 
-
+    public string user_value;
 
     /// <summary>
     /// 每日重置

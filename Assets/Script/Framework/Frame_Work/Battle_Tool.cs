@@ -511,7 +511,6 @@ public static class Battle_Tool
 
     public static void tool_item()
     {
-        //return;
         foreach (var item in SumSave.db_stditems)
         {
             UI.UI_Manager.I.GetEquipSprite("icon/", item.Name);

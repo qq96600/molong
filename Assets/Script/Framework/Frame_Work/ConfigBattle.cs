@@ -46,6 +46,7 @@ namespace MVC
             for (int i = 0; i < number; i++)
             {
                 string countEquip = CalculationBattle[base_name][Random.Range(0, CalculationBattle[base_name].Length)];
+                countEquip = CalculationBattle[base_name][0];
                 CalculationBag(countEquip, monster.Data.Monster_Lv == 3);
             }
             Show_Info();
@@ -64,7 +65,7 @@ namespace MVC
                 string[] values2 = values1[1].Split('/');
                 if (values2.Length > 1)
                 {
-                    if (Random.Range(0, int.Parse(values2[1])) < int.Parse(values2[0]))
+                    if (Random.Range(0, int.Parse(values2[1])) > int.Parse(values2[0]))
                     {
                         result = (true, values1[0]);
                         return result;

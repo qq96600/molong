@@ -17,6 +17,7 @@ public class user_greenhand_vo : Base_VO
     ///  任务进度
     /// </summary>
     public int crt_progress = 0;
+    public string user_value;
     public void Init()
     {
         string[] parts = user_value?.Split(',') ?? Array.Empty<string>();

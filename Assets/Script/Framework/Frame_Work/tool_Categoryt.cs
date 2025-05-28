@@ -246,23 +246,22 @@ public class tool_Categoryt : MonoBehaviour
     /// 获取数据列表
     /// </summary>
     /// <param name="bag"></param>
-    public static Bag_Base_VO Read_Bag(Bag_Base_VO bag)
+    public static Bag_Base_VO Read_Bag(string user_value)
     {
-        Bag_Base_VO bag_base = new Bag_Base_VO();
-        string[] slits = bag.user_value.Split(' ');
+        Bag_Base_VO bag_base= new Bag_Base_VO();
+        string[] slits =user_value.Split(' ');
         if (slits.Length > 1)
         {
             foreach (var item in SumSave.db_stditems)
             {
                 if (item.Name == slits[0])
                 {
-                    bag_base = item;
-                    bag_base.user_value=bag.user_value;
+                    bag_base = new Bag_Base_VO(item);
+                    bag_base.user_value = user_value;
                     return bag_base;
                 }
              }
         }
-
         return bag_base;
     }
     /// <summary>
@@ -387,7 +386,7 @@ public class tool_Categoryt : MonoBehaviour
         {
             if (item.Name == bag_name)
             {
-                bag = item;
+                bag = new Bag_Base_VO(item);
                 continue;
             }
         }
