@@ -166,7 +166,9 @@ public class panel_collect : Base_Mono
 
                 foreach (Bag_Base_VO item in sell_list)
                 {
-                    if (item.Name == crt_collect.Name)
+                    string[] info = item.user_value.Split(' ');
+
+                    if (item.Name == crt_collect.Name&&info[2]=="7")
                     {
                         SumSave.crt_bag.Remove(item);
                         SumSave.crt_collect.collect_complete(crt_collect.Name);//收集完成
@@ -177,7 +179,7 @@ public class panel_collect : Base_Mono
                     }
                   
                 }
-                Alert_Dec.Show("背包没有" + crt_collect.Name+"或者该装备被锁定");
+                Alert_Dec.Show("该装备被锁定，或背包没有该绝世品阶装备：" + crt_collect.Name);
 
                 ////查找背包是否有该物品
                 //NeedConsumables(crt_collect.Name, 1);

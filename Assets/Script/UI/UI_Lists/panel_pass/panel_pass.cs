@@ -96,7 +96,7 @@ public class panel_pass : Base_Mono
         {
             //领取奖励
             Battle_Tool.Obtain_Resources("命运金币", 1);
-            CollectingPassTasks();
+
             SumSave.crt_pass.data_exp++;
             SumSave.crt_pass.Get(item.index);
             SumSave.crt_pass.Max_task_number++;
@@ -252,6 +252,7 @@ public class panel_pass : Base_Mono
     private void Obtain_result(string result)//进阶奖励1、材料2、灵物3、灵珠4、魔丸5、皮肤6、灵气
     {
         Battle_Tool.Obtain_result(result);
+        CollectingPassTasks();
     }
 
 

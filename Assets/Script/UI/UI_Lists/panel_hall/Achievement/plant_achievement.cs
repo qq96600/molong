@@ -228,7 +228,7 @@ public class plant_achievement : Base_Mono
     private void CompleteAchievementTasks()
     {
         Dictionary<string, long> user_achievements = SumSave.crt_achievement.Set_Exp();
-        if (user_achievements[(Achieve_collect.击杀怪物).ToString()] == 1)
+        if (user_achievements[(Achieve_collect.击杀怪物).ToString()] >= 1000)
         {
             tool_Categoryt.Base_Task(1060);
         }

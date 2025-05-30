@@ -89,8 +89,8 @@ public class panel_role_health : Base_Mono
                 SumSave.crt_hero.hero_Exp -= SumSave.db_lvs.hero_lv_list[SumSave.crt_hero.hero_Lv];
                 SumSave.crt_hero.hero_Lv++;
                 role_exp.maxValue = SumSave.db_lvs.hero_lv_list[SumSave.crt_MaxHero.Lv];
-                Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto,Mysql_Table_Name.mo_user_hero,
-                    SumSave.crt_hero.Set_Uptade_String(),SumSave.crt_hero.Get_Update_Character());
+                Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_hero,
+                    SumSave.crt_hero.Set_Uptade_String(), SumSave.crt_hero.Get_Update_Character());
                 //刷新数据
                 SendNotification(NotiList.Refresh_Max_Hero_Attribute);
             }
@@ -102,8 +102,47 @@ public class panel_role_health : Base_Mono
             List<long> list = SumSave.crt_user_unit.Set();
             show_moeny.text = Battle_Tool.FormatNumberToChineseUnit(list[0]) + " " + currency_unit.灵珠;
             show_point.text = Battle_Tool.FormatNumberToChineseUnit(list[1]) + " " + currency_unit.历练;
-        } 
+        }
+        ObtainEquipmentTasks();
     }
+
+    /// <summary>
+    /// 获得装备任务
+    /// </summary>
+    private static void ObtainEquipmentTasks()
+    {
+        foreach (Bag_Base_VO bag in SumSave.crt_bag)
+        {
+            if (bag.Name == "无影蝉蜕") //(bag.Name == "无影蝉蜕")
+            {
+                tool_Categoryt.Base_Task(1033);
+            }
+            if (bag.Name == "破军七劫")
+            {
+                tool_Categoryt.Base_Task(1048);
+            }
+            if (bag.Name == "青冥断刃碎片")
+            {
+                tool_Categoryt.Base_Task(1055);
+
+            }
+            if (bag.Name == "冥君诏令通行证")
+            {
+                tool_Categoryt.Base_Task(1056);
+            }
+            if (bag.Name == "龙骸密匙通行证")
+            {
+                tool_Categoryt.Base_Task(1058);
+            }
+            if (bag.Name == "缚魂玉")
+            {
+                tool_Categoryt.Base_Task(1065);
+            }
+        }
+
+    }
+
+
     /// <summary>
     /// 等级任务
     /// </summary>

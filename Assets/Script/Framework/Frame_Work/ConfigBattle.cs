@@ -169,7 +169,6 @@ namespace MVC
         private static void ObtainEquipmentTasks(Bag_Base_VO bag)
         {
            
-            //tool_Categoryt.Base_Task(1012);
             if(bag.Name == "无影蝉蜕")
             {
                 tool_Categoryt.Base_Task(1033);
