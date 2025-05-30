@@ -75,7 +75,10 @@ public class artifact_offect : Base_Mono
             {
                 if (result.Item2 < crt_artifact.Data.Artifact_MaxLv)
                 {
-                    NeedConsumables(crt_artifact.Data.arrifact_needs[0], int.Parse(crt_artifact.Data.arrifact_needs[1]));
+
+                    string[] splits = crt_artifact.Data.arrifact_effects[0].Split(' ');
+                    //Battle_Tool.Obtain_Resources(splits[0], int.Parse(splits[1]));
+                    NeedConsumables(splits[0], int.Parse(splits[1]));
                     if (RefreshConsumables())
                     {
                         result.Item2 += 1;

@@ -57,7 +57,25 @@ public class panel_Mian : Panel_Base
 
         Obtain_PrizeDraw_info();
         StartCoroutine(AutoScroll());
+
+
+        if (SumSave.crt_setting.user_setting[4] == 1)//1为静音
+        {
+            AudioListener.pause = true;
+            AudioManager.Instance.audioSource.Stop();
+        }
+        else
+        {
+            AudioListener.pause = false;
+        }
+
+
     }
+
+
+
+
+
     /// <summary>
     /// 文本自动滚动
     /// </summary>
