@@ -67,7 +67,6 @@ public class artifact_offect : Base_Mono
                     crt_artifact.Set(1);
                     set_artifact(crt_artifact);
                     Alert_Dec.Show("激活成功");
-                    ActivateArtifactTask();
                 }
                 else Alert_Dec.Show("激活失败");
                 
@@ -92,14 +91,7 @@ public class artifact_offect : Base_Mono
             }
         }
     }
-    /// <summary>
-    /// 激活神器任务
-    /// </summary>
-    private void ActivateArtifactTask()
-    {
-        tool_Categoryt.Base_Task(1063);
-    }
-
+   
 
     /// <summary>
     /// 开启小世界

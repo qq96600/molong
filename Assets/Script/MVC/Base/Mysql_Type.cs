@@ -72,4 +72,5 @@ public enum Mysql_Table_Name
     db_world_boss,//世界boss
     user_world_boss_rank,//世界boss排行榜
     user_world_boss,//世界boss伤害
+    history_world_boss,//世界boss历史伤害
 }

@@ -69,8 +69,22 @@ public class panel_Artifact : Base_Mono
     {
         base.Show();
         Show_List();
-
+        for (int i = 0; i < SumSave.crt_artifact.Set().Count; i++)
+        {
+            if (SumSave.crt_artifact.Set()[i].Item2 == 1)
+            {
+                ActivateArtifactTask();
+            }
+        }
     }
+    /// <summary>
+    /// 激活神器任务
+    /// </summary>
+    private void ActivateArtifactTask()
+    {
+        tool_Categoryt.Base_Task(1063);
+    }
+
     /// <summary>
     /// 显示神器列表
     /// </summary>

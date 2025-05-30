@@ -196,7 +196,11 @@ namespace Common
         /// 神器列表
         /// </summary>
         public static List<db_artifact_vo> db_Artifacts;
-
+        
+        /// <summary>
+        /// 全服玩家的boss伤害
+        /// </summary>
+        public static List<user_world_boss> db_world_boss_hurt;
 
 
         /// <summary>

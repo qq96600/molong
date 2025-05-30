@@ -91,7 +91,7 @@ public class panel_map : Panel_Base
         ClearObject(pos_btn_map);
         foreach (var map in SumSave.db_maps)
         {
-            if (map.need_lv <= SumSave.crt_MaxHero.Lv)
+            if (map.need_lv <= SumSave.crt_MaxHero.Lv&&map.map_type!=5)
             {
                 btn_item btn = Instantiate(btn_item_prefab, pos_btn_map);
                 string dec = map.map_name + "\n(Lv." + map.need_lv + "级)";

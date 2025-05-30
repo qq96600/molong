@@ -141,23 +141,57 @@ public class panel_collect : Base_Mono
 
             if ( !SumSave.crt_collect.user_collect_dic.ContainsKey(crt_collect.Name)|| SumSave.crt_collect.user_collect_dic[crt_collect.Name] == 0)
             {
-                //查找背包是否有该物品
-                NeedConsumables(crt_collect.Name, 1);
-                if (RefreshConsumables())
+
+
+                List<Bag_Base_VO> sell_list = new List<Bag_Base_VO>();
+                foreach (Bag_Base_VO item in SumSave.crt_bag)
                 {
-                    SumSave.crt_collect.collect_complete(crt_collect.Name);//收集完成
-                    Alert_Dec.Show(crt_collect.Name + " 收集成功");
-                    SuitCollect(crt_collect);
-                    CollectTasks();
+                    if (item.user_value != null)
+                    {
+                        string[] info_str = item.user_value.Split(' ');
+                        if (info_str.Length >= 6)
+                        {
+                            if (info_str[5] == "0")
+                            {
+                                sell_list.Add(item);
+
+                            }
+                        }
+                        else
+                        {
+                            sell_list.Add(item);
+                        }
+                    }
                 }
-                else
+
+                foreach (Bag_Base_VO item in sell_list)
                 {
-                    Alert_Dec.Show("背包没有" + crt_collect.Name);
+                    string[] info = item.user_value.Split(' ');
+
+                    if (item.Name == crt_collect.Name&&info[2]=="7")
+                    {
+                        SumSave.crt_bag.Remove(item);
+                        SumSave.crt_collect.collect_complete(crt_collect.Name);//收集完成
+                        Alert_Dec.Show(crt_collect.Name + " 收集成功");
+                        SuitCollect(crt_collect);
+                        CollectTasks();
+                        return;
+                    }
+                  
                 }
+                Alert_Dec.Show("该装备被锁定，或背包没有该绝世品阶装备：" + crt_collect.Name);
+
+                ////查找背包是否有该物品
+                //NeedConsumables(crt_collect.Name, 1);
+                //if (RefreshConsumables())
+                //{
+
+                //}
+                //else
+                //{
+                //    Alert_Dec.Show("背包没有" + crt_collect.Name);
+                //}
             }
-
-            
-
         }        
         else
         {

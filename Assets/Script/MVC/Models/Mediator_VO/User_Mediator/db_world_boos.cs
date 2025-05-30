@@ -27,6 +27,14 @@ public class db_world_boos : Base_VO
     /// 世界Boss造成伤害等级
     /// </summary>
     public List<(int,long)> DamageLevel_List= new List<(int, long)>();
+    /// <summary>
+    /// 最后一个玩家挑战的时间
+    /// </summary>
+    public DateTime UpTime=DateTime.Now;
+    /// <summary>
+    /// 世界boss血量基准值
+    /// </summary>
+    public long BossHpBasic = 1000000;
 
 
     /// <summary>
@@ -67,6 +75,7 @@ public class db_world_boos : Base_VO
     public void Set(long finalDamage)
     {
         maxHp -= finalDamage;
+        UpTime = SumSave.nowtime;
     }
     
     /// <summary>
@@ -94,7 +103,8 @@ public class db_world_boos : Base_VO
     {
         return new string[] {
             "maxHp",
-            "number"
+            "number",
+            "UpTime"
         };
 
     }
@@ -104,7 +114,8 @@ public class db_world_boos : Base_VO
         return new string[]
          {
              GetStr(maxHp),
-             GetStr(number)
+             GetStr(number),
+             GetStr(UpTime),
          };
     }
 

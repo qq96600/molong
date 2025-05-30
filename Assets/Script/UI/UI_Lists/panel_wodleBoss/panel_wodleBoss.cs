@@ -67,8 +67,6 @@ public class panel_wodleBoss : Panel_Base
         rank_itemPrefab = Battle_Tool.Find_Prefabs<rank_item>("rank_item");
         information= Find<Transform>("information/Viewport/Content");
 
-
-
         List<(string, int)> list = SumSave.crt_needlist.SetMap();
         for (int i = 0; i < list.Count; i++)
         {
@@ -78,10 +76,20 @@ public class panel_wodleBoss : Panel_Base
             }
         }
 
+        if (SumSave.db_world_boos.Get() <= 0)///如果boss死亡超过一天，重置挑战
+        {
+            Debug.Log("世界boss重置时间："+( SumSave.db_world_boos.UpTime.Day - SumSave.nowtime.Day));
+            if (SumSave.nowtime.Day-SumSave.db_world_boos.UpTime.Day >= 1)
+            {
+                SumSave.db_world_boos.number++;
+                SumSave.db_world_boos.InitFinalDamage(SumSave.db_world_boos.BossHpBasic * SumSave.db_world_boos.number);
+                SumSave.db_world_boos.UpTime = SumSave.nowtime;
+                SendNotification(NotiList.Read_Crate_world_boss_update);
+            }
+        }
+
+
         Init();
-
-       
-
     }
 
    /// <summary>
@@ -109,11 +117,11 @@ public class panel_wodleBoss : Panel_Base
             Alert_Dec.Show("世界Boss已被击败");
             return;
         }
-        //if (boss_number >= boss_number_max)
-        //{
-        //    Alert_Dec.Show("挑战次数不足");
-        //    return;
-        //}
+        if (boss_number >= boss_number_max)
+        {
+            Alert_Dec.Show("挑战次数不足");
+            return;
+        }
         IncreaseFrequency();
         long hurt=Random.Range(SumSave.crt_MaxHero.totalPower*50/100, SumSave.crt_MaxHero.totalPower * 60 / 100);//每次挑战根据战力50%-60%随机伤害
 
@@ -154,7 +162,7 @@ public class panel_wodleBoss : Panel_Base
     {
         SendNotification(NotiList.Read_Crate_world_boss_Login);
         icon.sprite = Resources.Load<Sprite>("Prefabs/monsters/" + SumSave.db_world_boos.name);
-        maxHp = 1000000 * SumSave.db_world_boos.number;
+        maxHp = SumSave.db_world_boos.BossHpBasic * SumSave.db_world_boos.number;
         progress.maxValue = maxHp;
         progress.value = SumSave.db_world_boos.Get();
         numberText.text = "挑战次数:" + boss_number.ToString() + "/3";
@@ -163,9 +171,15 @@ public class panel_wodleBoss : Panel_Base
         if (SumSave.db_world_boos.Get() <= 0)
         {
             Hp_Text.text="世界Boss已被击败,等待下轮Boss";
+            if(SumSave.db_world_boss_hurt.Count>0)
+            {
+                SendNotification(NotiList.Read_Crate_RecordAndClearWorldBoss);
+                SumSave.db_world_boss_hurt.Clear();
+            }
+           
 
-
-        }else
+        }
+        else
         {
             Hp_Text.text = SumSave.db_world_boos.Get() + "/" + maxHp;
         }
@@ -187,10 +201,8 @@ public class panel_wodleBoss : Panel_Base
     /// <param name="finalDamage"></param>
     private void world_Boss_set(long finalDamage)
     {
-
         SumSave.db_world_boos.Set(finalDamage);
         SendNotification(NotiList.Read_Crate_world_boss_update);
-
         SumSave.crt_world_boss_hurt.CauseDamage(finalDamage);
     }
 
@@ -233,7 +245,7 @@ public class panel_wodleBoss : Panel_Base
         SumSave.crt_world_boss_rank.lists = ArrayHelper.OrderDescding(SumSave.crt_world_boss_rank.lists, x => x.Item3);
         if(SumSave.crt_world_boss_rank.lists.Count>50)//最多显示50条
         {
-            for (int i = 49; i < SumSave.crt_world_boss_rank.lists.Count; i++)
+            for (int i = 49; i <= SumSave.crt_world_boss_rank.lists.Count-1; i++)
             {
                 SumSave.crt_world_boss_rank.lists.RemoveAt(i);
             }
@@ -259,15 +271,17 @@ public class panel_wodleBoss : Panel_Base
             {
                 long old_rank = Boss_list[i].Item3+rank;
                 Boss_list[i]= (Boss_list[i].Item1, Boss_list[i].Item2, old_rank);
-            }
-            else
-            {
-                Boss_list.Add((SumSave.crt_user.uid, SumSave.crt_hero.hero_name, rank));
+                SumSave.crt_world_boss_rank.lists = Boss_list;
+                //排序
+                Refresh_Rank();
+                return;
             }
         }
-        SumSave.crt_world_boss_rank.lists= Boss_list;
-        //排序
+
+        Boss_list.Add((SumSave.crt_user.uid, SumSave.crt_hero.hero_name, rank));
         Refresh_Rank();
+        return;
+
     }
 
 }

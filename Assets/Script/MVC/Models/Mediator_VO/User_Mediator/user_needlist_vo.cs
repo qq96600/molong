@@ -36,7 +36,7 @@ public class user_needlist_vo : Base_VO
     /// <summary>
     /// 0.小世界体力(0.当前体力1.最大体力)
     /// </summary>
-    public List<List<string>> user_value_list;
+    public List<List<string>> user_value_list=new List<List<string>>();
 
 
     public string user_value;
