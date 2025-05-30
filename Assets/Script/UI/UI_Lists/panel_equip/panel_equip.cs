@@ -152,7 +152,7 @@ public class panel_equip : Panel_Base
             SumSave.crt_bag.Remove(crt_bag.Data);
             Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.bag_value, SumSave.crt_bag);
             Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user, SumSave.crt_user_unit.Set_Uptade_String(), SumSave.crt_user_unit.Get_Update_Character());
-
+            SellingSellingEquipmentTask();
         }
         Refresh();
     }

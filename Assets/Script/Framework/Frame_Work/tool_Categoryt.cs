@@ -236,9 +236,14 @@ public class tool_Categoryt : MonoBehaviour
     /// <param name="index"></param>
     public static void Base_Task(int index)
     {
+
         if (SumSave.crt_greenhand.crt_task == index)//完成当前任务开启下个任务
         {
-            SumSave.crt_greenhand.crt_progress++;
+            if(SumSave.crt_greenhand.crt_progress<SumSave.GreenhandGuide_TotalTasks[index].progress)
+            {
+                SumSave.crt_greenhand.crt_progress++;
+            }
+            
         }
     }
 

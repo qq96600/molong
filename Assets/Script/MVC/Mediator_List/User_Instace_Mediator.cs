@@ -40,7 +40,8 @@ namespace MVC
                 NotiList.Read_Mail,
                 NotiList.Read_Crate_IPhone_logoff,
                 NotiList.Read_Crate_world_boss_Login,
-                NotiList.Read_Crate_world_boss_update
+                NotiList.Read_Crate_world_boss_update,
+                NotiList.Read_Crate_RecordAndClearWorldBoss,
             };
 
         }
@@ -68,6 +69,9 @@ namespace MVC
                     break;
                 case NotiList.Read_Crate_world_boss_update:
                     user.Read_Crate_world_boss_update();
+                    break;
+                case NotiList.Read_Crate_RecordAndClearWorldBoss:
+                    user.Read_Crate_RecordAndClearWorldBoss();
                     break;
                 case NotiList.User_Login:
                     user.User_Login();
