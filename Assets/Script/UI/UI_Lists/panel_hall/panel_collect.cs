@@ -168,7 +168,7 @@ public class panel_collect : Base_Mono
                 {
                     string[] info = item.user_value.Split(' ');
 
-                    if (item.Name == crt_collect.Name&&info[2]=="7")
+                    if (item.Name == crt_collect.Name&&int.Parse( info[2])>=7)
                     {
                         SumSave.crt_bag.Remove(item);
                         SumSave.crt_collect.collect_complete(crt_collect.Name);//收集完成

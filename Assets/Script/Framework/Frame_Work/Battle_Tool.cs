@@ -680,6 +680,9 @@ public static class Battle_Tool
             base_crt.Monster_Lv = 4;
             coefficient = 1;
         }
+
+        //base_crt.Monster_Lv = 2;
+
         base_crt.show_name = crt.show_name;
         base_crt.index = crt.index;
         base_crt.Lv = crt.Lv;

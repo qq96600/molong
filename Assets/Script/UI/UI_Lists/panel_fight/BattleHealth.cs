@@ -134,6 +134,7 @@ namespace MVC
             if (monster.Data.Monster_Lv != 1)
             {
                 number = Random.Range(2, 5);
+
                 if (monster.Data.Monster_Lv == 3)
                 {
                     SumSave.crt_achievement.increase_date_Exp((Achieve_collect.击杀Boss).ToString(), 1);
@@ -145,9 +146,9 @@ namespace MVC
                 {
                     Combat_statistics.AddEliteNumber();
                 }
-                SumSave.crt_user_unit.verify_data(currency_unit.历练, monster.Data.Point);
+                SumSave.crt_user_unit.verify_data(currency_unit.历练,1 );//monster.Data.Point
                 transform.parent.parent.parent.SendMessage("show_battle_info",
-                "击杀 " + monster.Data.show_name + " 获得 " + monster.Data.Point + "历练");
+                "击杀 " + monster.Data.show_name + " 获得 " + "1"+ "历练");//monster.Data.Point 
             }
             Game_Omphalos.i.GetQueue(
                         Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user, SumSave.crt_user_unit.Set_Uptade_String(), SumSave.crt_user_unit.Get_Update_Character());
