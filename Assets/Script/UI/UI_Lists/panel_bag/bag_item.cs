@@ -38,7 +38,7 @@ public class bag_item : Base_Mono
                 }
                 else
                 {
-                    lv++;
+                    //lv++;
                     item_frame.sprite = UI.UI_Manager.I.GetEquipSprite("frame/", "5");
                     item_frame.color = Color.white;
                     Instantiate(Resources.Load<GameObject>("Prefabs/frame/" + lv), item_frame.transform);
