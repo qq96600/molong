@@ -157,12 +157,13 @@ public class plant_achievement : Base_Mono
 
             Battle_Tool.Obtain_Resources(reward, int.Parse(temp[2]));//获得奖励
             Alert_Dec.Show("领取 " + reward+"X"+ temp[2]+" 成功");
-            CompleteTheAchievementCollectionTask();
+          
         }
         else if (int.Parse(temp[0]) == 1)
         {
             Alert_Dec.Show("获得 "+(enum_skill_attribute_list)(int.Parse(temp[1]))+"+"+temp[2]); 
         }
+        CompleteTheAchievementCollectionTask();
         show_offect.gameObject.SetActive(false);
         crt_achieve_Item.Init(); 
     }

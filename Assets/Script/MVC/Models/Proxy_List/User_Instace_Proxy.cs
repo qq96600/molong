@@ -116,7 +116,7 @@ namespace MVC
 
 
         /// <summary>
-        /// 获得世界boos进度
+        /// 获得世界boss进度
         /// </summary>
         /// <param name="id"></param>
         public void Read_Crate_world_boss_Login()
@@ -142,8 +142,18 @@ namespace MVC
                     SumSave.db_world_boos.InitFinalDamage(long.Parse(mysqlReader.GetString(mysqlReader.GetOrdinal("maxhp"))));
                     SumSave.db_world_boos.number= mysqlReader.GetInt32(mysqlReader.GetOrdinal("number")); 
                     SumSave.db_world_boos.DamageLevel_value=mysqlReader.GetString(mysqlReader.GetOrdinal("DamageLevel"));
+                    SumSave.db_world_boos.UpTime = mysqlReader.GetDateTime(mysqlReader.GetOrdinal("UpTime"));
                     SumSave.db_world_boos.Init();
                 }
+            }else
+            {
+                SumSave.db_world_boos.name = "墟界法王";
+                SumSave.db_world_boos.number = 1;
+                SumSave.db_world_boos.InitFinalDamage(SumSave.db_world_boos.BossHpBasic* SumSave.db_world_boos.number);
+                SumSave.db_world_boos.DamageLevel_value = "1 1|2 3000|3 6000|4 10000|5 20000|6 35000|7 100000|8 200000";
+                SumSave.db_world_boos.UpTime = SumSave.nowtime;
+                SumSave.db_world_boos.Init();
+
             }
             CloseMySqlDB();
         }
@@ -206,6 +216,33 @@ namespace MVC
             password += (password == "" ? "" : " ") + crt_verify;
             PlayerPrefs.SetString(BaseUserID, password);
         }
+
+        /// <summary>
+        /// 记录并清空世界boss伤害
+        /// </summary>
+        public void Read_Crate_RecordAndClearWorldBoss()
+        {
+            RecordAndClearWorldBoss();
+        }
+
+        /// <summary>
+        /// 记录并清空世界boss伤害
+        /// </summary>
+        private void RecordAndClearWorldBoss()
+        {
+            OpenMySqlDB();
+            for (int i = 0; i < SumSave.db_world_boss_hurt.Count; i++)
+            {
+                Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.history_world_boss, SumSave.db_world_boss_hurt[i].Set_Instace_String());
+                MysqlDb.DeleteContents(Mysql_Table_Name.user_world_boss.ToString());
+            }
+            CloseMySqlDB();
+        }
+
+
+
+
+
 
         public void Read_Crate_Uid(string[] id)
         {

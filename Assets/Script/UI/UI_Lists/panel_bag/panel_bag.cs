@@ -143,10 +143,21 @@ public class panel_bag : Panel_Base
             }
         }
         Alert_Dec.Show("出售成功，获得灵珠 " + moeny);
+        SellingSellingEquipmentTask();
         Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.bag_value, SumSave.crt_bag);
         Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user, SumSave.crt_user_unit.Set_Uptade_String(), SumSave.crt_user_unit.Get_Update_Character());
         SumSave.crt_user_unit.verify_data(currency_unit.灵珠, moeny);
         Show_Bag();
+    }
+
+
+    /// <summary>
+    /// 回收装备任务
+    /// </summary>
+    private void SellingSellingEquipmentTask()
+    {
+        tool_Categoryt.Base_Task(1014);
+        tool_Categoryt.Base_Task(1021);
     }
 
     /// <summary>

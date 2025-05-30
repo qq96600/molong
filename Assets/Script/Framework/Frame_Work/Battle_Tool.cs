@@ -402,8 +402,6 @@ public static class Battle_Tool
         Combat_statistics.AddExp(exp); 
         SumSave.crt_MaxHero.Exp += exp;
         SumSave.crt_hero.hero_Exp += exp;
-        
-       
 
         LevelTask();
         Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_hero,

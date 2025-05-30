@@ -94,6 +94,7 @@ public class panel_role_health : Base_Mono
                 //刷新数据
                 SendNotification(NotiList.Refresh_Max_Hero_Attribute);
             }
+            LevelTask();
             role_Hp.value = health.HP;
             role_Mp.value = health.MP;
             role_internalforceMP.value = health.internalforceMP;
@@ -103,7 +104,32 @@ public class panel_role_health : Base_Mono
             show_point.text = Battle_Tool.FormatNumberToChineseUnit(list[1]) + " " + currency_unit.历练;
         } 
     }
-
+    /// <summary>
+    /// 等级任务
+    /// </summary>
+    private static void LevelTask()
+    {
+        if (SumSave.crt_hero.hero_Lv >= 10)
+        {
+            tool_Categoryt.Base_Task(1024);
+        }
+        if (SumSave.crt_hero.hero_Lv >= 15)
+        {
+            tool_Categoryt.Base_Task(1036);
+        }
+        if (SumSave.crt_hero.hero_Lv >= 20)
+        {
+            tool_Categoryt.Base_Task(1040);
+        }
+        if (SumSave.crt_hero.hero_Lv >= 30)
+        {
+            tool_Categoryt.Base_Task(1062);
+        }
+        if (SumSave.crt_hero.hero_Lv >= 40)
+        {
+            tool_Categoryt.Base_Task(1084);
+        }
+    }
 
 
 }
