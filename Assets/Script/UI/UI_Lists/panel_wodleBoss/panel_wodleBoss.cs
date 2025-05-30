@@ -122,7 +122,7 @@ public class panel_wodleBoss : Panel_Base
         if (boss_number >= boss_number_max)
         {
             Alert_Dec.Show("挑战次数不足");
-            //return;
+            return;
         }
         IncreaseFrequency();
         long hurt=Random.Range(SumSave.crt_MaxHero.totalPower*50/100, SumSave.crt_MaxHero.totalPower * 60 / 100);//每次挑战根据战力50%-60%随机伤害
