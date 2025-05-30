@@ -142,7 +142,7 @@ namespace MVC
                     SumSave.db_world_boos.InitFinalDamage(long.Parse(mysqlReader.GetString(mysqlReader.GetOrdinal("maxhp"))));
                     SumSave.db_world_boos.number= mysqlReader.GetInt32(mysqlReader.GetOrdinal("number")); 
                     SumSave.db_world_boos.DamageLevel_value=mysqlReader.GetString(mysqlReader.GetOrdinal("DamageLevel"));
-                    SumSave.db_world_boos.UpTime = mysqlReader.GetDateTime(mysqlReader.GetOrdinal("UpTime"));
+                    SumSave.db_world_boos.UpTime = mysqlReader.GetString(mysqlReader.GetOrdinal("UpTime"));
                     SumSave.db_world_boos.Init();
                 }
             }else
@@ -151,7 +151,7 @@ namespace MVC
                 SumSave.db_world_boos.number = 1;
                 SumSave.db_world_boos.InitFinalDamage(SumSave.db_world_boos.BossHpBasic* SumSave.db_world_boos.number);
                 SumSave.db_world_boos.DamageLevel_value = "1 1|2 3000|3 6000|4 10000|5 20000|6 35000|7 100000|8 200000";
-                SumSave.db_world_boos.UpTime = SumSave.nowtime;
+                SumSave.db_world_boos.UpTime = SumSave.nowtime.ToString("yyyy-MM-dd HH:mm:ss");
                 SumSave.db_world_boos.Init();
 
             }

@@ -30,7 +30,7 @@ public class db_world_boos : Base_VO
     /// <summary>
     /// 最后一个玩家挑战的时间
     /// </summary>
-    public DateTime UpTime=DateTime.Now;
+    public string UpTime;
     /// <summary>
     /// 世界boss血量基准值
     /// </summary>
@@ -75,7 +75,7 @@ public class db_world_boos : Base_VO
     public void Set(long finalDamage)
     {
         maxHp -= finalDamage;
-        UpTime = SumSave.nowtime;
+        UpTime = SumSave.nowtime.ToString("yyyy-MM-dd HH:mm:ss");
     }
     
     /// <summary>
