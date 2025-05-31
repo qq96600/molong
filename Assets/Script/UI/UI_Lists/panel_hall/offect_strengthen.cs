@@ -173,7 +173,11 @@ public class offect_strengthen : Base_Mono
     /// <param name="data"></param>
     private void Select_Strengthen(bag_item data)
     {
-        crt_bag = data;
+        if(data!=null)
+        {
+            crt_bag = data;
+        }
+       
         ClearObject(pos_icon);
         Instantiate(bag_item_Prefabs, pos_icon).Data = data.Data;
         string[] infos = crt_bag.Data.user_value.Split(' ');
