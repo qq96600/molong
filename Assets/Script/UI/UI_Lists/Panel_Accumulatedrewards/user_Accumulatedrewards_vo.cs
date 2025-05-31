@@ -37,7 +37,15 @@ public class user_Accumulatedrewards_vo : Base_VO
                 string[] str2 = str1[1].Split(';');
                 for (int j = 0; j < str2.Length; j++)
                 { 
-                    accumulated_rewards[int.Parse(str1[0])].Add(int.Parse(str2[j]));
+                    if(j==0)
+                    {
+                        accumulated_rewards[int.Parse(str1[0])][j]= int.Parse(str2[j]);
+                    }
+                    else
+                    {
+                        accumulated_rewards[int.Parse(str1[0])].Add(int.Parse(str2[j]));
+                    }
+                    
                 }
             }
         }
