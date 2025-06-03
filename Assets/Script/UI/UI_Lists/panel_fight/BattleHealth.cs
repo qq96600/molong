@@ -21,7 +21,11 @@ namespace MVC
         public float maxHP, HP, maxMP, MP, add_hp = 0;
 
         public float internalforceMP, EnergyMp, internalforcemaxMP, EnergymaxMp;
-        
+
+        /// <summary>
+        /// 战斗信息
+        /// </summary>
+        public  panel_fight panel_fight;
         /// <summary>
         /// 战斗位置
         /// </summary>
@@ -35,6 +39,7 @@ namespace MVC
             MP = maxMP;
             internalforceMP = internalforcemaxMP;
             EnergyMp = EnergymaxMp;
+            panel_fight = transform.parent.parent.parent.GetComponent<panel_fight>();
         }
         public void Clear()
         {
@@ -149,6 +154,13 @@ namespace MVC
 
                     SumSave.crt_pass.day_state[2]++;
                 }
+            
+               if (panel_fight.isMapType4())
+                {
+                    SumSave.crt_pass.day_state[4]++;
+                }
+                
+
                 SumSave.crt_user_unit.verify_data(currency_unit.历练,1 );//monster.Data.Point
                 transform.parent.parent.parent.SendMessage("show_battle_info",
                 "击杀 " + monster.Data.show_name + " 获得 " + "1"+ "历练");//monster.Data.Point 

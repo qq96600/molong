@@ -76,19 +76,7 @@ public class panel_wodleBoss : Panel_Base
             }
         }
 
-        if (SumSave.db_world_boos.Get() <= 0)///如果boss死亡超过一天，重置挑战
-        {
-            DateTime date = DateTime.ParseExact(SumSave.db_world_boos.UpTime, "yyyy-MM-dd", null);
-
-            Debug.Log("世界boss重置时间："+(date.Day - SumSave.nowtime.Day));
-            if (SumSave.nowtime.Day- date .Day>= 1)
-            {
-                SumSave.db_world_boos.number++;
-                SumSave.db_world_boos.InitFinalDamage(SumSave.db_world_boos.BossHpBasic * SumSave.db_world_boos.number);
-                SumSave.db_world_boos.UpTime = SumSave.nowtime.ToString();
-                SendNotification(NotiList.Read_Crate_world_boss_update);
-            }
-        }
+      
 
 
         Init();
@@ -167,6 +155,19 @@ public class panel_wodleBoss : Panel_Base
     /// </summary>
     private void Init()
     {
+        if (SumSave.db_world_boos.Get() <= 0)///如果boss死亡，重置挑战
+        {
+            SumSave.db_world_boos.number++;
+            SumSave.db_world_boos.InitFinalDamage(SumSave.db_world_boos.BossHpBasic * SumSave.db_world_boos.number);
+            SumSave.db_world_boos.UpTime = SumSave.nowtime.ToString();
+            SendNotification(NotiList.Read_Crate_world_boss_update);
+
+            SumSave.crt_world_boss_rank.lists = new List<(string, string, long)>();
+            SumSave.crt_world_boss_rank.SetData();
+            Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.user_world_boss_rank,
+            SumSave.crt_world_boss_rank.Set_Uptade_String(), SumSave.crt_world_boss_rank.Get_Update_Character());
+        }
+
         SendNotification(NotiList.Read_Crate_world_boss_Login);
         icon.sprite = Resources.Load<Sprite>("Prefabs/monsters/" + SumSave.db_world_boos.name);
         maxHp = SumSave.db_world_boos.BossHpBasic * SumSave.db_world_boos.number;

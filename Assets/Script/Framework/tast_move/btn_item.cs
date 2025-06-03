@@ -40,6 +40,8 @@ public class btn_item : Base_Mono
         index = _index;
         info.text = dec.ToString();
     }
+
+
     // <summary>
     // 是否激活
     // </summary>

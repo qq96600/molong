@@ -223,7 +223,14 @@ namespace Common
 
             return array;
         }
-
+        /// <summary>
+        /// 升序排列
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="Q"></typeparam>
+        /// <param name="array"></param>
+        /// <param name="condition"></param>
+        /// <returns></returns>
         public static List<T> Ascending<T, Q>(this List<T> array, Func<T, Q> condition) where Q : IComparable
         {
             for (int i = 0; i < array.Count - 1; i++)
