@@ -49,6 +49,7 @@ namespace MVC
             Read_db_Accumulatedrewards();
             Read_Guide_Fate();
             Read_db_vip();
+            Read_db_formula();
             Read_db_world_boss();
             CloseMySqlDB();
         }
@@ -68,6 +69,25 @@ namespace MVC
                 while (mysqlReader.Read())
                 {
                     SumSave.db_world_boss_hurt.Add(ReadDb.Read(mysqlReader, new user_world_boss()));
+                }
+            }
+        }
+
+
+
+
+        /// <summary>
+        /// 读取造化炉合成列表
+        /// </summary>
+        public void Read_db_formula()
+        {
+            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_formula);
+            SumSave.db_formula_list = new List<db_formula_vo>();
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.db_formula_list.Add(ReadDb.Read(mysqlReader, new db_formula_vo()));
                 }
             }
         }

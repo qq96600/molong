@@ -275,7 +275,7 @@ namespace MVC
             }
             PlayerPrefs.SetInt("同意阅读协议", 1);
 #if UNITY_EDITOR
-            SumSave.uid = "DSFSDFSDFSDF3";//"05c8cc2e26234ec0acc690343a598eba";
+            SumSave.uid = "DSFSDFSDFSDF";//"05c8cc2e26234ec0acc690343a598eba";
 
             //SumSave.uid= "d6a5b51fddf94459bb2e80e54c091453";
 

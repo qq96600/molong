@@ -251,9 +251,6 @@ public class panel_store : Base_Mono
                 AddBuff(buy_item,2f,2);
                 break;
             case "上品历练丹":
-
-
-
                 if (SumSave.crt_player_buff.player_Buffs.ContainsKey("下品历练丹"))
                 {
                     Alert_Dec.Show("下品历练丹失效");

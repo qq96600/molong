@@ -12,7 +12,7 @@ using System.IO;
 /// <summary>
 /// 战斗工具类
 /// </summary>
-public static class Battle_Tool 
+public static class Battle_Tool
 {
     /// <summary>
     /// 资源存储器
@@ -24,8 +24,8 @@ public static class Battle_Tool
     /// <param name="resources_name">名称</param>
     /// <param name="number">数量</param>
     /// <param name="isverify">是否取消检测</param>
-    public static void Obtain_Resources( object resources_name,int number,bool isverify = false)
-    { 
+    public static void Obtain_Resources(object resources_name, int number, bool isverify = false)
+    {
         Dictionary<string, int> dic = new Dictionary<string, int>();
         dic.Add(resources_name.ToString(), number);
         SumSave.crt_bag_resources.Get(dic, isverify);
@@ -45,12 +45,12 @@ public static class Battle_Tool
     {
         if (!prefabs.ContainsKey(prefabName))
         {
-            GameObject obj = Resources.Load<GameObject>("Prefabs/prefab/"+prefabName); 
-            prefabs.Add(prefabName,obj);
+            GameObject obj = Resources.Load<GameObject>("Prefabs/prefab/" + prefabName);
+            prefabs.Add(prefabName, obj);
         }
         return prefabs[prefabName].GetComponent<T>();
     }
-    
+
     /// <summary>
     /// 加成属性
     /// </summary>
@@ -302,7 +302,7 @@ public static class Battle_Tool
     /// <param name="unit"></param>
     /// <param name="value"></param>
     /// <param name="state">2为打怪收益</param>
-    public static void Obtain_Unit(currency_unit unit, long value,int state=1)
+    public static void Obtain_Unit(currency_unit unit, long value, int state = 1)
     {
         if (state == 2)
         {
@@ -318,7 +318,7 @@ public static class Battle_Tool
     }
 
 
-  
+
     /// <summary>
     /// 获得宠物
     /// </summary>
@@ -397,16 +397,16 @@ public static class Battle_Tool
     /// <param name="exp"></param>
     public static void Obtain_Exp(long exp)
     {
-        if(ArrayHelper.SafeGet(SumSave.crt_MaxHero.bufflist, (int)enum_skill_attribute_list.经验加成, out int se))
-        exp = (long)(exp * (100 + SumSave.crt_MaxHero.bufflist[(int)enum_skill_attribute_list.经验加成]) / 100);
-        Combat_statistics.AddExp(exp); 
+        if (ArrayHelper.SafeGet(SumSave.crt_MaxHero.bufflist, (int)enum_skill_attribute_list.经验加成, out int se))
+            exp = (long)(exp * (100 + SumSave.crt_MaxHero.bufflist[(int)enum_skill_attribute_list.经验加成]) / 100);
+        Combat_statistics.AddExp(exp);
         SumSave.crt_MaxHero.Exp += exp;
         SumSave.crt_hero.hero_Exp += exp;
 
         Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_hero,
             SumSave.crt_hero.Set_Uptade_String(), SumSave.crt_hero.Get_Update_Character());
     }
-   
+
 
     /// <summary>
     /// 获取加成buff
@@ -440,39 +440,40 @@ public static class Battle_Tool
     /// 获取资源
     /// </summary>
     /// <param name="result"></param>
-    public static void Obtain_result(string result)//进阶奖励1、材料2、灵物3、灵珠4、魔丸5、皮肤6、灵气
+    /// <param name="num">获得多少次该资源</param>
+    public static void Obtain_result(string result,int num=1)//进阶奖励1、材料2、灵物3、灵珠4、魔丸5、皮肤6、灵气
     {
         if (result == "0") return;
-        string[] result_list = result.Split('*');
+        string[] result_list = result.Split('*');//0:资源名字 1:资源数量 2:奖励类型
         switch (int.Parse(result_list[2]))
         {
             case 1://获取资源
-                Obtain_Resources(result_list[0], int.Parse(result_list[1]));
+                BuffAcquisition(result_list,num);
                 break;
             case 2:
-                Obtain_Resources(result_list[0], int.Parse(result_list[1]));
+                Obtain_Resources(result_list[0], int.Parse(result_list[1]) * num);
                 break;
             case 3:
-                SumSave.crt_user_unit.verify_data(currency_unit.灵珠, int.Parse(result_list[1]));
+                SumSave.crt_user_unit.verify_data(currency_unit.灵珠, int.Parse(result_list[1]) * num);
                 break;
             case 4:
-                SumSave.crt_user_unit.verify_data(currency_unit.魔丸, int.Parse(result_list[1]));
+                SumSave.crt_user_unit.verify_data(currency_unit.魔丸, int.Parse(result_list[1]) * num);
                 break;
             case 5:
-                SumSave.crt_hero.hero_value += (SumSave.crt_hero.hero_value == "" ? "" : ",") +result_list[0];
+                SumSave.crt_hero.hero_value += (SumSave.crt_hero.hero_value == "" ? "" : ",") + result_list[0];
                 Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_hero, new string[] { Battle_Tool.GetStr(SumSave.crt_hero.hero_value) },
                     new string[] { "hero_value" });
                 break;
             case 6:
                 if (SumSave.crt_world != null)
                 {
-                    SumSave.crt_world.Set(int.Parse(result_list[1]),false);
+                    SumSave.crt_world.Set(int.Parse(result_list[1]) * num, false);
                     Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_world, SumSave.crt_world.Set_Uptade_String(), SumSave.crt_world.Get_Update_Character());
                 }
                 else Alert_Dec.Show("小世界未激活");
                 break;
             case 7:
-       
+
                 break;
             case 8:
                 break;
@@ -480,6 +481,134 @@ public static class Battle_Tool
                 break;
         }
     }
+
+    /// <summary>
+    /// 获得buff
+    /// </summary>
+    private static void BuffAcquisition(string[] result_list,int num)
+    {
+        switch (result_list[0])
+        {
+            case "1亿灵珠":
+                SumSave.crt_user_unit.verify_data(currency_unit.灵珠, 100000000 * int.Parse(result_list[1])*num);//获得灵珠
+                break;
+            case "2000历练值":
+                SumSave.crt_user_unit.verify_data(currency_unit.历练, 2000 * int.Parse(result_list[1]) * num);
+                break;
+            case "下品历练丹":
+                //添加1.5倍的历练值
+                if (SumSave.crt_player_buff.player_Buffs.ContainsKey("中品历练丹"))
+                {
+                    Alert_Dec.Show("中品历练丹失效");
+                    SumSave.crt_player_buff.player_Buffs.Remove("中品历练丹");
+                }
+                if (SumSave.crt_player_buff.player_Buffs.ContainsKey("上品历练丹"))
+                {
+                    Alert_Dec.Show("上品历练丹失效");
+                    SumSave.crt_player_buff.player_Buffs.Remove("上品历练丹");
+                }
+                AddBuff(result_list[0], 1.5f, 2, int.Parse(result_list[1])*num);
+                break;
+            case "中品历练丹":
+                //添加2倍的历练值
+
+                if (SumSave.crt_player_buff.player_Buffs.ContainsKey("下品历练丹"))
+                {
+                    Alert_Dec.Show("下品历练丹失效");
+                    SumSave.crt_player_buff.player_Buffs.Remove("下品历练丹");
+                }
+                if (SumSave.crt_player_buff.player_Buffs.ContainsKey("上品历练丹"))
+                {
+                    Alert_Dec.Show("上品历练丹失效");
+                    SumSave.crt_player_buff.player_Buffs.Remove("上品历练丹");
+                }
+                AddBuff(result_list[0], 2f, 2, int.Parse(result_list[1]) * num);
+                break;
+            case "上品历练丹":
+                if (SumSave.crt_player_buff.player_Buffs.ContainsKey("下品历练丹"))
+                {
+                    Alert_Dec.Show("下品历练丹失效");
+                    SumSave.crt_player_buff.player_Buffs.Remove("下品历练丹");
+                }
+                if (SumSave.crt_player_buff.player_Buffs.ContainsKey("中品历练丹"))
+                {
+                    Alert_Dec.Show("中品历练丹失效");
+                    SumSave.crt_player_buff.player_Buffs.Remove("中品历练丹");
+                }
+                AddBuff(result_list[0], 3f, 2, int.Parse(result_list[1]) * num);
+                break;
+            case "下品经验丹":
+                //添加1.5倍的经验值
+
+                if (SumSave.crt_player_buff.player_Buffs.ContainsKey("中品经验丹"))
+                {
+                    Alert_Dec.Show("中品经验丹失效");
+                    SumSave.crt_player_buff.player_Buffs.Remove("中品经验丹");
+                }
+                if (SumSave.crt_player_buff.player_Buffs.ContainsKey("上品经验丹"))
+                {
+                    Alert_Dec.Show("上品经验丹失效");
+                    SumSave.crt_player_buff.player_Buffs.Remove("上品经验丹");
+                }
+                AddBuff(result_list[0], 1.5f, 1, int.Parse(result_list[1]) * num);
+                break;
+            case "中品经验丹":
+                //添加2倍的经验值
+
+                if (SumSave.crt_player_buff.player_Buffs.ContainsKey("下品经验丹"))
+                {
+                    Alert_Dec.Show("下品经验丹失效");
+                    SumSave.crt_player_buff.player_Buffs.Remove("下品经验丹");
+                }
+                if (SumSave.crt_player_buff.player_Buffs.ContainsKey("上品经验丹"))
+                {
+                    Alert_Dec.Show("上品经验丹失效");
+                    SumSave.crt_player_buff.player_Buffs.Remove("上品经验丹");
+                }
+                AddBuff(result_list[0], 2f, 1, int.Parse(result_list[1]) * num);
+                break;
+            case "上品经验丹":
+
+                if (SumSave.crt_player_buff.player_Buffs.ContainsKey("下品经验丹"))
+                {
+                    Alert_Dec.Show("下品经验丹失效");
+                    SumSave.crt_player_buff.player_Buffs.Remove("下品经验丹");
+                }
+                if (SumSave.crt_player_buff.player_Buffs.ContainsKey("中品经验丹"))
+                {
+                    Alert_Dec.Show("中品经验丹失效");
+                    SumSave.crt_player_buff.player_Buffs.Remove("中品经验丹");
+                }
+
+                AddBuff(result_list[0], 3f, 1,int.Parse(result_list[1]) * num);
+                break;
+            default:
+                Obtain_Resources(result_list[0], int.Parse(result_list[1]) * num);//获取奖励
+                break;
+        }
+    }
+    /// <summary>
+    /// 添加BUff
+    /// </summary>
+    private static void AddBuff(string _buy_item, float effect, int icon ,int buy_num = 1)
+    {
+        if (SumSave.crt_player_buff.player_Buffs.ContainsKey(_buy_item))
+        {
+            SumSave.crt_player_buff.player_Buffs[_buy_item] =
+                (SumSave.crt_player_buff.player_Buffs[_buy_item].Item1,
+                SumSave.crt_player_buff.player_Buffs[_buy_item].Item2 + (60 * buy_num)
+                , effect, icon);//当有时，增加buff时间
+        }
+        else
+        {
+            SumSave.crt_player_buff.player_Buffs.Add(_buy_item, (SumSave.nowtime, 60 * buy_num, effect, icon));
+        }
+        Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.user_player_buff, SumSave.crt_player_buff.Set_Uptade_String(), SumSave.crt_player_buff.Get_Update_Character());//角色丹药Buff更新数据库
+    }
+
+
+
+
 
     public static void tool_item()
     {

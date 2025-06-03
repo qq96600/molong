@@ -18,4 +18,5 @@ public enum Main_List
     panel_fatePalace,//命运殿堂
     panel_vip,//vip
     world_Boss,//世界boss
+    Chemical_furnace,//造化炉
 }
