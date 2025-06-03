@@ -257,7 +257,7 @@ public class panel_skill : Panel_Base
     private void Open_Select_Btn()
     {
         if (user_skill.Data.skill_max_lv > user_skill.Data.skilllv) btn_item_dic[skill_Offect_btn_list.升级].gameObject.SetActive(true);
-        if ((skill_btn_list)user_skill.Data.skill_type != skill_btn_list.秘笈) btn_item_dic[skill_Offect_btn_list.上阵].gameObject.SetActive(true);
+        if ((skill_btn_list)user_skill.Data.skill_type != skill_btn_list.特殊) btn_item_dic[skill_Offect_btn_list.上阵].gameObject.SetActive(true);
         if ((skill_btn_list)user_skill.Data.skill_type == skill_btn_list.战斗) btn_item_dic[skill_Offect_btn_list.分配].gameObject.SetActive(true);
 
     }
@@ -316,7 +316,7 @@ public class panel_skill : Panel_Base
                 dec += (enum_attribute_list)user_skill.Data.skill_open_type[i] + " + " + (user_skill.Data.skill_open_value[i] * lv / user_skill.Data.skill_max_lv) + "\n";
             }
         }
-        if (user_skill.Data.skill_pos_type.Count > 0 && (skill_btn_list)user_skill.Data.skill_type != skill_btn_list.秘笈)
+        if (user_skill.Data.skill_pos_type.Count > 0 && (skill_btn_list)user_skill.Data.skill_type != skill_btn_list.战斗)
         {
             dec += Show_Color.Yellow("上阵特效 \n");
             for (int i = 0; i < user_skill.Data.skill_pos_type.Count; i++)

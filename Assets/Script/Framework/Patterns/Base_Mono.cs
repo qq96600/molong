@@ -171,8 +171,6 @@ namespace MVC
                             case currency_unit.魔丸:
                             case currency_unit.离线积分:
                                 SumSave.crt_user_unit.verify_data((currency_unit)i, -currency_unit_list[i]);
-                                Game_Omphalos.i.GetQueue(
-                       Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user, SumSave.crt_user_unit.Set_Uptade_String(), SumSave.crt_user_unit.Get_Update_Character());
                                 break;
                             case currency_unit.灵气:
                                 SumSave.crt_world.Set(-(int)currency_unit_list[i], false);

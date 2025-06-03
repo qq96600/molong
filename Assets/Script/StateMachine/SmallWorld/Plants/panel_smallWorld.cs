@@ -249,7 +249,7 @@ public class panel_smallWorld : Panel_Base
         dec += "灵气 ：" + Obtain_Init(1,time,int.Parse(list[1])) + "(Max" + Obtain_Init(2) + ")\n";
         dec += "每分钟可获得 ：" + SumSave.db_lvs.world_offect_list[SumSave.crt_world.World_Lv]+  "灵气\n";
         dec += "历练获得 :" + (SumSave.crt_world.World_Lv * 10) + "%\n";
-        dec += "最大庄园数量 :" + (SumSave.crt_world.World_Lv / 5 +3) + "个\n";
+        dec += "最大种植数量 :" + (SumSave.crt_world.World_Lv / 5 +3) + "个\n";
         dec += "最大宠物数量 :" + (SumSave.crt_world.World_Lv / 10 + 1) + "个\n";
         dec += "宠物探险数量 :" + (SumSave.crt_world.World_Lv / 30 + 1) + "个\n";
         dec += "宠物探险时长 :" + (SumSave.crt_world.World_Lv * 2 + 5) + "小时\n";

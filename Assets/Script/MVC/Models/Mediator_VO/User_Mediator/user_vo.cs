@@ -63,7 +63,6 @@ public class user_vo : Base_VO
             }
             else Game_Omphalos.i.Delete(_index + " 显示数据 " + list[i] + " 验证值 " + index + " " + verify_list[i]);
         }
-
         switch (_index)
         {
             case currency_unit.灵珠:
@@ -79,6 +78,7 @@ public class user_vo : Base_VO
 
                 list[0] += value;
                 verify_list[0] += value;
+                MysqlData();
                 break;
             case currency_unit.历练:
                 if (value >= SumSave.base_setting[0])
@@ -91,6 +91,7 @@ public class user_vo : Base_VO
                     list[1] += value;
                     verify_list[1] += value;
                 }
+                MysqlData();
                 return;
             case currency_unit.魔丸:
                 if (value >= SumSave.base_setting[1]) Game_Omphalos.i.Delete("获得" + (currency_unit)_index + value);
@@ -99,6 +100,7 @@ public class user_vo : Base_VO
                     list[2] += value;
                     verify_list[2] += value;
                 }
+                MysqlData();
                 return;
             case currency_unit.离线积分://单次获得离线积分获取最高7440
                 if (value >=10000) Game_Omphalos.i.Delete("获得" + (currency_unit)_index + value);
@@ -107,11 +109,19 @@ public class user_vo : Base_VO
                     list[3] += value;
                     verify_list[3] += value;
                 }
+                MysqlData();
                 return;
         }
         
     }
 
+    public override void MysqlData()
+    {
+        base.MysqlData();
+
+        Game_Omphalos.i.GetQueue(
+                       Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user, SumSave.crt_user_unit.Set_Uptade_String(), SumSave.crt_user_unit.Get_Update_Character());
+    }
     public override string[] Get_Update_Character()
     {
         return new string[] { "value" };

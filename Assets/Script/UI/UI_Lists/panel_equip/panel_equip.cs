@@ -138,10 +138,12 @@ public class panel_equip : Panel_Base
             string[] info_str = crt_bag.Data.user_value.Split(' ');
             if (info_str.Length >= 6)
             {
-                crt_bag.Data.user_value = crt_bag.Data.user_value.Replace(info_str[5], info_str[5] == "0" ? "1" : "0");
+                info_str[5] = info_str[5] == "1" ? "0" : "1";
+                crt_bag.Data.user_value = Battle_Tool.Equip_User_Value(info_str);
+                Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.bag_value, SumSave.crt_bag);
             }
-           
-            Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.bag_value, SumSave.crt_bag);
+            else Alert_Dec.Show("装备品质过低,无法锁定");
+
         }
         else
          if (index == 2)
@@ -151,7 +153,6 @@ public class panel_equip : Panel_Base
             Alert_Dec.Show("出售成功 获得灵珠" + moeny);
             SumSave.crt_bag.Remove(crt_bag.Data);
             Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.bag_value, SumSave.crt_bag);
-            Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user, SumSave.crt_user_unit.Set_Uptade_String(), SumSave.crt_user_unit.Get_Update_Character());
             SellingSellingEquipmentTask();
         }
         Refresh();
