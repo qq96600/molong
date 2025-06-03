@@ -487,6 +487,19 @@ public class panel_fight : Panel_Base
         map_name.text = select_map.map_name + "(" + crt_monster_number + "/" + maxnumber + ")";
     }
     /// <summary>
+    /// 判断当前地图是否为深渊地图
+    /// </summary>
+    public  bool isMapType4()
+    {
+        if(select_map.map_type==4)
+        {
+            return true;
+        }
+        return false;
+    }
+
+
+    /// <summary>
     /// 显示战斗信息
     /// </summary>
     /// <param name="str"></param>
