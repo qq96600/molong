@@ -141,8 +141,6 @@ public class panel_collect : Base_Mono
 
             if ( !SumSave.crt_collect.user_collect_dic.ContainsKey(crt_collect.Name)|| SumSave.crt_collect.user_collect_dic[crt_collect.Name] == 0)
             {
-
-
                 List<Bag_Base_VO> sell_list = new List<Bag_Base_VO>();
                 foreach (Bag_Base_VO item in SumSave.crt_bag)
                 {
@@ -179,8 +177,7 @@ public class panel_collect : Base_Mono
                     }
                   
                 }
-                Alert_Dec.Show("该装备被锁定，或背包没有该绝世品阶装备：" + crt_collect.Name);
-
+                Alert.Show("收集失败", "该装备被锁定，或背包没有该绝世品阶装备：" + crt_collect.Name);
                 ////查找背包是否有该物品
                 //NeedConsumables(crt_collect.Name, 1);
                 //if (RefreshConsumables())

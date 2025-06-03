@@ -1128,7 +1128,6 @@ namespace MVC
                         Debug.LogWarning($"未找到成就: {achievementName}");
                     }
                 }
-            
             }
                 //添加技能效果
             foreach (base_skill_vo skill in SumSave.crt_skills)
@@ -1137,9 +1136,6 @@ namespace MVC
                 {
                     for (int i = 0; i < skill.skill_open_type.Count; i++)
                     {
-                        //技能属性根据等级提升
-                        //skill.skill_open_value[i] += int.Parse(skill.user_values[1])* skill.skill_power;
-
                         Enum_Value(crt, skill.skill_open_type[i], skill.skill_open_value[i] * int.Parse(skill.user_values[1]) / skill.skill_max_lv);//根据技能属性类型，加成属性
                     }
                 }
@@ -1147,7 +1143,7 @@ namespace MVC
                 {
                     for (int i = 0; i < skill.skill_pos_type.Count; i++)
                     {
-                        if (int.Parse(skill.user_values[3]) > 0)
+                        if (int.Parse(skill.user_values[2]) > 0)
                         {
                             Enum_Value(crt, skill.skill_pos_type[i], skill.skill_pos_value[i] * int.Parse(skill.user_values[1]) / skill.skill_max_lv);
                         }

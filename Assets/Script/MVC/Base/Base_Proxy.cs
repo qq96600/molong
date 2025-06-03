@@ -135,10 +135,9 @@ namespace MVC
                             default: break;
                         }
                         wirtes[i].exist = false;
-                        Base_Wirte_VO wirte = wirtes[i];
-                        wirtes.RemoveAt(i);
-                        wirtes.Add(wirte);
-                        return;
+                        //Base_Wirte_VO wirte = wirtes[i];
+                        //wirtes.RemoveAt(i);
+                        //wirtes.Add(wirte);
                     }
                 }
                

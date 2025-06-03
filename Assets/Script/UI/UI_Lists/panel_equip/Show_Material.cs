@@ -158,6 +158,7 @@ public class Show_Material : Base_Mono
         switch ((EquipConfigTypeList)Enum.Parse(typeof(EquipConfigTypeList), bag.StdMode))
         {
             case EquipConfigTypeList.秘笈:
+
             case EquipConfigTypeList.宠物技能:
             case EquipConfigTypeList.战斗技能:
             case EquipConfigTypeList.特殊技能:

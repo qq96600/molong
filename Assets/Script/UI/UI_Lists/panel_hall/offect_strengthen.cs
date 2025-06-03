@@ -71,7 +71,8 @@ public class offect_strengthen : Base_Mono
         NeedConsumables(currency_unit.灵珠, needs[lv]);
         if (RefreshConsumables())
         {
-            crt_bag.Data.user_value = crt_bag.Data.user_value.Replace(infos[1], (lv + 1).ToString());
+            infos[1]= (lv + 1).ToString();
+            crt_bag.Data.user_value = Battle_Tool.Equip_User_Value(infos);// crt_bag.Data.user_value.Replace(infos[1], (lv + 1).ToString());
             Select_Strengthen(crt_bag);
             if (index == 0)
             {

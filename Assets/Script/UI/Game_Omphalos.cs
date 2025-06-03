@@ -60,7 +60,7 @@ namespace MVC
         /// </summary>
         private int performTime=0;
         /// <summary>
-        /// 写入数据 每1s写入一次
+        /// 写入数据 每10s写入一次
         /// </summary>
         private void CountTime()
         {
@@ -70,14 +70,16 @@ namespace MVC
                 Combat_statistics.Time();
                 panel_fight.Show_Combat_statistics();
             }
-            if (performTime==60)
+
+            if ((performTime) % 3 == 0)
+                SendNotification(NotiList.Execute_Write, wirtes);
+
+            if (performTime>=60)
             {
                 performTime = 0;
-                
                 SumSave.crt_achievement.increase_date_Exp((Achieve_collect.在线时间).ToString(), 1);
                  SumSave.crt_pass.day_state[0] += 1;
             }
-            SendNotification(NotiList.Execute_Write, wirtes);
         }
         /// <summary>
         /// 每10分钟刷新一次排行榜
