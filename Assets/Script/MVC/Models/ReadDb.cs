@@ -13,7 +13,7 @@ public static class ReadDb
 
     public static db_formula_vo Read(MySqlDataReader reader, db_formula_vo item)
     {
-       item.formula_type= reader.GetString(reader.GetOrdinal("formula_type"));
+       item.formula_type= reader.GetInt32(reader.GetOrdinal("formula_type"));
         item.formula_result= reader.GetString(reader.GetOrdinal("formula_result"));
         item.formula_need= reader.GetString(reader.GetOrdinal("formula_need"));
         item.Init();

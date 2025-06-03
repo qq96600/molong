@@ -9,7 +9,7 @@ public class db_formula_vo : Base_VO
     /// <summary>
     /// 合成类型（1.单个合成，2.选择数量合成）
     /// </summary>
-    public string formula_type;
+    public int formula_type;
 
     /// <summary>
     /// 合成的物品

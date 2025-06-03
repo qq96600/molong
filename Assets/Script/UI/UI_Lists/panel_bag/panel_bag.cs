@@ -101,13 +101,45 @@ public class panel_bag : Panel_Base
         switch (function_list[btn_item.index])
         { 
             case "一键分解":
-                Alert_Dec.Show("未查询到满足分解条件的物品");
+                break_down();
                 break;
             case "一键出售":
                 SellAll();
                 break;
         }
     }
+    /// <summary>
+    /// 分解
+    /// </summary>
+    private void break_down()
+    {
+        List<Bag_Base_VO> sell_list = new List<Bag_Base_VO>();
+        foreach (Bag_Base_VO item in SumSave.crt_bag)
+        {
+            if (item.user_value != null)
+            {
+                string[] info_str = item.user_value.Split(' ');
+                if (info_str.Length >= 6)
+                {
+                    if (int.Parse( info_str[2])>=7 && info_str[5] == "0")
+                    {
+                        sell_list.Add(item);
+                    }
+                }
+            }
+        }
+        if (sell_list.Count > 0)
+        {
+            foreach (Bag_Base_VO item in sell_list)
+            {
+                SumSave.crt_bag.Remove(item);
+            }
+            Battle_Tool.Obtain_Resources("绝世碎片", sell_list.Count * 2);
+            Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.bag_value, SumSave.crt_bag);
+            Show_Bag();
+        }
+    }
+
     /// <summary>
     /// 全部出售
     /// </summary>
@@ -145,7 +177,6 @@ public class panel_bag : Panel_Base
         Alert_Dec.Show("出售成功，获得灵珠 " + moeny);
         SellingSellingEquipmentTask();
         Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.bag_value, SumSave.crt_bag);
-        Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user, SumSave.crt_user_unit.Set_Uptade_String(), SumSave.crt_user_unit.Get_Update_Character());
         SumSave.crt_user_unit.verify_data(currency_unit.灵珠, moeny);
         Show_Bag();
     }
@@ -235,6 +266,7 @@ public class panel_bag : Panel_Base
         switch (crt_select_btn)
         {
             case bag_btn_list.装备:
+                ArrayHelper.OrderDescding(SumSave.crt_bag,e=>int.Parse( e.user_value.Split(' ')[2]));
                 for (int i = 0; i < SumSave.crt_bag.Count; i++)
                 {
                     bag_item item = Instantiate(bag_item_Prefabs, crt_bag);

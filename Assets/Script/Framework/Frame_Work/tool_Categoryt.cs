@@ -460,8 +460,7 @@ public class tool_Categoryt : MonoBehaviour
             }
         }
         else
-        { 
-        
+        {
         }
         //是否可以锁定
         user_value += " " + 0;

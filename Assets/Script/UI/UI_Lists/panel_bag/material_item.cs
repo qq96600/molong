@@ -18,12 +18,33 @@ public class material_item : Base_Mono
     /// 炼丹材料
     /// </summary>
     private (string, List<string>) data_seed;
+    /// <summary>
+    /// 存储数据
+    /// </summary>
+    private object base_data;
     private void Awake()
     {
         item_icon = Find<Image>("icon");
         item_frame = GetComponent<Image>();
         base_info= Find<Text>("base_info");
     }
+    ///// <summary>
+    ///// 存储数据
+    ///// </summary>
+    ///// <typeparam name="T"></typeparam>
+    ///// <param name="value"></param>
+    //public void Init<T>(T value)
+    //{
+    //    base_data = value;
+    //}
+    ///// <summary>
+    ///// 读取数据
+    ///// </summary>
+    ///// <returns></returns>
+    //public object GetItemData()
+    //{
+    //    return base_data;
+    //}
     /// <summary>
     /// 初始化
     /// </summary>

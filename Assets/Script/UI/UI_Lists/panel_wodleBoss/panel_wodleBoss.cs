@@ -79,15 +79,12 @@ public class panel_wodleBoss : Panel_Base
         if (SumSave.db_world_boos.Get() <= 0)///如果boss死亡超过一天，重置挑战
         {
             DateTime date = DateTime.ParseExact(SumSave.db_world_boos.UpTime, "yyyy-MM-dd", null);
+            SumSave.db_world_boos.number++;
+            SumSave.db_world_boos.InitFinalDamage(SumSave.db_world_boos.BossHpBasic * SumSave.db_world_boos.number);
+            SumSave.db_world_boos.UpTime = SumSave.nowtime.ToString();
 
-            Debug.Log("世界boss重置时间："+(date.Day - SumSave.nowtime.Day));
-            if (SumSave.nowtime.Day- date .Day>= 1)
-            {
-                SumSave.db_world_boos.number++;
-                SumSave.db_world_boos.InitFinalDamage(SumSave.db_world_boos.BossHpBasic * SumSave.db_world_boos.number);
-                SumSave.db_world_boos.UpTime = SumSave.nowtime.ToString();
-                SendNotification(NotiList.Read_Crate_world_boss_update);
-            }
+            SendNotification(NotiList.Read_Crate_world_boss_update);
+             
         }
 
 

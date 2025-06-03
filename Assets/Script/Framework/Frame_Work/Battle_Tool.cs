@@ -443,7 +443,15 @@ public static class Battle_Tool
         }
         return base_value;
     }
-
+    /// <summary>
+    /// 获取奖励 分解式
+    /// </summary>
+    /// <param name="result"></param>
+    /// <param name="num"></param>
+    public static void Obtain_result((string,int,int) result, int num = 1)//进阶奖励1、材料2、灵物3、灵珠4、魔丸5、皮肤6、灵气
+    {
+        Obtain_result(result.Item1+"*"+result.Item2+"*"+result.Item3, num);
+    }
     /// <summary>
     /// 获取资源
     /// </summary>
