@@ -127,14 +127,14 @@ public class Chemical_furnace : Base_Mono
                 for (int j = 0; j < SumSave.db_formula_list[i].formula_need_list.Count; j++)
                 {
                     NeedConsumables(SumSave.db_formula_list[i].formula_need_list[j].Item1, SumSave.db_formula_list[i].formula_need_list[j].Item2* buy_num);
-                    if (RefreshConsumables())
-                    {
-                        Battle_Tool.Obtain_result(synthesis_item.Item1,buy_num);
-                        Alert.Show("合成成功", "获得物品"+ synthesis_item.Item1+"*"+ synthesis_item.Item2*buy_num);
-                    }
+                   
                 }
 
-
+                if (RefreshConsumables())
+                {
+                    Battle_Tool.Obtain_result(synthesis_item.Item1, buy_num);
+                    Alert.Show("合成成功", "获得物品" + synthesis_item.Item1 + "*" + synthesis_item.Item2 * buy_num);
+                }
             }
         }
 
