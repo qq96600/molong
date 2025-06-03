@@ -50,7 +50,15 @@ public static class Battle_Tool
         }
         return prefabs[prefabName].GetComponent<T>();
     }
-
+    public static string Equip_User_Value(string[] infos)
+    {
+        string user_value = "";
+        for(int i= 0; i < infos.Length; i++)
+        {
+            user_value+=(user_value == "" ? "" : ",") + infos[i];
+        }
+        return user_value;
+    }
     /// <summary>
     /// 加成属性
     /// </summary>
