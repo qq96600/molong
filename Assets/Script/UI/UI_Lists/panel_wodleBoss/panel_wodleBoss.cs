@@ -42,7 +42,7 @@ public class panel_wodleBoss : Panel_Base
     /// <summary>
     /// 当前世界Boss挑战次数，最大挑战次数
     /// </summary>
-    private int boss_number = 0, boss_number_max = 3;
+    private int boss_number = 0, boss_number_max = 1;
     /// <summary>
     /// 排行榜预制体
     /// </summary>
@@ -142,17 +142,22 @@ public class panel_wodleBoss : Panel_Base
         {
             if(list[i].Item2<= hurt)
             {
-                long experience = 40 * list[i].Item1;
+                long experience = 400 * list[i].Item1;
                 long MagicPill = 20 * list[i].Item1;
                 int honor = 2;
+                string dec = "造成伤害：" + hurt;
+                dec += "\n获得奖励：\n历练 + " + experience + "\n魔丸 + " + MagicPill;
                 SumSave.crt_user_unit.verify_data(currency_unit.历练, experience);
                 SumSave.crt_user_unit.verify_data(currency_unit.魔丸, MagicPill);
-                SumSave.crt_accumulatedrewards.Set(2, honor);
-                Alert.Show("世界Boss挑战奖励", "造成伤害：" + hurt + "\n 获得奖励：历练x" + experience + " 魔丸x" + MagicPill + " 荣誉x" + honor);
+                if (boss_number == 1)
+                {
+                    SumSave.crt_accumulatedrewards.Set(2, honor);
+                    dec += "\n荣誉 + " + honor;
+                } 
+                Alert.Show("世界Boss挑战奖励", dec);
+                return;
             }
         }
-        
-
     }
 
 
@@ -167,7 +172,7 @@ public class panel_wodleBoss : Panel_Base
         maxHp = SumSave.db_world_boos.BossHpBasic * SumSave.db_world_boos.number;
         progress.maxValue = maxHp;
         progress.value = SumSave.db_world_boos.Get();
-        numberText.text = "挑战次数:" + boss_number.ToString() + "/3";
+        numberText.text = "挑战次数:" + boss_number.ToString() + "/" + boss_number_max;
         nameText.text = SumSave.db_world_boos.name;
         GetList();
         if (SumSave.db_world_boos.Get() <= 0)
@@ -229,7 +234,6 @@ public class panel_wodleBoss : Panel_Base
         if (exist)
         {
             SumSave.crt_needlist.SetMap((SumSave.db_world_boos.name, 1));
-
         }
 
         Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_needlist,

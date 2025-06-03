@@ -13,7 +13,7 @@ public class artifact_offect : Base_Mono
     /// <summary>
     /// 显示信息
     /// </summary>
-    private Text artifact_name, artifact_info;
+    private Text artifact_name, artifact_info,info_state;
     /// <summary>
     /// 确认升级
     /// </summary>
@@ -28,6 +28,7 @@ public class artifact_offect : Base_Mono
         close.onClick.AddListener(()=> { gameObject.SetActive(false); });
         confirm = Find<Button>("confirm");
         confirm.onClick.AddListener(()=> { confirm_artifact(); });
+        info_state = Find<Text>("confirm/info");
         artifact_name = Find<Text>("show_name/info");
         artifact_info = Find<Text>("Scroll View/Viewport/info");
         confirm_info = Find<Text>("confirm/info");
@@ -61,7 +62,6 @@ public class artifact_offect : Base_Mono
                         //开启小世界
                         Open_smallWorld();
                     }
-
                     Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_artifact, SumSave.crt_artifact.Set_Uptade_String(), SumSave.crt_artifact.Get_Update_Character());
                     SendNotification(NotiList.Refresh_Max_Hero_Attribute);
                     crt_artifact.Set(1);
@@ -76,9 +76,11 @@ public class artifact_offect : Base_Mono
                 if (result.Item2 < crt_artifact.Data.Artifact_MaxLv)
                 {
 
-                    string[] splits = crt_artifact.Data.arrifact_effects[0].Split(' ');
-                    //Battle_Tool.Obtain_Resources(splits[0], int.Parse(splits[1]));
-                    NeedConsumables(splits[0], int.Parse(splits[1]));
+                    for (int i = 0; i < crt_artifact.Data.arrifact_needs.Length; i++)
+                    {
+                        string[] temp = crt_artifact.Data.arrifact_needs[i].Split(' ');
+                        NeedConsumables(temp[0], int.Parse(temp[1]));
+                    }
                     if (RefreshConsumables())
                     {
                         result.Item2 += 1;
@@ -114,6 +116,7 @@ public class artifact_offect : Base_Mono
     public void set_artifact(artifact_item item)
     {
         crt_artifact=item;
+        info_state.text = item.base_lv == 0? "激活":"升级";
         artifact_name.text = crt_artifact.Data.arrifact_name + (item.base_lv == 0
             ? "(未激活)" : Show_Color.Red("(Lv." + item.base_lv + ")"));
         string dec = Show_Color.Green("等级: ")+Show_Color.Red(item.base_lv)+"/(Max"+item.Data.Artifact_MaxLv+")";

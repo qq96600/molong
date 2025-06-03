@@ -50,7 +50,20 @@ public static class Battle_Tool
         }
         return prefabs[prefabName].GetComponent<T>();
     }
-    
+    /// <summary>
+    /// 装备组合属性
+    /// </summary>
+    /// <param name="infos"></param>
+    /// <returns></returns>
+    public static string Equip_User_Value(string[] infos)
+    {
+        string user_value = "";
+        for (int i = 0; i < infos.Length; i++)
+        {
+            user_value += (user_value == "" ? "" : " ") + infos[i];
+        }
+        return user_value;
+    }
     /// <summary>
     /// 加成属性
     /// </summary>
@@ -313,12 +326,7 @@ public static class Battle_Tool
             }
         }
         SumSave.crt_user_unit.verify_data(unit, value);
-        Game_Omphalos.i.GetQueue(
-                       Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user, SumSave.crt_user_unit.Set_Uptade_String(), SumSave.crt_user_unit.Get_Update_Character());
     }
-
-
-  
     /// <summary>
     /// 获得宠物
     /// </summary>

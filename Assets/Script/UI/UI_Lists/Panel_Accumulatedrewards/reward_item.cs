@@ -33,7 +33,7 @@ public class reward_item : Base_Mono
         reward.gameObject.SetActive(exist);
         index = _index;
         string[] info = value.Item2.Split(',');
-        need_info.text = "ÀÛ»ýÐèÇó " + value.Item1 + (type == 1 ? "´Î" : "Ìì");
+        need_info.text = "ç´¯ç§¯éœ€æ±‚ " + value.Item1 + (type == 1 ? "æ¬¡" : "å¤©");
         for (int i = 0; i < info.Length; i++)
         {
             if (info[0] != "")
