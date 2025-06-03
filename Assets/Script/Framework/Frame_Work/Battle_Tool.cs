@@ -55,7 +55,7 @@ public static class Battle_Tool
         string user_value = "";
         for(int i= 0; i < infos.Length; i++)
         {
-            user_value+=(user_value == "" ? "" : ",") + infos[i];
+            user_value+=(user_value == "" ? "" : " ") + infos[i];
         }
         return user_value;
     }
