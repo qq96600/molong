@@ -134,7 +134,14 @@ public class user_pass_vo : Base_VO
     /// <param name="list"></param>
     public void Get(int index)
     {
-        data_day_state[index] = 1;
+        data_day_state[index] = -1;
+        MysqlData();
+    }
+
+    public void progress(int index)
+    { 
+        if(data_day_state[index]!=-1)
+        data_day_state[index]++;
         MysqlData();
     }
 
