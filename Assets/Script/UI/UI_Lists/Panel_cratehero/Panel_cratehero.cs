@@ -29,8 +29,10 @@ public class Panel_cratehero : Panel_Base
     /// 记住密码
     /// </summary>
     private Toggle isRemember;
-    
-
+    /// <summary>
+    /// 登录进度条
+    /// </summary>
+    private Image progress;
 
     public override void Hide()
     {
@@ -49,6 +51,7 @@ public class Panel_cratehero : Panel_Base
         //logoff.onClick.AddListener(()=> { Game_Omphalos.i.Logoff(); });
         isRemember =Find<Toggle>("hero/isRemember");
         isRemember.onValueChanged.AddListener(OnRemember);
+        progress = Find<Image>("hero/progress");
         if (!PlayerPrefs.HasKey(BaseUserRemember))
         {
             PlayerPrefs.SetInt(BaseUserRemember, 1);
@@ -98,6 +101,7 @@ public class Panel_cratehero : Panel_Base
             Alert_Dec.Show("密码长度不能小于6位");
             return;
         }
+        progress.gameObject.SetActive(true);
         string[] id = new string[] { account.text, password.text };
         Game_Omphalos.i.Crate_Accout(id);
         Game_Omphalos.i.Wirte_Iphone();

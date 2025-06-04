@@ -50,6 +50,7 @@ public class panel_equip : Panel_Base
     /// <param name="bag"></param>
     public void Init(bag_item bag)
     {
+        gridLayoutgroup.cellSize = new Vector2(178, 360);
         for (int i = crt_pos_equip.childCount - 1; i >= 0; i--)
         {
             Destroy(crt_pos_equip.GetChild(i).gameObject);
