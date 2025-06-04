@@ -292,6 +292,7 @@ public class panel_plant : Panel_Base
         {
             Set[numbers[i]]= (currentPlant.ToString(), SumSave.nowtime);
         }
+        SumSave.crt_pass.progress(1);
         Wirte(Set);
         baseShow();
 

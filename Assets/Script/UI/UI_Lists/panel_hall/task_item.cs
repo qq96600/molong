@@ -42,18 +42,22 @@ public class task_item : Base_Mono
                     + "\n" + "奖励:" + Show_Color.Red("命运金币 * 1");
                 break;
             case 2:
+                if (isFinish) value = 10;
                 dec += Show_Color.Green("击杀10个普通Boss") + "\n" + "进度:" + Show_Color.Blue(value + "/10")
                     + "\n" + "奖励:" + Show_Color.Red("命运金币 * 1");
                 break;
             case 3:
+                if (isFinish) value = 10;
                 dec += Show_Color.Green("击杀10个副本Boss") + "\n" + "进度:" + Show_Color.Blue(value + "/10")
                     + "\n" + "奖励:" + Show_Color.Red("命运金币 * 1");
                 break;
             case 4:
+                if (isFinish) value = 1;
                 dec += Show_Color.Green("击杀1个深渊Boss") + "\n" + "进度:" + Show_Color.Blue(value + "/1")
                     + "\n" + "奖励:" + Show_Color.Red("命运金币 * 1");
                 break;
             case 5:
+                if (isFinish) value = 1;
                 dec += Show_Color.Green("炼制丹药") + "\n" + "进度:" + Show_Color.Blue(value + "/1")
                     + "\n" + "奖励:" + Show_Color.Red("命运金币 * 1");
                 break;
@@ -70,26 +74,32 @@ public class task_item : Base_Mono
         switch (index)
         {
             case 0:
+                if (isFinish) value = 120;
                 dec += Show_Color.Green("在线120分钟") + "\n" + "进度:" + Show_Color.Blue( value+"/120")
                     + "\n" + "奖励:" + Show_Color.Red("命运金币 * 1");
                 break;
             case 1:
+                if (isFinish) value = 1;
                 dec += Show_Color.Green("开启小世界种植") + "\n" + "进度:" + Show_Color.Blue(value+"/1")
                     + "\n" + "奖励:" + Show_Color.Red("命运金币 * 1");
                 break;
             case 2:
+                if (isFinish) value = 10;
                 dec += Show_Color.Green("击杀10个普通Boss") + "\n" + "进度:" + Show_Color.Blue(value+"/10")
                     + "\n" + "奖励:" + Show_Color.Red("命运金币 * 1");
                 break;
             case 3:
+                if (isFinish) value = 10;
                 dec += Show_Color.Green("击杀10个副本Boss") + "\n" + "进度:" + Show_Color.Blue(value+"/10")
                     + "\n" + "奖励:" + Show_Color.Red("命运金币 * 1");
                 break;
             case 4:
+                if (isFinish) value = 1;
                 dec += Show_Color.Green("击杀1个深渊Boss") + "\n" + "进度:" + Show_Color.Blue(value+"/1")
                     + "\n" + "奖励:" + Show_Color.Red("命运金币 * 1");
                 break;
             case 5:
+                if (isFinish) value = 1;
                 dec += Show_Color.Green("炼制丹药") + "\n" + "进度:" + Show_Color.Blue(value+"/1")
                     + "\n" + "奖励:" + Show_Color.Red("命运金币 * 1");
                 break;

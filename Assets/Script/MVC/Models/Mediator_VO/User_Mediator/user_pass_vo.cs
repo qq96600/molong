@@ -50,7 +50,7 @@ public class user_pass_vo : Base_VO
     /// <summary>
     /// 用户领取状态
     /// </summary>
-    private List<int> data_day_state = new List<int>();
+    public List<int> data_day_state = new List<int>();
     ///领取状态
     private Dictionary<int,List<int>> dic_user_values = new Dictionary<int, List<int>>();
     public string user_value;
@@ -104,7 +104,7 @@ public class user_pass_vo : Base_VO
     /// <summary>
     /// 清空通行证每日任务
     /// </summary>
-    public void Set_data()
+    public void clear_data()
     {
         data_day_state=new List<int>();
         MysqlData();

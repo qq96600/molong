@@ -146,18 +146,19 @@ namespace MVC
                     ClearanceMapTask(monster);
                     number = Random.Range(5, 11);
                     Combat_statistics.AddBossNumber();
-                    SumSave.crt_pass.day_state[3]++;//通行证任务
+                    SumSave.crt_pass.progress(3);//通行证任务
                 }
                 else if (monster.Data.Monster_Lv == 2)
                 {
                     Combat_statistics.AddEliteNumber();
 
-                    SumSave.crt_pass.day_state[2]++;
+
+                    SumSave.crt_pass.progress(2);
                 }
             
                if (panel_fight.isMapType4())
                 {
-                    SumSave.crt_pass.day_state[4]++;
+                    SumSave.crt_pass.progress(4);
                 }
                 
 

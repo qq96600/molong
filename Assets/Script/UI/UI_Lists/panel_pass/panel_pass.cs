@@ -152,7 +152,7 @@ public class panel_pass : Base_Mono
         List<int> list = SumSave.crt_pass.Get_day_state();
         foreach (int item in dic_task.Keys)
         {
-            dic_task[item].progress(SumSave.crt_pass.day_state[item], list[item]==1);
+            dic_task[item].progress(SumSave.crt_pass.data_day_state[item], list[item]==1);
         }
     }
 
