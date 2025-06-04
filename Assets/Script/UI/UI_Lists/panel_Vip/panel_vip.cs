@@ -18,7 +18,7 @@ public class panel_vip : Panel_Base
     /// <summary>
     /// vip信息标题
     /// </summary>
-    private List<string> Title_list = new List<string>() { "荣耀殿堂", "荣耀点", "经验加成", "灵珠收益", "装备爆率", "人物历练", "寻怪间隔", "生命回复", "法力回复", "幸运", "强化费用", "离线间隔", "签到收益", "鞭尸", "灵气上限"};
+    private List<string> Title_list = new List<string>() { "荣耀等级", "进阶荣耀点", "经验加成", "灵珠收益", "装备爆率", "人物历练", "寻怪间隔", "生命回复", "法力回复", "幸运", "强化费用", "离线间隔", "签到收益", "鞭尸概率", "灵气上限"};
     /// <summary>
     /// vip等级显示位置
     /// </summary>
@@ -51,7 +51,7 @@ public class panel_vip : Panel_Base
         }   else
         {
             
-            show_vip_lv_text.text = "荣耀殿堂进度:" + price.Item2 + "\n荣耀点:" + price.Item3;//显示vip等级和经验
+            show_vip_lv_text.text = "荣耀点:" + price.Item2 + "\n荣耀等级:" + price.Item3;//显示vip等级和经验
         }
         
 

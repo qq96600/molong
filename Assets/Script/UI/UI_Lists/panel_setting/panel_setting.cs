@@ -94,7 +94,7 @@ public class panel_setting : Panel_Base
     {
         if (data.index == 0)
         {
-            tool_Categoryt.Base_Task(1019);
+            tool_Categoryt.Base_Task(1022);
         }
 
     }

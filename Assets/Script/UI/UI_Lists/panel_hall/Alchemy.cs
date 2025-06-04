@@ -176,6 +176,7 @@ public class Alchemy : Base_Mono
         split = crate_seed(item, split, lv);
         SumSave.crt_seeds.Set(split);
         Alert_Dec.Show("获得丹药 " + split[0]);
+        SumSave.crt_pass.progress(5);
         Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_seed, SumSave.crt_seeds.Set_Uptade_String(), SumSave.crt_seeds.Get_Update_Character());
         AlchemyMission(split);
     }

@@ -60,7 +60,7 @@ public class signIn : Base_Mono
     }
 
     /// <summary>
-    /// 签到
+    /// 每日签到
     /// </summary>
     private void OnClick_signln()
     {
@@ -73,6 +73,7 @@ public class signIn : Base_Mono
             Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_signin, SumSave.crt_signin.Set_Uptade_String(),
                 SumSave.crt_signin.Get_Update_Character());
             Alert_Dec.Show("签到成功");
+            SumSave.crt_pass.clear_data();
             SumSave.crt_user_unit.verify_data(currency_unit.灵珠, 1000000 * SumSave.crt_signin.number);
             MonthlyCardRewards(3);
             SignInTask();

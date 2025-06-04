@@ -50,7 +50,7 @@ public class user_pass_vo : Base_VO
     /// <summary>
     /// 用户领取状态
     /// </summary>
-    private List<int> data_day_state = new List<int>();
+    public List<int> data_day_state = new List<int>();
     ///领取状态
     private Dictionary<int,List<int>> dic_user_values = new Dictionary<int, List<int>>();
     public string user_value;
@@ -82,8 +82,10 @@ public class user_pass_vo : Base_VO
                 day_state.Add(0);
             }
         }
-       
     }
+
+
+
     /// <summary>
     /// 返回用户领取状态
     /// </summary>
@@ -99,6 +101,19 @@ public class user_pass_vo : Base_VO
         base.MysqlData();
         Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_pass, SumSave.crt_pass.Set_Uptade_String(), SumSave.crt_pass.Get_Update_Character());
     }
+    /// <summary>
+    /// 清空通行证每日任务
+    /// </summary>
+    public void clear_data()
+    {
+        for (int i = 0; i < data_day_state.Count; i++)
+        {
+            data_day_state[i] = 0;
+        }
+        MysqlData();
+    }
+
+
     /// <summary>
     /// 获取任务状态
     /// </summary>
@@ -122,7 +137,14 @@ public class user_pass_vo : Base_VO
     /// <param name="list"></param>
     public void Get(int index)
     {
-        data_day_state[index] = 1;
+        data_day_state[index] = -1;
+        MysqlData();
+    }
+
+    public void progress(int index)
+    { 
+        if(data_day_state[index]!=-1)
+        data_day_state[index]++;
         MysqlData();
     }
 

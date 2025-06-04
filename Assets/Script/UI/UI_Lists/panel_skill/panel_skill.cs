@@ -252,6 +252,15 @@ public class panel_skill : Panel_Base
         Show_info();
     }
     /// <summary>
+    /// 接受属性同步反馈
+    /// </summary>
+    /// <param name="skill"></param>
+    protected void acceptdata(base_skill_vo skill)
+    {
+        user_skill.Data= skill;
+        Select_skill(user_skill);
+    }
+    /// <summary>
     /// 显示功能开关
     /// </summary>
     private void Open_Select_Btn()
