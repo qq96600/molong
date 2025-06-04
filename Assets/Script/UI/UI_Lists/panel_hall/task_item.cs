@@ -32,10 +32,12 @@ public class task_item : Base_Mono
         switch (index)
         {
             case 0:
-                dec += Show_Color.Green("在线120分钟") + "\n" + "进度:" + Show_Color.Blue(value + "/120")
+                if (isFinish) value = 120;
+                 dec += Show_Color.Green("在线120分钟") + "\n" + "进度:" + Show_Color.Blue(value + "/120")
                     + "\n" + "奖励:" + Show_Color.Red("命运金币 * 1");
                 break;
             case 1:
+                if (isFinish) value = 1;
                 dec += Show_Color.Green("开启小世界种植") + "\n" + "进度:" + Show_Color.Blue(value + "/1")
                     + "\n" + "奖励:" + Show_Color.Red("命运金币 * 1");
                 break;

@@ -66,7 +66,7 @@ public class panel_pass : Base_Mono
         for (int i = 0; i < 6; i++)
         {
             task_item item = Instantiate(task_item_prefabs, pos_task);
-            item.Show(i,SumSave.crt_pass.day_state[i], list[i] == 1);
+            item.Show(i, list[i], list[i] == -1);
             item.GetComponent<Button>().onClick.AddListener(() => { OnTaskClick(item); });
             dic_task.Add(i, item);
         }
@@ -87,7 +87,7 @@ public class panel_pass : Base_Mono
     private void OnTaskClick(task_item item)
     {
         List<int> list = SumSave.crt_pass.Get_day_state();
-        if (list[item.index] == 1)
+        if (list[item.index] == -1)
         {
             Alert_Dec.Show("任务已完成");
             return;

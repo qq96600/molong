@@ -78,7 +78,8 @@ namespace MVC
             {
                 performTime = 0;
                 SumSave.crt_achievement.increase_date_Exp((Achieve_collect.在线时间).ToString(), 1);
-                 SumSave.crt_pass.day_state[0] += 1;
+                //SumSave.crt_pass.day_state[0] += 1;
+                SumSave.crt_pass.progress(0);
             }
         }
         /// <summary>
