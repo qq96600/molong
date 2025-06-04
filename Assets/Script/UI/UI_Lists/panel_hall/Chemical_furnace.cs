@@ -20,7 +20,7 @@ public class Chemical_furnace : Base_Mono
     /// <summary>
     /// 合成信息
     /// </summary>
-    private Text synthesisinfo;
+    private Text synthesisinfo,btn_info;
     /// <summary>
     /// 商品输入的数量
     /// </summary>
@@ -74,6 +74,7 @@ public class Chemical_furnace : Base_Mono
         synthesis_Items= Find<Transform>("synthesis_Items/Viewport/Content");
         synthesisButtom = Find<Button>("material_Items/synthesisButtom");
         synthesisButtom.onClick.AddListener(Synthesis);
+        btn_info = Find<Text>("material_Items/synthesisButtom/Text");
         for (int i = 0; i < synthesis_item_list.Length; i++) 
         {
             btn_item item = Instantiate(btn_item_Prefabs, pos_btn);
@@ -88,10 +89,14 @@ public class Chemical_furnace : Base_Mono
     private void Init()
     {
         ClearObject(synthesis_Items);
+        ClearObject(show_pos_synthesis);
+        synthesisinfo.text = "请选择物品";
         buy_num = 1;
-
+        if (inputField.text != "")
+            inputField.text = buy_num.ToString();
         if (select_type == 3)
         {
+            btn_info.text = "分解";
             //分解
             List<(string, int)> lists = SumSave.crt_bag_resources.Set();
             for (int i = 0; i < lists.Count; i++)
@@ -112,22 +117,26 @@ public class Chemical_furnace : Base_Mono
                                 break;
                         }
                     }
-                    
+
                 }
             }
 
         }
         else
-        for (int i = 0; i < SumSave.db_formula_list.Count; i++)
         {
-            if (SumSave.db_formula_list[i].formula_type == select_type)
+            btn_info.text = "合成";
+            for (int i = 0; i < SumSave.db_formula_list.Count; i++)
             {
-                (string, int, int) item1 = SumSave.db_formula_list[i].formula_result_list;
-                material_item item= Instantiate(material_item_Prefabs, synthesis_Items);
-                item.Init((item1.Item1, item1.Item2));
-                item.GetComponent<Button>().onClick.AddListener(() => { ShowMaterial(item1); });
-                if (synthesis_item.Item2 == 0) ShowMaterial(item1);
+                if (SumSave.db_formula_list[i].formula_type == select_type)
+                {
+                    (string, int, int) item1 = SumSave.db_formula_list[i].formula_result_list;
+                    material_item item = Instantiate(material_item_Prefabs, synthesis_Items);
+                    item.Init((item1.Item1, item1.Item2));
+                    item.GetComponent<Button>().onClick.AddListener(() => { ShowMaterial(item1); });
+                    if (synthesis_item.Item2 == 0) ShowMaterial(item1);
+                }
             }
+
         }
     }
     /// <summary>
@@ -192,8 +201,9 @@ public class Chemical_furnace : Base_Mono
             { 
                 Battle_Tool.Obtain_Resources("灵物碎片", buy_num);
                 Alert.Show("分解成功", "获得物品" + " 灵物碎片 " + "*" + buy_num);
+                Init();
 
-            }
+            }else Alert_Dec.Show("分解失败,材料不足");
         }
         else
         {
@@ -255,10 +265,12 @@ public class Chemical_furnace : Base_Mono
         if (select_type == 3)
         {
             buy_num = Math.Min(buy_num, crt_break.Item2);
-            Show_Material(crt_break);
+            if (buy_num != 1) Show_Material(crt_break);
         }
         else
-        ShowMaterial(synthesis_item);
+        {
+            if (buy_num != 1) ShowMaterial(synthesis_item);
+        }
     }
     // 保持光标在末尾（避免跳动）
     private void SetCursorToEnd()

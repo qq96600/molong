@@ -106,7 +106,10 @@ public class user_pass_vo : Base_VO
     /// </summary>
     public void clear_data()
     {
-        data_day_state=new List<int>();
+        for (int i = 0; i < data_day_state.Count; i++)
+        {
+            data_day_state[i] = 0;
+        }
         MysqlData();
     }
 

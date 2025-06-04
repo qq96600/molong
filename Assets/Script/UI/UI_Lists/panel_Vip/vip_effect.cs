@@ -76,14 +76,14 @@ public class vip_effect : Base_Mono
         title.Add("+" + vip_data.lingzhuIncome + tool_Categoryt.Obtain_unit((int)enum_skill_attribute_list.灵珠收益));
         title.Add("+" + vip_data.equipmentExplosionRate + tool_Categoryt.Obtain_unit((int)enum_skill_attribute_list.装备爆率));
         title.Add("+" + vip_data.characterExperience + tool_Categoryt.Obtain_unit((int)enum_skill_attribute_list.人物历练));
-        title.Add("+" + vip_data.monsterHuntingInterval+ tool_Categoryt.Obtain_unit((int)enum_skill_attribute_list.寻怪间隔));
+        title.Add("-" + vip_data.monsterHuntingInterval+ tool_Categoryt.Obtain_unit((int)enum_skill_attribute_list.寻怪间隔));
         title.Add("+" + vip_data.hpRecovery + tool_Categoryt.Obtain_unit((int)enum_skill_attribute_list.生命回复));
         title.Add("+" + vip_data.manaRegeneration + tool_Categoryt.Obtain_unit((int)enum_skill_attribute_list.法力回复));
         title.Add("+" + vip_data.goodFortune + tool_Categoryt.Obtain_unit((int)enum_skill_attribute_list.幸运));
-        title.Add("+" + vip_data.strengthenCosts+ tool_Categoryt.Obtain_unit((int)enum_skill_attribute_list.强化费用));
+        title.Add("-" + vip_data.strengthenCosts+ tool_Categoryt.Obtain_unit((int)enum_skill_attribute_list.强化费用));
         title.Add("+" + vip_data.offlineInterval + tool_Categoryt.Obtain_unit((int)enum_skill_attribute_list.离线间隔));
         title.Add("+" + vip_data.signInIncome + tool_Categoryt.Obtain_unit((int)enum_skill_attribute_list.签到收益));
-        title.Add("+" + vip_data.whippingCorpses + tool_Categoryt.Obtain_unit((int)enum_skill_attribute_list.鞭尸));
+        title.Add("+" + vip_data.whippingCorpses + tool_Categoryt.Obtain_unit((int)enum_skill_attribute_list.鞭尸概率));
         title.Add("+" + vip_data.upperLimitOfSpiritualEnergy + tool_Categoryt.Obtain_unit((int)enum_skill_attribute_list.灵气上限));
         return title;
     }

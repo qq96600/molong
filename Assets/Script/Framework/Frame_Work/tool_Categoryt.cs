@@ -201,9 +201,11 @@ public class tool_Categoryt : MonoBehaviour
                 dec = "%";
 
                 break;
-            case enum_skill_attribute_list.鞭尸:
+            case enum_skill_attribute_list.鞭尸概率:
+                dec = "%";
                 break;
             case enum_skill_attribute_list.无视防御:
+                dec = "%";
                 break;
             case enum_skill_attribute_list.灵气上限:
                 break;
@@ -225,6 +227,19 @@ public class tool_Categoryt : MonoBehaviour
                 break;
             case enum_skill_attribute_list.复活:
                 break;
+            case enum_skill_attribute_list.强化费用:
+                dec = "%";
+                break;
+            case enum_skill_attribute_list.离线间隔:
+                dec = "h";
+                break;
+            case enum_skill_attribute_list.签到收益:
+                dec = "%";
+                break;
+            case enum_skill_attribute_list.月卡:
+                dec = "h";
+                break;
+
             default:
                 break;
         }
