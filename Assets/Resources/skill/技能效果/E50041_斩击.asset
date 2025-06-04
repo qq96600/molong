@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Frames:
   - DelayInMs: 70
+<<<<<<< HEAD
     Sprite: {fileID: 21300000, guid: 73349afb6c44d48239c56af7772d2eb6, type: 3}
   - DelayInMs: 70
     Sprite: {fileID: 21300000, guid: 1ee2ac3ce77c74f1198cac182706dc97, type: 3}
@@ -23,3 +24,14 @@ MonoBehaviour:
     Sprite: {fileID: 21300000, guid: 594395861192d457dbd658468d8c4692, type: 3}
   - DelayInMs: 70
     Sprite: {fileID: 21300000, guid: 29f02917762524a478a7930d713a2563, type: 3}
+=======
+    Sprite: {fileID: 21300000, guid: f798cf4790f3aa34fb173d4032e0c714, type: 3}
+  - DelayInMs: 70
+    Sprite: {fileID: 21300000, guid: e5c8428e04535a448b1005f7d5c7a21f, type: 3}
+  - DelayInMs: 70
+    Sprite: {fileID: 21300000, guid: 08f1d4d4e8d622140a854a785ed61c6d, type: 3}
+  - DelayInMs: 70
+    Sprite: {fileID: 21300000, guid: b18b754a40757e842b7cf41b610a91ca, type: 3}
+  - DelayInMs: 70
+    Sprite: {fileID: 21300000, guid: b9179e22008018c4f81e4f0518fc142a, type: 3}
+>>>>>>> 3eb0ec5cead46ef091a262b799ae4bbda76a78f3
