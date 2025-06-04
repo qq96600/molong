@@ -60,7 +60,7 @@ public class signIn : Base_Mono
     }
 
     /// <summary>
-    /// 签到
+    /// 每日签到
     /// </summary>
     private void OnClick_signln()
     {

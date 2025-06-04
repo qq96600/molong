@@ -9,7 +9,7 @@ public class user_world_vo : Base_VO
     /// <summary>
     /// 等级
     /// </summary>
-    public int World_Lv;
+    public int World_Lv=1;
     /// <summary>
     /// 0 最后刷新时间 1灵气值
     /// </summary>
