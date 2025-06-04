@@ -82,8 +82,10 @@ public class user_pass_vo : Base_VO
                 day_state.Add(0);
             }
         }
-       
     }
+
+
+
     /// <summary>
     /// 返回用户领取状态
     /// </summary>
@@ -99,6 +101,16 @@ public class user_pass_vo : Base_VO
         base.MysqlData();
         Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_pass, SumSave.crt_pass.Set_Uptade_String(), SumSave.crt_pass.Get_Update_Character());
     }
+    /// <summary>
+    /// 清空通行证每日任务
+    /// </summary>
+    public void Set_data()
+    {
+        data_day_state=new List<int>();
+        MysqlData();
+    }
+
+
     /// <summary>
     /// 获取任务状态
     /// </summary>
