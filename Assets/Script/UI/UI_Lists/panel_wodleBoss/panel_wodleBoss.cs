@@ -201,7 +201,13 @@ public class panel_wodleBoss : Panel_Base
     public override void Show()
     {
         base.Show();
-     
+        if (SumSave.crt_MaxHero.Lv < 20)
+        {
+            Alert_Dec.Show("世界Boss开启等级为20级");
+            gameObject.SetActive(false);
+            return;
+        }
+
     }
     /// <summary>
     /// 写入对世界boss的伤害

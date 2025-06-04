@@ -54,6 +54,9 @@ public class allocation_skill_damage : Base_Mono
         Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.skill_value, SumSave.crt_skills);
         SendNotification(NotiList.Refresh_Max_Hero_Attribute);
         tool_Categoryt.Base_Task(1005);
+        gameObject.SetActive(false);
+        transform.parent.parent.SendMessage("acceptdata", user_skill);
+
     }
 
     public void Show(base_skill_vo skill)
