@@ -51,6 +51,10 @@ public class Alchemy : Base_Mono
     /// 选择配方材料
     /// </summary>
     private Dictionary<string,(string,int)> Select_Materials = new Dictionary<string, (string, int)>();
+    /// <summary>
+    /// 显示属性
+    /// </summary>
+    private Button Lottery_attribute;
 
     private effect_gather effect_gather;
     /// <summary>
@@ -73,7 +77,36 @@ public class Alchemy : Base_Mono
         show_Success_rate = Find<Button>("offect/show_Success_rate");
         show_Success_rate.onClick.AddListener(() => { Show_Success_rate(); });
         show_Success_rate.gameObject.SetActive(false);
+        Lottery_attribute= Find<Button>("Lottery_attribute");
+        Lottery_attribute.onClick.AddListener(() => { show_info(); });
     }
+    /// <summary>
+    /// 显示属性
+    /// </summary>
+    private void show_info()
+    {
+        string dec = "";
+        List<(string, List<int>)> list = SumSave.crt_seeds.GetuseList();
+        foreach (var item in SumSave.db_seeds)
+        {
+            bool eixst = true;
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i].Item1 == item.pill)
+                {
+                    eixst = false;
+                    dec += "\n" + item.type + " " + Show_Color.Red(list[i].Item2[1]) + "(" + list[i].Item2[0] + "/" + item.limit + ")";
+                }
+            }
+            if (eixst)
+            {
+                dec += Show_Color.Grey("\n" + item.type + " " + 0 + "(" + 0 + "/" + item.limit + ")");
+            }
+        }
+       
+        Alert.Show("丹药属性", dec);
+    }
+
     /// <summary>
     /// 显示成功率
     /// </summary>
@@ -101,7 +134,7 @@ public class Alchemy : Base_Mono
     /// <param name="value"></param>
     private void Open_Slider(float value)
     {
-        slider_info.text = "可注灵天麻丹 " + slider.value + "（Max:" + slider.maxValue + ")";
+        slider_info.text = "可注灵天麻 " + slider.value + "（Max:" + slider.maxValue + ")";
     }
 
     /// <summary>
@@ -120,7 +153,10 @@ public class Alchemy : Base_Mono
         foreach (var item in Select_Materials.Keys)
         {
             NeedConsumables(Select_Materials[item].Item1, Select_Materials[item].Item2);
-            Debug.Log(Select_Materials[item].Item1 + " " + Select_Materials[item].Item2);
+        }
+        if (slider.value > 0)
+        { 
+            NeedConsumables("天麻", (int)slider.value);
         }
         if (RefreshConsumables())
         {
@@ -177,7 +213,6 @@ public class Alchemy : Base_Mono
         SumSave.crt_seeds.Set(split);
         Alert_Dec.Show("获得丹药 " + split[0]);
         SumSave.crt_pass.progress(5);
-        Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_seed, SumSave.crt_seeds.Set_Uptade_String(), SumSave.crt_seeds.Get_Update_Character());
         AlchemyMission(split);
     }
 
@@ -192,8 +227,6 @@ public class Alchemy : Base_Mono
         }
 
     }
-
-
     /// <summary>
     /// 生成配方
     /// </summary>
@@ -204,9 +237,8 @@ public class Alchemy : Base_Mono
         split.Add(item.pill);
         split.Add(SumSave.nowtime.ToString());
         string[] split1 = item.pill_effect.Split(' ');
-        int random = int.Parse(split1[0]) + ((int.Parse(split1[1]) - int.Parse(split1[0]) * lv / 100));
+        int random = int.Parse(split1[0]) + ((int.Parse(split1[1]) - int.Parse(split1[0])) * lv / 100);
         split.Add(random.ToString());
-
         return split;
     }
 
@@ -429,7 +461,7 @@ public class Alchemy : Base_Mono
             slider.gameObject.SetActive(true);
             slider.maxValue = number;
             slider.value = 0;
-            slider_info.text="可注灵天麻丹 "+slider.value+ "（Max:"+slider.maxValue+")";
+            slider_info.text="可注灵天麻 "+slider.value+ "（Max:"+slider.maxValue+")";
         }
     }
 }

@@ -115,6 +115,7 @@ public class bag_seed_vo : Base_VO
             temp.Item2.Add(split[j]);
         }
         seedList.Add(temp);
+        MysqlData();
     }
     /// <summary>
     /// 写入丹方
@@ -155,9 +156,18 @@ public class bag_seed_vo : Base_VO
                     temp.Item2.Add(useList[i].Item2[j] + split.Item2[j]);
                 }
                 useList[i] = temp;
+                MysqlData();
                 return;
             }
         }
+        useList.Add(split);
+        MysqlData();
+    }
+    public override void MysqlData()
+    {
+        base.MysqlData();
+        Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_seed, SumSave.crt_seeds.Set_Uptade_String(), SumSave.crt_seeds.Get_Update_Character());
+
     }
     /// <summary>
     /// 写入丹药

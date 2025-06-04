@@ -107,8 +107,6 @@ public class Show_Material : Base_Mono
                 default:
                     break;
             }
-
-
             Dictionary<string, int> dic = new Dictionary<string, int>();
             dic.Add(data.Item1, -data.Item2);
             SumSave.crt_bag_resources.Get(dic);
@@ -119,11 +117,10 @@ public class Show_Material : Base_Mono
             (string, List<int>) data = new(data_seedmaterial.Item1, new List<int>());
             data.Item2.Add(1);
             data.Item2.Add(int.Parse(data_seedmaterial.Item2[1]));
+            SumSave.crt_seeds.usedata(data_seedmaterial, type);
             SumSave.crt_seeds.Setuse(data);
-            Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_seed, SumSave.crt_seeds.Set_Uptade_String(), SumSave.crt_seeds.Get_Update_Character());
-
+            SendNotification(NotiList.Refresh_Max_Hero_Attribute);
         }
-       
         Alert_Dec.Show("使用成功");
         hide();
     }
@@ -182,7 +179,7 @@ public class Show_Material : Base_Mono
         show_name.text = data.Item1;
         db_seed_vo item = ArrayHelper.Find(SumSave.db_seeds, e => e.pill == data.Item1);
         string dec= "丹药效果" + "\n";
-        dec += Show_Color.Red(item.type + " " + data.Item2[1])
+        dec += Show_Color.Red(item.type + " " + data.Item2[1]) + "(Max" + item.pill_effect.Split(' ')[1] + ")"
         + "\n丹药创造时间" + data.Item2[0];
         List<(string,List<int>)> list = SumSave.crt_seeds.GetuseList();
         bool exsit = true;
@@ -191,7 +188,7 @@ public class Show_Material : Base_Mono
             if (list[i].Item1 == data.Item1)
             {
                 exsit= false;
-                dec += "\n" + "累积效果 " + item.type + " " + list[i].Item2[1];
+                dec += "\n" + "累积效果 " + item.type + " " + list[i].Item2[1] ;
                 dec += "\n" + "剩余次数 " + list[i].Item2[0]+"/"+item.limit;
                 //是否还可以吃
                 confirm.gameObject.SetActive(list[i].Item2[0] < item.limit);
@@ -202,6 +199,7 @@ public class Show_Material : Base_Mono
             dec += "\n" + "累积效果 " + item.type + " " + 0;
             dec += "\n" + "剩余次数 " + 0 + "/" + item.limit;
         }
+
         base_info.text = dec;
     }
     /// <summary>

@@ -163,6 +163,7 @@ public static class ReadDb
         item.seed_number= reader.GetInt32(reader.GetOrdinal("seed_number"));
         item.rule = reader.GetInt32(reader.GetOrdinal("rule"));
         item.dicdictionary_index = reader.GetInt32(reader.GetOrdinal("dicdictionary_index"));
+        item.limit= reader.GetInt32(reader.GetOrdinal("limit"));
         return item;
     }
 

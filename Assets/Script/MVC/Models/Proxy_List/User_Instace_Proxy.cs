@@ -1312,7 +1312,7 @@ namespace MVC
                     db_seed_vo data = ArrayHelper.Find(SumSave.db_seeds, e => e.pill == item.Item1);
                     if (data != null)
                     {
-                        Enum_Value(crt, data.dicdictionary_index, item.Item1[1]);
+                        Enum_Value(crt, data.dicdictionary_index, item.Item2[1]);
                     }
                 }
             }
