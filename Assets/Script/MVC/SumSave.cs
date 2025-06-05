@@ -116,7 +116,7 @@ namespace Common
         /// <summary>
         /// 自身小世界数据
         /// </summary>
-        public static user_world_vo crt_world;
+        public static user_world_vo crt_world=new user_world_vo();
         /// <summary>
         /// 称号提供极品率
         /// </summary>
