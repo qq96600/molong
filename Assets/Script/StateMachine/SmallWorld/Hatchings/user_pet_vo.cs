@@ -55,7 +55,7 @@ public class user_pet_vo : Base_VO
         string dec = "";
         for(int i = 0; i < crt_pet_list.Count; i++)
         {
-            if(i>0)
+            if(dec != "")
             {
                 dec += "&";
             }
