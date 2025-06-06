@@ -43,6 +43,10 @@ public class bag_item : Base_Mono
             data = value;
             if (data == null) return;
             item_icon.sprite = UI.UI_Manager.I.GetEquipSprite("icon/", data.Name);
+            if (data.StdMode == EquipConfigTypeList.护臂.ToString() || data.StdMode == EquipConfigTypeList.扳指.ToString())
+            {
+                //方位偏转
+            }
             if (data.user_value != null)
             {
                 string[] info_str = data.user_value.Split(' ');

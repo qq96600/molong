@@ -137,7 +137,10 @@ public class panel_bag : Panel_Base
             Battle_Tool.Obtain_Resources("绝世碎片", sell_list.Count * 2);
             Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.bag_value, SumSave.crt_bag);
             Show_Bag();
+            Alert.Show("分解成功", "获得" + Show_Color.Red("绝世碎片") + " * " + (sell_list.Count * 2));
+
         }
+        else Alert_Dec.Show("暂无可分解装备");
     }
 
     /// <summary>

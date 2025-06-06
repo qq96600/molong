@@ -389,7 +389,7 @@ public class panel_fight : Panel_Base
             yield return new WaitForSeconds(0.1f);
         }
         //判断是否切换地图
-        if (iSOpenMap())
+        if (iSOpenMap(true))
             Open_Map(select_map);
         else Open_Map(ArrayHelper.Find(SumSave.db_maps, e => e.map_name == SumSave.crt_resources.user_map_index));
     }
@@ -424,15 +424,20 @@ public class panel_fight : Panel_Base
     /// 判断地图是否可以打开
     /// </summary>
     /// <returns></returns>
-    private bool iSOpenMap()
+    private bool iSOpenMap(bool state=false)
     {
         bool exist = true;
         if (select_map.need_Required != "")
         {
-            NeedConsumables(select_map.need_Required, 1);
-            if (!RefreshConsumables())
+            Debug.Log("刷怪钱");
+            if (state || crt_monster_number >= maxnumber)
             {
-                exist = false;
+                Debug.Log(1);
+                NeedConsumables(select_map.need_Required, 1);
+                if (!RefreshConsumables())
+                {
+                    exist = false;
+                }
             }
         }
         return exist;
