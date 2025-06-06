@@ -2750,13 +2750,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: panel_smallWorld
       objectReference: {fileID: 0}
+    - target: {fileID: 911288108197381393, guid: f4d63779ab358e74b852ae090b8eca3a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1532303186007885817, guid: f4d63779ab358e74b852ae090b8eca3a, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: -138.2232
       objectReference: {fileID: 0}
     - target: {fileID: 4065563044646964608, guid: f4d63779ab358e74b852ae090b8eca3a, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8287324396929689445, guid: f4d63779ab358e74b852ae090b8eca3a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9024964423467373731, guid: f4d63779ab358e74b852ae090b8eca3a, type: 3}
       propertyPath: m_Pivot.x
