@@ -53,7 +53,6 @@ public class user_needlist_vo : Base_VO
         {
             user_value_list[0][0] = user_value_list[0][1];//体力重置
         }
-
         Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_needlist,
             Set_Uptade_String(), Get_Update_Character());
     }

@@ -13,9 +13,7 @@ public class btn_item : Base_Mono
 
     private void Awake()
     {
-
         info = Find<Text>("info"); 
-
     }
 
     /// <summary>

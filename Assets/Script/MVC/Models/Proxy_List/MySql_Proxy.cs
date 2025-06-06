@@ -50,16 +50,13 @@ namespace MVC
             Read_Guide_Fate();
             Read_db_vip();
             Read_db_formula();
-            Read_db_world_boss();
+            //Read_db_world_boss();
+            Read_Db_Suit();
             CloseMySqlDB();
         }
-
-
-
         /// <summary>
         /// 获得全服玩家的世界Boss伤害
         /// </summary>
-
         public void Read_db_world_boss()
         {
             mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.user_world_boss);
@@ -312,6 +309,23 @@ namespace MVC
                 while (mysqlReader.Read())
                 {
                     SumSave.db_lvs=(ReadDb.Read(mysqlReader, new db_lv_vo()));
+                }
+            }
+        }
+        /// <summary>
+        /// 套装
+        /// </summary>
+        private void Read_Db_Suit()
+        {
+            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_suit);
+
+            SumSave.db_suits = new List<db_suit_vo>();
+
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.db_suits.Add  (ReadDb.Read(mysqlReader, new db_suit_vo()));
                 }
             }
         }

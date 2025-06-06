@@ -338,11 +338,25 @@ public static class Battle_Tool
         string value_data = "";
         value_data += pet_init.petName + ",";
         value_data += SumSave.nowtime + ",";
-        value_data += (SumSave.crt_world.World_Lv / 5 + 1) + ",";
+        if(SumSave.crt_world==null)
+        {
+            value_data += 1 + ",";
+        }
+        else
+        {
+            value_data += (SumSave.crt_world.World_Lv / 5 + 1) + ",";
+        }
         value_data += pet_init.level + ",";
         value_data += pet_init.exp + ",";
         //value_data +=lv + ",";
-        value_data += crate_value(pet_init, (SumSave.crt_world.World_Lv / 5 + 1)) + ",";
+        if(SumSave.crt_world == null)
+        {
+            value_data += crate_value(pet_init,1) + ",";
+        }
+        else
+        {
+            value_data += crate_value(pet_init, (SumSave.crt_world.World_Lv / 5 + 1)) + ",";
+        }
         value_data += 0.ToString();
         SumSave.crt_pet.crt_pet_list.Add(value_data);
         db_pet_vo pet = new db_pet_vo();
@@ -789,6 +803,7 @@ public static class Battle_Tool
         base_crt.Type= crt.damageMax>crt.MagicdamageMax?1:2;
         //标准战斗系数
         int coefficient = 1;
+        base_crt.Exp = (int)(crt.Exp * MathF.Pow(5, coefficient - 1));
         if (Random.Range(0, 100) < 10)
         {
             coefficient = 2;
@@ -804,6 +819,8 @@ public static class Battle_Tool
             //精英模版
             if (isBoss)
             {
+                base_crt.Exp= (int)(crt.Exp * 10);
+                base_crt.Point = crt.index + 1;
                 coefficient = 3;
             }
             base_crt.Monster_Lv = coefficient;
@@ -811,27 +828,31 @@ public static class Battle_Tool
         else if (map.map_type == 2)
         {
             if (isBoss)
-            { 
+            {
+                base_crt.Exp = (int)(crt.Exp * 30);
+                base_crt.Point = crt.index + 1;
                 coefficient = 1;
             } 
         }
         else if (map.map_type == 3)
         {
+            base_crt.Exp = (int)(crt.Exp * Random.Range(51, 101));
+            base_crt.Point = crt.index * 2 + 1;
             base_crt.Monster_Lv = 3;
             coefficient = 1;
         }
-        else if (map.map_type == 3)
+        else if (map.map_type == 4)//副本地图
         {
+            base_crt.Point = crt.index * 2 + 1;
             base_crt.Monster_Lv = 4;
             coefficient = 1;
         }
 
-        //base_crt.Monster_Lv = 2;
+        //base_crt.Monster_Lv = 3;
 
         base_crt.show_name = crt.show_name;
         base_crt.index = crt.index;
         base_crt.Lv = crt.Lv;
-        base_crt.Exp = (int)(crt.Exp * MathF.Pow(2, coefficient-1));
         base_crt.icon = crt.icon;
         base_crt.MaxHP = (int)(crt.MaxHP * MathF.Pow(3, coefficient-1));
         base_crt.MaxMp = crt.MaxMp;

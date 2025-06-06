@@ -69,7 +69,7 @@ public class Pet_explore : Base_Mono
     /// <summary>
     /// 功能按键列表
     /// </summary>
-    private string[] function_btn_list = new string[] { "收获", "返回", "探索" };
+    private string[] function_btn_list = new string[] { "收获", "探索" };
     /// <summary>
     /// 探索按钮列表
     /// </summary>
@@ -134,6 +134,16 @@ public class Pet_explore : Base_Mono
     /// </summary>
     private void displayPhysical()
     {
+        if(SumSave.crt_needlist.user_value_list[0].Count ==2)
+        {
+            physicalStrengthSlider.maxValue = float.Parse(SumSave.crt_needlist.user_value_list[0][1]);
+        }
+        else
+        {
+            SumSave.crt_needlist.user_value_list[0].Clear();
+            SumSave.crt_needlist.user_value_list[0].Add("100");
+            SumSave.crt_needlist.user_value_list[0].Add("100");
+        }
         physicalStrengthSlider.maxValue = float.Parse(SumSave.crt_needlist.user_value_list[0][1]);
         physicalStrengthSlider.value = float.Parse(SumSave.crt_needlist.user_value_list[0][0]);
         physicalStrength.text = "当前体力值为" + SumSave.crt_needlist.user_value_list[0][0] + "/" + SumSave.crt_needlist.user_value_list[0][1];
@@ -243,7 +253,11 @@ public class Pet_explore : Base_Mono
             {
                 info.text = "当前探索时间已满";
             }
-            else info.text = "当前探索时间 " + Show_Color.Red(time) + " 分钟/Max " + Show_Color.Red((SumSave.crt_world.World_Lv * 2 + 5) * 60) + " 分钟";
+            else
+            {
+                info.text = "当前探索时间 " + Show_Color.Red(time) + " 分钟/Max " + Show_Color.Red((SumSave.crt_world.World_Lv * 2 + 5) * 60) + " 分钟";
+            }
+                
             //计算收益
             string[] Explore_list = vo.pet_explore.Split("&");//获取该地图的奖励列表
             string[] values = data[2].Split(".");//Regex.Split(data[2], "[].");// 
@@ -261,10 +275,12 @@ public class Pet_explore : Base_Mono
             //maxtime = 10000;
             time = (int)((SumSave.nowtime - Convert.ToDateTime(data[1])).Minutes);
             maxtime = Mathf.Min(maxtime, (int)((SumSave.nowtime - Convert.ToDateTime(data[0])).Minutes));
+            //maxtime = 10000;
+            //time = 100;
             for (int i = 0; i < time; i += 6)
             {
                 //获取收益列表
-                GainRewards(Explore_list, maxtime / 3600 + 3, dic2);
+                dic2 = GainRewards(Explore_list, maxtime / 3600 + 3, dic2);
             }
             ClearObject(pos_Items);
             //更新数据
@@ -288,7 +304,7 @@ public class Pet_explore : Base_Mono
     /// <param name="data"></param>
     /// <param name="index"></param>
     /// <param name="value"></param>
-    private void GainRewards(string[] data,int index, Dictionary<string, int> value)
+    private Dictionary<string, int> GainRewards(string[] data,int index, Dictionary<string, int> value)
     {
         index = Mathf.Min(data.Length, index);
         string random = data[Random.Range(0, index)];
@@ -300,6 +316,7 @@ public class Pet_explore : Base_Mono
                 value.Add(odds[0], 0);
             value[odds[0]] += int.Parse(odds[1]);
         }
+        return value;
     }
     /// <summary>
     /// 按钮具体功能
@@ -311,8 +328,6 @@ public class Pet_explore : Base_Mono
         {
             case "收获":
                 Harvest();
-                break;
-            case "返回":
                 break;
             case "探索":
                 Show_Harvest();
@@ -450,14 +465,13 @@ public class Pet_explore : Base_Mono
     private void GainRewards(string[] data)
     {
         int i = Random.Range(1, int.Parse(data[1]) + 1);//随机获得奖励数量
-
-        NGetRewards(data, i);
-
-        Alert_Dec.Show("探索收益 " + data[0] + " x " + i);
         int r = int.Parse(SumSave.crt_needlist.user_value_list[0][0]) - 5;//每次探索消耗的体力
         SumSave.crt_needlist.user_value_list[0][0] = r.ToString();
         Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_needlist,
            SumSave.crt_needlist.Set_Uptade_String(), SumSave.crt_needlist.Get_Update_Character());
+
+        NGetRewards(data, i);
+        Alert_Dec.Show("探索收益 " + data[0] + " x " + i);
         Init();
     }
 

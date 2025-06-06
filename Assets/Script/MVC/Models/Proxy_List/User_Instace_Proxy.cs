@@ -1026,14 +1026,20 @@ namespace MVC
                     for (int j = 0; j < SumSave.db_heros[i].crate_value.Length; j++)
                     {
                         int value = SumSave.db_heros[i].crate_value[j] + (SumSave.db_heros[i].up_value[j] * (SumSave.crt_hero.hero_Lv / SumSave.db_heros[i].up_base_value[j]));
-                        Enum_Value(crt, j, value);
+                        Enum_Value(crt, j, value,1);
                     }
                 }
             }
+            Dictionary<int,int> suits= new Dictionary<int, int>();
             //添加装备效果
             for (int i = 0; i < SumSave.crt_euqip.Count; i++)
             {
                 Bag_Base_VO data= SumSave.crt_euqip[i];
+                if (data.suit > 0)
+                {
+                    if (!suits.ContainsKey(data.suit)) suits.Add(data.suit, 0);
+                    suits[data.suit]++;
+                }
                 string[] info = data.user_value.Split(' ');
                 int strengthenlv = int.Parse(info[1]);
                 crt.damageMin += data.damgemin;
@@ -1102,6 +1108,25 @@ namespace MVC
                     }
                 }
             }
+
+            if (suits.Count > 0)
+            {
+                foreach (var item in suits.Keys)
+                {
+                    db_suit_vo suit = SumSave.db_suits.Find(s => s.suit_type == item);
+                    if (suit != null)
+                    {
+                        for (int i = 0; i < suit.suit_list.Count; i++)
+                        {
+                            if (suits[item] >= suit.suit_list[i].Item1)
+                            {
+                                Enum_Value(crt, suit.suit_list[i].Item2, suit.suit_list[i].Item3);
+                            }
+                        }
+                    }
+                   
+                }
+            }
             //添加成就效果
             Dictionary<string, long> achievements_lv= SumSave.crt_achievement.Set_Lv();
             foreach (var item in achievements_lv)
@@ -1161,7 +1186,7 @@ namespace MVC
                     {
                         int strengthenlv = item.Item2;
                         string[] splits = data.arrifact_effects;
-                        if (splits.Length > 1)
+                        if (splits.Length >= 1)
                         {
                             foreach (var base_info in splits)
                             {
@@ -1300,9 +1325,6 @@ namespace MVC
                 Enum_Value(crt, (int)enum_skill_attribute_list.经验加成, Battle_Tool.IsBuff(3));
                 Enum_Value(crt, (int)enum_skill_attribute_list.灵珠加成, Battle_Tool.IsBuff(3));
             }
-
-
-
                 //丹药属性
                 List<(string, List<int>)> seeds = SumSave.crt_seeds.GetuseList();
             if (seeds.Count > 0)
@@ -1317,7 +1339,13 @@ namespace MVC
                 }
             }
             //皮肤
-
+#if UNITY_EDITOR
+            crt.hit += 1000;
+            crt.damageMax += 100000;
+            crt.MagicdamageMax += 100000;
+#elif UNITY_ANDROID
+#elif UNITY_IPHONE
+#endif
 
             SumSave.crt_MaxHero = crt;
             SumSave.crt_MaxHero.Init();
@@ -1330,7 +1358,7 @@ namespace MVC
         /// <param name="crt">主体</param>
         /// <param name="index">编号</param>
         /// <param name="value">值</param>
-        private void Enum_Value(crtMaxHeroVO crt,int index,int value) 
+        private void Enum_Value(crtMaxHeroVO crt,int index,int value,int dic=-1) 
         {
             while (index >= crt.bufflist.Count)
             { 
@@ -1400,7 +1428,7 @@ namespace MVC
                     crt.resistance += value;
                     break;
                 case enum_skill_attribute_list.攻击速度:
-                    crt.attack_speed += value;
+                    crt.attack_speed += (value * dic);
                     break;
                 case enum_skill_attribute_list.移动速度:
                     crt.move_speed += value;
@@ -1551,7 +1579,7 @@ namespace MVC
         /// <returns></returns>
         private int Obtain_Equip_strengthenlv_Value(Bag_Base_VO data,int lv,float coefficient=1)
         {
-            return (int)((data.equip_lv * lv) / coefficient);
+            return (int)((data.need_lv * lv) / coefficient);
         }
 
         ///

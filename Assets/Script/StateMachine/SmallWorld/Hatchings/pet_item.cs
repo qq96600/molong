@@ -12,9 +12,9 @@ public class pet_item : Base_Mono
     /// </summary>
     private string data;
     /// <summary>
-    /// 宠物数据
+    /// 宠物基准数据
     /// </summary>
-    private db_pet_vo crt_pet = null;
+    private db_pet_vo crt_pet;
 
     private Text text;
     /// <summary>
@@ -52,6 +52,10 @@ public class pet_item : Base_Mono
     }
     public void Init(db_pet_vo data)
     {
+        if(data==null)
+        {
+            return;
+        }
         crt_pet = data;
         text.text = crt_pet.petName + "lv:" + crt_pet.level;
         iocn.sprite = UI.UI_Manager.I.GetEquipSprite("UI/pet/", data.petName);

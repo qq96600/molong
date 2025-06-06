@@ -17,6 +17,23 @@ public class bag_item : Base_Mono
     private Bag_Base_VO data;
 
     /// <summary>
+    /// 使图标透明化
+    /// </summary>
+    public void Transparent()
+    {
+        if (item_icon == null) return;
+
+        // 获取当前颜色
+        Color currentColor = item_icon.color;
+
+        // 修改Alpha值（确保在0~1范围内）
+        currentColor.a = Mathf.Clamp01(0.5f);
+
+        // 应用新的颜色
+        item_icon.color = currentColor;
+    }
+
+    /// <summary>
     /// Data
     /// </summary>
     public Bag_Base_VO Data
@@ -26,6 +43,10 @@ public class bag_item : Base_Mono
             data = value;
             if (data == null) return;
             item_icon.sprite = UI.UI_Manager.I.GetEquipSprite("icon/", data.Name);
+            if (data.StdMode == EquipConfigTypeList.护臂.ToString() || data.StdMode == EquipConfigTypeList.扳指.ToString())
+            {
+                //方位偏转
+            }
             if (data.user_value != null)
             {
                 string[] info_str = data.user_value.Split(' ');

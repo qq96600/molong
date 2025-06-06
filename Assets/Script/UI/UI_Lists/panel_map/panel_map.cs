@@ -137,6 +137,43 @@ public class panel_map : Panel_Base
             str.Split(' ');
             string[] str1 = str.Split(' ');
             Instantiate(material_item_parfabs, pos_life).Init(((str1[0]), 0));
+#if UNITY_EDITOR
+            //task_equip(str1[0]);
+#elif UNITY_ANDROID
+#elif UNITY_IPHONE
+#endif
+        }
+    }
+    /// <summary>
+    /// 测试掉落
+    /// </summary>
+    private void task_equip(string map_name)
+    {
+        //测试使用
+        Bag_Base_VO  bag = ArrayHelper.Find(SumSave.db_stditems, e => e.Name == map_name);
+        switch ((EquipConfigTypeList)Enum.Parse(typeof(EquipConfigTypeList), bag.StdMode))
+        {
+            case EquipConfigTypeList.武器:
+            case EquipConfigTypeList.衣服:
+            case EquipConfigTypeList.头盔:
+            case EquipConfigTypeList.项链:
+            case EquipConfigTypeList.护臂:
+            case EquipConfigTypeList.戒指:
+            case EquipConfigTypeList.手镯:
+            case EquipConfigTypeList.扳指:
+            case EquipConfigTypeList.腰带:
+            case EquipConfigTypeList.靴子:
+            case EquipConfigTypeList.护符:
+            case EquipConfigTypeList.灵宝:
+            case EquipConfigTypeList.勋章:
+            case EquipConfigTypeList.饰品:
+            case EquipConfigTypeList.玉佩:
+            case EquipConfigTypeList.披风:
+                bag = tool_Categoryt.crate_equip(bag.Name, 7);
+                SumSave.crt_bag.Add(bag);
+                break;
+            default:
+                break;
         }
     }
 
@@ -180,6 +217,7 @@ public class panel_map : Panel_Base
         user_map_vo map = maplists[item];
         Show_Info(map);
     }
+    
 
     public override void Hide()
     {
