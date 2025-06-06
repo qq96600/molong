@@ -525,6 +525,4 @@ public class panel_fight : Panel_Base
             show_info_list.Add(item);
         }    
     }
-
-    
 }

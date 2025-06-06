@@ -803,6 +803,7 @@ public static class Battle_Tool
         base_crt.Type= crt.damageMax>crt.MagicdamageMax?1:2;
         //标准战斗系数
         int coefficient = 1;
+        base_crt.Exp = (int)(crt.Exp * MathF.Pow(5, coefficient - 1));
         if (Random.Range(0, 100) < 10)
         {
             coefficient = 2;
@@ -818,6 +819,8 @@ public static class Battle_Tool
             //精英模版
             if (isBoss)
             {
+                base_crt.Exp= (int)(crt.Exp * 10);
+                base_crt.Point = crt.index + 1;
                 coefficient = 3;
             }
             base_crt.Monster_Lv = coefficient;
@@ -825,17 +828,22 @@ public static class Battle_Tool
         else if (map.map_type == 2)
         {
             if (isBoss)
-            { 
+            {
+                base_crt.Exp = (int)(crt.Exp * 30);
+                base_crt.Point = crt.index + 1;
                 coefficient = 1;
             } 
         }
         else if (map.map_type == 3)
         {
+            base_crt.Exp = (int)(crt.Exp * Random.Range(51, 101));
+            base_crt.Point = crt.index * 2 + 1;
             base_crt.Monster_Lv = 3;
             coefficient = 1;
         }
-        else if (map.map_type == 3)
+        else if (map.map_type == 4)//副本地图
         {
+            base_crt.Point = crt.index * 2 + 1;
             base_crt.Monster_Lv = 4;
             coefficient = 1;
         }
@@ -845,7 +853,6 @@ public static class Battle_Tool
         base_crt.show_name = crt.show_name;
         base_crt.index = crt.index;
         base_crt.Lv = crt.Lv;
-        base_crt.Exp = (int)(crt.Exp * MathF.Pow(2, coefficient-1));
         base_crt.icon = crt.icon;
         base_crt.MaxHP = (int)(crt.MaxHP * MathF.Pow(3, coefficient-1));
         base_crt.MaxMp = crt.MaxMp;
