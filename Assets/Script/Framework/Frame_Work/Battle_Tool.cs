@@ -848,7 +848,7 @@ public static class Battle_Tool
             coefficient = 1;
         }
 
-        //base_crt.Monster_Lv = 2;
+        //base_crt.Monster_Lv = 3;
 
         base_crt.show_name = crt.show_name;
         base_crt.index = crt.index;
