@@ -169,6 +169,10 @@ namespace Common
 
         #region 配置db文件
         /// <summary>
+        /// 套装属性
+        /// </summary>
+        public static List<db_suit_vo> db_suits;
+        /// <summary>
         /// 当前世界boss信息
         /// </summary>
         public static db_world_boos db_world_boos = new db_world_boos();

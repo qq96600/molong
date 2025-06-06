@@ -19,7 +19,14 @@ public static class ReadDb
         item.Init();
         return item;
     }
-
+    public static db_suit_vo Read(MySqlDataReader reader, db_suit_vo item)
+    {
+        item.suit_name = reader.GetString(reader.GetOrdinal("suit_name"));
+        item.suit_number = reader.GetInt32(reader.GetOrdinal("suit_number"));
+        item.suit_type= reader.GetInt32(reader.GetOrdinal("suit_type"));
+        item.Init(reader.GetString(reader.GetOrdinal("suit_value")));
+        return item;
+    }
 
     public static user_world_boss Read(MySqlDataReader reader, user_world_boss item)
     {

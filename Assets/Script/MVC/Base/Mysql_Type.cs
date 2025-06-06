@@ -74,4 +74,5 @@ public enum Mysql_Table_Name
     user_world_boss,//世界boss伤害
     history_world_boss,//世界boss历史伤害
     db_formula,//造化炉合成信息
+    db_suit,//套装信息
 }

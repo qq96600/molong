@@ -1,3 +1,4 @@
+using Common;
 using MVC;
 using System;
 using System.Collections;
@@ -58,7 +59,7 @@ public class equip_item : Base_Mono
 
         show_base_need.text = "品质:" + (enum_equip_quality_list)int.Parse(info[2]) + "\n" +
             "类型:" + data.StdMode + "\n" +
-            "需求:" + data.need_lv + "级";
+            "需求:" + data.equip_lv + "级";
         string dec = Show_Color.Yellow("[基础属性]");
         
         if (data.damgemin > 0 || data.damagemax > 0)
@@ -66,7 +67,7 @@ public class equip_item : Base_Mono
             dec += "\n" + Show_Color.White("物理攻击:" + data.damgemin + "-" + data.damagemax);
             if (strengthenlv > 0)
             { 
-                dec += Show_Color.Grey("(+" + (data.equip_lv * strengthenlv) + ")");
+                dec += Show_Color.Grey("(+" + (data.need_lv * strengthenlv) + ")");
             }
         }
         if (data.magicmin > 0 || data.magicmax > 0)
@@ -74,7 +75,7 @@ public class equip_item : Base_Mono
             dec += "\n" + Show_Color.White("魔法攻击:" + data.magicmin + "-" + data.magicmax);
             if (strengthenlv > 0)
             { 
-                dec += Show_Color.Grey("(+" + (data.equip_lv * strengthenlv) + ")");
+                dec += Show_Color.Grey("(+" + (data.need_lv * strengthenlv) + ")");
             }
         }
         if (data.defmin > 0 || data.defmax > 0)
@@ -82,7 +83,7 @@ public class equip_item : Base_Mono
             dec += "\n" + Show_Color.White("物理防御:" + data.defmin + "-" + data.defmax);
             if (strengthenlv > 0)
             {
-                dec += Show_Color.Grey("(+" + (data.equip_lv * strengthenlv / 2) + ")");
+                dec += Show_Color.Grey("(+" + (data.need_lv * strengthenlv / 2) + ")");
             }
         }
         if (data.macdefmin > 0 || data.macdefmax > 0)
@@ -90,7 +91,7 @@ public class equip_item : Base_Mono
             dec += "\n" + Show_Color.White("魔法防御:" + data.macdefmin + "-" + data.macdefmax);
             if (strengthenlv > 0)
             {
-                dec += Show_Color.Grey("(+" + (data.equip_lv * strengthenlv / 2) + ")");
+                dec += Show_Color.Grey("(+" + (data.need_lv * strengthenlv / 2) + ")");
             }
         }
         if (data.hp > 0)
@@ -155,9 +156,46 @@ public class equip_item : Base_Mono
 
             }
         }
+
+        if (Data.suit !=0)
+        {
+            dec+= Show_Suit();
+        }
         show_info.text = dec;
 
     }
+
+    private string Show_Suit()
+    {
+        string dec = "";
+        int number = 0;
+        db_suit_vo suit = SumSave.db_suits.Find(x => x.suit_type == Data.suit);
+        foreach (Bag_Base_VO item in SumSave.crt_euqip)
+        {
+            if (item.suit == data.suit)
+            {
+                foreach (var value in SumSave.db_suits)
+                {
+                    if (item.suit == value.suit_type)
+                    {
+                        number++;
+                    }
+                }
+            }
+        }
+        dec+="\n" + Show_Color.Yellow("[套装] "+suit.suit_name)+"("+number+"/"+suit.suit_number+")";
+        for (int i = 0; i < suit.suit_list.Count; i++)
+        {
+            if (number >= suit.suit_list[i].Item1)
+            {
+                dec += "\n" + (enum_skill_attribute_list)suit.suit_list[i].Item2 + " : " + Math.Abs(suit.suit_list[i].Item3) + tool_Categoryt.Obtain_unit(suit.suit_list[i].Item2);
+            }
+            else
+                dec += "\n" + Show_Color.Grey((enum_skill_attribute_list)suit.suit_list[i].Item2 + " : " + Math.Abs(suit.suit_list[i].Item3) + tool_Categoryt.Obtain_unit(suit.suit_list[i].Item2));
+        }
+        return dec;
+    }
+
     /// <summary>
     /// 判断是否有开关
     /// </summary>
