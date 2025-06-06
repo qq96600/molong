@@ -338,11 +338,25 @@ public static class Battle_Tool
         string value_data = "";
         value_data += pet_init.petName + ",";
         value_data += SumSave.nowtime + ",";
-        value_data += (SumSave.crt_world.World_Lv / 5 + 1) + ",";
+        if(SumSave.crt_world==null)
+        {
+            value_data += 1 + ",";
+        }
+        else
+        {
+            value_data += (SumSave.crt_world.World_Lv / 5 + 1) + ",";
+        }
         value_data += pet_init.level + ",";
         value_data += pet_init.exp + ",";
         //value_data +=lv + ",";
-        value_data += crate_value(pet_init, (SumSave.crt_world.World_Lv / 5 + 1)) + ",";
+        if(SumSave.crt_world == null)
+        {
+            value_data += crate_value(pet_init,1) + ",";
+        }
+        else
+        {
+            value_data += crate_value(pet_init, (SumSave.crt_world.World_Lv / 5 + 1)) + ",";
+        }
         value_data += 0.ToString();
         SumSave.crt_pet.crt_pet_list.Add(value_data);
         db_pet_vo pet = new db_pet_vo();

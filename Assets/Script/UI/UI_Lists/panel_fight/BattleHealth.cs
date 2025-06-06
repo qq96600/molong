@@ -267,7 +267,6 @@ namespace MVC
             {
                 tool_Categoryt.Base_Task(1047);
             }
-
             if (monster.Data.show_name == "七爪狼")
             {
                 tool_Categoryt.Base_Task(1053);
