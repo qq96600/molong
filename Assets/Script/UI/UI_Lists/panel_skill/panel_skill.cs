@@ -129,10 +129,24 @@ public class panel_skill : Panel_Base
                 allocation_skill_damage.gameObject.SetActive(true);
                 allocation_skill_damage.Show(user_skill.Data);
                 break;
+            case skill_Offect_btn_list.下阵:
+                Next_formation();
+                break;
             default:
                 break;
         }
     }
+
+    private void Next_formation()
+    {
+        user_skill.Data.user_values[2] = "0";
+        user_skill.Data.user_value = ArrayHelper.Data_Encryption(user_skill.Data.user_values);
+        Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.skill_value, SumSave.crt_skills);
+        SendNotification(NotiList.Refresh_Max_Hero_Attribute);
+        Select_skill(user_skill);
+        Alert_Dec.Show("下阵成功");
+    }
+
     /// <summary>
     /// 升级技能
     /// </summary>
@@ -222,10 +236,7 @@ public class panel_skill : Panel_Base
         {
             Destroy(pos_skill.GetChild(i).gameObject);
         }
-        foreach (var item in btn_item_dic.Keys)
-        {
-            btn_item_dic[item].gameObject.SetActive(false);
-        }
+        
         //SumSave.crt_skills.Add(tool_Categoryt.crate_skill(SumSave.db_skills[Random.Range(0, SumSave.db_skills.Count)].skillname));//添加技能
         List<base_skill_vo> lists = ArrayHelper.FindAll(SumSave.crt_skills, e => (skill_btn_list)e.skill_type == select_btn_type);
         crt_skill_number= lists.Count;
@@ -243,7 +254,7 @@ public class panel_skill : Panel_Base
     }
     /// <summary>
     /// 选择物品
-    /// </summary>
+    /// </summary>  
     /// <param name="item"></param>
     private void Select_skill(skill_offect_item item)
     {
@@ -265,9 +276,14 @@ public class panel_skill : Panel_Base
     /// </summary>
     private void Open_Select_Btn()
     {
+        foreach (var item in btn_item_dic.Keys)
+        {
+            btn_item_dic[item].gameObject.SetActive(false);
+        }
         if (user_skill.Data.skill_max_lv > user_skill.Data.skilllv) btn_item_dic[skill_Offect_btn_list.升级].gameObject.SetActive(true);
         if ((skill_btn_list)user_skill.Data.skill_type != skill_btn_list.特殊) btn_item_dic[skill_Offect_btn_list.上阵].gameObject.SetActive(true);
         if ((skill_btn_list)user_skill.Data.skill_type == skill_btn_list.战斗) btn_item_dic[skill_Offect_btn_list.分配].gameObject.SetActive(true);
+        if(user_skill.Data.user_values[2]!="0") btn_item_dic[skill_Offect_btn_list.下阵].gameObject.SetActive(true);
 
     }
 
