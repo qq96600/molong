@@ -207,15 +207,16 @@ namespace MVC
         /// </summary>
         private void TapLogin()
         {
-            #if UNITY_EDITOR
+#if UNITY_EDITOR
             TaploginBt.gameObject.SetActive(false);
             loginBt.gameObject.SetActive(true);
-            #elif UNITY_ANDROID
+
+#elif UNITY_ANDROID
             _ = GameLogin.Instance.Login();
            
-            #elif UNITY_IPHONE
+#elif UNITY_IPHONE
 
-            #endif
+#endif
         }
 
         private void OpenUser()//打开用户协议
@@ -275,7 +276,7 @@ namespace MVC
             }
             PlayerPrefs.SetInt("同意阅读协议", 1);
 #if UNITY_EDITOR
-            SumSave.uid = "DSFSDFSDFSDFjrt3";//"05c8cc2e26234ec0acc690343a598eba";8026157149ab4e86af8f69b22e12a7c4 DSFSDFSDFSDF3
+            SumSave.uid = "DSFSDFSDFSDF";//"05c8cc2e26234ec0acc690343a598eba";8026157149ab4e86af8f69b22e12a7c4 DSFSDFSDFSDF3
 
             //SumSave.uid= "d6a5b51fddf94459bb2e80e54c091453";
 

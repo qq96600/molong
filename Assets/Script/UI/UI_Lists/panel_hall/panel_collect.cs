@@ -169,6 +169,7 @@ public class panel_collect : Base_Mono
                     if (item.Name == crt_collect.Name&&int.Parse( info[2])>=7)
                     {
                         SumSave.crt_bag.Remove(item);
+                        Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.bag_value, SumSave.crt_bag);
                         SumSave.crt_collect.collect_complete(crt_collect.Name);//收集完成
                         Alert_Dec.Show(crt_collect.Name + " 收集成功");
                         SuitCollect(crt_collect);
@@ -178,16 +179,7 @@ public class panel_collect : Base_Mono
                   
                 }
                 Alert.Show("收集失败", "该装备被锁定，或背包没有该绝世品阶装备：" + crt_collect.Name);
-                ////查找背包是否有该物品
-                //NeedConsumables(crt_collect.Name, 1);
-                //if (RefreshConsumables())
-                //{
-
-                //}
-                //else
-                //{
-                //    Alert_Dec.Show("背包没有" + crt_collect.Name);
-                //}
+ 
             }
         }        
         else
@@ -332,6 +324,14 @@ public class panel_collect : Base_Mono
             data.Name = item_Type[j].Name;
             bag_item item = Instantiate(bag_Item, collect_item);
             item.Data = data;
+
+            if (!SumSave.crt_collect.user_collect_dic.ContainsKey(item_Type[j].Name) || SumSave.crt_collect.user_collect_dic[item_Type[j].Name] == 0)
+            {
+                item.Transparent();
+            }
+
+            
+
             item.GetComponent<Button>().onClick.AddListener(() => { OpenCollectInfo(collect_vo); });
         }
 
@@ -399,7 +399,7 @@ public class panel_collect : Base_Mono
         //    Put_but_text.text = "已收集";
         //}
 
-        if(!SumSave.crt_collect.user_collect_dic.ContainsKey(crt_collect.Name))
+        if(!SumSave.crt_collect.user_collect_dic.ContainsKey(crt_collect.Name)|| SumSave.crt_collect.user_collect_dic[crt_collect.Name] == 0)
         {
             Put_but_text.text = "放入";
         }else

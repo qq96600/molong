@@ -1026,7 +1026,7 @@ namespace MVC
                     for (int j = 0; j < SumSave.db_heros[i].crate_value.Length; j++)
                     {
                         int value = SumSave.db_heros[i].crate_value[j] + (SumSave.db_heros[i].up_value[j] * (SumSave.crt_hero.hero_Lv / SumSave.db_heros[i].up_base_value[j]));
-                        Enum_Value(crt, j, value);
+                        Enum_Value(crt, j, value,1);
                     }
                 }
             }
@@ -1161,7 +1161,7 @@ namespace MVC
                     {
                         int strengthenlv = item.Item2;
                         string[] splits = data.arrifact_effects;
-                        if (splits.Length > 1)
+                        if (splits.Length >= 1)
                         {
                             foreach (var base_info in splits)
                             {
@@ -1330,7 +1330,7 @@ namespace MVC
         /// <param name="crt">主体</param>
         /// <param name="index">编号</param>
         /// <param name="value">值</param>
-        private void Enum_Value(crtMaxHeroVO crt,int index,int value) 
+        private void Enum_Value(crtMaxHeroVO crt,int index,int value,int dic=-1) 
         {
             while (index >= crt.bufflist.Count)
             { 
@@ -1400,7 +1400,7 @@ namespace MVC
                     crt.resistance += value;
                     break;
                 case enum_skill_attribute_list.攻击速度:
-                    crt.attack_speed += value;
+                    crt.attack_speed += (value * dic);
                     break;
                 case enum_skill_attribute_list.移动速度:
                     crt.move_speed += value;
