@@ -138,7 +138,7 @@ public class panel_map : Panel_Base
             string[] str1 = str.Split(' ');
             Instantiate(material_item_parfabs, pos_life).Init(((str1[0]), 0));
 #if UNITY_EDITOR
-            task_equip(str1[0]);
+            //task_equip(str1[0]);
 #elif UNITY_ANDROID
 #elif UNITY_IPHONE
 #endif
