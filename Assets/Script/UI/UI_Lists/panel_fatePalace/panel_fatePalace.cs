@@ -33,7 +33,7 @@ public class panel_fatePalace : Panel_Base
     /// </summary>
     private btn_item current_designated;
     /// <summary>
-    /// 选中期数物品
+    /// 选中期数物品0名字1代表分类（1材料技能书神器2魔丸3皮肤）2单次抽取数量3最大抽取数量4权重）
     /// </summary>
     private List<(string, int, int, int, int)> CurrentItems;
 
@@ -173,18 +173,17 @@ public class panel_fatePalace : Panel_Base
                 if (CurrentItems[i].Item2 == j)//按物品类型排序
                 {
                     fate_item fate_item = Instantiate(fate_item_prefab, fale_items);
+                    (string, int, int, int, int) data= CurrentItems[i];
+                    fate_item.GetComponent<Button>().onClick.AddListener(() => { Alert.Show(data.Item1, (data.Item1 + "*" + data.Item3.ToString())); });
                     int num = 0;
                     if (isDic(i))
                     {
-              
                         num = SumSave.crt_needlist.fate_value_dic[current_designated.index][(CurrentItems[i].Item1, CurrentItems[i].Item3)];//获得剩余数量
                     }
                     else
                     {
                         num =0;
                     }
-
-
                     fate_item.Init(CurrentItems[i], num);
                 }
             }

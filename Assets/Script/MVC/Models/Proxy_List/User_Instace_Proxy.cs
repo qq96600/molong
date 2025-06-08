@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UI;
 using UnityEngine;
-
+using Random = UnityEngine.Random;
 
 namespace MVC
 {
@@ -1218,7 +1218,7 @@ namespace MVC
             //        }
             //    }
             //}
-            (int,int,string) exp = SumSave.crt_accumulatedrewards.SetSum_recharge();
+            (int,int,string) exp = SumSave.crt_accumulatedrewards.SetRecharge();
             if (exp.Item1 > 0)
             {
                 for (int i = SumSave.db_vip_list.Count - 1; i >= 0; i--)
@@ -1638,7 +1638,8 @@ namespace MVC
             }
             else
             {
-                SumSave.crt_hero.hero_name = "墨龙新星";
+                ///SumSave.crt_hero.hero_name = "墨龙新星";
+                SumSave.crt_hero.hero_name = GetNameHelper.GetManName();
                 SumSave.crt_hero.hero_value = SumSave.db_heros[0].hero_name;
                 SumSave.crt_hero.hero_lv = "1";
                 SumSave.crt_hero.hero_exp = "0";
@@ -1649,6 +1650,8 @@ namespace MVC
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_hero, SumSave.crt_hero.Set_Instace_String());
             }
         }
+
+
         /// <summary>
         /// 导入数据
         /// </summary>

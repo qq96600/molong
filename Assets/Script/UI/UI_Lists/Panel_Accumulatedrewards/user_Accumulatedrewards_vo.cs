@@ -60,10 +60,19 @@ public class user_Accumulatedrewards_vo : Base_VO
     }
 
     /// <summary>
+    /// 得到累计充值的值
+    /// </summary>
+    /// <returns></returns>
+    public int SetSum_recharge()
+    {
+        return sum_recharge;
+    }
+
+    /// <summary>
     /// 取出累计充值的值 0等级 1经验 2名字
     /// </summary>
     /// <returns></returns>
-    public (int, int, string) SetSum_recharge()
+    public (int, int, string) SetRecharge()
     {
         (int, int, string) vip = (0, 0, "");
         for (int i = SumSave.db_vip_list.Count; i > 0; i--)//实例化vip信息

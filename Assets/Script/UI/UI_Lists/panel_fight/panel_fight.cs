@@ -475,6 +475,7 @@ public class panel_fight : Panel_Base
             }
         }
         crt = Battle_Tool.crate_monster(crt, select_map, crt_monster_number == maxnumber);
+
         GameObject item = ObjectPoolManager.instance.GetObjectFormPool(crt.show_name, monster_battle_attack_prefabs,
             new Vector3(pos_monster.position.x, pos_monster.position.y,pos_monster.position.z), Quaternion.identity, pos_monster);
         // 设置Data

@@ -75,6 +75,7 @@ public class signIn : Base_Mono
             Alert_Dec.Show("签到成功");
             SumSave.crt_pass.clear_data();
             SumSave.crt_user_unit.verify_data(currency_unit.灵珠, 1000000 * SumSave.crt_signin.number);
+            
             MonthlyCardRewards(3);
             SignInTask();
             base_show();
@@ -95,7 +96,12 @@ public class signIn : Base_Mono
                 if ((SumSave.nowtime - time.Item1).Minutes < time.Item2)
                 {
                     SumSave.crt_user_unit.verify_data(currency_unit.魔丸, 30);
+                    SumSave.crt_accumulatedrewards.Set(2, 4);
                 }
+            }
+            else
+            {
+                SumSave.crt_accumulatedrewards.Set(2, 2);//不是月卡给2点荣耀点
             }
         }
     }
@@ -114,7 +120,7 @@ public class signIn : Base_Mono
     private void Clear()
     {
         //累积vip经验
-        SumSave.crt_accumulatedrewards.Set(2, 2);
+        //SumSave.crt_accumulatedrewards.Set(2, 2);
         //限购商店,地图次数刷新
         SumSave.crt_needlist.DailyClear();
     }
