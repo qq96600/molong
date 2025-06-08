@@ -43,7 +43,7 @@ public class panel_vip : Panel_Base
     {
         ClearObject(Information);
 
-        (int,int,string) price =SumSave.crt_accumulatedrewards.SetSum_recharge();
+        (int,int,string) price =SumSave.crt_accumulatedrewards.SetRecharge();
         show_vip_lv_text.text.Clone();
         if (price.Item1 == 0)
         {
@@ -51,7 +51,7 @@ public class panel_vip : Panel_Base
         }   else
         {
             
-            show_vip_lv_text.text = "荣耀点:" + price.Item2 + "\n荣耀等级:" + price.Item3;//显示vip等级和经验
+            show_vip_lv_text.text = "荣耀点:" + SumSave.crt_accumulatedrewards.SetSum_recharge() + "\n荣耀等级:" + price.Item3;//显示vip等级和经验
         }
         
 

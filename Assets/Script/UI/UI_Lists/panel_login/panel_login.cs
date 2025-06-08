@@ -325,7 +325,7 @@ namespace MVC
             if (number > 300)
             {
                 int maxnumber = 3600 * 2;
-                (int,int,string) exp = SumSave.crt_accumulatedrewards.SetSum_recharge();
+                (int,int,string) exp = SumSave.crt_accumulatedrewards.SetRecharge();
                 if (exp.Item1 > 0)
                 {
                     for (int i = SumSave.db_vip_list.Count - 1; i >= 0; i--)

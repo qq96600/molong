@@ -79,7 +79,7 @@ public class offect_strengthen : Base_Mono
                 Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.equip_value, SumSave.crt_euqip);
             }
             else Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.bag_value, SumSave.crt_bag);
-
+            SendNotification(NotiList.Refresh_Max_Hero_Attribute);
             EquipmentEnhancementTask();
         }
         else Alert_Dec.Show(currency_unit.灵珠 + "不足 " + needs[lv]);
