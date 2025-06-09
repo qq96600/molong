@@ -322,8 +322,8 @@ namespace MVC
                 tool_Categoryt.Base_Task(1007);
             }
             //判断五行伤害
-            int life = restrain_value(skill.skill_life, monster.Data.life);
-            if (life < 0) damage = damage / 10 * (100 + (life)) / 100f;
+            int life = restrain_value(skill.skill_life-1, monster.Data.life);
+            if (life < 0) damage = (damage / 10) * (100 + (life)) / 100f;
             else damage = damage * (100 + (life)) / 100f;
             if (iSnHit(monster))
             {
@@ -407,36 +407,43 @@ namespace MVC
                     monsterlifevaluelue = monsterlife[i];
                 }
             }
+    //        /*
+    //         *    土属性强化,// 201  
+    //火属性强化,//202
+    //水属性强化,// 203
+    //木属性强化,//204
+    //金属性强化,//205
+    //         //*// 0土 1火 2水 3木 4金 
             //对手五行
             switch (index)//金克木 木克土 土克水 水克火 火克金   金0 木1 水2 火3 土4
             {
                 //金属性 同属计算抗性
                 case 0:
                     if (type == index) value = data.life[type] - monsterlifevaluelue;
-                    //克制计算乘法（火克）
-                    else if (type == 1) value = (int)(data.life[type] * 0.5f - monsterlifevaluelue);
-                    //被克制计算乘法（木克）
+                    //克制计算乘法（木克）
                     else if (type == 3) value = (int)(data.life[type] * 1.5f - monsterlifevaluelue);
+                    else if (type == 2) value = (int)(data.life[type] * 0.5f - monsterlifevaluelue);
+                    //被克制计算乘法（水克）
                     break;
                 case 1:
                     if (type == index) value = data.life[type] - monsterlifevaluelue;
-                    else if (type == 0) value = (int)(data.life[type] * 1.5f - monsterlifevaluelue);
+                    else if (type == 2) value = (int)(data.life[type] * 1.5f - monsterlifevaluelue);
                     else if (type == 4) value = (int)(data.life[type] * 0.5f - monsterlifevaluelue);
                     break;
                 case 2:
                     if (type == index) value = data.life[type] - monsterlifevaluelue;
-                    else if (type == 4) value = (int)(data.life[type] * 1.5f - monsterlifevaluelue);
-                    else if (type == 3) value = (int)(data.life[type] * 0.5f - monsterlifevaluelue);
+                    else if (type == 0) value = (int)(data.life[type] * 1.5f - monsterlifevaluelue);
+                    else if (type == 1) value = (int)(data.life[type] * 0.5f - monsterlifevaluelue);
                     break;
                 case 3:
                     if (type == index) value = data.life[type] - monsterlifevaluelue;
-                    else if (type == 2) value = (int)(data.life[type] * 1.5f - monsterlifevaluelue);
+                    else if (type == 4) value = (int)(data.life[type] * 1.5f - monsterlifevaluelue);
                     else if (type == 0 ) value = (int)(data.life[type] * 0.5f - monsterlifevaluelue);
                     break;
                 case 4:
                     if (type == index) value = data.life[type] - monsterlifevaluelue;
                     else if (type == 1) value = (int)(data.life[type] * 1.5f - monsterlifevaluelue);
-                    else if (type == 2) value = (int)(data.life[type] * 0.5f - monsterlifevaluelue);
+                    else if (type == 3) value = (int)(data.life[type] * 0.5f - monsterlifevaluelue);
                     break;
                 default:
                     break;

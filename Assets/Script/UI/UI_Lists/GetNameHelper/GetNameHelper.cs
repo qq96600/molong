@@ -80,7 +80,7 @@ public class GetNameHelper
     /// <returns></returns>
     public static string GetManName()
     {
-        return GetSurname() + GetName(1);
+        return GetSurname() + GetName(3);
     }
 
     /// <summary>

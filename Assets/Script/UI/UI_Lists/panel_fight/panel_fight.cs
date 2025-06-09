@@ -429,10 +429,8 @@ public class panel_fight : Panel_Base
         bool exist = true;
         if (select_map.need_Required != "")
         {
-            Debug.Log("刷怪钱");
             if (state || crt_monster_number >= maxnumber)
             {
-                Debug.Log(1);
                 NeedConsumables(select_map.need_Required, 1);
                 if (!RefreshConsumables())
                 {
