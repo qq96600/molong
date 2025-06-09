@@ -14,7 +14,7 @@ public class bag_Resources_vo : Base_VO
         index = Random.Range(1, 1000);
         list = new List<(string, int)>();
         string[] artifact_value_array = value.Split(',');
-        if (artifact_value_array.Length > 1)
+        if (artifact_value_array.Length >= 1)
         {
             for (int i = 0; i < artifact_value_array.Length; i++)
             {
