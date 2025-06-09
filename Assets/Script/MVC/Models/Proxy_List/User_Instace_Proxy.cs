@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UI;
 using UnityEngine;
-
+using Random = UnityEngine.Random;
 
 namespace MVC
 {
@@ -1026,7 +1026,7 @@ namespace MVC
                     for (int j = 0; j < SumSave.db_heros[i].crate_value.Length; j++)
                     {
                         int value = SumSave.db_heros[i].crate_value[j] + (SumSave.db_heros[i].up_value[j] * (SumSave.crt_hero.hero_Lv / SumSave.db_heros[i].up_base_value[j]));
-                        Enum_Value(crt, j, value);
+                        Enum_Value(crt, j, value,1);
                     }
                 }
             }
@@ -1187,7 +1187,7 @@ namespace MVC
                     {
                         int strengthenlv = item.Item2;
                         string[] splits = data.arrifact_effects;
-                        if (splits.Length > 1)
+                        if (splits.Length >= 1)
                         {
                             foreach (var base_info in splits)
                             {
@@ -1219,7 +1219,7 @@ namespace MVC
             //        }
             //    }
             //}
-            (int,int,string) exp = SumSave.crt_accumulatedrewards.SetSum_recharge();
+            (int,int,string) exp = SumSave.crt_accumulatedrewards.SetRecharge();
             if (exp.Item1 > 0)
             {
                 for (int i = SumSave.db_vip_list.Count - 1; i >= 0; i--)
@@ -1359,7 +1359,7 @@ namespace MVC
         /// <param name="crt">主体</param>
         /// <param name="index">编号</param>
         /// <param name="value">值</param>
-        private void Enum_Value(crtMaxHeroVO crt,int index,int value) 
+        private void Enum_Value(crtMaxHeroVO crt,int index,int value,int dic=-1) 
         {
             while (index >= crt.bufflist.Count)
             { 
@@ -1429,7 +1429,7 @@ namespace MVC
                     crt.resistance += value;
                     break;
                 case enum_skill_attribute_list.攻击速度:
-                    crt.attack_speed += value;
+                    crt.attack_speed += (value * dic);
                     break;
                 case enum_skill_attribute_list.移动速度:
                     crt.move_speed += value;
@@ -1639,7 +1639,7 @@ namespace MVC
             }
             else
             {
-                SumSave.crt_hero.hero_name = "墨龙新星";
+                SumSave.crt_hero.hero_name = GetNameHelper.GetManName();
                 SumSave.crt_hero.hero_value = SumSave.db_heros[0].hero_name;
                 SumSave.crt_hero.hero_lv = "1";
                 SumSave.crt_hero.hero_exp = "0";
@@ -1650,6 +1650,8 @@ namespace MVC
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_hero, SumSave.crt_hero.Set_Instace_String());
             }
         }
+
+
         /// <summary>
         /// 导入数据
         /// </summary>

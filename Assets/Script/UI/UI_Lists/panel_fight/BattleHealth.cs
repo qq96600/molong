@@ -151,8 +151,6 @@ namespace MVC
                 else if (monster.Data.Monster_Lv == 2)
                 {
                     Combat_statistics.AddEliteNumber();
-
-
                     SumSave.crt_pass.progress(2);
                 }
             

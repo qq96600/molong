@@ -803,7 +803,6 @@ public static class Battle_Tool
         base_crt.Type= crt.damageMax>crt.MagicdamageMax?1:2;
         //标准战斗系数
         int coefficient = 1;
-        base_crt.Exp = (int)(crt.Exp * MathF.Pow(5, coefficient - 1));
         if (Random.Range(0, 100) < 10)
         {
             coefficient = 2;
@@ -813,6 +812,7 @@ public static class Battle_Tool
                 coefficient = 3;
             }
         }
+        base_crt.Exp = (int)(crt.Exp * MathF.Pow(5, coefficient - 1));
         //普通地图
         if (map.map_type == 1)
         {
@@ -824,20 +824,27 @@ public static class Battle_Tool
                 coefficient = 3;
             }
             base_crt.Monster_Lv = coefficient;
+            if (base_crt.Monster_Lv > 1) base_crt.Point = (int)MathF.Max(base_crt.Point, crt.index * (base_crt.Monster_Lv - 1) + 1);
+
         }
         else if (map.map_type == 2)
         {
             if (isBoss)
             {
                 base_crt.Exp = (int)(crt.Exp * 30);
-                base_crt.Point = crt.index + 1;
+                base_crt.Point = crt.index * 2 + 1;
                 coefficient = 1;
-            } 
+                base_crt.Monster_Lv = 3;
+            }
+            else
+                base_crt.Monster_Lv = coefficient;
+            if (base_crt.Monster_Lv > 1) base_crt.Point = (int)MathF.Max(base_crt.Point, crt.index * (base_crt.Monster_Lv - 1) + 1);
+
         }
         else if (map.map_type == 3)
         {
             base_crt.Exp = (int)(crt.Exp * Random.Range(51, 101));
-            base_crt.Point = crt.index * 2 + 1;
+            base_crt.Point = crt.index * 3 + 1;
             base_crt.Monster_Lv = 3;
             coefficient = 1;
         }
@@ -847,9 +854,7 @@ public static class Battle_Tool
             base_crt.Monster_Lv = 4;
             coefficient = 1;
         }
-
-        //base_crt.Monster_Lv = 2;
-
+       
         base_crt.show_name = crt.show_name;
         base_crt.index = crt.index;
         base_crt.Lv = crt.Lv;

@@ -178,6 +178,7 @@ public class Alchemy : Base_Mono
     /// <param name="number"></param>
     private void synthesis(int number)
     {
+        //number = 7;
         // 创建一个加权随机选择器
         WeightedRandomPicker picker = new WeightedRandomPicker(eighteditems);
         // 获取一个随机物品
@@ -198,16 +199,16 @@ public class Alchemy : Base_Mono
         if (number >= 5)
         {
             (string, List<string>) formula = new (item.seed_formula, new List<string>());
-            formula.Item2.Add(lv.ToString());
+            formula.Item2.Add((lv / 10).ToString());
             string dec = "";
             foreach (var base_name in eighteditems)
             {
-                dec += (dec == "" ? "" : " ") + base_name.prizedraw;
+                dec += (dec == "" ? "" : " ") + ArrayHelper.Find(SumSave.db_seeds, e => e.pill == base_name.prizedraw).seed_name;
             }
             formula.Item2.Add(dec);
             //写入丹方
             SumSave.crt_seeds.Setformula(formula);
-            Alert_Dec.Show("获得 "+lv+" 级丹方 " + item.seed_formula);
+            Alert_Dec.Show("获得 " + (lv / 10) + " 级丹方 " + item.seed_formula);
         }
         split = crate_seed(item, split, lv);
         SumSave.crt_seeds.Set(split);
@@ -228,13 +229,14 @@ public class Alchemy : Base_Mono
 
     }
     /// <summary>
-    /// 生成配方
+    /// 生成配方 
     /// </summary>
     /// <param name="item"></param>
     /// <param name="split"></param>
     private List<string> crate_seed(db_seed_vo item, List<string> split,int lv)
     {
         split.Add(item.pill);
+        //split.Add(item.seed_name); 
         split.Add(SumSave.nowtime.ToString());
         string[] split1 = item.pill_effect.Split(' ');
         int random = int.Parse(split1[0]) + ((int.Parse(split1[1]) - int.Parse(split1[0])) * lv / 100);

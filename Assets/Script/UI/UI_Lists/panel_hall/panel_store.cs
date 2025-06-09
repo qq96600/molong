@@ -363,7 +363,7 @@ public class panel_store : Base_Mono
     private void ShowItem(int index)
     {
         ClearObject(store_item);
-        (int, int, string) vip = SumSave.crt_accumulatedrewards.SetSum_recharge();
+        (int, int, string) vip = SumSave.crt_accumulatedrewards.SetRecharge();
         if (index == 3)
         {
             if (vip.Item1 <= 3)
