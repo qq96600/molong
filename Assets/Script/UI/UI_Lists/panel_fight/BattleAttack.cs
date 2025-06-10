@@ -214,10 +214,9 @@ namespace MVC
                     Terget = ArrayHelper.GetMin(SumSave.battleHeroHealths, e => Vector2.Distance(transform.position, e.transform.position));
                     AttackStateMachine.Init(this, Terget);
                     StateMachine.Init(this, Terget);
-                   
-
                 }
-                else game_over();
+                else 
+                    game_over();
             }
         }
         /// <summary>
@@ -225,6 +224,7 @@ namespace MVC
         /// </summary>
         private void Game_Next_Map()
         {
+            DailyCopies();
             transform.parent.parent.parent.SendMessage("Game_Next_Map");
 
         }
@@ -233,12 +233,18 @@ namespace MVC
         /// </summary>
         private void game_over()
         {
-            if (data.Monster_Lv == 4)
-            {
-                transform.parent.parent.parent.SendMessage("DailyCopies",target);
-
-            }
+            DailyCopies();
             transform.parent.parent.parent.SendMessage("Game_Over");
+        }
+        /// <summary>
+        /// 获取副本奖励
+        /// </summary>
+        private void DailyCopies()
+        {
+            if (Terget.GetComponent<BattleAttack>().data.Monster_Lv == 4)
+            {
+                transform.parent.parent.parent.SendMessage("DailyCopies", Terget);
+            }
         }
 
         /// <summary>
