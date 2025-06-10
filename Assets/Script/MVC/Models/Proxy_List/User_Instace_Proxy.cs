@@ -1146,6 +1146,7 @@ namespace MVC
                         string[] var =vare[item.Value - 1].Split(" ");
                         if(int.Parse(var[0])==1)//此成就奖励为属性加成
                         {
+                            //Debug.Log(achievementName+" "+vare[item.Value - 1]);
                             Enum_Value(crt, int.Parse(var[1]),int.Parse(var[2]));
                         }
                     }
