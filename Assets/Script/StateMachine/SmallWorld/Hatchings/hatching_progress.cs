@@ -154,14 +154,10 @@ public class hatching_progress : Base_Mono
                     Alert_Dec.Show("请选择需要孵化的宠物");
                     return;
                 }
-                dic.Add(crt_egg.Item1, -crt_egg.Item2);
+                dic.Add(crt_egg.Item1, -1);
                 
                 SumSave.crt_bag_resources.Get(dic);
-               
                 Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.material_value, SumSave.crt_bag_resources.GetData());
-
-               
-
                 db_pet_vo pet = ArrayHelper.Find(SumSave.db_pet, e => e.petEggsName == crt_egg.Item1);
                 if (pet != null)
                 {
@@ -216,7 +212,8 @@ public class hatching_progress : Base_Mono
             string[] data = SumSave.crt_pet.crt_pet_list[i].Split(",");
             if (data.Length == 2)
             {
-                Time = ((int)(SumSave.nowtime - Convert.ToDateTime(data[1])).TotalMinutes) * 60;
+                //Time = ((int)(SumSave.nowtime - Convert.ToDateTime(data[1])).TotalMinutes) * 60;
+                Time = (int)(SumSave.nowtime - Convert.ToDateTime(data[1])).TotalSeconds;
             }
         }
         return Time;
@@ -472,15 +469,11 @@ public class hatching_progress : Base_Mono
         }
 
         SumSave.crt_pet_list.Add(pet);
-
         Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_pet,
         SumSave.crt_pet.Set_Uptade_String(), SumSave.crt_pet.Get_Update_Character());
-
-
         SumSave.crt_achievement.increase_date_Exp((Achieve_collect.孵化宠物).ToString(), 1);
         Show();
         DisplayPetEggs();
-
     }
 
     /// <summary>
@@ -546,17 +539,21 @@ public class hatching_progress : Base_Mono
                 string[] data = SumSave.crt_pet.crt_pet_list[i].Split(",");
                 if (data.Length!=2&& SumSave.crt_pet.crt_pet_list[i]!="")
                 {
-                    pet_item item = Instantiate(pet_item_Prefabs, pos_list);
-                    item.Init(SumSave.crt_pet_list[i]);
-                    item.GetComponent<Button>().onClick.AddListener(() => { Select_Pet(item); });
-                    if (crt_pet == null)
+                    if(SumSave.crt_pet_list[i].petName!=null)
                     {
-                        Select_Pet(item);
+                        pet_item item = Instantiate(pet_item_Prefabs, pos_list);
+                        item.Init(SumSave.crt_pet_list[i]);
+                        item.GetComponent<Button>().onClick.AddListener(() => { Select_Pet(item); });
+                        if (crt_pet == null)
+                        {
+                            Select_Pet(item);
+                        }
+                        else
+                        {
+                            if (item == crt_pet) Select_Pet(item);
+                        }
                     }
-                    else
-                    {
-                        if (item == crt_pet) Select_Pet(item);
-                    }
+                    
                 }
                
             }
@@ -572,6 +569,7 @@ public class hatching_progress : Base_Mono
     /// </summary>
     private void DisplayPetEggs()
     {
+        ClearObject(pos_list);
         for (int i = 0; i < SumSave.crt_pet.crt_pet_list.Count; i++)
         {
             string[] data = SumSave.crt_pet.crt_pet_list[i].Split(",");
@@ -591,21 +589,28 @@ public class hatching_progress : Base_Mono
         {
             if (list[i].Item2 <= 0) continue;
             Bag_Base_VO bag = ArrayHelper.Find(SumSave.db_stditems, e => e.Name == list[i].Item1);
-            if (bag != null)
-            {
-                switch ((EquipConfigTypeList)Enum.Parse(typeof(EquipConfigTypeList), bag.StdMode))
+          
+                if (bag != null)
                 {
-                    case EquipConfigTypeList.宠物蛋:
-                        (string, int) lists = list[i];
-                        store_item item = Instantiate(store_item_Prefabs, pos_list);
-                        item.PetInit(list[i], "");
-                        item.GetComponent<Button>().onClick.AddListener(() => { Select_Egg(lists); });
-                        if (crt_egg.Item2 == 0) Select_Egg(lists);
-                        break;
-                    default:
-                        break;
+                    switch ((EquipConfigTypeList)Enum.Parse(typeof(EquipConfigTypeList), bag.StdMode))
+                    {
+                        case EquipConfigTypeList.宠物蛋:
+                            (string, int) lists = list[i];
+                            
+                            for(int j = 0; j < list[i].Item2; j++)
+                            {
+                                store_item item = Instantiate(store_item_Prefabs, pos_list);
+                                item.PetInit(list[i], "");
+                                item.GetComponent<Button>().onClick.AddListener(() => { Select_Egg(lists); });
+                                if (crt_egg.Item2 == 0) Select_Egg(lists);
+                            }
+                            
+                            break;
+                        default:
+                            break;
+                    }
                 }
-            }
+            
         }
     }
 
@@ -713,7 +718,7 @@ public class hatching_progress : Base_Mono
     }
 
     /// <summary>
-    /// 显示宠物蛋
+    /// 显示宠物蛋(名字，-1（表示为正在孵化的宠物蛋）)
     /// </summary>
     /// <param name="bag"></param>
     private void Select_Egg((string, int) bag)
@@ -726,7 +731,6 @@ public class hatching_progress : Base_Mono
                 string[] data = SumSave.crt_pet.crt_pet_list[i].Split(",");
                 if(data.Length==2)
                 {
-                   
                     db_pet_vo _pet=new db_pet_vo();
                     incubate_Time = SumSave.crt_pet.crt_pet_list[i];
                     pos_pet_btn.gameObject.SetActive(false);
