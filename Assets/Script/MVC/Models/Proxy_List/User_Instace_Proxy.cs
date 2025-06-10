@@ -836,8 +836,9 @@ namespace MVC
                         pet.GetNumerical();
                     
                         pet.pet_state = splits[6];
+                        SumSave.crt_pet_list.Add(pet);
                     }
-                    SumSave.crt_pet_list.Add(pet);
+                    
                 }
                 
             }

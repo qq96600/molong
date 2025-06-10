@@ -472,6 +472,7 @@ public class panel_fight : Panel_Base
                 crt = crt_map_monsters[0];
             }
         }
+        //crt = crt_map_monsters[1];
         crt = Battle_Tool.crate_monster(crt, select_map, crt_monster_number == maxnumber);
 
         GameObject item = ObjectPoolManager.instance.GetObjectFormPool(crt.show_name, monster_battle_attack_prefabs,
@@ -495,7 +496,7 @@ public class panel_fight : Panel_Base
     /// </summary>
     public  bool isMapType4()
     {
-        if(select_map.map_type==4)
+        if(select_map.map_type==3)
         {
             return true;
         }

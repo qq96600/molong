@@ -801,6 +801,7 @@ public static class Battle_Tool
         }
         base_crt.Monster_Lv = map.map_type;
         base_crt.Type= crt.damageMax>crt.MagicdamageMax?1:2;
+  
         //标准战斗系数
         int coefficient = 1;
         if (Random.Range(0, 100) < 10)
@@ -854,7 +855,8 @@ public static class Battle_Tool
             base_crt.Monster_Lv = 4;
             coefficient = 1;
         }
-       
+
+
         base_crt.show_name = crt.show_name;
         base_crt.index = crt.index;
         base_crt.Lv = crt.Lv;
@@ -894,6 +896,7 @@ public static class Battle_Tool
         base_crt.bonus_MagicDef = crt.bonus_MagicDef;
         base_crt.Heal_Hp = crt.Heal_Hp * coefficient;
         base_crt.Heal_Mp = crt.Heal_Mp * coefficient;
+
         base_crt.unit = Random.Range(crt.Lv * 5, crt.Lv * 10) + 1;
        
         Array values = Enum.GetValues(typeof(enum_monster_state));

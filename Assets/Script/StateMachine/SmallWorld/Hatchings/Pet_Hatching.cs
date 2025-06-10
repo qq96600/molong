@@ -91,7 +91,7 @@ public class Pet_Hatching : Panel_Base
         hatching_Slider = hatching_progress.Find("hatching_Slider").GetComponent<Slider>();
         hatching_Text=hatching_progress.Find("hatching_Text").GetComponent<Text>();
         receive_Button= hatching_progress.Find("receive_Button").GetComponent<Button>();
-        receive_Button.onClick.AddListener(OnReceive);
+        //receive_Button.onClick.AddListener(OnReceive);
         hatching_progress.gameObject.SetActive(false);
         #endregion
     }
