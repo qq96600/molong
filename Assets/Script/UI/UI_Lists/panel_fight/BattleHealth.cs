@@ -154,7 +154,7 @@ namespace MVC
                     SumSave.crt_pass.progress(2);
                 }
             
-               if (panel_fight.isMapType4())
+               if (panel_fight.isMapType(3))
                 {
                     SumSave.crt_pass.progress(4);
                 }
