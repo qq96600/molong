@@ -173,6 +173,10 @@ namespace Common
         /// </summary>
         public static List<db_suit_vo> db_suits;
         /// <summary>
+        /// 具体功能消息
+        /// </summary>
+        public static List<db_dec> db_dec;
+        /// <summary>
         /// 当前世界boss信息
         /// </summary>
         public static db_world_boos db_world_boos = new db_world_boos();
