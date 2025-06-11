@@ -1,8 +1,11 @@
 using Common;
+using Components;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using TarenaMVC;
+using UI;
+using UnityEngine;
 
 namespace MVC
 {
@@ -108,7 +111,8 @@ namespace MVC
         {
             if (MysqlDb.MysqlClose) return;
             QueryTime();
-            Queryversions();
+            QueryVersion();
+
             if (wirtes.Count > 0)
             {
                 for (int i = 0; i < wirtes.Count; i++)
@@ -144,15 +148,49 @@ namespace MVC
                
             }
         }
+        private string[] versions = new string[] { "0.2025.01", "0.2025.01" };
         /// <summary>
-        /// 版本控制器
+        /// 检测次数
         /// </summary>
-        protected void Queryversions()
+        int versionsnumber = 0;
+        /// <summary>
+        /// 读取版本
+        /// </summary>
+        private void QueryVersion()
         {
-
+            SumSave.crt_versions = new user_versions();
+            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.versions);
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.crt_versions.Version= mysqlReader.GetString(mysqlReader.GetOrdinal("Version"));
+                    SumSave.crt_versions.Weather = mysqlReader.GetString(mysqlReader.GetOrdinal("Weather"));
+                    SumSave.crt_versions.WeatherTime = mysqlReader.GetString(mysqlReader.GetOrdinal("WeatherTime"));
+                    SumSave.crt_versions.Activity = mysqlReader.GetInt32(mysqlReader.GetOrdinal("Activity"));
+                }
+            }
+            SumSave.OpenGame = false;
+            foreach (string item in versions)
+            {
+                if (SumSave.crt_versions.Version == item) SumSave.OpenGame = true;
+            }
+            
+            if (!SumSave.OpenGame)
+            {
+                if (versionsnumber >= 3)
+                {
+                    Close_Hide2();
+                }
+                versionsnumber++;
+                Alert_Dec.Show("游戏版本不匹配，请更新游戏！");
+            }
         }
 
-
+        private void Close_Hide2()
+        {
+            UI_Manager.Instance.GetPanel<panel_login>().Show();
+        }
 
         /// <summary>
         /// 读取时间
