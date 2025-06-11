@@ -92,10 +92,10 @@ public class panel_skill : Panel_Base
             btn_item.GetComponent<Button>().onClick.AddListener(delegate { Select_Offect_Btn(btn_item); });
             btn_item_dic.Add((skill_Offect_btn_list)i, btn_item);
         }
-        for (int i = 0; i < SumSave.db_skills.Count; i++)
-        {
-            SumSave.crt_skills.Add(tool_Categoryt.crate_skill(SumSave.db_skills[i].skillname));//添加技能
-        }
+        //for (int i = 0; i < SumSave.db_skills.Count; i++)
+        //{
+        //    SumSave.crt_skills.Add(tool_Categoryt.crate_skill(SumSave.db_skills[i].skillname));//添加技能
+        //}
     }
     /// <summary>
     /// 翻页
