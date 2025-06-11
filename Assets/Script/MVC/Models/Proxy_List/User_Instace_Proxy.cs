@@ -289,6 +289,7 @@ namespace MVC
             SumSave.crt_euqip = new List<Bag_Base_VO>();
             SumSave.crt_skills = new List<base_skill_vo>();
             SumSave.crt_bag_resources = new bag_Resources_vo();
+            SumSave.crt_house = new List<Bag_Base_VO>();
             if (SumSave.crt_resources.bag_value.Length > 0)
             { 
                 string[] bag_value = SumSave.crt_resources.bag_value.Split(';');
@@ -300,6 +301,18 @@ namespace MVC
                     }
                 }
                 
+            }
+            if (SumSave.crt_resources.house_value.Length > 0)
+            {
+                string[] bag_value = SumSave.crt_resources.house_value.Split(';');
+                for (int i = 0; i < bag_value.Length; i++)
+                {
+                    if (bag_value[i].Length > 0)
+                    {
+                        SumSave.crt_house.Add(tool_Categoryt.Read_Bag(bag_value[i]));
+                    }
+                }
+
             }
             if (SumSave.crt_resources.equip_value.Length > 0)
             {
@@ -1214,7 +1227,7 @@ namespace MVC
                     List<string> va = SumSave.db_pet_dic[SumSave.crt_pet_list[i].petName].up_values;//宠物成长属性
                     for (int j = 0; j < v.Count; j++)
                     {
-                        int value = (int.Parse(v[j]) + (int.Parse(va[j]) * SumSave.crt_pet_list[i].level))/10; 
+                        int value = (int.Parse(v[j]) + (int.Parse(va[j]) * SumSave.crt_pet_list[i].level)) / 10;
                         Enum_Value(crt, j, value);
                     }
                 }

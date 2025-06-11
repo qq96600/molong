@@ -117,7 +117,7 @@ public class hatching_progress : Base_Mono
 
 
     /// <summary>
-    /// 刷新属性
+    /// 刷新宠物属性
     /// </summary>
     private void UpProperties(db_pet_vo _crt_pet_vo)
     {
@@ -252,7 +252,18 @@ public class hatching_progress : Base_Mono
         }
         Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_pet,
         SumSave.crt_pet.Set_Uptade_String(), SumSave.crt_pet.Get_Update_Character());
-       
+
+        Get_pet_guardTask();
+    }
+
+
+
+    /// <summary>
+    /// 上阵守护任务
+    /// </summary>
+    private static void Get_pet_guardTask()
+    {
+        tool_Categoryt.Base_Task(1088);
     }
 
     /// <summary>
@@ -292,9 +303,16 @@ public class hatching_progress : Base_Mono
             Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_pet,
      SumSave.crt_pet.Set_Uptade_String(), SumSave.crt_pet.Get_Update_Character());
             Alert_Dec.Show("当前宠物已开始探险");
+            PetExpeditionGoTask();
         }
     }
-
+    /// <summary>
+    /// 宠物探险任务
+    /// </summary>
+    private static void PetExpeditionGoTask()
+    {
+        tool_Categoryt.Base_Task(1093);
+    }
     /// <summary>
     /// 喂养宠物
     /// </summary>
@@ -333,10 +351,19 @@ public class hatching_progress : Base_Mono
 
             Alert_Dec.Show("喂养成功,宠物 " + crt_pet_vo.petName + "等级lv：" + crt_pet_vo.level + "经验：" + crt_pet_vo.exp + "/" + crt_pet_vo.level * 10);
             UpProperties(crt_pet_vo);
+            FeedPetTask();
+
         }
+        SendNotification(NotiList.Refresh_Max_Hero_Attribute);
     }
 
-
+    /// <summary>
+    /// 喂养宠物任务
+    /// </summary>
+    private static void FeedPetTask()
+    {
+        tool_Categoryt.Base_Task(1087);
+    }
 
 
 
@@ -374,6 +401,7 @@ public class hatching_progress : Base_Mono
         btn_item _item=new btn_item();
         _item.index=0;
         onClick(_item);
+        SendNotification(NotiList.Refresh_Max_Hero_Attribute);
     }
     /// <summary>
     /// 孵化倒计时
@@ -474,6 +502,7 @@ public class hatching_progress : Base_Mono
         SumSave.crt_achievement.increase_date_Exp((Achieve_collect.孵化宠物).ToString(), 1);
         Show();
         DisplayPetEggs();
+        SendNotification(NotiList.Refresh_Max_Hero_Attribute);
     }
 
     /// <summary>

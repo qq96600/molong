@@ -95,6 +95,7 @@ public class Show_Material : Base_Mono
                         if (item.skillname == bag.Name)
                         { 
                             Alert_Dec.Show("已拥有该技能");
+                            tool_Categoryt.Base_Task(1003);
                             return;
                         }
                     }

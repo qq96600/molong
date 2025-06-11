@@ -193,11 +193,7 @@ public class panel_skill : Panel_Base
     /// </summary>
     private void SkillUpgradeTask()
     {
-        if(user_skill.Data.skillname== "驭火术")
-        {
-            tool_Categoryt.Base_Task(1028);
-        }
-      
+        tool_Categoryt.Base_Task(1028);
     }
     /// <summary>
     /// 装备技能任务

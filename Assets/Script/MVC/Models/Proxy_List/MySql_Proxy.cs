@@ -52,6 +52,7 @@ namespace MVC
             Read_db_formula();
             //Read_db_world_boss();
             Read_Db_Suit();
+            Read_Db_Dec();
             CloseMySqlDB();
         }
         /// <summary>
@@ -312,6 +313,28 @@ namespace MVC
                 }
             }
         }
+
+
+        /// <summary>
+        /// 具体功能消息
+        /// </summary>
+        private void Read_Db_Dec()
+        {
+            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_dec);
+
+            SumSave.db_dec = new List<db_dec>();
+
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.db_dec.Add(ReadDb.Read(mysqlReader, new db_dec()));
+                }
+            }
+        }
+
+
+
         /// <summary>
         /// 套装
         /// </summary>

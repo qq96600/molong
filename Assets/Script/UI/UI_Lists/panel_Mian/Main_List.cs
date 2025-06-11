@@ -19,4 +19,5 @@ public enum Main_List
     panel_vip,//vip
     world_Boss,//世界boss
     Chemical_furnace,//造化炉
+    panel_warehouse,//仓库
 }
