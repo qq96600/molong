@@ -10,4 +10,5 @@ public enum GreenhandGuideTaskType
     购买道具,
     装备道具,
     NPC交互,
+    通关地图
 }

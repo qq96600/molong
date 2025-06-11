@@ -225,6 +225,7 @@ public class Alchemy : Base_Mono
         if(split[0]== "天麻丸")
         {
             tool_Categoryt.Base_Task(1029);
+            tool_Categoryt.Base_Task(1092);
         }
 
     }

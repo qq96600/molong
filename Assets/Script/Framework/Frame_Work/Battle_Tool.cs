@@ -795,13 +795,13 @@ public static class Battle_Tool
     public static crtMaxHeroVO crate_monster(crtMaxHeroVO crt, user_map_vo map,bool isBoss=false)
     {
         crtMaxHeroVO base_crt = new crtMaxHeroVO();
+        base_crt.map_index = map.map_index;
         if (map.map_life != 0)
         {
             base_crt.life[map.map_life-1] = map.need_lv * 2;
         }
         base_crt.Monster_Lv = map.map_type;
         base_crt.Type= crt.damageMax>crt.MagicdamageMax?1:2;
-  
         //标准战斗系数
         int coefficient = 1;
         if (Random.Range(0, 100) < 10)

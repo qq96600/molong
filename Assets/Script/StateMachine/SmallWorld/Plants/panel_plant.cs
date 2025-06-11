@@ -245,12 +245,18 @@ public class panel_plant : Panel_Base
                 {
                     Battle_Tool.Obtain_Resources(vo.HarvestMaterials, 3);
                 }
-
+                HarvestTask();
 
             }
         }
     }
-
+    /// <summary>
+    /// 收获任务
+    /// </summary>
+    private static void HarvestTask()
+    {
+        tool_Categoryt.Base_Task(1091);
+    }
 
     /// <summary>
     /// 播种
@@ -295,8 +301,17 @@ public class panel_plant : Panel_Base
         SumSave.crt_pass.progress(1);
         Wirte(Set);
         baseShow();
-
+        SeedingTask();
     }
+
+    /// <summary>
+    /// 播种任务
+    /// </summary>
+    private static void SeedingTask()
+    {
+        tool_Categoryt.Base_Task(1090);
+    }
+
 
     /// <summary>
     /// 初始化下拉列表
