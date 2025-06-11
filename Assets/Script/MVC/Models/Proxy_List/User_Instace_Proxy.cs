@@ -1638,7 +1638,6 @@ namespace MVC
             }
             else
             {
-                ///SumSave.crt_hero.hero_name = "墨龙新星";
                 SumSave.crt_hero.hero_name = GetNameHelper.GetManName();
                 SumSave.crt_hero.hero_value = SumSave.db_heros[0].hero_name;
                 SumSave.crt_hero.hero_lv = "1";
