@@ -1159,7 +1159,6 @@ namespace MVC
                         string[] var =vare[item.Value - 1].Split(" ");
                         if(int.Parse(var[0])==1)//此成就奖励为属性加成
                         {
-                            //Debug.Log(achievementName+" "+vare[item.Value - 1]);
                             Enum_Value(crt, int.Parse(var[1]),int.Parse(var[2]));
                         }
                     }
@@ -1220,7 +1219,7 @@ namespace MVC
                 }
             }
             //宠物属性
-            if (SumSave.crt_pet_list.Count >= 0)
+            if (SumSave.crt_pet_list.Count>=0)
             {
                 for (int i = 0; i < SumSave.crt_pet_list.Count; i++)
                 {
