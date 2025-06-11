@@ -78,7 +78,7 @@ public class panel_skill : Panel_Base
         page_info = Find<Text>("bg_main/item_list/page_info");
         page_info.GetComponent<Button>().onClick.AddListener(delegate { Page_Change(); });
         pos_skill = Find<Transform>("bg_main/item_list/list");
-        skill_item_parfabs = Battle_Tool.Find_Prefabs<skill_offect_item>("skill_offect_item"); //Resources.Load<skill_offect_item>("Prefabs/panel_skill/skill_offect_item");
+        skill_item_parfabs = Battle_Tool.Find_Prefabs<skill_offect_item>("skill_offect_item");
         for (int i = 0; i < Enum.GetNames(typeof(skill_btn_list)).Length; i++)
         {
             btn_item btn_item = Instantiate(btn_item_Prefabs, crt_btn);
@@ -92,10 +92,10 @@ public class panel_skill : Panel_Base
             btn_item.GetComponent<Button>().onClick.AddListener(delegate { Select_Offect_Btn(btn_item); });
             btn_item_dic.Add((skill_Offect_btn_list)i, btn_item);
         }
-        for (int i = 0; i < SumSave.db_skills.Count; i++)
-        {
-            SumSave.crt_skills.Add(tool_Categoryt.crate_skill(SumSave.db_skills[i].skillname));//添加技能
-        }
+        //for (int i = 0; i < SumSave.db_skills.Count; i++)
+        //{
+        //    SumSave.crt_skills.Add(tool_Categoryt.crate_skill(SumSave.db_skills[i].skillname));//添加技能
+        //}
     }
     /// <summary>
     /// 翻页
