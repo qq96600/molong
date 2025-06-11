@@ -108,6 +108,7 @@ namespace MVC
         {
             if (MysqlDb.MysqlClose) return;
             QueryTime();
+            Queryversions();
             if (wirtes.Count > 0)
             {
                 for (int i = 0; i < wirtes.Count; i++)
@@ -143,8 +144,15 @@ namespace MVC
                
             }
         }
+        /// <summary>
+        /// 版本控制器
+        /// </summary>
+        protected void Queryversions()
+        {
 
-        
+        }
+
+
 
         /// <summary>
         /// 读取时间
