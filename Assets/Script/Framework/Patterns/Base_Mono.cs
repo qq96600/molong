@@ -4,6 +4,7 @@ using TarenaMVC;
 using System.Collections.Generic;
 using Common;
 using System;
+using Components;
 
 namespace MVC
 {
@@ -21,6 +22,7 @@ namespace MVC
         {
             AppFacade.I.SendNotification(name, data);
         }
+        
         /// <summary>
         /// 显示
         /// </summary>

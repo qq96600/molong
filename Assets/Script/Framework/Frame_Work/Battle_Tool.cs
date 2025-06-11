@@ -874,7 +874,7 @@ public static class Battle_Tool
         base_crt.MagicdamageMin = crt.MagicdamageMin* coefficient;
         base_crt.MagicdamageMax = crt.MagicdamageMax* coefficient;
         base_crt.hit = (crt.hit + map.need_lv) * coefficient;
-        base_crt.dodge = crt.dodge* coefficient;
+        base_crt.dodge = crt.dodge * coefficient;
         base_crt.penetrate = crt.penetrate* coefficient;
         base_crt.block = crt.block* coefficient;
         base_crt.crit_rate = crt.crit_rate* coefficient;
