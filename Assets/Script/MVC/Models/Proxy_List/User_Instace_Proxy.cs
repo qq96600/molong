@@ -424,12 +424,6 @@ namespace MVC
             }
 
         }
-
-
-
-
-
-
         /// <summary>
         /// 累计奖励
         /// </summary>

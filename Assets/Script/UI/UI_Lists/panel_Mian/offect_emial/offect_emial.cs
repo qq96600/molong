@@ -51,7 +51,11 @@ public class offect_emial : Base_Mono
     /// </summary>
     private void Receive()
     {
-        if(crtMail==null)return;
+        if (crtMail == null)
+        {
+            Alert_Dec.Show("当前暂无可领取邮件");
+            return;
+        } 
         if (crtMail.crt_mail.mail_par == -1)
         {
             foreach (var item in SumSave.CrtMail.lists)
@@ -69,13 +73,13 @@ public class offect_emial : Base_Mono
         }
         else
         {
-            SumSave.crt_accumulatedrewards.Set(1, crtMail.crt_mail.moeny);
+            if (crtMail.crt_mail.moeny > 0) SumSave.crt_accumulatedrewards.Set(1, crtMail.crt_mail.moeny);
 
             Game_Omphalos.i.GetQueue(Mysql_Type.Delete, Mysql_Table_Name.server_mail,
                 new string[] { Battle_Tool.GetStr(crtMail.crt_mail.uid) }, new string[] { "mail_recipient" });
-
             Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.history_server_mail,
               crtMail.crt_mail.Set_Instace_String());
+            SumSave.Db_Mails.Remove(crtMail.crt_mail);
             Receive_Resources();
         }
         
@@ -118,6 +122,7 @@ public class offect_emial : Base_Mono
             }
         }
         Alert_Dec.Show("领取成功");
+        Base_Show();
     }
 
     /// <summary>

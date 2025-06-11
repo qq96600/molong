@@ -38,7 +38,7 @@ public class user_mail_vo : Base_VO
 
     public override string[] Set_Uptade_String()
     {
-        return new string[] { GetData() };
+        return new string[] { GetStr(GetData()) };
     }
     /// <summary>
     /// 获取数据

@@ -112,6 +112,7 @@ namespace MVC
             if (MysqlDb.MysqlClose) return;
             QueryTime();
             QueryVersion();
+
             if (wirtes.Count > 0)
             {
                 for (int i = 0; i < wirtes.Count; i++)
@@ -147,7 +148,6 @@ namespace MVC
                
             }
         }
-
         private string[] versions = new string[] { "0.2025.01", "0.2025.01" };
         /// <summary>
         /// 检测次数

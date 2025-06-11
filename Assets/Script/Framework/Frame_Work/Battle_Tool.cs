@@ -802,6 +802,13 @@ public static class Battle_Tool
         }
         base_crt.Monster_Lv = map.map_type;
         base_crt.Type= crt.damageMax>crt.MagicdamageMax?1:2;
+        base_crt.show_name = crt.show_name;
+        base_crt.index = crt.index;
+        base_crt.Lv = crt.Lv;
+        base_crt.icon = crt.icon;
+
+        base_crt.unit = Random.Range(crt.Lv * 5, crt.Lv * 10) + 1;
+
         //标准战斗系数
         int coefficient = 1;
         if (Random.Range(0, 100) < 10)
@@ -821,6 +828,7 @@ public static class Battle_Tool
             if (isBoss)
             {
                 base_crt.Exp= (int)(crt.Exp * 10);
+                base_crt.unit = base_crt.unit * 10;
                 base_crt.Point = crt.index + 1;
                 coefficient = 3;
             }
@@ -833,6 +841,7 @@ public static class Battle_Tool
             if (isBoss)
             {
                 base_crt.Exp = (int)(crt.Exp * 30);
+                base_crt.unit = base_crt.unit * 30;
                 base_crt.Point = crt.index * 2 + 1;
                 coefficient = 1;
                 base_crt.Monster_Lv = 3;
@@ -845,22 +854,20 @@ public static class Battle_Tool
         else if (map.map_type == 3)
         {
             base_crt.Exp = (int)(crt.Exp * Random.Range(51, 101));
+            base_crt.unit = base_crt.unit * Random.Range(51, 101);
             base_crt.Point = crt.index * 3 + 1;
             base_crt.Monster_Lv = 3;
             coefficient = 1;
         }
         else if (map.map_type == 4)//副本地图
         {
-            base_crt.Point = crt.index * 2 + 1;
+            base_crt.Point = 0;
             base_crt.Monster_Lv = 4;
             coefficient = 1;
         }
 
 
-        base_crt.show_name = crt.show_name;
-        base_crt.index = crt.index;
-        base_crt.Lv = crt.Lv;
-        base_crt.icon = crt.icon;
+      
         base_crt.MaxHP = (int)(crt.MaxHP * MathF.Pow(3, coefficient-1));
         base_crt.MaxMp = crt.MaxMp;
         base_crt.internalforceMP = crt.internalforceMP;
@@ -897,7 +904,6 @@ public static class Battle_Tool
         base_crt.Heal_Hp = crt.Heal_Hp * coefficient;
         base_crt.Heal_Mp = crt.Heal_Mp * coefficient;
 
-        base_crt.unit = Random.Range(crt.Lv * 5, crt.Lv * 10) + 1;
        
         Array values = Enum.GetValues(typeof(enum_monster_state));
         enum_monster_state state = (enum_monster_state)values.GetValue(RandomNumberGenerator.GetInt32(values.Length));
