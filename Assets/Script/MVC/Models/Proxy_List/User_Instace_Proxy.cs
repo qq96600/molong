@@ -1146,7 +1146,6 @@ namespace MVC
                         string[] var =vare[item.Value - 1].Split(" ");
                         if(int.Parse(var[0])==1)//此成就奖励为属性加成
                         {
-                            //Debug.Log(achievementName+" "+vare[item.Value - 1]);
                             Enum_Value(crt, int.Parse(var[1]),int.Parse(var[2]));
                         }
                     }
@@ -1207,19 +1206,19 @@ namespace MVC
                 }
             }
             //宠物属性
-            //if (SumSave.crt_pet_list.Count>=0)
-            //{
-            //    for (int i = 0; i < SumSave.crt_pet_list.Count; i++)
-            //    {
-            //        List<string> v = SumSave.db_pet_dic[SumSave.crt_pet_list[i].petName].crate_values;//宠物基础属性
-            //        List<string> va = SumSave.db_pet_dic[SumSave.crt_pet_list[i].petName].up_values;//宠物成长属性
-            //        for (int j = 0; j < v.Count; j++)
-            //        {
-            //            int value = int.Parse(v[j]) + (int.Parse(va[j]) * SumSave.crt_pet_list[i].level); 
-            //            Enum_Value(crt, j, value);
-            //        }
-            //    }
-            //}
+            if (SumSave.crt_pet_list.Count>=0)
+            {
+                for (int i = 0; i < SumSave.crt_pet_list.Count; i++)
+                {
+                    List<string> v = SumSave.db_pet_dic[SumSave.crt_pet_list[i].petName].crate_values;//宠物基础属性
+                    List<string> va = SumSave.db_pet_dic[SumSave.crt_pet_list[i].petName].up_values;//宠物成长属性
+                    for (int j = 0; j < v.Count; j++)
+                    {
+                        int value = (int.Parse(v[j]) + (int.Parse(va[j]) * SumSave.crt_pet_list[i].level))/10; 
+                        Enum_Value(crt, j, value);
+                    }
+                }
+            }
             (int,int,string) exp = SumSave.crt_accumulatedrewards.SetRecharge();
             if (exp.Item1 > 0)
             {

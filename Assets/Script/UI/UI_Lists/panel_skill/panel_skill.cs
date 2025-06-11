@@ -92,10 +92,10 @@ public class panel_skill : Panel_Base
             btn_item.GetComponent<Button>().onClick.AddListener(delegate { Select_Offect_Btn(btn_item); });
             btn_item_dic.Add((skill_Offect_btn_list)i, btn_item);
         }
-        //for (int i = 0; i < SumSave.db_skills.Count; i++)
-        //{
-        //    SumSave.crt_skills.Add(tool_Categoryt.crate_skill(SumSave.db_skills[i].skillname));//添加技能
-        //}
+        for (int i = 0; i < SumSave.db_skills.Count; i++)
+        {
+            SumSave.crt_skills.Add(tool_Categoryt.crate_skill(SumSave.db_skills[i].skillname));//添加技能
+        }
     }
     /// <summary>
     /// 翻页
@@ -315,7 +315,7 @@ public class panel_skill : Panel_Base
                 default:
                     break;
             }
-            dec += "对目标造成" + (user_skill.Data.skill_damage + (user_skill.Data.skill_power * lv)) + "%伤害\n";
+            //dec += "对目标造成" + (user_skill.Data.skill_damage + (user_skill.Data.skill_power * lv)) + "%伤害\n";
         }
        
         if (lv >= user_skill.Data.skill_max_lv)
@@ -338,7 +338,9 @@ public class panel_skill : Panel_Base
             dec += Show_Color.Yellow("激活特效 \n");
             for (int i = 0; i < user_skill.Data.skill_open_type.Count; i++)
             {
-                dec += (enum_attribute_list)user_skill.Data.skill_open_type[i] + " + " + (user_skill.Data.skill_open_value[i] * lv / user_skill.Data.skill_max_lv) + "\n";
+                dec += (enum_skill_attribute_list)user_skill.Data.skill_open_type[i] + " + " + (user_skill.Data.skill_open_value[i] * lv / user_skill.Data.skill_max_lv)
+                    + tool_Categoryt.Obtain_unit(user_skill.Data.skill_open_type[i]) 
+                    + "(Max " + user_skill.Data.skill_open_value[i] + ")" + "\n";
             }
         }
         if (user_skill.Data.skill_pos_type.Count > 0 && (skill_btn_list)user_skill.Data.skill_type != skill_btn_list.战斗)
@@ -346,7 +348,9 @@ public class panel_skill : Panel_Base
             dec += Show_Color.Yellow("上阵特效 \n");
             for (int i = 0; i < user_skill.Data.skill_pos_type.Count; i++)
             {
-                dec += (enum_attribute_list)user_skill.Data.skill_pos_type[i] + " + " + (user_skill.Data.skill_pos_value[i] * lv / user_skill.Data.skill_max_lv) + "\n";
+                dec += (enum_skill_attribute_list)user_skill.Data.skill_pos_type[i] + " + " + (user_skill.Data.skill_pos_value[i] * lv / user_skill.Data.skill_max_lv)
+                    + tool_Categoryt.Obtain_unit(user_skill.Data.skill_pos_type[i]) 
+                    + "(Max " + user_skill.Data.skill_pos_value[i] + ")"+ "\n";
             }
         }
         if (user_skill.Data.skill_need_state.Count > 0)
