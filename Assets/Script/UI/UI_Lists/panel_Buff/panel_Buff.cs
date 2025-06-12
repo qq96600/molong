@@ -33,9 +33,23 @@ public class panel_Buff : Panel_Base
     /// </summary>
     private GameObject skin_prefabs;
     /// <summary>
-    /// 角色within位置
+    /// 角色within位置,五行属性显示位置
     /// </summary>
-    private Transform panel_role_health;
+    private Transform panel_role_health,Five_element_transform;
+    /// <summary>
+    /// btn_item预制体
+    /// </summary>
+    private btn_item btn_item_prefabs;
+    /// <summary>
+    /// 五行类型
+    /// </summary>
+    private string[] five_element_type = { "土", "火", "水", "金", "木" };  
+
+    /// <summary>
+    /// 五行属性显示
+    /// </summary>
+    private List<btn_item> btn_items=new List<btn_item>();
+
     public override void Hide()
     {
         base.Hide();
@@ -52,8 +66,12 @@ public class panel_Buff : Panel_Base
        
         skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/within_" + SumSave.crt_hero.hero_pos);
         panel_role_health = Find<Transform>("bg_main/bg");
-        Instantiate(skin_prefabs, panel_role_health);
 
+        Five_element_transform= Find<Transform>("bg_main/Five_element_attribute/Viewport/Content");
+        btn_item_prefabs = Battle_Tool.Find_Prefabs<btn_item>("btn_item");
+
+        Instantiate(skin_prefabs, panel_role_health);
+        Display_Five_element_attribute();
     }
     /// <summary>
     /// 点击事件
@@ -70,37 +88,77 @@ public class panel_Buff : Panel_Base
     { 
         SumSave.crt_hero.hero_name= inputField.text;
         SumSave.crt_hero.hero_material_list[0] = 1;
-        Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_hero, new string[] { "'" + inputField.text + "'" }, new string[] { "hero_name" });
+        SumSave.crt_hero.MysqlData();
         SendNotification(NotiList.Refresh_Max_Hero_Attribute);
         Show();
     }
     public override void Show()
     {
         base.Show();
-        confirm.gameObject.SetActive(SumSave.crt_hero.hero_material_list[0] == 0);
+        confirm.gameObject.SetActive(SumSave.crt_hero.hero_material_list[0] == 0 || SumSave.crt_hero.hero_name == "墨龙新星");
         inputField.text = SumSave.crt_hero.hero_name;
+        InitInformation();
+        Refresh_Five_element_attribute();
+    }
+    private void Update()
+    {
+        InitInformation();
+    }
+
+    /// <summary>
+    /// 刷新五行属性
+    /// </summary>
+    private void Refresh_Five_element_attribute()
+    {
+        for(int i= 0; i < btn_items.Count; i++)
+        {
+            btn_items[i].Show(i, five_element_type[i] + "\n" + SumSave.crt_MaxHero.life[i].ToString());
+        }
+    }
+
+    /// <summary>
+    /// 初始化五行属性
+    /// </summary>
+    private void Display_Five_element_attribute()
+    {
+        ClearObject(Five_element_transform);
+
+        int[] five_element = SumSave.crt_MaxHero.life;
+
+        for(int i= 0; i < five_element.Length; i++)
+        {
+            btn_item item= Instantiate(btn_item_prefabs, Five_element_transform);
+            item.Show(i, five_element_type[i]+"\n"+ five_element[i].ToString());  
+            btn_items.Add(item);
+        }
+    }
+
+
+
+    private void InitInformation()
+    {
         string dec = " ";
 
         if (SumSave.crt_player_buff.player_Buffs.Count > 0)
         {
-            for (int index = 1; index < SumSave.crt_player_buff.player_Buffs.Count+1; index++)
+            for (int index = 1; index < SumSave.crt_player_buff.player_Buffs.Count + 1; index++)
             {
                 foreach (var item in SumSave.crt_player_buff.player_Buffs)
                 {
                     (DateTime, int, float, int) time = item.Value;
-                    if(time.Item4==3)
+                    if (time.Item4 == 3)
                     {
                         if ((SumSave.nowtime - time.Item1).Minutes < time.Item2)
                         {
                             dec += Show_Color.Red(item.Key + ": 效果 经验值和灵珠值获取增加" + time.Item3 + "倍 剩余" + (time.Item2 - (SumSave.nowtime - time.Item1).Minutes) + "Min\n ");
                         }
                     }
-        
+
                     if (index == time.Item4)
                     {
                         if ((SumSave.nowtime - time.Item1).Minutes < time.Item2)
                         {
-                            dec += Show_Color.Red(item.Key + ": 效果" + time.Item3 + "倍 剩余" +(time.Item2 - (SumSave.nowtime - time.Item1).Minutes) + "Min\n ");
+                            dec += Show_Color.Red(item.Key + ": 效果" + time.Item3 + "倍 剩余" + (time.Item2 - (SumSave.nowtime - time.Item1).Minutes) + "Min\n ");
                         }
                     }
                 }
@@ -114,13 +172,13 @@ public class panel_Buff : Panel_Base
         dec += enum_skill_attribute_list.装备爆率 + ": " + Show_Buff(enum_skill_attribute_list.装备爆率) + "%\n ";
         dec += enum_skill_attribute_list.装备掉落 + ": " + Show_Buff(enum_skill_attribute_list.装备掉落) + "%\n ";
         dec += enum_skill_attribute_list.宠物获取 + ": " + Show_Buff(enum_skill_attribute_list.宠物获取) + "%\n ";
-        dec += enum_skill_attribute_list.寻怪间隔 + ": -" + (Show_Buff(enum_skill_attribute_list.寻怪间隔)/ 10f) + "s\n ";
+        dec += enum_skill_attribute_list.寻怪间隔 + ": -" + (Show_Buff(enum_skill_attribute_list.寻怪间隔) / 10f) + "s\n ";
         dec += enum_skill_attribute_list.复活次数 + ": " + Show_Buff(enum_skill_attribute_list.复活次数) + "次\n ";
-    
-        
-        info.text = dec;
 
+
+        info.text = dec;
     }
+
     /// <summary>
     /// 显示buff
     /// </summary>

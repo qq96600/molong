@@ -94,7 +94,8 @@ public class panel_skill : Panel_Base
         }
         //for (int i = 0; i < SumSave.db_skills.Count; i++)
         //{
-        //    SumSave.crt_skills.Add(tool_Categoryt.crate_skill(SumSave.db_skills[i].skillname));//添加技能
+            
+        //    SumSave.crt_skills.Add(tool_Categoryt.crate_skill(SumSave.db_skills[i].skillname,false));//添加技能
         //}
     }
     /// <summary>
@@ -120,7 +121,6 @@ public class panel_skill : Panel_Base
                 offect_skill.gameObject.SetActive(true);
                 offect_skill.Show(user_skill.Data);
                 EquipmentSkillTasks();
-               
                 break;
             case skill_Offect_btn_list.升级:
                 UpLv();
@@ -226,16 +226,18 @@ public class panel_skill : Panel_Base
     /// </summary>
     private void Show_skill()
     {
+        LearningSkillsTask();
+
         base_info.text = "请学习技能";
         user_skill = null;
         for (int i = pos_skill.childCount - 1; i >= 0; i--)
         {
             Destroy(pos_skill.GetChild(i).gameObject);
         }
-        
+
         //SumSave.crt_skills.Add(tool_Categoryt.crate_skill(SumSave.db_skills[Random.Range(0, SumSave.db_skills.Count)].skillname));//添加技能
         List<base_skill_vo> lists = ArrayHelper.FindAll(SumSave.crt_skills, e => (skill_btn_list)e.skill_type == select_btn_type);
-        crt_skill_number= lists.Count;
+        crt_skill_number = lists.Count;
         if (crt_skill_number == 0) page_info.text = "";
         else
             page_info.text = "下一页" + (page_index + 1) + " / " + (int)Math.Ceiling((double)crt_skill_number / 12);
@@ -248,6 +250,29 @@ public class panel_skill : Panel_Base
             if (user_skill == null) Select_skill(item);
         }
     }
+
+    /// <summary>
+    /// 学习技能任务
+    /// </summary>
+    private static void LearningSkillsTask()
+    {
+        foreach (var item in SumSave.GreenhandGuide_TotalTasks.Keys)
+        {
+            if (SumSave.GreenhandGuide_TotalTasks[item].tasktype == GreenhandGuideTaskType.收集任务)
+            {
+                GreenhandGuide_TotalTaskVO task = SumSave.GreenhandGuide_TotalTasks[item];//读取任务
+                for (int i = 0; i < SumSave.crt_skills.Count; i++)
+                {
+                    if (task.TaskDesc.Contains(SumSave.crt_skills[i].skillname))//判断是否有当前技能
+                    {
+                        tool_Categoryt.Base_Task(task.taskid);
+                    }
+                }
+
+            }
+        }
+    }
+
     /// <summary>
     /// 选择物品
     /// </summary>  

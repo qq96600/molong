@@ -488,13 +488,13 @@ public class tool_Categoryt : MonoBehaviour
     /// </summary>
     /// <param name="skill_name"></param>
     /// <returns></returns>
-    public static base_skill_vo crate_skill(string skill_name)
+    public static base_skill_vo crate_skill(string skill_name,bool task=true)
     {
         base_skill_vo skill = ArrayHelper.Find(SumSave.db_skills, e => e.skillname == skill_name);
         /// 1技能名称 2技能等级 3技能位置 4技能内力 5技能类型 6技能伤害类型 7技能最大等级 8技能初始化升级经验 9技能升级
         skill.user_value = skill_name;
         //等级
-        skill.user_value += " " + 1;
+        skill.user_value += " " + (task ? 1 : skill.skill_max_lv);
         //位置 0不上场
         skill.user_value += " " + 0;
         //分配内力 默认为0
@@ -506,8 +506,6 @@ public class tool_Categoryt : MonoBehaviour
         {
             skill.user_values[i] = item[i];
         }
-
-
         tool_Categoryt.Base_Task(1003);
 
         return skill;

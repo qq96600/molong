@@ -17,6 +17,7 @@ public class equip_item : Base_Mono
     private btn_item btn_item_Prefabs;
     private string[] btn_list = new string[] { "穿戴","锁定", "出售" };
     private string[] take_btn_list=new string[] { "卸下" };
+    private string[] warehouse_btn_list = new string[] { "放入"};
     private Text show_name, show_base_need, show_info;
     private void Awake()
     {
@@ -51,6 +52,7 @@ public class equip_item : Base_Mono
 
     private void base_init()
     {
+        ClearObject(crt_bag);
         //生成物品显示
         Instantiate(bag_item_Prefabs, crt_bag).Data = data;
         show_name.text=data.Name;
@@ -208,6 +210,38 @@ public class equip_item : Base_Mono
             item.GetComponent<Button>().onClick.AddListener(() => { OnClick_Btn(item); });
         }
     }
+    public void Show_House_Btn(bool ishouse)
+    {
+        ClearObject(crt_btn);
+        string house = ishouse ? "存入" : "取出";
+        btn_item item = Instantiate(btn_item_Prefabs, crt_btn);
+        item.Show(0, house);
+        item.GetComponent<Button>().onClick.AddListener(() => {
+            if (ishouse) OnHousedeposit_Btn(item);
+            else
+            {
+                OnTakeOut_Btn(item);
+            }  
+        });
+    }
+    /// <summary>
+    ///取出
+    /// </summary>
+    /// <param name="item"></param>
+    private void OnTakeOut_Btn(btn_item item)
+    {
+        transform.parent.SendMessage("OnTakeOut_Btn",Data);
+    }
+    /// <summary>
+    /// 存入
+    /// </summary>
+    /// <param name="item"></param>
+    private void OnHousedeposit_Btn(btn_item item)
+    {
+        transform.parent.SendMessage("OnHousedeposit_Btn", Data);
+
+    }
+
     /// <summary>
     /// 脱下
     /// </summary>
@@ -220,6 +254,27 @@ public class equip_item : Base_Mono
             item.GetComponent<Button>().onClick.AddListener(() => { OnTake_Btn(item); });
         }
     }
+    /// <summary>
+    /// 仓库转移
+    /// </summary>
+    public void Show_warehouse()
+    {
+        for (int i = 0; i < warehouse_btn_list.Length; i++)
+        {
+            btn_item item = Instantiate(btn_item_Prefabs, crt_btn);
+            item.Show(i, warehouse_btn_list[i]);
+            item.GetComponent<Button>().onClick.AddListener(() => { warehouseTransfer(); });
+        }
+    }
+    /// <summary>
+    /// 仓库转移
+    /// </summary>
+    private void warehouseTransfer()
+    {
+        //transform.parent();
+    }
+
+
     /// <summary>
     /// 脱下
     /// </summary>
