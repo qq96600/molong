@@ -72,7 +72,7 @@ public class effect_gather : Base_Mono
         success_Number = 0;
         LimitNumber = number;
         getlist();
-        StartCoroutine(Read_time(base_time));
+        StartCoroutine(Read_time(base_time+ number*5f));
     }
 
     private void getlist()
@@ -157,10 +157,21 @@ public class effect_gather : Base_Mono
             int interval_receive = receive_list[index];
             if (interval_receive == 3)
             {
-                success_Number++;
+                success_Number+=2;
+                Alert_Dec.Show("注灵成功,获得极品值+2");
+            }
+            if (interval_receive == 2)
+            {
+                success_Number += 1;
                 Alert_Dec.Show("注灵成功,获得极品值+1");
             }
         }
+
+        if(success_Number>10)///添加炼丹极品值限制
+        {
+            success_Number= 10;
+        }
+
         info_number.text = "注灵(" + LimitNumber + "次)";
 
         if (LimitNumber <= 0)

@@ -67,7 +67,6 @@ public class Hero_VO : Base_VO
             GetStr(hero_name),
             GetStr(hero_lv),
             GetStr(hero_exp),
-            //GetStr(hero_vip_lv_exp),
             GetStr(hero_pos),
             GetStr(hero_value),
             GetStr(ArrayHelper.Data_Encryption(hero_material_list)),
@@ -78,22 +77,31 @@ public class Hero_VO : Base_VO
     {
         return new string[]
         {
+            "hero_name",
             "hero_lv",
             "hero_exp",
-            //"hero_vip_lv_exp",
             "hero_pos",
+            "hero_value",
             "hero_material"
         };
+    }
+
+    public override void MysqlData()
+    {
+        base.MysqlData();
+        Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_hero,
+                    SumSave.crt_hero.Set_Uptade_String(), SumSave.crt_hero.Get_Update_Character());
     }
 
     public override string[] Set_Uptade_String()
     {
         return new string[]
        {
+            GetStr(hero_name),
             GetStr(hero_Lv),
             GetStr(hero_Exp),
-            //GetStr(hero_vip_lv_exp),
             GetStr(hero_pos),
+            GetStr(hero_value),
             GetStr(ArrayHelper.Data_Encryption(hero_material_list))
        };
     }

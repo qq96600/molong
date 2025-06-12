@@ -77,4 +77,5 @@ public enum Mysql_Table_Name
     db_suit,//套装信息
     db_dec,//具体功能消息
     versions,//版本信息
+    db_magic_copy1,//测试技能属性
 }

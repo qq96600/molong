@@ -528,6 +528,7 @@ namespace MVC
         private void Read_Db_Magic()
         {
             mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_magic);
+            //mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_magic_copy1);
             SumSave.db_skills = new List<base_skill_vo>();
             if (mysqlReader.HasRows)
             {

@@ -112,22 +112,6 @@ public class panel_fatePalace : Panel_Base
             else dec=Show_Color.Grey(dec);
             text +="命运开启次数"+ dic[item][0] + "次:" +  dec+"\n";
         }
-        //if(num>10)
-        //{
-        //    text += "抽奖次数达到10次:"+Show_Color.Blue("经验加成+30%");
-        //}else if(num>100)
-        //{
-        //    text += "抽奖次数达到100次:" + Show_Color.Blue("经验加成+50%");
-        //}
-        //else if (num > 1000)
-        //{
-        //    text += "抽奖次数达到1000次:" + Show_Color.Blue("经验加成+100%");
-        //}
-        //else if (num > 10000)
-        //{
-        //    text += "抽奖次数达到10000次:" + Show_Color.Blue("经验加成+200%");
-        //}
-
 
         AttributeText.text = text;
     }
