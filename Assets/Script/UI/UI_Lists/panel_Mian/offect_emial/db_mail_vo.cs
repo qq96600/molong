@@ -56,7 +56,8 @@ public class db_mail_vo : Base_VO
             GetStr(mail_par),
             GetStr(uid),
             GetStr(user_value),
-            GetStr(dec)
+            GetStr(dec),
+            GetStr(moeny)
         };
     }
 
