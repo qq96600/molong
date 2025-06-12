@@ -126,7 +126,6 @@ public class panel_equip : Panel_Base
             }
 
             WearingEquipmentTask();
-
             SumSave.crt_bag.Remove(crt_bag.Data);
             SumSave.crt_euqip.Add(crt_bag.Data);
             Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.bag_value, SumSave.crt_bag);

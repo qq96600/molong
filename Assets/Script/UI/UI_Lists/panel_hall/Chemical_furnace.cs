@@ -222,11 +222,30 @@ public class Chemical_furnace : Base_Mono
             {
                 Battle_Tool.Obtain_result(synthesis_item, buy_num);
                 Alert.Show("合成成功", "获得物品" + synthesis_item.Item1 + "*" + synthesis_item.Item2 * buy_num);
+                synthesis_Task();
             }
             else Alert_Dec.Show("合成失败,材料不足");
         }
        
 
+    }
+
+    /// <summary>
+    /// 造化炉合成任务
+    /// </summary>
+    private static void breakDown_Task()
+    {
+        tool_Categoryt.Base_Task(1082);
+        tool_Categoryt.Base_Task(1089);
+    }
+
+
+    /// <summary>
+    /// 造化炉合成任务
+    /// </summary>
+    private static void synthesis_Task()
+    {
+        tool_Categoryt.Base_Task(1085);
     }
 
     private void OnInputChanged(string newText)

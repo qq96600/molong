@@ -4,6 +4,7 @@ using TarenaMVC;
 using System.Collections.Generic;
 using Common;
 using System;
+using Components;
 
 namespace MVC
 {
@@ -13,6 +14,10 @@ namespace MVC
     public class Base_Mono : MonoBehaviour, INotifier
     {
         /// <summary>
+        /// 首次显示消息开关
+        /// </summary>
+        private bool isfirst= true;
+        /// <summary>
         ///  发送消息
         /// </summary>
         /// <param name="name"></param>
@@ -21,6 +26,7 @@ namespace MVC
         {
             AppFacade.I.SendNotification(name, data);
         }
+        
         /// <summary>
         /// 显示
         /// </summary>
@@ -28,6 +34,19 @@ namespace MVC
         {
             transform.SetAsLastSibling();
             this.gameObject.SetActive(true);
+            if(isfirst)
+            {
+                for(int i= 0; i < SumSave.db_dec.Count; i++)
+                {
+                    string gameObjectNameWithoutClone = gameObject.name.Replace("(Clone)", "");
+                    if (gameObjectNameWithoutClone == SumSave.db_dec[i].panel_index)
+                    {
+                        Alert.Show(SumSave.db_dec[i].title, SumSave.db_dec[i].dec);
+                        isfirst = false;
+                    }
+                }
+            }
+
         }
 
         public T Pos_path<T>(string name)

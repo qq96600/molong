@@ -128,7 +128,7 @@ namespace MVC
         private void WaitAndDestory()
         {
             BattleAttack monster = GetComponent<BattleAttack>();
-            KillMonsterMission(monster);
+        
             SumSave.battleMonsterHealths.Remove(this);
             SumSave.crt_achievement.increase_date_Exp((Achieve_collect.击杀怪物).ToString(), 1);
             Battle_Tool.Obtain_Exp(monster.Data.Exp);
@@ -143,7 +143,6 @@ namespace MVC
                 if (monster.Data.Monster_Lv == 3)
                 {
                     SumSave.crt_achievement.increase_date_Exp((Achieve_collect.击杀Boss).ToString(), 1);
-                    ClearanceMapTask(monster);
                     number = Random.Range(5, 11);
                     Combat_statistics.AddBossNumber();
                     SumSave.crt_pass.progress(3);//通行证任务
@@ -153,8 +152,7 @@ namespace MVC
                     Combat_statistics.AddEliteNumber();
                     SumSave.crt_pass.progress(2);
                 }
-            
-               if (panel_fight.isMapType4())
+               if (panel_fight.isMapType(3))
                 {
                     SumSave.crt_pass.progress(4);
                 }
@@ -162,6 +160,7 @@ namespace MVC
                 transform.parent.parent.parent.SendMessage("show_battle_info",
                 "击杀 " + monster.Data.show_name + " 获得 " + monster.Data.Point + "历练");//monster.Data.Point 
             }
+            ClearanceMapTask(monster);
             Game_Omphalos.i.GetQueue(
                         Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user, SumSave.crt_user_unit.Set_Uptade_String(), SumSave.crt_user_unit.Get_Update_Character());
             List<string> lists = ConfigBattle.LoadSetting(monster, number);
@@ -281,39 +280,81 @@ namespace MVC
             }
         }
 
-
-
-
         /// <summary>
         /// 通关地图任务
         /// </summary>
         private static void ClearanceMapTask(BattleAttack monster)
         {
-            if(monster.Data.show_name == "鹿妖"|| monster.Data.show_name == "猪妖" || monster.Data.show_name == "幽冥鸡")
+            foreach (var item in SumSave.GreenhandGuide_TotalTasks.Keys)
             {
-                tool_Categoryt.Base_Task(1016);
-            }
-            if(monster.Data.show_name == "昏眼牛" || monster.Data.show_name == "扎纸鬼" || monster.Data.show_name == "黑爪猫")
-            {
-                tool_Categoryt.Base_Task(1020);
-            }
-            if (monster.Data.show_name == "黑鳞君" || monster.Data.show_name == "刺皮将")
-            {
-                tool_Categoryt.Base_Task(1035);
-            }
-            if (monster.Data.show_name == "疤脸鬼" || monster.Data.show_name == "铁骨兵" || monster.Data.show_name == "血刀鬼")
-            {
-                tool_Categoryt.Base_Task(1039);
+                if (SumSave.GreenhandGuide_TotalTasks[item].tasktype == GreenhandGuideTaskType.击杀怪物)
+                { 
+                    GreenhandGuide_TotalTaskVO task = SumSave.GreenhandGuide_TotalTasks[item];//读取任务
+                    //user_map_vo map= SumSave.db_maps.Find(x => x.map_index == monster.Data.map_index);//读取地图
+                    if (task.TaskDesc.Contains(monster.Data.show_name))//判断是否是当前地图
+                    {
+                        tool_Categoryt.Base_Task(task.taskid);
+                    }
+                }else 
+                if (SumSave.GreenhandGuide_TotalTasks[item].tasktype == GreenhandGuideTaskType.通关地图)
+                {
+                    if (monster.Data.Monster_Lv == 3)//判断是否是当前地图
+                    {
+                        GreenhandGuide_TotalTaskVO task = SumSave.GreenhandGuide_TotalTasks[item];//读取任务
+                        user_map_vo map = SumSave.db_maps.Find(x => x.map_index == monster.Data.map_index);//读取地图
+                        if (task.TaskDesc.Contains(map.map_name))//判断是否是当前地图
+                        {
+                            tool_Categoryt.Base_Task(task.taskid);
+                        }
+                    }
+                        
+                }
             }
 
-            if(monster.Data.show_name == "啸月鬼")
+           
+            if (monster.Data.Monster_Lv == 3)//判断是否是当前地图
             {
-                tool_Categoryt.Base_Task(1054);
+                ///通关地图成就
+                Array enumValues = Enum.GetValues(typeof(Achieve_collect));
+                for (int i = 0; i < enumValues.Length; i++)
+                {
+                    user_map_vo map = SumSave.db_maps.Find(x => x.map_index == monster.Data.map_index);//读取地图
+                    string enumName = enumValues.GetValue(i).ToString(); // 获取枚举的字符串值
+                    if (enumName.Contains(map.map_name))
+                    {
+                        SumSave.crt_achievement.increase_date_Exp(enumName, 1);
+                    }
+                }
             }
-            if (monster.Data.show_name == "墟界法王")
-            {
-                tool_Categoryt.Base_Task(1066);
-            }
+
+            //if(monster.Data.show_name == "鹿妖"|| monster.Data.show_name == "猪妖" || monster.Data.show_name == "幽冥鸡")
+            //{
+            //    tool_Categoryt.Base_Task(1016);
+            //}
+            //if(monster.Data.show_name == "昏眼牛" || monster.Data.show_name == "扎纸鬼" || monster.Data.show_name == "黑爪猫")
+            //{
+            //    tool_Categoryt.Base_Task(1020);
+            //}
+            //if (monster.Data.show_name == "黑鳞君" || monster.Data.show_name == "刺皮将")
+            //{
+            //    tool_Categoryt.Base_Task(1035);
+            //}
+            //if (monster.Data.show_name == "疤脸鬼" || monster.Data.show_name == "铁骨兵" || monster.Data.show_name == "血刀鬼")
+            //{
+            //    tool_Categoryt.Base_Task(1039);
+            //}
+            /////血牙狼窟
+            //if (monster.Data.show_name == "啸月鬼")
+            //{
+            //    tool_Categoryt.Base_Task(1054);
+            //    SumSave.crt_achievement.increase_date_Exp((Achieve_collect.通关血牙狼窟).ToString(), 1);
+            //}
+            //if (monster.Data.show_name == "墟界法王")
+            //{
+            //    tool_Categoryt.Base_Task(1066);
+            //}
+
+
         }
 
 

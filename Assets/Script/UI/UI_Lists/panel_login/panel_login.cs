@@ -260,6 +260,13 @@ namespace MVC
         /// </summary>
         private void OnLoginClick()//登录点击
         {
+            //if(!SumSave.OpenGame)
+            //{
+            //    Alert.Show("版本更新", "请更新版本");
+            //    return;
+            //}
+
+
             if(select_par==null)
             {
                 Alert_Dec.Show("请先选择服务器");
@@ -275,14 +282,11 @@ namespace MVC
             }
             PlayerPrefs.SetInt("同意阅读协议", 1);
 #if UNITY_EDITOR
-
-            SumSave.uid = "DSFSDFSDFSDF3";//"05c8cc2e26234ec0acc690343a598eba";8026157149ab4e86af8f69b22e12a7c4 DSFSDFSDFSDF3
-
-            //Game_Omphalos.i.Wirte_Iphone();
+            SumSave.uid = "DSFSDFSDFSDF";//"05c8cc2e26234ec0acc690343a598eba";8026157149ab4e86af8f69b22e12a7c4 DSFSDFSDFSDF3
             Login();
             //UI_Manager.Instance.GetPanel<Panel_cratehero>().Show();
 #elif UNITY_ANDROID
-            Game_Omphalos.i.Wirte_Tap();
+             Game_Omphalos.i.Wirte_Tap();
 #elif UNITY_IPHONE
             UI_Manager.Instance.GetPanel<Panel_cratehero>().Show();
 #endif
@@ -302,6 +306,8 @@ namespace MVC
             UI_Manager.Instance.GetPanel<Panel_cratehero>().Hide();
 #endif
             TheServerObg.gameObject.SetActive(false);
+
+           
             if (SumSave.uid != null)
             {
                 PlayerPrefs.SetInt(lastServer, select_par.index);
@@ -309,6 +315,7 @@ namespace MVC
                 UI_Manager.I.GetPanel<panel_Mian>().Show();
                 Hide();
             }
+            
         }
         public override void Hide()
         {
@@ -379,7 +386,6 @@ namespace MVC
 
             }
         }
-
         public override void Show()
         {
             base.Show();

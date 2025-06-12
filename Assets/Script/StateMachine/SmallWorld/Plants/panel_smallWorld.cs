@@ -239,8 +239,20 @@ public class panel_smallWorld : Panel_Base
             Hide();
             return;
         }
+        UpWorldTask();
         Base_Show();
     }
+    /// <summary>
+    /// 开启小世界任务
+    /// </summary>
+    private static void UpWorldTask()
+    {
+        tool_Categoryt.Base_Task(1086);
+    }
+
+
+
+
     private void Base_Show()
     {
         List<string> list = SumSave.crt_world.Get();

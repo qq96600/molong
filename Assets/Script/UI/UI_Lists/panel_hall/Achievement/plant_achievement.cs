@@ -252,6 +252,9 @@ public class plant_achievement : Base_Mono
         show_name.text = item.Data.achievement_value;
         Show_Dec();
     }
+
+
+    
     /// <summary>
     /// 显示成就描述
     /// </summary>
@@ -260,8 +263,6 @@ public class plant_achievement : Base_Mono
         string dec = (Achieve_Type)crt_achieve_Item.Data.achievement_type + " " + crt_achieve_Item.Data.achievement_value;
         dic_exp = SumSave.crt_achievement.Set_Exp();
         dic_lv = SumSave.crt_achievement.Set_Lv();
-        //if (dic_lv[crt_achieve_Item.Data.achievement_value] > 0)
-        //{
         if (dic_lv.ContainsKey(crt_achieve_Item.Data.achievement_value))
         {
             int max = (int)MathF.Min(dic_lv[crt_achieve_Item.Data.achievement_value], crt_achieve_Item.Data.achievement_needs.Count);
@@ -269,7 +270,7 @@ public class plant_achievement : Base_Mono
             for (int i = 0; i < max; i++)
             {
                 string[] temp = crt_achieve_Item.Data.achievement_rewards[i].Split(' ');
-                dec += "\n" + Show_Color.Green(InSetInfo(i) + "(已领取)" + "获得 " + (enum_skill_attribute_list)(int.Parse(temp[1])) + "+" + temp[2]);
+                dec += "\n" + Show_Color.Green("(已领取)" + "获得 " + (enum_skill_attribute_list)(int.Parse(temp[1])) + "+" + temp[2]);
             }
             if (dic_lv[crt_achieve_Item.Data.achievement_value] < crt_achieve_Item.Data.achievement_needs.Count)
             {
@@ -284,9 +285,6 @@ public class plant_achievement : Base_Mono
             dec += "\nLv1.成就阶段 0/" + crt_achieve_Item.Data.achievement_needs[0];
         }
         show_info.text = dec;
-        //}
-
-
     }
     /// <summary>
     /// 选择成就类型
@@ -332,66 +330,6 @@ public class plant_achievement : Base_Mono
             item.gameObject.SetActive(crt_type.Active());
             item.Init();
         }
-    }
-    /// <summary>
-    /// 获取奖励
-    /// </summary>
-    /// <param name="i"></param>
-    private string InSetInfo(int i)
-    {
-        string dec = "";
-        //string[] temp = crt_achieve_Item.Data.achieve_rewards[i].Split(' ');
-        //if (temp.Length < 1) return "";
-        //dec += (Achieve_Rewards_Type)int.Parse(temp[0]) + " ";
-        //switch ((Achieve_Rewards_Type)int.Parse(temp[0]))
-        //{
-        //    case Achieve_Rewards_Type.Boss点: dec += "Boss点 +" + temp[1]; break;
-        //    case Achieve_Rewards_Type.装备: dec += "装备 +" + temp[1]; break;
-        //    case Achieve_Rewards_Type.金币: dec += "金币 +" + temp[1] + "w"; break;
-        //    case Achieve_Rewards_Type.材料: dec += temp[1] + " * " + temp[2]; break;
-        //    case Achieve_Rewards_Type.伤害减免: dec += (temp[1] == "1" ? "减少物理伤害" : "减少魔法伤害") + " + " + temp[2] + "%"; break;
-        //    case Achieve_Rewards_Type.体力: dec += (temp[1] == "1" ? "生命" : "魔法") + " + " + temp[2]; break;
-        //    case Achieve_Rewards_Type.元素加成:
-        //        {
-        //            if (temp[1] == "1") dec += "攻击伤害 + " + temp[2] + "%";
-        //            else if (temp[1] == "2") dec += "暴击率 + " + temp[2] + "%";
-        //            else if (temp[1] == "3") dec += "暴击伤害 + " + temp[2] + "%";
-        //            else if (temp[1] == "4") dec += "攻击速度 + " + temp[2] + "";
-        //            else if (temp[1] == "5") dec += "命中 + " + temp[2] + "";
-        //        }
-        //        break;
-        //    case Achieve_Rewards_Type.战力:
-        //        if (temp[1] == "1") dec += "物理防御 + " + temp[2] + "";
-        //        else if (temp[1] == "2") dec += "魔法防御 + " + temp[2] + "";
-        //        else if (temp[1] == "3") dec += "物攻 + " + temp[2] + "";
-        //        else if (temp[1] == "4") dec += "魔攻 + " + temp[2] + "";
-        //        else if (temp[1] == "5") dec += "道术 + " + temp[2] + "";
-
-        //        break;
-        //    case Achieve_Rewards_Type.异常抗性:
-        //        if (temp[1] == "1") dec += "暴击抵抗 + " + temp[2] + "%";
-        //        else if (temp[1] == "2") dec += "爆伤抵抗 + " + temp[2] + "%";
-        //        break;
-
-        //    case Achieve_Rewards_Type.祝福:
-        //        if (temp[1] == "1") dec += "幸运 + " + temp[2] + "";
-        //        break;
-        //    case Achieve_Rewards_Type.回复能力:
-        //        if (temp[1] == "1") dec += "生命回复 + " + temp[2] + "";
-        //        else if (temp[1] == "2") dec += "魔法回复 + " + temp[2] + "";
-
-        //        break;
-        //    case Achieve_Rewards_Type.技能加成:
-        //        dec += (Skill_List)(int.Parse(temp[1])) + " 技能效果 + " + temp[2] + "%";
-        //        break;
-
-        //    case Achieve_Rewards_Type.领域加成:
-        //        dec += (Skill_List)(int.Parse(temp[1])) + " 领域伤害 + " + temp[2] + "";
-        //        break;
-
-        //}
-
-        return dec;
     }
 
 }

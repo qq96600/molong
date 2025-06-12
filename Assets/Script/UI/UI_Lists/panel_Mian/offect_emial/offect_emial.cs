@@ -34,6 +34,10 @@ public class offect_emial : Base_Mono
     /// 接收按钮
     /// </summary>
     private Button btn_receive;
+    /// <summary>
+    /// 领取列表
+    /// </summary>
+    private List<db_mail_vo> emial_items = new List<db_mail_vo>();
     private void Awake()
     {
         emial_Item_Prefab = Battle_Tool.Find_Prefabs<emial_item>("emial_item");
@@ -51,7 +55,11 @@ public class offect_emial : Base_Mono
     /// </summary>
     private void Receive()
     {
-        if(crtMail==null)return;
+        if (crtMail == null)
+        {
+            Alert_Dec.Show("当前暂无可领取邮件");
+            return;
+        } 
         if (crtMail.crt_mail.mail_par == -1)
         {
             foreach (var item in SumSave.CrtMail.lists)
@@ -69,13 +77,24 @@ public class offect_emial : Base_Mono
         }
         else
         {
-            SumSave.crt_accumulatedrewards.Set(1, crtMail.crt_mail.moeny);
-
+            if (emial_items.Count > 0)
+            {
+                for (int i = 0; i < emial_items.Count; i++)
+                {
+                    if (crtMail.crt_mail.mail_time == emial_items[i].mail_time)
+                    {
+                        Alert_Dec.Show("当前邮件已领取");
+                        return;
+                    }
+                }
+            }
+            if (crtMail.crt_mail.moeny > 0) SumSave.crt_accumulatedrewards.Set(1, crtMail.crt_mail.moeny);
+            emial_items.Add(crtMail.crt_mail);
             Game_Omphalos.i.GetQueue(Mysql_Type.Delete, Mysql_Table_Name.server_mail,
                 new string[] { Battle_Tool.GetStr(crtMail.crt_mail.uid) }, new string[] { "mail_recipient" });
-
             Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.history_server_mail,
               crtMail.crt_mail.Set_Instace_String());
+            SumSave.Db_Mails.Remove(crtMail.crt_mail);
             Receive_Resources();
         }
         
@@ -118,6 +137,7 @@ public class offect_emial : Base_Mono
             }
         }
         Alert_Dec.Show("领取成功");
+        Base_Show();
     }
 
     /// <summary>

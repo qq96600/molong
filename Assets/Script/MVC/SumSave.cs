@@ -27,6 +27,15 @@ namespace Common
         /// </summary>
         public static DateTime nowtime=DateTime.Now;
         #region 玩家数据中转
+
+        /// <summary>
+        /// 版本控制信息
+        /// </summary>
+        public static user_versions crt_versions;
+        /// <summary>
+        /// 版本控制器
+        /// </summary>
+        public static bool OpenGame;
         /// <summary>
         /// 主角色数据
         /// </summary>
@@ -172,6 +181,10 @@ namespace Common
         /// 套装属性
         /// </summary>
         public static List<db_suit_vo> db_suits;
+        /// <summary>
+        /// 具体功能消息
+        /// </summary>
+        public static List<db_dec> db_dec;
         /// <summary>
         /// 当前世界boss信息
         /// </summary>
@@ -320,6 +333,7 @@ namespace Common
         public static List<db_mail_vo> Db_Mails;
 
         public static user_mail_vo CrtMail;
+    
         #endregion
     }
 }

@@ -302,7 +302,6 @@ public class panel_bag : Panel_Base
                     item.GetComponent<Button>().onClick.AddListener(delegate { Select_Getformula_Material(item); });
                 }
                 page_info.text = list.Count + "/" + SumSave.crt_resources.pages[1];
-
                 break;
             case bag_btn_list.消耗品:
                 List<(string, List<string>)> Seedlist = SumSave.crt_seeds.GetSeedList();

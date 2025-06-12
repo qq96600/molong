@@ -11,6 +11,14 @@ using UnityEngine;
 public static class ReadDb
 {
 
+    public static db_dec Read(MySqlDataReader reader, db_dec item)
+    {
+        item.panel_index= reader.GetString(reader.GetOrdinal("panel_index"));
+        item.title= reader.GetString(reader.GetOrdinal("title"));
+        item.dec= reader.GetString(reader.GetOrdinal("dec"));
+        return item;
+    }
+
     public static db_formula_vo Read(MySqlDataReader reader, db_formula_vo item)
     {
        item.formula_type= reader.GetInt32(reader.GetOrdinal("formula_type"));

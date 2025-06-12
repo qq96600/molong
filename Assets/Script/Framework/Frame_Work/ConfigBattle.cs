@@ -37,8 +37,8 @@ namespace MVC
         /// </summary>
         public static List<string> LoadSetting(BattleAttack monster, int number)
         {
-            string base_name = SumSave.crt_resources.user_map_index;
-            if (!CalculationBattle.ContainsKey(SumSave.crt_resources.user_map_index))
+            string base_name = ArrayHelper.Find(SumSave.db_maps, e => e.map_index == monster.Data.map_index).map_name;
+            if (!CalculationBattle.ContainsKey(base_name))
             {
                 CalculationBattle.Add(base_name, ArrayHelper.Find(SumSave.db_maps, e => e.map_name == base_name).ProfitList.Split('&'));
             }

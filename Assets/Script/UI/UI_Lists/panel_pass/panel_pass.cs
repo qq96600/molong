@@ -48,7 +48,7 @@ public class panel_pass : Base_Mono
     {
         pos_btn = Find<Transform>("bg_main/btn_list");
         pos_item = Find<Transform>("bg_main/Scroll View/Viewport/Content");
-        pos_task = Find<Transform>("bg_main/task/task_list");
+        pos_task = Find<Transform>("bg_main/task/task_list/Viewport/Content");
         task_info = Find<Text>("bg_main/task/info/info");
         task_info.GetComponent<Button>().onClick.AddListener(() => { OnTaskInfoClick(); });
         btn_itm_prefabs = Battle_Tool.Find_Prefabs<btn_item>("btn_item"); //Resources.Load<btn_item>("Prefabs/base_tool/btn_item"); 
@@ -62,6 +62,7 @@ public class panel_pass : Base_Mono
             btn.GetComponent<Button>().onClick.AddListener(() => { OnBtnClick(btn); });
         }
         List<int> list = SumSave.crt_pass.Get_day_state();
+        ClearObject(pos_task);
         //固定6个任务
         for (int i = 0; i < 6; i++)
         {

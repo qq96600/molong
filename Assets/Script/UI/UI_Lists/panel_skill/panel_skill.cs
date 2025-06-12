@@ -78,7 +78,7 @@ public class panel_skill : Panel_Base
         page_info = Find<Text>("bg_main/item_list/page_info");
         page_info.GetComponent<Button>().onClick.AddListener(delegate { Page_Change(); });
         pos_skill = Find<Transform>("bg_main/item_list/list");
-        skill_item_parfabs = Battle_Tool.Find_Prefabs<skill_offect_item>("skill_offect_item"); //Resources.Load<skill_offect_item>("Prefabs/panel_skill/skill_offect_item");
+        skill_item_parfabs = Battle_Tool.Find_Prefabs<skill_offect_item>("skill_offect_item");
         for (int i = 0; i < Enum.GetNames(typeof(skill_btn_list)).Length; i++)
         {
             btn_item btn_item = Instantiate(btn_item_Prefabs, crt_btn);
@@ -193,11 +193,7 @@ public class panel_skill : Panel_Base
     /// </summary>
     private void SkillUpgradeTask()
     {
-        if(user_skill.Data.skillname== "驭火术")
-        {
-            tool_Categoryt.Base_Task(1028);
-        }
-      
+        tool_Categoryt.Base_Task(1028);
     }
     /// <summary>
     /// 装备技能任务
@@ -315,7 +311,7 @@ public class panel_skill : Panel_Base
                 default:
                     break;
             }
-            dec += "对目标造成" + (user_skill.Data.skill_damage + (user_skill.Data.skill_power * lv)) + "%伤害\n";
+            //dec += "对目标造成" + (user_skill.Data.skill_damage + (user_skill.Data.skill_power * lv)) + "%伤害\n";
         }
        
         if (lv >= user_skill.Data.skill_max_lv)
@@ -338,7 +334,9 @@ public class panel_skill : Panel_Base
             dec += Show_Color.Yellow("激活特效 \n");
             for (int i = 0; i < user_skill.Data.skill_open_type.Count; i++)
             {
-                dec += (enum_attribute_list)user_skill.Data.skill_open_type[i] + " + " + (user_skill.Data.skill_open_value[i] * lv / user_skill.Data.skill_max_lv) + "\n";
+                dec += (enum_skill_attribute_list)user_skill.Data.skill_open_type[i] + " + " + (user_skill.Data.skill_open_value[i] * lv / user_skill.Data.skill_max_lv)
+                    + tool_Categoryt.Obtain_unit(user_skill.Data.skill_open_type[i]) 
+                    + "(Max " + user_skill.Data.skill_open_value[i] + ")" + "\n";
             }
         }
         if (user_skill.Data.skill_pos_type.Count > 0 && (skill_btn_list)user_skill.Data.skill_type != skill_btn_list.战斗)
@@ -346,7 +344,9 @@ public class panel_skill : Panel_Base
             dec += Show_Color.Yellow("上阵特效 \n");
             for (int i = 0; i < user_skill.Data.skill_pos_type.Count; i++)
             {
-                dec += (enum_attribute_list)user_skill.Data.skill_pos_type[i] + " + " + (user_skill.Data.skill_pos_value[i] * lv / user_skill.Data.skill_max_lv) + "\n";
+                dec += (enum_skill_attribute_list)user_skill.Data.skill_pos_type[i] + " + " + (user_skill.Data.skill_pos_value[i] * lv / user_skill.Data.skill_max_lv)
+                    + tool_Categoryt.Obtain_unit(user_skill.Data.skill_pos_type[i]) 
+                    + "(Max " + user_skill.Data.skill_pos_value[i] + ")"+ "\n";
             }
         }
         if (user_skill.Data.skill_need_state.Count > 0)

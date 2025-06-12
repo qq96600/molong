@@ -239,6 +239,9 @@ namespace MVC
                 case Emun_Resources_List.material_value:
                     SumSave.crt_resources.material_value = value;
                     break;
+                case Emun_Resources_List.house_value:
+                    SumSave.crt_resources.house_value = value;
+                    break;
             }
             GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_value, SumSave.crt_resources.Set_Uptade_String(), SumSave.crt_resources.Get_Update_Character());
         }

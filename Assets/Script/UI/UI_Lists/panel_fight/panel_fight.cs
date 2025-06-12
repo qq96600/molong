@@ -189,7 +189,7 @@ public class panel_fight : Panel_Base
         {
             case 37: //历练
                 max = SumSave.crt_MaxHero.Lv * 1000;
-                value = (long)(damge * max / target.maxHP);
+                value = (long)(damge * max / target.maxHP)*100;
                 Alert.Show(select_map.map_name, "副本战斗结束,造成伤害 " + damge + "\n获得历练 " + value);
                 Battle_Tool.Obtain_Unit(currency_unit.历练, value) ;
                 break;
@@ -438,6 +438,10 @@ public class panel_fight : Panel_Base
                 }
             }
         }
+        if (select_map.map_type == 4)
+        {
+            exist = false;
+        }
         return exist;
       
     }
@@ -472,6 +476,7 @@ public class panel_fight : Panel_Base
                 crt = crt_map_monsters[0];
             }
         }
+        //crt = crt_map_monsters[1];
         crt = Battle_Tool.crate_monster(crt, select_map, crt_monster_number == maxnumber);
 
         GameObject item = ObjectPoolManager.instance.GetObjectFormPool(crt.show_name, monster_battle_attack_prefabs,
@@ -491,16 +496,18 @@ public class panel_fight : Panel_Base
         map_name.text = select_map.map_name + "(" + crt_monster_number + "/" + maxnumber + ")";
     }
     /// <summary>
-    /// 判断当前地图是否为深渊地图
+    /// 判断当前地图是否为对应地图
     /// </summary>
-    public  bool isMapType4()
+    public  bool isMapType(int type)
     {
-        if(select_map.map_type==4)
+        if(select_map.map_type==type)
         {
             return true;
         }
         return false;
     }
+
+    
 
 
     /// <summary>
