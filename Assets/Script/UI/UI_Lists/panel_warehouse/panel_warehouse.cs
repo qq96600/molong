@@ -61,12 +61,6 @@ public class panel_warehouse : Panel_Base
         //page_info.text = SumSave.crt_bag.Count + "/" + SumSave.crt_resources.pages[0];
     }
 
-    private void ShowAttributePanel(bag_item item)
-    {
-        equip_item_Prefabs.gameObject.SetActive(true);
-        equip_item_Prefabs.Data = item.Data;
-
-    }
     /// <summary>
     /// 取出
     /// </summary>
@@ -137,26 +131,7 @@ public class panel_warehouse : Panel_Base
             item.GetComponent<Button>().onClick.AddListener(delegate { Show_Bag_item(item,false); });
         }
     }
-    /// <summary>
-    /// 点击从仓库放入到装备
-    /// </summary>
-    /// <param name="item"></param>
-    private void PutIn_Equipment(bag_item _item)
-    {
-        if (SumSave.crt_bag.Count< SumSave.crt_resources.pages[0])
-        {
-            List<Bag_Base_VO> euqip = new List<Bag_Base_VO>();
-            SumSave.crt_house.Remove(_item.Data);
-            SumSave.crt_bag.Add(_item.Data);
-            Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.bag_value, SumSave.crt_bag);
-            Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.house_value, SumSave.crt_house);
-            Refresh();
-        }else
-        {
-            Alert_Dec.Show("背包已满，无法放入");
-        }
-       
-    }
+ 
     /// <summary>
     /// 刷新显示
     /// </summary>
