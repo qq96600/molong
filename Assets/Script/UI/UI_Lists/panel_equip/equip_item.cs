@@ -52,8 +52,12 @@ public class equip_item : Base_Mono
 
     private void base_init()
     {
-        ClearObject(crt_bag);
         //生成物品显示
+        if(bag_item_Prefabs==null||crt_bag==null)
+        {
+            Awake();
+        }
+        ClearObject(crt_bag);
         Instantiate(bag_item_Prefabs, crt_bag).Data = data;
         show_name.text=data.Name;
         string[] info = data.user_value.Split(' ');
