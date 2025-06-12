@@ -42,7 +42,12 @@ public class bag_item : Base_Mono
         {
             data = value;
             if (data == null) return;
-            item_icon.sprite = UI.UI_Manager.I.GetEquipSprite("icon/", data.Name);
+            if(item_icon==null)
+            {
+                Awake();
+            }
+
+                item_icon.sprite = UI.UI_Manager.I.GetEquipSprite("icon/", data.Name);
             if (data.StdMode == EquipConfigTypeList.护臂.ToString() || data.StdMode == EquipConfigTypeList.扳指.ToString())
             {
                 //方位偏转
