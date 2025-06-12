@@ -17,19 +17,19 @@ public class bag_item : Base_Mono
     private Bag_Base_VO data;
 
     /// <summary>
-    /// Ê¹Í¼±êÍ¸Ã÷»¯
+    /// ä½¿å›¾æ ‡é€æ˜åŒ–
     /// </summary>
     public void Transparent()
     {
         if (item_icon == null) return;
 
-        // »ñÈ¡µ±Ç°ÑÕÉ«
+        // è·å–å½“å‰é¢œè‰²
         Color currentColor = item_icon.color;
 
-        // ĞŞ¸ÄAlphaÖµ£¨È·±£ÔÚ0~1·¶Î§ÄÚ£©
+        // ä¿®æ”¹Alphaå€¼ï¼ˆç¡®ä¿åœ¨0~1èŒƒå›´å†…ï¼‰
         currentColor.a = Mathf.Clamp01(0.5f);
 
-        // Ó¦ÓÃĞÂµÄÑÕÉ«
+        // åº”ç”¨æ–°çš„é¢œè‰²
         item_icon.color = currentColor;
     }
 
@@ -48,9 +48,9 @@ public class bag_item : Base_Mono
             }
 
                 item_icon.sprite = UI.UI_Manager.I.GetEquipSprite("icon/", data.Name);
-            if (data.StdMode == EquipConfigTypeList.»¤±Û.ToString() || data.StdMode == EquipConfigTypeList.°âÖ¸.ToString())
+            if (data.StdMode == EquipConfigTypeList.æŠ¤è‡‚.ToString() || data.StdMode == EquipConfigTypeList.æ‰³æŒ‡.ToString())
             {
-                //·½Î»Æ«×ª
+                //æ–¹ä½åè½¬
             }
             if (data.user_value != null)
             {
