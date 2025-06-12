@@ -166,6 +166,12 @@ public class effect_gather : Base_Mono
                 Alert_Dec.Show("注灵成功,获得极品值+1");
             }
         }
+
+        if(success_Number>10)///添加炼丹极品值限制
+        {
+            success_Number= 10;
+        }
+
         info_number.text = "注灵(" + LimitNumber + "次)";
 
         if (LimitNumber <= 0)
