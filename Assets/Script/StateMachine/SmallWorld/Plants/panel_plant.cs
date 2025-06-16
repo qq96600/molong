@@ -259,7 +259,7 @@ public class panel_plant : Panel_Base
     }
 
     /// <summary>
-    /// 播种
+    /// 播种(不在这播种，废弃方法)
     /// </summary>
     private void Seeding()
     {
@@ -298,8 +298,8 @@ public class panel_plant : Panel_Base
         {
             Set[numbers[i]]= (currentPlant.ToString(), SumSave.nowtime);
         }
-        SumSave.crt_pass.progress(1);
         Wirte(Set);
+        SumSave.crt_pass.progress(1);
         baseShow();
         SeedingTask();
     }
