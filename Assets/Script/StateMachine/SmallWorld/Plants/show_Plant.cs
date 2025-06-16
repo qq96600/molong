@@ -130,7 +130,7 @@ public class show_Plant : Base_Mono
 
     }
     /// <summary>
-    /// 点击植物信息
+    /// 点击植物信息 单个播种
     /// </summary>
     /// <param name="item"></param>
     private void PlantInfo(seed_item item)
@@ -150,7 +150,9 @@ public class show_Plant : Base_Mono
                 Wirte(Set);//写入数据库
 
                 Alert_Dec.Show("播种成功");
-            }else Alert_Dec.Show("种子不足");
+                SeedingTask();
+            }
+            else Alert_Dec.Show("种子不足");
         }
         else Alert_Dec.Show("当前土地种植" + item.db_plant.plantName);
     }
@@ -367,8 +369,17 @@ public class show_Plant : Base_Mono
             Set[numbers[i]] = (currentPlant.ToString(), SumSave.nowtime);
         }
         Wirte(Set);
-
+        SeedingTask();
         Base_Show();
 
     }
+    /// <summary>
+    /// 播种任务
+    /// </summary>
+    private static void SeedingTask()
+    {
+        SumSave.crt_pass.progress(1);
+        tool_Categoryt.Base_Task(1090);
+    }
+
 }
