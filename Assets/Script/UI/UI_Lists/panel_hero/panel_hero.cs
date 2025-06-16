@@ -97,10 +97,11 @@ public class panel_hero : Panel_Base
         show_hero_info_close_btn.onClick.AddListener(() => { show_hero_info.gameObject.SetActive(false); });
         crate_btn = Find<Button>("bg_main/select_hero/show_hero_info/crate_btn");
         crate_btn.onClick.AddListener(() => { SwitchRoles(); });
-        skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/within_" + SumSave.crt_hero.hero_pos);
         panel_role_health = Find<Transform>("bg_main/bag_equips/hero_icon/panel_role_health");
         panel_equip = UI_Manager.I.GetPanel<panel_equip>();
-        Instantiate(skin_prefabs, panel_role_health);
+        CharacterRefresh();
+
+
 
         for (int i = 0; i < Enum.GetNames(typeof(enum_attribute_list)).Length; i++)
         { 
@@ -133,11 +134,26 @@ public class panel_hero : Panel_Base
                 Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_hero,
                     SumSave.crt_hero.Set_Uptade_String(), SumSave.crt_hero.Get_Update_Character());
                 Alert_Dec.Show("切换角色 " + item + " 成功");
+
+                SendNotification(NotiList.Refresh_Max_Hero_Attribute);
+                base_show();
+                CharacterRefresh();
                 return;
             }
         }
       Alert_Dec.Show("该角色尚未获取");
     }
+    /// <summary>
+    /// 角色刷新
+    /// </summary>
+    private void CharacterRefresh()
+    {
+        skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/within_" + SumSave.crt_hero.hero_pos);
+        ClearObject(panel_role_health);
+        Instantiate(skin_prefabs, panel_role_health);
+    }
+
+
     /// <summary>
     /// 选择角色
     /// </summary>

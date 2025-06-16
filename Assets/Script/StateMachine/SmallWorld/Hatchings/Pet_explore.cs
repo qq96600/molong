@@ -403,6 +403,7 @@ public class Pet_explore : Base_Mono
                 ClearObject(btn_item_Dic[index]);
             }
             Base_Show();
+            SendNotification(NotiList.Refresh_Max_Hero_Attribute);
         }
     }
     /// <summary>

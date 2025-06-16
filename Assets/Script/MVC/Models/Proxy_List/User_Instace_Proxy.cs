@@ -1026,6 +1026,8 @@ namespace MVC
             crtMaxHeroVO crt = new crtMaxHeroVO();
             crt.Lv = SumSave.crt_hero.hero_Lv;
             crt.show_name= SumSave.crt_hero.hero_name;
+
+            ////添加皮肤属性
             for (int i = 0; i < SumSave.db_heros.Count; i++)
             {
                 if (SumSave.db_heros[i].hero_name == SumSave.crt_hero.hero_pos)
@@ -1212,20 +1214,24 @@ namespace MVC
                     }
                 }
             }
-            //宠物属性
+            //上阵探索宠物属性
             if (SumSave.crt_pet_list.Count>=0)
             {
                 for (int i = 0; i < SumSave.crt_pet_list.Count; i++)
                 {
-                    List<string> v = SumSave.db_pet_dic[SumSave.crt_pet_list[i].petName].crate_values;//宠物基础属性
-                    List<string> va = SumSave.db_pet_dic[SumSave.crt_pet_list[i].petName].up_values;//宠物成长属性
-                    for (int j = 0; j < v.Count; j++)
+                    if (SumSave.crt_pet_list[i].pet_state == "2")
                     {
-                        int value = (int.Parse(v[j]) + (int.Parse(va[j]) * SumSave.crt_pet_list[i].level)) / 10;
-                        Enum_Value(crt, j, value);
+                        List<string> v = SumSave.db_pet_dic[SumSave.crt_pet_list[i].petName].crate_values;//宠物基础属性
+                        List<string> va = SumSave.db_pet_dic[SumSave.crt_pet_list[i].petName].up_values;//宠物成长属性
+                        for (int j = 0; j < v.Count; j++)
+                        {
+                            int value = (int.Parse(v[j]) + (int.Parse(va[j]) * SumSave.crt_pet_list[i].level)) / 10;
+                            Enum_Value(crt, j, value);
+                        }
                     }
                 }
             }
+
             (int,int,string) exp = SumSave.crt_accumulatedrewards.SetRecharge();
             if (exp.Item1 > 0)
             {
@@ -1346,11 +1352,13 @@ namespace MVC
                     }
                 }
             }
+
+
             //皮肤
 #if UNITY_EDITOR
-            crt.hit += 1000;
-            crt.damageMax += 100000;
-            crt.MagicdamageMax += 100000;
+            //crt.hit += 1000;
+            //crt.damageMax += 100000;
+            //crt.MagicdamageMax += 100000;
 #elif UNITY_ANDROID
 #elif UNITY_IPHONE
 #endif

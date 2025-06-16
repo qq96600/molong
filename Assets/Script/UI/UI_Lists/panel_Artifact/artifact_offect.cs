@@ -1,6 +1,8 @@
 using Common;
 using Components;
 using MVC;
+using System;
+using System.Collections.Generic;
 using UnityEngine.UI;
 
 public class artifact_offect : Base_Mono
@@ -104,9 +106,25 @@ public class artifact_offect : Base_Mono
     private void Open_smallWorld()
     {
         SumSave.crt_world = new user_world_vo();
-        SumSave.crt_world.World_Lv =1;
+        SumSave.crt_world.World_Lv = 1;
         Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_world, SumSave.crt_world.Set_Instace_String());
+        AddLand();
         Alert_Dec.Show("小世界开启成功");
+    }
+    /// <summary>
+    /// 添加一块土地
+    /// </summary>
+    private static void AddLand()
+    {
+        if(SumSave.crt_plant.Set().Count>0)
+        {
+            return;
+        }
+        List<(string, DateTime)> Set = SumSave.crt_plant.Set();
+        Set.Add(("0", SumSave.nowtime));
+        SumSave.crt_plant.Set_data(Set);
+        Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_plant,
+            SumSave.crt_plant.Set_Uptade_String(), SumSave.crt_plant.Get_Update_Character());
     }
 
     /// <summary>
