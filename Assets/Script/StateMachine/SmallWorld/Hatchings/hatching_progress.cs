@@ -303,6 +303,7 @@ public class hatching_progress : Base_Mono
             Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_pet,
      SumSave.crt_pet.Set_Uptade_String(), SumSave.crt_pet.Get_Update_Character());
             Alert_Dec.Show("当前宠物已开始探险");
+            SendNotification(NotiList.Refresh_Max_Hero_Attribute);
             PetExpeditionGoTask();
         }
     }

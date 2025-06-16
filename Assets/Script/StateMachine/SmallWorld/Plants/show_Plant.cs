@@ -206,7 +206,12 @@ public class show_Plant : Base_Mono
     {
         if ((SumSave.crt_world.World_Lv / 5 + 3) > panltList.Count)
         {
-            Alert.Show("扩容", "扩容需要" + currency_unit.灵气 + need_list[panltList.Count-1],
+            int num = panltList.Count - 1;
+            if (panltList.Count <= 1)
+            {
+                num = 0;
+            }
+            Alert.Show("扩容", "扩容需要" + currency_unit.灵气 + need_list[num],
                 ConfigExpansion);
         }
         else
@@ -221,7 +226,12 @@ public class show_Plant : Base_Mono
     /// <param name="arg0"></param>
     private void ConfigExpansion(object arg0)
     {
-        NeedConsumables(currency_unit.灵气, need_list[panltList.Count-1]);
+        int num = panltList.Count - 1;
+        if (panltList.Count <= 1)
+        {
+            num = 0;
+        }
+        NeedConsumables(currency_unit.灵气, need_list[num]);
         if (RefreshConsumables())
         {
             List<(string, DateTime)> Set = SumSave.crt_plant.Set();

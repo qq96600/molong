@@ -43,7 +43,7 @@ namespace MVC
                 CalculationBattle.Add(base_name, ArrayHelper.Find(SumSave.db_maps, e => e.map_name == base_name).ProfitList.Split('&'));
             }
             Calculations = new List<string>();
-            for (int i = 0; i < number; i++)
+            for (int i = 0; i < (number); i++)
             {
                 string countEquip = CalculationBattle[base_name][Random.Range(0, CalculationBattle[base_name].Length)];
                 CalculationBag(countEquip, monster.Data.Monster_Lv == 3);

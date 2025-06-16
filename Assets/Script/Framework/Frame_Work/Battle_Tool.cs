@@ -527,30 +527,22 @@ public static class Battle_Tool
                 break;
             case "下品历练丹":
                 //添加1.5倍的历练值
-                if (SumSave.crt_player_buff.player_Buffs.ContainsKey("中品历练丹"))
+                if (SumSave.crt_player_buff.player_Buffs.ContainsKey("中品历练丹")|| SumSave.crt_player_buff.player_Buffs.ContainsKey("上品历练丹"))
                 {
-                    Alert_Dec.Show("中品历练丹失效");
-                    SumSave.crt_player_buff.player_Buffs.Remove("中品历练丹");
-                }
-                if (SumSave.crt_player_buff.player_Buffs.ContainsKey("上品历练丹"))
-                {
-                    Alert_Dec.Show("上品历练丹失效");
-                    SumSave.crt_player_buff.player_Buffs.Remove("上品历练丹");
+                    return;
                 }
                 AddBuff(result_list[0], 1.5f, 2, int.Parse(result_list[1])*num);
                 break;
             case "中品历练丹":
                 //添加2倍的历练值
-
+                if (SumSave.crt_player_buff.player_Buffs.ContainsKey("上品历练丹"))
+                {
+                    return;
+                }
                 if (SumSave.crt_player_buff.player_Buffs.ContainsKey("下品历练丹"))
                 {
                     Alert_Dec.Show("下品历练丹失效");
                     SumSave.crt_player_buff.player_Buffs.Remove("下品历练丹");
-                }
-                if (SumSave.crt_player_buff.player_Buffs.ContainsKey("上品历练丹"))
-                {
-                    Alert_Dec.Show("上品历练丹失效");
-                    SumSave.crt_player_buff.player_Buffs.Remove("上品历练丹");
                 }
                 AddBuff(result_list[0], 2f, 2, int.Parse(result_list[1]) * num);
                 break;
@@ -569,31 +561,23 @@ public static class Battle_Tool
                 break;
             case "下品经验丹":
                 //添加1.5倍的经验值
-
-                if (SumSave.crt_player_buff.player_Buffs.ContainsKey("中品经验丹"))
+                if (SumSave.crt_player_buff.player_Buffs.ContainsKey("中品经验丹")|| SumSave.crt_player_buff.player_Buffs.ContainsKey("上品经验丹"))
                 {
-                    Alert_Dec.Show("中品经验丹失效");
-                    SumSave.crt_player_buff.player_Buffs.Remove("中品经验丹");
-                }
-                if (SumSave.crt_player_buff.player_Buffs.ContainsKey("上品经验丹"))
-                {
-                    Alert_Dec.Show("上品经验丹失效");
-                    SumSave.crt_player_buff.player_Buffs.Remove("上品经验丹");
+                    return;
                 }
                 AddBuff(result_list[0], 1.5f, 1, int.Parse(result_list[1]) * num);
                 break;
             case "中品经验丹":
                 //添加2倍的经验值
 
+                if (SumSave.crt_player_buff.player_Buffs.ContainsKey("上品经验丹"))
+                {
+                    return;
+                }
                 if (SumSave.crt_player_buff.player_Buffs.ContainsKey("下品经验丹"))
                 {
                     Alert_Dec.Show("下品经验丹失效");
                     SumSave.crt_player_buff.player_Buffs.Remove("下品经验丹");
-                }
-                if (SumSave.crt_player_buff.player_Buffs.ContainsKey("上品经验丹"))
-                {
-                    Alert_Dec.Show("上品经验丹失效");
-                    SumSave.crt_player_buff.player_Buffs.Remove("上品经验丹");
                 }
                 AddBuff(result_list[0], 2f, 1, int.Parse(result_list[1]) * num);
                 break;

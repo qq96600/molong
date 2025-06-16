@@ -169,6 +169,7 @@ public class panel_Buff : Panel_Base
         dec += enum_skill_attribute_list.经验加成 + ": " + Show_Buff(enum_skill_attribute_list.经验加成) + "%\n ";
         dec += enum_skill_attribute_list.人物历练 + ": " + Show_Buff(enum_skill_attribute_list.人物历练) + "%\n ";
         dec += enum_skill_attribute_list.灵珠收益 + ": " + Show_Buff(enum_skill_attribute_list.灵珠收益) + "%\n ";
+
         dec += enum_skill_attribute_list.装备爆率 + ": " + Show_Buff(enum_skill_attribute_list.装备爆率) + "%\n ";
         dec += enum_skill_attribute_list.装备掉落 + ": " + Show_Buff(enum_skill_attribute_list.装备掉落) + "%\n ";
         dec += enum_skill_attribute_list.宠物获取 + ": " + Show_Buff(enum_skill_attribute_list.宠物获取) + "%\n ";
