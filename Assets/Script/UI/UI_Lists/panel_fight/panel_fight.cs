@@ -231,6 +231,8 @@ public class panel_fight : Panel_Base
             default:
                 break;
         }
+        //获得五行随机五行种子
+        
         Open_Map(ArrayHelper.Find(SumSave.db_maps, e => e.map_name == SumSave.crt_resources.user_map_index));
     }
     /// <summary>

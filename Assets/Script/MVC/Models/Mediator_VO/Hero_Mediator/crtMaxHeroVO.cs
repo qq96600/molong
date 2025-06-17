@@ -210,7 +210,7 @@ public class crtMaxHeroVO
     /// </summary>
     public void Init()
     {
-        totalPower = (int)(MaxHP / 10 + (MaxMp / 5) + internalforceMP + EnergyMp +
+        totalPower = (int)(MaxHP / 10 + (MaxMp / 10) + internalforceMP + EnergyMp +
             DefMin + DefMax + MagicDefMin + MagicDefMax + damageMin + damageMax + MagicdamageMin + MagicdamageMax +
             hit + (dodge * 5) + (penetrate * 5) + (block * 5) + (crit_rate * 10) + crit_damage + (double_damage * 10) + (Lucky * 100) +
             (Damage_Reduction * 10) + (Damage_absorption * 10) + (resistance * 10) + move_speed + ((200 - attack_speed) * 10) + attack_distance +
