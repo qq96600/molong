@@ -1,3 +1,4 @@
+using Common;
 using MVC;
 using System.Collections.Generic;
 
@@ -19,4 +20,22 @@ public class db_lv_vo : Base_VO
     /// 小世界最大存储值
     /// </summary>
     public List<int> word_lv_max_value;
+    /// <summary>
+    /// 荣耀殿堂添加灵气上限
+    /// </summary>
+    public void AddUpperLimit()
+    {
+        for (int i = 0; i < SumSave.db_vip_list.Count; i++)
+        {
+            if (SumSave.db_vip_list[i].vip_lv == SumSave.crt_accumulatedrewards.SetRecharge().Item1)
+            {
+                List<int> list = new List<int>();
+                for (int j = 0; j < word_lv_max_value.Count; j++)
+                {
+                    list.Add(word_lv_max_value[j] + SumSave.db_vip_list[i].upperLimitOfSpiritualEnergy);
+                }
+                word_lv_max_value = list;
+            }
+        }
+    }
 }

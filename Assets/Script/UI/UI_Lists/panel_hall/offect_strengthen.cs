@@ -63,15 +63,17 @@ public class offect_strengthen : Base_Mono
     {
         string[] infos = crt_bag.Data.user_value.Split(' ');
         int lv = int.Parse(infos[1]);
-        if (lv >= crt_bag.Data.need_lv/10+3)
-        { 
+        if (lv >= crt_bag.Data.need_lv / 10 + 3)
+        {
             Alert_Dec.Show("当前装备强化等级已满");
             return;
         }
-        NeedConsumables(currency_unit.灵珠, needs[lv]);
+        long need = CostReduction(lv);
+
+        NeedConsumables(currency_unit.灵珠, need);
         if (RefreshConsumables())
         {
-            infos[1]= (lv + 1).ToString();
+            infos[1] = (lv + 1).ToString();
             crt_bag.Data.user_value = Battle_Tool.Equip_User_Value(infos);// crt_bag.Data.user_value.Replace(infos[1], (lv + 1).ToString());
             Select_Strengthen(crt_bag);
             if (index == 0)
@@ -84,6 +86,25 @@ public class offect_strengthen : Base_Mono
         }
         else Alert_Dec.Show(currency_unit.灵珠 + "不足 " + needs[lv]);
     }
+
+    /// <summary>
+    /// 减少强化费用
+    /// </summary>
+    /// <param name="lv"></param>
+    /// <returns></returns>
+    private long CostReduction(int lv)
+    {
+        long need = needs[lv];
+        for (int i = 0; i < SumSave.db_vip_list.Count; i++)
+        {
+            if (SumSave.db_vip_list[i].vip_lv == SumSave.crt_accumulatedrewards.SetRecharge().Item1)
+            {
+                need -= need * SumSave.db_vip_list[i].strengthenCosts / 100;
+            }
+        }
+        return need;
+    }
+
     /// <summary>
     /// 装备强化任务
     /// </summary>
@@ -183,6 +204,7 @@ public class offect_strengthen : Base_Mono
         Instantiate(bag_item_Prefabs, pos_icon).Data = data.Data;
         string[] infos = crt_bag.Data.user_value.Split(' ');
         int lv = int.Parse(infos[1]);
-        info.text = "强化" + data.Data.Name + "需要" + currency_unit.灵珠 + needs[lv];
+        long need = CostReduction(lv);
+        info.text = "强化" + data.Data.Name + "需要" + currency_unit.灵珠 + need;
     }
 }

@@ -447,6 +447,8 @@ namespace MVC
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_rewards_state, SumSave.crt_accumulatedrewards.Set_Instace_String());
             }
 
+            SumSave.db_lvs.AddUpperLimit();///添加灵气上限
+
         }
 
         public void Read_user_player_Buff()

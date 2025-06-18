@@ -475,16 +475,18 @@ public class Pet_explore : Base_Mono
         Alert_Dec.Show("探索收益 " + data[0] + " x " + i);
         Init();
     }
-
+    /// <summary>
+    /// 获得奖励
+    /// </summary>
+    /// <param name="data"></param>
+    /// <param name="i"></param>
     private static void NGetRewards(string[] data, int i)
     {
-       
-
         switch (int.Parse(data[3]))
         {
             case 1:
                 //获得材料技能书神器
-                Battle_Tool.Obtain_Resources(i, i);
+                Battle_Tool.Obtain_Resources(data[0], i);
                 break;
             case 2:
                 //获得货币

@@ -284,7 +284,7 @@ public static class ReadDb
         item.word_lv_max_value = new System.Collections.Generic.List<int>();
         string[] word_lv_max_value2 = word_lv_max_value.Split(' ');
         for (int i = 0; i < word_lv_max_value2.Length; i++)
-        { 
+        {
             item.word_lv_max_value.Add(Convert.ToInt32(word_lv_max_value2[i]));
         }
         return item;

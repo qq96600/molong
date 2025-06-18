@@ -146,9 +146,10 @@ public class panel_Buff : Panel_Base
                 foreach (var item in SumSave.crt_player_buff.player_Buffs)
                 {
                     (DateTime, int, float, int) time = item.Value;
+                    int remainingTime = Battle_Tool.SettlementTransport((time.Item1).ToString("yyyy-MM-dd HH:mm:ss"));
                     if (time.Item4 == 3)
                     {
-                        if ((SumSave.nowtime - time.Item1).Minutes < time.Item2)
+                        if (remainingTime < time.Item2)
                         {
                             dec += Show_Color.Red(item.Key + ": 效果 经验值和灵珠值获取增加" + time.Item3 + "倍 剩余" + (time.Item2 - (SumSave.nowtime - time.Item1).Minutes) + "Min\n ");
                         }
@@ -156,9 +157,9 @@ public class panel_Buff : Panel_Base
 
                     if (index == time.Item4)
                     {
-                        if ((SumSave.nowtime - time.Item1).Minutes < time.Item2)
+                        if (remainingTime < time.Item2)
                         {
-                            dec += Show_Color.Red(item.Key + ": 效果" + time.Item3 + "倍 剩余" + (time.Item2 - (SumSave.nowtime - time.Item1).Minutes) + "Min\n ");
+                            dec += Show_Color.Red(item.Key + ": 效果" + time.Item3 + "倍 剩余" + (time.Item2 - remainingTime) + "Min\n ");
                         }
                     }
                 }

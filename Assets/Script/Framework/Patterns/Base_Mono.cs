@@ -238,7 +238,10 @@ namespace MVC
                 Destroy(pos_btn.GetChild(i).gameObject);
             }
         }
-    }
+
+}
+
+
 
 
     /// <summary>
