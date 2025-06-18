@@ -1227,7 +1227,7 @@ namespace MVC
                         List<string> va = SumSave.db_pet_dic[SumSave.crt_pet_list[i].petName].up_values;//宠物成长属性
                         for (int j = 0; j < v.Count; j++)
                         {
-                            int value = (int.Parse(v[j]) + (int.Parse(va[j]) * SumSave.crt_pet_list[i].level)) / 10;
+                            int value = (int.Parse(v[j]) + (int.Parse(va[j]) * SumSave.crt_pet_list[i].level)) / (SumSave.crt_world.World_Lv / 10 + 5);
                             Enum_Value(crt, j, value);
                         }
                     }

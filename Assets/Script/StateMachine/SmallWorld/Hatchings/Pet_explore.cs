@@ -32,7 +32,7 @@ public class Pet_explore : Base_Mono
     /// <summary>
     /// 宠物探索一次消耗的体力
     /// </summary>
-    private int exhausting = 10;
+    private int exhausting = 20;
 
     /// <summary>
     /// 按钮预制体
