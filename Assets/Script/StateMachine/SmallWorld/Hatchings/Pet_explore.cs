@@ -29,6 +29,10 @@ public class Pet_explore : Base_Mono
     /// 探索次数
     /// </summary>
     private int IsExploring = 5;
+    /// <summary>
+    /// 宠物探索一次消耗的体力
+    /// </summary>
+    private int exhausting = 10;
 
     /// <summary>
     /// 按钮预制体
@@ -427,7 +431,7 @@ public class Pet_explore : Base_Mono
         explore = SumSave.db_pet_explore[index].petExploreMapName;//获得探索地图的名字
 
 
-        IsExploring =int.Parse( SumSave.crt_needlist.user_value_list[0][0]) - 5;//判断体力是否足够
+        IsExploring =int.Parse( SumSave.crt_needlist.user_value_list[0][0]) - exhausting;//判断体力是否足够
 
 
         if (IsExploring>= 0 && SumSave.db_pet_explore_dic.TryGetValue(explore, out user_pet_explore_vo vo)) //判断次数并且更具名字找到该地图的信息
@@ -466,7 +470,7 @@ public class Pet_explore : Base_Mono
     private void GainRewards(string[] data)
     {
         int i = Random.Range(1, int.Parse(data[1]) + 1);//随机获得奖励数量
-        int r = int.Parse(SumSave.crt_needlist.user_value_list[0][0]) - 5;//每次探索消耗的体力
+        int r = int.Parse(SumSave.crt_needlist.user_value_list[0][0]) - exhausting;//每次探索消耗的体力
         SumSave.crt_needlist.user_value_list[0][0] = r.ToString();
         Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_needlist,
            SumSave.crt_needlist.Set_Uptade_String(), SumSave.crt_needlist.Get_Update_Character());
