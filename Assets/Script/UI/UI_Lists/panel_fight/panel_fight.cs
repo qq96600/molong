@@ -189,7 +189,7 @@ public class panel_fight : Panel_Base
         {
             case 37: //历练
                 max = SumSave.crt_MaxHero.Lv * 1000;
-                value = (long)(damge * max / target.maxHP)*100;
+                value = (long)(damge * max / target.maxHP);
                 Alert.Show(select_map.map_name, "副本战斗结束,造成伤害 " + damge + "\n获得历练 " + value);
                 Battle_Tool.Obtain_Unit(currency_unit.历练, value) ;
                 break;
@@ -216,7 +216,7 @@ public class panel_fight : Panel_Base
                 Battle_Tool.Obtain_Exp(value);
                 break;
             case 33://灵珠
-                max = SumSave.crt_MaxHero.Lv * 100000;
+                max = SumSave.crt_MaxHero.Lv * 1000000;
                 value = (long)(damge * max / target.maxHP);
                 Alert.Show(select_map.map_name, "副本战斗结束,造成伤害 " + damge + "\n获得灵珠 " + value);
                 Battle_Tool.Obtain_Unit(currency_unit.灵珠, value);

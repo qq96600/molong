@@ -108,7 +108,7 @@ namespace MVC
                     {
                         if (data.life[i] != 0)
                         {
-                            dec += " " + Show_Color.Green((enum_skill_attribute_list)(201 + i));
+                            dec += " " + Show_Color.Green((enum_skill_attribute_list)(201 + i)+"(" + data.life[i] + ")");
                         }
                     }
                     if (data.monster_attrList.Count > 0)
@@ -224,7 +224,7 @@ namespace MVC
         /// </summary>
         private void Game_Next_Map()
         {
-            DailyCopies();
+            DailyCopies(Terget);
             transform.parent.parent.parent.SendMessage("Game_Next_Map");
 
         }
@@ -233,17 +233,17 @@ namespace MVC
         /// </summary>
         private void game_over()
         {
-            DailyCopies();
+            DailyCopies(target);
             transform.parent.parent.parent.SendMessage("Game_Over");
         }
         /// <summary>
         /// 获取副本奖励
         /// </summary>
-        private void DailyCopies()
+        private void DailyCopies(BattleHealth health)
         {
-            if (Terget.GetComponent<BattleAttack>().data.Monster_Lv == 4)
+            if (health.GetComponent<BattleAttack>().data.Monster_Lv == 4)
             {
-                transform.parent.parent.parent.SendMessage("DailyCopies", Terget);
+                transform.parent.parent.parent.SendMessage("DailyCopies", health);
             }
         }
 
@@ -307,7 +307,7 @@ namespace MVC
                 return;
             }
             if (monster.target.HP <= 0) return;//结战斗
-            float damage = Base_Damage(monster);
+            float damage = Base_Damage(monster, skill);
             damage += skill.skill_spell * target.maxMP / 100;
             damage = damage * (skill.skill_damage + (skill.skill_power * lv)) / 100;
             //内力伤害
@@ -370,25 +370,45 @@ namespace MVC
             }
         }
 
-        private int Base_Damage(BattleAttack monster)
+        private int Base_Damage(BattleAttack monster,base_skill_vo skill=null)
         {
             float damage = 0f;
-            if (Data.Type == 1)
+            if (skill == null)
             {
-                damage = Lucky(Data.damageMin, Data.damageMax, data.Lucky) -
-                    (Random.Range(monster.Data.DefMin, monster.Data.DefMax) * (100 + monster.Data.bonus_Def) / 100);
-                damage = damage * (100 + data.bonus_Damage) / 100;
+                if (Data.Type == 1)
+                {
+                    damage = Lucky(Data.damageMin, Data.damageMax, data.Lucky) -
+                        (Random.Range(monster.Data.DefMin, monster.Data.DefMax) * (100 + monster.Data.bonus_Def) / 100);
+                    damage = damage * (100 + data.bonus_Damage) / 100;
+                }
+                else
+                if (Data.Type == 2)
+                {
+                    damage = Lucky(Data.MagicdamageMin, Data.MagicdamageMax, data.Lucky) -
+                        (Random.Range(monster.Data.MagicDefMin, monster.Data.MagicDefMax) * (100 + monster.Data.bonus_MagicDef) / 100);
+                    damage = damage * (100 + data.bonus_MagicDamage) / 100;
+                }
+                if (monster.Data.Damage_absorption > 0)
+                {
+                    damage = damage * (100 - monster.Data.Damage_absorption) / 100;
+                }
             }
             else
-            if (Data.Type == 2)
             {
-                damage = Lucky(Data.MagicdamageMin, Data.MagicdamageMax, data.Lucky) -
-                    (Random.Range(monster.Data.MagicDefMin, monster.Data.MagicDefMax) * (100 + monster.Data.bonus_MagicDef) / 100);
-                damage = damage * (100 + data.bonus_MagicDamage) / 100;
-            }
-            if (monster.Data.Damage_absorption > 0)
-            {
-                damage = damage * (100 - monster.Data.Damage_absorption) / 100;
+
+                if (skill.skill_damage_type == 1)//物理伤害
+                {
+                    damage = Lucky(Data.damageMin, Data.damageMax, data.Lucky) -
+                           (Random.Range(monster.Data.DefMin, monster.Data.DefMax) * (100 + monster.Data.bonus_Def) / 100);
+                    damage = damage * (100 + data.bonus_Damage) / 100;
+                }
+                else
+                if (skill.skill_damage_type == 2)//魔法伤害
+                {
+                    damage = Lucky(Data.MagicdamageMin, Data.MagicdamageMax, data.Lucky) -
+                         (Random.Range(monster.Data.MagicDefMin, monster.Data.MagicDefMax) * (100 + monster.Data.bonus_MagicDef) / 100);
+                    damage = damage * (100 + data.bonus_MagicDamage) / 100;
+                }
             }
             damage = damage * (100 + penetrate(monster)) / 100;
             damage = Mathf.Max(1, damage);
