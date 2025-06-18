@@ -24,6 +24,7 @@ namespace MVC
         private void Show_Panel()
         {
             transform.parent.parent.parent.parent.SendMessage("OnClickMap", select_panel.ToString());
+            Game_Omphalos.i.Show_Screensaver();
         }
     }
 
