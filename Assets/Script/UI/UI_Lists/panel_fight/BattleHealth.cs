@@ -171,12 +171,12 @@ namespace MVC
             "击杀 " + monster.Data.show_name + " 获得 " + monster.Data.Exp + "经验");
                 transform.parent.parent.parent.SendMessage("show_battle_info",
             "击杀 " + monster.Data.show_name + " 获得 " + monster.Data.unit + "灵珠");
-                if (lists.Count > 0)
+            }
+            if (lists.Count > 0)
+            {
+                for (int i = 0; i < lists.Count; i++)
                 {
-                    for (int i = 0; i < lists.Count; i++)
-                    {
-                        transform.parent.parent.parent.SendMessage("show_battle_info", lists[i]);
-                    }
+                    transform.parent.parent.parent.SendMessage("show_battle_info", lists[i]);
                 }
             }
             //获取金币

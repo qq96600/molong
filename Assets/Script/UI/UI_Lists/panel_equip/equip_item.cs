@@ -27,7 +27,7 @@ public class equip_item : Base_Mono
         bag_item_Prefabs = Battle_Tool.Find_Prefabs<bag_item>("bag_item"); //Resources.Load<bag_item>("Prefabs/panel_bag/bag_item");
         show_name = Find<Text>("show_name/info");
         show_base_need = Find<Text>("show_base_need");
-        show_info = Find<Text>("show_info");
+        show_info = Find<Text>("show_bg/show_info");
     }
 
 
@@ -70,7 +70,7 @@ public class equip_item : Base_Mono
         
         if (data.damgemin > 0 || data.damagemax > 0)
         { 
-            dec += "\n" + Show_Color.White("物理攻击:" + data.damgemin + "-" + data.damagemax);
+            dec += "\n" + Show_Color.Black("物理攻击:" + data.damgemin + "-" + data.damagemax);
             if (strengthenlv > 0)
             { 
                 dec += Show_Color.Grey("(+" + (data.need_lv * strengthenlv) + ")");
@@ -78,7 +78,7 @@ public class equip_item : Base_Mono
         }
         if (data.magicmin > 0 || data.magicmax > 0)
         { 
-            dec += "\n" + Show_Color.White("魔法攻击:" + data.magicmin + "-" + data.magicmax);
+            dec += "\n" + Show_Color.Black("魔法攻击:" + data.magicmin + "-" + data.magicmax);
             if (strengthenlv > 0)
             { 
                 dec += Show_Color.Grey("(+" + (data.need_lv * strengthenlv) + ")");
@@ -86,7 +86,7 @@ public class equip_item : Base_Mono
         }
         if (data.defmin > 0 || data.defmax > 0)
         {
-            dec += "\n" + Show_Color.White("物理防御:" + data.defmin + "-" + data.defmax);
+            dec += "\n" + Show_Color.Black("物理防御:" + data.defmin + "-" + data.defmax);
             if (strengthenlv > 0)
             {
                 dec += Show_Color.Grey("(+" + (data.need_lv * strengthenlv / 2) + ")");
@@ -94,7 +94,7 @@ public class equip_item : Base_Mono
         }
         if (data.macdefmin > 0 || data.macdefmax > 0)
         {
-            dec += "\n" + Show_Color.White("魔法防御:" + data.macdefmin + "-" + data.macdefmax);
+            dec += "\n" + Show_Color.Black("魔法防御:" + data.macdefmin + "-" + data.macdefmax);
             if (strengthenlv > 0)
             {
                 dec += Show_Color.Grey("(+" + (data.need_lv * strengthenlv / 2) + ")");
@@ -102,11 +102,11 @@ public class equip_item : Base_Mono
         }
         if (data.hp > 0)
         { 
-            dec += "\n" + Show_Color.White("生命值:  " + data.hp);
+            dec += "\n" + Show_Color.Black("生命值:  " + data.hp);
         }
         if (data.mp > 0)
         { 
-            dec += "\n" + Show_Color.White("魔法值:  " + data.mp);
+            dec += "\n" + Show_Color.Black("魔法值:  " + data.mp);
         }
         if (info.Length > 4)
         {
@@ -155,7 +155,7 @@ public class equip_item : Base_Mono
                         }
                         dec += "\n" + Show_Color.Red((enum_skill_attribute_list)(int.Parse(arr[i])) + ":" + arr_value[i] +"%");
                     }else
-                        dec += "\n" + Show_Color.Orange((enum_skill_attribute_list)(int.Parse(arr[i])) + ":" + arr_value[i] + "");
+                        dec += "\n" + Show_Color.Green((enum_skill_attribute_list)(int.Parse(arr[i])) + ":" + arr_value[i] + "");
 
 
                 }

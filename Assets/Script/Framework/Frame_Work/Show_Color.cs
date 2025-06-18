@@ -76,6 +76,16 @@ namespace MVC
             return "<color=orange>" + orange + "</color>";
         }
         /// <summary>
+        /// 黑色
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="orange"></param>
+        /// <returns></returns>
+        public static string Black<T>(T orange)
+        {
+            return "<color=black>" + orange + "</color>";
+        }
+        /// <summary>
         /// 粉色
         /// </summary>
         /// <param name="pink"></param>
