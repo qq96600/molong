@@ -48,10 +48,20 @@ public class user_needlist_vo : Base_VO
     {
         store_value_dic = new Dictionary<string, int>();
         map_value_list = new List<(string, int)>();
-        user_value_list= new List<List<string>>();
+
         if (user_value_list.Count!=0)
         {
             user_value_list[0][0] = user_value_list[0][1];//体力重置
+            if(user_value_list[0].Count!=2)
+            {
+                user_value_list[0].Clear();
+                user_value_list[0].Add(100.ToString());//体力上限重置
+                user_value_list[0].Add(100.ToString());
+            }
+        }
+        else
+        {
+            user_value_list.Add(new List<string>() { "100", "100" });
         }
         Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_needlist,
             Set_Uptade_String(), Get_Update_Character());

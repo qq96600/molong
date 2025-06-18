@@ -114,9 +114,9 @@ namespace MVC
         private void Hurt(float dec, DamageEnum type)
         {
             offset *= -1;
-
             string _dec=dec.ToString("F0");
             DamageTextManager.Instance.ShowDamageText(type, _dec, this.transform, offset);
+            if(SumSave.crt_setting.user_setting[2]==0)
             transform.parent.parent.parent.SendMessage("show_battle_info",
                     GetComponent<BattleAttack>().Data.show_name+" 受到 "+type+" 效果"+"造成"+dec+"伤害");
         }
@@ -171,12 +171,12 @@ namespace MVC
             "击杀 " + monster.Data.show_name + " 获得 " + monster.Data.Exp + "经验");
                 transform.parent.parent.parent.SendMessage("show_battle_info",
             "击杀 " + monster.Data.show_name + " 获得 " + monster.Data.unit + "灵珠");
-                if (lists.Count > 0)
+            }
+            if (lists.Count > 0)
+            {
+                for (int i = 0; i < lists.Count; i++)
                 {
-                    for (int i = 0; i < lists.Count; i++)
-                    {
-                        transform.parent.parent.parent.SendMessage("show_battle_info", lists[i]);
-                    }
+                    transform.parent.parent.parent.SendMessage("show_battle_info", lists[i]);
                 }
             }
             //获取金币

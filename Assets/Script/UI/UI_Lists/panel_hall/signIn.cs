@@ -146,6 +146,23 @@ public class signIn : Base_Mono
         }
         string[] strs = vo.value.Split('*');
         string dec = strs[0] + "*" + strs[1];
+        if (strs[0] == "灵珠" || strs[0] == "灵气")
+        {
+            for (int i = 0; i < SumSave.db_vip_list.Count; i++)
+            {
+                if (SumSave.db_vip_list[i].vip_lv == SumSave.crt_accumulatedrewards.SetRecharge().Item1)
+                {
+                    strs[1] = (int.Parse(strs[1]) + (int.Parse(strs[1]) * (SumSave.db_vip_list[i].signInIncome / 100))).ToString();
+                    dec = strs[0] + "*" + strs[1] + "\n荣耀加成：" + SumSave.db_vip_list[i].signInIncome+"%";
+                }
+            }
+           
+        }
+        else
+        {
+            dec = strs[0] + "*" + strs[1];
+        }
+
         Alert.Show("领取奖励", "确认是否领取" + dec, Confirmreceipt, item);
     }
     /// <summary>
@@ -156,7 +173,23 @@ public class signIn : Base_Mono
     {
         signln_item item = arg0 as signln_item;
         int index = item.Set();
-        Battle_Tool.Obtain_result(SumSave.db_Signins[index].value);
+        string[]strs = SumSave.db_Signins[index].value.Split('*');
+        if(strs[0]=="灵珠"|| strs[0] == "灵气")
+        {
+            for (int i = 0; i < SumSave.db_vip_list.Count; i++)
+            {
+                if (SumSave.db_vip_list[i].vip_lv == SumSave.crt_accumulatedrewards.SetRecharge().Item1)
+                {
+                    strs[1] = (int.Parse(strs[1])+(int.Parse(strs[1])* (SumSave.db_vip_list[i].signInIncome / 100))).ToString();
+                }
+            }
+            string str = strs[0] + "*" + strs[1]+"*" + strs[2];
+            Battle_Tool.Obtain_result(str);
+        }else
+        {
+            Battle_Tool.Obtain_result(SumSave.db_Signins[index].value);
+        }
+
         Alert_Dec.Show("领取成功");
         SumSave.crt_signin.Set(index);
         item.Init(index, SumSave.db_Signins[index], 1);

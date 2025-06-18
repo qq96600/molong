@@ -300,6 +300,7 @@ public static class Battle_Tool
         ArrayHelper.SafeGet(SumSave.db_lvs.world_offect_list, SumSave.crt_world.World_Lv, out int se);
         value = time * SumSave.db_lvs.world_offect_list[SumSave.crt_world.World_Lv];
         value += int.Parse(list[1]);
+
         value = Mathf.Min(value, SumSave.db_lvs.word_lv_max_value[SumSave.crt_world.World_Lv]);
         SumSave.crt_world.Set(value);
         return value;
@@ -443,7 +444,8 @@ public static class Battle_Tool
             (DateTime, int, float, int) time = item.Value;
             if (index == time.Item4)
             {
-                if ((SumSave.nowtime - time.Item1).Minutes < time.Item2)
+                //Debug.Log(SettlementTransport((time.Item1).ToString("yyyy-MM-dd HH:mm:ss")));
+                if (SettlementTransport((time.Item1).ToString("yyyy-MM-dd HH:mm:ss")) < time.Item2)
                 {
                     base_value = (int)(time.Item3 * 100 - 100);
                 }
@@ -457,6 +459,37 @@ public static class Battle_Tool
         }
         return base_value;
     }
+
+    /// <summary>
+    /// 计算时间
+    /// </summary>
+    /// <param name="time">记录时间</param>
+    /// <param name="type">获取 天/s</param>
+    /// <returns></returns>
+    public static int SettlementTransport(string time, int type = 1)
+    {
+        if (time == null || time == "") return -1;
+
+        TimeSpan span;
+
+        int spanNumber = 0;
+
+        span = SumSave.nowtime - Convert.ToDateTime(time);
+
+        //spanNumber = span.Seconds + span.Minutes * 60 + span.Hours * 3600 + span.Days * 3600 * 24;
+        spanNumber = span.Minutes + span.Hours * 60 + span.Days * 60 * 24;
+        if (spanNumber > 0)
+        {
+            if (type == 2) spanNumber = span.Days + 1;
+            //计算时间差值
+            return spanNumber;
+        }
+        else return 0;
+
+
+    }
+
+
     /// <summary>
     /// 获取奖励 分解式
     /// </summary>

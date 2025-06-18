@@ -447,6 +447,8 @@ namespace MVC
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_rewards_state, SumSave.crt_accumulatedrewards.Set_Instace_String());
             }
 
+            SumSave.db_lvs.AddUpperLimit();///添加灵气上限
+
         }
 
         public void Read_user_player_Buff()
@@ -1225,7 +1227,7 @@ namespace MVC
                         List<string> va = SumSave.db_pet_dic[SumSave.crt_pet_list[i].petName].up_values;//宠物成长属性
                         for (int j = 0; j < v.Count; j++)
                         {
-                            int value = (int.Parse(v[j]) + (int.Parse(va[j]) * SumSave.crt_pet_list[i].level)) / 10;
+                            int value = (int.Parse(v[j]) + (int.Parse(va[j]) * SumSave.crt_pet_list[i].level)) / (SumSave.crt_world.World_Lv / 10 + 5);
                             Enum_Value(crt, j, value);
                         }
                     }

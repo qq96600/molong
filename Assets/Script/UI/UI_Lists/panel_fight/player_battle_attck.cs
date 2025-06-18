@@ -1,3 +1,4 @@
+using Common;
 using MVC;
 using System.Collections.Generic;
 using UnityEngine;
@@ -53,7 +54,8 @@ public class player_battle_attck : BattleAttack
     private void BaseAttack(base_skill_vo data)
     {
         //释放技能
-        AttackStateMachine.Skill(data); 
+        if (SumSave.crt_setting.user_setting[5] == 0) AttackStateMachine.Skill(data);
+        else skill_damage(data);
     }
 
 }
