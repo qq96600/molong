@@ -312,7 +312,8 @@ public class panel_store : Base_Mono
         {
             tool_Categoryt.Base_Task(1050);
         }
-       if(buy_item.ItemName== "下品经验丹")
+       //if(buy_item.ItemName== "下品经验丹")
+       if(buy_item.ItemName.Contains("经验丹"))
         {
             tool_Categoryt.Base_Task(1051);
         }

@@ -84,6 +84,10 @@ public class panel_fight : Panel_Base
     /// 当前出现怪物数量 总怪物数量
     /// </summary>
     private int crt_monster_number = 0, maxnumber = 0;
+    /// <summary>
+    /// 五行种子
+    /// </summary>
+    private string[] FiveElementSeeds= { "牡丹皮", "青蒿", "苦参", "葛根", "金银花" };
     protected override void Awake()
     {
         base.Awake();
@@ -185,6 +189,9 @@ public class panel_fight : Panel_Base
         int damge = (int)(target.maxHP - target.HP);
         long max = 0;
         long value = 0;
+
+     
+
         switch (select_map.map_index)
         {
             case 37: //历练
@@ -196,7 +203,7 @@ public class panel_fight : Panel_Base
             case 36: //魔丸
                 max = SumSave.crt_MaxHero.Lv / 5 + 20;
                 value = (long)(damge * max / target.maxHP);
-                Alert.Show(select_map.map_name, "副本战斗结束,造成伤害 " + damge + "\n获得魔丸 " + value);
+                Alert.Show(select_map.map_name, "副本战斗结束,造成伤害 " + damge + "\n获得魔丸 " + value );
                 Battle_Tool.Obtain_Unit(currency_unit.魔丸, value);
                 break;
             case 35: //灵气
@@ -204,7 +211,7 @@ public class panel_fight : Panel_Base
                 {
                     max = (SumSave.crt_world.World_Lv + 1) * 100;
                     value = (long)(damge * max / target.maxHP);
-                    Alert.Show(select_map.map_name, "副本战斗结束,造成伤害 " + damge + "\n获得灵气 " + value);
+                    Alert.Show(select_map.map_name, "副本战斗结束,造成伤害 " + damge + "\n获得灵气 " + value );
                     SumSave.crt_world.Set((int)value);
                     Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_world, SumSave.crt_world.Set_Uptade_String(), SumSave.crt_world.Get_Update_Character());
                 }
@@ -212,27 +219,26 @@ public class panel_fight : Panel_Base
             case 34: //经验
                 max = SumSave.db_lvs.hero_lv_list[SumSave.crt_MaxHero.Lv];
                 value = (long)(damge * max / target.maxHP );
-                Alert.Show(select_map.map_name, "副本战斗结束,造成伤害 " + damge + "\n获得经验 " + value);
+                Alert.Show(select_map.map_name, "副本战斗结束,造成伤害 " + damge + "\n获得经验 " + value );
                 Battle_Tool.Obtain_Exp(value);
                 break;
             case 33://灵珠
                 max = SumSave.crt_MaxHero.Lv * 100000;
                 value = (long)(damge * max / target.maxHP);
-                Alert.Show(select_map.map_name, "副本战斗结束,造成伤害 " + damge + "\n获得灵珠 " + value);
+                Alert.Show(select_map.map_name, "副本战斗结束,造成伤害 " + damge + "\n获得灵珠 " + value );
                 Battle_Tool.Obtain_Unit(currency_unit.灵珠, value);
                 break;
             case 32://魔丹
                 max = SumSave.crt_MaxHero.Lv + 50;
                 value = (int)(damge * max / target.maxHP);
                 (string,int) str = SumSave.db_lvs.world_lv_list[0];
-                Alert.Show(select_map.map_name, "副本战斗结束,造成伤害 " + damge + "\n获得 " + str.Item1+" * "+value);
+                Alert.Show(select_map.map_name, "副本战斗结束,造成伤害 " + damge + "\n获得 " + str.Item1+" * "+value );
                 Battle_Tool.Obtain_Resources(str.Item1,(int)value);
                 break;
             default:
                 break;
         }
-        //获得五行随机五行种子
-        
+     
         Open_Map(ArrayHelper.Find(SumSave.db_maps, e => e.map_name == SumSave.crt_resources.user_map_index));
     }
     /// <summary>
@@ -260,7 +266,18 @@ public class panel_fight : Panel_Base
         if (!isCopies)
         {
             if(map.map_type==1)//普通地图记录切换
+            {
                 SumSave.crt_resources.user_map_index = map.map_name;
+                
+            }
+            
+        }else
+        {
+            //获得五行随机五行种子
+            string material = FiveElementSeeds[Random.Range(0, FiveElementSeeds.Length - 1)];
+            int num = Random.Range(1, 3);
+            Battle_Tool.Obtain_Resources(material, num);
+            Alert.Show(map.map_name, "获得 " + material + " * " + num);
         }
 
         Combat_statistics.isTime = true;
