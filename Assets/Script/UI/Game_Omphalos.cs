@@ -13,14 +13,20 @@ namespace MVC
     public class Game_Omphalos : Base_Mono
     {
         private panel_fight panel_fight;
+        //private Panel_Screensaver panel_Screensaver;
         public static Game_Omphalos i;
         private void Awake()
         {
             i= this;
             AppFacade.I.Startup();
             panel_fight = UI_Manager.I.GetPanel<panel_fight>();
+            //panel_Screensaver = UI_Manager.I.GetPanel<Panel_Screensaver>();
         }
         private List<Base_Wirte_VO> wirtes = new List<Base_Wirte_VO>();
+        /// <summary>
+        /// 屏保开关显示时间
+        /// </summary>
+        private int show_Screensaver_time_state = 0;
         /// <summary>
         /// 开启定时器 
         /// </summary>
@@ -28,6 +34,10 @@ namespace MVC
         {
             InvokeRepeating("CountTime", 1, 1);
             InvokeRepeating("Read_User_Ranks", 600, 600);
+        }
+        public void Show_Screensaver()
+        {
+            show_Screensaver_time_state = 0;
         }
         /// <summary>
         /// 提示信息
@@ -65,6 +75,13 @@ namespace MVC
         private void CountTime()
         {
             performTime+=1;
+            show_Screensaver_time_state++;
+            //显示屏保
+            if (show_Screensaver_time_state >= 300)
+            {
+                show_Screensaver_time_state = 0;
+                Alert_Screensaver.show_Screensaver();
+            }
             if (panel_fight.gameObject.activeInHierarchy)
             {
                 Combat_statistics.Time();

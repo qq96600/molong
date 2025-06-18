@@ -24,6 +24,7 @@ namespace MVC
         private void Show_Panel()
         {
             UI_Manager.I.TogglePanel(select_panel, true);
+            Game_Omphalos.i.Show_Screensaver();
         }
     }
 
