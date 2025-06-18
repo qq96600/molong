@@ -114,9 +114,9 @@ namespace MVC
         private void Hurt(float dec, DamageEnum type)
         {
             offset *= -1;
-
             string _dec=dec.ToString("F0");
             DamageTextManager.Instance.ShowDamageText(type, _dec, this.transform, offset);
+            if(SumSave.crt_setting.user_setting[2]==0)
             transform.parent.parent.parent.SendMessage("show_battle_info",
                     GetComponent<BattleAttack>().Data.show_name+" 受到 "+type+" 效果"+"造成"+dec+"伤害");
         }
