@@ -49,9 +49,9 @@ public class hatching_progress : Base_Mono
     /// </summary>
     private int hatchingTimeCounter;
     /// <summary>
-    /// 孵化倒计时文本
+    /// 孵化倒计时文本,宠物数量文本
     /// </summary>
-    private Text countdown_text;
+    private Text countdown_text, petQuantityText;
     /// <summary>
     /// 宠物孵化开始时间 宠物名字+时间
     /// </summary>
@@ -79,7 +79,7 @@ public class hatching_progress : Base_Mono
         pet_receive = Find<Button>("Pet_info/pet_receive");
         pet_receive.onClick.AddListener(() => { ReceivePet(); });
         pet_receive.gameObject.SetActive(false);
-        
+        petQuantityText= Find<Text>("Pet_list/Text");
         DisplayProperties();
         ClearObject(pos_btn);
         for (int i = 0; i < btn_list.Length; i++)
@@ -137,6 +137,12 @@ public class hatching_progress : Base_Mono
         switch (pet_list_btn[btn.index])
         {
             case "孵化":
+                if( SumSave.crt_pet_list.Count >=(SumSave.crt_world.World_Lv / 10 + 1))
+                {
+                    Alert_Dec.Show("宠物数量已满");
+                    return;
+                }
+
                 for (int i = 0; i < SumSave.crt_pet.crt_pet_list.Count; i++)
                 {
                     string[] data = SumSave.crt_pet.crt_pet_list[i].Split(",");
@@ -587,6 +593,7 @@ public class hatching_progress : Base_Mono
                 }
                
             }
+            petQuantityText.text = "数量："+(SumSave.crt_pet.crt_pet_list.Count).ToString()+"/"+ (SumSave.crt_world.World_Lv / 10 + 1);
         }
         if (index == 1)
         {
@@ -613,7 +620,7 @@ public class hatching_progress : Base_Mono
             }
         }
 
-
+        int num = 0;
         List<(string, int)> list = SumSave.crt_bag_resources.Set();//获得背包物品名字和数量
         for (int i = 0; i < list.Count; i++)
         {
@@ -626,8 +633,8 @@ public class hatching_progress : Base_Mono
                     {
                         case EquipConfigTypeList.宠物蛋:
                             (string, int) lists = list[i];
-                            
-                            for(int j = 0; j < list[i].Item2; j++)
+                            num+= list[i].Item2;
+                            for (int j = 0; j < list[i].Item2; j++)
                             {
                                 store_item item = Instantiate(store_item_Prefabs, pos_list);
                                 item.PetInit(list[i], "");
@@ -640,8 +647,8 @@ public class hatching_progress : Base_Mono
                             break;
                     }
                 }
-            
         }
+        petQuantityText.text = "数量："+(num).ToString();
     }
 
     private void Show_Info(crtMaxHeroVO crt_MaxHero)
