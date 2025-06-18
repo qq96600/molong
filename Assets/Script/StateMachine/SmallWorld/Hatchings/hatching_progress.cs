@@ -570,30 +570,33 @@ public class hatching_progress : Base_Mono
         if (index == 0)
         {
             hatching_Slider.gameObject.SetActive(false);
-            for (int i = 0; i < SumSave.crt_pet.crt_pet_list.Count; i++)//显示宠物
+            for(int i = 0; i < SumSave.crt_pet_list.Count; i++)
             {
-                string[] data = SumSave.crt_pet.crt_pet_list[i].Split(",");
-                if (data.Length!=2&& SumSave.crt_pet.crt_pet_list[i]!="")
+                if (SumSave.crt_pet_list[i].petName != null)
                 {
-                    if(SumSave.crt_pet_list[i].petName!=null)
+                    pet_item item = Instantiate(pet_item_Prefabs, pos_list);
+                    item.Init(SumSave.crt_pet_list[i]);
+                    item.GetComponent<Button>().onClick.AddListener(() => { Select_Pet(item); });
+                    if (crt_pet == null)
                     {
-                        pet_item item = Instantiate(pet_item_Prefabs, pos_list);
-                        item.Init(SumSave.crt_pet_list[i]);
-                        item.GetComponent<Button>().onClick.AddListener(() => { Select_Pet(item); });
-                        if (crt_pet == null)
-                        {
-                            Select_Pet(item);
-                        }
-                        else
-                        {
-                            if (item == crt_pet) Select_Pet(item);
-                        }
+                        Select_Pet(item);
                     }
-                    
+                    else
+                    {
+                        if (item == crt_pet) Select_Pet(item);
+                    }
                 }
-               
             }
-            petQuantityText.text = "数量："+(SumSave.crt_pet.crt_pet_list.Count).ToString()+"/"+ (SumSave.crt_world.World_Lv / 10 + 1);
+
+            if(SumSave.crt_pet_list.Count == 1&& SumSave.crt_pet_list[0].petName == null)
+            {
+                petQuantityText.text = "数量：" +0 + "/" + (SumSave.crt_world.World_Lv / 10 + 1);
+            }else
+            {
+                petQuantityText.text = "数量：" + (SumSave.crt_pet_list.Count).ToString() + "/" + (SumSave.crt_world.World_Lv / 10 + 1);
+            }
+
+           
         }
         if (index == 1)
         {
