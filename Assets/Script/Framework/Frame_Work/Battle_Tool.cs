@@ -464,9 +464,9 @@ public static class Battle_Tool
     /// 计算时间
     /// </summary>
     /// <param name="time">记录时间</param>
-    /// <param name="type">获取 天/s</param>
+    /// <param name="type">获取 1分钟 2秒钟3小时 4天</param>
     /// <returns></returns>
-    public static int SettlementTransport(string time, int type = 1)
+    public static int SettlementTransport(string time, int type = 1) 
     {
         if (time == null || time == "") return -1;
 
@@ -474,13 +474,19 @@ public static class Battle_Tool
 
         int spanNumber = 0;
 
-        span = SumSave.nowtime - Convert.ToDateTime(time);
-
-        //spanNumber = span.Seconds + span.Minutes * 60 + span.Hours * 3600 + span.Days * 3600 * 24;
-        spanNumber = span.Minutes + span.Hours * 60 + span.Days * 60 * 24;
+        span = (SumSave.nowtime > DateTime.Now ? SumSave.nowtime : DateTime.Now) - Convert.ToDateTime(time);
+        if (type == 1)//计算分钟
+            spanNumber = span.Minutes + span.Hours * 60 + span.Days * 60 * 24;
+        else if (type == 2)//计算秒
+            spanNumber = span.Seconds + span.Minutes * 60 + span.Hours * 60 * 60 + span.Days * 60 * 60 * 24;
+        else if (type == 3)//计算小时
+            spanNumber = span.Hours + span.Days * 24;
+        else if (type == 4)//计算天
+            spanNumber = span.Days;
+        
         if (spanNumber > 0)
         {
-            if (type == 2) spanNumber = span.Days + 1;
+            //if (type == 3) spanNumber = span.Days + 1;
             //计算时间差值
             return spanNumber;
         }

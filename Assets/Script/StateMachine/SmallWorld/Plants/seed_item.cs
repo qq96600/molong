@@ -54,7 +54,7 @@ public class seed_item : Base_Mono
 
     private void GetList()
     {
-        growTimeInt = (int)(SumSave.nowtime - crt_time).TotalSeconds;//当前时间-植物种植时间 获得植物种植到现在的时间
+        growTimeInt = Battle_Tool.SettlementTransport(crt_time.ToString(),2);// (int)(SumSave.nowtime - crt_time).TotalSeconds;//当前时间-植物种植时间 获得植物种植到现在的时间
         if (growTimeInt <= db_plant.plantTime)//植物已经生长的时间小于植物需要生长的时间
         {
             growTimeInt = db_plant.plantTime - growTimeInt;

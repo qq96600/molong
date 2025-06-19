@@ -123,8 +123,6 @@ public class artifact_offect : Base_Mono
         List<(string, DateTime)> Set = SumSave.crt_plant.Set();
         Set.Add(("0", SumSave.nowtime));
         SumSave.crt_plant.Set_data(Set);
-        Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_plant,
-            SumSave.crt_plant.Set_Uptade_String(), SumSave.crt_plant.Get_Update_Character());
     }
 
     /// <summary>
