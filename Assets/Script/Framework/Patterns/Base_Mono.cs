@@ -195,7 +195,7 @@ namespace MVC
                                 SumSave.crt_user_unit.verify_data((currency_unit)i, -currency_unit_list[i]);
                                 break;
                             case currency_unit.灵气:
-                                SumSave.crt_world.Set(-(int)currency_unit_list[i], false);
+                                SumSave.crt_world.AddValue_lists(-(int)currency_unit_list[i]);
                                 Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_world, SumSave.crt_world.Set_Uptade_String(), SumSave.crt_world.Get_Update_Character());
                                 break;
                             default:
@@ -215,6 +215,40 @@ namespace MVC
             return exist;
             
         }
+
+
+
+        /// <summary>
+        /// 随机获得天气并写入
+        /// </summary>
+        protected void AddWeather()
+        {
+            string name = "";
+            int weight = 0;
+            bool isAdd = true;
+            for (int i = 0; i < SumSave.db_weather_list.Count; i++)
+            {
+                weight += SumSave.db_weather_list[i].probability;
+            }
+
+            while (isAdd)
+            {
+                for (int i = 0; i < SumSave.db_weather_list.Count; i++)
+                {
+                    if (SumSave.db_weather_list[i].probability >= UnityEngine.Random.Range(0, weight))
+                    {
+                        name = SumSave.db_weather_list[i].weather_type;
+                        isAdd = false;
+                        break;
+                    }
+                }
+            }
+
+            SumSave.crt_player_buff.player_Buffs.Add(name, (SumSave.nowtime, 60 * 6, 1, 4));
+            Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.user_player_buff, SumSave.crt_player_buff.Set_Uptade_String(), SumSave.crt_player_buff.Get_Update_Character());
+        }
+
+
         /// <summary>
         /// 获取需求
         /// </summary>

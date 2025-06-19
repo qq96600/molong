@@ -215,6 +215,7 @@ public class show_Plant : Base_Mono
             }
             Alert.Show("扩容", "扩容需要" + currency_unit.灵气 + need_list[num],
                 ConfigExpansion);
+           
         }
         else
         {
@@ -240,6 +241,7 @@ public class show_Plant : Base_Mono
             Set.Add(("0", SumSave.nowtime));
             Wirte(Set);
             Base_Show();
+            transform.parent.parent.GetComponent<panel_smallWorld>().Base_Show();
         }
         else Alert_Dec.Show("灵气不足");
     }

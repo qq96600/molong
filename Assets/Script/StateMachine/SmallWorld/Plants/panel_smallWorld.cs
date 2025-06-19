@@ -253,7 +253,7 @@ public class panel_smallWorld : Panel_Base
 
 
 
-    private void Base_Show()
+    public  void Base_Show()
     {
         List<string> list = SumSave.crt_world.Get();
         int time = (int)(SumSave.nowtime - Convert.ToDateTime(list[0])).TotalMinutes;

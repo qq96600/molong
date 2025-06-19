@@ -219,7 +219,8 @@ public class hatching_progress : Base_Mono
             if (data.Length == 2)
             {
                 //Time = ((int)(SumSave.nowtime - Convert.ToDateTime(data[1])).TotalMinutes) * 60;
-                Time = (int)(SumSave.nowtime - Convert.ToDateTime(data[1])).TotalSeconds;
+                Time = Battle_Tool.SettlementTransport(data[1], 1);
+                
             }
         }
         return Time;
