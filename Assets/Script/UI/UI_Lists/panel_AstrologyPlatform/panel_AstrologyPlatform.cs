@@ -53,9 +53,7 @@ public class panel_AstrologyPlatform : Panel_Base
                     {
                         if(SumSave.db_weather_list[i].weather_type == _item.Key)
                         {
-
                             information.text = ShowBonus(SumSave.db_weather_list[i].life_value_list);
-
                         }
                     }
                 }

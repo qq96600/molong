@@ -76,6 +76,7 @@ namespace MVC
         {
             performTime+=1;
             show_Screensaver_time_state++;
+            monitor_plant();
             //显示屏保
             if (show_Screensaver_time_state >= 300)
             {
@@ -99,6 +100,69 @@ namespace MVC
                 SumSave.crt_pass.progress(0);
             }
         }
+        /// <summary>
+        /// 监控收益
+        /// </summary>
+        private void monitor_plant()
+        {
+            int growTimeInt = 0;
+            if (SumSave.crt_setting.user_setting[6] == 1) return;
+            if (SumSave.crt_world != null)
+            {
+                bool exist = false;
+                int number = 0;
+                List<(string, DateTime)> Set = SumSave.crt_plant.Set();
+                for (int i = 0; i < Set.Count; i++)
+                {
+                    if (Set[i].Item1.Contains("天麻"))
+                    {
+                        growTimeInt = Battle_Tool.SettlementTransport(Set[i].Item2.ToString(),2);
+                        user_plant_vo vo = ArrayHelper.Find(SumSave.db_plants, e => e.plantName == Set[i].Item1);
+                        if (vo != null)
+                        {
+                            if (growTimeInt > vo.plantTime)
+                            {
+                                exist = true;
+                                Set[i] = ("0", SumSave.nowtime > DateTime.Now ? SumSave.nowtime : DateTime.Now);
+                                Battle_Tool.Obtain_Resources(vo.HarvestMaterials, vo.harvestnumber - vo.lossnumber);
+                                Alert_Dec.Show("自动收获 " + vo.HarvestMaterials + " * " + (vo.harvestnumber - vo.lossnumber));
+                                number++;
+                            }
+                        }
+                    }
+                }
+                if (exist)
+                {
+                    string currentPlant= "天麻种子";
+                    List<int> numbers = new List<int>();//空土地的索引
+                    for (int i = 0; i < Set.Count; i++)
+                    {
+                        if (Set[i].Item1 == "0") numbers.Add(i);
+                    }
+                    NeedConsumables(currentPlant, number);
+                    while (!RefreshConsumables())
+                    {
+                        if (number > 0)
+                        {
+                            number--;
+                            NeedConsumables(currentPlant, number);
+                        }
+                        else
+                        {
+                            Alert_Dec.Show("背包中没有该种子");
+                            return;
+                        }
+                    }
+                    //判断是否可以种植
+                    for (int i = 0; i < number; i++)
+                    {
+                        Set[numbers[i]] = (currentPlant.ToString(), SumSave.nowtime);
+                    }
+                    SumSave.crt_plant.Set_data(Set);
+                }
+            }
+        }
+
         /// <summary>
         /// 每10分钟刷新一次排行榜
         /// </summary>
