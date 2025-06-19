@@ -109,7 +109,7 @@ namespace MVC
             if (SumSave.crt_setting.user_setting[6] == 1) return;
             if (SumSave.crt_world != null)
             {
-                bool exist = false;
+                bool exist = true;
                 int number = 0;
                 List<(string, DateTime)> Set = SumSave.crt_plant.Set();
                 for (int i = 0; i < Set.Count; i++)
@@ -126,7 +126,6 @@ namespace MVC
                                 Set[i] = ("0", SumSave.nowtime > DateTime.Now ? SumSave.nowtime : DateTime.Now);
                                 Battle_Tool.Obtain_Resources(vo.HarvestMaterials, vo.harvestnumber - vo.lossnumber);
                                 Alert_Dec.Show("自动收获 " + vo.HarvestMaterials + " * " + (vo.harvestnumber - vo.lossnumber));
-                                number++;
                             }
                         }
                     }
@@ -139,6 +138,7 @@ namespace MVC
                     {
                         if (Set[i].Item1 == "0") numbers.Add(i);
                     }
+                    number= numbers.Count;
                     NeedConsumables(currentPlant, number);
                     while (!RefreshConsumables())
                     {
@@ -159,6 +159,7 @@ namespace MVC
                         Set[numbers[i]] = (currentPlant.ToString(), SumSave.nowtime);
                     }
                     SumSave.crt_plant.Set_data(Set);
+                    exist= false;
                 }
             }
         }

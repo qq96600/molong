@@ -87,7 +87,7 @@ public class panel_fight : Panel_Base
     /// <summary>
     /// 五行种子
     /// </summary>
-    private string[] FiveElementSeeds= { "牡丹皮", "青蒿", "苦参", "葛根", "金银花" };
+    private string[] FiveElementSeeds= { "牡丹皮种子", "青蒿种子", "苦参种子", "葛根种子", "金银花种子" };
     protected override void Awake()
     {
         base.Awake();
