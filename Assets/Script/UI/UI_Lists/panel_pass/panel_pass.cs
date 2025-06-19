@@ -95,8 +95,9 @@ public class panel_pass : Base_Mono
         }
         if (item.State(list[item.index]))
         {
+            int num = 1;
             //领取奖励
-            Battle_Tool.Obtain_Resources("命运金币", 1);
+            Battle_Tool.Obtain_Resources("命运金币", num);
             SumSave.crt_pass.data_exp++;
             SumSave.crt_pass.Max_task_number++;
             if (SumSave.crt_pass.data_exp >= 10)
@@ -105,6 +106,9 @@ public class panel_pass : Base_Mono
                 SumSave.crt_pass.data_exp -= 10;
             }
             SumSave.crt_pass.Get(item.index);
+
+            Alert.Show("领取成功", "命运金币*"+ num);
+
             Show_Pass_Progress();
         }
         else

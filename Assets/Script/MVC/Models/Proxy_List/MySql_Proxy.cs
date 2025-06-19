@@ -50,11 +50,32 @@ namespace MVC
             Read_Guide_Fate();
             Read_db_vip();
             Read_db_formula();
+            Read_db_weather();
             //Read_db_world_boss();
             Read_Db_Suit();
             Read_Db_Dec();
             CloseMySqlDB();
         }
+
+
+        /// <summary>
+        /// 获得天气
+        /// </summary>
+        public void Read_db_weather()
+        {
+            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_weather);
+            SumSave.db_weather_list = new List<db_weather>();
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.db_weather_list.Add(ReadDb.Read(mysqlReader, new db_weather()));
+                }
+            }
+        }
+
+
+
         /// <summary>
         /// 获得全服玩家的世界Boss伤害
         /// </summary>
