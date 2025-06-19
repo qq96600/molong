@@ -12,19 +12,19 @@ using UnityEngine.UI;
 public class panel_AstrologyPlatform : Panel_Base
 {
     /// <summary>
-    /// ÌìÆøÍ¼±ê
+    /// å¤©æ°”å›¾æ ‡
     /// </summary>
     private Image weatherImage;
     /// <summary>
-    /// ÌìÆø½éÉÜ
+    /// å¤©æ°”ä»‹ç»
     /// </summary>
     private Text information;
     /// <summary>
-    /// ÇĞ»»ÌìÆø°´Å¥
+    /// åˆ‡æ¢å¤©æ°”æŒ‰é’®
     /// </summary>
     private Button switchButton;
     /// <summary>
-    /// ÇĞ»»ÌìÆøÏûºÄÁéÖéÊıÁ¿
+    /// åˆ‡æ¢å¤©æ°”æ¶ˆè€—çµç æ•°é‡
     /// </summary>
     private int need = 1;
     
@@ -38,7 +38,7 @@ public class panel_AstrologyPlatform : Panel_Base
 
     }
     /// <summary>
-    /// ½çÃæ³õÊ¼»¯
+    /// ç•Œé¢åˆå§‹åŒ–
     /// </summary>
     private void Init()
     {
@@ -62,7 +62,7 @@ public class panel_AstrologyPlatform : Panel_Base
 
     }
     /// <summary>
-    /// ÏÔÊ¾ÊôĞÔ
+    /// æ˜¾ç¤ºå±æ€§
     /// </summary>
     /// <param name="id"></param>
     private string ShowBonus(List<(int, int)> id)
@@ -76,19 +76,19 @@ public class panel_AstrologyPlatform : Panel_Base
                     //int baseValue = SumSave.crt_MaxHero.life[1];
                     //int percentageValue = baseValue * (id.Item2 / 100);
                     //int price = baseValue > percentageValue ? baseValue : percentageValue;
-                    str += enum_skill_attribute_list.ÍÁ.ToString() + ":" + SumSave.crt_MaxHero.life[0] + "%";
+                    str += enum_skill_attribute_list.åœŸ.ToString() + ":" + SumSave.crt_MaxHero.life[0] + "%";
                     break;
                 case 2:
-                    str += enum_skill_attribute_list.»ğ.ToString() + ":" + SumSave.crt_MaxHero.life[1] + "%";
+                    str += enum_skill_attribute_list.ç«.ToString() + ":" + SumSave.crt_MaxHero.life[1] + "%";
                     break;
                 case 3:
-                    str += enum_skill_attribute_list.Ë®.ToString() + ":" + SumSave.crt_MaxHero.life[2] + "%";
+                    str += enum_skill_attribute_list.æ°´.ToString() + ":" + SumSave.crt_MaxHero.life[2] + "%";
                     break;
                 case 4:
-                    str += enum_skill_attribute_list.Ä¾.ToString() + ":" + SumSave.crt_MaxHero.life[3] + "%";
+                    str += enum_skill_attribute_list.æœ¨.ToString() + ":" + SumSave.crt_MaxHero.life[3] + "%";
                     break;
                 case 5:
-                    str += enum_skill_attribute_list.½ğ.ToString() + ":" + SumSave.crt_MaxHero.life[4] + "%";
+                    str += enum_skill_attribute_list.é‡‘.ToString() + ":" + SumSave.crt_MaxHero.life[4] + "%";
                     break;
 
             }
@@ -97,11 +97,11 @@ public class panel_AstrologyPlatform : Panel_Base
     }
 
     /// <summary>
-    /// ÇĞ»»ÌìÆø
+    /// åˆ‡æ¢å¤©æ°”
     /// </summary>
     private void SwitchWeather()
     {
-        NeedConsumables(currency_unit.ÁéÖé, need);
+        NeedConsumables(currency_unit.çµç , need);
         if (RefreshConsumables())
         {
             if (SumSave.crt_player_buff.player_Buffs.Count > 0)
@@ -125,7 +125,7 @@ public class panel_AstrologyPlatform : Panel_Base
         }
         else
         {
-            Alert_Dec.Show("ÁéÖé²»×ã");
+            Alert_Dec.Show("çµç ä¸è¶³");
         }
     }
    
