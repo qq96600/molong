@@ -1,0 +1,40 @@
+using MVC;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class db_weather : Base_VO
+{
+    /// <summary>
+    /// 天气编号
+    /// </summary>
+    public int weather_index;
+    /// <summary>
+    /// 天气名称
+    /// </summary>
+    public string weather_type;
+    /// <summary>
+    /// 五行属性值
+    /// </summary>
+    public string life_value;
+    /// <summary>
+    /// 五行属性值列表(对应属性，属性值)
+    /// </summary>
+    public List<(int,int)> life_value_list;
+    /// <summary>
+    /// 权重
+    /// </summary>
+    public int probability;
+
+    public void Init()
+    {
+       life_value_list = new List<(int,int)>();
+        string[] life_value_arr = life_value.Split('&');
+        for (int i = 0; i < life_value_arr.Length; i++)
+        {
+            string[] life_value_arr2 = life_value_arr[i].Split(' ');
+            life_value_list.Add((int.Parse(life_value_arr2[0]), int.Parse(life_value_arr2[1])));
+        }
+    }
+}

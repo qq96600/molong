@@ -94,8 +94,8 @@ public class panel_skill : Panel_Base
         }
         //for (int i = 0; i < SumSave.db_skills.Count; i++)
         //{
-            
-        //    SumSave.crt_skills.Add(tool_Categoryt.crate_skill(SumSave.db_skills[i].skillname,false));//添加技能
+
+        //    SumSave.crt_skills.Add(tool_Categoryt.crate_skill(SumSave.db_skills[i].skillname, false));//添加技能
         //}
     }
     /// <summary>
@@ -333,6 +333,8 @@ public class panel_skill : Panel_Base
                 case 5: dec += "对自身生成 " + (user_skill.Data.skill_damage + (user_skill.Data.skill_power * lv)) + "%" + Show_Color.Red("魔法护盾") + "\n"; break;
                 case 6: dec += "对自身回复 " + (user_skill.Data.skill_damage + (user_skill.Data.skill_power * lv)) + "%" + Show_Color.Red("魔法伤害") + "的血量\n"; break;
                 case 7: dec += "对自身回复 " + (user_skill.Data.skill_damage + (user_skill.Data.skill_power * lv)) + "%"  + "的魔法值\n"; break;
+                case 8: dec += "吸收自身 " + (user_skill.Data.skill_damage + (user_skill.Data.skill_power * lv)) + "%" + "魔法值的伤害\n"; break;
+
 
                 default:
                     break;

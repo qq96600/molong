@@ -52,7 +52,7 @@ public class Chemical_furnace : Base_Mono
     /// <summary>
     /// 合成类型
     /// </summary>
-    private string[] synthesis_item_list = new string[] { "资源", "材料" ,"分解"};
+    private string[] synthesis_item_list = new string[] { "资源", "材料" ,"分解","灵宝"};
     /// <summary>
     /// 选择类型
     /// </summary>
@@ -66,7 +66,7 @@ public class Chemical_furnace : Base_Mono
     {
         show_pos_synthesis=Find<Transform>("material_Items/Title");
         synthesisinfo = Find<Text>("material_Items/synthesisinfo");
-        pos_btn =Find<Transform>("synthesis_Items/Title");
+        pos_btn =Find<Transform>("synthesis_Items/Title/Scroll View/Viewport/Content");
         btn_item_Prefabs = Battle_Tool.Find_Prefabs<btn_item>("btn_item");
         material_item_Prefabs = Battle_Tool.Find_Prefabs<material_item>("material_item");
         inputField = Find<InputField>("material_Items/InputField");
@@ -218,10 +218,19 @@ public class Chemical_furnace : Base_Mono
             {
                 NeedConsumables(formula.formula_need_list[i].Item1, formula.formula_need_list[i].Item2 * buy_num);
             }
-            if (RefreshConsumables())
+            if (RefreshConsumables()) 
             {
-                Battle_Tool.Obtain_result(synthesis_item, buy_num);
-                Alert.Show("合成成功", "获得物品" + synthesis_item.Item1 + "*" + synthesis_item.Item2 * buy_num);
+                if (select_type == 4)//灵宝
+                {
+                    SumSave.crt_bag.Add(tool_Categoryt.crate_equip(synthesis_item.Item1, 7));
+                    Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.bag_value, SumSave.crt_bag);
+                }
+                else
+                {
+                    Battle_Tool.Obtain_result(synthesis_item, buy_num);
+                    Alert.Show("合成成功", "获得物品" + synthesis_item.Item1 + "*" + synthesis_item.Item2 * buy_num);
+                }
+              
                 synthesis_Task();
             }
             else Alert_Dec.Show("合成失败,材料不足");

@@ -480,6 +480,32 @@ public class panel_fight : Panel_Base
 
     private void crate_monster()
     {
+        ///调用天气buff
+
+        if (SumSave.crt_player_buff.player_Buffs.Count > 0)
+        {
+            bool isAdd = true;
+            foreach (var _item in SumSave.crt_player_buff.player_Buffs)
+            {
+                if (_item.Value.Item4 == 4)
+                {
+                    isAdd = false;
+                    int remainingTime = Battle_Tool.SettlementTransport((_item.Value.Item1).ToString("yyyy-MM-dd HH:mm:ss"));
+                    if (remainingTime >_item.Value.Item2)
+                    {
+                        SumSave.crt_player_buff.player_Buffs.Remove(_item.Key);
+                        AddWeather();
+                        break;
+                    }
+                }
+            }
+            if(isAdd)
+            {
+                AddWeather();
+            }
+        }
+
+
         Combat_statistics.isTime = true;
         if (crt_monster_number >= maxnumber) crt_monster_number = 0;
         crt_monster_number++;
@@ -509,6 +535,7 @@ public class panel_fight : Panel_Base
         Open_Monster_State=true;
         ShowInfoMap();
     }
+   
 
     private void ShowInfoMap()
     {

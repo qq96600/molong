@@ -67,6 +67,14 @@ public class user_plant_vo : Base_VO
     public void Set_data(List<(string, DateTime)> crt_plants)
     {
         user_plants= crt_plants;
+        MysqlData();
+    }
+
+    public override void MysqlData()
+    {
+        base.MysqlData();
+        Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_plant,
+            SumSave.crt_plant.Set_Uptade_String(), SumSave.crt_plant.Get_Update_Character());
     }
 
     public string Set_data()

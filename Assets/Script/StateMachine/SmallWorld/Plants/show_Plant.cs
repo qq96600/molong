@@ -215,6 +215,7 @@ public class show_Plant : Base_Mono
             }
             Alert.Show("扩容", "扩容需要" + currency_unit.灵气 + need_list[num],
                 ConfigExpansion);
+           
         }
         else
         {
@@ -240,6 +241,7 @@ public class show_Plant : Base_Mono
             Set.Add(("0", SumSave.nowtime));
             Wirte(Set);
             Base_Show();
+            transform.parent.parent.GetComponent<panel_smallWorld>().Base_Show();
         }
         else Alert_Dec.Show("灵气不足");
     }
@@ -318,7 +320,7 @@ public class show_Plant : Base_Mono
         {
             if (panltList[i].isMatured())
             {
-                Set[i] = ("0", DateTime.Now);
+                Set[i] = ("0", SumSave.nowtime > DateTime.Now ? SumSave.nowtime : DateTime.Now);
                 Wirte(Set);//写入数据库
                 Alert_Dec.Show("已收获");
                 Battle_Tool.Obtain_Resources(panltList[i].db_plant.HarvestMaterials, panltList[i].db_plant.harvestnumber- panltList[i].db_plant.lossnumber);

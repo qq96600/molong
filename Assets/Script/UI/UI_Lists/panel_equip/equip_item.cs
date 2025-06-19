@@ -175,30 +175,39 @@ public class equip_item : Base_Mono
     {
         string dec = "";
         int number = 0;
-        db_suit_vo suit = SumSave.db_suits.Find(x => x.suit_type == Data.suit);
-        foreach (Bag_Base_VO item in SumSave.crt_euqip)
+        if (data.StdMode == EquipConfigTypeList.灵宝.ToString())
         {
-            if (item.suit == data.suit)
+            dec="\n" + Show_Color.Yellow("[灵宝]");
+            dec += "\n" + Show_Color.Black("灵宝特性: " + data.suit_dec);
+        }
+        else
+        {
+            db_suit_vo suit = SumSave.db_suits.Find(x => x.suit_type == Data.suit);
+            foreach (Bag_Base_VO item in SumSave.crt_euqip)
             {
-                foreach (var value in SumSave.db_suits)
+                if (item.suit == data.suit)
                 {
-                    if (item.suit == value.suit_type)
+                    foreach (var value in SumSave.db_suits)
                     {
-                        number++;
+                        if (item.suit == value.suit_type)
+                        {
+                            number++;
+                        }
                     }
                 }
             }
-        }
-        dec+="\n" + Show_Color.Yellow("[套装] "+suit.suit_name)+"("+number+"/"+suit.suit_number+")";
-        for (int i = 0; i < suit.suit_list.Count; i++)
-        {
-            if (number >= suit.suit_list[i].Item1)
+            dec += "\n" + Show_Color.Yellow("[套装] " + suit.suit_name) + "(" + number + "/" + suit.suit_number + ")";
+            for (int i = 0; i < suit.suit_list.Count; i++)
             {
-                dec += "\n" + (enum_skill_attribute_list)suit.suit_list[i].Item2 + " : " + Math.Abs(suit.suit_list[i].Item3) + tool_Categoryt.Obtain_unit(suit.suit_list[i].Item2);
+                if (number >= suit.suit_list[i].Item1)
+                {
+                    dec += "\n" + (enum_skill_attribute_list)suit.suit_list[i].Item2 + " : " + Math.Abs(suit.suit_list[i].Item3) + tool_Categoryt.Obtain_unit(suit.suit_list[i].Item2);
+                }
+                else
+                    dec += "\n" + Show_Color.Grey((enum_skill_attribute_list)suit.suit_list[i].Item2 + " : " + Math.Abs(suit.suit_list[i].Item3) + tool_Categoryt.Obtain_unit(suit.suit_list[i].Item2));
             }
-            else
-                dec += "\n" + Show_Color.Grey((enum_skill_attribute_list)suit.suit_list[i].Item2 + " : " + Math.Abs(suit.suit_list[i].Item3) + tool_Categoryt.Obtain_unit(suit.suit_list[i].Item2));
         }
+        
         return dec;
     }
 
