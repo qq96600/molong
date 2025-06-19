@@ -10,6 +10,15 @@ using UnityEngine;
 /// </summary>
 public static class ReadDb
 {
+    public static db_weather Read(MySqlDataReader reader, db_weather item)
+    {
+       item.weather_index= reader.GetInt32(reader.GetOrdinal("weather_index"));
+        item.weather_type = reader.GetString(reader.GetOrdinal("weather_type"));
+        item.life_value = reader.GetString(reader.GetOrdinal("life_value"));
+        item.probability = reader.GetInt32(reader.GetOrdinal("probability"));
+        item.Init();
+        return item;
+    }
 
     public static db_dec Read(MySqlDataReader reader, db_dec item)
     {

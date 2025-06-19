@@ -480,6 +480,32 @@ public class panel_fight : Panel_Base
 
     private void crate_monster()
     {
+        ///调用天气buff
+
+        if (SumSave.crt_player_buff.player_Buffs.Count > 0)
+        {
+            bool isAdd = true;
+            foreach (var _item in SumSave.crt_player_buff.player_Buffs)
+            {
+                if (_item.Value.Item4 == 4)
+                {
+                    isAdd = false;
+                    int remainingTime = Battle_Tool.SettlementTransport((_item.Value.Item1).ToString("yyyy-MM-dd HH:mm:ss"));
+                    if (remainingTime >_item.Value.Item2)
+                    {
+                        SumSave.crt_player_buff.player_Buffs.Remove(_item.Key);
+                        AddWeather();
+                        break;
+                    }
+                }
+            }
+            if(isAdd)
+            {
+                AddWeather();
+            }
+        }
+
+
         Combat_statistics.isTime = true;
         if (crt_monster_number >= maxnumber) crt_monster_number = 0;
         crt_monster_number++;
@@ -508,6 +534,35 @@ public class panel_fight : Panel_Base
         SumSave.battleMonsterHealths.Add(item.GetComponent<BattleHealth>());
         Open_Monster_State=true;
         ShowInfoMap();
+    }
+   /// <summary>
+   /// 刷新天气并写入
+   /// </summary>
+    private void AddWeather()
+    {
+        string name = "";
+        int weight = 0;
+        bool isAdd = true;
+        for(int i = 0; i < SumSave.db_weather_list.Count; i++)
+        {
+            weight+= SumSave.db_weather_list[i].probability;
+        }
+
+        while(isAdd)
+        {
+            for(int i = 0; i < SumSave.db_weather_list.Count; i++)
+            {
+                if (SumSave.db_weather_list[i].probability >= Random.Range(0, weight))
+                {
+                    name = SumSave.db_weather_list[i].weather_type;
+                    isAdd = false;
+                    break;
+                }
+            }
+        }
+
+        SumSave.crt_player_buff.player_Buffs.Add(name, (SumSave.nowtime, 60 * 6, 1, 4));
+        Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.user_player_buff, SumSave.crt_player_buff.Set_Uptade_String(), SumSave.crt_player_buff.Get_Update_Character());
     }
 
     private void ShowInfoMap()

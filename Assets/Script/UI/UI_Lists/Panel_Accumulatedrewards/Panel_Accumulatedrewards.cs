@@ -177,7 +177,7 @@ public class Panel_Accumulatedrewards : Panel_Base
                     Battle_Tool.Obtain_Resources(str[1], int.Parse(str[2]));
                     break;
                 case 3://次数礼包
-                    if (str[0] == "次数福利礼包")
+                    if (str[1] == "次数福利礼包")
                     {
                         dic.Add(("魔丸", 200));
                         dic.Add(("荣耀点", 50));
@@ -185,7 +185,7 @@ public class Panel_Accumulatedrewards : Panel_Base
                         Battle_Tool.Obtain_Unit(currency_unit.魔丸, 200);
                     }
                     else
-                    if (str[0] == "新手福利礼包")
+                    if (str[1] == "新手福利礼包")
                     {
                         dic.Add(("魔丸", 300));
                         dic.Add(("荣耀点", 100));

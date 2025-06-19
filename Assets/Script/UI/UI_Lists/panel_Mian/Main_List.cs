@@ -20,4 +20,5 @@ public enum Main_List
     world_Boss,//世界boss
     Chemical_furnace,//造化炉
     panel_warehouse,//仓库
+    panel_AstrologyPlatform,//占星台
 }

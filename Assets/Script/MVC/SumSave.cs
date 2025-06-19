@@ -218,7 +218,10 @@ namespace Common
         /// 全服玩家的boss伤害
         /// </summary>
         public static List<user_world_boss> db_world_boss_hurt;
-
+        /// <summary>
+        /// 天气列表
+        /// </summary>
+        public static List<db_weather> db_weather_list;
 
         /// <summary>
         /// 物品列表

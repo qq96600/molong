@@ -282,7 +282,11 @@ namespace MVC
             }
             PlayerPrefs.SetInt("同意阅读协议", 1);
 #if UNITY_EDITOR
-            SumSave.uid = "DSFSDFSDFSDF";//"05c8cc2e26234ec0acc690343a598eba";8026157149ab4e86af8f69b22e12a7c4 DSFSDFSDFSDF
+            SumSave.uid = "DSFSDFSDFSDF3";//测试用号
+
+            //SumSave.uid = "ed7091920d8f4f8aa193805fe45f8b3f";//温毓(ip)
+            //SumSave.uid = "d6a5b51fddf94459bb2e80e54c091453";//666(ip)
+            //SumSave.uid = "4024aeea8a704d3d965fafcb82d29493";//Rigine(ip)
             Login();
             //UI_Manager.Instance.GetPanel<Panel_cratehero>().Show();
 #elif UNITY_ANDROID

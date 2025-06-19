@@ -49,7 +49,7 @@ public class user_needlist_vo : Base_VO
         store_value_dic = new Dictionary<string, int>();
         map_value_list = new List<(string, int)>();
 
-        if (user_value_list.Count!=0)
+        if (user_value_list.Count!=0&&user_value_list[0][0]!="")
         {
             user_value_list[0][0] = user_value_list[0][1];//体力重置
             if(user_value_list[0].Count!=2)
