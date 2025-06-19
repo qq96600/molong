@@ -887,10 +887,12 @@ public static class Battle_Tool
             base_crt.Point = 0;
             base_crt.Monster_Lv = 4;
             coefficient = 1;
+            if (SumSave.crt_MaxHero.Lv >= 40)
+            {
+                int lv = (SumSave.crt_MaxHero.Lv - 30) / 10;
+                coefficient = lv;
+            }
         }
-
-
-      
         base_crt.MaxHP = (int)(crt.MaxHP * MathF.Pow(3, coefficient-1));
         base_crt.MaxMp = crt.MaxMp;
         base_crt.internalforceMP = crt.internalforceMP;
