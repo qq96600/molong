@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UI;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -85,6 +86,10 @@ public class panel_fight : Panel_Base
     /// </summary>
     private int crt_monster_number = 0, maxnumber = 0, trial_storey = -1;
     /// <summary>
+    /// 试练塔
+    /// </summary>
+    private Trial_Tower trial_tower;
+    /// <summary>
     /// 五行种子
     /// </summary>
     private string[] FiveElementSeeds= { "牡丹皮种子", "青蒿种子", "苦参种子", "葛根种子", "金银花种子" };
@@ -161,6 +166,10 @@ public class panel_fight : Panel_Base
     /// </summary>
     private void Close()
     {
+        if (trial_storey >= 0)
+        {
+            trial_tower.Show();
+        } 
         close_battle.gameObject.SetActive(true);
         transform.SetAsFirstSibling();
         return;
@@ -189,9 +198,6 @@ public class panel_fight : Panel_Base
         int damge = (int)(target.maxHP - target.HP);
         long max = 0;
         long value = 0;
-
-     
-
         switch (select_map.map_index)
         {
             case 37: //历练
@@ -246,7 +252,11 @@ public class panel_fight : Panel_Base
     /// </summary>
     protected void Game_Over()
     {
-
+        if (trial_storey >= 0)
+        {
+            select_map = ArrayHelper.Find(SumSave.db_maps, e => e.map_name == SumSave.crt_resources.user_map_index);
+        } 
+        trial_storey = -1;
         if (Open_Monster_State)
         {
             Open_Monster_State = false;
@@ -255,7 +265,13 @@ public class panel_fight : Panel_Base
             StartCoroutine(Game_WaitTime(5));
         }
     }
-  
+    /// <summary>
+    /// 写入战斗信息
+    /// </summary>
+    private void write_Trial()
+    {
+        SendNotification(NotiList.Refresh_Trial_Tower,trial_storey);
+    }
     /// <summary>
     /// 进入地图
     /// </summary>
@@ -280,11 +296,9 @@ public class panel_fight : Panel_Base
             Battle_Tool.Obtain_Resources(material, num);
             Alert.Show(map.map_name, "获得 " + material + " * " + num);
         }
-
         Combat_statistics.isTime = true;
         select_map = map;
         map_name.text = map.map_name;
-        
         init();
         Crate_Init();
         StopAllCoroutines();
@@ -293,10 +307,12 @@ public class panel_fight : Panel_Base
     /// <summary>
     /// 进入地图
     /// </summary>
+    /// </summary>
     /// <param name="map"></param>
     /// <param name="storey">试炼塔开启层数</param>
-    public void Open_Map(user_map_vo map, int storey )
+    public void Open_Map(user_map_vo map, int storey,Trial_Tower rank)
     {
+        if (trial_tower == null) trial_tower = rank;
         Combat_statistics.isTime = true;
         trial_storey= storey;
         select_map = map;
@@ -313,15 +329,6 @@ public class panel_fight : Panel_Base
     private void Show_Battle_State(string dec)
     {
         map_time.text= dec;
-    }
-    /// <summary>
-    /// 获取离线收益
-    /// </summary>
-    public void offline()
-    {
-        //计算离线收益
-        //进入战斗
-        Open_Map(ArrayHelper.Find(SumSave.db_maps, e => e.map_name == SumSave.crt_resources.user_map_index));
     }
     /// <summary>
     /// 生成角色初始化
@@ -353,7 +360,6 @@ public class panel_fight : Panel_Base
 
     private void crate_hero()
     {
-        
         crtMaxHeroVO crt = SumSave.crt_MaxHero;
         GameObject item = ObjectPoolManager.instance.GetObjectFormPool(crt.show_name, player_battle_attack_prefabs,
             new Vector3(pos_player.position.x, pos_player.position.y, pos_player.position.z), Quaternion.identity, pos_player);
@@ -402,7 +408,8 @@ public class panel_fight : Panel_Base
         crt_map_monsters.Clear();
         if (select_map.map_type == 6)
         {
-            crt_map_monsters = SumSave.db_monsters;
+            for (int i = 0; i < SumSave.db_monsters.Count; i++)
+                crt_map_monsters.Add(SumSave.db_monsters[i]);
         }
         else
         {
@@ -458,10 +465,36 @@ public class panel_fight : Panel_Base
         if (Open_Monster_State)
         {
             Open_Monster_State = false;
+            if (trial_storey >= 0)
+            {
+                Trial_Tower_reward();
+            }
             if(iSOpenMap())
                 StartCoroutine(ProduceMonster(WaitTime()));
             else Open_Map(ArrayHelper.Find(SumSave.db_maps, e => e.map_name == SumSave.crt_resources.user_map_index));
         }
+    }
+    /// <summary>
+    /// 试练塔奖励
+    /// </summary>
+    private void Trial_Tower_reward()
+    {
+        write_Trial();
+        string dec = "";
+        dec = "通关试练塔" + Show_Color.Red(trial_storey) + "层";
+        dec += "\n奖励" + Show_Color.Red("下品噬心魔种" + " * 5");
+        dec += "\n奖励" + Show_Color.Red("历练值" + " * " + ((trial_storey / 10 + 1) * 10000));
+        Battle_Tool.Obtain_Unit(currency_unit.历练, ((trial_storey / 10 + 1) * 10000));
+        Battle_Tool.Obtain_Resources("下品噬心魔种", 5);
+        if (trial_storey > 0)
+        {
+            if ((trial_storey) % 10 == 0)
+            {
+                dec += "\n进阶奖励" + Show_Color.Red("万鸦壶" + " * 1");
+                Battle_Tool.Obtain_Resources("万鸦壶", 1);
+            }
+        }
+        Alert.Show("试炼塔奖励", dec);
     }
     /// <summary>
     /// 判断地图是否可以打开
@@ -470,6 +503,12 @@ public class panel_fight : Panel_Base
     private bool iSOpenMap(bool state=false)
     {
         bool exist = true;
+        if (trial_storey >= 0)
+        {
+            trial_storey++;
+            exist = true;//试炼模式
+        }
+        else
         if (select_map.need_Required != "")
         {
             if (state || crt_monster_number >= maxnumber)
@@ -485,6 +524,7 @@ public class panel_fight : Panel_Base
         {
             exist = false;
         }
+       
         return exist;
       
     }
@@ -506,7 +546,6 @@ public class panel_fight : Panel_Base
     {
         ///调用天气buff
         bool isAdd = true;
-
         if (SumSave.crt_player_buff.player_Buffs.Count > 0)
         {
             foreach (var _item in SumSave.crt_player_buff.player_Buffs)
@@ -531,8 +570,6 @@ public class panel_fight : Panel_Base
         {
             AddWeather();
         }
-
-
         Combat_statistics.isTime = true;
         if (crt_monster_number >= maxnumber) crt_monster_number = 0;
         crt_monster_number++;
@@ -547,6 +584,10 @@ public class panel_fight : Panel_Base
             {
                 crt = crt_map_monsters[0];
             }
+        }
+        if (trial_storey >= 0)
+        {
+            crt = crt_map_monsters[trial_storey % crt_map_monsters.Count];
         }
         crt = Battle_Tool.crate_monster(crt, select_map, crt_monster_number == maxnumber, trial_storey);
         GameObject item = ObjectPoolManager.instance.GetObjectFormPool(crt.show_name, monster_battle_attack_prefabs,
@@ -565,6 +606,10 @@ public class panel_fight : Panel_Base
     private void ShowInfoMap()
     {
         map_name.text = select_map.map_name + "(" + crt_monster_number + "/" + maxnumber + ")";
+        if (trial_storey >= 0)
+        {
+            map_name.text = select_map.map_name + "(" + (trial_storey) + "层)";
+        }
     }
     /// <summary>
     /// 判断当前地图是否为对应地图

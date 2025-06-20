@@ -110,7 +110,7 @@ namespace MVC
                     user.Read_Trial_Tower();
                     break;
                     case NotiList.Refresh_Trial_Tower:
-                    user.Refresh_Trial_Tower();
+                    user.Refresh_Trial_Tower(int.Parse(data.ToString()));
                     break;
 
 
