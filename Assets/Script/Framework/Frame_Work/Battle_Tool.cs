@@ -442,6 +442,7 @@ public static class Battle_Tool
     public static int IsBuff(int index)
     {
         int base_value = 0;
+
         foreach (var item in SumSave.crt_player_buff.player_Buffs)
         {
             (DateTime, int, float, int) time = item.Value;

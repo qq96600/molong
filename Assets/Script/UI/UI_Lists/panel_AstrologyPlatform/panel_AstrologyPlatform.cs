@@ -27,6 +27,10 @@ public class panel_AstrologyPlatform : Panel_Base
     /// 切换天气消耗灵珠数量
     /// </summary>
     private int need = 50;
+    /// <summary>
+    /// 上一次天气时间
+    /// </summary>
+    private int lastTime = 0;
     
     public override void Initialize()
     {
@@ -37,44 +41,54 @@ public class panel_AstrologyPlatform : Panel_Base
         switchButton.onClick.AddListener(SwitchWeather);
         
     }
+    private void Update()
+    {
+        Init();
+    }
     /// <summary>
     /// 界面初始化
     /// </summary>
     private void Init()
     {
         bool isHave = false;
-    
-        foreach (var _item in SumSave.crt_player_buff.player_Buffs)
+        if (SumSave.crt_player_buff.player_Buffs.Count > 0)
         {
-            if (_item.Value.Item4 == 4)
+            foreach (var _item in SumSave.crt_player_buff.player_Buffs)
             {
-                ///切换图片
-                //weatherImage.sprite = Resources.Load<Sprite>("" + _item.Key);
-
-                for (int i = 0; i < SumSave.db_weather_list.Count; i++)
+                if (_item.Value.Item4 == 4)
                 {
-                    if(SumSave.db_weather_list[i].weather_type == _item.Key)
+                    ///切换图片
+                    //weatherImage.sprite = Resources.Load<Sprite>("" + _item.Key);
+                    for (int i = 0; i < SumSave.db_weather_list.Count; i++)
                     {
-                        if (Battle_Tool.SettlementTransport((_item.Value.Item1).ToString()) <= 0)
+                        if (SumSave.db_weather_list[i].weather_type == _item.Key)
                         {
-                            SumSave.crt_player_buff.player_Buffs.Remove(_item.Key);
-                            AddWeather();
+                            if (_item.Value.Item2 - Battle_Tool.SettlementTransport((_item.Value.Item1).ToString()) <= 0)
+                            {
+                                SumSave.crt_player_buff.player_Buffs.Remove(_item.Key);
+                                AddWeather();
+                            }
+                            isHave = true;
+                            string str = ShowBonus(SumSave.db_weather_list[i]);
+                            int time = (_item.Value.Item2 - Battle_Tool.SettlementTransport((_item.Value.Item1).ToString()));
+                            str += "剩余时间：" + time + "Min";
+                            information.text = str;
                         }
-
-                        isHave = true;
-                        string str = ShowBonus(SumSave.db_weather_list[i]);
-                        str+=  "剩余时间：" +(_item.Value.Item2-Battle_Tool.SettlementTransport((_item.Value.Item1).ToString(),2)).ToString("yyyy-MM-dd HH:mm:ss");
-                        information.text = str;
-
+                    }
+                    if (!isHave)
+                    {
+                        AddWeather();
+                        Init();
                     }
                 }
             }
         }
-        if(!isHave)
+        else
         {
             AddWeather();
             Init();
         }
+       
 
 
     }
@@ -139,8 +153,12 @@ public class panel_AstrologyPlatform : Panel_Base
                 {
                     AddWeather();
                 }
-                Init();
+            }else
+            {
+                AddWeather();
             }
+            Alert_Dec.Show("切换成功");
+            Init();
         }
         else
         {

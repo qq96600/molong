@@ -166,6 +166,11 @@ public class panel_wodleBoss : Panel_Base
             SumSave.crt_world_boss_rank.SetData();
             Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.user_world_boss_rank,
             SumSave.crt_world_boss_rank.Set_Uptade_String(), SumSave.crt_world_boss_rank.Get_Update_Character());
+            if (SumSave.db_world_boss_hurt.Count > 0)
+            {
+                SendNotification(NotiList.Read_Crate_RecordAndClearWorldBoss);
+                SumSave.db_world_boss_hurt.Clear();
+            }
         }
 
         SendNotification(NotiList.Read_Crate_world_boss_Login);
@@ -176,21 +181,17 @@ public class panel_wodleBoss : Panel_Base
         numberText.text = "挑战次数:" + boss_number.ToString() + "/" + boss_number_max;
         nameText.text = SumSave.db_world_boos.name;
         GetList();
-        if (SumSave.db_world_boos.Get() <= 0)
-        {
-            Hp_Text.text="世界Boss已被击败,等待下轮Boss";
-            if(SumSave.db_world_boss_hurt.Count>0)
-            {
-                SendNotification(NotiList.Read_Crate_RecordAndClearWorldBoss);
-                SumSave.db_world_boss_hurt.Clear();
-            }
+        //if (SumSave.db_world_boos.Get() <= 0)
+        //{
+        //    Hp_Text.text="世界Boss已被击败,等待下轮Boss";
+          
            
 
-        }
-        else
-        {
-            Hp_Text.text = SumSave.db_world_boos.Get() + "/" + maxHp;
-        }
+        //}
+        //else
+        //{
+        //    Hp_Text.text = SumSave.db_world_boos.Get() + "/" + maxHp;
+        //}
        
     }
     public override void Hide()

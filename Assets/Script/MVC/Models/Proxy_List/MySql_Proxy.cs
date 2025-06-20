@@ -51,7 +51,6 @@ namespace MVC
             Read_db_vip();
             Read_db_formula();
             Read_db_weather();
-            //Read_db_world_boss();
             Read_Db_Suit();
             Read_Db_Dec();
             CloseMySqlDB();
@@ -73,26 +72,6 @@ namespace MVC
                 }
             }
         }
-
-
-
-        /// <summary>
-        /// 获得全服玩家的世界Boss伤害
-        /// </summary>
-        public void Read_db_world_boss()
-        {
-            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.user_world_boss);
-            SumSave.db_world_boss_hurt= new List<user_world_boss>();
-            if (mysqlReader.HasRows)
-            {
-                while (mysqlReader.Read())
-                {
-                    SumSave.db_world_boss_hurt.Add(ReadDb.Read(mysqlReader, new user_world_boss()));
-                }
-            }
-        }
-
-
 
 
         /// <summary>

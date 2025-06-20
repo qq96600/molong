@@ -366,7 +366,23 @@ namespace MVC
             CloseMySqlDB();
         }
 
-
+        /// <summary>
+        /// 获得全服玩家的世界Boss伤害
+        /// </summary>
+        public void Read_db_world_boss()
+        {
+            OpenMySqlDB();
+            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.user_world_boss);
+            SumSave.db_world_boss_hurt = new List<user_world_boss>();
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.db_world_boss_hurt.Add(ReadDb.Read(mysqlReader, new user_world_boss()));
+                }
+            }
+            CloseMySqlDB();
+        }
 
 
 
@@ -397,9 +413,14 @@ namespace MVC
             Read_User_Mail();
             Read_User_Reward();
             Read_user_world_boss();
-            world_boss_Login();
             refresh_Max_Hero_Attribute();
+            world_boss_Login();
         }
+
+
+
+
+
 
         /// <summary>
         /// 读取自身世界Boss伤害

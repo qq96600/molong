@@ -233,15 +233,15 @@ namespace MVC
 
             while (isAdd)
             {
-                for (int i = 0; i < SumSave.db_weather_list.Count; i++)
+                int rand = UnityEngine.Random.Range(0, SumSave.db_weather_list.Count-1);
+             
+                if (SumSave.db_weather_list[rand].probability >= UnityEngine.Random.Range(0, weight))
                 {
-                    if (SumSave.db_weather_list[i].probability >= UnityEngine.Random.Range(0, weight))
-                    {
-                        name = SumSave.db_weather_list[i].weather_type;
-                        isAdd = false;
-                        break;
-                    }
+                    name = SumSave.db_weather_list[rand].weather_type;
+                    isAdd = false;
+                    break;
                 }
+
             }
 
             SumSave.crt_player_buff.player_Buffs.Add(name, (SumSave.nowtime, 60 * 6, 1, 4));

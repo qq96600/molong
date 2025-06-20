@@ -433,6 +433,9 @@ namespace MVC
                     monsterlifevaluelue = monsterlife[i];
                 }
             }
+            ///添加天气五行
+
+
     //        /*
     //         *    土属性强化,// 201  
     //火属性强化,//202

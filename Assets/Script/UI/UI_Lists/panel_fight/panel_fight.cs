@@ -481,17 +481,17 @@ public class panel_fight : Panel_Base
     private void crate_monster()
     {
         ///调用天气buff
+        bool isAdd = true;
 
         if (SumSave.crt_player_buff.player_Buffs.Count > 0)
         {
-            bool isAdd = true;
             foreach (var _item in SumSave.crt_player_buff.player_Buffs)
             {
                 if (_item.Value.Item4 == 4)
                 {
                     isAdd = false;
                     int remainingTime = Battle_Tool.SettlementTransport((_item.Value.Item1).ToString("yyyy-MM-dd HH:mm:ss"));
-                    if (remainingTime >_item.Value.Item2)
+                    if (remainingTime > _item.Value.Item2)
                     {
                         SumSave.crt_player_buff.player_Buffs.Remove(_item.Key);
                         AddWeather();
@@ -499,10 +499,13 @@ public class panel_fight : Panel_Base
                     }
                 }
             }
-            if(isAdd)
+            if (isAdd)
             {
                 AddWeather();
             }
+        }else
+        {
+            AddWeather();
         }
 
 

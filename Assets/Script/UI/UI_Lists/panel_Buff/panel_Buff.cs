@@ -152,7 +152,7 @@ public class panel_Buff : Panel_Base
                     }
                 }
 
-                if ( time.Item4==1||time.Item4 == 2)
+                if (time.Item4 == 1 || time.Item4 == 2)
                 {
                     if (remainingTime < time.Item2)
                     {
@@ -161,7 +161,6 @@ public class panel_Buff : Panel_Base
                 }
             }
         }
-
 
 
 
