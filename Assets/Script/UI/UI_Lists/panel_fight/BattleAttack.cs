@@ -108,7 +108,7 @@ namespace MVC
                     {
                         if (data.life[i] != 0)
                         {
-                            dec += " " + Show_Color.Green((enum_skill_attribute_list)(201 + i)+"(" + data.life[i] + ")");
+                            dec += " " + Show_Color.Yellow((enum_skill_attribute_list)(201 + i)+"(" + data.life[i] + ")");
                         }
                     }
                     if (data.monster_attrList.Count > 0)
@@ -503,7 +503,7 @@ namespace MVC
         private bool isCrate(BattleAttack monster)
         {
             bool isCrit= false;
-            if (Random.Range(0, 100) > data.crit_rate - monster.Data.crit_rate)
+            if (Random.Range(0, 100) < data.crit_rate - monster.Data.crit_rate)
             {
                 isCrit = true;
             }
