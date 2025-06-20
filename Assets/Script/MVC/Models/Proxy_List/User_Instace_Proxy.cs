@@ -113,6 +113,40 @@ namespace MVC
             } 
             CloseMySqlDB();
         }
+        /// <summary>
+        /// 读取试练塔排行榜
+        /// </summary>
+        public void Read_Trial_Tower()
+        {
+            OpenMySqlDB();
+            mysqlReader = MysqlDb.Select(Mysql_Table_Name.user_trial_Tower, "par", GetStr(SumSave.par));
+            SumSave.crt_Trial_Tower_rank = new mo_world_boss_rank();
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    //获取等级
+                    SumSave.crt_Trial_Tower_rank.Ranking_value = mysqlReader.GetString(mysqlReader.GetOrdinal("value"));
+                    SumSave.crt_Trial_Tower_rank.InitLists();
+                }
+            }
+            else
+            {
+                Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.user_trial_Tower, SumSave.crt_Trial_Tower_rank.Set_Instace_String());
+            }
+            CloseMySqlDB();
+        }
+        /// <summary>
+        /// 刷新试练塔排行榜
+        /// </summary>
+        public void Refresh_Trial_Tower()
+        {
+            OpenMySqlDB();
+
+            MysqlDb.UpdateInto(Mysql_Table_Name.user_trial_Tower, SumSave.crt_Trial_Tower_rank.Get_Update_Character(), SumSave.crt_Trial_Tower_rank.Set_Uptade_String(), "par", GetStr(SumSave.par));
+
+            CloseMySqlDB();
+        }
 
 
         /// <summary>

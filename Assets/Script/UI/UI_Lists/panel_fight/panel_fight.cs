@@ -81,9 +81,9 @@ public class panel_fight : Panel_Base
 
     public Button close_battle;
     /// <summary>
-    /// 当前出现怪物数量 总怪物数量
+    /// 当前出现怪物数量 总怪物数量 试练塔层数
     /// </summary>
-    private int crt_monster_number = 0, maxnumber = 0;
+    private int crt_monster_number = 0, maxnumber = 0, trial_storey = -1;
     /// <summary>
     /// 五行种子
     /// </summary>
@@ -263,6 +263,7 @@ public class panel_fight : Panel_Base
     /// <param name="isCopies">是否副本</param>
     public void Open_Map(user_map_vo map,bool isCopies = false)
     {
+        trial_storey = -1;
         if (!isCopies)
         {
             if(map.map_type==1)//普通地图记录切换
@@ -289,8 +290,22 @@ public class panel_fight : Panel_Base
         StopAllCoroutines();
         
     }
+    /// <summary>
+    /// 进入地图
+    /// </summary>
+    /// <param name="map"></param>
+    /// <param name="storey">试炼塔开启层数</param>
+    public void Open_Map(user_map_vo map, int storey )
+    {
+        Combat_statistics.isTime = true;
+        trial_storey= storey;
+        select_map = map;
+        map_name.text = map.map_name;
+        init();
+        Crate_Init();
+        StopAllCoroutines();
 
-
+    }
     /// <summary>
     /// 显示战斗状态
     /// </summary>
@@ -364,6 +379,7 @@ public class panel_fight : Panel_Base
             case 2: maxnumber = 10; break;
             case 3: maxnumber = 1; break;
             case 4: maxnumber = 1; break;
+            case 6: maxnumber = 1; break;
             default:
                 break;
         }
@@ -384,13 +400,21 @@ public class panel_fight : Panel_Base
             SumSave.battleHeroHealths.Clear();
         }
         crt_map_monsters.Clear();
-        for (int i = 0; i < SumSave.db_monsters.Count; i++)
+        if (select_map.map_type == 6)
         {
-            if (SumSave.db_monsters[i].index == select_map.map_index)
+            crt_map_monsters = SumSave.db_monsters;
+        }
+        else
+        {
+            for (int i = 0; i < SumSave.db_monsters.Count; i++)
             {
-                crt_map_monsters.Add(SumSave.db_monsters[i]);
+                if (SumSave.db_monsters[i].index == select_map.map_index)
+                {
+                    crt_map_monsters.Add(SumSave.db_monsters[i]);
+                }
             }
         }
+        
     }
     /// <summary>
     /// 死亡等待
@@ -521,9 +545,7 @@ public class panel_fight : Panel_Base
                 crt = crt_map_monsters[0];
             }
         }
-        //crt = crt_map_monsters[1];
-        crt = Battle_Tool.crate_monster(crt, select_map, crt_monster_number == maxnumber);
-
+        crt = Battle_Tool.crate_monster(crt, select_map, crt_monster_number == maxnumber, trial_storey);
         GameObject item = ObjectPoolManager.instance.GetObjectFormPool(crt.show_name, monster_battle_attack_prefabs,
             new Vector3(pos_monster.position.x, pos_monster.position.y,pos_monster.position.z), Quaternion.identity, pos_monster);
         // 设置Data

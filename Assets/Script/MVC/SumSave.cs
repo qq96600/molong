@@ -170,6 +170,10 @@ namespace Common
         /// </summary>
         public static mo_world_boss_rank crt_world_boss_rank;
         /// <summary>
+        /// 试练塔排行榜
+        /// </summary>
+        public static mo_world_boss_rank crt_Trial_Tower_rank;
+        /// <summary>
         /// 世界boss伤害
         /// </summary>
         public static user_world_boss crt_world_boss_hurt;

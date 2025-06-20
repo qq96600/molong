@@ -818,7 +818,7 @@ public static class Battle_Tool
     /// </summary>
     /// <param name="crt"></param>
     /// <param name="lv">1小怪2精英3boss4副本地图</param>
-    public static crtMaxHeroVO crate_monster(crtMaxHeroVO crt, user_map_vo map,bool isBoss=false)
+    public static crtMaxHeroVO crate_monster(crtMaxHeroVO crt, user_map_vo map,bool isBoss=false,int trial_storey=-1)
     {
         crtMaxHeroVO base_crt = new crtMaxHeroVO();
         base_crt.map_index = map.map_index;
@@ -896,43 +896,74 @@ public static class Battle_Tool
                 coefficient = lv;
             }
         }
-        base_crt.MaxHP = (int)(crt.MaxHP * MathF.Pow(3, coefficient-1));
-        base_crt.MaxMp = crt.MaxMp;
-        base_crt.internalforceMP = crt.internalforceMP;
-        base_crt.EnergyMp = crt.EnergyMp;
-        base_crt.DefMin = crt.DefMin * coefficient;
-        base_crt.DefMax = crt.DefMax* coefficient;
-        base_crt.MagicDefMin = crt.MagicDefMin* coefficient;
-        base_crt.MagicDefMax = crt.MagicDefMax* coefficient;
-        base_crt.damageMin = crt.damageMin* coefficient;
-        base_crt.damageMax = crt.damageMax* coefficient;
-        base_crt.MagicdamageMin = crt.MagicdamageMin* coefficient;
-        base_crt.MagicdamageMax = crt.MagicdamageMax* coefficient;
-        base_crt.hit = (crt.hit + map.need_lv) * coefficient;
-        base_crt.dodge = crt.dodge * coefficient;
-        base_crt.penetrate = crt.penetrate* coefficient;
-        base_crt.block = crt.block* coefficient;
-        base_crt.crit_rate = crt.crit_rate* coefficient;
-        base_crt.crit_damage = crt.crit_damage;
-        base_crt.double_damage = crt.double_damage;
-        base_crt.Lucky = crt.Lucky;
-        base_crt.Real_harm = crt.Real_harm;
-        base_crt.Damage_Reduction = crt.Damage_Reduction;
-        base_crt.Damage_absorption = crt.Damage_absorption;
-        base_crt.resistance = crt.resistance;
-        base_crt.move_speed = crt.move_speed;
-        base_crt.attack_speed = crt.attack_speed;
-        base_crt.attack_distance = crt.attack_distance;
-        base_crt.bonus_Hp = crt.bonus_Hp;
-        base_crt.bonus_Mp = crt.bonus_Mp;
-        base_crt.bonus_Damage = crt.bonus_Damage;
-        base_crt.bonus_MagicDamage = crt.bonus_MagicDamage;
-        base_crt.bonus_Def = crt.bonus_Def;
-        base_crt.bonus_MagicDef = crt.bonus_MagicDef;
-        base_crt.Heal_Hp = crt.Heal_Hp * coefficient;
-        base_crt.Heal_Mp = crt.Heal_Mp * coefficient;
-
-       
+        if (trial_storey >= 0)
+        {
+            base_crt.life[(trial_storey + (trial_storey / 5)) % 5] = trial_storey * 3;
+            base_crt.MaxHP = (long)((trial_storey + 1) * 100 * (Mathf.Pow(10, trial_storey / 20)));
+            base_crt.MaxMp = (trial_storey + 1) * 100;
+            base_crt.internalforceMP = (trial_storey + 1) * 100;
+            base_crt.EnergyMp = (trial_storey + 1) * 10;
+            base_crt.DefMin = (trial_storey + 1) * 10;
+            base_crt.DefMax = (trial_storey + 1) * 20;
+            base_crt.MagicDefMin = (trial_storey + 1) * 10;
+            base_crt.MagicDefMax = (trial_storey + 1) * 20;
+            base_crt.damageMin = (trial_storey + 1) * 10;
+            base_crt.damageMax = (trial_storey + 1) * 20;
+            base_crt.MagicdamageMin = (trial_storey + 1) * 10;
+            base_crt.MagicdamageMax = (trial_storey + 1) * 20;
+            base_crt.hit = (trial_storey + 1) * 10;
+            base_crt.dodge = (trial_storey + 1) * 5;
+            base_crt.penetrate = (trial_storey + 1) * 5;
+            base_crt.block = (trial_storey + 1) * 5;
+            base_crt.crit_rate = (trial_storey + 1) * 5;
+            base_crt.crit_damage = 150 + (trial_storey + 1) * 5;
+            base_crt.double_damage =(trial_storey + 1) * 5;
+            base_crt.Lucky = (trial_storey + 1) / 10;
+            base_crt.Real_harm = (trial_storey + 1) * 10;
+            base_crt.Damage_Reduction = (trial_storey + 1) / 2;
+            base_crt.move_speed = 100;
+            base_crt.attack_speed = 300 - ((trial_storey + 1) * 2);
+            base_crt.attack_distance = 100 + (trial_storey + 1) * 10;
+            base_crt.Heal_Hp = (trial_storey + 1) * 10;
+        }
+        else
+        {
+            base_crt.MaxHP = (int)(crt.MaxHP * MathF.Pow(3, coefficient - 1));
+            base_crt.MaxMp = crt.MaxMp;
+            base_crt.internalforceMP = crt.internalforceMP;
+            base_crt.EnergyMp = crt.EnergyMp;
+            base_crt.DefMin = crt.DefMin * coefficient;
+            base_crt.DefMax = crt.DefMax * coefficient;
+            base_crt.MagicDefMin = crt.MagicDefMin * coefficient;
+            base_crt.MagicDefMax = crt.MagicDefMax * coefficient;
+            base_crt.damageMin = crt.damageMin * coefficient;
+            base_crt.damageMax = crt.damageMax * coefficient;
+            base_crt.MagicdamageMin = crt.MagicdamageMin * coefficient;
+            base_crt.MagicdamageMax = crt.MagicdamageMax * coefficient;
+            base_crt.hit = (crt.hit + map.need_lv) * coefficient;
+            base_crt.dodge = crt.dodge * coefficient;
+            base_crt.penetrate = crt.penetrate * coefficient;
+            base_crt.block = crt.block * coefficient;
+            base_crt.crit_rate = crt.crit_rate * coefficient;
+            base_crt.crit_damage = crt.crit_damage;
+            base_crt.double_damage = crt.double_damage;
+            base_crt.Lucky = crt.Lucky;
+            base_crt.Real_harm = crt.Real_harm;
+            base_crt.Damage_Reduction = crt.Damage_Reduction;
+            base_crt.Damage_absorption = crt.Damage_absorption;
+            base_crt.resistance = crt.resistance;
+            base_crt.move_speed = crt.move_speed;
+            base_crt.attack_speed = crt.attack_speed;
+            base_crt.attack_distance = crt.attack_distance;
+            base_crt.bonus_Hp = crt.bonus_Hp;
+            base_crt.bonus_Mp = crt.bonus_Mp;
+            base_crt.bonus_Damage = crt.bonus_Damage;
+            base_crt.bonus_MagicDamage = crt.bonus_MagicDamage;
+            base_crt.bonus_Def = crt.bonus_Def;
+            base_crt.bonus_MagicDef = crt.bonus_MagicDef;
+            base_crt.Heal_Hp = crt.Heal_Hp * coefficient;
+            base_crt.Heal_Mp = crt.Heal_Mp * coefficient;
+        }
         Array values = Enum.GetValues(typeof(enum_monster_state));
         enum_monster_state state = (enum_monster_state)values.GetValue(RandomNumberGenerator.GetInt32(values.Length));
         switch (state)
