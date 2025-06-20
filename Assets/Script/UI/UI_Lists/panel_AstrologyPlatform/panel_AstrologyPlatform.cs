@@ -3,6 +3,8 @@
 using Common;
 using Components;
 using MVC;
+using System;
+using System.Collections.Generic;
 using UI;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,21 +12,22 @@ using UnityEngine.UI;
 public class panel_AstrologyPlatform : Panel_Base
 {
     /// <summary>
-    /// ÌìÆøÍ¼±ê
+    /// å¤©æ°”å›¾æ ‡
     /// </summary>
     private Image weatherImage;
     /// <summary>
-    /// ÌìÆø½éÉÜ
+    /// å¤©æ°”ä»‹ç»
     /// </summary>
     private Text information;
     /// <summary>
-    /// ÇĞ»»ÌìÆø°´Å¥
+    /// åˆ‡æ¢å¤©æ°”æŒ‰é’®
     /// </summary>
     private Button switchButton;
     /// <summary>
-    /// ÇĞ»»ÌìÆøÏûºÄÁéÖéÊıÁ¿
+    /// åˆ‡æ¢å¤©æ°”æ¶ˆè€—çµç æ•°é‡
     /// </summary>
-    private int need = 1;
+    private int need = 50;
+    
     public override void Initialize()
     {
         base.Initialize();
@@ -32,15 +35,91 @@ public class panel_AstrologyPlatform : Panel_Base
         information = Find<Text>("information/Viewport/Content/Text");
         switchButton = Find<Button>("switchButton");
         switchButton.onClick.AddListener(SwitchWeather);
+        
+    }
+    /// <summary>
+    /// ç•Œé¢åˆå§‹åŒ–
+    /// </summary>
+    private void Init()
+    {
+        bool isHave = false;
+    
+        foreach (var _item in SumSave.crt_player_buff.player_Buffs)
+        {
+            if (_item.Value.Item4 == 4)
+            {
+                ///åˆ‡æ¢å›¾ç‰‡
+                //weatherImage.sprite = Resources.Load<Sprite>("" + _item.Key);
 
+                for (int i = 0; i < SumSave.db_weather_list.Count; i++)
+                {
+                    if(SumSave.db_weather_list[i].weather_type == _item.Key)
+                    {
+                        if (Battle_Tool.SettlementTransport((_item.Value.Item1).ToString()) <= 0)
+                        {
+                            SumSave.crt_player_buff.player_Buffs.Remove(_item.Key);
+                            AddWeather();
+                        }
+
+                        isHave = true;
+                        string str = ShowBonus(SumSave.db_weather_list[i]);
+                        str+=  "å‰©ä½™æ—¶é—´ï¼š" +(_item.Value.Item2-Battle_Tool.SettlementTransport((_item.Value.Item1).ToString(),2)).ToString("yyyy-MM-dd HH:mm:ss");
+                        information.text = str;
+
+                    }
+                }
+            }
+        }
+        if(!isHave)
+        {
+            AddWeather();
+            Init();
+        }
+
+
+    }
+    /// <summary>
+    /// æ˜¾ç¤ºå±æ€§
+    /// </summary>
+    /// <param name="id"></param>
+    private string ShowBonus(db_weather weather)
+    {
+        string str = "";
+        str += "å¤©è±¡:" + weather.weather_type + "\n";
+        for (int j = 0; j < weather.life_value_list.Count; j++)
+        {
+            switch (weather.life_value_list[j].Item1)
+            {
+                case 1:
+                    //int baseValue = SumSave.crt_MaxHero.life[1];
+                    //int percentageValue = baseValue * (id.Item2 / 100);
+                    //int price = baseValue > percentageValue ? baseValue : percentageValue;
+                    str += enum_skill_attribute_list.åœŸ.ToString() + ":" + weather.life_value_list[j].Item2 + "%\n";
+                    break;
+                case 2:
+                    str += enum_skill_attribute_list.ç«.ToString() + ":" + weather.life_value_list[j].Item2 + "%\n";
+                    break;
+                case 3:
+                    str += enum_skill_attribute_list.æ°´.ToString() + ":" + weather.life_value_list[j].Item2 + "%\n";
+                    break;
+                case 4:
+                    str += enum_skill_attribute_list.æœ¨.ToString() + ":" + weather.life_value_list[j].Item2 + "%\n";
+                    break;
+                case 5:
+                    str += enum_skill_attribute_list.é‡‘.ToString() + ":" + weather.life_value_list[j].Item2 + "%\n";
+                    break;
+
+            }
+        }
+       return str;
     }
 
     /// <summary>
-    /// ÇĞ»»ÌìÆø
+    /// åˆ‡æ¢å¤©æ°”
     /// </summary>
     private void SwitchWeather()
     {
-        NeedConsumables(currency_unit.ÁéÖé, need);
+        NeedConsumables(currency_unit.é­”ä¸¸, need);
         if (RefreshConsumables())
         {
             if (SumSave.crt_player_buff.player_Buffs.Count > 0)
@@ -60,38 +139,15 @@ public class panel_AstrologyPlatform : Panel_Base
                 {
                     AddWeather();
                 }
+                Init();
             }
         }
         else
         {
-            Alert_Dec.Show("ÁéÖé²»×ã");
+            Alert_Dec.Show("çµç ä¸è¶³");
         }
     }
-    private void AddWeather()
-    {
-        string name = "";
-        int weight = 0;
-        bool isAdd = true;
-        for (int i = 0; i < SumSave.db_weather_list.Count; i++)
-        {
-            weight += SumSave.db_weather_list[i].probability;
-        }
-
-        while (isAdd)
-        {
-            for (int i = 0; i < SumSave.db_weather_list.Count; i++)
-            {
-                if (SumSave.db_weather_list[i].probability >= Random.Range(0, weight))
-                {
-                    name = SumSave.db_weather_list[i].weather_type;
-                    isAdd = false;
-                    break;
-                }
-            }
-        }
-        SumSave.crt_player_buff.player_Buffs.Add(name, (SumSave.nowtime, 60 * 6, 1, 4));
-        Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.user_player_buff, SumSave.crt_player_buff.Set_Uptade_String(), SumSave.crt_player_buff.Get_Update_Character());
-    }
+   
     public override void Hide()
     {
         base.Hide();
@@ -102,5 +158,6 @@ public class panel_AstrologyPlatform : Panel_Base
     public override void Show()
     {
         base.Show();
+        Init();
     }
 }

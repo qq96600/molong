@@ -87,7 +87,7 @@ public class panel_fight : Panel_Base
     /// <summary>
     /// 五行种子
     /// </summary>
-    private string[] FiveElementSeeds= { "牡丹皮", "青蒿", "苦参", "葛根", "金银花" };
+    private string[] FiveElementSeeds= { "牡丹皮种子", "青蒿种子", "苦参种子", "葛根种子", "金银花种子" };
     protected override void Awake()
     {
         base.Awake();
@@ -535,35 +535,7 @@ public class panel_fight : Panel_Base
         Open_Monster_State=true;
         ShowInfoMap();
     }
-   /// <summary>
-   /// 刷新天气并写入
-   /// </summary>
-    private void AddWeather()
-    {
-        string name = "";
-        int weight = 0;
-        bool isAdd = true;
-        for(int i = 0; i < SumSave.db_weather_list.Count; i++)
-        {
-            weight+= SumSave.db_weather_list[i].probability;
-        }
-
-        while(isAdd)
-        {
-            for(int i = 0; i < SumSave.db_weather_list.Count; i++)
-            {
-                if (SumSave.db_weather_list[i].probability >= Random.Range(0, weight))
-                {
-                    name = SumSave.db_weather_list[i].weather_type;
-                    isAdd = false;
-                    break;
-                }
-            }
-        }
-
-        SumSave.crt_player_buff.player_Buffs.Add(name, (SumSave.nowtime, 60 * 6, 1, 4));
-        Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.user_player_buff, SumSave.crt_player_buff.Set_Uptade_String(), SumSave.crt_player_buff.Get_Update_Character());
-    }
+   
 
     private void ShowInfoMap()
     {

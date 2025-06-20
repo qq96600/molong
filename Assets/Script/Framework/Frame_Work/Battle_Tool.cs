@@ -296,7 +296,10 @@ public static class Battle_Tool
         int value = 0;
         if (SumSave.crt_world == null) return value;
         List<string> list = SumSave.crt_world.Get();
-        int time = (int)(SumSave.nowtime - Convert.ToDateTime(list[0])).TotalMinutes;
+
+        //int time = (int)(SumSave.nowtime - Convert.ToDateTime(list[0])).TotalMinutes;
+        int time = Battle_Tool.SettlementTransport(list[0]);
+
         ArrayHelper.SafeGet(SumSave.db_lvs.world_offect_list, SumSave.crt_world.World_Lv, out int se);
         value = time * SumSave.db_lvs.world_offect_list[SumSave.crt_world.World_Lv];
         value += int.Parse(list[1]);
@@ -887,10 +890,12 @@ public static class Battle_Tool
             base_crt.Point = 0;
             base_crt.Monster_Lv = 4;
             coefficient = 1;
+            if (SumSave.crt_MaxHero.Lv >= 40)
+            {
+                int lv = (SumSave.crt_MaxHero.Lv - 30) / 10;
+                coefficient = lv;
+            }
         }
-
-
-      
         base_crt.MaxHP = (int)(crt.MaxHP * MathF.Pow(3, coefficient-1));
         base_crt.MaxMp = crt.MaxMp;
         base_crt.internalforceMP = crt.internalforceMP;

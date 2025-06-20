@@ -42,8 +42,19 @@ public class user_world_vo : Base_VO
     public void Set(int value,bool exist = true)
     {
         if(exist) value_lists[0] = SumSave.nowtime.ToString();
-        value_lists[1] = value.ToString();
+        //value_lists[1] =(int.Parse(value_lists[1])+value).ToString();
+        value_lists[1]= value.ToString();
     }
+
+    /// <summary>
+    /// 增加灵气值
+    /// </summary>
+    /// <param name="value"></param>
+    public void AddValue_lists(int value)
+    {
+        value_lists[1] = (int.Parse(value_lists[1]) + value).ToString();
+    }
+
     public string Set_data()
     {
         string dec = "";
