@@ -26,7 +26,7 @@ public class panel_AstrologyPlatform : Panel_Base
     /// <summary>
     /// 切换天气消耗灵珠数量
     /// </summary>
-    private int need = 1;
+    private int need = 50;
     
     public override void Initialize()
     {
@@ -35,60 +35,78 @@ public class panel_AstrologyPlatform : Panel_Base
         information = Find<Text>("information/Viewport/Content/Text");
         switchButton = Find<Button>("switchButton");
         switchButton.onClick.AddListener(SwitchWeather);
-
+        
     }
     /// <summary>
     /// 界面初始化
     /// </summary>
     private void Init()
     {
-        if (SumSave.crt_player_buff.player_Buffs.Count > 0)
+        bool isHave = false;
+    
+        foreach (var _item in SumSave.crt_player_buff.player_Buffs)
         {
-            foreach (var _item in SumSave.crt_player_buff.player_Buffs)
+            if (_item.Value.Item4 == 4)
             {
-                if (_item.Value.Item4 == 4)
+                ///切换图片
+                //weatherImage.sprite = Resources.Load<Sprite>("" + _item.Key);
+
+                for (int i = 0; i < SumSave.db_weather_list.Count; i++)
                 {
-                    //weatherImage.sprite = Resources.Load<Sprite>("" + _item.Key);
-                    for (int i = 0; i < SumSave.db_weather_list.Count; i++)
+                    if(SumSave.db_weather_list[i].weather_type == _item.Key)
                     {
-                        if(SumSave.db_weather_list[i].weather_type == _item.Key)
+                        if (Battle_Tool.SettlementTransport((_item.Value.Item1).ToString()) <= 0)
                         {
-                            information.text = ShowBonus(SumSave.db_weather_list[i].life_value_list);
+                            SumSave.crt_player_buff.player_Buffs.Remove(_item.Key);
+                            AddWeather();
                         }
+
+                        isHave = true;
+                        string str = ShowBonus(SumSave.db_weather_list[i]);
+                        str+=  "剩余时间：" +(_item.Value.Item2-Battle_Tool.SettlementTransport((_item.Value.Item1).ToString(),2)).ToString("yyyy-MM-dd HH:mm:ss");
+                        information.text = str;
+
                     }
                 }
             }
         }
+        if(!isHave)
+        {
+            AddWeather();
+            Init();
+        }
+
 
     }
     /// <summary>
     /// 显示属性
     /// </summary>
     /// <param name="id"></param>
-    private string ShowBonus(List<(int, int)> id)
+    private string ShowBonus(db_weather weather)
     {
         string str = "";
-        for (int j = 0; j <= id.Count; j++)
+        str += "天象:" + weather.weather_type + "\n";
+        for (int j = 0; j < weather.life_value_list.Count; j++)
         {
-            switch (id[j].Item1)
+            switch (weather.life_value_list[j].Item1)
             {
                 case 1:
                     //int baseValue = SumSave.crt_MaxHero.life[1];
                     //int percentageValue = baseValue * (id.Item2 / 100);
                     //int price = baseValue > percentageValue ? baseValue : percentageValue;
-                    str += enum_skill_attribute_list.土.ToString() + ":" + SumSave.crt_MaxHero.life[0] + "%";
+                    str += enum_skill_attribute_list.土.ToString() + ":" + weather.life_value_list[j].Item2 + "%\n";
                     break;
                 case 2:
-                    str += enum_skill_attribute_list.火.ToString() + ":" + SumSave.crt_MaxHero.life[1] + "%";
+                    str += enum_skill_attribute_list.火.ToString() + ":" + weather.life_value_list[j].Item2 + "%\n";
                     break;
                 case 3:
-                    str += enum_skill_attribute_list.水.ToString() + ":" + SumSave.crt_MaxHero.life[2] + "%";
+                    str += enum_skill_attribute_list.水.ToString() + ":" + weather.life_value_list[j].Item2 + "%\n";
                     break;
                 case 4:
-                    str += enum_skill_attribute_list.木.ToString() + ":" + SumSave.crt_MaxHero.life[3] + "%";
+                    str += enum_skill_attribute_list.木.ToString() + ":" + weather.life_value_list[j].Item2 + "%\n";
                     break;
                 case 5:
-                    str += enum_skill_attribute_list.金.ToString() + ":" + SumSave.crt_MaxHero.life[4] + "%";
+                    str += enum_skill_attribute_list.金.ToString() + ":" + weather.life_value_list[j].Item2 + "%\n";
                     break;
 
             }
@@ -101,7 +119,7 @@ public class panel_AstrologyPlatform : Panel_Base
     /// </summary>
     private void SwitchWeather()
     {
-        NeedConsumables(currency_unit.灵珠, need);
+        NeedConsumables(currency_unit.魔丸, need);
         if (RefreshConsumables())
         {
             if (SumSave.crt_player_buff.player_Buffs.Count > 0)
@@ -121,6 +139,7 @@ public class panel_AstrologyPlatform : Panel_Base
                 {
                     AddWeather();
                 }
+                Init();
             }
         }
         else
@@ -139,5 +158,6 @@ public class panel_AstrologyPlatform : Panel_Base
     public override void Show()
     {
         base.Show();
+        Init();
     }
 }

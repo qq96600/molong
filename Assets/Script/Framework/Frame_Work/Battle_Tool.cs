@@ -296,7 +296,10 @@ public static class Battle_Tool
         int value = 0;
         if (SumSave.crt_world == null) return value;
         List<string> list = SumSave.crt_world.Get();
-        int time = (int)(SumSave.nowtime - Convert.ToDateTime(list[0])).TotalMinutes;
+
+        //int time = (int)(SumSave.nowtime - Convert.ToDateTime(list[0])).TotalMinutes;
+        int time = Battle_Tool.SettlementTransport(list[0]);
+
         ArrayHelper.SafeGet(SumSave.db_lvs.world_offect_list, SumSave.crt_world.World_Lv, out int se);
         value = time * SumSave.db_lvs.world_offect_list[SumSave.crt_world.World_Lv];
         value += int.Parse(list[1]);
