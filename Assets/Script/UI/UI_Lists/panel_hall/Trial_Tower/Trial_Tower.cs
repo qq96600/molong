@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UI;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -54,7 +55,6 @@ public class Trial_Tower : Panel_Base
         base_info = Find<Text>("boss_icon/nameText");
         rank_itemPrefab = Battle_Tool.Find_Prefabs<rank_item>("rank_item");
         information = Find<Transform>("information/Viewport/Content");
-        Init();
     }
 
     /// <summary>
@@ -70,14 +70,19 @@ public class Trial_Tower : Panel_Base
             item.Show_index2(i + 1);
         }
     }
-
-
     /// <summary>
     /// 点击挑战
     /// </summary>
     private void Challenge()
     {
-        fight_panel.Open_Map(ArrayHelper.Find(SumSave.db_maps, e => e.map_type == 6),(int)user.Item3);
+        user_map_vo map = ArrayHelper.Find(SumSave.db_maps, e => e.map_type == 6);
+        NeedConsumables(map.need_Required, 1);
+        if (RefreshConsumables())
+        {
+            fight_panel.Show();
+            fight_panel.Open_Map(map,(int)user.Item3, this);
+        }else Alert_Dec.Show("材料 "+ map.need_Required+" 不足");
+       
     }
     /// <summary>
     /// 初始化
@@ -95,7 +100,7 @@ public class Trial_Tower : Panel_Base
             }    
         }
         //获取层数
-        base_info.text = "当前进度" + user.Item3 + "层";
+        base_info.text = "当前进度" + user.Item3 + "层\n挑战消耗 中品噬心魔种 * 1";
         GetList();
     }
     public override void Hide()

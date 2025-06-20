@@ -163,7 +163,7 @@ public class panel_wodleBoss : Panel_Base
             SendNotification(NotiList.Read_Crate_world_boss_update);
 
             SumSave.crt_world_boss_rank.lists = new List<(string, string, long)>();
-            SumSave.crt_world_boss_rank.SetData();
+            //SumSave.crt_world_boss_rank.SetData();
             Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.user_world_boss_rank,
             SumSave.crt_world_boss_rank.Set_Uptade_String(), SumSave.crt_world_boss_rank.Get_Update_Character());
             if (SumSave.db_world_boss_hurt.Count > 0)
@@ -264,7 +264,7 @@ public class panel_wodleBoss : Panel_Base
                 SumSave.crt_world_boss_rank.lists.RemoveAt(i);
             }
         }
-        SumSave.crt_world_boss_rank.SetData();
+        //SumSave.crt_world_boss_rank.SetData();
         Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.user_world_boss_rank,
           SumSave.crt_world_boss_rank.Set_Uptade_String(), SumSave.crt_world_boss_rank.Get_Update_Character());
     }
