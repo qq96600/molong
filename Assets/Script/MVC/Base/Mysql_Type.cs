@@ -80,4 +80,5 @@ public enum Mysql_Table_Name
     db_magic_copy1,//测试技能属性
     db_weather,//天气信息
     user_trial_Tower,//试炼塔
+    user_world_boss_copy1,//世界boss测试
 }

@@ -268,7 +268,7 @@ namespace MVC
             for (int i = 0; i < SumSave.db_world_boss_hurt.Count; i++)
             {
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.history_world_boss, SumSave.db_world_boss_hurt[i].Set_Instace_String());
-                MysqlDb.DeleteContents(Mysql_Table_Name.user_world_boss.ToString());
+                //MysqlDb.DeleteContents(Mysql_Table_Name.user_world_boss.ToString());
             }
             CloseMySqlDB();
         }
@@ -406,7 +406,12 @@ namespace MVC
         public void Read_db_world_boss()
         {
             OpenMySqlDB();
-            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.user_world_boss);
+            //mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.user_world_boss);
+
+            mysqlReader = MysqlDb.SelectWhere(Mysql_Table_Name.user_world_boss, new string[] { "par" }, new string[] {  "=" },
+               new string[] { SumSave.par.ToString()});
+
+
             SumSave.db_world_boss_hurt = new List<user_world_boss>();
             if (mysqlReader.HasRows)
             {
@@ -461,7 +466,8 @@ namespace MVC
         /// </summary>
         public void Read_user_world_boss()
         {
-            mysqlReader = MysqlDb.Select(Mysql_Table_Name.user_world_boss, "uid", GetStr(SumSave.crt_user.uid));
+            //mysqlReader = MysqlDb.Select(Mysql_Table_Name.user_world_boss, "uid", GetStr(SumSave.crt_user.uid));
+            mysqlReader = MysqlDb.Select(Mysql_Table_Name.user_world_boss_copy1, "uid", GetStr(SumSave.crt_user.uid));
             SumSave.crt_world_boss_hurt= new user_world_boss();
 
             if (mysqlReader.HasRows)
