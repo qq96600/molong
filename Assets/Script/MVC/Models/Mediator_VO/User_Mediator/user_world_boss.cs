@@ -19,26 +19,46 @@ public class user_world_boss : Base_VO
     /// 对应区服
     /// </summary>
     public int par;
+    /// <summary>
+    /// 玩家id
+    /// </summary>
+    public string uid;
 
     public void CauseDamage(long damage)
     {
         this.damage += damage;
         datetime = SumSave.nowtime;
-        Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.user_world_boss,
+        Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.user_world_boss_copy1,
           SumSave.crt_world_boss_hurt.Set_Uptade_String(), SumSave.crt_world_boss_hurt.Get_Update_Character());
     }
 
-    public override string[] Set_Instace_String()
+    public string[] Set_Instace_String(string uid)
     {
         return
             new string[]
             {
                 GetStr(0),
-                GetStr(SumSave.crt_user.uid),
+                GetStr(uid),
+                GetStr(SumSave.par),
                 GetStr(damage),
                 GetStr(datetime)
             };
     }
+
+
+    public string[] Set_Instace_String()
+    {
+        return
+            new string[]
+            {
+                GetStr(0),
+                GetStr(SumSave.uid),
+                GetStr(SumSave.par),
+                GetStr(damage),
+                GetStr(datetime)
+            };
+    }
+
 
     public override string[] Get_Update_Character()
     {

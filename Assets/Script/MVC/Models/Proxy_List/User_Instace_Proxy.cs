@@ -279,16 +279,43 @@ namespace MVC
         private void RecordAndClearWorldBoss()
         {
             OpenMySqlDB();
+            Read_db_world_boss();
             for (int i = 0; i < SumSave.db_world_boss_hurt.Count; i++)
             {
-                Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.history_world_boss, SumSave.db_world_boss_hurt[i].Set_Instace_String());
-                //MysqlDb.DeleteContents(Mysql_Table_Name.user_world_boss.ToString());
+                if (SumSave.db_world_boss_hurt[i].par==SumSave.par)
+                {
+                    MysqlDb.InsertInto(Mysql_Table_Name.history_world_boss, SumSave.db_world_boss_hurt[i].Set_Instace_String(SumSave.db_world_boss_hurt[i].uid));
+                    MysqlDb.Delete(Mysql_Table_Name.user_world_boss_copy1, new string[]{"uid","par" },
+                        new string[] { GetStr(SumSave.db_world_boss_hurt[i].uid), GetStr(SumSave.db_world_boss_hurt[i].par) });
+                }
             }
+            SumSave.db_world_boss_hurt.Clear();
+            SumSave.crt_world_boss_hurt = new user_world_boss();
+            SumSave.crt_world_boss_hurt.damage = 0;
+            SumSave.crt_world_boss_hurt.datetime = SumSave.nowtime;
+            //Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.user_world_boss, SumSave.crt_world_boss_hurt.Set_Instace_String());
+            Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.user_world_boss_copy1, SumSave.crt_world_boss_hurt.Set_Instace_String());
+
             CloseMySqlDB();
         }
 
+        /// <summary>
+        /// 获得全服玩家的世界Boss伤害
+        /// </summary>
+        public void Read_db_world_boss()
+        {
+            mysqlReader = MysqlDb.SelectWhere(Mysql_Table_Name.user_world_boss_copy1, new string[] { "par" }, new string[] { "=" },
+              new string[] { SumSave.par.ToString() });
 
-
+            SumSave.db_world_boss_hurt = new List<user_world_boss>();
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.db_world_boss_hurt.Add(ReadDb.Read(mysqlReader, new user_world_boss()));
+                }
+            }
+        }
 
 
 
@@ -414,28 +441,7 @@ namespace MVC
             CloseMySqlDB();
         }
 
-        /// <summary>
-        /// 获得全服玩家的世界Boss伤害
-        /// </summary>
-        public void Read_db_world_boss()
-        {
-            OpenMySqlDB();
-            //mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.user_world_boss);
-
-            mysqlReader = MysqlDb.SelectWhere(Mysql_Table_Name.user_world_boss, new string[] { "par" }, new string[] {  "=" },
-               new string[] { SumSave.par.ToString()});
-
-
-            SumSave.db_world_boss_hurt = new List<user_world_boss>();
-            if (mysqlReader.HasRows)
-            {
-                while (mysqlReader.Read())
-                {
-                    SumSave.db_world_boss_hurt.Add(ReadDb.Read(mysqlReader, new user_world_boss()));
-                }
-            }
-            CloseMySqlDB();
-        }
+      
 
 
 
@@ -495,7 +501,8 @@ namespace MVC
             {
                 SumSave.crt_world_boss_hurt.damage=0;
                 SumSave.crt_world_boss_hurt.datetime=SumSave.nowtime;
-                Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.user_world_boss, SumSave.crt_world_boss_hurt.Set_Instace_String());
+                //Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.user_world_boss, SumSave.crt_world_boss_hurt.Set_Instace_String());
+                Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.user_world_boss_copy1, SumSave.crt_world_boss_hurt.Set_Instace_String());
             }
 
         }
