@@ -42,6 +42,8 @@ namespace MVC
                 NotiList.Read_Crate_world_boss_Login,
                 NotiList.Read_Crate_world_boss_update,
                 NotiList.Read_Crate_RecordAndClearWorldBoss,
+                NotiList.Read_Trial_Tower,
+                NotiList.Refresh_Trial_Tower
             };
 
         }
@@ -103,6 +105,12 @@ namespace MVC
                     break;
                 case NotiList.Read_Mail:
                     user.Read_Mail();
+                    break;
+                    case NotiList.Read_Trial_Tower:
+                    user.Read_Trial_Tower();
+                    break;
+                    case NotiList.Refresh_Trial_Tower:
+                    user.Refresh_Trial_Tower(int.Parse(data.ToString()));
                     break;
 
 

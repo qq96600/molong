@@ -69,6 +69,6 @@ public class mo_world_boss_rank : Base_VO
 
     public override string[] Set_Uptade_String()
     {
-        return new string[] { GetStr(Ranking_value) };
+        return new string[] { GetStr(SetData()) };
     }
 }

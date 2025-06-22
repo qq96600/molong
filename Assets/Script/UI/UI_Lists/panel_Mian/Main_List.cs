@@ -21,4 +21,5 @@ public enum Main_List
     Chemical_furnace,//造化炉
     panel_warehouse,//仓库
     panel_AstrologyPlatform,//占星台
+    Trial_Tower,//试炼塔
 }

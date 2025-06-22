@@ -88,20 +88,23 @@ public class signIn : Base_Mono
     /// <param name="index"></param>
     private void MonthlyCardRewards(int index)
     {
-        foreach (var item in SumSave.crt_player_buff.player_Buffs)
+        if (SumSave.crt_player_buff.player_Buffs.Count > 0)
         {
-            (DateTime, int, float, int) time = item.Value;
-            if (index == time.Item4)
+            foreach (var item in SumSave.crt_player_buff.player_Buffs)
             {
-                if ((SumSave.nowtime - time.Item1).Minutes < time.Item2)
+                (DateTime, int, float, int) time = item.Value;
+                if (index == time.Item4)
                 {
-                    SumSave.crt_user_unit.verify_data(currency_unit.魔丸, 30);
-                    SumSave.crt_accumulatedrewards.Set(2, 4);
+                    if ((SumSave.nowtime - time.Item1).Minutes < time.Item2)
+                    {
+                        SumSave.crt_user_unit.verify_data(currency_unit.魔丸, 30);
+                        SumSave.crt_accumulatedrewards.Set(2, 4);
+                    }
                 }
-            }
-            else
-            {
-                SumSave.crt_accumulatedrewards.Set(2, 2);//不是月卡给2点荣耀点
+                else
+                {
+                    SumSave.crt_accumulatedrewards.Set(2, 2);//不是月卡给2点荣耀点
+                }
             }
         }
     }

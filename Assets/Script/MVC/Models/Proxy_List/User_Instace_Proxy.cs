@@ -113,6 +113,54 @@ namespace MVC
             } 
             CloseMySqlDB();
         }
+        /// <summary>
+        /// 读取试练塔排行榜
+        /// </summary>
+        public void Read_Trial_Tower()
+        {
+            OpenMySqlDB();
+            read_Trial_Tower();
+            CloseMySqlDB();
+        }
+        private void read_Trial_Tower()
+        {
+            mysqlReader = MysqlDb.Select(Mysql_Table_Name.user_trial_Tower, "par", GetStr(SumSave.par));
+            SumSave.crt_Trial_Tower_rank = new mo_world_boss_rank();
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    //获取等级
+                    SumSave.crt_Trial_Tower_rank.Ranking_value = mysqlReader.GetString(mysqlReader.GetOrdinal("value"));
+                    SumSave.crt_Trial_Tower_rank.InitLists();
+                }
+            }
+            else
+            {
+                MysqlDb.InsertInto(Mysql_Table_Name.user_trial_Tower, SumSave.crt_Trial_Tower_rank.Set_Instace_String());
+            }
+        }
+        /// <summary>
+        /// 刷新试练塔排行榜
+        /// </summary>
+        public void Refresh_Trial_Tower(int trial_storey)
+        {
+            OpenMySqlDB();
+            read_Trial_Tower();
+            bool exist = true;
+            for (int i = 0; i < SumSave.crt_Trial_Tower_rank.lists.Count; i++)
+            {
+                if (SumSave.crt_Trial_Tower_rank.lists[i].Item1 == SumSave.crt_user.uid)
+                {
+                    exist = false;
+                    SumSave.crt_Trial_Tower_rank.lists[i] = (SumSave.crt_user.uid, SumSave.crt_MaxHero.show_name, trial_storey);
+                }
+            }
+            if (exist) SumSave.crt_Trial_Tower_rank.lists.Add((SumSave.crt_user.uid, SumSave.crt_MaxHero.show_name, trial_storey));
+            SumSave.crt_Trial_Tower_rank.lists = ArrayHelper.OrderDescding(SumSave.crt_Trial_Tower_rank.lists, x => x.Item3);
+            MysqlDb.UpdateInto(Mysql_Table_Name.user_trial_Tower, SumSave.crt_Trial_Tower_rank.Get_Update_Character(), SumSave.crt_Trial_Tower_rank.Set_Uptade_String(), "par", GetStr(SumSave.par));
+            CloseMySqlDB();
+        }
 
 
         /// <summary>
@@ -231,16 +279,43 @@ namespace MVC
         private void RecordAndClearWorldBoss()
         {
             OpenMySqlDB();
+            Read_db_world_boss();
             for (int i = 0; i < SumSave.db_world_boss_hurt.Count; i++)
             {
-                Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.history_world_boss, SumSave.db_world_boss_hurt[i].Set_Instace_String());
-                MysqlDb.DeleteContents(Mysql_Table_Name.user_world_boss.ToString());
+                if (SumSave.db_world_boss_hurt[i].par==SumSave.par)
+                {
+                    MysqlDb.InsertInto(Mysql_Table_Name.history_world_boss, SumSave.db_world_boss_hurt[i].Set_Instace_String(SumSave.db_world_boss_hurt[i].uid));
+                    MysqlDb.Delete(Mysql_Table_Name.user_world_boss_copy1, new string[]{"uid","par" },
+                        new string[] { GetStr(SumSave.db_world_boss_hurt[i].uid), GetStr(SumSave.db_world_boss_hurt[i].par) });
+                }
             }
+            SumSave.db_world_boss_hurt.Clear();
+            SumSave.crt_world_boss_hurt = new user_world_boss();
+            SumSave.crt_world_boss_hurt.damage = 0;
+            SumSave.crt_world_boss_hurt.datetime = SumSave.nowtime;
+            //Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.user_world_boss, SumSave.crt_world_boss_hurt.Set_Instace_String());
+            Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.user_world_boss_copy1, SumSave.crt_world_boss_hurt.Set_Instace_String());
+
             CloseMySqlDB();
         }
 
+        /// <summary>
+        /// 获得全服玩家的世界Boss伤害
+        /// </summary>
+        public void Read_db_world_boss()
+        {
+            mysqlReader = MysqlDb.SelectWhere(Mysql_Table_Name.user_world_boss_copy1, new string[] { "par" }, new string[] { "=" },
+              new string[] { SumSave.par.ToString() });
 
-
+            SumSave.db_world_boss_hurt = new List<user_world_boss>();
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.db_world_boss_hurt.Add(ReadDb.Read(mysqlReader, new user_world_boss()));
+                }
+            }
+        }
 
 
 
@@ -366,7 +441,7 @@ namespace MVC
             CloseMySqlDB();
         }
 
-
+      
 
 
 
@@ -397,16 +472,22 @@ namespace MVC
             Read_User_Mail();
             Read_User_Reward();
             Read_user_world_boss();
-            world_boss_Login();
             refresh_Max_Hero_Attribute();
+            world_boss_Login();
         }
+
+
+
+
+
 
         /// <summary>
         /// 读取自身世界Boss伤害
         /// </summary>
         public void Read_user_world_boss()
         {
-            mysqlReader = MysqlDb.Select(Mysql_Table_Name.user_world_boss, "uid", GetStr(SumSave.crt_user.uid));
+            //mysqlReader = MysqlDb.Select(Mysql_Table_Name.user_world_boss, "uid", GetStr(SumSave.crt_user.uid));
+            mysqlReader = MysqlDb.Select(Mysql_Table_Name.user_world_boss_copy1, "uid", GetStr(SumSave.crt_user.uid));
             SumSave.crt_world_boss_hurt= new user_world_boss();
 
             if (mysqlReader.HasRows)
@@ -420,7 +501,8 @@ namespace MVC
             {
                 SumSave.crt_world_boss_hurt.damage=0;
                 SumSave.crt_world_boss_hurt.datetime=SumSave.nowtime;
-                Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.user_world_boss, SumSave.crt_world_boss_hurt.Set_Instace_String());
+                //Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.user_world_boss, SumSave.crt_world_boss_hurt.Set_Instace_String());
+                Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.user_world_boss_copy1, SumSave.crt_world_boss_hurt.Set_Instace_String());
             }
 
         }

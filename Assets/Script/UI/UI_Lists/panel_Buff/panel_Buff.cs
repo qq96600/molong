@@ -43,7 +43,7 @@ public class panel_Buff : Panel_Base
     /// <summary>
     /// 五行类型
     /// </summary>
-    private string[] five_element_type = { "土", "火", "水", "金", "木" };  
+    private string[] five_element_type = { "土", "火", "水", "木", "金" };  
 
     /// <summary>
     /// 五行属性显示
@@ -152,7 +152,7 @@ public class panel_Buff : Panel_Base
                     }
                 }
 
-                if ( time.Item4==1||time.Item4 == 2)
+                if (time.Item4 == 1 || time.Item4 == 2)
                 {
                     if (remainingTime < time.Item2)
                     {
@@ -161,7 +161,6 @@ public class panel_Buff : Panel_Base
                 }
             }
         }
-
 
 
 

@@ -49,6 +49,8 @@ public static class ReadDb
     {
         item.damage = reader.GetInt32(reader.GetOrdinal("damage"));
         item.datetime= Convert.ToDateTime(reader.GetString(reader.GetOrdinal("datetime")));
+        item.par= reader.GetInt32(reader.GetOrdinal("par"));
+        item.uid= reader.GetString(reader.GetOrdinal("uid"));
         return item;
     }
     public static db_fate_vo Read(MySqlDataReader reader, db_fate_vo item)
