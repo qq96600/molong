@@ -289,6 +289,7 @@ namespace MVC
             //SumSave.uid = "d6a5b51fddf94459bb2e80e54c091453";//666(ip)
             //SumSave.uid = "4024aeea8a704d3d965fafcb82d29493";//Rigine(ip)
             //SumSave.uid = "df5d8e6d010c4019a7f9bc37b8b92f76";
+
             Login();
             //UI_Manager.Instance.GetPanel<Panel_cratehero>().Show();
 #elif UNITY_ANDROID

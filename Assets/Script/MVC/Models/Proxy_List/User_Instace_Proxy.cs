@@ -125,6 +125,7 @@ namespace MVC
         private void read_Trial_Tower()
         {
             mysqlReader = MysqlDb.Select(Mysql_Table_Name.user_trial_towers, "par", GetStr(SumSave.par));
+
             SumSave.crt_Trial_Tower_rank = new mo_world_boss_rank();
             if (mysqlReader.HasRows)
             {
@@ -137,6 +138,7 @@ namespace MVC
             }
             else
             {
+
                 MysqlDb.InsertInto(Mysql_Table_Name.user_trial_towers, SumSave.crt_Trial_Tower_rank.Set_Instace_String());
             }
         }
@@ -158,6 +160,7 @@ namespace MVC
             }
             if (exist) SumSave.crt_Trial_Tower_rank.lists.Add((SumSave.crt_user.uid, SumSave.crt_MaxHero.show_name, trial_storey));
             SumSave.crt_Trial_Tower_rank.lists = ArrayHelper.OrderDescding(SumSave.crt_Trial_Tower_rank.lists, x => x.Item3);
+
             MysqlDb.UpdateInto(Mysql_Table_Name.user_trial_towers, SumSave.crt_Trial_Tower_rank.Get_Update_Character(), SumSave.crt_Trial_Tower_rank.Set_Uptade_String(), "par", GetStr(SumSave.par));
             CloseMySqlDB();
         }

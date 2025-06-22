@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class emial_item : Base_Mono
 {
     /// <summary>
-    /// 展示信息
+    /// 灞曠ず淇℃伅
     /// </summary>
     private Text info;
 
@@ -21,13 +21,13 @@ public class emial_item : Base_Mono
     }
 
     /// <summary>
-    /// 显示设置
+    /// 鏄剧ず璁剧疆
     /// </summary>
     /// <param name="str"></param>
     public void SetInfo(db_mail_vo str,bool exist)
     {
         crt_mail = str;
-        info.text=str.uid=="-1"?"系统邮件":"玩家邮件";
+        info.text=str.uid=="-1"?"绯荤粺閭欢":"鐜╁閭欢";
         info.text += "\n" + str.mail_time;
         state.gameObject.SetActive(exist);
     }

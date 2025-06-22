@@ -252,7 +252,7 @@ public class Pet_explore : Base_Mono
             string[] data = value.Split(",");
             //获取最大时间长度
             //获取已经完成收益时间
-            int time =(Convert.ToDateTime(data[1]) - Convert.ToDateTime(data[0])).Minutes;
+            int time = Battle_Tool.SettlementTransport(data[1], data[0]);//(Convert.ToDateTime(data[1]) - Convert.ToDateTime(data[0])).Minutes;
             if (time >= maxtime)
             {
                 info.text = "当前探索时间已满";
@@ -276,10 +276,8 @@ public class Pet_explore : Base_Mono
                     dic2[value2[0]] += int.Parse(value2[1]);
                 }
             }
-            //maxtime = 10000;
-            time = (int)((SumSave.nowtime - Convert.ToDateTime(data[1])).Minutes);
-            maxtime = Mathf.Min(maxtime, (int)((SumSave.nowtime - Convert.ToDateTime(data[0])).Minutes));
-            //maxtime = 10000;
+            time = Battle_Tool.SettlementTransport(data[1]);// (int)((SumSave.nowtime - Convert.ToDateTime(data[1])).Minutes);
+            maxtime = Mathf.Min(maxtime, Battle_Tool.SettlementTransport(data[0]));// (int)((SumSave.nowtime - Convert.ToDateTime(data[0])).Minutes));
             //time = 100;
             for (int i = 0; i < time; i += 6)
             {
@@ -294,7 +292,7 @@ public class Pet_explore : Base_Mono
                 Instantiate(material_item_Prefabs, pos_Items).Init((item, dic2[item]));
                 data_2 += (data_2 == "" ? "" : ".") + item + " " + dic2[item];
             }
-            data[1] = SumSave.nowtime.ToString();
+            data[1] = SumSave.nowtime>DateTime.Now? SumSave.nowtime.ToString(): DateTime.Now.ToString();
             data[2] = data_2;// string.Join(".", dic2);
             //dic[vo.petName + " " + vo.startHatchingTime] = string.Join(",", data);
             SumSave.crt_explore.SetValues(vo.petName + " " + vo.startHatchingTime, string.Join(",", data));

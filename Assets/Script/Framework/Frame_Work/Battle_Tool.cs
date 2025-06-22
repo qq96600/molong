@@ -499,6 +499,40 @@ public static class Battle_Tool
 
 
     }
+    /// <summary>
+    /// 计算两个时间的差值
+    /// </summary>
+    /// <param name="time">时间1</param>
+    /// <param name="time2">时间2</param>
+    /// <param name="type">获取 1分钟 2秒钟3小时 4天</param>
+    /// <returns></returns>
+    public static int SettlementTransport(string time, string time2, int type = 1 )
+    {
+        if (time == null || time == "") return -1;
+
+        TimeSpan span;
+
+        int spanNumber = 0;
+        span = Convert.ToDateTime(time) - Convert.ToDateTime(time2);
+        if (type == 1)//计算分钟
+            spanNumber = span.Minutes + span.Hours * 60 + span.Days * 60 * 24;
+        else if (type == 2)//计算秒
+            spanNumber = span.Seconds + span.Minutes * 60 + span.Hours * 60 * 60 + span.Days * 60 * 60 * 24;
+        else if (type == 3)//计算小时
+            spanNumber = span.Hours + span.Days * 24;
+        else if (type == 4)//计算天
+            spanNumber = span.Days;
+        if (spanNumber > 0)
+        {
+            //if (type == 3) spanNumber = span.Days + 1;
+            //计算时间差值
+            return spanNumber;
+        }
+        else return 0;
+
+
+    }
+
 
 
     /// <summary>
