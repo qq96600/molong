@@ -105,8 +105,11 @@ public class panel_smallWorld : Panel_Base
     private void Update_State()
     {
         List<string> list = SumSave.crt_world.Get();
-        int time = (int)(SumSave.nowtime - Convert.ToDateTime(list[0])).TotalMinutes;
+        //int time = (int)(SumSave.nowtime - Convert.ToDateTime(list[0])).TotalMinutes;
+        
+        int time= Battle_Tool.SettlementTransport(list[0]);
         SumSave.crt_world.Set(Obtain_Init(1, time, int.Parse(list[1])));
+
         Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_world, SumSave.crt_world.Set_Uptade_String(), SumSave.crt_world.Get_Update_Character());
     }
 
