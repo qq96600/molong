@@ -130,6 +130,7 @@ public class offect_emial : Base_Mono
                         break;
                     case 5://邮箱
                         AddBuff("月卡",1.5f, 3, str[index][material]);
+                        SendNotification(NotiList.Refresh_Max_Hero_Attribute);
                         break;
                     default:
                         break;
