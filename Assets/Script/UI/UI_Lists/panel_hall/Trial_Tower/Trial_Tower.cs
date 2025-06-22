@@ -80,7 +80,7 @@ public class Trial_Tower : Panel_Base
         if (RefreshConsumables())
         {
             fight_panel.Show();
-            fight_panel.Open_Map(map, (int)user.Item3 + 1, this);
+            fight_panel.Open_Map(map, (int)user.Item3 , this);
         }else Alert_Dec.Show("材料 "+ map.need_Required+" 不足");
        
     }

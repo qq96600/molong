@@ -50,8 +50,9 @@ public class user_world_vo : Base_VO
     /// 增加灵气值
     /// </summary>
     /// <param name="value"></param>
-    public void AddValue_lists(int value)
+    public void AddValue_lists(int value, bool exist = true)
     {
+        if (exist) value_lists[0] = SumSave.nowtime.ToString();
         value_lists[1] = (int.Parse(value_lists[1]) + value).ToString();
     }
 

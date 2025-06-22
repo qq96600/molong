@@ -79,6 +79,6 @@ public enum Mysql_Table_Name
     versions,//版本信息
     db_magic_copy1,//测试技能属性
     db_weather,//天气信息
-    user_trial_Towers,//试炼塔
+    user_trial_towers,//试炼塔
     user_world_boss_copy1,//世界boss测试
 }
