@@ -422,11 +422,16 @@ public static class Battle_Tool
     /// 获取经验
     /// </summary>
     /// <param name="exp"></param>
-    public static void Obtain_Exp(long exp)
+    /// <param name="state">1为打怪收益2为确定性收益</param>
+    public static void Obtain_Exp(long exp,int state=1)
     {
+        if (state == 1)
+        {
+        
         if (ArrayHelper.SafeGet(SumSave.crt_MaxHero.bufflist, (int)enum_skill_attribute_list.经验加成, out int se))
             exp = (long)(exp * (100 + SumSave.crt_MaxHero.bufflist[(int)enum_skill_attribute_list.经验加成]) / 100);
         Combat_statistics.AddExp(exp);
+        }
         SumSave.crt_MaxHero.Exp += exp;
         SumSave.crt_hero.hero_Exp += exp;
 

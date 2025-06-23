@@ -224,10 +224,10 @@ public class panel_fight : Panel_Base
                 }
                 break;
             case 34: //经验
-                max = SumSave.db_lvs.hero_lv_list[SumSave.crt_MaxHero.Lv];
+                max = SumSave.db_lvs.hero_lv_list[SumSave.crt_MaxHero.Lv] / 5;
                 value = (long)(damge * max / target.maxHP );
                 Alert.Show(select_map.map_name, "副本战斗结束,造成伤害 " + damge + "\n获得经验 " + value );
-                Battle_Tool.Obtain_Exp(value);
+                Battle_Tool.Obtain_Exp(value,2);
                 break;
             case 33://灵珠
                 max = SumSave.crt_MaxHero.Lv * 1000000;
