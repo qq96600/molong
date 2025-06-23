@@ -329,7 +329,7 @@ namespace MVC
             }
             //判断五行伤害
             int life = restrain_value(skill.skill_life-1, monster.Data.life);
-            if (life < 0) damage = (damage / 10) * (100 + (life)) / 100f;
+            if (life < 0) damage = (damage / 2) * (100 + (life)) / 100f;
             else damage = damage * (100 + (life)) / 100f;
             if (iSnHit(monster))
             {
@@ -342,6 +342,7 @@ namespace MVC
             {
                 damage = damage * data.crit_damage / 100;
             }
+
             damage = MathF.Max(1, damage);
             monster.target.TakeDamage((int)damage, isCrit ? DamageEnum.暴击技能伤害 : DamageEnum.技能伤害);
         }
@@ -411,6 +412,7 @@ namespace MVC
                 }
             }
             damage = damage * (100 + penetrate(monster)) / 100;
+            damage = damage * (100 + data.double_damage - monster.data.Damage_Reduction) / 100;
             damage = Mathf.Max(1, damage);
             return (int)damage;
         }
@@ -451,28 +453,36 @@ namespace MVC
                     if (type == index) value = data.life[type] - monsterlifevaluelue;
                     //克制计算乘法（木克）
                     else if (type == 3) value = (int)(data.life[type] * 1.5f - monsterlifevaluelue);
-                    else if (type == 2) value = (int)(data.life[type] * 0.5f - monsterlifevaluelue);
+                    else if (type == 2) value = (int)(data.life[type] * 0.1f - monsterlifevaluelue);
                     //被克制计算乘法（水克）
+                    if (type != 2) value = Mathf.Max(0, value);
                     break;
                 case 1:
                     if (type == index) value = data.life[type] - monsterlifevaluelue;
                     else if (type == 2) value = (int)(data.life[type] * 1.5f - monsterlifevaluelue);
-                    else if (type == 4) value = (int)(data.life[type] * 0.5f - monsterlifevaluelue);
+                    else if (type == 4) value = (int)(data.life[type] * 0.1f - monsterlifevaluelue);
+                    if (type != 4) value = Mathf.Max(0, value);
+
                     break;
                 case 2:
                     if (type == index) value = data.life[type] - monsterlifevaluelue;
                     else if (type == 0) value = (int)(data.life[type] * 1.5f - monsterlifevaluelue);
-                    else if (type == 1) value = (int)(data.life[type] * 0.5f - monsterlifevaluelue);
+                    else if (type == 1) value = (int)(data.life[type] * 0.1f - monsterlifevaluelue);
+                    if (type != 1) value = Mathf.Max(0, value);
+
                     break;
                 case 3:
                     if (type == index) value = data.life[type] - monsterlifevaluelue;
                     else if (type == 4) value = (int)(data.life[type] * 1.5f - monsterlifevaluelue);
-                    else if (type == 0 ) value = (int)(data.life[type] * 0.5f - monsterlifevaluelue);
+                    else if (type == 0 ) value = (int)(data.life[type] * 0.1f - monsterlifevaluelue);
+                    if (type != 0) value = Mathf.Max(0, value);
+
                     break;
                 case 4:
                     if (type == index) value = data.life[type] - monsterlifevaluelue;
                     else if (type == 1) value = (int)(data.life[type] * 1.5f - monsterlifevaluelue);
-                    else if (type == 3) value = (int)(data.life[type] * 0.5f - monsterlifevaluelue);
+                    else if (type == 3) value = (int)(data.life[type] * 0.1f - monsterlifevaluelue);
+                    if (type != 3) value = Mathf.Max(0, value);
                     break;
                 default:
                     break;

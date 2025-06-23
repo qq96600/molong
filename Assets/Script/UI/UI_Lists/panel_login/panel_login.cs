@@ -288,7 +288,8 @@ namespace MVC
             //SumSave.uid = "d6a5b51fddf94459bb2e80e54c091453";//666(ip)
             //SumSave.uid = "4024aeea8a704d3d965fafcb82d29493";//Rigine(ip)
             //SumSave.uid = "df5d8e6d010c4019a7f9bc37b8b92f76";
-            //SumSave.uid = "20d964db078a4edd8fa891a5ed779e22";
+            //SumSave.uid = "20d964db078a4edd8fa891a5ed779e22";//墨龙 （Wf3120785王小）
+           // SumSave.uid = "8026157149ab4e86af8f69b22e12a7c4";
             Login();
             //UI_Manager.Instance.GetPanel<Panel_cratehero>().Show();
 #elif UNITY_ANDROID
@@ -377,10 +378,10 @@ namespace MVC
                         {
                             int moeny = (monster.Lv * 5 + 1) * monster_number;
                             Battle_Tool.Obtain_Unit(currency_unit.灵珠, moeny);
-                            dec += "\n灵珠收益 " + moeny;
+                            dec += "\n灵珠收益 " + moeny + Show_Color.Red(" (+" + (int)(moeny * Show_Buff(enum_skill_attribute_list.灵珠收益)/100) + ")");
                             long obexp = (long)(monster.Exp * monster_number * 0.6);
                             Battle_Tool.Obtain_Exp(obexp);
-                            dec += "\n经验收益 " + obexp;
+                            dec += "\n经验收益 " + obexp + Show_Color.Red(" (+" + (long)(obexp * Show_Buff(enum_skill_attribute_list.经验加成)/100) + ")");
                         }
                         for (int i = 0; i < vs.Count; i++)
                         {
@@ -391,6 +392,13 @@ namespace MVC
                 Alert.Show("离线收益", dec);
 
             }
+        }
+        private float Show_Buff(enum_skill_attribute_list index)
+        {
+            float value = 0;
+            if ((int)index < SumSave.crt_MaxHero.bufflist.Count)
+                value += SumSave.crt_MaxHero.bufflist[(int)index];
+            return value;
         }
         public override void Show()
         {
