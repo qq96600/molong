@@ -40,6 +40,10 @@ public class panel_pass : Base_Mono
     /// </summary>
     private Panel_Accumulatedrewards panel_accumulatedrewards;
 
+    /// <summary>
+    /// 显示通行证等级
+    /// </summary>
+    private Text pass_lvExp_Text;
     protected void Awake()
     {
         Initialize();
@@ -55,6 +59,7 @@ public class panel_pass : Base_Mono
         pass_item_prefabs = Battle_Tool.Find_Prefabs<pass_item>("pass_item"); //Resources.Load<pass_item>("Prefabs/panel_hall/panel_pass/pass_item"); 
         task_item_prefabs = Battle_Tool.Find_Prefabs<task_item>("task_item"); //Resources.Load<task_item>("Prefabs/panel_hall/panel_pass/task_item");
         panel_accumulatedrewards= UI_Manager.I.GetPanel<Panel_Accumulatedrewards>();
+        pass_lvExp_Text= Find<Text>("bg_main/pass_lvExp/Text");
         for (int i = 0; i < btn_list.Count; i++)
         {
             btn_item btn = Instantiate(btn_itm_prefabs, pos_btn);
@@ -138,7 +143,16 @@ public class panel_pass : Base_Mono
         Base_Show();
         Show_Pass_Progress();
         viewPass();
+        ShowLv();
     }
+    /// <summary>
+    /// 显示通行证等级
+    /// </summary>
+    private void ShowLv()
+    {
+        pass_lvExp_Text.text="通行证等级："+Show_Color.Yellow( SumSave.crt_pass.data_lv)+"\n 经验："+ Show_Color.Yellow(SumSave.crt_pass.data_exp)+"";
+    }
+
     /// <summary>
     /// 查看通行证任务
     /// </summary>
@@ -159,7 +173,9 @@ public class panel_pass : Base_Mono
             dic_task[item].progress(list[item], list[item]==-1);
         }
     }
-
+    /// <summary>
+    /// 显示通行证
+    /// </summary>
     private void Base_Show()
     {
         for (int i = pos_item.childCount - 1; i >= 0; i--)
