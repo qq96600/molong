@@ -629,6 +629,7 @@ public static class ReadDb
         item.ProfitList = reader.GetString(reader.GetOrdinal("ProfitList"));
         item.monster_list = reader.GetString(reader.GetOrdinal("monster_list"));
         item.map_life= reader.GetInt32(reader.GetOrdinal("map_life"));
+        item.Independent_Drop = reader.GetString(reader.GetOrdinal("Independent_Drop"));
         return item;
     }
 

@@ -37,5 +37,9 @@ public class user_map_vo : Base_VO
     /// 地图五行
     /// </summary>
     public int map_life;
+    /// <summary>
+    /// 独立掉落
+    /// </summary>
+    public string Independent_Drop;
 
 }

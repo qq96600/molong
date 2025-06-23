@@ -1450,7 +1450,7 @@ namespace MVC
                     {
                         if ((SumSave.nowtime - time.Item1).Minutes < time.Item2)
                         {
-                            Enum_Value(crt, 22, 5);
+                            Enum_Value(crt, 116, 5);
                         }
                     }
                 }

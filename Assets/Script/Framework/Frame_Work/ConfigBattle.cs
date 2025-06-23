@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Common;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace MVC
@@ -37,10 +38,12 @@ namespace MVC
         /// </summary>
         public static List<string> LoadSetting(BattleAttack monster, int number)
         {
-            string base_name = ArrayHelper.Find(SumSave.db_maps, e => e.map_index == monster.Data.map_index).map_name;
+            user_map_vo map = ArrayHelper.Find(SumSave.db_maps, e => e.map_index == monster.Data.map_index);
+            if (map == null) return null;
+            string base_name = map.map_name;
             if (!CalculationBattle.ContainsKey(base_name))
             {
-                CalculationBattle.Add(base_name, ArrayHelper.Find(SumSave.db_maps, e => e.map_name == base_name).ProfitList.Split('&'));
+                CalculationBattle.Add(base_name, map.ProfitList.Split('&'));
             }
             Calculations = new List<string>();
             for (int i = 0; i < (number); i++)
@@ -48,9 +51,28 @@ namespace MVC
                 string countEquip = CalculationBattle[base_name][Random.Range(0, CalculationBattle[base_name].Length)];
                 CalculationBag(countEquip, monster.Data.Monster_Lv == 3);
             }
+            if (map.Independent_Drop != "")//计算独立掉落
+            {
+                Independent_Drop(map.Independent_Drop,number);
+            }
             Show_Info();
             return Calculations;
         }
+        /// <summary>
+        /// 独立掉落
+        /// </summary>
+        /// <param name="independent_Drop"></param>
+        private static void Independent_Drop(string independent_Drop,int number)
+        {
+            string[] values = independent_Drop.Split('&');
+            for (int i = 0; i < number; i++)
+            {
+                string countEquip = values[Random.Range(0, values.Length)];
+                Debug.Log(countEquip);
+                CalculationBag(values[Random.Range(0, values.Length)], false);
+            }
+        }
+
         /// <summary>
         /// 离线收益
         /// </summary>
@@ -94,11 +116,10 @@ namespace MVC
         /// <summary>
         /// 掉落配置
         /// </summary>
-        /// <param name="line"></param>
-        /// <param name="Name"></param>
-        /// <param name="boss"></param>
-        /// <param name="age"></param>
-        private static void CalculationBag(string line,bool boss,int age=1)
+        /// <param name="line">掉落列表</param>
+        /// <param name="boss">是否boss</param>
+        /// <param name="state">是否播报1否 2是</param>
+        private static void CalculationBag(string line,bool boss,int state = 1)
         {
 
             (bool, string) result = Obtain_ProfitList(line);
