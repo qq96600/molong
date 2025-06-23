@@ -73,14 +73,28 @@ namespace MVC
         /// 将时间转换为 HH:MM:SS
         /// </summary>
         /// <param name="totalSeconds"></param>
+        /// <param name="type">1时分秒2日月天</param>
         /// <returns></returns>
-        public string ConvertSecondsToHHMMSS(int totalSeconds)
+        public string ConvertSecondsToHHMMSS(int totalSeconds,int type=1)
         {
+            string dec = "";
             int hours = totalSeconds / 3600;
             int minutes = (totalSeconds % 3600) / 60;
             int seconds = totalSeconds % 60;
+            int days = hours / 24;
+            //int months = days / 30;
 
-            return $"{hours:D2}:{minutes:D2}:{seconds:D2}";
+            if (type == 1)
+                dec = $"{hours:D2}:{minutes:D2}:{seconds:D2}";
+            else
+            { 
+                dec = $"{days:D2}天";
+                if (days <= 0)
+                {
+                    dec = $"{hours:D2}:{minutes:D2}:{seconds:D2}";
+                }
+            }
+            return dec;
         }
         /// <summary>
         /// 单位

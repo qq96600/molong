@@ -438,7 +438,7 @@ public static class Battle_Tool
     /// <summary>
     /// 获取加成buff
     /// </summary>
-    /// <param name="index">1经验 2历练</param>
+    /// <param name="index">1经验 2历练3月卡</param>
     /// <returns></returns>
     public static int IsBuff(int index)
     {
