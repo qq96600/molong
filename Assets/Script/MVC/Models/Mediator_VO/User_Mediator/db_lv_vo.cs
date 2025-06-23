@@ -17,9 +17,10 @@ public class db_lv_vo : Base_VO
     /// </summary>
     public List<int> world_offect_list ;
     /// <summary>
-    /// 小世界最大存储值
+    /// 小世界最大存储值 更具小世界等级变化
     /// </summary>
     public List<int> word_lv_max_value;
+
     /// <summary>
     /// 荣耀殿堂添加灵气上限
     /// </summary>

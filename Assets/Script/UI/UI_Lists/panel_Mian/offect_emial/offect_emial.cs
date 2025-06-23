@@ -120,7 +120,10 @@ public class offect_emial : Base_Mono
                         break;
                     case 3://通行证
                         Dictionary<int, List<int>> dic = SumSave.crt_pass.Set();
-                        dic.Add(int.Parse(material), new List<int>());
+                        if(!dic.ContainsKey(int.Parse(material)))
+                        {
+                            dic.Add(int.Parse(material), new List<int>());
+                        }
                         SumSave.crt_pass.Get(dic);
                         break;
                     case 4://皮肤

@@ -44,6 +44,7 @@ public class user_world_vo : Base_VO
         if(exist) value_lists[0] = SumSave.nowtime.ToString();
         //value_lists[1] =(int.Parse(value_lists[1])+value).ToString();
         value_lists[1]= value.ToString();
+        VerifyMaximum();
     }
 
     /// <summary>
@@ -54,6 +55,18 @@ public class user_world_vo : Base_VO
     {
         if (exist) value_lists[0] = SumSave.nowtime.ToString();
         value_lists[1] = (int.Parse(value_lists[1]) + value).ToString();
+        VerifyMaximum();
+    }
+
+    /// <summary>
+    /// 验证灵气是否为最大值
+    /// </summary>
+    private void VerifyMaximum()
+    {
+        if (int.Parse(value_lists[1]) >= SumSave.db_lvs.word_lv_max_value[SumSave.crt_world.World_Lv])
+        {
+            value_lists[1] = SumSave.db_lvs.word_lv_max_value[SumSave.crt_world.World_Lv].ToString();
+        }
     }
 
     public string Set_data()
