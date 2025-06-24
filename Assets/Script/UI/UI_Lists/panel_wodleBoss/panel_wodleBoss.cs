@@ -114,7 +114,7 @@ public class panel_wodleBoss : Panel_Base
         world_Boss_set(hurt);
         crate_rank(hurt);
         GainRewards(hurt);
-        Init();
+        
     }
     /// <summary>
     /// 获得奖励
@@ -184,12 +184,13 @@ public class panel_wodleBoss : Panel_Base
     public override void Show()
     {
         base.Show();
-        //if (SumSave.crt_MaxHero.Lv < 20)
-        //{
-        //    Alert_Dec.Show("世界Boss开启等级为20级");
-        //    gameObject.SetActive(false);
-        //    return;
-        //}
+        if (SumSave.crt_MaxHero.Lv < 20)
+        {
+            Alert_Dec.Show("世界Boss开启等级为20级");
+            gameObject.SetActive(false);
+            return;
+        }
+        Init();
 
     }
     /// <summary>

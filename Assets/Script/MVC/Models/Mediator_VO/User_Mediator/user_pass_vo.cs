@@ -165,7 +165,8 @@ public class user_pass_vo : Base_VO
                 dec+= list + ",";
             }
         }
-         
+
+
         return dec;
     }
 

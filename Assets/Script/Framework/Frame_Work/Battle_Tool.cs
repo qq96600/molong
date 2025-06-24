@@ -427,10 +427,11 @@ public static class Battle_Tool
     {
         if (state == 1)
         {
-        
-        if (ArrayHelper.SafeGet(SumSave.crt_MaxHero.bufflist, (int)enum_skill_attribute_list.经验加成, out int se))
-            exp = (long)(exp * (100 + SumSave.crt_MaxHero.bufflist[(int)enum_skill_attribute_list.经验加成]) / 100);
-        Combat_statistics.AddExp(exp);
+            if (ArrayHelper.SafeGet(SumSave.crt_MaxHero.bufflist, (int)enum_skill_attribute_list.经验加成, out int se))
+            {
+                exp = (long)(exp * (100 + SumSave.crt_MaxHero.bufflist[(int)enum_skill_attribute_list.经验加成]) / 100);
+            }
+            Combat_statistics.AddExp(exp);
         }
         SumSave.crt_MaxHero.Exp += exp;
         SumSave.crt_hero.hero_Exp += exp;

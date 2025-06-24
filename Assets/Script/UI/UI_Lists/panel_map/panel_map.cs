@@ -91,7 +91,7 @@ public class panel_map : Panel_Base
         ClearObject(pos_btn_map);
         foreach (var map in SumSave.db_maps)
         {
-            if (map.need_lv <= SumSave.crt_MaxHero.Lv&&map.map_type!=5)
+            if (map.need_lv <= SumSave.crt_MaxHero.Lv&&map.map_type!=5 && map.map_type != 6)
             {
                 btn_item btn = Instantiate(btn_item_prefab, pos_btn_map);
                 string dec = map.map_name + "\n(Lv." + map.need_lv + "级)";
@@ -176,7 +176,10 @@ public class panel_map : Panel_Base
                 break;
         }
     }
-
+   /// <summary>
+   /// 初始化地图列表
+   /// </summary>
+   /// <param name="item"></param>
     private void Instance_Pos(map_pos_item item)
     {
         if (!maplists.ContainsKey(item))

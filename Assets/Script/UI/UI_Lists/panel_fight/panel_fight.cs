@@ -235,7 +235,7 @@ public class panel_fight : Panel_Base
                 Alert.Show(select_map.map_name, "副本战斗结束,造成伤害 " + damge + "\n获得灵珠 " + value );
                 Battle_Tool.Obtain_Unit(currency_unit.灵珠, value);
                 break;
-            case 32://魔丹
+            case 32://下品噬心魔丸
                 max = SumSave.crt_MaxHero.Lv + 50;
                 value = (int)(damge * max / target.maxHP);
                 (string,int) str = SumSave.db_lvs.world_lv_list[0];
