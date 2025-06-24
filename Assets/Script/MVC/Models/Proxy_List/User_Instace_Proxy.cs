@@ -475,8 +475,8 @@ namespace MVC
             Read_User_Mail();
             Read_User_Reward();
             Read_user_world_boss();
-            refresh_Max_Hero_Attribute();
             world_boss_Login();
+            refresh_Max_Hero_Attribute();
         }
 
 
@@ -1312,7 +1312,7 @@ namespace MVC
                         List<string> va = SumSave.db_pet_dic[SumSave.crt_pet_list[i].petName].up_values;//宠物成长属性
                         for (int j = 0; j < v.Count; j++)
                         {
-                            int value = (int.Parse(v[j]) + (int.Parse(va[j]) * SumSave.crt_pet_list[i].level)) / (SumSave.crt_world.World_Lv / 10 + 5);
+                            int value = (int.Parse(v[j]) + (int.Parse(va[j]) * SumSave.crt_pet_list[i].level)) * (SumSave.crt_world.World_Lv / 10 + 5) / 100;
                             Enum_Value(crt, j, value);
                         }
                     }
@@ -1424,7 +1424,7 @@ namespace MVC
                 Enum_Value(crt, (int)enum_skill_attribute_list.经验加成, Battle_Tool.IsBuff(1));
                 Enum_Value(crt, (int)enum_skill_attribute_list.人物历练, Battle_Tool.IsBuff(2));
                 Enum_Value(crt, (int)enum_skill_attribute_list.经验加成, Battle_Tool.IsBuff(3));
-                Enum_Value(crt, (int)enum_skill_attribute_list.灵珠加成, Battle_Tool.IsBuff(3));
+                Enum_Value(crt, (int)enum_skill_attribute_list.人物历练, Battle_Tool.IsBuff(3));
             }
                 //丹药属性
                 List<(string, List<int>)> seeds = SumSave.crt_seeds.GetuseList();

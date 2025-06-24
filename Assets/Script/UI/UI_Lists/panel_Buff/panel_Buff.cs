@@ -138,30 +138,52 @@ public class panel_Buff : Panel_Base
     private void InitInformation()
     {
         string dec = " ";
+        List<float> buff_list = new List<float>(3) { 0,0,0};//0经验加成 1灵珠加成 2历练加成
         if (SumSave.crt_player_buff.player_Buffs.Count > 0)
         {
             foreach (var item in SumSave.crt_player_buff.player_Buffs)
             {
                 (DateTime, int, float, int) time = item.Value;
-                int remainingTime = Battle_Tool.SettlementTransport((time.Item1).ToString("yyyy-MM-dd HH:mm:ss"));
+                int remainingTime = Battle_Tool.SettlementTransport((time.Item1).ToString("yyyy-MM-dd HH:mm:ss"), 2);
                 if (time.Item4 == 3)
                 {
-                    if (remainingTime < time.Item2)
+                    if (remainingTime < time.Item2*60)
                     {
-                        dec += Show_Color.Red(item.Key + ": 效果 经验值和灵珠值获取增加" + time.Item3 + "倍 剩余" + (time.Item2 - (SumSave.nowtime - time.Item1).Minutes) + "Min\n ");
+                        buff_list[0] += time.Item3 * 100 - 100;
+                        buff_list[2]+= time.Item3 * 100 - 100;
+                        //dec += Show_Color.Red(item.Key + ": 效果 经验值和灵珠值获取增加" + time.Item3 + "倍 剩余" + (time.Item2 - (SumSave.nowtime - time.Item1).Minutes) + "Min\n ");
+                        dec += Show_Color.Red(item.Key + ": " + ConvertSecondsToHHMMSS(time.Item2 * 60 - remainingTime,2) + "\n ");
+
                     }
                 }
-
                 if (time.Item4 == 1 || time.Item4 == 2)
                 {
-                    if (remainingTime < time.Item2)
+                    if (remainingTime < time.Item2 * 60)
                     {
-                        dec += Show_Color.Red(item.Key + ": 效果" + time.Item3 + "倍 剩余" + (time.Item2 - remainingTime) + "Min\n ");
+                        if (time.Item4 == 1) buff_list[0] += time.Item3 * 100 - 100;
+                        if (time.Item4 == 2) buff_list[2] += time.Item3 * 100 - 100;
+                        //dec += Show_Color.Red(item.Key + ": 效果" + time.Item3 + "倍 剩余" + (time.Item2 * 60 - remainingTime) + "Min\n ");
+                        dec += Show_Color.Red(item.Key + ": " + ConvertSecondsToHHMMSS(time.Item2 * 60 - remainingTime,2) + "\n ");
+
                     }
                 }
             }
         }
 
+        for (int i = 0; i < buff_list.Count; i++) 
+        {
+            if (buff_list[i] > 0)
+            {
+                switch (i)
+                {
+                    case 0:dec += Show_Color.Green("[Buff] 经验加成 " + buff_list[i] + "%\n "); break;
+                    case 1: dec += Show_Color.Green("[Buff] 灵珠加成 " + buff_list[i] + "%\n "); break;
+                    case 2: dec += Show_Color.Green("[Buff] 历练加成 " + buff_list[i] + "%\n "); break;
+                    default:
+                        break;
+                }
+            }
+        }
 
 
         dec += enum_skill_attribute_list.经验加成 + ": " + Show_Buff(enum_skill_attribute_list.经验加成) + "%\n ";
