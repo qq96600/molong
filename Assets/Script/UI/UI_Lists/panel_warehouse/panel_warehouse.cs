@@ -111,8 +111,8 @@ public class panel_warehouse : Panel_Base
     private void Show_Bag_item(bag_item _item,bool ishouse)
     {
         crt_euqip.gameObject.SetActive(true);
-        crt_euqip.Data = _item.Data;
         crt_euqip.Show_House_Btn(ishouse);
+        crt_euqip.Data = _item.Data;
     }
 
 
