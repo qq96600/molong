@@ -535,7 +535,9 @@ namespace MVC
             SumSave.db_lvs.AddUpperLimit();///添加灵气上限
 
         }
-
+        /// <summary>
+        /// 玩家buff
+        /// </summary>
         public void Read_user_player_Buff()
         {
             mysqlReader = MysqlDb.Select(Mysql_Table_Name.user_player_buff, "uid", GetStr(SumSave.crt_user.uid));

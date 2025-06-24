@@ -134,16 +134,19 @@ public class panel_map : Panel_Base
         }
         foreach (string str in map.ProfitList.Split('&'))
         {
-            str.Split(' ');
             string[] str1 = str.Split(' ');
-            Instantiate(material_item_parfabs, pos_life).Init(((str1[0]), 0));
+            material_item item= Instantiate(material_item_parfabs, pos_life);
+            item.Init(((str1[0]), 0));
+            item.GetComponent<Button>().onClick.AddListener(delegate { Alert.Show(str1[0], str1[0]); });
 #if UNITY_EDITOR
-            task_equip(str1[0]);
+            //task_equip(str1[0]);
 #elif UNITY_ANDROID
 #elif UNITY_IPHONE
 #endif
         }
     }
+
+
     /// <summary>
     /// 测试掉落
     /// </summary>

@@ -240,6 +240,7 @@ public class panel_wodleBoss : Panel_Base
     private  void Refresh_Rank()
     {
         SumSave.crt_world_boss_rank.lists = ArrayHelper.OrderDescding(SumSave.crt_world_boss_rank.lists, x => x.Item3);
+
         if(SumSave.crt_world_boss_rank.lists.Count>50)//最多显示50条
         {
             for (int i = 49; i <= SumSave.crt_world_boss_rank.lists.Count-1; i++)
@@ -256,6 +257,7 @@ public class panel_wodleBoss : Panel_Base
     /// </summary>
     private void crate_rank(long rank)
     {
+        ///(uid,名字，伤害)
         List<(string, string, long)> Boss_list = SumSave.crt_world_boss_rank.lists;
         //SumSave.user_ranks.lists.Add(rank);
         if(Boss_list.Count==0)
