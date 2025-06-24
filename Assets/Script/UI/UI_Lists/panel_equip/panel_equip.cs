@@ -57,45 +57,19 @@ public class panel_equip : Panel_Base
         }
         crt_bag = bag;
         equip_item item = Instantiate(equip_item_prafabs, crt_pos_equip);
-        item.Data = bag.Data;
         item.Show_Info_Btn();
-
+        item.Data = bag.Data;
         foreach (var equip in SumSave.crt_euqip)
         {
             if (equip.StdMode == crt_bag.Data.StdMode)
             {
                 equip_item equip_item = Instantiate(equip_item_prafabs, crt_pos_equip);
+                equip_item.Show_take_Btn();
                 equip_item.Data = equip;
                 crt_equip = equip;
-                equip_item.Show_take_Btn();
             }
         }
-        
     }
-
-    //public void InitHouse(bag_item bag,bool ishouse)
-    //{
-    //    gridLayoutgroup.cellSize = new Vector2(178, 360);
-    //    for (int i = crt_pos_equip.childCount - 1; i >= 0; i--)
-    //    {
-    //        Destroy(crt_pos_equip.GetChild(i).gameObject);
-    //    }
-    //    crt_bag = bag;
-    //    equip_item item = Instantiate(equip_item_prafabs, crt_pos_equip);
-    //    item.Data = bag.Data;
-    //    item.Show_House_Btn(ishouse);
-    //    foreach (var equip in SumSave.crt_euqip)
-    //    {
-    //        if (equip.StdMode == crt_bag.Data.StdMode)
-    //        {
-    //            equip_item equip_item = Instantiate(equip_item_prafabs, crt_pos_equip);
-    //            equip_item.Data = equip;
-    //            crt_equip = equip;
-    //            equip_item.Show_take_Btn();
-    //        }
-    //    }
-
-    //}
 
     /// <summary>
     /// 显示装备
@@ -107,8 +81,8 @@ public class panel_equip : Panel_Base
         ClearObject(crt_pos_equip);
         crt_equip = bag.Data;
         equip_item item = Instantiate(equip_item_prafabs, crt_pos_equip);
-        item.Data = bag.Data;
         item.Show_take_Btn();
+        item.Data = bag.Data;
     }
 
     /// <summary>

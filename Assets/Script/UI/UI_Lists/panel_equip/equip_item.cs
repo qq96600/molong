@@ -9,20 +9,24 @@ using UnityEngine.UI;
 public class equip_item : Base_Mono
 {
     private Image item_icon;
+    /// <summary>
+    /// 判断位置 0背包 1装备 2仓库
+    /// </summary>
+    private int state_pos=0;
 
-    private Transform crt_bag,crt_btn;
+    private Transform crt_bag, crt_btn;
 
     private bag_item bag_item_Prefabs;
 
     private btn_item btn_item_Prefabs;
-    private string[] btn_list = new string[] { "穿戴","锁定", "出售" };
-    private string[] take_btn_list=new string[] { "卸下" };
-    private string[] warehouse_btn_list = new string[] { "放入"};
+    private string[] btn_list = new string[] { "穿戴", "锁定", "出售" };
+    private string[] take_btn_list = new string[] { "卸下" };
+    private string[] warehouse_btn_list = new string[] { "放入" };
     private Text show_name, show_base_need, show_info;
     private void Awake()
     {
-        crt_bag=Find<Transform>("show_icon");
-        crt_btn=Find<Transform>("btn_list");
+        crt_bag = Find<Transform>("show_icon");
+        crt_btn = Find<Transform>("btn_list");
         btn_item_Prefabs = Battle_Tool.Find_Prefabs<btn_item>("btn_item"); //Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
         bag_item_Prefabs = Battle_Tool.Find_Prefabs<bag_item>("bag_item"); //Resources.Load<bag_item>("Prefabs/panel_bag/bag_item");
         show_name = Find<Text>("show_name/info");
@@ -53,34 +57,34 @@ public class equip_item : Base_Mono
     private void base_init()
     {
         //生成物品显示
-        if(bag_item_Prefabs==null||crt_bag==null)
+        if (bag_item_Prefabs == null || crt_bag == null)
         {
             Awake();
         }
         ClearObject(crt_bag);
         Instantiate(bag_item_Prefabs, crt_bag).Data = data;
-        show_name.text=data.Name;
+        show_name.text = data.Name;
         string[] info = data.user_value.Split(' ');
-        int strengthenlv= int.Parse(info[1]);
+        int strengthenlv = int.Parse(info[1]);
 
         show_base_need.text = "品质:" + (enum_equip_quality_list)int.Parse(info[2]) + "\n" +
             "类型:" + data.StdMode + "\n" +
             "需求:" + data.equip_lv + "级";
         string dec = Show_Color.Yellow("[基础属性]");
-        
+
         if (data.damgemin > 0 || data.damagemax > 0)
-        { 
+        {
             dec += "\n" + Show_Color.Black("物理攻击:" + data.damgemin + "-" + data.damagemax);
             if (strengthenlv > 0)
-            { 
+            {
                 dec += Show_Color.Grey("(+" + (data.need_lv * strengthenlv) + ")");
             }
         }
         if (data.magicmin > 0 || data.magicmax > 0)
-        { 
+        {
             dec += "\n" + Show_Color.Black("魔法攻击:" + data.magicmin + "-" + data.magicmax);
             if (strengthenlv > 0)
-            { 
+            {
                 dec += Show_Color.Grey("(+" + (data.need_lv * strengthenlv) + ")");
             }
         }
@@ -101,11 +105,11 @@ public class equip_item : Base_Mono
             }
         }
         if (data.hp > 0)
-        { 
+        {
             dec += "\n" + Show_Color.Black("生命值:  " + data.hp);
         }
         if (data.mp > 0)
-        { 
+        {
             dec += "\n" + Show_Color.Black("魔法值:  " + data.mp);
         }
         if (info.Length > 4)
@@ -125,7 +129,7 @@ public class equip_item : Base_Mono
                     {
                         case 1: dec += "\n" + Show_Color.Red("物理攻击: " + arr_value[i] + " - 0"); break;
                         case 2: dec += "\n" + Show_Color.Red("物理攻击: 0 -" + arr_value[i]); break;
-                        case 3: dec += "\n" + Show_Color.Red("魔法攻击: " + arr_value[i]+" - 0"); break;
+                        case 3: dec += "\n" + Show_Color.Red("魔法攻击: " + arr_value[i] + " - 0"); break;
                         case 4: dec += "\n" + Show_Color.Red("魔法攻击: 0 -" + arr_value[i]); break;
                         case 5: dec += "\n" + Show_Color.Red("物理防御: " + arr_value[i]); break;
                         case 6: dec += "\n" + Show_Color.Red("魔法防御: " + arr_value[i]); break;
@@ -139,7 +143,7 @@ public class equip_item : Base_Mono
                 {
                     if (index >= 7)
                     {
-                        if (index==7)
+                        if (index == 7)
                         {
                             dec += "\n" + Show_Color.Yellow("[五行加成]");
                         }
@@ -149,12 +153,12 @@ public class equip_item : Base_Mono
                     else
                     if (index >= 4)
                     {
-                        if (index==4)
+                        if (index == 4)
                         {
                             dec += "\n" + Show_Color.Yellow("[加成属性]");
                         }
-                        dec += "\n" + Show_Color.Red((enum_skill_attribute_list)(int.Parse(arr[i])) + ":" + arr_value[i] +"%");
-                    }else
+                        dec += "\n" + Show_Color.Red((enum_skill_attribute_list)(int.Parse(arr[i])) + ":" + arr_value[i] + "%");
+                    } else
                         dec += "\n" + Show_Color.Green((enum_skill_attribute_list)(int.Parse(arr[i])) + ":" + arr_value[i] + "");
 
 
@@ -163,14 +167,97 @@ public class equip_item : Base_Mono
             }
         }
 
-        if (Data.suit !=0)
+        dec += Show_strengthenlv();
+        if (Data.suit != 0)
         {
-            dec+= Show_Suit();
+            dec += Show_Suit();
         }
         show_info.text = dec;
 
     }
 
+
+    private string Show_strengthenlv()
+    {
+        string dec = "";
+        if (state_pos != 1) return dec;
+        string[] infos = data.user_value.Split(' ');
+        if (int.Parse(infos[1]) == 0&& int.Parse(infos[2]) != 7) return dec;
+        switch ((EquipConfigTypeList)Enum.Parse(typeof(EquipConfigTypeList), data.StdMode))
+        {
+            case EquipConfigTypeList.护符:
+            case EquipConfigTypeList.灵宝:
+            case EquipConfigTypeList.勋章:
+            case EquipConfigTypeList.饰品:
+            case EquipConfigTypeList.玉佩:
+            case EquipConfigTypeList.披风:
+                return dec;
+            default:
+                break;
+        }
+        //装备加成 item1数量 item2最低判断表准（强化18 ） item3 品质7 item4 最低等级 item 绝世数量
+        //  List<(int, int, int,int)> crt_euqips = new List<(int, int, int, int)>() { (1,18,0,100),(2,7,0,100)};
+        (int, int, int, int, int) crt_euqip = (0, 18, 7, 100, 0);
+        //添加装备效果
+        for (int i = 0; i < SumSave.crt_euqip.Count; i++)
+        {
+            Bag_Base_VO datas = SumSave.crt_euqip[i];
+            string[] info = datas.user_value.Split(' ');
+            int strengthenlv = int.Parse(info[1]);
+            int quilty = int.Parse(info[2]);
+            switch ((EquipConfigTypeList)Enum.Parse(typeof(EquipConfigTypeList), datas.StdMode))
+            {
+                case EquipConfigTypeList.武器:
+                case EquipConfigTypeList.衣服:
+                case EquipConfigTypeList.头盔:
+                case EquipConfigTypeList.项链:
+                case EquipConfigTypeList.护臂:
+                case EquipConfigTypeList.戒指:
+                case EquipConfigTypeList.手镯:
+                case EquipConfigTypeList.扳指:
+                case EquipConfigTypeList.腰带:
+                case EquipConfigTypeList.靴子:
+                    //case EquipConfigTypeList.护符:
+                    //case EquipConfigTypeList.灵宝:
+                    //case EquipConfigTypeList.勋章:
+                    // case EquipConfigTypeList.饰品:
+                    //case EquipConfigTypeList.玉佩:
+                    //case EquipConfigTypeList.披风:
+                    crt_euqip = (crt_euqip.Item1 + 1, (int)MathF.Min(crt_euqip.Item2, strengthenlv),
+                        (int)MathF.Min(crt_euqip.Item3, quilty), (int)MathF.Min(crt_euqip.Item4, datas.equip_lv),
+                        quilty >= 7 ? crt_euqip.Item5 + 1 : crt_euqip.Item5);
+
+                    break;
+                default:
+                    break;
+            }
+        }
+        //装备强化加成 
+        if (crt_euqip.Item1 >= 10)
+        {
+            if (crt_euqip.Item2 >= 1)
+            {
+                dec += Show_Color.Yellow("\n[强化加成](" + crt_euqip.Item1 + "/10)\n") + Show_Color.Red((enum_skill_attribute_list.伤害加成).ToString() + ": +" + crt_euqip.Item2 * 5 + "%");
+            }
+            if (crt_euqip.Item3 >= 7)
+            {
+                dec += Show_Color.Yellow("\n[绝世加成](" + crt_euqip.Item1 + "/10)" + Show_Color.Red("\n五行加成 " + crt_euqip.Item4));
+            }
+        }
+        else
+        {
+            if (int.Parse(infos[1]) > 0)
+            {
+                dec += Show_Color.Grey("\n[强化加成](" + crt_euqip.Item1 + "/10)\n") + Show_Color.Grey((enum_skill_attribute_list.伤害加成).ToString() + ": +" + crt_euqip.Item2 * 5 + "%");
+            }
+            if (int.Parse(infos[2]) == 7)
+            {
+                dec += Show_Color.Grey("\n[绝世加成](" + crt_euqip.Item1 + "/10)" + Show_Color.Grey("\n五行加成 " + crt_euqip.Item4));
+            }
+        }
+
+        return dec;
+    }
     private string Show_Suit()
     {
         string dec = "";
@@ -212,10 +299,11 @@ public class equip_item : Base_Mono
     }
 
     /// <summary>
-    /// 判断是否有开关
+    /// 判断是否有开关 背包
     /// </summary>
     public void Show_Info_Btn()
     {
+        state_pos = 0;
         for (int i = 0; i < btn_list.Length; i++)
         {
             btn_item item = Instantiate(btn_item_Prefabs, crt_btn);
@@ -223,8 +311,13 @@ public class equip_item : Base_Mono
             item.GetComponent<Button>().onClick.AddListener(() => { OnClick_Btn(item); });
         }
     }
+    /// <summary>
+    /// 仓库开关
+    /// </summary>
+    /// <param name="ishouse"></param>
     public void Show_House_Btn(bool ishouse)
     {
+        state_pos = 2;
         ClearObject(crt_btn);
         string house = ishouse ? "存入" : "取出";
         btn_item item = Instantiate(btn_item_Prefabs, crt_btn);
@@ -260,6 +353,7 @@ public class equip_item : Base_Mono
     /// </summary>
     public void Show_take_Btn()
     {
+        state_pos = 1;
         for (int i = 0; i < take_btn_list.Length; i++)
         {
             btn_item item = Instantiate(btn_item_Prefabs, crt_btn);

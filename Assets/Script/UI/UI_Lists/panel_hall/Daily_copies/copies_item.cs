@@ -1,3 +1,4 @@
+using Common;
 using MVC;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,6 +19,10 @@ public class copies_item : Base_Mono
     public user_map_vo index;
 
     private int number, maxnumber;
+    /// <summary>
+    /// 五行类型
+    /// </summary>
+    private string[] five_element_type = { "土", "火", "水", "木", "金" };
     private void Awake()
     {
         icon=Find<Image>("bg/icon");
@@ -25,14 +30,16 @@ public class copies_item : Base_Mono
         info =Find<Text>("info");
     }
 
-    public void Init(user_map_vo map,int _number,int _maxnumber)
+    public void Init(user_map_vo map, int _number, int _maxnumber)
     {
         index = map;
         number = _number;
         maxnumber = _maxnumber;
         info.text = map.map_name + "(" + number + "/" + maxnumber + ")";
         icon.sprite = Resources.Load<Sprite>("Prefabs/monsters/" + map.monster_list);
-        base_name.text = "[Boss]" + map.monster_list;
+ 
+        base_name.text = "(" + five_element_type[map.map_life-1] + ")" + "[Boss]" + map.monster_list;
+
     }
     /// <summary>
     /// 显示信息

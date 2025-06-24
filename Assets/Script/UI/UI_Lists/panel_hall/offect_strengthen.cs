@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 public class offect_strengthen : Base_Mono
 {
-    private List<string> btn_list = new List<string>() { "穿戴", "背包" };
+    private List<string> btn_list = new List<string>() { "穿戴", "背包","合成" };
     private Transform pos_btn,pos_bag,pos_icon;
     /// <summary>
     /// 功能按钮
@@ -27,6 +27,10 @@ public class offect_strengthen : Base_Mono
     /// 当前选择
     /// </summary>
     private bag_item crt_bag;
+    /// <summary>
+    /// 合成列表
+    /// </summary>
+    private List<Bag_Base_VO> synthesis_list = new List<Bag_Base_VO>();
     /// <summary>
     /// 强化
     /// </summary>
@@ -61,6 +65,11 @@ public class offect_strengthen : Base_Mono
     /// </summary>
     private void Strengthen()
     {
+        if (index == 2)
+        {
+            Strengthen_synthesis();//合成
+            return;
+        }
         string[] infos = crt_bag.Data.user_value.Split(' ');
         int lv = int.Parse(infos[1]);
         if (lv >= crt_bag.Data.need_lv / 10 + 3)
@@ -85,6 +94,30 @@ public class offect_strengthen : Base_Mono
             EquipmentEnhancementTask();
         }
         else Alert_Dec.Show(currency_unit.灵珠 + "不足 " + needs[lv]);
+    }
+    /// <summary>
+    /// 合成功能
+    /// </summary>
+    private void Strengthen_synthesis()
+    {
+        if (synthesis_list.Count < 3)
+        {
+            Alert_Dec.Show("当前装备数量不足");
+            return;
+        }
+        NeedConsumables(currency_unit.灵气, synthesis_list[0].equip_lv * 20 + 500);
+        if (RefreshConsumables())
+        {
+            foreach (Bag_Base_VO item in synthesis_list)
+            {
+                SumSave.crt_bag.Remove(item);
+            }
+            SumSave.crt_bag.Add(tool_Categoryt.crate_equip(synthesis_list[0].Name,7));
+            Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.bag_value, SumSave.crt_bag);
+            Alert_Dec.Show("合成成功");
+            Base_Show();
+        }
+        else Alert_Dec.Show(currency_unit.灵气 + "不足 " + (synthesis_list[0].equip_lv * 20 + 500));
     }
 
     /// <summary>
@@ -136,6 +169,8 @@ public class offect_strengthen : Base_Mono
     private void Base_Show()
     {
         ClearObject(pos_bag);
+        pos_icon.GetComponent<RectTransform>().sizeDelta = new Vector2(100, 100);
+        crt_bag = null;
         if (index == 0)
         {
             if (Show_Bag(SumSave.crt_euqip))
@@ -148,6 +183,17 @@ public class offect_strengthen : Base_Mono
             if (Show_Bag(SumSave.crt_bag))
             {
                 Alert_Dec.Show("当前无可强化装备");
+            }
+        }
+        if (index == 2)
+        {
+            synthesis_list = new List<Bag_Base_VO>();
+            pos_icon.GetComponent<RectTransform>().sizeDelta = new Vector2(360, 100);
+            info.text = "请放入合成装备(仅可使用神话级)";
+            ClearObject(pos_icon);
+            if (Show_synthesis(SumSave.crt_bag))
+            {
+                Alert_Dec.Show("当前无可合成装备");
             }
         }
     }
@@ -171,7 +217,7 @@ public class offect_strengthen : Base_Mono
                 case EquipConfigTypeList.靴子:
                 //case EquipConfigTypeList.护符:
                 //case EquipConfigTypeList.灵宝:
-                //case EquipConfigTypeList.勋章:
+                case EquipConfigTypeList.勋章:
                 //case EquipConfigTypeList.饰品:
                 //case EquipConfigTypeList.玉佩:
                 case EquipConfigTypeList.披风:
@@ -189,6 +235,106 @@ public class offect_strengthen : Base_Mono
         return exist;
         
     }
+    /// <summary>
+    /// 合成列表
+    /// </summary>
+    /// <param name="list"></param>
+    /// <returns></returns>
+    private bool Show_synthesis(List<Bag_Base_VO> list)
+    {
+        bool exist = true;
+
+        for (int i = 0; i < list.Count; i++)
+        {
+            switch ((EquipConfigTypeList)Enum.Parse(typeof(EquipConfigTypeList), list[i].StdMode))
+            {
+                case EquipConfigTypeList.武器:
+                case EquipConfigTypeList.衣服:
+                case EquipConfigTypeList.头盔:
+                case EquipConfigTypeList.项链:
+                case EquipConfigTypeList.护臂:
+                case EquipConfigTypeList.戒指:
+                case EquipConfigTypeList.手镯:
+                case EquipConfigTypeList.扳指:
+                case EquipConfigTypeList.腰带:
+                case EquipConfigTypeList.靴子:
+                //case EquipConfigTypeList.护符:
+                //case EquipConfigTypeList.灵宝:
+                //case EquipConfigTypeList.勋章:
+                //case EquipConfigTypeList.饰品:
+                //case EquipConfigTypeList.玉佩:
+                case EquipConfigTypeList.披风:
+                    int state = 0;
+                    if (list[i].user_value.Split(' ')[2] == "6")
+                    {
+                        if (synthesis_list.Count > 0)
+                        {
+                            for (int j = 0; j < synthesis_list.Count; j++) 
+                            {
+                                if (synthesis_list[j].Name == list[i].Name && synthesis_list[j]!= list[i])
+                                {
+                                    state++;
+                                }
+                            }
+                        }
+                        if (state == synthesis_list.Count)
+                        {
+                            exist = false;
+                            bag_item item = Instantiate(bag_item_Prefabs, pos_bag);
+                            item.Data = (list[i]);
+                            item.GetComponent<Button>().onClick.AddListener(() => { Select_synthesis(item); });
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        return exist;
+
+    }
+    /// <summary>
+    /// 选择合成物品
+    /// </summary>
+    /// <param name="item"></param>
+    private void Select_synthesis(bag_item item)
+    {
+        for (int i = 0; i < synthesis_list.Count; i++)
+        {
+            if(synthesis_list[i] == item.Data)
+            {
+                synthesis_list.RemoveAt(i);
+                Show_synthesis_list();
+                Alert_Dec.Show("已取消合成材料");
+                return;
+            }
+        }
+        if (synthesis_list.Count < 3)
+        {
+            synthesis_list.Add(item.Data);
+            Show_synthesis_list();
+            ClearObject(pos_bag);
+            Show_synthesis(SumSave.crt_bag);
+        }
+        else Alert_Dec.Show("合成装备已满");
+    }
+    /// <summary>
+    /// 显示合成材料
+    /// </summary>
+    private void Show_synthesis_list()
+    {
+        ClearObject(pos_icon);
+        for (int i = 0; i < synthesis_list.Count; i++)
+        {
+            info.text = "合成" + synthesis_list[i].Name + "需要" + currency_unit.灵气 + (synthesis_list[i].equip_lv * 20 + 500);
+            bag_item item = Instantiate(bag_item_Prefabs, pos_icon);
+            item.Data = (synthesis_list[i]);
+            item.GetComponent<Button>().onClick.AddListener(() => { Select_synthesis(item); });
+        }
+
+    }
+
     /// <summary>
     /// 选择强化
     /// </summary>

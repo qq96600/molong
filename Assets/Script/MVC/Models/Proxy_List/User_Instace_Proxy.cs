@@ -535,7 +535,9 @@ namespace MVC
             SumSave.db_lvs.AddUpperLimit();///添加灵气上限
 
         }
-
+        /// <summary>
+        /// 玩家buff
+        /// </summary>
         public void Read_user_player_Buff()
         {
             mysqlReader = MysqlDb.Select(Mysql_Table_Name.user_player_buff, "uid", GetStr(SumSave.crt_user.uid));
@@ -1113,7 +1115,7 @@ namespace MVC
             crtMaxHeroVO crt = new crtMaxHeroVO();
             crt.Lv = SumSave.crt_hero.hero_Lv;
             crt.show_name= SumSave.crt_hero.hero_name;
-
+       
             ////添加皮肤属性
             for (int i = 0; i < SumSave.db_heros.Count; i++)
             {
@@ -1127,6 +1129,9 @@ namespace MVC
                     }
                 }
             }
+            //装备加成 item1数量 item2最低判断表准（强化18 ） item3 品质7 item4 最低等级
+            //  List<(int, int, int,int)> crt_euqips = new List<(int, int, int, int)>() { (1,18,0,100),(2,7,0,100)};
+            (int, int, int, int) crt_euqip = (0, 18, 7, 100);
             Dictionary<int,int> suits= new Dictionary<int, int>();
             //添加装备效果
             for (int i = 0; i < SumSave.crt_euqip.Count; i++)
@@ -1139,6 +1144,50 @@ namespace MVC
                 }
                 string[] info = data.user_value.Split(' ');
                 int strengthenlv = int.Parse(info[1]);
+                int quilty = int.Parse(info[2]);
+                switch ((EquipConfigTypeList)Enum.Parse(typeof(EquipConfigTypeList), data.StdMode))
+                {
+                    case EquipConfigTypeList.武器:
+                    case EquipConfigTypeList.衣服:
+                    case EquipConfigTypeList.头盔:
+                    case EquipConfigTypeList.项链:
+                    case EquipConfigTypeList.护臂:
+                    case EquipConfigTypeList.戒指:
+                    case EquipConfigTypeList.手镯:
+                    case EquipConfigTypeList.扳指:
+                    case EquipConfigTypeList.腰带:
+                    case EquipConfigTypeList.靴子:
+                    //case EquipConfigTypeList.护符:
+                    //case EquipConfigTypeList.灵宝:
+                    //case EquipConfigTypeList.勋章:
+                    // case EquipConfigTypeList.饰品:
+                    //case EquipConfigTypeList.玉佩:
+                    //case EquipConfigTypeList.披风:
+                        crt_euqip = (crt_euqip.Item1 + 1, (int)MathF.Min(crt_euqip.Item2, strengthenlv), (int)MathF.Min(crt_euqip.Item3, quilty), (int)MathF.Min(crt_euqip.Item4, data.equip_lv));
+
+                        break;
+                    default:
+                        break;
+                }
+                //判断强化
+                //for (int j = 0; j < crt_euqips.Count; j++)
+                //{
+                //    crt_euqips[j] = (crt_euqips[j].Item1, crt_euqips[j].Item2, crt_euqips[j].Item3 + 1, crt_euqips[j].Item4);
+                //    //强化等级调整
+                //    if (crt_euqips[j].Item2 >= strengthenlv) crt_euqips[j] = (crt_euqips[j].Item1, strengthenlv, crt_euqips[j].Item3, crt_euqips[j].Item4);
+                //}
+                ////数量+1
+                //crt_euqips[0] = (0, crt_euqips[0].Item2, crt_euqips[0].Item3+1, crt_euqips[0].Item4);
+                ////强化等级调整
+                //if (crt_euqips[0].Item2 >= strengthenlv) crt_euqips[0] = (0, strengthenlv, crt_euqips[0].Item3, crt_euqips[0].Item4);
+                ////装备的等级
+                //if (crt_euqips[0].Item4 >= data.equip_lv) crt_euqips[0] = (0, crt_euqips[0].Item2, crt_euqips[0].Item3, data.equip_lv);
+                ////判断品质
+                //crt_euqips[1]= (1, crt_euqips[1].Item2, crt_euqips[1].Item3 + 1, crt_euqips[1].Item4);
+                ////品质等级调整
+                //if (crt_euqips[1].Item2 >= quilty) crt_euqips[1] = (1, quilty, crt_euqips[1].Item3, crt_euqips[1].Item4);
+                ////装备的等级
+                //if (crt_euqips[1].Item4 >= data.equip_lv) crt_euqips[1] = (1, crt_euqips[1].Item2, crt_euqips[1].Item3, data.equip_lv);
                 crt.damageMin += data.damgemin;
                 crt.damageMax += data.damagemax;
                 crt.MagicdamageMin += data.magicmin;
@@ -1205,6 +1254,25 @@ namespace MVC
                     }
                 }
             }
+            //装备强化加成 
+            if (crt_euqip.Item1 >= 10)
+            {
+                if (crt_euqip.Item2 >= 1)
+                {
+                    crt.double_damage += crt_euqip.Item2 * 5;
+                }
+                if (crt_euqip.Item3 >= 7)
+                {
+                    for (int i = 0; i < 5; i++)
+                    {
+                        Enum_Value(crt, 30 + i, crt_euqip.Item4);
+                    }
+                }
+            
+            }
+
+
+
 
             if (suits.Count > 0)
             {

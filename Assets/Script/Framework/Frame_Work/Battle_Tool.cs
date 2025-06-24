@@ -933,10 +933,15 @@ public static class Battle_Tool
             base_crt.Point = 0;
             base_crt.Monster_Lv = 4;
             coefficient = 1;
+            if (map.map_life != 0)
+            {
+                base_crt.life[map.map_life - 1] += (SumSave.crt_MaxHero.Lv - 30) * 2;
+            }
             if (SumSave.crt_MaxHero.Lv >= 40)
             {
                 int lv = (SumSave.crt_MaxHero.Lv - 30) / 10;
                 coefficient = lv;
+                
             }
         }
         if (trial_storey >= 0)
