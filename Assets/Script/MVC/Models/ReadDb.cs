@@ -346,9 +346,6 @@ public static class ReadDb
     {
         item.achievement_exp = reader.GetString(reader.GetOrdinal("achieve_exp"));
         item.achievement_lvs = reader.GetString(reader.GetOrdinal("achieve_lvs"));
-
-
-
         #region 更换现有玩家成就词条
         //if (item.achievement_exp == "" && item.achievement_lvs == "")
         //{
