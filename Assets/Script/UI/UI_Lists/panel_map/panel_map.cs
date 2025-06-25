@@ -169,7 +169,7 @@ public class panel_map : Panel_Base
             case EquipConfigTypeList.饰品:
             case EquipConfigTypeList.玉佩:
             case EquipConfigTypeList.披风:
-                bag = tool_Categoryt.crate_equip(bag.Name, 6);
+                bag = tool_Categoryt.crate_equip(bag.Name, 7);
                 SumSave.crt_bag.Add(bag);
                 break;
             default:
