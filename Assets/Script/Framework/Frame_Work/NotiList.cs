@@ -14,6 +14,7 @@ public class NotiList
     public const string Read_Mysql_Base_Time = "读取网络时间";
     public const string Read_World = "读取小世界";
     public const string Read_User_Ranks = "读取排行榜";
+    public const string Refresh_Rank = "刷新排行榜";
     public const string Read_Crate_Uid = "进入游戏";
     public const string Read_Crate_IPhone_Uid= "进入苹果游戏";
     public const string Read_Obtain_Par = "读取服务器列表";

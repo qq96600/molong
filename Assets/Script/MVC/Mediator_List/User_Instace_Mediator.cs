@@ -43,7 +43,8 @@ namespace MVC
                 NotiList.Read_Crate_world_boss_update,
                 NotiList.Read_Crate_RecordAndClearWorldBoss,
                 NotiList.Read_Trial_Tower,
-                NotiList.Refresh_Trial_Tower
+                NotiList.Refresh_Trial_Tower,
+                NotiList.Refresh_Rank,
             };
 
         }
@@ -111,6 +112,9 @@ namespace MVC
                     break;
                     case NotiList.Refresh_Trial_Tower:
                     user.Refresh_Trial_Tower(int.Parse(data.ToString()));
+                    break;
+                case NotiList.Refresh_Rank:
+                    user.Refresh_Rank();
                     break;
 
 

@@ -220,8 +220,43 @@ public class panel_bag : Panel_Base
         Show_Bag();
         //Base_Show();
         base_Equip();
-       
+        ObtainEquipmentTasks();
     }
+
+    /// <summary>
+    /// 获得装备任务
+    /// </summary>
+    private static void ObtainEquipmentTasks()
+    {
+        foreach (var item in SumSave.GreenhandGuide_TotalTasks.Keys)
+        {
+            if (SumSave.GreenhandGuide_TotalTasks[item].tasktype == GreenhandGuideTaskType.收集任务)
+            {
+                GreenhandGuide_TotalTaskVO task = SumSave.GreenhandGuide_TotalTasks[item];//读取任务
+                List<(string, int)> bag = SumSave.crt_bag_resources.Set();
+                for (int i=0;i< bag.Count;i++)
+                {
+                    if (task.TaskDesc.Contains(bag[i].Item1))//判断任务名字是否包涵该装备
+                    {
+                        tool_Categoryt.Base_Task(1033);
+                        tool_Categoryt.Base_Task(1048);
+                        tool_Categoryt.Base_Task(1055);
+                        tool_Categoryt.Base_Task(1056);
+                        tool_Categoryt.Base_Task(1058);
+                        tool_Categoryt.Base_Task(1065);
+                    }
+                }
+                
+            }
+   
+        }
+
+
+
+
+    }
+
+
     /// <summary>
     /// 显示装备
     /// </summary>

@@ -174,6 +174,7 @@ public class panel_collect : Base_Mono
                         Alert_Dec.Show(crt_collect.Name + " 收集成功");
                         SuitCollect(crt_collect);
                         CollectTasks();
+                        SendNotification(NotiList.Refresh_Max_Hero_Attribute);
                         return;
                     }
 
@@ -227,6 +228,7 @@ public class panel_collect : Base_Mono
 
                     SetCollectionTask();
                     Alert_Dec.Show("该套装已收集,增加的属性为：" + str);
+                    SendNotification(NotiList.Refresh_Max_Hero_Attribute);
                 }
                 else
                 {
