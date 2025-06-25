@@ -217,7 +217,7 @@ public class offect_strengthen : Base_Mono
                 case EquipConfigTypeList.靴子:
                 //case EquipConfigTypeList.护符:
                 //case EquipConfigTypeList.灵宝:
-                //case EquipConfigTypeList.勋章:
+                case EquipConfigTypeList.勋章:
                 //case EquipConfigTypeList.饰品:
                 //case EquipConfigTypeList.玉佩:
                 case EquipConfigTypeList.披风:

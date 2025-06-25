@@ -198,7 +198,9 @@ public class crtMaxHeroVO
     /// 怪物掉落金币
     /// </summary>
     public int unit = 0;
-
+    /// <summary>
+    /// 战力
+    /// </summary>
     public int totalPower;
     
     /// <summary>

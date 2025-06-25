@@ -6,12 +6,15 @@ public class bag_item : Base_Mono
 {
     private Image item_icon, item_frame,lock_On;
     private Text info;
+    private Transform receive;
     private void Awake()
     {
         item_icon = Find<Image>("icon");
         item_frame = Find<Image>("frame");
         info = Find<Text>("info");
         lock_On= Find<Image>("icon/lock");
+        receive= Find<Transform>("receive");
+        receive.gameObject.SetActive(false);
     }
 
     private Bag_Base_VO data;
@@ -31,6 +34,13 @@ public class bag_item : Base_Mono
 
         // 应用新的颜色
         item_icon.color = currentColor;
+    }
+    /// <summary>
+    /// 显示已领取图标
+    /// </summary>
+    public void showReceive()
+    {
+        receive.gameObject.SetActive(true);
     }
 
     /// <summary>
