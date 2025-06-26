@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using Common;
 using MVC;
 using MySql.Data.MySqlClient;
 using UnityEngine;
@@ -297,6 +298,13 @@ public static class ReadDb
         for (int i = 0; i < word_lv_max_value2.Length; i++)
         {
             item.word_lv_max_value.Add(Convert.ToInt32(word_lv_max_value2[i]));
+        }
+        string limitation_value = reader.GetString(reader.GetOrdinal("limitation_value"));
+        string[] limitation_value2 = limitation_value.Split(',');
+        for (int i = 0; i < limitation_value2.Length; i++)
+        {
+            if(limitation_value2[i] != "")
+            SumSave.base_setting.Add(int.Parse(limitation_value2[i]));
         }
         return item;
     }

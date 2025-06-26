@@ -1985,6 +1985,18 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5660262182159584703, guid: f9f5591dcb5a0a2429134d6c3b989679, type: 3}
+      propertyPath: m_ContentType
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660262182159584703, guid: f9f5591dcb5a0a2429134d6c3b989679, type: 3}
+      propertyPath: m_KeyboardType
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660262182159584703, guid: f9f5591dcb5a0a2429134d6c3b989679, type: 3}
+      propertyPath: m_CharacterValidation
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5829668826459662873, guid: f9f5591dcb5a0a2429134d6c3b989679, type: 3}
       propertyPath: m_Name
       value: panel_Buff

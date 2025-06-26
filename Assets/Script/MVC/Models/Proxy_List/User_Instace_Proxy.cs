@@ -103,6 +103,20 @@ namespace MVC
             }
             if (!Crt_Verify(crt_verify))
             {
+                if (id[0] == "admin001")//苹果测试账户
+                {
+                    SumSave.uid = Guid.NewGuid().ToString("N");
+                    Game_Omphalos.i.Alert_Show("创建角色成功");
+                    crt_verify = Guid.NewGuid().ToString("N");
+                    Wirte_Id(crt_verify);
+                    ///新用户
+                    MysqlDb.InsertInto(Mysql_Table_Name.mo_user_iphone, new string[] {
+                    GetStr(0), GetStr(SumSave.par), GetStr(id[0]), GetStr(id[1]), GetStr(SumSave.uid), GetStr(crt_verify)});
+                    Login();
+                    Game_Omphalos.i.Alert_Show("登录成功");
+                    CloseMySqlDB();
+                    return;
+                }
                 SumSave.uid = null;
                 Game_Omphalos.i.Alert_Info("查询不到设备信息,请联系管理\nqq 386246268");
             }
@@ -1181,25 +1195,6 @@ namespace MVC
                     default:
                         break;
                 }
-                //判断强化
-                //for (int j = 0; j < crt_euqips.Count; j++)
-                //{
-                //    crt_euqips[j] = (crt_euqips[j].Item1, crt_euqips[j].Item2, crt_euqips[j].Item3 + 1, crt_euqips[j].Item4);
-                //    //强化等级调整
-                //    if (crt_euqips[j].Item2 >= strengthenlv) crt_euqips[j] = (crt_euqips[j].Item1, strengthenlv, crt_euqips[j].Item3, crt_euqips[j].Item4);
-                //}
-                ////数量+1
-                //crt_euqips[0] = (0, crt_euqips[0].Item2, crt_euqips[0].Item3+1, crt_euqips[0].Item4);
-                ////强化等级调整
-                //if (crt_euqips[0].Item2 >= strengthenlv) crt_euqips[0] = (0, strengthenlv, crt_euqips[0].Item3, crt_euqips[0].Item4);
-                ////装备的等级
-                //if (crt_euqips[0].Item4 >= data.equip_lv) crt_euqips[0] = (0, crt_euqips[0].Item2, crt_euqips[0].Item3, data.equip_lv);
-                ////判断品质
-                //crt_euqips[1]= (1, crt_euqips[1].Item2, crt_euqips[1].Item3 + 1, crt_euqips[1].Item4);
-                ////品质等级调整
-                //if (crt_euqips[1].Item2 >= quilty) crt_euqips[1] = (1, quilty, crt_euqips[1].Item3, crt_euqips[1].Item4);
-                ////装备的等级
-                //if (crt_euqips[1].Item4 >= data.equip_lv) crt_euqips[1] = (1, crt_euqips[1].Item2, crt_euqips[1].Item3, data.equip_lv);
                 crt.damageMin += data.damgemin;
                 crt.damageMax += data.damagemax;
                 crt.MagicdamageMin += data.magicmin;
@@ -1282,9 +1277,6 @@ namespace MVC
                 }
             
             }
-
-
-
 
             if (suits.Count > 0)
             {

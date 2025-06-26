@@ -53,6 +53,7 @@ public class user_world_vo : Base_VO
     /// <param name="value"></param>
     public void AddValue_lists(int value, bool exist = true)
     {
+        //Debug.LogError("溯源");
         if (exist) value_lists[0] = SumSave.nowtime.ToString();
         value_lists[1] = (int.Parse(value_lists[1]) + value).ToString();
         VerifyMaximum();

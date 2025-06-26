@@ -59,6 +59,7 @@ public class panel_Buff : Panel_Base
     {
         base.Initialize();
         inputField = Find<InputField>("bg_main/InputField");
+        inputField.onValueChanged.AddListener(FilterNameInput);
         confirm = Find<Button>("bg_main/confirm");
         info = Find<Text>("bg_main/ScrollView/Viewport/Content/info");
         confirm.onClick.AddListener(OnConfirmClick);
@@ -80,6 +81,33 @@ public class panel_Buff : Panel_Base
     {
         Alert.Show("提示", "确定将角色名称修改为\n" + Show_Color.Red(inputField.text) + " ？", Confirm);
     }
+
+    /// <summary>
+    ///  过滤掉不符合规则的字符
+    /// </summary>
+    /// <param name="input"></param>
+    private void FilterNameInput(string input)
+    {
+        
+        System.Text.StringBuilder sb = new System.Text.StringBuilder();
+        foreach (char c in input)
+        {
+            if (char.IsLetterOrDigit(c) || c == '_' || IsChineseCharacter(c))
+            {
+                sb.Append(c);
+            }
+        }
+
+        if (sb.ToString() != input)
+        {
+            inputField.text = sb.ToString();
+        }
+    }
+    private bool IsChineseCharacter(char c)
+    {
+        return c >= 0x4E00 && c <= 0x9FFF;
+    }
+
     /// <summary>
     /// 确认
     /// </summary>

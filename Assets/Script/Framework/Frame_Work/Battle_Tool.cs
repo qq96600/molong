@@ -296,18 +296,14 @@ public static class Battle_Tool
         int value = 0;
         if (SumSave.crt_world == null) return value;
         List<string> list = SumSave.crt_world.Get();
-
-        //int time = (int)(SumSave.nowtime - Convert.ToDateTime(list[0])).TotalMinutes;
         int time = Battle_Tool.SettlementTransport(list[0]);
-
         ArrayHelper.SafeGet(SumSave.db_lvs.world_offect_list, SumSave.crt_world.World_Lv, out int se);
         value = time * SumSave.db_lvs.world_offect_list[SumSave.crt_world.World_Lv];
-        value += int.Parse(list[1]);
-
-        value = Mathf.Min(value, SumSave.db_lvs.word_lv_max_value[SumSave.crt_world.World_Lv]);
-        //SumSave.crt_world.Set(value);
         SumSave.crt_world.AddValue_lists(value);
-        return value;
+        list = SumSave.crt_world.Get();
+        //value = Mathf.Min(value, SumSave.db_lvs.word_lv_max_value[SumSave.crt_world.World_Lv]);
+        //SumSave.crt_world.Set(value);
+        return int.Parse(list[1]);
     }
     /// <summary>
     /// 获取货币
@@ -785,10 +781,11 @@ public static class Battle_Tool
                 {
                     exist = true;
                     SumSave.crt_MaxHero.Init();
-                    if (SumSave.crt_MaxHero.totalPower < SumSave.user_ranks.lists[i].value)//小于的情况 写入排行榜战力 且替换排行榜战力
-                    {
-                        Game_Omphalos.i.Alert_Info($"你的战力降低了{"原战斗力" + SumSave.user_ranks.lists[i].value + " 当前" + (int)SumSave.crt_MaxHero.totalPower}");
-                    }
+                    //写入日志 暂时先关闭
+                    //if (SumSave.crt_MaxHero.totalPower < SumSave.user_ranks.lists[i].value)//小于的情况 写入排行榜战力 且替换排行榜战力
+                    //{
+                    //    Game_Omphalos.i.Alert_Info($"你的战力降低了{"原战斗力" + SumSave.user_ranks.lists[i].value + " 当前" + (int)SumSave.crt_MaxHero.totalPower}");
+                    //}
                     SumSave.user_ranks.lists[i].rank_name = SumSave.crt_MaxHero.show_name;
                     SumSave.user_ranks.lists[i].value = (int)SumSave.crt_MaxHero.totalPower;
                     SumSave.user_ranks.lists[i].lv = SumSave.crt_MaxHero.Lv;
