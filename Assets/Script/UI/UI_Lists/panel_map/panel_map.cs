@@ -139,7 +139,7 @@ public class panel_map : Panel_Base
             item.Init(((str1[0]), 0));
             item.GetComponent<Button>().onClick.AddListener(delegate { Alert.Show(str1[0], str1[0]); });
 #if UNITY_EDITOR
-            task_equip(str1[0]);
+            //task_equip(str1[0]);
 #elif UNITY_ANDROID
 #elif UNITY_IPHONE
 #endif
