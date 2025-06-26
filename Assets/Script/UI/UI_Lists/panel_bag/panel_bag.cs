@@ -101,16 +101,21 @@ public class panel_bag : Panel_Base
         switch (function_list[btn_item.index])
         { 
             case "一键分解":
-                break_down();
+                Alert.Show("一键分解", "是否分解所有可分解装备？", Break_Down);
+              
                 break;
             case "一键出售":
-                SellAll();
+                Alert.Show("一键出售", "是否出售所有可出售装备？", Sell_All);
                 break;
         }
     }
-    /// <summary>
-    /// 分解
-    /// </summary>
+    private void Break_Down(object arg0)
+    {
+        break_down();
+    }
+        /// <summary>
+        /// 分解
+        /// </summary>
     private void break_down()
     {
         List<Bag_Base_VO> sell_list = new List<Bag_Base_VO>();
@@ -144,9 +149,18 @@ public class panel_bag : Panel_Base
     }
 
     /// <summary>
+    /// 一件出售
+    /// </summary>
+    /// <param name="arg0"></param>
+    private void Sell_All(object arg0)
+    {
+        sell_all();
+    }
+
+    /// <summary>
     /// 全部出售
     /// </summary>
-    private void SellAll()
+    private void sell_all()
     {
         int moeny= 0;
         List<Bag_Base_VO> sell_list = new List<Bag_Base_VO>();

@@ -74,7 +74,7 @@ namespace MVC
         public void TakeDamage(float damage, DamageEnum damageEnum )
         {
             if (HP <= 0) return;
-            //damage = 1000000;
+            damage = 1000000;
             HP -= damage;
             AudioManager.Instance.playAudio(ClipEnum.被敌人攻击);
 

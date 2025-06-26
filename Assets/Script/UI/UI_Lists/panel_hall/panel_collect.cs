@@ -369,33 +369,42 @@ public class panel_collect : Base_Mono
         //        dec += typ[i] + ":";
         //    }
         //}
-        List<db_collect_vo> suit = new List<db_collect_vo>();
-        for (int z = 0; z < SumSave.db_collect_vo.Count; z++)//获得该套装所有装备
+        for (int j = 0; j < suit_Type.GetNames(typeof(suit_Type)).Length; j++)
         {
-            if (SumSave.db_collect_vo[z].StdMode == crt_collect.StdMode)//收集该套装装备
+            if (collect.StdMode == suit_Type.GetNames(typeof(suit_Type))[j])//是否为套装
             {
-                suit.Add(SumSave.db_collect_vo[z]);
-            }
-        }
-        int count = 0;//套装收集计数器
-        for (int x = 0; x < suit.Count; x++)//循环该套装所有装备
-        {
-            if (SumSave.crt_collect.user_collect_dic.ContainsKey(suit[x].Name))//是否有数据，没有就是没收集
-            {
-                if (SumSave.crt_collect.user_collect_dic[suit[x].Name] == 1)//判断是否收集
+                List<db_collect_vo> suit = new List<db_collect_vo>();
+                for (int z = 0; z < SumSave.db_collect_vo.Count; z++)//获得该套装所有装备
                 {
-                    count++;
+                    if (SumSave.db_collect_vo[z].StdMode == crt_collect.StdMode)//收集该套装装备
+                    {
+                        suit.Add(SumSave.db_collect_vo[z]);
+                    }
                 }
+                int count = 0;//套装收集计数器
+                for (int x = 0; x < suit.Count; x++)//循环该套装所有装备
+                {
+                    if (SumSave.crt_collect.user_collect_dic.ContainsKey(suit[x].Name))//是否有数据，没有就是没收集
+                    {
+                        if (SumSave.crt_collect.user_collect_dic[suit[x].Name] == 1)//判断是否收集
+                        {
+                            count++;
+                        }
+                    }
+                }
+                dec += crt_collect.StdMode + "(" + count + "/" + suit.Count + ")\n";
+                if (count == suit.Count) dec = Show_Color.Green(dec);
+                else dec = Show_Color.Grey(dec);
+                
             }
         }
-        dec += crt_collect.StdMode+"(" + count + "/" + suit.Count+")\n";
+
         for (int i = 0; i < crt_collect.bonuses_types.Length; i++) 
         {
             string type = ((enum_skill_attribute_list)(int.Parse(crt_collect.bonuses_types[i]))).ToString();
             dec += type + "+" + crt_collect.bonuses_values[i] + tool_Categoryt.Obtain_unit(int.Parse(crt_collect.bonuses_types[i])) + "\n";
         }
-        if (count == suit.Count) dec = Show_Color.Green(dec);
-        else dec = Show_Color.Grey(dec);
+
         collect_info_text.text += dec;
         if (!SumSave.crt_collect.user_collect_dic.ContainsKey(crt_collect.Name)|| SumSave.crt_collect.user_collect_dic[crt_collect.Name] == 0)
         {
