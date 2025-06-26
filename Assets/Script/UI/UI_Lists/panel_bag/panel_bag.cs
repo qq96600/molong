@@ -228,11 +228,10 @@ public class panel_bag : Panel_Base
     /// </summary>
     private static void ObtainEquipmentTasks()
     {
-        foreach (var item in SumSave.GreenhandGuide_TotalTasks.Keys)
-        {
-            if (SumSave.GreenhandGuide_TotalTasks[item].tasktype == GreenhandGuideTaskType.收集任务)
+        
+            if (SumSave.GreenhandGuide_TotalTasks[SumSave.crt_greenhand.crt_task].tasktype == GreenhandGuideTaskType.收集任务)
             {
-                GreenhandGuide_TotalTaskVO task = SumSave.GreenhandGuide_TotalTasks[item];//读取任务
+                GreenhandGuide_TotalTaskVO task = SumSave.GreenhandGuide_TotalTasks[SumSave.crt_greenhand.crt_task];//读取任务
                 List<(string, int)> bag = SumSave.crt_bag_resources.Set();
                 for (int i=0;i< bag.Count;i++)
                 {
@@ -248,12 +247,6 @@ public class panel_bag : Panel_Base
                 }
                 
             }
-   
-        }
-
-
-
-
     }
 
 
