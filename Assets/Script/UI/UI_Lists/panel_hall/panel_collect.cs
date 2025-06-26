@@ -95,6 +95,10 @@ public class panel_collect : Base_Mono
     /// 收集物品
     /// </summary>
     private db_collect_vo crt_collect;
+    /// <summary>
+    /// 当前选择的装备
+    /// </summary>
+    private string type_Name;
     private void Awake()
     {
         collect_item = Find<Transform>("collect_Scroll/Viewport/collect_items");
@@ -175,6 +179,8 @@ public class panel_collect : Base_Mono
                         SuitCollect(crt_collect);
                         CollectTasks();
                         SendNotification(NotiList.Refresh_Max_Hero_Attribute);
+                        ShowCollectItem(type_Name);
+                        OpenCollectInfo(crt_collect);
                         return;
                     }
 
@@ -212,7 +218,7 @@ public class panel_collect : Base_Mono
                 List<db_collect_vo> suit = new List<db_collect_vo>();
                 for (int z = 0; z < SumSave.db_collect_vo.Count; z++)//获得该套装未收集的装备
                 {
-                    if (SumSave.db_collect_vo[z].StdMode == coll.StdMode && SumSave.crt_collect.user_collect_dic[SumSave.db_collect_vo[z].Name] == 0)
+                    if (SumSave.db_collect_vo[z].StdMode == coll.StdMode)
                     {
                         suit.Add(SumSave.db_collect_vo[z]);
                     }
@@ -229,19 +235,14 @@ public class panel_collect : Base_Mono
                     SetCollectionTask();
                     Alert_Dec.Show("该套装已收集,增加的属性为：" + str);
                     SendNotification(NotiList.Refresh_Max_Hero_Attribute);
+                    ShowCollectItem(type_Name);
+                    OpenCollectInfo(crt_collect);
                 }
-                else
-                {
-                    string str = "";
-                    for (int i = 0; i < suit.Count; i++)
-                    {
-                        str += suit[i].Name + " ";
-                    }
-                    Alert_Dec.Show("该套装中的" + str + "未收集");
-                }
+
             }
 
         }
+    
     }
 
     /// <summary>
@@ -252,7 +253,9 @@ public class panel_collect : Base_Mono
         tool_Categoryt.Base_Task(1068);
 
     }
-
+    /// <summary>
+    /// 初始化
+    /// </summary>
     public void Init()
     {
        
@@ -289,6 +292,7 @@ public class panel_collect : Base_Mono
     private void ShowCollectItem(string Type)
     {
         ClearObject(collect_item);
+        type_Name= Type;
         List<db_collect_vo> item_Type = new List<db_collect_vo>();
         for (int i = 0; i < SumSave.db_collect_vo.Count; i++)
         {
@@ -387,7 +391,7 @@ public class panel_collect : Base_Mono
         dec += crt_collect.StdMode+"(" + count + "/" + suit.Count+")\n";
         for (int i = 0; i < crt_collect.bonuses_types.Length; i++) 
         {
-            string type =(Attribute_Type.GetValue(int.Parse(crt_collect.bonuses_types[i]))).ToString();
+            string type = ((enum_skill_attribute_list)(int.Parse(crt_collect.bonuses_types[i]))).ToString();
             dec += type + "+" + crt_collect.bonuses_values[i] + tool_Categoryt.Obtain_unit(int.Parse(crt_collect.bonuses_types[i])) + "\n";
         }
         if (count == suit.Count) dec = Show_Color.Green(dec);
