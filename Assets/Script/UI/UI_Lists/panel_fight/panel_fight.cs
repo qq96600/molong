@@ -291,8 +291,10 @@ public class panel_fight : Panel_Base
             
         }else
         {
+
+
             //获得五行随机五行种子
-            string material = FiveElementSeeds[Random.Range(0, FiveElementSeeds.Length - 1)];
+            string material = FiveElementSeeds[Random.Range(0, FiveElementSeeds.Length)];
             int num = Random.Range(1, 3);
             Battle_Tool.Obtain_Resources(material, num);
             Alert.Show(map.map_name, "获得 " + material + " * " + num);

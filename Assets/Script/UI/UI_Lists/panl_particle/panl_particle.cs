@@ -36,9 +36,9 @@ public class panl_particle : Base_Mono
         //初始速度
         main.startSpeed = 15f;
         //生命周期
-        main.startLifetime = 1f;
+        main.startLifetime = 100f;
         //初始大小
-        main.startSize =100f;
+        main.startSize =10f;
         //重力影响
         main.gravityModifier = 0.1f;
         ///随时间发射速率
