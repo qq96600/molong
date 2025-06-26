@@ -76,10 +76,8 @@ namespace StateMachine
             #region 角色外观初始化
             if(GetComponent<Player>()!= null)
             {
-            
-
-                int hero_index = int.Parse(SumSave.crt_hero.hero_index);
-                skin_state = (enum_skin_state)hero_index;
+                //int hero_index = int.Parse(SumSave.crt_hero.hero_index);
+                //skin_state = (enum_skin_state)hero_index;
                 skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/skin_" + SumSave.crt_hero.hero_pos);
                 panel_role_health = transform.Find("Appearance");
                 Instantiate(skin_prefabs, panel_role_health);

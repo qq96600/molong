@@ -169,10 +169,10 @@ public class monitor_info : Base_Mono
     {
         if (SumSave.crt_MaxHero != null)
         {
-            if (int.Parse(SumSave.crt_hero.hero_index) != (int)skin_state)
-            {
+            //if (int.Parse(SumSave.crt_hero.hero_index) != (int)skin_state)
+            //{
                 Instance_Skin();
-            }
+            //}
             show_name.text = SumSave.crt_hero.hero_name;
             show_exp.text = " Lv." + SumSave.crt_hero.hero_Lv +
                "(" +  SumSave.crt_hero.hero_Exp * 100 / SumSave.db_lvs.hero_lv_list[SumSave.crt_hero.hero_Lv] + "%)";

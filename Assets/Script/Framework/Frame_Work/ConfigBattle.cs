@@ -68,7 +68,7 @@ namespace MVC
             for (int i = 0; i < number; i++)
             {
                 string countEquip = values[Random.Range(0, values.Length)];
-                Debug.Log(countEquip);
+                //Debug.Log(countEquip);
                 CalculationBag(values[Random.Range(0, values.Length)], false);
             }
         }
