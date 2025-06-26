@@ -304,7 +304,7 @@ namespace MVC
             mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_lv);
 
             SumSave.db_lvs = new db_lv_vo();
-
+            SumSave.base_setting = new List<int>();
             if (mysqlReader.HasRows)
             {
                 while (mysqlReader.Read())
@@ -313,8 +313,6 @@ namespace MVC
                 }
             }
         }
-
-
         /// <summary>
         /// 具体功能消息
         /// </summary>
