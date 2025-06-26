@@ -164,6 +164,7 @@ public class plant_achievement : Base_Mono
             Alert_Dec.Show("获得 "+(enum_skill_attribute_list)(int.Parse(temp[1]))+"+"+temp[2]); 
         }
         CompleteTheAchievementCollectionTask();
+        SendNotification(NotiList.Refresh_Max_Hero_Attribute);
         show_offect.gameObject.SetActive(false);
         crt_achieve_Item.Init(); 
     }

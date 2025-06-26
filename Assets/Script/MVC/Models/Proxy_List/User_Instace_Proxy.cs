@@ -143,6 +143,18 @@ namespace MVC
             }
         }
         /// <summary>
+        /// 刷新排行榜
+        /// </summary>
+        public void Refresh_Rank()
+        {
+            OpenMySqlDB();
+            if (MysqlDb.MysqlClose) return;
+            MysqlDb.UpdateInto(Mysql_Table_Name.user_rank,SumSave.user_ranks.Get_Update_Character(),SumSave.user_ranks.Set_Uptade_String(),
+                "par", GetStr(SumSave.par));
+            CloseMySqlDB();
+        }
+
+        /// <summary>
         /// 刷新试练塔排行榜
         /// </summary>
         public void Refresh_Trial_Tower(int trial_storey)

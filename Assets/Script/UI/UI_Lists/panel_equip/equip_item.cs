@@ -239,9 +239,19 @@ public class equip_item : Base_Mono
             {
                 dec += Show_Color.Yellow("\n[强化加成](" + crt_euqip.Item1 + "/10)\n") + Show_Color.Red((enum_skill_attribute_list.伤害加成).ToString() + ": +" + crt_euqip.Item2 * 5 + "%");
             }
+            else
+            {
+                dec += Show_Color.Grey("\n[强化加成](" + crt_euqip.Item1 + "/10)\n") + Show_Color.Grey((enum_skill_attribute_list.伤害加成).ToString() + ": +" + crt_euqip.Item2 * 5 + "%");
+            }
+
             if (crt_euqip.Item3 >= 7)
             {
                 dec += Show_Color.Yellow("\n[绝世加成](" + crt_euqip.Item1 + "/10)" + Show_Color.Red("\n五行加成 " + crt_euqip.Item4));
+            }
+            else 
+            {
+                dec += Show_Color.Grey("\n[绝世加成](" + crt_euqip.Item5 + "/10)" + Show_Color.Grey("\n五行加成 " + crt_euqip.Item4));
+
             }
         }
         else
@@ -252,7 +262,7 @@ public class equip_item : Base_Mono
             }
             if (int.Parse(infos[2]) == 7)
             {
-                dec += Show_Color.Grey("\n[绝世加成](" + crt_euqip.Item1 + "/10)" + Show_Color.Grey("\n五行加成 " + crt_euqip.Item4));
+                dec += Show_Color.Grey("\n[绝世加成](" + crt_euqip.Item5 + "/10)" + Show_Color.Grey("\n五行加成 " + crt_euqip.Item4));
             }
         }
 

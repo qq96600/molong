@@ -751,7 +751,7 @@ public static class Battle_Tool
     {
         //SumSave.user_ranks.lists.Sort((x, y) => y.value.CompareTo(x.value));
         SumSave.user_ranks.lists = ArrayHelper.OrderDescding(SumSave.user_ranks.lists, x => x.value);
-        Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.user_rank, SumSave.user_ranks.Set_Uptade_String(), SumSave.user_ranks.Get_Update_Character());
+        Game_Omphalos.i.immediately(Mysql_Table_Name.user_rank);
     }
 
     /// <summary>
@@ -760,9 +760,8 @@ public static class Battle_Tool
     private static  void crate_rank()
     {
         base_rank_vo rank = new base_rank_vo();
-
         rank.uid = SumSave.crt_user.uid;
-        rank.type = SumSave.crt_hero.hero_type;
+        rank.type = SumSave.crt_hero.hero_pos;
         rank.name = SumSave.crt_hero.hero_name;
         rank.lv = SumSave.crt_MaxHero.Lv;
         rank.ranking_index = 1;
@@ -786,13 +785,14 @@ public static class Battle_Tool
                 {
                     exist = true;
                     SumSave.crt_MaxHero.Init();
-                    SumSave.user_ranks.lists[i].value = (int)SumSave.crt_MaxHero.totalPower;
-                    SumSave.user_ranks.lists[i].lv = SumSave.crt_MaxHero.Lv;
-                    SumSave.user_ranks.lists[i].type = SumSave.crt_hero.hero_type;// SumSave.crtHeroMaxs[0].Type;  
                     if (SumSave.crt_MaxHero.totalPower < SumSave.user_ranks.lists[i].value)//小于的情况 写入排行榜战力 且替换排行榜战力
                     {
                         Game_Omphalos.i.Alert_Info($"你的战力降低了{"原战斗力" + SumSave.user_ranks.lists[i].value + " 当前" + (int)SumSave.crt_MaxHero.totalPower}");
                     }
+                    SumSave.user_ranks.lists[i].rank_name = SumSave.crt_MaxHero.show_name;
+                    SumSave.user_ranks.lists[i].value = (int)SumSave.crt_MaxHero.totalPower;
+                    SumSave.user_ranks.lists[i].lv = SumSave.crt_MaxHero.Lv;
+                    SumSave.user_ranks.lists[i].type = SumSave.crt_hero.hero_pos;// SumSave.crtHeroMaxs[0].Type;  
                 }
             }
             //存在刷新 不在添加
@@ -823,7 +823,7 @@ public static class Battle_Tool
                         SumSave.user_ranks.lists[0].lv = SumSave.crt_MaxHero.Lv;
                         SumSave.user_ranks.lists[0].uid = SumSave.crt_user.uid;
                         SumSave.user_ranks.lists[0].name = SumSave.crt_MaxHero.show_name;
-                        SumSave.user_ranks.lists[0].type = SumSave.crt_hero.hero_type;
+                        SumSave.user_ranks.lists[0].type = SumSave.crt_hero.hero_pos;
                         Refresh_Rank();
                         break;
                     }//替换第一名
@@ -847,13 +847,13 @@ public static class Battle_Tool
                     SumSave.user_ranks.lists[i + 1].lv = SumSave.crt_MaxHero.Lv;
                     SumSave.user_ranks.lists[i + 1].uid = SumSave.crt_user.uid;
                     SumSave.user_ranks.lists[i + 1].name = SumSave.crt_MaxHero.show_name;
-                    SumSave.user_ranks.lists[i + 1].type = SumSave.crt_hero.hero_type;
+                    SumSave.user_ranks.lists[i + 1].type = SumSave.crt_hero.hero_pos;
                     Refresh_Rank();
                     break;  //比到战力更高的，就结束，替换直到这之前的前一位  这时已留出i之前的空位
                 }
             }
         }
-        SumSave.user_ranks.lists.Sort((x, y) => -x.value.CompareTo(y.value));
+        //SumSave.user_ranks.lists.Sort((x, y) => -x.value.CompareTo(y.value));
     }
 
     /// <summary>

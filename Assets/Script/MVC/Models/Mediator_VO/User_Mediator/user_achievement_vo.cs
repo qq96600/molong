@@ -120,11 +120,11 @@ public class user_achievement_vo : Base_VO
             string[] lv = lvs[i].Split(' ');
             if (!user_achievements.ContainsKey(str[0]))
             {
-                user_achievements.Add(str[0], int.Parse(str[1]));
+                user_achievements.Add(str[0], long.Parse(str[1]));
             }
             if (!user_achievements_lv.ContainsKey(lv[0]))
             {
-                user_achievements_lv.Add(lv[0], int.Parse(lv[1]));
+                user_achievements_lv.Add(lv[0], long.Parse(lv[1]));
 
             }
         }

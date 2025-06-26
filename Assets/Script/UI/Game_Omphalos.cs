@@ -372,6 +372,148 @@ namespace MVC
             return value;
 
         }
+        /// <summary>
+        /// 立刻刷新
+        /// </summary>
+        /// <param name="user_rank"></param>
+        public  void immediately(Mysql_Table_Name user_rank)
+        {
+            //Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.user_rank, SumSave.user_ranks.Set_Uptade_String(), SumSave.user_ranks.Get_Update_Character());
+            switch (user_rank)
+            {
+                case Mysql_Table_Name.db_monster:
+                    break;
+                case Mysql_Table_Name.db_stditems:
+                    break;
+                case Mysql_Table_Name.db_magic:
+                    break;
+                case Mysql_Table_Name.db_map:
+                    break;
+                case Mysql_Table_Name.db_hero:
+                    break;
+                case Mysql_Table_Name.db_setting:
+                    break;
+                case Mysql_Table_Name.db_artifacts:
+                    break;
+                case Mysql_Table_Name.mo_user_base:
+                    break;
+                case Mysql_Table_Name.mo_user_value:
+                    break;
+                case Mysql_Table_Name.mo_user_hero:
+                    break;
+                case Mysql_Table_Name.mo_user_setting:
+                    break;
+                case Mysql_Table_Name.mo_user_artifact:
+                    break;
+                case Mysql_Table_Name.mo_user:
+                    break;
+                case Mysql_Table_Name.loglist:
+                    break;
+                case Mysql_Table_Name.user_login:
+                    break;
+                case Mysql_Table_Name.db_pass:
+                    break;
+                case Mysql_Table_Name.mo_user_pass:
+                    break;
+                case Mysql_Table_Name.mo_user_plant:
+                    break;
+                case Mysql_Table_Name.db_plant:
+                    break;
+                case Mysql_Table_Name.db_pet:
+                    break;
+                case Mysql_Table_Name.mo_user_pet_hatching:
+                    break;
+                case Mysql_Table_Name.mo_user_pet_explore:
+                    break;
+                case Mysql_Table_Name.mo_user_pet:
+                    break;
+                case Mysql_Table_Name.db_pet_explore:
+                    break;
+                case Mysql_Table_Name.mo_user_world:
+                    break;
+                case Mysql_Table_Name.db_lv:
+                    break;
+                case Mysql_Table_Name.user_rank:
+                    SendNotification(NotiList.Refresh_Rank);
+                    break;
+                case Mysql_Table_Name.db_hall:
+                    break;
+                case Mysql_Table_Name.mo_user_achieve:
+                    break;
+                case Mysql_Table_Name.db_achieve:
+                    break;
+                case Mysql_Table_Name.db_store:
+                    break;
+                case Mysql_Table_Name.db_seed:
+                    break;
+                case Mysql_Table_Name.mo_user_seed:
+                    break;
+                case Mysql_Table_Name.mo_user_needlist:
+                    break;
+                case Mysql_Table_Name.db_collect:
+                    break;
+                case Mysql_Table_Name.mo_user_collect:
+                    break;
+                case Mysql_Table_Name.db_signin:
+                    break;
+                case Mysql_Table_Name.mo_user_signin:
+                    break;
+                case Mysql_Table_Name.mo_user_tap:
+                    break;
+                case Mysql_Table_Name.mo_user_iphone:
+                    break;
+                case Mysql_Table_Name.db_par:
+                    break;
+                case Mysql_Table_Name.user_message_window:
+                    break;
+                case Mysql_Table_Name.db_basetask:
+                    break;
+                case Mysql_Table_Name.mo_user_greenhandguide:
+                    break;
+                case Mysql_Table_Name.user_player_buff:
+                    break;
+                case Mysql_Table_Name.user_emial:
+                    break;
+                case Mysql_Table_Name.server_mail:
+                    break;
+                case Mysql_Table_Name.history_server_mail:
+                    break;
+                case Mysql_Table_Name.db_accumulatedrewards:
+                    break;
+                case Mysql_Table_Name.mo_user_rewards_state:
+                    break;
+                case Mysql_Table_Name.db_fate:
+                    break;
+                case Mysql_Table_Name.db_vip:
+                    break;
+                case Mysql_Table_Name.db_world_boss:
+                    break;
+                case Mysql_Table_Name.user_world_boss_rank:
+                    break;
+                case Mysql_Table_Name.user_world_boss:
+                    break;
+                case Mysql_Table_Name.history_world_boss:
+                    break;
+                case Mysql_Table_Name.db_formula:
+                    break;
+                case Mysql_Table_Name.db_suit:
+                    break;
+                case Mysql_Table_Name.db_dec:
+                    break;
+                case Mysql_Table_Name.versions:
+                    break;
+                case Mysql_Table_Name.db_magic_copy1:
+                    break;
+                case Mysql_Table_Name.db_weather:
+                    break;
+                case Mysql_Table_Name.user_trial_towers:
+                    break;
+                case Mysql_Table_Name.user_world_boss_copy1:
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
 }
