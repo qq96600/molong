@@ -71,6 +71,14 @@ public class AttackStateMachine : MonoBehaviour
     /// 开始位置
     /// </summary>
     private Vector2 startPosition;
+    /// <summary>
+    /// 初始化坐标
+    /// </summary>
+    private Vector2 initPosition;
+    /// <summary>
+    /// 距离初始化位置的距离
+    /// </summary>
+    private float distance;
     private void Awake()
     {
         StateMachine = GetComponent<RolesManage>();
@@ -108,7 +116,13 @@ public class AttackStateMachine : MonoBehaviour
         {
             IsState();
         }
-      
+
+        distance = Vector3.Distance(initPosition, transform.position);
+        if (distance>800)
+        {
+            transform.position = initPosition;
+        }
+
     }
 
     /// <summary>
@@ -167,6 +181,7 @@ public class AttackStateMachine : MonoBehaviour
     public void Init(BattleAttack _battle,BattleHealth target)
     {
         battle= _battle;
+        initPosition=_battle.transform.position;
         AttackSpeed = battle.Data.attack_speed;
         AttackSpeedCounter = AttackSpeed;
         Target = target;

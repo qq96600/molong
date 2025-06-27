@@ -148,7 +148,11 @@ namespace MVC
                
             }
         }
+<<<<<<< HEAD
         private string[] versions = new string[] { "0.2025.01", "0.2025.02" };
+=======
+        private string[] versions = new string[] { "0.2025.02", "0.2025.02" };
+>>>>>>> 0df4ef85168c61963fe297d495d06308c19259be
         /// <summary>
         /// 检测次数
         /// </summary>
@@ -173,9 +177,11 @@ namespace MVC
             SumSave.OpenGame = false;
             foreach (string item in versions)
             {
-                if (SumSave.crt_versions.Version == item) SumSave.OpenGame = true;
+                if (SumSave.crt_versions.Version == item)
+                    SumSave.OpenGame = true;
+
             }
-            
+
             if (!SumSave.OpenGame)
             {
                 if (versionsnumber >= 3)

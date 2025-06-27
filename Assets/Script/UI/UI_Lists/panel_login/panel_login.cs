@@ -253,21 +253,19 @@ namespace MVC
             }
         }
 
-
-
         /// <summary>
         /// 点击登录
         /// </summary>
         private void OnLoginClick()//登录点击
         {
-            //if(!SumSave.OpenGame)
+            //if (!SumSave.OpenGame)
             //{
             //    Alert.Show("版本更新", "请更新版本");
             //    return;
             //}
 
 
-            if(select_par==null)
+            if (select_par==null)
             {
                 Alert_Dec.Show("请先选择服务器");
                 return;
