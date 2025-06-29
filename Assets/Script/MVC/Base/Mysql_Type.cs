@@ -81,4 +81,5 @@ public enum Mysql_Table_Name
     db_weather,//天气信息
     user_trial_towers,//试炼塔
     user_world_boss_copy1,//世界boss测试
+    db_collect_copy1,//测试收集信息
 }
