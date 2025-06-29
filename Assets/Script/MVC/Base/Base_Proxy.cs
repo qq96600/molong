@@ -148,11 +148,7 @@ namespace MVC
                
             }
         }
-<<<<<<< HEAD
-        private string[] versions = new string[] { "0.2025.01", "0.2025.02" };
-=======
         private string[] versions = new string[] { "0.2025.02", "0.2025.02" };
->>>>>>> 0df4ef85168c61963fe297d495d06308c19259be
         /// <summary>
         /// 检测次数
         /// </summary>
