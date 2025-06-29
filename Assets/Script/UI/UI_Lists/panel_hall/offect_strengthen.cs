@@ -112,7 +112,7 @@ public class offect_strengthen : Base_Mono
             {
                 SumSave.crt_bag.Remove(item);
             }
-            SumSave.crt_bag.Add(tool_Categoryt.crate_equip(synthesis_list[0].Name,7));
+            SumSave.crt_bag.Add(tool_Categoryt.crate_equip(synthesis_list[0].Name, 7));
             Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.bag_value, SumSave.crt_bag);
             Alert_Dec.Show("合成成功");
             Base_Show();

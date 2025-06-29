@@ -238,9 +238,9 @@ public class panel_fight : Panel_Base
             case 32://下品噬心魔丸
                 max = SumSave.crt_MaxHero.Lv + 50;
                 value = (int)(damge * max / target.maxHP);
-                (string,int) str = SumSave.db_lvs.world_lv_list[0];
-                Alert.Show(select_map.map_name, "副本战斗结束,造成伤害 " + damge + "\n获得 " + str.Item1+" * "+value );
-                Battle_Tool.Obtain_Resources(str.Item1,(int)value);
+                List<(string,int)> str = SumSave.db_lvs.world_lv_list_dic[0];
+                Alert.Show(select_map.map_name, "副本战斗结束,造成伤害 " + damge + "\n获得 " + str[0].Item1+" * "+value );
+                Battle_Tool.Obtain_Resources(str[0].Item1,(int)value);
                 break;
             default:
                 break;

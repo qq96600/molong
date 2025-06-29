@@ -326,7 +326,7 @@ public class tool_Categoryt : MonoBehaviour
         {
             if (item.Name == bag_name)
             {
-                bag = item;
+                bag = new Bag_Base_VO(item);
                 continue;  
             }
         }

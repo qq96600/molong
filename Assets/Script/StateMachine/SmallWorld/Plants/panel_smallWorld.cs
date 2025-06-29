@@ -214,13 +214,17 @@ public class panel_smallWorld : Panel_Base
     /// </summary>
     private void uplv()
     {
-        if (SumSave.crt_world.World_Lv >= SumSave.db_lvs.world_lv_list.Count)
+        if (SumSave.crt_world.World_Lv >= SumSave.db_lvs.world_lv_list_dic.Count)
         { 
             Alert_Dec.Show("已达最高等级");
             return;
         }
-        (string,int) dec = SumSave.db_lvs.world_lv_list[SumSave.crt_world.World_Lv];
-        NeedConsumables(dec.Item1, dec.Item2);
+        List<(string,int)> dec = SumSave.db_lvs.world_lv_list_dic[SumSave.crt_world.World_Lv];
+        for (int i = 0; i < dec.Count; i++)
+        {
+            NeedConsumables(dec[i].Item1, dec[i].Item2);
+        }
+        //NeedConsumables(dec.Item1, dec.Item2);
         if (RefreshConsumables())
         {
             List<string> list = SumSave.crt_world.Get();
@@ -229,7 +233,7 @@ public class panel_smallWorld : Panel_Base
             SumSave.crt_world.World_Lv++;
             Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_world, SumSave.crt_world.Set_Uptade_String(), SumSave.crt_world.Get_Update_Character());
         }
-        else Alert_Dec.Show("材料不足 需要" + dec.Item1 + " * " + dec.Item2);
+        else Alert_Dec.Show("材料不足");
     }
     public override void Show()
     {
@@ -269,14 +273,18 @@ public class panel_smallWorld : Panel_Base
         dec += "宠物属性继承 :" + (SumSave.crt_world.World_Lv / 10 + 5) + "%\n";
         dec += "宠物孵化最高品质 :" + (SumSave.crt_world.World_Lv / 10 + 1) + "\n";
         dec += "宠物属性继承 :" + (SumSave.crt_world.World_Lv / 10 + 5) + "%\n";
-        if (SumSave.crt_world.World_Lv >= SumSave.db_lvs.world_lv_list.Count)
+        if (SumSave.crt_world.World_Lv >= SumSave.db_lvs.world_lv_list_dic.Count)
         {
             dec += "已达最高等级";
         }
         else
         {
-            (string, int) item = SumSave.db_lvs.world_lv_list[SumSave.crt_world.World_Lv];
-            dec += "升级需求 " + item.Item1 + " * " + item.Item2;
+            List<(string, int)> item = SumSave.db_lvs.world_lv_list_dic[SumSave.crt_world.World_Lv];
+            for (int i = 0; i < item.Count; i++)
+            {
+                dec += Show_Color.Yellow((i == 0 ? "升级需求 1." : "\n" + (i + 1) + ".") + item[i].Item1 + " * " + item[i].Item2);
+            }
+            //dec += "升级需求 " + item.Item1 + " * " + item.Item2;
         }
         base_info.text = dec;
     }

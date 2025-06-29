@@ -277,13 +277,28 @@ public static class ReadDb
             item.hero_lv_list.Add(Convert.ToInt64(hero_lv_exp_list[i]));
         }
         string word_lv_exp= reader.GetString(reader.GetOrdinal("word_lv_exp"));
-        item.world_lv_list = new System.Collections.Generic.List<(string, int)>();
+        //item.world_lv_list = new List<(string, int)>();
+        item.world_lv_list_dic = new Dictionary<int, List<(string, int)>>();
         string[] word_lv_exp_list = word_lv_exp.Split('&');
         for (int i = 0; i < word_lv_exp_list.Length; i++)
-        { 
-            string[] word_lv_exp_list2 = word_lv_exp_list[i].Split(' ');
-            if(word_lv_exp_list2.Length==2)
-            item.world_lv_list.Add((word_lv_exp_list2[0], Convert.ToInt32(word_lv_exp_list2[1])));
+        {
+            if(!item.world_lv_list_dic.ContainsKey(i))item.world_lv_list_dic.Add(i, new List<(string, int)>());
+            if (word_lv_exp_list[i] != "")
+            {
+                string[] word_lv_exp_list2 = word_lv_exp_list[i].Split(',');
+                for (int j = 0; j < word_lv_exp_list2.Length; j++)
+                {
+                    if (word_lv_exp_list2[j] != "")
+                    { 
+                        string[] word_lv_exp_list3 = word_lv_exp_list2[j].Split(' ');
+                        if (word_lv_exp_list3.Length == 2)
+                        item.world_lv_list_dic[i].Add((word_lv_exp_list3[0], Convert.ToInt32(word_lv_exp_list3[1])));
+                    }
+                }
+                //if (word_lv_exp_list2.Length == 2)
+                //    item.world_lv_list.Add((word_lv_exp_list2[0], Convert.ToInt32(word_lv_exp_list2[1])));
+            }
+           
         }
         string world_offect_list = reader.GetString(reader.GetOrdinal("world_offect_list"));
         item.world_offect_list = new System.Collections.Generic.List<int>();
