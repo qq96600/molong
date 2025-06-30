@@ -443,6 +443,16 @@ namespace MVC
                 }
             }
             SumSave.crt_bag_resources.Init(SumSave.crt_resources.material_value);
+            //if (SumSave.crt_resources.pages[0] > SumSave.base_setting[4])
+            //{
+            //    //作弊玩家;
+            //    Game_Omphalos.i.Delete("背包容量" + SumSave.crt_resources.pages[0]);
+            //}
+            //if (SumSave.crt_resources.pages[1] > SumSave.base_setting[5])
+            //{
+            //    //作弊玩家;
+            //    Game_Omphalos.i.Delete("仓库容量" + SumSave.crt_resources.pages[1]);
+            //}
         }
         public void Delete(string dec)
         {
@@ -1141,7 +1151,6 @@ namespace MVC
             crtMaxHeroVO crt = new crtMaxHeroVO();
             crt.Lv = SumSave.crt_hero.hero_Lv;
             crt.show_name= SumSave.crt_hero.hero_name;
-       
             ////添加皮肤属性
             for (int i = 0; i < SumSave.db_heros.Count; i++)
             {
@@ -1277,7 +1286,7 @@ namespace MVC
                 }
             
             }
-
+            //套装加成
             if (suits.Count > 0)
             {
                 foreach (var item in suits.Keys)
@@ -1323,7 +1332,7 @@ namespace MVC
                     }
                 }
             }
-                //添加技能效果
+            //添加技能效果
             foreach (base_skill_vo skill in SumSave.crt_skills)
             {
                 if (skill.skill_open_type.Count > 0)
@@ -1390,7 +1399,7 @@ namespace MVC
                     }
                 }
             }
-
+            ///vip加成
             (int,int,string) exp = SumSave.crt_accumulatedrewards.SetRecharge();
             if (exp.Item1 > 0)
             {
@@ -1527,11 +1536,6 @@ namespace MVC
                     }
                 }
             }
-          
-
-
-
-
 
             //皮肤
 #if UNITY_EDITOR

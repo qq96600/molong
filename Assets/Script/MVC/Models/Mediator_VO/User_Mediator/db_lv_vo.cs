@@ -11,10 +11,6 @@ public class db_lv_vo : Base_VO
     /// <summary>
     /// 小世界升级需求
     /// </summary>
-    public List<(string, int)> world_lv_list1;
-    /// <summary>
-    /// 小世界升级需求
-    /// </summary>
     public Dictionary<int, List<(string, int)> > world_lv_list_dic = new Dictionary<int, List<(string, int)>>();
     /// <summary>
     /// 小世界升级效果

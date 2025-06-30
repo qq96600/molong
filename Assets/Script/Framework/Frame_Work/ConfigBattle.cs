@@ -46,16 +46,27 @@ namespace MVC
                 CalculationBattle.Add(base_name, map.ProfitList.Split('&'));
             }
             Calculations = new List<string>();
-            for (int i = 0; i < (number); i++)
+            //计算概率
+            int count = 1;
+            if (Battle_Tool.Is_playerprobabilit(enum_skill_attribute_list.鞭尸概率))
             {
-                string countEquip = CalculationBattle[base_name][Random.Range(0, CalculationBattle[base_name].Length)];
-                CalculationBag(countEquip, monster.Data.Monster_Lv == 3);
+                count = 2;
+                Game_Omphalos.i.Alert_Show("鞭尸成功");
             }
-            if (map.Independent_Drop != "")//计算独立掉落
+            for (int Z = 0; Z < count; Z++)
             {
-                Independent_Drop(map.Independent_Drop,number);
+                Debug.Log("测试次数");
+                for (int i = 0; i < (number); i++)
+                {
+                    string countEquip = CalculationBattle[base_name][Random.Range(0, CalculationBattle[base_name].Length)];
+                    CalculationBag(countEquip, monster.Data.Monster_Lv == 3);
+                }
+                if (map.Independent_Drop != "")//计算独立掉落
+                {
+                    Independent_Drop(map.Independent_Drop, number);
+                }
+                Show_Info();
             }
-            Show_Info();
             return Calculations;
         }
         /// <summary>
