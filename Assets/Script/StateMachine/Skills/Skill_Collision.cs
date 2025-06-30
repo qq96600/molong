@@ -1,3 +1,4 @@
+using Common;
 using MVC;
 using System;
 using System.Collections;
@@ -35,9 +36,6 @@ namespace StateMachine
             rb= GetComponent<Rigidbody2D>();
             Axle = GetComponentInChildren<Transform>();
             anim= GetComponentInChildren<Animator>().transform.GetComponentInChildren<Animator>();
-
-
-
         }
         private void Start()
         {
@@ -96,37 +94,32 @@ namespace StateMachine
             /// <summary>
             /// 对自己释放的技能效果播放动画
             /// </summary>
-            /// 
-            /// <returns></returns>
         private IEnumerator WaitForAnimationEnd()
         {
             rb.velocity = Vector2.zero;
-            AnimatorStateInfo animStateInfo = anim.GetCurrentAnimatorStateInfo(0);
+            // AnimatorStateInfo animStateInfo = anim.GetCurrentAnimatorStateInfo(0);
             // 等待动画播放完成
-            yield return new WaitForSeconds(animStateInfo.length);
+            //yield return new WaitForSeconds(animStateInfo.length);
+            float time = 1f;
+            if(skill.skill_damage_type==4||skill.skill_damage_type == 5||skill.skill_damage_type == 8)
+            {
+                time = skill.skill_cd-1;
+                
+                transform.parent.SendMessage("skill_damage", skill);
+            }
+            yield return new WaitForSeconds(time);
+            Debug.Log("动画播放完成");
+         
             // 将对象返回对象池
             PushObjectToPool();
-            SelfEffect();
         }
-        /// <summary>
-        /// 技能对自己产生的效果
-        /// </summary>
-        private void SelfEffect()
-        {
-            if(skill.skillname== "治愈疗法")
-            {
-                
-            }
-            if(skill.skillname== "冥想心经")
-            {
 
-            }
-        }
         /// <summary>
         /// 关闭后回收自己
         /// </summary>
         private void OnDisable()
         {
+            Debug.Log("已经回收");
             PushObjectToPool();
         }
         /// <summary>
@@ -137,6 +130,7 @@ namespace StateMachine
 
             if (isPushObjectToPool)
             {
+                
                 isPushObjectToPool = false;
                 StopAllCoroutines();
                 ObjectPoolManager.instance.PushObjectToPool(skill.skillname, this.gameObject);

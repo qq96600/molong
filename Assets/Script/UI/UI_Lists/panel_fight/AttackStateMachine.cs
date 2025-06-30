@@ -97,6 +97,7 @@ public class AttackStateMachine : MonoBehaviour
             AttackSpeedCounter -= Time.deltaTime * 90f;
             if (AttackSpeedCounter <= 0)
             {
+                Debug.Log("触发攻击" + Time.time);
                 //Debug.Log("触发攻击"+Time.time);
                 if (!isAttacking)
                 {
