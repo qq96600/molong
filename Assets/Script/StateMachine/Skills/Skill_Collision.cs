@@ -104,12 +104,10 @@ namespace StateMachine
             if(skill.skill_damage_type==4||skill.skill_damage_type == 5||skill.skill_damage_type == 8)
             {
                 time = skill.skill_cd-1;
-                
-                transform.parent.SendMessage("skill_damage", skill);
             }
+            transform.parent.SendMessage("skill_damage", skill);
             yield return new WaitForSeconds(time);
             Debug.Log("动画播放完成");
-         
             // 将对象返回对象池
             PushObjectToPool();
         }
