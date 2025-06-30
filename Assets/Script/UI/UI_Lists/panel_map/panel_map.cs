@@ -139,7 +139,7 @@ public class panel_map : Panel_Base
             item.Init(((str1[0]), 0));
             item.GetComponent<Button>().onClick.AddListener(delegate { Alert.Show(str1[0], str1[0]); });
 #if UNITY_EDITOR
-            //task_equip(str1[0]);
+            task_equip(str1[0]);
 #elif UNITY_ANDROID
 #elif UNITY_IPHONE
 #endif
@@ -172,7 +172,7 @@ public class panel_map : Panel_Base
             case EquipConfigTypeList.饰品:
             case EquipConfigTypeList.玉佩:
             case EquipConfigTypeList.披风:
-                bag = tool_Categoryt.crate_equip(bag.Name, 7);
+                bag = tool_Categoryt.crate_equip(bag.Name, 6);
                 SumSave.crt_bag.Add(bag);
                 break;
             default:

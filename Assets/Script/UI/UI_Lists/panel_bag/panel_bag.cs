@@ -90,6 +90,8 @@ public class panel_bag : Panel_Base
             btn_item.Show(i, function_list[i]);
             btn_item.GetComponent<Button>().onClick.AddListener(delegate { Select_functionBtn(btn_item); });
         }
+
+        
     }
     /// <summary>
     /// 一键回收分解
