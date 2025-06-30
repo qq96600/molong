@@ -128,7 +128,6 @@ namespace MVC
         private void WaitAndDestory()
         {
             BattleAttack monster = GetComponent<BattleAttack>();
-        
             SumSave.battleMonsterHealths.Remove(this);
             SumSave.crt_achievement.increase_date_Exp((Achieve_collect.击杀怪物).ToString(), 1);
             Battle_Tool.Obtain_Exp(monster.Data.Exp);
@@ -156,14 +155,22 @@ namespace MVC
                 {
                     SumSave.crt_pass.progress(4);
                 }
+               
                 SumSave.crt_user_unit.verify_data(currency_unit.历练, monster.Data.Point);//monster.Data.Point
                 transform.parent.parent.parent.SendMessage("show_battle_info",
                 "击杀 " + monster.Data.show_name + " 获得 " + monster.Data.Point + "历练");//monster.Data.Point 
             }
+            if (Battle_Tool.Is_playerprobabilit(enum_skill_attribute_list.物品双倍掉落概率))
+            {
+                number *= 2;
+                Game_Omphalos.i.Alert_Show("获得双倍掉落");
+            }
             ClearanceMapTask(monster);
             Game_Omphalos.i.GetQueue(
                         Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user, SumSave.crt_user_unit.Set_Uptade_String(), SumSave.crt_user_unit.Get_Update_Character());
+            //获取物品掉落
             List<string> lists = ConfigBattle.LoadSetting(monster, number);
+           
             //增加经验
             if (SumSave.crt_setting.user_setting[2] == 0)
             {
@@ -179,40 +186,6 @@ namespace MVC
                     transform.parent.parent.parent.SendMessage("show_battle_info", lists[i]);
                 }
             }
-            //获取金币
-            /*
-            StartCoroutine(WaitAndDestory(monster.Data.Name));
-            long tempEXP = monster.Data.Exp;
-            //计算加成
-            tempEXP = SumSave.BattleState.exp * tempEXP / 100;
-            SumSave.crtHero.Exp += tempEXP;
-            if (SumSave.user_OffLine.OpenShow == 0) AlertDec.Show("击杀" + monster.Data.Name + " 获得经验 " + tempEXP);
-            if (monster.Data.monsterTypes == MonsterTypes.Boss)
-            {
-                if (SumSave.crtTask != null)
-                {
-                    if (SumSave.crtTask.target == monster.Data.Name || SumSave.crtTask.target == ((MapList)SumSave.LoadScene).ToString())
-                    {
-                        SumSave.crtTask.progressState++;
-                        transform.parent.parent.SendMessage("ShowprogressState");
-                    }
-                }
-            }
-            if (monster.isDrop)
-            {
-                if (SumSave.isShen || SumSave.isXShen) ConfigBattle.LoadSetting(monster, monster.Data.monsterTypes == MonsterTypes.Boss ? Random.Range(6, 16) : 1);
-                //物品掉落
-                else ConfigBattle.LoadSetting(monster, monster.Data.monsterTypes == MonsterTypes.Boss ? Random.Range(5, 15) : 1);
-
-                if (Random.Range(0, 100) < SumSave.HouseHold.Item3)
-                {
-                    称号中心.Instance.Pet_show("勤俭持家发动 获得二次奖励");
-                    if (SumSave.isShen || SumSave.isXShen) ConfigBattle.LoadSetting(monster, monster.Data.monsterTypes == MonsterTypes.Boss ? Random.Range(6, 16) : 1, true);
-                    //物品掉落
-                    else ConfigBattle.LoadSetting(monster, monster.Data.monsterTypes == MonsterTypes.Boss ? Random.Range(5, 15) : 1, true);
-                }
-            */
-
         }
         /// <summary>
         /// 击杀怪物任务
@@ -326,35 +299,6 @@ namespace MVC
                     }
                 }
             }
-
-            //if(monster.Data.show_name == "鹿妖"|| monster.Data.show_name == "猪妖" || monster.Data.show_name == "幽冥鸡")
-            //{
-            //    tool_Categoryt.Base_Task(1016);
-            //}
-            //if(monster.Data.show_name == "昏眼牛" || monster.Data.show_name == "扎纸鬼" || monster.Data.show_name == "黑爪猫")
-            //{
-            //    tool_Categoryt.Base_Task(1020);
-            //}
-            //if (monster.Data.show_name == "黑鳞君" || monster.Data.show_name == "刺皮将")
-            //{
-            //    tool_Categoryt.Base_Task(1035);
-            //}
-            //if (monster.Data.show_name == "疤脸鬼" || monster.Data.show_name == "铁骨兵" || monster.Data.show_name == "血刀鬼")
-            //{
-            //    tool_Categoryt.Base_Task(1039);
-            //}
-            /////血牙狼窟
-            //if (monster.Data.show_name == "啸月鬼")
-            //{
-            //    tool_Categoryt.Base_Task(1054);
-            //    SumSave.crt_achievement.increase_date_Exp((Achieve_collect.通关血牙狼窟).ToString(), 1);
-            //}
-            //if (monster.Data.show_name == "墟界法王")
-            //{
-            //    tool_Categoryt.Base_Task(1066);
-            //}
-
-
         }
 
 

@@ -1,3 +1,4 @@
+using MVC;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,9 @@ using UnityEngine;
 /// </summary>
 public static class Combat_statistics 
 {
+    
     public static long bossnumber, elitenumber, maxnumber, exp, moeny, Point, bag, time,detead;
+
     /// <summary>
     /// 初始化
     /// </summary>
@@ -37,7 +40,8 @@ public static class Combat_statistics
             "灵珠收益：" + moeny + "\n" +
             "历练收益：" + Point + "\n" +
             "装备收益：" + bag + "个\n" +
-            "死亡次数：" + detead + "次";
+            "死亡次数：" + detead + "次\n";// +
+            //Show_Color.Red("至尊积分: " + maxnumber + " / 500");
         return info;
     }
 

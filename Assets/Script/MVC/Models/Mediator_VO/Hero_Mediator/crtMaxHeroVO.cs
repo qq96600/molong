@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections.Generic;
 /// <summary>
 /// 属性汇总表
@@ -202,6 +203,10 @@ public class crtMaxHeroVO
     /// 战力
     /// </summary>
     public int totalPower;
+    /// <summary>
+    /// 技能状态1类型2效果3开启时间4剩余时间
+    /// </summary>
+    public List<(int, int, DateTime, float)> skill_state = new List<(int, int, DateTime, float)>();
     
     /// <summary>
     /// 判断是否为boss 1普通 2精英 3boss

@@ -36,6 +36,23 @@ public static class Battle_Tool
     private static Dictionary<string, GameObject> prefabs = new Dictionary<string, GameObject>();
 
     /// <summary>
+    /// 获取概率加成
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    public static bool Is_playerprobabilit(enum_skill_attribute_list value)
+    {
+        bool exist = false;
+        if (SumSave.crt_MaxHero.bufflist[(int)value] > 0)
+        {
+            if (Random.Range(0, 100) < SumSave.crt_MaxHero.bufflist[(int)value])
+            {
+                exist = true;
+            }
+        }
+        return exist;
+    }
+    /// <summary>
     /// 查找预制体
     /// </summary>
     /// <typeparam name="T"></typeparam>
