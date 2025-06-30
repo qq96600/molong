@@ -444,7 +444,7 @@ public class hatching_progress : Base_Mono
             //hatching_Slider.value = pet.hatchingTime - hatchingTimeCounter;
             //Debug.Log("倒计时" + hatchingTimeCounter + "进度条：" + hatching_Slider.value);
 
-            countdown_text.text ="剩余时间："+ ConvertSecondsToHHMMSS(remainingTime);
+            countdown_text.text = "剩余时间：" + ConvertSecondsToHHMMSS(remainingTime);
             hatching_Slider.value = remainingTime;
         }
         else if (remainingTime < 0)//孵化完成
@@ -456,8 +456,8 @@ public class hatching_progress : Base_Mono
             //Debug.Log("孵化完成");
             pet_receive.gameObject.SetActive(true);
 
-        }
     }
+}
     /// <summary>
     /// 领取宠物
     /// </summary>
@@ -612,6 +612,7 @@ public class hatching_progress : Base_Mono
     private void DisplayPetEggs()
     {
         ClearObject(pos_list);
+        hatching_Slider.gameObject.SetActive(false);
         for (int i = 0; i < SumSave.crt_pet.crt_pet_list.Count; i++)
         {
             string[] data = SumSave.crt_pet.crt_pet_list[i].Split(",");

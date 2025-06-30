@@ -290,7 +290,6 @@ namespace MVC
                 if (SumSave.GreenhandGuide_TotalTasks[item].tasktype == GreenhandGuideTaskType.击杀怪物)
                 { 
                     GreenhandGuide_TotalTaskVO task = SumSave.GreenhandGuide_TotalTasks[item];//读取任务
-                    //user_map_vo map= SumSave.db_maps.Find(x => x.map_index == monster.Data.map_index);//读取地图
                     if (task.TaskDesc.Contains(monster.Data.show_name))//判断是否是当前地图
                     {
                         tool_Categoryt.Base_Task(task.taskid);
