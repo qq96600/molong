@@ -48,7 +48,7 @@ namespace MVC
             Calculations = new List<string>();
             //计算概率
             int count = 1;
-            if (Battle_Tool.Is_playerprobabilit(enum_skill_attribute_list.鞭尸概率))
+            if (Tool_State.Is_playerprobabilit(enum_skill_attribute_list.鞭尸概率))
             {
                 count = 2;
                 Game_Omphalos.i.Alert_Show("鞭尸成功");

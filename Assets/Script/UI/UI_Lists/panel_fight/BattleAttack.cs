@@ -94,7 +94,7 @@ namespace MVC
                 target.internalforceMP= data.internalforceMP;
                 show_hp.maxValue = target.maxHP;
                 show_hp.value = target.HP;
-                hp_text.text = target.HP + "/" + target.maxHP;
+                hp_text.text = Battle_Tool.FormatNumberToChineseUnit(target.HP) + "/" + Battle_Tool.FormatNumberToChineseUnit(target.maxHP);
                 target.maxMP= data.MaxMp;
                 target.MP= data.MaxMp;
                 Terget = null;
@@ -265,7 +265,7 @@ namespace MVC
                 }
                 else Find_Terget();
                 show_hp.value = target.HP;
-                hp_text.text = (int)target.HP + "/" + target.maxHP;
+                hp_text.text = Battle_Tool.FormatNumberToChineseUnit(target.HP) + "/" + Battle_Tool.FormatNumberToChineseUnit(target.maxHP);
             }
            
         }
@@ -372,7 +372,7 @@ namespace MVC
             AudioManager.Instance.playAudio(ClipEnum.攻击敌人);
             BattleAttack monster = Terget.GetComponent<BattleAttack>();
             if (monster.target.HP <= 0) return;//结战斗
-            float damage = Base_Damage(monster);
+            long damage = Base_Damage(monster);
             if (iSnHit(monster))
             {
                 monster.target.TakeDamage(1, DamageEnum.未命中);
@@ -391,9 +391,9 @@ namespace MVC
             }
         }
 
-        private int Base_Damage(BattleAttack monster,base_skill_vo skill=null)
+        private long Base_Damage(BattleAttack monster,base_skill_vo skill=null)
         {
-            float damage = 0f;
+            long damage = 0;
             if (skill == null)
             {
                 if (Data.Type == 1)
@@ -416,7 +416,7 @@ namespace MVC
                 {
                     damage = damage * (100 - monster.Data.Damage_absorption) / 100;
                 }
-                Debug.Log("伤害减免" + skillstate(monster.data, Data.Type));
+                //Debug.Log("伤害减免" + skillstate(monster.data, Data.Type));
             }
             else
             {
@@ -439,8 +439,8 @@ namespace MVC
             }
             damage = damage * (100 + penetrate(monster)) / 100;
             damage = damage * (100 + data.double_damage - monster.data.Damage_Reduction) / 100;
-            damage = Mathf.Max(1, damage);
-            return (int)damage;
+            damage =(long) Mathf.Max(1, damage);
+            return damage;
         }
 
         /// <summary>

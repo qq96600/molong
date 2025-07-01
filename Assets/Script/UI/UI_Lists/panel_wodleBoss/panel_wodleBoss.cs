@@ -226,9 +226,6 @@ public class panel_wodleBoss : Panel_Base
         {
             SumSave.crt_needlist.SetMap((SumSave.db_world_boos.name, 1));
         }
-
-        Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_needlist,
-           SumSave.crt_needlist.Set_Uptade_String(), SumSave.crt_needlist.Get_Update_Character());
     }
 
 
