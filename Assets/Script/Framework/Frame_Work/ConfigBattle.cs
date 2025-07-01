@@ -131,7 +131,7 @@ namespace MVC
         /// </summary>
         /// <param name="line">掉落列表</param>
         /// <param name="boss">是否boss</param>
-        /// <param name="state">是否播报1否 2是</param>
+        /// <param name="state">是否播报1否 2是 -1为离线收益</param>
         private static void CalculationBag(string line,bool boss,int state = 1)
         {
 

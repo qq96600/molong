@@ -70,7 +70,7 @@ public static class Combat_statistics
         crtsuperlative = MaxSuperlative;
         for (int i = 0; i < SetMap.Count; i++)
         {
-            if (SetMap[i].Item1 == "蓄力")
+            if (SetMap[i].Item1 == "至尊宝箱")
             {
                 crtsuperlative = MaxSuperlative - SetMap[i].Item2;
                 return;
@@ -125,15 +125,15 @@ public static class Combat_statistics
         superlative -= SumSave.base_setting[6];
         for (int i = 0; i < SetMap.Count; i++)
         {
-            if (SetMap[i].Item1 == "蓄力")
+            if (SetMap[i].Item1 == "至尊宝箱")
             {
                 //存在更改状态
                 SumSave.crt_needlist.SetMap((SetMap[i].Item1, SetMap[i].Item2 + 1));
                 return;
             }
         }
-        SetMap.Add(("蓄力", 1));
-        SumSave.crt_needlist.SetMap(("蓄力", 1));
+        SetMap.Add(("至尊宝箱", 1));
+        SumSave.crt_needlist.SetMap(("至尊宝箱", 1));
     }
     /// <summary>
     /// 获取至尊积分状态
@@ -144,7 +144,7 @@ public static class Combat_statistics
         if (SetMap == null) SetMap = SumSave.crt_needlist.SetMap();
         for (int i = 0; i < SetMap.Count; i++)
         {
-            if (SetMap[i].Item1 == "蓄力")
+            if (SetMap[i].Item1 == "至尊宝箱")
             {
                 if (SetMap[i].Item2 < MaxSuperlative)
                 {
@@ -153,7 +153,7 @@ public static class Combat_statistics
                 else return false;
             }
         }
-        SetMap.Add(("蓄力", 0));
+        SetMap.Add(("至尊宝箱", 0));
         return superlative >= SumSave.base_setting[6];
     }
     /// <summary>
