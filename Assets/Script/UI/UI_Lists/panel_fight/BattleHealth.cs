@@ -131,7 +131,7 @@ namespace MVC
             SumSave.battleMonsterHealths.Remove(this);
             SumSave.crt_achievement.increase_date_Exp((Achieve_collect.击杀怪物).ToString(), 1);
             Battle_Tool.Obtain_Exp(monster.Data.Exp);
-            SumSave.crt_user_unit.verify_data(currency_unit.灵珠, monster.Data.unit);
+            Battle_Tool.Obtain_Unit(currency_unit.灵珠, monster.Data.unit);
             int number = 1;
             Combat_statistics.AddMaxNumber();
 
@@ -142,7 +142,7 @@ namespace MVC
                     int value = Random.Range(1, 3);
                     SumSave.crt_user_unit.verify_data(currency_unit.历练, value);//monster.Data.Point
                     transform.parent.parent.parent.SendMessage("show_battle_info",
-                    "至尊卡击杀普通怪物 " + monster.Data.show_name + " 获得 " + value + "历练");//monster.Data.Point 
+                    "至尊卡击杀 " + monster.Data.show_name + " 获得 " + value + "历练");//monster.Data.Point 
                 }
             }
 
@@ -167,10 +167,9 @@ namespace MVC
                 {
                     SumSave.crt_pass.progress(4);
                 }
-               
-                SumSave.crt_user_unit.verify_data(currency_unit.历练, monster.Data.Point);//monster.Data.Point
+                Battle_Tool.Obtain_Unit(currency_unit.历练, monster.Data.Point, 2);
                 transform.parent.parent.parent.SendMessage("show_battle_info",
-                "击杀 " + monster.Data.show_name + " 获得 " + monster.Data.Point + "历练");//monster.Data.Point 
+                "击杀 " + monster.Data.show_name + " 获得 " + monster.Data.Point + "历练" + Show_Color.Red(" (+" + (long)(monster.Data.Point * Tool_State.Value_playerprobabilit(enum_skill_attribute_list.人物历练) / 100) + ")"));//monster.Data.Point 
             }
             if (Tool_State.Is_playerprobabilit(enum_skill_attribute_list.物品双倍掉落概率))
             {
@@ -187,9 +186,9 @@ namespace MVC
             if (SumSave.crt_setting.user_setting[2] == 0)
             {
                 transform.parent.parent.parent.SendMessage("show_battle_info",
-            "击杀 " + monster.Data.show_name + " 获得 " + monster.Data.Exp + "经验");
+            "击杀 " + monster.Data.show_name + " 获得 " + monster.Data.Exp+ Show_Color.Red(" (+" + (long)(monster.Data.Exp * Tool_State.Value_playerprobabilit(enum_skill_attribute_list.经验加成) / 100) + ")")+ "经验");
                 transform.parent.parent.parent.SendMessage("show_battle_info",
-            "击杀 " + monster.Data.show_name + " 获得 " + monster.Data.unit + "灵珠");
+            "击杀 " + monster.Data.show_name + " 获得 " + monster.Data.unit + Show_Color.Red(" (+" + (long)(monster.Data.unit * Tool_State.Value_playerprobabilit(enum_skill_attribute_list.灵珠收益) / 100) + ")")+ "灵珠");
             }
             if (lists.Count > 0)
             {
