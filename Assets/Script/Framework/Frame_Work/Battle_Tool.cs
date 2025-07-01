@@ -337,6 +337,11 @@ public static class Battle_Tool
                 if (ArrayHelper.SafeGet(SumSave.crt_MaxHero.bufflist, (int)enum_skill_attribute_list.人物历练, out int se))
                     value = (int)(value * (100 + SumSave.crt_MaxHero.bufflist[(int)enum_skill_attribute_list.人物历练]) / 100);
             }
+            if (unit == currency_unit.灵珠)
+            {
+                if (ArrayHelper.SafeGet(SumSave.crt_MaxHero.bufflist, (int)enum_skill_attribute_list.灵珠收益, out int se))
+                    value = (int)(value * (100 + SumSave.crt_MaxHero.bufflist[(int)enum_skill_attribute_list.灵珠收益]) / 100);
+            }
         }
         SumSave.crt_user_unit.verify_data(unit, value);
         Game_Omphalos.i.GetQueue(
