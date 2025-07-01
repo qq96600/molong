@@ -1504,8 +1504,13 @@ namespace MVC
             {
                 Enum_Value(crt, (int)enum_skill_attribute_list.经验加成, Battle_Tool.IsBuff(1));
                 Enum_Value(crt, (int)enum_skill_attribute_list.人物历练, Battle_Tool.IsBuff(2));
+               ///月卡加成
                 Enum_Value(crt, (int)enum_skill_attribute_list.经验加成, Battle_Tool.IsBuff(3));
                 Enum_Value(crt, (int)enum_skill_attribute_list.人物历练, Battle_Tool.IsBuff(3));
+                ///至尊卡加成
+                Enum_Value(crt, (int)enum_skill_attribute_list.经验加成, Battle_Tool.IsBuff(5));
+                Enum_Value(crt, (int)enum_skill_attribute_list.灵珠加成, Battle_Tool.IsBuff(5));
+
             }
                 //丹药属性
                 List<(string, List<int>)> seeds = SumSave.crt_seeds.GetuseList();
@@ -1521,11 +1526,12 @@ namespace MVC
                 }
             }
 
-            ///月卡属性
+           
             if (SumSave.crt_player_buff.player_Buffs.Count > 0)
             {
                 foreach (var item in SumSave.crt_player_buff.player_Buffs)
                 {
+                    ///月卡属性
                     (DateTime, int, float, int) time = item.Value;
                     if (3 == time.Item4)
                     {
@@ -1534,8 +1540,20 @@ namespace MVC
                             Enum_Value(crt, 116, 5);
                         }
                     }
+                    ///至尊卡属性
+                    if(5== time.Item4)
+                    {
+                        if ((SumSave.nowtime - time.Item1).Minutes < time.Item2)
+                        {
+                            Enum_Value(crt, 506, 1);
+                        }
+                    }
                 }
             }
+
+       
+
+
 
             //皮肤
 #if UNITY_EDITOR

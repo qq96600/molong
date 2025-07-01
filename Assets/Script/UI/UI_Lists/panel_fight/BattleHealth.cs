@@ -134,8 +134,25 @@ namespace MVC
             SumSave.crt_user_unit.verify_data(currency_unit.灵珠, monster.Data.unit);
             int number = 1;
             Combat_statistics.AddMaxNumber();
+
+            if (SumSave.crt_player_buff.player_Buffs.Count > 0)
+            {
+                foreach (var item in SumSave.crt_player_buff.player_Buffs)
+                {
+                    (DateTime, int, float, int) time = item.Value;
+                    if (time.Item4 == 5 && monster.Data.Monster_Lv == 1)//至尊卡
+                    {
+                        int value = Random.Range(1, 3);
+                        SumSave.crt_user_unit.verify_data(currency_unit.历练, value);//monster.Data.Point
+                        transform.parent.parent.parent.SendMessage("show_battle_info",
+                        "至尊卡击杀普通怪物 " + monster.Data.show_name + " 获得 " + value + "历练");//monster.Data.Point 
+                    }
+                }
+            }
+
+
             //判断是否增加历练值
-            if (monster.Data.Monster_Lv != 1)
+            if (monster.Data.Monster_Lv != 1) 
             {
                 number = Random.Range(2, 5);
 
