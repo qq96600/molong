@@ -154,7 +154,6 @@ public class hatching_progress : Base_Mono
                         Alert_Dec.Show("宠物" + data[0] + " 正在孵化");
                         return;
                     }
-
                 }
 
                 Dictionary<string, int> dic = new Dictionary<string, int>();
@@ -202,7 +201,6 @@ public class hatching_progress : Base_Mono
                 FeedPet();
                 break;
             case "探险":
-                //transform.parent.parent.SendMessage("PetExpeditionGo", crt_pet.SetPet());
                 PetExpeditionGo();
                 break;
             default:
@@ -311,7 +309,7 @@ public class hatching_progress : Base_Mono
             Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_pet_explore,
          SumSave.crt_explore.Set_Uptade_String(), SumSave.crt_explore.Get_Update_Character());
             Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_pet,
-     SumSave.crt_pet.Set_Uptade_String(), SumSave.crt_pet.Get_Update_Character());
+            SumSave.crt_pet.Set_Uptade_String(), SumSave.crt_pet.Get_Update_Character());
             Alert_Dec.Show("当前宠物已开始探险");
             SendNotification(NotiList.Refresh_Max_Hero_Attribute);
             PetExpeditionGoTask();
@@ -442,21 +440,14 @@ public class hatching_progress : Base_Mono
         int remainingTime = pet.hatchingTime - PetIncubationTime();
         if (remainingTime >= 0)
         {
-            //hatchingTimeCounter -= time;
-            //countdown_text.text = ConvertSecondsToHHMMSS(hatchingTimeCounter);
-            //hatching_Slider.value = pet.hatchingTime - hatchingTimeCounter;
-            //Debug.Log("倒计时" + hatchingTimeCounter + "进度条：" + hatching_Slider.value);
-
             countdown_text.text = "剩余时间：" + ConvertSecondsToHHMMSS(remainingTime);
             hatching_Slider.value = remainingTime;
         }
         else if (remainingTime < 0)//孵化完成
         {
             hatching_Slider.gameObject.SetActive(false);
-            //countdown_text.text = "";
             hatchingTimeCounter = -1;
             hatching_Slider.value = 0;
-            //Debug.Log("孵化完成");
             pet_receive.gameObject.SetActive(true);
 
     }
@@ -470,8 +461,6 @@ public class hatching_progress : Base_Mono
         string data = incubate_Time;
         SumSave.crt_pet.crt_pet_list.Remove(data);//孵化宠物只有这一个类型可以直接找到删除
         SumSave.crt_pet.crt_pet_list.Remove("");
-        //db_pet_vo _pet = ArrayHelper.Find(SumSave.db_pet, e => e.petEggsName == crt_egg.Item1);//更具宠物蛋找到对应宠物
-        //db_pet_vo pet_init = SumSave.db_pet_dic[_pet.petName];
         db_pet_vo pet_init= ArrayHelper.Find(SumSave.db_pet, e => e.petEggsName == crt_egg.Item1);
 
         string value_data = "";

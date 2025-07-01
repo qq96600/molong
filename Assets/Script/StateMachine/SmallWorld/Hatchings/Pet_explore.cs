@@ -133,6 +133,10 @@ public class Pet_explore : Base_Mono
         explore_map.gameObject.SetActive(false);
 
     }
+    private void Update()
+    {
+        UpExplorationTime(maxtime, time);
+    }
     /// <summary>
     /// 显示探索体力
     /// </summary>
@@ -246,32 +250,25 @@ public class Pet_explore : Base_Mono
         Dictionary<string, string> dic = SumSave.crt_explore.Set();
         db_pet_vo vo = crt_explore.SetData();
         if (dic.ContainsKey(vo.petName + " " + vo.startHatchingTime))
-        { 
+        {
             //获取收益列表
-            string value= dic[vo.petName + " " + vo.startHatchingTime];
+            string value = dic[vo.petName + " " + vo.startHatchingTime];
             string[] data = value.Split(",");
             //获取最大时间长度
             //获取已经完成收益时间
             int time = Battle_Tool.SettlementTransport(data[1], data[0]);//(Convert.ToDateTime(data[1]) - Convert.ToDateTime(data[0])).Minutes;
-            if (time >= maxtime)
-            {
-                info.text = "当前探索时间已满";
-            }
-            else
-            {
-                info.text = "当前探索时间 " + Show_Color.Red(time) + " 分钟/Max " + Show_Color.Red((SumSave.crt_world.World_Lv * 2 + 5) * 60) + " 分钟";
-            }
-                
+            UpExplorationTime(maxtime, time);
+
             //计算收益
             string[] Explore_list = vo.pet_explore.Split("&");//获取该地图的奖励列表
             string[] values = data[2].Split(".");//Regex.Split(data[2], "[].");// 
-            Dictionary<string,int> dic2 = new Dictionary<string, int>();
+            Dictionary<string, int> dic2 = new Dictionary<string, int>();
             for (int i = 0; i < values.Length; i++)
             {
                 string[] value2 = values[i].Split(" ");
                 if (value2.Length > 1)
-                { 
-                    if(!dic2.ContainsKey(value2[0]))
+                {
+                    if (!dic2.ContainsKey(value2[0]))
                         dic2.Add(value2[0], 0);
                     dic2[value2[0]] += int.Parse(value2[1]);
                 }
@@ -292,7 +289,7 @@ public class Pet_explore : Base_Mono
                 Instantiate(material_item_Prefabs, pos_Items).Init((item, dic2[item]));
                 data_2 += (data_2 == "" ? "" : ".") + item + " " + dic2[item];
             }
-            data[1] = SumSave.nowtime>DateTime.Now? SumSave.nowtime.ToString(): DateTime.Now.ToString();
+            data[1] = SumSave.nowtime > DateTime.Now ? SumSave.nowtime.ToString() : DateTime.Now.ToString();
             data[2] = data_2;// string.Join(".", dic2);
             //dic[vo.petName + " " + vo.startHatchingTime] = string.Join(",", data);
             SumSave.crt_explore.SetValues(vo.petName + " " + vo.startHatchingTime, string.Join(",", data));
@@ -300,6 +297,19 @@ public class Pet_explore : Base_Mono
         SumSave.crt_explore.Set_Uptade_String(), SumSave.crt_explore.Get_Update_Character());
         }
     }
+
+    private void UpExplorationTime(int maxtime, int time)
+    {
+        if (time >= maxtime)
+        {
+            info.text = "当前探索时间已满";
+        }
+        else
+        {
+            info.text = "当前探索时间 " + Show_Color.Red(time) + " 分钟/Max " + Show_Color.Red((SumSave.crt_world.World_Lv * 2 + 5) * 60) + " 分钟";
+        }
+    }
+
     /// <summary>
     /// 获取概率
     /// </summary>
