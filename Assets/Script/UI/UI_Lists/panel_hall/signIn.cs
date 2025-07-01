@@ -76,7 +76,7 @@ public class signIn : Base_Mono
             SumSave.crt_pass.clear_data();
             SumSave.crt_user_unit.verify_data(currency_unit.灵珠, 1000000 * SumSave.crt_signin.number);
             
-            MonthlyCardRewards(3);
+            MonthlyCardRewards();
             SignInTask();
             base_show();
         }
@@ -86,14 +86,15 @@ public class signIn : Base_Mono
     /// 月卡签到获得奖励
     /// </summary>
     /// <param name="index"></param>
-    private void MonthlyCardRewards(int index)
+    private void MonthlyCardRewards()
     {
         if (SumSave.crt_player_buff.player_Buffs.Count > 0)
         {
             foreach (var item in SumSave.crt_player_buff.player_Buffs)
             {
                 (DateTime, int, float, int) time = item.Value;
-                if (index == time.Item4)
+                ///至尊卡奖励
+                if (3 == time.Item4)
                 {
                     if ((SumSave.nowtime - time.Item1).Minutes < time.Item2)
                     {
@@ -104,6 +105,12 @@ public class signIn : Base_Mono
                 else
                 {
                     SumSave.crt_accumulatedrewards.Set(2, 2);//不是月卡给2点荣耀点
+                }
+                ///至尊卡奖励
+                if(time.Item4==5)
+                {
+                    Battle_Tool.Obtain_Resources("命运金币", 2);
+                    Alert.Show("至尊卡奖励", "恭喜您获得 命运金币*2");
                 }
             }
         }
@@ -155,8 +162,10 @@ public class signIn : Base_Mono
             {
                 if (SumSave.db_vip_list[i].vip_lv == SumSave.crt_accumulatedrewards.SetRecharge().Item1)
                 {
+                    dec = strs[0] + "*" + Battle_Tool.FormatNumberToChineseUnit(long.Parse(strs[1]))+ 
+                        Show_Color.Red("\n（荣耀加成：+" + Battle_Tool.FormatNumberToChineseUnit(int.Parse(strs[1]) * (SumSave.db_vip_list[i].signInIncome / 100)) + ")");
+
                     strs[1] = (int.Parse(strs[1]) + (int.Parse(strs[1]) * (SumSave.db_vip_list[i].signInIncome / 100))).ToString();
-                    dec = strs[0] + "*" + strs[1] + "\n荣耀加成：" + SumSave.db_vip_list[i].signInIncome+"%";
                 }
             }
            

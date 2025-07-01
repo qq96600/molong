@@ -55,7 +55,6 @@ namespace MVC
             }
             for (int Z = 0; Z < count; Z++)
             {
-                Debug.Log("测试次数");
                 for (int i = 0; i < (number); i++)
                 {
                     string countEquip = CalculationBattle[base_name][Random.Range(0, CalculationBattle[base_name].Length)];

@@ -309,7 +309,6 @@ namespace MVC
             {
                 int value = (data.DefMin + data.DefMax) / 2 * ((skill.skill_damage + (skill.skill_power * lv))) / 100;
                 Open_Skill_State(data, 1);
-
                 data.skill_state[1] = (1, value, DateTime.Now, skill.skill_cd);
                 return;
             }
@@ -410,12 +409,14 @@ namespace MVC
                     damage = Lucky(Data.MagicdamageMin, Data.MagicdamageMax, data.Lucky) -
                         (Random.Range(monster.Data.MagicDefMin, monster.Data.MagicDefMax) * (100 + monster.Data.bonus_MagicDef) / 100);
                     damage -= skillstate(monster.data, Data.Type);
+                    
                     damage = damage * (100 + data.bonus_MagicDamage) / 100;
                 }
                 if (monster.Data.Damage_absorption > 0)
                 {
                     damage = damage * (100 - monster.Data.Damage_absorption) / 100;
                 }
+                Debug.Log("伤害减免" + skillstate(monster.data, Data.Type));
             }
             else
             {
@@ -459,7 +460,7 @@ namespace MVC
                     user.skill_state[type] = (type, 0, DateTime.Now, 0);
                 }else value= user.skill_state[type].Item2;
             }
-            Debug.Log("技能状态效果 防御 +" + value);
+       
             return value;
         }
         /// <summary>
