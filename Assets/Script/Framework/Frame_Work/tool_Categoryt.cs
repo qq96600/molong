@@ -209,7 +209,7 @@ public class tool_Categoryt : MonoBehaviour
                 break;
             case enum_skill_attribute_list.灵气上限:
                 break;
-            case enum_skill_attribute_list.灵珠加成:
+            case enum_skill_attribute_list.空白:
             case enum_skill_attribute_list.攻击回血:
             case enum_skill_attribute_list.攻击回蓝:
             case enum_skill_attribute_list.最终伤害:
@@ -415,6 +415,12 @@ public class tool_Categoryt : MonoBehaviour
         user_value += " " + 0;
         //品质
         int quality = Quality(boss);
+        if (Combat_statistics.isSuperlative())
+        {
+            Game_Omphalos.i.Alert_Show("至尊卡蓄力生效,获得 " + Show_Color.Yellow(enum_equip_quality_list.绝世) + " " + bag_name);
+            quality = 7;
+            Combat_statistics.ClearSuperlative();
+        }
         user_value += " " + quality;
 
         if (quality > 0)

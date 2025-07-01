@@ -14,10 +14,7 @@ using System.IO;
 /// </summary>
 public static class Battle_Tool
 {
-    /// <summary>
-    /// 资源存储器
-    /// </summary>
-    //private static List<(string, int)> resources_list = new List<(string, int)>();
+    
     /// <summary>
     /// 获取资源
     /// </summary>
@@ -34,24 +31,6 @@ public static class Battle_Tool
     }
 
     private static Dictionary<string, GameObject> prefabs = new Dictionary<string, GameObject>();
-
-    /// <summary>
-    /// 获取概率加成
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-    public static bool Is_playerprobabilit(enum_skill_attribute_list value)
-    {
-        bool exist = false;
-        if (SumSave.crt_MaxHero.bufflist[(int)value] > 0)
-        {
-            if (Random.Range(0, 100) < SumSave.crt_MaxHero.bufflist[(int)value])
-            {
-                exist = true;
-            }
-        }
-        return exist;
-    }
     /// <summary>
     /// 查找预制体
     /// </summary>
@@ -473,7 +452,6 @@ public static class Battle_Tool
             (DateTime, int, float, int) time = item.Value;
             if (index == time.Item4)
             {
-                //Debug.Log(SettlementTransport((time.Item1).ToString("yyyy-MM-dd HH:mm:ss")));
                 if (SettlementTransport((time.Item1).ToString("yyyy-MM-dd HH:mm:ss")) < time.Item2)
                 {
                     base_value = (int)(time.Item3 * 100 - 100);

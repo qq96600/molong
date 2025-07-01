@@ -212,6 +212,14 @@ public class user_needlist_vo : Base_VO
             }
         }
         if(exist)map_value_list.Add(map);
+        MysqlData();
+    }
+
+    public override void MysqlData()
+    {
+        base.MysqlData();
+        Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_needlist,
+           SumSave.crt_needlist.Set_Uptade_String(), SumSave.crt_needlist.Get_Update_Character());
     }
     /// <summary>
     /// 解析进入地图次数

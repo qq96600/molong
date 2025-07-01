@@ -165,6 +165,7 @@ public class panel_Buff : Panel_Base
 
     private void InitInformation()
     {
+        
         string dec = " ";
         List<float> buff_list = new List<float>(3) { 0,0,0};//0经验加成 1灵珠加成 2历练加成
         if (SumSave.crt_player_buff.player_Buffs.Count > 0)

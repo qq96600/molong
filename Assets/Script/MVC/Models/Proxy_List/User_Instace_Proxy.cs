@@ -1509,7 +1509,7 @@ namespace MVC
                 Enum_Value(crt, (int)enum_skill_attribute_list.人物历练, Battle_Tool.IsBuff(3));
                 ///至尊卡加成
                 Enum_Value(crt, (int)enum_skill_attribute_list.经验加成, Battle_Tool.IsBuff(5));
-                Enum_Value(crt, (int)enum_skill_attribute_list.灵珠加成, Battle_Tool.IsBuff(5));
+                Enum_Value(crt, (int)enum_skill_attribute_list.灵珠收益, Battle_Tool.IsBuff(5));
 
             }
                 //丹药属性
