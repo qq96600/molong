@@ -399,13 +399,6 @@ public class tool_Categoryt : MonoBehaviour
         bag.user_value = user_value;
         return bag;
     }
-    /// <summary>
-    /// 创建装备
-    /// </summary>
-    /// <param name="bag_name"></param>
-    /// <param name="boss"></param>
-    /// <param name="state">是否为离线收益-1为离线</param>
-    /// <returns></returns>
     public static Bag_Base_VO crate_equip(string bag_name, bool boss=false)
     {
         Bag_Base_VO bag = new Bag_Base_VO();
@@ -424,8 +417,8 @@ public class tool_Categoryt : MonoBehaviour
         int quality = Quality(boss);
         if (Combat_statistics.isSuperlative())
         {
-            Game_Omphalos.i.Alert_Show("至尊宝箱生效,获得 " + Show_Color.Yellow(enum_equip_quality_list.绝世) + " " + bag_name);
-            quality = 7;
+            Game_Omphalos.i.Alert_Show("宝箱生效,获得 " + Show_Color.Yellow(enum_equip_quality_list.神话) + " " + bag_name);
+            quality = 6;
             Combat_statistics.ClearSuperlative();
         }
         user_value += " " + quality;
