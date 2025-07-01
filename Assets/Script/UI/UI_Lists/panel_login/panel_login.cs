@@ -372,8 +372,8 @@ namespace MVC
                         int monster_number= (int)(number / numbers);
                         if (Tool_State.IsState(State_List.至尊卡))
                         {
-                            //离线至尊积分进度条
-                            Combat_statistics.offline(monster_number);
+                            //离线至尊积分进度条 
+                            if (SumSave.base_setting[7] == 0) Combat_statistics.offline(monster_number);
                             int unit_2 = Random.Range(monster_number, monster_number * 2);
                             //离线历练值
                             Battle_Tool.Obtain_Unit(currency_unit.历练, unit_2,2);

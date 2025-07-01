@@ -52,13 +52,10 @@ namespace StateMachine
             if (SkillPosType == skill_pos_type.situ)
             {
                 is_collider = false;
-                //StartCoroutine(WaitForExplosionEnd());
-                //StartCoroutine(SpecificTimeDestroy());
             }
             else if (SkillPosType == skill_pos_type.oneself)
             {
                 is_collider = false;
-                //StartCoroutine(WaitForAnimationEnd());
             }
 
             ///怪物死亡后回收技能
@@ -127,7 +124,6 @@ namespace StateMachine
 
             if (isPushObjectToPool)
             {
-                
                 isPushObjectToPool = false;
                 StopAllCoroutines();
                 ObjectPoolManager.instance.PushObjectToPool(skill.skillname, this.gameObject);
