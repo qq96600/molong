@@ -133,10 +133,7 @@ public class Pet_explore : Base_Mono
         explore_map.gameObject.SetActive(false);
 
     }
-    private void Update()
-    {
-        UpExplorationTime(maxtime, time);
-    }
+ 
     /// <summary>
     /// 显示探索体力
     /// </summary>
@@ -182,6 +179,7 @@ public class Pet_explore : Base_Mono
     }
     private void Base_Show()
     {
+        ClearObject(pos_Items);
         int max = SumSave.crt_world.World_Lv / 30 + 1;
         max = Mathf.Min(max, 3);
         List<db_pet_vo> list = new List<db_pet_vo>();
@@ -238,6 +236,10 @@ public class Pet_explore : Base_Mono
         if (crt_explore != null) crt_explore.Selected = false;
         crt_explore = item;
         crt_explore.Selected = true;
+        GainRewards();
+    }
+    private void Update()
+    {
         GainRewards();
     }
 
@@ -415,6 +417,7 @@ public class Pet_explore : Base_Mono
                 ClearObject(btn_item_Dic[index]);
             }
             Base_Show();
+
             SendNotification(NotiList.Refresh_Max_Hero_Attribute);
         }
     }

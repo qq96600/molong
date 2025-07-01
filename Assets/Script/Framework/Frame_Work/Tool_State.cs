@@ -53,7 +53,16 @@ public  static class Tool_State
     /// </summary>
     public static void self_inspection()
     {
-        for (int i = 1; i < Enum.GetNames(typeof(State_List)).Length+1; i++)
+
+        if(state_list.Count != Enum.GetNames(typeof(State_List)).Length)
+        {
+            for (int i = 1; i < Enum.GetNames(typeof(State_List)).Length + 1; i++)
+            {
+                state_list.Add((State_List)(i), false);
+            }
+        }
+
+        for (int i = 1; i < state_list.Count + 1; i++)
         {
             if (SumSave.crt_player_buff.player_Buffs.Count > 0)
             {
@@ -62,16 +71,22 @@ public  static class Tool_State
                     (DateTime, int, float, int) time = item.Value;
                     if (time.Item4 == i)//
                     {
-                        if (state_list.ContainsKey((State_List)(i)))
-                        { 
-                            state_list[(State_List)(i)] = false;
-                        }else state_list.Add((State_List)(i), false);
                         int remainingTime = Battle_Tool.SettlementTransport((time.Item1).ToString("yyyy-MM-dd HH:mm:ss"), 2);
                         if (remainingTime < time.Item2 * 60)//有效期内
+                        {
                             state_list[(State_List)(i)] = true;
+                        }
+                        else
+                        {
+                            SumSave.crt_player_buff.player_Buffs.Remove(item.Key);
+                            return;
+                        }
+
                     }
+
                 }
             }
+
         }
     }
     /// <summary>
