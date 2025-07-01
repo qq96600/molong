@@ -444,8 +444,8 @@ public static class ReadDb
     }
     public static user_pet_vo Read(MySqlDataReader reader, user_pet_vo item)
     {
-        item.pet_value = reader.GetString(reader.GetOrdinal("user_value"));
-        item.Init();
+        //item.pet_value = reader.GetString(reader.GetOrdinal("user_value"));
+        item.Init(reader.GetString(reader.GetOrdinal("user_value")));
         return item;
     }
 

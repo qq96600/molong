@@ -117,7 +117,7 @@ namespace Common
         /// <summary>
         /// 自身宠物列表 
         /// </summary>
-        public static List<db_pet_vo> crt_pet_list=new List<db_pet_vo>();
+        public static List<db_pet_vo> crt_pet_list1=new List<db_pet_vo>();
         /// <summary>
         /// 炼丹数据
         /// </summary>

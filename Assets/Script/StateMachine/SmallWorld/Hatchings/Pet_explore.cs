@@ -182,26 +182,25 @@ public class Pet_explore : Base_Mono
         ClearObject(pos_Items);
         int max = SumSave.crt_world.World_Lv / 30 + 1;
         max = Mathf.Min(max, 3);
-        List<db_pet_vo> list = new List<db_pet_vo>();
-        for (int j = 0; j < SumSave.crt_pet_list.Count; j++)
-        {
-            if (SumSave.crt_pet_list[j].pet_state == "2")
-                list.Add(SumSave.crt_pet_list[j]);
-        }
+        List<db_pet_vo> list = SumSave.crt_pet.Set();
+         
         int number = 0;
         for (int i = 0; i < list.Count; i++)
-        {
-            foreach (var index in btn_item_Dic.Keys)
+        {   if (list[i].pet_state == "2")
             {
-                if (btn_item_Dic[index].childCount == 0)
+                foreach (var index in btn_item_Dic.Keys)
                 {
-                    explore_item item = Instantiate(explore_item_Prefabs, btn_item_Dic[index]);
-                    item.Init(list[i]);
-                    item.GetComponent<Button>().onClick.AddListener(() => { Obtain_Pet(item); });
-                    if (crt_explore == null) Obtain_Pet(item);
-                    number++;
-                    break;
+                    if (btn_item_Dic[index].childCount == 0)
+                    {
+                        explore_item item = Instantiate(explore_item_Prefabs, btn_item_Dic[index]);
+                        item.Init(list[i]);
+                        item.GetComponent<Button>().onClick.AddListener(() => { Obtain_Pet(item); });
+                        if (crt_explore == null) Obtain_Pet(item);
+                        number++;
+                        break;
+                    }
                 }
+
             }
         }
         if (number < max)
@@ -391,24 +390,14 @@ public class Pet_explore : Base_Mono
             //写入数据库
             Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.material_value, 
                 SumSave.crt_bag_resources.GetData());
-            for (int i = 0; i < SumSave.crt_pet_list.Count; i++)
+            //更新宠物状态
+            List<db_pet_vo> list = SumSave.crt_pet.Set();
+            for (int i = 0; i < list.Count; i++)
             {
-                db_pet_vo vo2 = SumSave.crt_pet_list[i];
-                if (vo2.petName == vo.petName && vo2.startHatchingTime == vo.startHatchingTime)
+                if (list[i].petName == vo.petName && list[i].startHatchingTime == vo.startHatchingTime)
                 {
-                    string petvalue = vo2.IntegrationData(vo2);//升级之前的数据
-                    vo2.pet_state = "0";
-                    string value1 = vo2.IntegrationData(vo2);//升级之后的数据
-                    for (int j = 0; j < SumSave.crt_pet.crt_pet_list.Count; j++)
-                    {
-                        if (SumSave.crt_pet.crt_pet_list[j] == petvalue)
-                        {
-                            SumSave.crt_pet.crt_pet_list[j] = "";
-                            SumSave.crt_pet.crt_pet_list[j] = value1;
-                        }
-                    }
-                    Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_pet,
-             SumSave.crt_pet.Set_Uptade_String(), SumSave.crt_pet.Get_Update_Character());
+                    list[i].pet_state = "0";
+                    SumSave.crt_pet.Get();
                 }
             }
             Alert_Icon.Show(dic2);
