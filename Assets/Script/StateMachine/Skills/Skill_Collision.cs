@@ -52,13 +52,10 @@ namespace StateMachine
             if (SkillPosType == skill_pos_type.situ)
             {
                 is_collider = false;
-                //StartCoroutine(WaitForExplosionEnd());
-                //StartCoroutine(SpecificTimeDestroy());
             }
             else if (SkillPosType == skill_pos_type.oneself)
             {
                 is_collider = false;
-                //StartCoroutine(WaitForAnimationEnd());
             }
 
             if(TatgetPosition.HP <= 0)
@@ -117,7 +114,7 @@ namespace StateMachine
         /// </summary>
         private void OnDisable()
         {
-            Debug.Log("已经回收");
+            Debug.LogError("已经回收");
             PushObjectToPool();
         }
         /// <summary>
@@ -128,7 +125,6 @@ namespace StateMachine
 
             if (isPushObjectToPool)
             {
-                
                 isPushObjectToPool = false;
                 StopAllCoroutines();
                 ObjectPoolManager.instance.PushObjectToPool(skill.skillname, this.gameObject);
