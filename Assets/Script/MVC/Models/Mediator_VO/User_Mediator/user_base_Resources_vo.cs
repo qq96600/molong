@@ -50,7 +50,6 @@ public class user_base_Resources_vo:Base_VO
     }
     public override string[] Set_Instace_String()
     {
-        //return new string[] { "now_time", "skill_value", "house_value", "bag_value", "material_value", "equip_value" };
         return new string[]
         {
         GetStr(0),
@@ -65,6 +64,18 @@ public class user_base_Resources_vo:Base_VO
         GetStr(ArrayHelper.Data_Encryption(pages))
         };
     }
+    public void SetPage(int type)
+    { 
+       pages[type]++;
+        MysqlData(); 
+    }
+    public override void MysqlData()
+    {
+        base.MysqlData();  
+        Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto,
+            Mysql_Table_Name.mo_user_value, SumSave.crt_resources.Set_Uptade_String(), SumSave.crt_resources.Get_Update_Character());
+
+    }
 
     public override string[] Get_Update_Character()
     {
@@ -76,7 +87,8 @@ public class user_base_Resources_vo:Base_VO
             "house_value",
             "bag_value", 
             "material_value", 
-            "equip_value"
+            "equip_value",
+            "page_value"
         };
     }
     public override string[] Set_Uptade_String()
@@ -90,6 +102,7 @@ public class user_base_Resources_vo:Base_VO
          GetStr(bag_value),
          GetStr(material_value),
          GetStr(equip_value),
+         GetStr(ArrayHelper.Data_Encryption(pages))
         };
     }
 }

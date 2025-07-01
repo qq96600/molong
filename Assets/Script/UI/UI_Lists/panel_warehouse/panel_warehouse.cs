@@ -1,6 +1,7 @@
 using Common;
 using Components;
 using MVC;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UI;
@@ -31,6 +32,10 @@ public class panel_warehouse : Panel_Base
     /// 选中装备
     /// </summary>
     private equip_item crt_euqip;
+    /// <summary>
+    /// 扩容
+    /// </summary>
+    private Button Equipment_title, Warehouse_title;
 
 
     public override void Initialize()
@@ -44,7 +49,76 @@ public class panel_warehouse : Panel_Base
         Equipment_quantity = Find<Text>("Equipment/Equipment_quantity");
         crt_euqip = Instantiate(equip_item_Prefabs, this.gameObject.transform);
         crt_euqip.gameObject.SetActive(false);
+        Warehouse_title = Find<Button>("Warehouse/Warehouse_title"); 
+        Equipment_title = Find<Button>("Equipment/Equipment_title");
+        Equipment_title.onClick.AddListener(delegate { OnEquipment(); });
+        Warehouse_title.onClick.AddListener(delegate { OnWarehouse(); });
     }
+    /// <summary>
+    /// 扩容仓库
+    /// </summary>
+    private void OnWarehouse()
+    {
+        if (SumSave.crt_resources.pages[1] >= SumSave.base_setting[5])
+        {
+            Alert_Dec.Show("仓库扩容已满");
+            return;
+        }
+        int value = (SumSave.crt_resources.pages[1] - 59) * 500;
+        if (value > 0)
+        { 
+            value=(int)MathF.Min(value, 20000);
+            Alert.Show("扩容仓库", "扩容仓库\n消耗灵气 * " + value, confirmWarehouse, value);
+        }
+    }
+    /// <summary>
+    /// 扩容仓库
+    /// </summary>
+    /// <param name="arg0"></param>
+    private void confirmWarehouse(object arg0)
+    {
+        int value = (int)arg0;
+        NeedConsumables(currency_unit.灵气, value);
+        if (RefreshConsumables())
+        {
+            SumSave.crt_resources.SetPage(1);
+            Alert_Dec.Show("扩容成功");
+            Refresh();
+        }
+    }
+    /// <summary>
+    /// 扩容装备
+    /// </summary>
+    private void OnEquipment()
+    {
+        if (SumSave.crt_resources.pages[0] >= SumSave.base_setting[4])
+        {
+            Alert_Dec.Show("背包扩容已满");
+            return;
+        }
+        int value = (SumSave.crt_resources.pages[0] - 119) * 10;
+        if (value > 0)
+        {
+            value = (int)MathF.Min(value, 200);
+            Alert.Show("扩容背包", "扩容背包和材料包\n消耗魔丸 * " + value, confirmEquipment, value);
+        }
+    }
+    /// <summary>
+    /// 刷新扩容
+    /// </summary>
+    /// <param name="arg0"></param>
+    private void confirmEquipment(object arg0)
+    {
+        int value = (int)arg0;
+        NeedConsumables(currency_unit.魔丸, value);
+        if (RefreshConsumables())
+        {
+            SumSave.crt_resources.SetPage(0);
+            Alert_Dec.Show("扩容成功");
+            Refresh();
+        }
+    } 
+
     /// <summary>
     /// 显示装备
     /// </summary>

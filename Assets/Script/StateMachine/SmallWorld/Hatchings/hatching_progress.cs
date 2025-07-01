@@ -60,7 +60,10 @@ public class hatching_progress : Base_Mono
     /// 领取宠物按钮
     /// </summary>
     private Button pet_receive;
-
+    /// <summary>
+    /// 宠物基础数量
+    /// </summary>
+    private int pet_baseNumber = 6;
 
     private void Awake()
     {
@@ -137,7 +140,7 @@ public class hatching_progress : Base_Mono
         switch (pet_list_btn[btn.index])
         {
             case "孵化":
-                if( SumSave.crt_pet_list.Count >=(SumSave.crt_world.World_Lv / 10 + 1))
+                if( SumSave.crt_pet_list.Count >=(SumSave.crt_world.World_Lv / 10 + pet_baseNumber))
                 {
                     Alert_Dec.Show("宠物数量已满");
                     return;
@@ -592,10 +595,10 @@ public class hatching_progress : Base_Mono
 
             if(SumSave.crt_pet_list.Count == 1&& SumSave.crt_pet_list[0].petName == null)
             {
-                petQuantityText.text = "数量：" +0 + "/" + (SumSave.crt_world.World_Lv / 10 + 1);
+                petQuantityText.text = "数量：" +0 + "/" + (SumSave.crt_world.World_Lv / 10 + pet_baseNumber);
             }else
             {
-                petQuantityText.text = "数量：" + (SumSave.crt_pet_list.Count).ToString() + "/" + (SumSave.crt_world.World_Lv / 10 + 1);
+                petQuantityText.text = "数量：" + (SumSave.crt_pet_list.Count).ToString() + "/" + (SumSave.crt_world.World_Lv / 10 + pet_baseNumber);
             }
 
            

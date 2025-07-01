@@ -50,7 +50,6 @@ namespace MVC
         /// </summary>
         public AttackStateMachine AttackStateMachine;
         public RolesManage StateMachine;
-
         private Text name_text;
         /// <summary>
         /// 刷新属性
@@ -306,6 +305,27 @@ namespace MVC
                 if (target.HP > target.maxHP) target.HP = target.maxHP;
                 return;
             }
+            if (skill.skill_damage_type == 4) 
+            {
+                int value = (data.DefMin + data.DefMax) / 2 * ((skill.skill_damage + (skill.skill_power * lv))) / 100;
+                Open_Skill_State(data, 1);
+                data.skill_state[1] = (1, value, DateTime.Now, skill.skill_cd);
+                return;
+            }
+            if (skill.skill_damage_type == 5)
+            {
+                int value = (data.MagicDefMin + data.MagicDefMax) / 2 * ((skill.skill_damage + (skill.skill_power * lv))) / 100;
+                Open_Skill_State(data, 2);
+                data.skill_state[2] = (2, value, DateTime.Now, skill.skill_cd);
+                return;
+            }
+            if (skill.skill_damage_type == 8)
+            {
+                int value = (data.MagicDefMin + data.MagicDefMax) / 2 * ((skill.skill_damage + (skill.skill_power * lv))) / 100;
+                Open_Skill_State(data, 3);
+                data.skill_state[3] = (3, value, DateTime.Now, skill.skill_cd);
+                return;
+            }
             if (monster.target.HP <= 0) return;//结战斗
             float damage = Base_Damage(monster, skill);
             damage += skill.skill_spell * target.maxMP / 100;
@@ -380,6 +400,8 @@ namespace MVC
                 {
                     damage = Lucky(Data.damageMin, Data.damageMax, data.Lucky) -
                         (Random.Range(monster.Data.DefMin, monster.Data.DefMax) * (100 + monster.Data.bonus_Def) / 100);
+                    damage -= skillstate(monster.data, Data.Type);
+                    Debug.Log("伤害减免" + skillstate(monster.data, Data.Type));
                     damage = damage * (100 + data.bonus_Damage) / 100;
                 }
                 else
@@ -387,6 +409,7 @@ namespace MVC
                 {
                     damage = Lucky(Data.MagicdamageMin, Data.MagicdamageMax, data.Lucky) -
                         (Random.Range(monster.Data.MagicDefMin, monster.Data.MagicDefMax) * (100 + monster.Data.bonus_MagicDef) / 100);
+                    damage -= skillstate(monster.data, Data.Type);
                     damage = damage * (100 + data.bonus_MagicDamage) / 100;
                 }
                 if (monster.Data.Damage_absorption > 0)
@@ -401,6 +424,7 @@ namespace MVC
                 {
                     damage = Lucky(Data.damageMin, Data.damageMax, data.Lucky) -
                            (Random.Range(monster.Data.DefMin, monster.Data.DefMax) * (100 + monster.Data.bonus_Def) / 100);
+                    damage -= skillstate(monster.data, skill.skill_damage_type);
                     damage = damage * (100 + data.bonus_Damage) / 100;
                 }
                 else
@@ -408,6 +432,7 @@ namespace MVC
                 {
                     damage = Lucky(Data.MagicdamageMin, Data.MagicdamageMax, data.Lucky) -
                          (Random.Range(monster.Data.MagicDefMin, monster.Data.MagicDefMax) * (100 + monster.Data.bonus_MagicDef) / 100);
+                    damage -= skillstate(monster.data, skill.skill_damage_type);
                     damage = damage * (100 + data.bonus_MagicDamage) / 100;
                 }
             }
@@ -415,6 +440,39 @@ namespace MVC
             damage = damage * (100 + data.double_damage - monster.data.Damage_Reduction) / 100;
             damage = Mathf.Max(1, damage);
             return (int)damage;
+        }
+
+        /// <summary>
+        /// 判断技能效果
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        private int skillstate(crtMaxHeroVO user, int type)
+        { 
+            int value = 0;
+            Open_Skill_State(user, type);
+            if (user.skill_state[type].Item2 != 0)
+            {
+                int time = Battle_Tool.SettlementTransport(user.skill_state[type].Item3.ToString(), 2);
+                if (time >= user.skill_state[type].Item4)//超过有效时间
+                {
+                    user.skill_state[type] = (type, 0, DateTime.Now, 0);
+                }else value= user.skill_state[type].Item2;
+            }
+            Debug.Log("技能状态效果 防御 +" + value);
+            return value;
+        }
+        /// <summary>
+        /// 判断状态
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="type"></param>
+        private void Open_Skill_State(crtMaxHeroVO user, int type)
+        {
+            while (user.skill_state.Count < type+1)
+            { 
+                user.skill_state.Add((type, 0, DateTime.Now, 0));
+            }
         }
         /// <summary>
         /// 判断五行伤害克制关系
