@@ -52,16 +52,14 @@ namespace StateMachine
             if (SkillPosType == skill_pos_type.situ)
             {
                 is_collider = false;
-                //StartCoroutine(WaitForExplosionEnd());
-                //StartCoroutine(SpecificTimeDestroy());
             }
             else if (SkillPosType == skill_pos_type.oneself)
             {
                 is_collider = false;
-                //StartCoroutine(WaitForAnimationEnd());
             }
 
-            if(TatgetPosition.HP <= 0)
+            ///怪物死亡后回收技能
+            if(TatgetPosition.HP <= 0&&SkillPosType != skill_pos_type.oneself)
             {
                 PushObjectToPool();
             }
@@ -107,7 +105,6 @@ namespace StateMachine
             }
             transform.parent.SendMessage("skill_damage", skill);
             yield return new WaitForSeconds(time);
-            Debug.Log("动画播放完成");
             // 将对象返回对象池
             PushObjectToPool();
         }
@@ -117,7 +114,6 @@ namespace StateMachine
         /// </summary>
         private void OnDisable()
         {
-            Debug.Log("已经回收");
             PushObjectToPool();
         }
         /// <summary>
@@ -128,7 +124,6 @@ namespace StateMachine
 
             if (isPushObjectToPool)
             {
-                
                 isPushObjectToPool = false;
                 StopAllCoroutines();
                 ObjectPoolManager.instance.PushObjectToPool(skill.skillname, this.gameObject);

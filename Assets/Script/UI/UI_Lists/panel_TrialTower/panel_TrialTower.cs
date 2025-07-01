@@ -207,8 +207,7 @@ public class panel_TrialTower : Panel_Base
 
         }
         boss_number++;
-        Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_needlist,
-           SumSave.crt_needlist.Set_Uptade_String(), SumSave.crt_needlist.Get_Update_Character());
+        
     }
 
     /// <summary>

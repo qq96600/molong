@@ -94,7 +94,7 @@ namespace MVC
                 target.internalforceMP= data.internalforceMP;
                 show_hp.maxValue = target.maxHP;
                 show_hp.value = target.HP;
-                hp_text.text = target.HP + "/" + target.maxHP;
+                hp_text.text = Battle_Tool.FormatNumberToChineseUnit(target.HP) + "/" + Battle_Tool.FormatNumberToChineseUnit(target.maxHP);
                 target.maxMP= data.MaxMp;
                 target.MP= data.MaxMp;
                 Terget = null;
@@ -265,7 +265,7 @@ namespace MVC
                 }
                 else Find_Terget();
                 show_hp.value = target.HP;
-                hp_text.text = (int)target.HP + "/" + target.maxHP;
+                hp_text.text = Battle_Tool.FormatNumberToChineseUnit(target.HP) + "/" + Battle_Tool.FormatNumberToChineseUnit(target.maxHP);
             }
            
         }
@@ -372,7 +372,7 @@ namespace MVC
             AudioManager.Instance.playAudio(ClipEnum.攻击敌人);
             BattleAttack monster = Terget.GetComponent<BattleAttack>();
             if (monster.target.HP <= 0) return;//结战斗
-            float damage = Base_Damage(monster);
+            long damage = Base_Damage(monster);
             if (iSnHit(monster))
             {
                 monster.target.TakeDamage(1, DamageEnum.未命中);
@@ -391,9 +391,9 @@ namespace MVC
             }
         }
 
-        private int Base_Damage(BattleAttack monster,base_skill_vo skill=null)
+        private long Base_Damage(BattleAttack monster,base_skill_vo skill=null)
         {
-            float damage = 0f;
+            long damage = 0;
             if (skill == null)
             {
                 if (Data.Type == 1)
@@ -401,7 +401,6 @@ namespace MVC
                     damage = Lucky(Data.damageMin, Data.damageMax, data.Lucky) -
                         (Random.Range(monster.Data.DefMin, monster.Data.DefMax) * (100 + monster.Data.bonus_Def) / 100);
                     damage -= skillstate(monster.data, Data.Type);
-                    Debug.Log("伤害减免" + skillstate(monster.data, Data.Type));
                     damage = damage * (100 + data.bonus_Damage) / 100;
                 }
                 else
@@ -410,12 +409,14 @@ namespace MVC
                     damage = Lucky(Data.MagicdamageMin, Data.MagicdamageMax, data.Lucky) -
                         (Random.Range(monster.Data.MagicDefMin, monster.Data.MagicDefMax) * (100 + monster.Data.bonus_MagicDef) / 100);
                     damage -= skillstate(monster.data, Data.Type);
+                    
                     damage = damage * (100 + data.bonus_MagicDamage) / 100;
                 }
                 if (monster.Data.Damage_absorption > 0)
                 {
                     damage = damage * (100 - monster.Data.Damage_absorption) / 100;
                 }
+                //Debug.Log("伤害减免" + skillstate(monster.data, Data.Type));
             }
             else
             {
@@ -438,8 +439,8 @@ namespace MVC
             }
             damage = damage * (100 + penetrate(monster)) / 100;
             damage = damage * (100 + data.double_damage - monster.data.Damage_Reduction) / 100;
-            damage = Mathf.Max(1, damage);
-            return (int)damage;
+            damage =(long) Mathf.Max(1, damage);
+            return damage;
         }
 
         /// <summary>
@@ -459,7 +460,7 @@ namespace MVC
                     user.skill_state[type] = (type, 0, DateTime.Now, 0);
                 }else value= user.skill_state[type].Item2;
             }
-            Debug.Log("技能状态效果 防御 +" + value);
+       
             return value;
         }
         /// <summary>
@@ -571,7 +572,7 @@ namespace MVC
         private bool isCrate(BattleAttack monster)
         {
             bool isCrit= false;
-            if (Random.Range(0, 100) < data.crit_rate - monster.Data.crit_rate)
+            if (Random.Range(0, 100) < (data.crit_rate - monster.Data.crit_rate)*100 / (data.crit_rate+30))
             {
                 isCrit = true;
             }

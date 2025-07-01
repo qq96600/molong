@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using UI;
 using UnityEngine;
 using UnityEngine.UI;
-
+using Random = UnityEngine.Random;
 
 namespace MVC
 {
@@ -373,13 +373,23 @@ namespace MVC
                         }
                         numbers = Math.Clamp(numbers, 7, 20);
                         int monster_number= (int)(number / numbers);
+                        if (Tool_State.IsState(State_List.至尊卡))
+                        {
+                            //离线至尊积分进度条 
+                            if (SumSave.base_setting[7] == 0) Combat_statistics.offline(monster_number);
+                            int unit_2 = Random.Range(monster_number, monster_number * 2);
+                            //离线历练值
+                            Battle_Tool.Obtain_Unit(currency_unit.历练, unit_2,2);
+                            dec += "\n历练收益 " + unit_2 + Show_Color.Red(" (+" + (long)(unit_2 * Show_Buff(enum_skill_attribute_list.人物历练) / 100) + ")");
+                        }
+                       
                         List<string> vs = ConfigBattle.Offline(monster_number);
                         crtMaxHeroVO monster = ArrayHelper.Find(SumSave.db_monsters, e => e.index == map.map_index);
                         dec += "\n地图 " + map.map_name + " 收益";
                         if (monster != null)
                         {
                             int moeny = (monster.Lv * 5 + 1) * monster_number;
-                            Battle_Tool.Obtain_Unit(currency_unit.灵珠, moeny);
+                            Battle_Tool.Obtain_Unit(currency_unit.灵珠, moeny,2);
                             dec += "\n灵珠收益 " + moeny + Show_Color.Red(" (+" + (int)(moeny * Show_Buff(enum_skill_attribute_list.灵珠收益)/100) + ")");
                             long obexp = (long)(monster.Exp * monster_number * 0.6);
                             Battle_Tool.Obtain_Exp(obexp);

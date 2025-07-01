@@ -133,6 +133,7 @@ public class Pet_explore : Base_Mono
         explore_map.gameObject.SetActive(false);
 
     }
+ 
     /// <summary>
     /// 显示探索体力
     /// </summary>
@@ -178,28 +179,28 @@ public class Pet_explore : Base_Mono
     }
     private void Base_Show()
     {
+        ClearObject(pos_Items);
         int max = SumSave.crt_world.World_Lv / 30 + 1;
         max = Mathf.Min(max, 3);
-        List<db_pet_vo> list = new List<db_pet_vo>();
-        for (int j = 0; j < SumSave.crt_pet_list.Count; j++)
-        {
-            if (SumSave.crt_pet_list[j].pet_state == "2")
-                list.Add(SumSave.crt_pet_list[j]);
-        }
+        List<db_pet_vo> list = SumSave.crt_pet.Set();
+         
         int number = 0;
         for (int i = 0; i < list.Count; i++)
-        {
-            foreach (var index in btn_item_Dic.Keys)
+        {   if (list[i].pet_state == "2")
             {
-                if (btn_item_Dic[index].childCount == 0)
+                foreach (var index in btn_item_Dic.Keys)
                 {
-                    explore_item item = Instantiate(explore_item_Prefabs, btn_item_Dic[index]);
-                    item.Init(list[i]);
-                    item.GetComponent<Button>().onClick.AddListener(() => { Obtain_Pet(item); });
-                    if (crt_explore == null) Obtain_Pet(item);
-                    number++;
-                    break;
+                    if (btn_item_Dic[index].childCount == 0)
+                    {
+                        explore_item item = Instantiate(explore_item_Prefabs, btn_item_Dic[index]);
+                        item.Init(list[i]);
+                        item.GetComponent<Button>().onClick.AddListener(() => { Obtain_Pet(item); });
+                        if (crt_explore == null) Obtain_Pet(item);
+                        number++;
+                        break;
+                    }
                 }
+
             }
         }
         if (number < max)
@@ -236,6 +237,10 @@ public class Pet_explore : Base_Mono
         crt_explore.Selected = true;
         GainRewards();
     }
+    private void Update()
+    {
+        GainRewards();
+    }
 
     /// <summary>
     /// 获取奖励列表
@@ -246,32 +251,25 @@ public class Pet_explore : Base_Mono
         Dictionary<string, string> dic = SumSave.crt_explore.Set();
         db_pet_vo vo = crt_explore.SetData();
         if (dic.ContainsKey(vo.petName + " " + vo.startHatchingTime))
-        { 
+        {
             //获取收益列表
-            string value= dic[vo.petName + " " + vo.startHatchingTime];
+            string value = dic[vo.petName + " " + vo.startHatchingTime];
             string[] data = value.Split(",");
             //获取最大时间长度
             //获取已经完成收益时间
             int time = Battle_Tool.SettlementTransport(data[1], data[0]);//(Convert.ToDateTime(data[1]) - Convert.ToDateTime(data[0])).Minutes;
-            if (time >= maxtime)
-            {
-                info.text = "当前探索时间已满";
-            }
-            else
-            {
-                info.text = "当前探索时间 " + Show_Color.Red(time) + " 分钟/Max " + Show_Color.Red((SumSave.crt_world.World_Lv * 2 + 5) * 60) + " 分钟";
-            }
-                
+            UpExplorationTime(maxtime, time);
+
             //计算收益
             string[] Explore_list = vo.pet_explore.Split("&");//获取该地图的奖励列表
             string[] values = data[2].Split(".");//Regex.Split(data[2], "[].");// 
-            Dictionary<string,int> dic2 = new Dictionary<string, int>();
+            Dictionary<string, int> dic2 = new Dictionary<string, int>();
             for (int i = 0; i < values.Length; i++)
             {
                 string[] value2 = values[i].Split(" ");
                 if (value2.Length > 1)
-                { 
-                    if(!dic2.ContainsKey(value2[0]))
+                {
+                    if (!dic2.ContainsKey(value2[0]))
                         dic2.Add(value2[0], 0);
                     dic2[value2[0]] += int.Parse(value2[1]);
                 }
@@ -292,7 +290,7 @@ public class Pet_explore : Base_Mono
                 Instantiate(material_item_Prefabs, pos_Items).Init((item, dic2[item]));
                 data_2 += (data_2 == "" ? "" : ".") + item + " " + dic2[item];
             }
-            data[1] = SumSave.nowtime>DateTime.Now? SumSave.nowtime.ToString(): DateTime.Now.ToString();
+            data[1] = SumSave.nowtime > DateTime.Now ? SumSave.nowtime.ToString() : DateTime.Now.ToString();
             data[2] = data_2;// string.Join(".", dic2);
             //dic[vo.petName + " " + vo.startHatchingTime] = string.Join(",", data);
             SumSave.crt_explore.SetValues(vo.petName + " " + vo.startHatchingTime, string.Join(",", data));
@@ -300,6 +298,19 @@ public class Pet_explore : Base_Mono
         SumSave.crt_explore.Set_Uptade_String(), SumSave.crt_explore.Get_Update_Character());
         }
     }
+
+    private void UpExplorationTime(int maxtime, int time)
+    {
+        if (time >= maxtime)
+        {
+            info.text = "当前探索时间已满";
+        }
+        else
+        {
+            info.text = "当前探索时间 " + Show_Color.Red(time) + " 分钟/Max " + Show_Color.Red((SumSave.crt_world.World_Lv * 2 + 5) * 60) + " 分钟";
+        }
+    }
+
     /// <summary>
     /// 获取概率
     /// </summary>
@@ -379,24 +390,14 @@ public class Pet_explore : Base_Mono
             //写入数据库
             Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.material_value, 
                 SumSave.crt_bag_resources.GetData());
-            for (int i = 0; i < SumSave.crt_pet_list.Count; i++)
+            //更新宠物状态
+            List<db_pet_vo> list = SumSave.crt_pet.Set();
+            for (int i = 0; i < list.Count; i++)
             {
-                db_pet_vo vo2 = SumSave.crt_pet_list[i];
-                if (vo2.petName == vo.petName && vo2.startHatchingTime == vo.startHatchingTime)
+                if (list[i].petName == vo.petName && list[i].startHatchingTime == vo.startHatchingTime)
                 {
-                    string petvalue = vo2.IntegrationData(vo2);//升级之前的数据
-                    vo2.pet_state = "0";
-                    string value1 = vo2.IntegrationData(vo2);//升级之后的数据
-                    for (int j = 0; j < SumSave.crt_pet.crt_pet_list.Count; j++)
-                    {
-                        if (SumSave.crt_pet.crt_pet_list[j] == petvalue)
-                        {
-                            SumSave.crt_pet.crt_pet_list[j] = "";
-                            SumSave.crt_pet.crt_pet_list[j] = value1;
-                        }
-                    }
-                    Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_pet,
-             SumSave.crt_pet.Set_Uptade_String(), SumSave.crt_pet.Get_Update_Character());
+                    list[i].pet_state = "0";
+                    SumSave.crt_pet.Get();
                 }
             }
             Alert_Icon.Show(dic2);
@@ -405,6 +406,7 @@ public class Pet_explore : Base_Mono
                 ClearObject(btn_item_Dic[index]);
             }
             Base_Show();
+
             SendNotification(NotiList.Refresh_Max_Hero_Attribute);
         }
     }

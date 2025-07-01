@@ -18,9 +18,9 @@ namespace MVC
         /// 基础数值
         /// </summary>
         [HideInInspector]
-        public float maxHP, HP, maxMP, MP, add_hp = 0;
+        public long maxHP, HP, maxMP, MP, add_hp = 0;
 
-        public float internalforceMP, EnergyMp, internalforcemaxMP, EnergymaxMp;
+        public int internalforceMP, EnergyMp, internalforcemaxMP, EnergymaxMp;
 
         /// <summary>
         /// 战斗信息
@@ -53,8 +53,8 @@ namespace MVC
         /// <param name="dec"></param>
         public void HealConsumables(int hp, int mp)
         {
-            HP = Mathf.Clamp(HP + hp, 0, maxHP);
-            MP = Mathf.Clamp(MP + mp, 0, maxMP);
+            HP = (long)Mathf.Clamp(HP + hp, 0, maxHP);
+            MP = (long)Mathf.Clamp(MP + mp, 0, maxMP);
             if (internalforcemaxMP > 0) internalforceMP = Mathf.Clamp(internalforceMP + 2, 0, internalforcemaxMP);
             if (EnergymaxMp > 0) EnergyMp = Mathf.Clamp(EnergyMp + 1, 0, EnergymaxMp);
         }
@@ -66,12 +66,12 @@ namespace MVC
         {
             if (value < 0) value = -value;
 
-            MP -= value;
+            MP -= (long)value;
 
-            MP = Mathf.Max(0, MP);
+            MP = (long)Mathf.Max(0, MP);
 
         }
-        public void TakeDamage(float damage, DamageEnum damageEnum )
+        public void TakeDamage(long damage, DamageEnum damageEnum )
         {
             if (HP <= 0) return;
             //damage = 1000000;
@@ -134,8 +134,20 @@ namespace MVC
             SumSave.crt_user_unit.verify_data(currency_unit.灵珠, monster.Data.unit);
             int number = 1;
             Combat_statistics.AddMaxNumber();
+
+            if (monster.Data.Monster_Lv == 1)
+            {
+                if (Tool_State.IsState(State_List.至尊卡))
+                {
+                    int value = Random.Range(1, 3);
+                    SumSave.crt_user_unit.verify_data(currency_unit.历练, value);//monster.Data.Point
+                    transform.parent.parent.parent.SendMessage("show_battle_info",
+                    "至尊卡击杀普通怪物 " + monster.Data.show_name + " 获得 " + value + "历练");//monster.Data.Point 
+                }
+            }
+
             //判断是否增加历练值
-            if (monster.Data.Monster_Lv != 1)
+            if (monster.Data.Monster_Lv != 1) 
             {
                 number = Random.Range(2, 5);
 
@@ -160,7 +172,7 @@ namespace MVC
                 transform.parent.parent.parent.SendMessage("show_battle_info",
                 "击杀 " + monster.Data.show_name + " 获得 " + monster.Data.Point + "历练");//monster.Data.Point 
             }
-            if (Battle_Tool.Is_playerprobabilit(enum_skill_attribute_list.物品双倍掉落概率))
+            if (Tool_State.Is_playerprobabilit(enum_skill_attribute_list.物品双倍掉落概率))
             {
                 number *= 2;
                 Game_Omphalos.i.Alert_Show("获得双倍掉落");

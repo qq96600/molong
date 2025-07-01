@@ -83,7 +83,7 @@ public class offect_strengthen : Base_Mono
         if (RefreshConsumables())
         {
             infos[1] = (lv + 1).ToString();
-            crt_bag.Data.user_value = Battle_Tool.Equip_User_Value(infos);// crt_bag.Data.user_value.Replace(infos[1], (lv + 1).ToString());
+            crt_bag.Data.user_value = Battle_Tool.Equip_User_Value(infos);
             Select_Strengthen(crt_bag);
             if (index == 0)
             {

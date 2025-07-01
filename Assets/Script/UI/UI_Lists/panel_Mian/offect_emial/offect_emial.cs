@@ -131,8 +131,12 @@ public class offect_emial : Base_Mono
                         Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_hero, new string[] { Battle_Tool.GetStr(SumSave.crt_hero.hero_value) },
                             new string[] { "hero_value" });
                         break;
-                    case 5://邮箱
+                    case 5://月卡
                         AddBuff("月卡",1.5f, 3, str[index][material]);
+                        SendNotification(NotiList.Refresh_Max_Hero_Attribute);
+                        break;
+                    case 6://至尊卡
+                        AddBuff("至尊卡", 1.68f, 5, str[index][material]);
                         SendNotification(NotiList.Refresh_Max_Hero_Attribute);
                         break;
                     default:
@@ -143,10 +147,14 @@ public class offect_emial : Base_Mono
         Alert_Dec.Show("领取成功");
         Base_Show();
     }
-
     /// <summary>
-    /// 添加BUff
+    /// 添加buff
     /// </summary>
+    /// <param name="_buy_item"></param>
+    /// <param name="effect"></param>
+    /// <param name="icon">类型 1.经验丹2.历练丹3.月卡4至尊卡</param>
+    /// <param name="num"></param>
+   
     private void AddBuff(string _buy_item, float effect, int icon,int num)
     {
         if (SumSave.crt_player_buff.player_Buffs.ContainsKey(_buy_item))

@@ -284,7 +284,6 @@ public class panel_smallWorld : Panel_Base
             {
                 dec += Show_Color.Yellow((i == 0 ? "升级需求 1." : "\n" + (i + 1) + ".") + item[i].Item1 + " * " + item[i].Item2);
             }
-            //dec += "升级需求 " + item.Item1 + " * " + item.Item2;
         }
         base_info.text = dec;
     }

@@ -19,7 +19,7 @@ namespace Common
         /// </summary>
         public static int par = 1;
         /// <summary>
-        /// 验证单次收益 0 金币 1声望 2元宝 3材料获取量
+        /// 验证单次收益 0 金币 1声望 2元宝 3材料获取量 4背包 5仓库 6至尊卡次数
         /// </summary>
         public static List<int> base_setting = new List<int>() { 90000, 90000, 9000, 5000};
         /// <summary>
@@ -117,7 +117,7 @@ namespace Common
         /// <summary>
         /// 自身宠物列表 
         /// </summary>
-        public static List<db_pet_vo> crt_pet_list=new List<db_pet_vo>();
+        public static List<db_pet_vo> crt_pet_list1=new List<db_pet_vo>();
         /// <summary>
         /// 炼丹数据
         /// </summary>

@@ -165,6 +165,7 @@ public class panel_Buff : Panel_Base
 
     private void InitInformation()
     {
+        
         string dec = " ";
         List<float> buff_list = new List<float>(3) { 0,0,0};//0经验加成 1灵珠加成 2历练加成
         if (SumSave.crt_player_buff.player_Buffs.Count > 0)
@@ -173,7 +174,7 @@ public class panel_Buff : Panel_Base
             {
                 (DateTime, int, float, int) time = item.Value;
                 int remainingTime = Battle_Tool.SettlementTransport((time.Item1).ToString("yyyy-MM-dd HH:mm:ss"), 2);
-                if (time.Item4 == 3)
+                if (time.Item4 == 3)//月卡
                 {
                     if (remainingTime < time.Item2*60)
                     {
@@ -184,6 +185,14 @@ public class panel_Buff : Panel_Base
 
                     }
                 }
+                if (time.Item4 == 5)//至尊卡
+                {
+                    buff_list[0] += time.Item3 * 100 - 100;
+                    buff_list[1] += (float)Math.Ceiling(time.Item3 * 100 - 100);
+                    dec += Show_Color.Red(item.Key + ": " + ConvertSecondsToHHMMSS(time.Item2 * 60 - remainingTime, 2) + "\n ");
+                }
+
+
                 if (time.Item4 == 1 || time.Item4 == 2)
                 {
                     if (remainingTime < time.Item2 * 60)

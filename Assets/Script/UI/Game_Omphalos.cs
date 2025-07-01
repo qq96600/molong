@@ -172,6 +172,7 @@ namespace MVC
             //每日任务 在线时长
             SendNotification(NotiList.Read_User_Ranks);
             Battle_Tool.validate_rank();
+            Tool_State.self_inspection();//10分钟验证一次状态
         }
         public void Delete(string dec)
         { 
