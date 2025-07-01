@@ -281,7 +281,7 @@ namespace MVC
             PlayerPrefs.SetInt("同意阅读协议", 1);
 #if UNITY_EDITOR
 
-            SumSave.uid = "DSFSDFSDFSDF3";//测试用号 DSFSDFSDFSDF3
+            SumSave.uid = "DSFSDFSDFSDF";//测试用号 DSFSDFSDFSDF3
 
                                           //SumSave.uid = "ed7091920d8f4f8aa193805fe45f8b3f";//温毓(ip)自然呆
                                           //SumSave.uid = "d6a5b51fddf94459bb2e80e54c091453";//666(ip)
@@ -376,7 +376,7 @@ namespace MVC
                         if (Tool_State.IsState(State_List.至尊卡))
                         {
                             //离线至尊积分进度条 
-                            if (SumSave.base_setting[7] == 0) Combat_statistics.offline(monster_number);
+                            if (SumSave.crt_setting.user_setting[7] == 0) Combat_statistics.offline(monster_number);
                             int unit_2 = Random.Range(monster_number, monster_number * 2);
                             //离线历练值
                             Battle_Tool.Obtain_Unit(currency_unit.历练, unit_2,2);

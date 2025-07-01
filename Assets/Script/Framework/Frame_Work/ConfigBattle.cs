@@ -141,7 +141,7 @@ namespace MVC
                 result.Item1 = true;
                 //Combat_statistics.ClearSuperlative();
             } 
-            if (!result.Item1) return;
+            if (!result.Item1||result.Item2 == null) return;
             Bag_Base_VO bag = new Bag_Base_VO();
             bag = ArrayHelper.Find(SumSave.db_stditems, e => e.Name == result.Item2);
             bool exist = true;
