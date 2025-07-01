@@ -91,5 +91,14 @@ public  static class Tool_State
         }
         return exist;
     }
+    public static int Value_playerprobabilit(enum_skill_attribute_list value)
+    {
+        int number = 0;
+        if (SumSave.crt_MaxHero.bufflist[(int)value] > 0)
+        {
+            number = SumSave.crt_MaxHero.bufflist[(int)value];
+        }
+        return number;
+    }
 
 }

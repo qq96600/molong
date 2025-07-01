@@ -1510,10 +1510,13 @@ namespace MVC
                 ///至尊卡加成
                 Enum_Value(crt, (int)enum_skill_attribute_list.经验加成, Battle_Tool.IsBuff(5));
                 Enum_Value(crt, (int)enum_skill_attribute_list.灵珠收益, Battle_Tool.IsBuff(5));
-
+            }
+            if (Tool_State.IsState(State_List.至尊卡))
+            {
+                Enum_Value(crt, (int)enum_skill_attribute_list.幸运, 1);
             }
                 //丹药属性
-                List<(string, List<int>)> seeds = SumSave.crt_seeds.GetuseList();
+            List<(string, List<int>)> seeds = SumSave.crt_seeds.GetuseList();
             if (seeds.Count > 0)
             {
                 foreach (var item in seeds)

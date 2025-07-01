@@ -572,7 +572,7 @@ namespace MVC
         private bool isCrate(BattleAttack monster)
         {
             bool isCrit= false;
-            if (Random.Range(0, 100) < data.crit_rate - monster.Data.crit_rate)
+            if (Random.Range(0, 100) < (data.crit_rate - monster.Data.crit_rate)*100 / (data.crit_rate+30))
             {
                 isCrit = true;
             }

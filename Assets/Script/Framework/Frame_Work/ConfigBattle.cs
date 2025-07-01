@@ -114,7 +114,10 @@ namespace MVC
                 string[] values2 = values1[1].Split('/');
                 if (values2.Length > 1)
                 {
-                    if (Random.Range(0, int.Parse(values2[1])) < int.Parse(values2[0]))
+                    int probability = int.Parse(values2[0]);
+                    probability += Tool_State.Value_playerprobabilit(enum_skill_attribute_list.装备爆率);
+                    probability = (int)MathF.Min(int.Parse(values2[1]) / 10, probability);
+                    if (Random.Range(0, int.Parse(values2[1])) < probability)
                     {
                         result = (true, values1[0]);
                         return result;
@@ -133,6 +136,11 @@ namespace MVC
         {
 
             (bool, string) result = Obtain_ProfitList(line);
+            if (Combat_statistics.isSuperlative())
+            {
+                result.Item1 = true;
+                //Combat_statistics.ClearSuperlative();
+            } 
             if (!result.Item1) return;
             Bag_Base_VO bag = new Bag_Base_VO();
             bag = ArrayHelper.Find(SumSave.db_stditems, e => e.Name == result.Item2);
@@ -186,7 +194,12 @@ namespace MVC
             }
             else
             {
-                //Debug.Log(bag.Name);
+                if (Combat_statistics.isSuperlative())
+                {
+                    Game_Omphalos.i.Alert_Show("宝箱生效,获得 " + bag.Name);
+
+                    Combat_statistics.ClearSuperlative();
+                }
                 //获取材料
                 Battle_Tool.Obtain_Resources(bag.Name, 1);
                 ObtainEquipmentTasks(bag);

@@ -417,8 +417,8 @@ public class tool_Categoryt : MonoBehaviour
         int quality = Quality(boss);
         if (Combat_statistics.isSuperlative())
         {
-            Game_Omphalos.i.Alert_Show("至尊卡蓄力生效,获得 " + Show_Color.Yellow(enum_equip_quality_list.绝世) + " " + bag_name);
-            quality = 7;
+            Game_Omphalos.i.Alert_Show("宝箱生效,获得 " + Show_Color.Yellow(enum_equip_quality_list.神话) + " " + bag_name);
+            quality = 6;
             Combat_statistics.ClearSuperlative();
         }
         user_value += " " + quality;
