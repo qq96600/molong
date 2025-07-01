@@ -161,18 +161,19 @@ public class show_Plant : Base_Mono
     /// </summary>
     public void pet_Init()
     {
-        if(SumSave.crt_pet_list.Count==0)
+        List<db_pet_vo> crt_pet_list = SumSave.crt_pet.Set();
+        if(crt_pet_list.Count==0)
         {
             pet_guardImage.sprite = transparent;
             pet_guardtext.text = "无守护兽";
             return;
         }
-        for (int i = 0; i < SumSave.crt_pet_list.Count; i++)
+        for (int i = 0; i < crt_pet_list.Count; i++)
         {
-            if (SumSave.crt_pet_list[i].pet_state == "1")
+            if (crt_pet_list[i].pet_state == "1")
             {
-                pet_guardImage.sprite= UI.UI_Manager.I.GetEquipSprite("UI/pet/", SumSave.crt_pet_list[i].petName);
-                pet_guardtext.text = SumSave.crt_pet_list[i].petName+"lv:"+ SumSave.crt_pet_list[i].level;
+                pet_guardImage.sprite= UI.UI_Manager.I.GetEquipSprite("UI/pet/", crt_pet_list[i].petName);
+                pet_guardtext.text = crt_pet_list[i].petName+"lv:"+ crt_pet_list[i].level;
             }
         }
     }

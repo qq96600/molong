@@ -58,7 +58,8 @@ namespace StateMachine
                 is_collider = false;
             }
 
-            if(TatgetPosition.HP <= 0)
+            ///怪物死亡后回收技能
+            if(TatgetPosition.HP <= 0&&SkillPosType != skill_pos_type.oneself)
             {
                 PushObjectToPool();
             }
@@ -104,7 +105,6 @@ namespace StateMachine
             }
             transform.parent.SendMessage("skill_damage", skill);
             yield return new WaitForSeconds(time);
-            Debug.Log("动画播放完成");
             // 将对象返回对象池
             PushObjectToPool();
         }
@@ -114,7 +114,6 @@ namespace StateMachine
         /// </summary>
         private void OnDisable()
         {
-            Debug.LogError("已经回收");
             PushObjectToPool();
         }
         /// <summary>
