@@ -133,10 +133,12 @@ public class offect_emial : Base_Mono
                         break;
                     case 5://月卡
                         AddBuff("月卡",1.5f, 3, str[index][material]);
+                        Tool_State.activation_State(State_List.月卡);
                         SendNotification(NotiList.Refresh_Max_Hero_Attribute);
                         break;
                     case 6://至尊卡
                         AddBuff("至尊卡", 1.68f, 5, str[index][material]);
+                        Tool_State.activation_State(State_List.至尊卡);
                         SendNotification(NotiList.Refresh_Max_Hero_Attribute);
                         break;
                     default:

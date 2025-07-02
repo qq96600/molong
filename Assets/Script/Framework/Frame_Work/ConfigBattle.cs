@@ -79,7 +79,7 @@ namespace MVC
             {
                 string countEquip = values[Random.Range(0, values.Length)];
                 //Debug.Log(countEquip);
-                CalculationBag(values[Random.Range(0, values.Length)], false);
+                CalculationBag(values[Random.Range(0, values.Length)], false,2);
             }
         }
 
@@ -105,7 +105,7 @@ namespace MVC
         /// 获取物品掉落
         /// </summary>
         /// <param name="line"></param>
-        private static (bool,string) Obtain_ProfitList(string line)
+        private static (bool,string) Obtain_ProfitList(string line,int state)
         {
             (bool,string) result = (false, null);
             string[] values1 = line.Split(' ');
@@ -115,8 +115,11 @@ namespace MVC
                 if (values2.Length > 1)
                 {
                     int probability = int.Parse(values2[0]);
-                    probability += Tool_State.Value_playerprobabilit(enum_skill_attribute_list.装备爆率);
-                    probability = (int)MathF.Min(int.Parse(values2[1]) / 10, probability);
+                    if (state == 1)
+                    {
+                        probability += Tool_State.Value_playerprobabilit(enum_skill_attribute_list.装备爆率);
+                        probability = (int)MathF.Min(int.Parse(values2[1]) / 10, probability);
+                    }
                     if (Random.Range(0, int.Parse(values2[1])) < probability)
                     {
                         result = (true, values1[0]);
@@ -131,15 +134,14 @@ namespace MVC
         /// </summary>
         /// <param name="line">掉落列表</param>
         /// <param name="boss">是否boss</param>
-        /// <param name="state">是否播报1否 2是 -1为离线收益</param>
+        /// <param name="state">是否需要加成爆率默认增加2不增加</param>
         private static void CalculationBag(string line,bool boss,int state = 1)
         {
 
-            (bool, string) result = Obtain_ProfitList(line);
+            (bool, string) result = Obtain_ProfitList(line, state);
             if (Combat_statistics.isSuperlative())
             {
                 result.Item1 = true;
-                //Combat_statistics.ClearSuperlative();
             } 
             if (!result.Item1||result.Item2 == null) return;
             Bag_Base_VO bag = new Bag_Base_VO();
