@@ -466,7 +466,7 @@ public static class Battle_Tool
     }
 
     /// <summary>
-    /// 计算时间
+    /// 计算时间 现
     /// </summary>
     /// <param name="time">记录时间</param>
     /// <param name="type">获取 1分钟 2秒钟3小时 4天</param>

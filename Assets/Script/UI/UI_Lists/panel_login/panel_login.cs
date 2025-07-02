@@ -163,7 +163,15 @@ namespace MVC
                 if (SumSave.db_pars[i].device == device)
                 {
                     btn_item item = Instantiate(btn_Item, TheServerList);
-                    item.Show(SumSave.db_pars[i].index, (SumSave.db_pars[i].index).ToString() + "区");
+                    string into = (SumSave.db_pars[i].index).ToString() + "区";
+
+                   if (SumSave.nowtime<= SumSave.db_pars[i].opentime)
+                    {
+                        into += "  开区时间：" + SumSave.db_pars[i].opentime.ToString();
+                    }
+
+
+                    item.Show(SumSave.db_pars[i].index, into);
                     item.GetComponent<Button>().onClick.AddListener(() => { SelectPar(item); });
                     select_par_list.Add(item);
                 }
@@ -270,6 +278,20 @@ namespace MVC
                 Alert_Dec.Show("请先选择服务器");
                 return;
             }
+
+            for(int i=0;i<SumSave.db_pars.Count;i++)
+            {
+                if (SumSave.db_pars[i].index == select_par.index)
+                {
+                    if (SumSave.nowtime <= SumSave.db_pars[i].opentime)
+                    {
+                        Alert.Show("暂未开启", "当前服务器暂为开启");
+                        return;
+                    }
+                }    
+            }
+            
+
 
             if (!Toggle.isOn)
             {
