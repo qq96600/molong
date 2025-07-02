@@ -58,11 +58,11 @@ namespace MVC
                 for (int i = 0; i < (number); i++)
                 {
                     string countEquip = CalculationBattle[base_name][Random.Range(0, CalculationBattle[base_name].Length)];
-                    CalculationBag(countEquip, monster.Data.Monster_Lv == 3);
+                    CalculationBag(countEquip, monster.Data.Monster_Lv == 3, 1, map.map_type == 1);
                 }
                 if (map.Independent_Drop != "")//计算独立掉落
                 {
-                    Independent_Drop(map.Independent_Drop, number);
+                    Independent_Drop(map.Independent_Drop, number, map.map_type == 1);
                 }
                 Show_Info();
             }
@@ -72,14 +72,14 @@ namespace MVC
         /// 独立掉落
         /// </summary>
         /// <param name="independent_Drop"></param>
-        private static void Independent_Drop(string independent_Drop,int number)
+        private static void Independent_Drop(string independent_Drop,int number,bool isSuperlative)
         {
             string[] values = independent_Drop.Split('&');
             for (int i = 0; i < number; i++)
             {
                 string countEquip = values[Random.Range(0, values.Length)];
                 //Debug.Log(countEquip);
-                CalculationBag(values[Random.Range(0, values.Length)], false,2);
+                CalculationBag(countEquip, false,2, isSuperlative);
             }
         }
 
@@ -135,11 +135,11 @@ namespace MVC
         /// <param name="line">掉落列表</param>
         /// <param name="boss">是否boss</param>
         /// <param name="state">是否需要加成爆率默认增加2不增加</param>
-        private static void CalculationBag(string line,bool boss,int state = 1)
+        private static void CalculationBag(string line,bool boss,int state = 1,bool isSuperlative=true)
         {
 
             (bool, string) result = Obtain_ProfitList(line, state);
-            if (Combat_statistics.isSuperlative())
+            if (isSuperlative && Combat_statistics.isSuperlative())
             {
                 result.Item1 = true;
             } 
@@ -165,7 +165,7 @@ namespace MVC
                 case EquipConfigTypeList.饰品:
                 case EquipConfigTypeList.玉佩:
                 case EquipConfigTypeList.披风:
-                    bag = tool_Categoryt.crate_equip(bag.Name, boss);
+                    bag = tool_Categoryt.crate_equip(bag.Name, boss, isSuperlative);
                     break;
                 default:
                     exist = false;

@@ -287,7 +287,7 @@ namespace MVC
                                           //SumSave.uid = "df5d8e6d010c4019a7f9bc37b8b92f76";
                                           //SumSave.uid = "20d964db078a4edd8fa891a5ed779e22";//墨龙 （Wf3120785王小）
                                           // SumSave.uid = "8026157149ab4e86af8f69b22e12a7c4";
-            SumSave.uid = "b4a6dc9406a0478889e753ddff4c6b00";//都做了土（ip）
+            //SumSave.uid = "b4a6dc9406a0478889e753ddff4c6b00";//都做了土（ip）
             //SumSave.par = 101;
             Login();
             //UI_Manager.Instance.GetPanel<Panel_cratehero>().Show();
