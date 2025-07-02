@@ -114,7 +114,7 @@ public class panel_wodleBoss : Panel_Base
         world_Boss_set(hurt);
         crate_rank(hurt);
         GainRewards(hurt);
-        
+        Init();
     }
     /// <summary>
     /// 获得奖励
@@ -236,11 +236,17 @@ public class panel_wodleBoss : Panel_Base
     /// </summary>
     private  void Refresh_Rank()
     {
+
+        //if(SumSave.crt_world_boss_rank.lists[SumSave.crt_world_boss_rank.lists.Count-1].Item3<SumSave.crt_world_boss_hurt.damage)
+        //{
+        //    SumSave.crt_world_boss_rank.lists.Add((SumSave.crt_user.uid, SumSave.crt_hero.hero_name, SumSave.crt_world_boss_hurt.damage));
+        //}
         SumSave.crt_world_boss_rank.lists = ArrayHelper.OrderDescding(SumSave.crt_world_boss_rank.lists, x => x.Item3);
 
         if(SumSave.crt_world_boss_rank.lists.Count>50)//最多显示50条
         {
-            for (int i = 49; i <= SumSave.crt_world_boss_rank.lists.Count-1; i++)
+            int Sum = SumSave.crt_world_boss_rank.lists.Count-1;
+            for (int i = Sum; i >49; i--)
             {
                 SumSave.crt_world_boss_rank.lists.RemoveAt(i);
             }
@@ -266,7 +272,7 @@ public class panel_wodleBoss : Panel_Base
             if (Boss_list[i].Item1 == SumSave.crt_user.uid)
             {
                 long old_rank = Boss_list[i].Item3+rank;
-                Boss_list[i]= (Boss_list[i].Item1, Boss_list[i].Item2, old_rank);
+                Boss_list[i]= (Boss_list[i].Item1, Boss_list[i].Item2, SumSave.crt_world_boss_hurt.damage);
                 SumSave.crt_world_boss_rank.lists = Boss_list;
                 //排序
                 Refresh_Rank();
@@ -274,7 +280,8 @@ public class panel_wodleBoss : Panel_Base
             }
         }
 
-        Boss_list.Add((SumSave.crt_user.uid, SumSave.crt_hero.hero_name, rank));
+        Boss_list.Add((SumSave.crt_user.uid, SumSave.crt_hero.hero_name, SumSave.crt_world_boss_hurt.damage));
+        SumSave.crt_world_boss_rank.lists = Boss_list;
         Refresh_Rank();
         return;
 

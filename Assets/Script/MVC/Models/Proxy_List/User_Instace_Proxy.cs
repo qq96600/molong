@@ -1570,9 +1570,9 @@ namespace MVC
 #elif UNITY_ANDROID
 #elif UNITY_IPHONE
 #endif
-
             SumSave.crt_MaxHero = crt;
             SumSave.crt_MaxHero.Init();
+            SendNotification(NotiList.Read_User_Ranks);
             Battle_Tool.validate_rank();
         }
 
