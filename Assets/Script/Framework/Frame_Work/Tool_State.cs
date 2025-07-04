@@ -97,22 +97,30 @@ public  static class Tool_State
     public static bool Is_playerprobabilit(enum_skill_attribute_list value)
     {
         bool exist = false;
-        if (SumSave.crt_MaxHero.bufflist[(int)value] > 0)
+        if (SumSave.crt_MaxHero.bufflist.Count > (int)value)
         {
-            if (Random.Range(0, 100) < SumSave.crt_MaxHero.bufflist[(int)value])
+            if (SumSave.crt_MaxHero.bufflist[(int)value] > 0)
             {
-                exist = true;
+                if (Random.Range(0, 100) < SumSave.crt_MaxHero.bufflist[(int)value])
+                {
+                    exist = true;
+                }
             }
         }
+        
         return exist;
     }
     public static int Value_playerprobabilit(enum_skill_attribute_list value)
     {
         int number = 0;
-        if (SumSave.crt_MaxHero.bufflist[(int)value] > 0)
+        if (SumSave.crt_MaxHero.bufflist.Count > (int)value)
         {
-            number = SumSave.crt_MaxHero.bufflist[(int)value];
+            if (SumSave.crt_MaxHero.bufflist[(int)value] > 0)
+            {
+                number = SumSave.crt_MaxHero.bufflist[(int)value];
+            }
         }
+            
         return number;
     }
 
