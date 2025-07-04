@@ -92,11 +92,18 @@ public class panel_skill : Panel_Base
             btn_item.GetComponent<Button>().onClick.AddListener(delegate { Select_Offect_Btn(btn_item); });
             btn_item_dic.Add((skill_Offect_btn_list)i, btn_item);
         }
-        //for (int i = 0; i < SumSave.db_skills.Count; i++)
+
+#if UNITY_EDITOR
+        //for (int i = 0; i < SumSave.db_skills.Count; i++)///查看所有技能 测试
         //{
 
         //    SumSave.crt_skills.Add(tool_Categoryt.crate_skill(SumSave.db_skills[i].skillname, false));//添加技能
         //}
+#elif UNITY_ANDROID
+#elif UNITY_IPHONE
+
+#endif
+
     }
     /// <summary>
     /// 翻页

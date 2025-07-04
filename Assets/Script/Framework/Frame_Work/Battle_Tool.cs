@@ -371,6 +371,7 @@ public static class Battle_Tool
         pet.up_base_value = up_base_value;
         pet.GetNumerical();
         //crate_value(pet_init, int.Parse(pet.quality), pet);
+        pet.pet_explore= pet_init.pet_explore;
         pet.pet_state = "0";
 
         SumSave.crt_pet.Get_pet_list(pet);

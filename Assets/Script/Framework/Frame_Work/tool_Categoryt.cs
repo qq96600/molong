@@ -302,6 +302,7 @@ public class tool_Categoryt : MonoBehaviour
                     skill = item;
                     skill.user_value = base_item.user_value;
                     skill.user_values = slits;
+
                     return skill;
                 }
             }

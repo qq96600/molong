@@ -535,6 +535,20 @@ namespace MVC
                     SumSave.db_skills.Add(ReadDb.Read(mysqlReader, new base_skill_vo()));
                 }
             }
+
+            for(int i = 0; i < SumSave.db_skills.Count; i++)
+            {
+                Sprite skill_spr = UI.UI_Manager.I.GetEquipSprite("icon/", SumSave.db_skills[i].skillname);// Resources.Load<Sprite>("icon/" + SumSave.db_skills[i].skillname);
+                if (skill_spr == null)
+                {
+                    Debug.LogError("Resources/icon 中没有："+ SumSave.db_skills[i].skillname+"技能图标");
+                }
+                //Sprite skill_spr2 = UI.UI_Manager.I.GetEquipSprite("skill/", SumSave.db_skills[i].skillname );// Resources.Load<Sprite
+                //if (skill_spr == null)
+                //{
+                //    Debug.LogError("Resources/skill 中没有：" + SumSave.db_skills[i].skillname + "技能图标");
+                //}
+            }
         }
         /// <summary>
         /// 读取怪物数据库

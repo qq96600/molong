@@ -1156,6 +1156,13 @@ namespace MVC
                 if (SumSave.db_heros[i].hero_name == SumSave.crt_hero.hero_pos)
                 {
                     crt.Type=SumSave.db_heros[i].hero_type;
+                    switch (crt.Type)
+                    {
+                        case 2:crt.attack_distance = 1000;break;
+                        default:
+                            crt.attack_distance = 500;
+                            break;
+                    }
                     for (int j = 0; j < SumSave.db_heros[i].crate_value.Length; j++)
                     {
                         int value = SumSave.db_heros[i].crate_value[j] + (SumSave.db_heros[i].up_value[j] * (SumSave.crt_hero.hero_Lv / SumSave.db_heros[i].up_base_value[j]));
