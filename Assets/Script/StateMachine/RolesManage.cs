@@ -30,7 +30,7 @@ namespace StateMachine
         [Header("造成伤害")]
         public float attackDamage = 10f;
         [Header("攻击距离")]
-        public float AttackDistance = 500f;
+        protected  float AttackDistance = 500f;
         [Header("背刺的距离")]
         public float BehindDistance = 100f;
         [Header("攻击速度")]
