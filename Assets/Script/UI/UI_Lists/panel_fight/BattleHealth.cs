@@ -74,7 +74,14 @@ namespace MVC
         public void TakeDamage(long damage, DamageEnum damageEnum )
         {
             if (HP <= 0) return;
-            //damage = 1000000;
+
+#if UNITY_EDITOR
+            //damage = 10000000;
+#elif UNITY_ANDROID
+#elif UNITY_IPHONE
+#endif
+
+
             HP -= damage;
             AudioManager.Instance.playAudio(ClipEnum.被敌人攻击);
 
@@ -131,7 +138,15 @@ namespace MVC
             SumSave.battleMonsterHealths.Remove(this);
             SumSave.crt_achievement.increase_date_Exp((Achieve_collect.击杀怪物).ToString(), 1);
             Battle_Tool.Obtain_Exp(monster.Data.Exp);
-            Battle_Tool.Obtain_Unit(currency_unit.灵珠, monster.Data.unit);
+            if (panel_fight.isMapType(4))//判断是否是副本
+            {
+                Battle_Tool.Obtain_Unit(currency_unit.灵珠, monster.Data.unit);
+            }
+            else
+            {
+                Battle_Tool.Obtain_Unit(currency_unit.灵珠, monster.Data.unit, 2);
+            }
+            
             int number = 1;
             Combat_statistics.AddMaxNumber();
 
@@ -145,7 +160,7 @@ namespace MVC
                     "至尊卡击杀 " + monster.Data.show_name + " 获得 " + value + "历练");//monster.Data.Point 
                 }
             }
-
+           
             //判断是否增加历练值
             if (monster.Data.Monster_Lv != 1) 
             {
@@ -167,7 +182,14 @@ namespace MVC
                 {
                     SumSave.crt_pass.progress(4);
                 }
-                Battle_Tool.Obtain_Unit(currency_unit.历练, monster.Data.Point, 2);
+                if (panel_fight.isMapType(4))//判断是否是副本
+                {
+                    Battle_Tool.Obtain_Unit(currency_unit.历练, monster.Data.Point);
+                }
+                else
+                {
+                    Battle_Tool.Obtain_Unit(currency_unit.历练, monster.Data.Point, 2);
+                }
                 transform.parent.parent.parent.SendMessage("show_battle_info",
                 "击杀 " + monster.Data.show_name + " 获得 " + monster.Data.Point + "历练" + Show_Color.Red(" (+" + (long)(monster.Data.Point * Tool_State.Value_playerprobabilit(enum_skill_attribute_list.人物历练) / 100) + ")"));//monster.Data.Point 
             }

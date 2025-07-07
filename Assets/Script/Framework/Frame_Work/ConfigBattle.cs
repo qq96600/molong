@@ -58,11 +58,11 @@ namespace MVC
                 for (int i = 0; i < (number); i++)
                 {
                     string countEquip = CalculationBattle[base_name][Random.Range(0, CalculationBattle[base_name].Length)];
-                    CalculationBag(countEquip, monster.Data.Monster_Lv == 3, 1, map.map_type == 1);
+                    CalculationBag(countEquip, monster.Data.Monster_Lv == 3, 1, map.map_type == 1,map);
                 }
                 if (map.Independent_Drop != "")//计算独立掉落
                 {
-                    Independent_Drop(map.Independent_Drop, number, map.map_type == 1);
+                    Independent_Drop(map.Independent_Drop, number, map.map_type == 1, map);
                 }
                 Show_Info();
             }
@@ -72,14 +72,14 @@ namespace MVC
         /// 独立掉落
         /// </summary>
         /// <param name="independent_Drop"></param>
-        private static void Independent_Drop(string independent_Drop,int number,bool isSuperlative)
+        private static void Independent_Drop(string independent_Drop,int number,bool isSuperlative,user_map_vo map)
         {
             string[] values = independent_Drop.Split('&');
             for (int i = 0; i < number; i++)
             {
                 string countEquip = values[Random.Range(0, values.Length)];
                 //Debug.Log(countEquip);
-                CalculationBag(countEquip, false,2, isSuperlative);
+                CalculationBag(countEquip, false,2, isSuperlative,map);
             }
         }
 
@@ -135,7 +135,8 @@ namespace MVC
         /// <param name="line">掉落列表</param>
         /// <param name="boss">是否boss</param>
         /// <param name="state">是否需要加成爆率默认增加2不增加</param>
-        private static void CalculationBag(string line,bool boss,int state = 1,bool isSuperlative=true)
+        /// /// <param name="isSuperlative">是否是超级boss</param>
+        private static void CalculationBag(string line,bool boss,int state = 1,bool isSuperlative=true, user_map_vo map=null)
         {
 
             (bool, string) result = Obtain_ProfitList(line, state);
@@ -165,7 +166,7 @@ namespace MVC
                 case EquipConfigTypeList.饰品:
                 case EquipConfigTypeList.玉佩:
                 case EquipConfigTypeList.披风:
-                    bag = tool_Categoryt.crate_equip(bag.Name, boss, isSuperlative);
+                    bag = tool_Categoryt.crate_equip(bag.Name, boss, isSuperlative, map);
                     break;
                 default:
                     exist = false;
@@ -189,23 +190,28 @@ namespace MVC
                     {
                         Calculations.Add("过滤 " + (enum_equip_quality_list)quality + " " + bag.Name);
                         Calculations.Add("过滤 收益 灵珠 + " + bag.price);
-                        Battle_Tool.Obtain_Unit(currency_unit.灵珠, bag.price);
+                        Battle_Tool.Obtain_Unit(currency_unit.灵珠, bag.price,2);
                     }
                 }
                 else Calculations.Add("丢弃 " + (enum_equip_quality_list)quality + " " + bag.Name);
             }
             else
             {
-                if (Combat_statistics.isSuperlative())
-                {
-                    Game_Omphalos.i.Alert_Show("宝箱生效,获得 " + bag.Name);
 
-                    Combat_statistics.ClearSuperlative();
+                if ( map!=null&&map.map_type != 4)
+                {
+                    if (Combat_statistics.isSuperlative())
+                    {
+                        Game_Omphalos.i.Alert_Show("宝箱生效,获得 " + bag.Name);
+
+                        Combat_statistics.ClearSuperlative();
+                    }
                 }
                 //获取材料
                 Battle_Tool.Obtain_Resources(bag.Name, 1);
                 ObtainEquipmentTasks(bag);
                 Calculations.Add("获得 " + bag.Name + " * " + 1);
+                
             }
 
         }

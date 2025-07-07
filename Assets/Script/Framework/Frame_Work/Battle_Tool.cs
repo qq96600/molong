@@ -306,7 +306,7 @@ public static class Battle_Tool
     /// </summary>
     /// <param name="unit"></param>
     /// <param name="value"></param>
-    /// <param name="state">2为打怪收益</param>
+    /// <param name="state">2为离线打怪收益</param>
     public static void Obtain_Unit(currency_unit unit, long value, int state = 1)
     {
         if (state == 2)
@@ -697,11 +697,21 @@ public static class Battle_Tool
         {
             SumSave.crt_player_buff.player_Buffs.Add(_buy_item, (SumSave.nowtime, 60 * buy_num, effect, icon));
         }
+        Tool_State.activation_State(State_List.经验丹);
+        Tool_State.activation_State(State_List.历练丹);
+        SendNotification(NotiList.Refresh_Max_Hero_Attribute);
         Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.user_player_buff, SumSave.crt_player_buff.Set_Uptade_String(), SumSave.crt_player_buff.Get_Update_Character());//角色丹药Buff更新数据库
     }
 
-
-
+    /// <summary>
+    /// 发送消息
+    /// </summary>
+    /// <param name="name"></param>
+    /// <param name="data"></param>
+    public static void SendNotification(string name, object data = null)
+    {
+        AppFacade.I.SendNotification(name, data);
+    }
 
 
     public static void tool_item()

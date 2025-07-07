@@ -283,9 +283,6 @@ namespace MVC
                     }
                 }    
             }
-            
-
-
             if (!Toggle.isOn)
             {
                 Alert_Dec.Show("请先阅读并勾选同意协议");
@@ -371,7 +368,7 @@ namespace MVC
                     + "\n有效时长 " + (maxnumber > number ? ConvertSecondsToHHMMSS(number) : ConvertSecondsToHHMMSS(maxnumber));
                 number = Math.Clamp(number, 0, maxnumber);
                 Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_value, SumSave.crt_resources.Set_Uptade_String(), SumSave.crt_resources.Get_Update_Character());
-                Battle_Tool.Obtain_Unit(currency_unit.离线积分, number / 30);
+                Battle_Tool.Obtain_Unit(currency_unit.离线积分, number / 30,2);
                 dec+="\n获得离线积分 "+ number / 30;
                 if (SumSave.crt_resources.user_map_index != "")
                 {

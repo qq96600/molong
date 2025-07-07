@@ -498,7 +498,7 @@ public class Pet_explore : Base_Mono
                 break;
             case 2:
                 //获得货币
-                Battle_Tool.Obtain_Unit((currency_unit)Enum.Parse(typeof(currency_unit), data[0]), i);
+                Battle_Tool.Obtain_Unit((currency_unit)Enum.Parse(typeof(currency_unit), data[0]), i,2);
                 break;
             case 3:
                 //获得皮肤

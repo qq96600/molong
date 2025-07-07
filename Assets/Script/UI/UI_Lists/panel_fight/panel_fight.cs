@@ -615,7 +615,7 @@ public class panel_fight : Panel_Base
         }
     }
     /// <summary>
-    /// 判断当前地图是否为对应地图
+    /// 判断当前地图是否为对应地图  4副本地图
     /// </summary>
     public  bool isMapType(int type)
     {
