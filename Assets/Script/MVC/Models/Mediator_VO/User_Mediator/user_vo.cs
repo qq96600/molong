@@ -64,17 +64,6 @@ public class user_vo : Base_VO
             else Game_Omphalos.i.Delete(_index + " 显示数据 " + list[i] + " 验证值 " + index + " " + verify_list[i]);
         }
 
-        if (_index == currency_unit.历练)
-        {
-            if (ArrayHelper.SafeGet(SumSave.crt_MaxHero.bufflist, (int)enum_skill_attribute_list.人物历练, out int se))
-                value = (int)(value * (100 + SumSave.crt_MaxHero.bufflist[(int)enum_skill_attribute_list.人物历练]) / 100);
-        }
-        if (_index == currency_unit.灵珠)
-        {
-            if (ArrayHelper.SafeGet(SumSave.crt_MaxHero.bufflist, (int)enum_skill_attribute_list.灵珠收益, out int se))
-                value = (int)(value * (100 + SumSave.crt_MaxHero.bufflist[(int)enum_skill_attribute_list.灵珠收益]) / 100);
-        }
-
 
         switch (_index)
         {

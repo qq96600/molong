@@ -317,6 +317,11 @@ namespace Common
         #endregion
 
         #region 功能文件
+        /// <summary>
+        /// 五行类型
+        /// </summary>
+        public static string[] five_element_type = { "土", "火", "水", "木", "金" };
+
 
         /// <summary>
         /// 怪物对象池
