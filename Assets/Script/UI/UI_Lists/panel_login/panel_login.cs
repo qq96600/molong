@@ -311,14 +311,14 @@ namespace MVC
             PlayerPrefs.SetInt("同意阅读协议", 1);
 #if UNITY_EDITOR
             SumSave.uid = "DSFSDFSDFSDFixnc";//测试用号 DSFSDFSDFSDF3
-                                         //SumSave.uid = "ed7091920d8f4f8aa193805fe45f8b3f";//温毓(ip)自然呆
-                                         //SumSave.uid = "d6a5b51fddf94459bb2e80e54c091453";//666(ip)
-                                         //SumSave.uid = "4024aeea8a704d3d965fafcb82d29493";//Rigine(ip)
-                                         //SumSave.uid = "df5d8e6d010c4019a7f9bc37b8b92f76";
-                                         //SumSave.uid = "20d964db078a4edd8fa891a5ed779e22";//墨龙 （Wf3120785王小）
-                                         // SumSave.uid = "8026157149ab4e86af8f69b22e12a7c4";
-                                         //SumSave.uid = "b4a6dc9406a0478889e753ddff4c6b00";//都做了土（ip）
-            //SumSave.uid = "ae47220bfc8242f381692c52edb15aba";//隐官(ip)
+                                             //SumSave.uid = "ed7091920d8f4f8aa193805fe45f8b3f";//温毓(ip)自然呆
+                                             //SumSave.uid = "d6a5b51fddf94459bb2e80e54c091453";//666(ip)
+                                             //SumSave.uid = "4024aeea8a704d3d965fafcb82d29493";//Rigine(ip)
+                                             //SumSave.uid = "df5d8e6d010c4019a7f9bc37b8b92f76";
+                                             //SumSave.uid = "20d964db078a4edd8fa891a5ed779e22";//墨龙 （Wf3120785王小）
+                                             // SumSave.uid = "8026157149ab4e86af8f69b22e12a7c4";
+                                             //SumSave.uid = "b4a6dc9406a0478889e753ddff4c6b00";//都做了土（ip）
+                                            // SumSave.uid = "ae47220bfc8242f381692c52edb15aba";//隐官(ip)
 
 
             //SumSave.par = 101;

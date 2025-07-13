@@ -872,10 +872,10 @@ namespace MVC
         public void Read_User_Rank()
         {
             OpenMySqlDB();
-            if (MysqlDb.MysqlClose)
-            {
+            //if (MysqlDb.MysqlClose)
+            //{
                 read_User_Rank();
-            }
+            //}
             CloseMySqlDB();
         }
 
@@ -1579,7 +1579,7 @@ namespace MVC
 #endif
             SumSave.crt_MaxHero = crt;
             SumSave.crt_MaxHero.Init();
-            SendNotification(NotiList.Read_User_Ranks);
+
             Battle_Tool.validate_rank();
         }
 

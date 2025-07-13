@@ -781,7 +781,7 @@ public static class Battle_Tool
     /// </summary>
     public static void validate_rank()
     {
-        
+        SendNotification(NotiList.Read_User_Ranks);
         bool exist = false;
         if (SumSave.user_ranks.lists.Count < 50)
         {
