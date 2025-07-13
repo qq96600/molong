@@ -46,6 +46,22 @@ public class monitor_info : Base_Mono
     /// 任务信息
     /// </summary>
     private Text show_task;
+    /// <summary>
+    /// 五行光环旋转
+    /// </summary>
+    private int index;
+    /// <summary>
+    /// 旋转间隔
+    /// </summary>
+    private int life_time = 600;
+    /// <summary>
+    /// 五行光环
+    /// </summary>
+    private List<GameObject> tianming_Platform_list = new List<GameObject>();
+    /// <summary>
+    /// 当前展示光环
+    /// </summary>
+    private GameObject crt_show_life;
     private void Awake()
     {
         role_exp = Find<Slider>("base_info/Slider");
@@ -177,16 +193,27 @@ public class monitor_info : Base_Mono
     /// </summary>
     private void Show_Info_life()
     {
+        tianming_Platform_list.Clear();
+        crt_show_life = null;
         tianming_Platform = SumSave.crt_hero.tianming_Platform;
         for (int i = show_tianming_Platform.childCount - 1; i >= 0; i--)//清空区域内按钮
         {
             Destroy(show_tianming_Platform.GetChild(i).gameObject);
         }
+        //float parentWidth= show_tianming_Platform.GetComponent<RectTransform>().rect.width;
+        //float parentHeight = show_tianming_Platform.GetComponent<RectTransform>().rect.height;
         for (int i = 0; i < SumSave.crt_hero.tianming_Platform.Length; i++)
         {
-            GameObject game = Resources.Load<GameObject>("Prefabs/halo/halo_" + SumSave.crt_hero.tianming_Platform[i]);
+            Image game = Resources.Load<Image>("Prefabs/halo/halo_" + SumSave.crt_hero.tianming_Platform[i]);
             Instantiate(game, show_tianming_Platform);
         }
+    }
+
+    private void Show_need_life()
+    {
+        crt_show_life.gameObject.SetActive(false);
+        crt_show_life = ArrayHelper.ObtainT(tianming_Platform_list, crt_show_life);
+        crt_show_life.gameObject.SetActive(true);
     }
     private void Update()
     {
