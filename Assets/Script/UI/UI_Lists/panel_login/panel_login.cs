@@ -114,8 +114,10 @@ namespace MVC
             TaploginBt.gameObject.SetActive(true);//true
             loginBt.gameObject.SetActive(false);
 
-            bg_xwrj.gameObject.SetActive(true);
-            bg_molong.gameObject.SetActive(false);
+             bg_xwrj.gameObject.SetActive(false);
+            bg_molong.gameObject.SetActive(true);
+            //bg_xwrj.gameObject.SetActive(true);
+            //bg_molong.gameObject.SetActive(false);
 #elif UNITY_IPHONE
             TaploginBt.gameObject.SetActive(false);
             loginBt.gameObject.SetActive(true);
