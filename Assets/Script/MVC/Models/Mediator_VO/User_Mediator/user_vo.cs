@@ -63,6 +63,8 @@ public class user_vo : Base_VO
             }
             else Game_Omphalos.i.Delete(_index + " 显示数据 " + list[i] + " 验证值 " + index + " " + verify_list[i]);
         }
+
+
         switch (_index)
         {
             case currency_unit.灵珠:

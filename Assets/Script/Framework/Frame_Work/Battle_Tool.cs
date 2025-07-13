@@ -306,7 +306,7 @@ public static class Battle_Tool
     /// </summary>
     /// <param name="unit"></param>
     /// <param name="value"></param>
-    /// <param name="state">2为打怪收益</param>
+    /// <param name="state">2为离线打怪收益</param>
     public static void Obtain_Unit(currency_unit unit, long value, int state = 1)
     {
         if (state == 2)
@@ -371,6 +371,7 @@ public static class Battle_Tool
         pet.up_base_value = up_base_value;
         pet.GetNumerical();
         //crate_value(pet_init, int.Parse(pet.quality), pet);
+        pet.pet_explore= pet_init.pet_explore;
         pet.pet_state = "0";
 
         SumSave.crt_pet.Get_pet_list(pet);
@@ -466,7 +467,7 @@ public static class Battle_Tool
     }
 
     /// <summary>
-    /// 计算时间
+    /// 计算时间 现
     /// </summary>
     /// <param name="time">记录时间</param>
     /// <param name="type">获取 1分钟 2秒钟3小时 4天</param>
@@ -696,11 +697,21 @@ public static class Battle_Tool
         {
             SumSave.crt_player_buff.player_Buffs.Add(_buy_item, (SumSave.nowtime, 60 * buy_num, effect, icon));
         }
+        Tool_State.activation_State(State_List.经验丹);
+        Tool_State.activation_State(State_List.历练丹);
+        SendNotification(NotiList.Refresh_Max_Hero_Attribute);
         Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.user_player_buff, SumSave.crt_player_buff.Set_Uptade_String(), SumSave.crt_player_buff.Get_Update_Character());//角色丹药Buff更新数据库
     }
 
-
-
+    /// <summary>
+    /// 发送消息
+    /// </summary>
+    /// <param name="name"></param>
+    /// <param name="data"></param>
+    public static void SendNotification(string name, object data = null)
+    {
+        AppFacade.I.SendNotification(name, data);
+    }
 
 
     public static void tool_item()
@@ -770,7 +781,7 @@ public static class Battle_Tool
     /// </summary>
     public static void validate_rank()
     {
-        
+        SendNotification(NotiList.Read_User_Ranks);
         bool exist = false;
         if (SumSave.user_ranks.lists.Count < 50)
         {

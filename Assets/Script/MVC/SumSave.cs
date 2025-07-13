@@ -19,7 +19,7 @@ namespace Common
         /// </summary>
         public static int par = 1;
         /// <summary>
-        /// 验证单次收益 0 金币 1声望 2元宝 3材料获取量 4背包 5仓库 6至尊卡次数
+        /// 验证单次收益 0 灵珠 1历练 2魔丸 3材料获取量 4背包 5仓库 6至尊值（用于掉落绝世装备）
         /// </summary>
         public static List<int> base_setting = new List<int>() { 90000, 90000, 9000, 5000};
         /// <summary>
@@ -317,6 +317,11 @@ namespace Common
         #endregion
 
         #region 功能文件
+        /// <summary>
+        /// 五行类型
+        /// </summary>
+        public static string[] five_element_type = { "土", "火", "水", "木", "金" };
+
 
         /// <summary>
         /// 怪物对象池

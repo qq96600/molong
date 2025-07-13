@@ -60,6 +60,13 @@ namespace MVC
         /// 服务器列表
         /// </summary>
         private List<btn_item> select_par_list=new List<btn_item>();
+        /// <summary>
+        /// 习武日记背景，墨龙背景
+        /// </summary>
+        private Transform bg_xwrj, bg_molong;
+
+
+
         private void Start()
         {
             SendNotification(NotiList.Read_Instace);
@@ -93,17 +100,28 @@ namespace MVC
             fightPanel = UI_Manager.I.GetPanel<panel_fight>();
             TaploginBt=Find<Button>("Taplogin");
             TaploginBt.onClick.AddListener(TapLogin);
+            bg_xwrj = Find<Transform>("bg_xwrj");
+            bg_molong = Find<Transform>("bg_molong");
 
 #if UNITY_EDITOR
             TaploginBt.gameObject.SetActive(false);
             loginBt.gameObject.SetActive(true);
+
+            bg_xwrj.gameObject.SetActive(false);
+            bg_molong.gameObject.SetActive(true);
 #elif UNITY_ANDROID
 
             TaploginBt.gameObject.SetActive(true);//true
             loginBt.gameObject.SetActive(false);
+
+            bg_xwrj.gameObject.SetActive(true);
+            bg_molong.gameObject.SetActive(false);
 #elif UNITY_IPHONE
             TaploginBt.gameObject.SetActive(false);
             loginBt.gameObject.SetActive(true);
+
+            bg_xwrj.gameObject.SetActive(false);
+            bg_molong.gameObject.SetActive(true);
 #endif
             #region 用户协议
 
@@ -163,7 +181,15 @@ namespace MVC
                 if (SumSave.db_pars[i].device == device)
                 {
                     btn_item item = Instantiate(btn_Item, TheServerList);
-                    item.Show(SumSave.db_pars[i].index, (SumSave.db_pars[i].index).ToString() + "区");
+                    string into = (SumSave.db_pars[i].index).ToString() + "区";
+
+                   if (SumSave.nowtime<= SumSave.db_pars[i].opentime)
+                    {
+                        into += "  开区时间：" + SumSave.db_pars[i].opentime.ToString();
+                    }
+
+
+                    item.Show(SumSave.db_pars[i].index, into);
                     item.GetComponent<Button>().onClick.AddListener(() => { SelectPar(item); });
                     select_par_list.Add(item);
                 }
@@ -258,19 +284,23 @@ namespace MVC
         /// </summary>
         private void OnLoginClick()//登录点击
         {
-            //if (!SumSave.OpenGame)
-            //{
-            //    Alert.Show("版本更新", "请更新版本");
-            //    return;
-            //}
-
-
             if (select_par==null)
             {
                 Alert_Dec.Show("请先选择服务器");
                 return;
             }
 
+            for(int i=0;i<SumSave.db_pars.Count;i++)
+            {
+                if (SumSave.db_pars[i].index == select_par.index)
+                {
+                    if (SumSave.nowtime <= SumSave.db_pars[i].opentime)
+                    {
+                        Alert.Show("暂未开启", "当前服务器暂为开启");
+                        return;
+                    }
+                }    
+            }
             if (!Toggle.isOn)
             {
                 Alert_Dec.Show("请先阅读并勾选同意协议");
@@ -280,6 +310,7 @@ namespace MVC
             }
             PlayerPrefs.SetInt("同意阅读协议", 1);
 #if UNITY_EDITOR
+<<<<<<< HEAD
             SumSave.uid = "DSFSDFSDFSDF3";//测试用号 DSFSDFSDFSDF3
                                           //SumSave.uid = "ed7091920d8f4f8aa193805fe45f8b3f";//温毓(ip)自然呆
                                           //SumSave.uid = "d6a5b51fddf94459bb2e80e54c091453";//666(ip)
@@ -289,6 +320,19 @@ namespace MVC
                                           // SumSave.uid = "8026157149ab4e86af8f69b22e12a7c4";
                                           //SumSave.uid = "b4a6dc9406a0478889e753ddff4c6b00";//都做了土（ip）
             //SumSave.uid = "96e0f4194df348d794db72ae26464604";//缘起
+=======
+            SumSave.uid = "DSFSDFSDFSDFixnc";//测试用号 DSFSDFSDFSDF3
+                                             //SumSave.uid = "ed7091920d8f4f8aa193805fe45f8b3f";//温毓(ip)自然呆
+                                             //SumSave.uid = "d6a5b51fddf94459bb2e80e54c091453";//666(ip)
+                                             //SumSave.uid = "4024aeea8a704d3d965fafcb82d29493";//Rigine(ip)
+                                             //SumSave.uid = "df5d8e6d010c4019a7f9bc37b8b92f76";
+                                             //SumSave.uid = "20d964db078a4edd8fa891a5ed779e22";//墨龙 （Wf3120785王小）
+                                             // SumSave.uid = "8026157149ab4e86af8f69b22e12a7c4";
+                                             //SumSave.uid = "b4a6dc9406a0478889e753ddff4c6b00";//都做了土（ip）
+                                            // SumSave.uid = "ae47220bfc8242f381692c52edb15aba";//隐官(ip)
+
+
+>>>>>>> 2ace10018f9069cfd47d90f86d83484bb6987857
             //SumSave.par = 101;
             Login();
             //UI_Manager.Instance.GetPanel<Panel_cratehero>().Show();
@@ -357,7 +401,7 @@ namespace MVC
                     + "\n有效时长 " + (maxnumber > number ? ConvertSecondsToHHMMSS(number) : ConvertSecondsToHHMMSS(maxnumber));
                 number = Math.Clamp(number, 0, maxnumber);
                 Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_value, SumSave.crt_resources.Set_Uptade_String(), SumSave.crt_resources.Get_Update_Character());
-                Battle_Tool.Obtain_Unit(currency_unit.离线积分, number / 30);
+                Battle_Tool.Obtain_Unit(currency_unit.离线积分, number / 30,2);
                 dec+="\n获得离线积分 "+ number / 30;
                 if (SumSave.crt_resources.user_map_index != "")
                 {

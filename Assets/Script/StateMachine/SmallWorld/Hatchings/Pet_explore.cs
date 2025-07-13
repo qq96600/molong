@@ -69,7 +69,7 @@ public class Pet_explore : Base_Mono
     /// <summary>
     /// 当前探索
     /// </summary>
-    private explore_item crt_explore;
+    private explore_item crt_explore=new explore_item();
     /// <summary>
     /// 功能按键列表
     /// </summary>
@@ -247,6 +247,10 @@ public class Pet_explore : Base_Mono
     /// </summary>
     private void GainRewards()
     {
+        if (crt_explore == null)
+        {
+            return;
+        }
         int maxtime = (SumSave.crt_world.World_Lv * 2 + 5) * 60;//单位 分钟
         Dictionary<string, string> dic = SumSave.crt_explore.Set();
         db_pet_vo vo = crt_explore.SetData();
@@ -494,7 +498,7 @@ public class Pet_explore : Base_Mono
                 break;
             case 2:
                 //获得货币
-                Battle_Tool.Obtain_Unit((currency_unit)Enum.Parse(typeof(currency_unit), data[0]), i);
+                Battle_Tool.Obtain_Unit((currency_unit)Enum.Parse(typeof(currency_unit), data[0]), i,2);
                 break;
             case 3:
                 //获得皮肤

@@ -872,10 +872,10 @@ namespace MVC
         public void Read_User_Rank()
         {
             OpenMySqlDB();
-            if (MysqlDb.MysqlClose)
-            {
+            //if (MysqlDb.MysqlClose)
+            //{
                 read_User_Rank();
-            }
+            //}
             CloseMySqlDB();
         }
 
@@ -1156,6 +1156,13 @@ namespace MVC
                 if (SumSave.db_heros[i].hero_name == SumSave.crt_hero.hero_pos)
                 {
                     crt.Type=SumSave.db_heros[i].hero_type;
+                    switch (crt.Type)
+                    {
+                        case 2:crt.attack_distance = 1000;break;
+                        default:
+                            crt.attack_distance = 500;
+                            break;
+                    }
                     for (int j = 0; j < SumSave.db_heros[i].crate_value.Length; j++)
                     {
                         int value = SumSave.db_heros[i].crate_value[j] + (SumSave.db_heros[i].up_value[j] * (SumSave.crt_hero.hero_Lv / SumSave.db_heros[i].up_base_value[j]));
@@ -1572,7 +1579,7 @@ namespace MVC
 #endif
             SumSave.crt_MaxHero = crt;
             SumSave.crt_MaxHero.Init();
-            SendNotification(NotiList.Read_User_Ranks);
+
             Battle_Tool.validate_rank();
         }
 
@@ -1870,9 +1877,18 @@ namespace MVC
                 SumSave.crt_hero.hero_Exp = 0;
                 SumSave.crt_hero.hero_pos = SumSave.db_heros[0].hero_name;
                 SumSave.crt_hero.hero_material_list = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+
+                SumSave.crt_hero.tianming_Platform = new int[5];
+                for (int i = 0; i < SumSave.crt_hero.tianming_Platform.Length; i++)
+                {
+                    int index = Random.Range(1, 6);
+                    SumSave.crt_hero.tianming_Platform[i] = index;
+                }
+
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_hero, SumSave.crt_hero.Set_Instace_String());
             }
         }
+
 
 
         /// <summary>

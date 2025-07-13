@@ -87,23 +87,10 @@ namespace StateMachine
                     break;
             }
         }
-
-
-
-
-
-
-        //public void GetSkill(Skill_Collision _skill)//回调函数
-        //{
-        //    _skill.SetSkillTarget(TatgetObg, baseskill);
-        //}
-
-
         public override void Init( BattleAttack battle, BattleHealth _tatgetObg)
         {
             base.Init( battle, _tatgetObg);
-           
-           
+            AttackDistance = SumSave.crt_MaxHero.attack_distance;
         }
 
 

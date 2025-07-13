@@ -302,6 +302,7 @@ public class tool_Categoryt : MonoBehaviour
                     skill = item;
                     skill.user_value = base_item.user_value;
                     skill.user_values = slits;
+
                     return skill;
                 }
             }
@@ -319,7 +320,7 @@ public class tool_Categoryt : MonoBehaviour
     /// 创建装备
     /// </summary>
     /// <param name="bag"></param>
-    public static Bag_Base_VO crate_equip(string bag_name,int lv=-1)
+    public static Bag_Base_VO crate_equip(string bag_name,int lv=-1, user_map_vo map = null)
     {
         Bag_Base_VO bag = new Bag_Base_VO();
         foreach (var item in SumSave.db_stditems)
@@ -399,7 +400,7 @@ public class tool_Categoryt : MonoBehaviour
         bag.user_value = user_value;
         return bag;
     }
-    public static Bag_Base_VO crate_equip(string bag_name, bool boss=false, bool isSuperlative=false)
+    public static Bag_Base_VO crate_equip(string bag_name, bool boss=false, bool isSuperlative=false, user_map_vo map = null)
     {
         Bag_Base_VO bag = new Bag_Base_VO();
         foreach (var item in SumSave.db_stditems)
@@ -415,12 +416,21 @@ public class tool_Categoryt : MonoBehaviour
         user_value += " " + 0;
         //品质
         int quality = Quality(boss);
-        if (isSuperlative && Combat_statistics.isSuperlative())
+
+        if(map!=null)
         {
-            Game_Omphalos.i.Alert_Show("宝箱生效,获得 " + Show_Color.Yellow(enum_equip_quality_list.神话) + " " + bag_name);
-            quality = 6;
-            Combat_statistics.ClearSuperlative();
+            if (map.map_type != 4)
+            {
+                if (isSuperlative && Combat_statistics.isSuperlative())
+                {
+                    Game_Omphalos.i.Alert_Show("宝箱生效,获得 " + Show_Color.Yellow(enum_equip_quality_list.神话) + " " + bag_name);
+                    quality = 6;
+                    Combat_statistics.ClearSuperlative();
+                }
+            }
         }
+        
+      
         user_value += " " + quality;
 
         if (quality > 0)
