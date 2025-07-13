@@ -162,7 +162,7 @@ namespace MVC
         /// </summary>
         public void Read_db_par()
         {
-            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_par);
+            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_pars);
 
             SumSave.db_pars = new List<db_base_par>();
 

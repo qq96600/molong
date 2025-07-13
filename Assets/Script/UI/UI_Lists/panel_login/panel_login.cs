@@ -64,6 +64,14 @@ namespace MVC
         /// 习武日记背景，墨龙背景
         /// </summary>
         private Transform bg_xwrj, bg_molong;
+        /// <summary>
+        /// 是否打开服务器
+        /// </summary>
+        private bool open_par = false;
+        /// <summary>
+        /// 记录开区状态
+        /// </summary>
+        private Dictionary<int,bool> open_pars= new Dictionary<int, bool>();
 
 
 
@@ -106,16 +114,16 @@ namespace MVC
 #if UNITY_EDITOR
             TaploginBt.gameObject.SetActive(false);
             loginBt.gameObject.SetActive(true);
-
             bg_xwrj.gameObject.SetActive(false);
             bg_molong.gameObject.SetActive(true);
 #elif UNITY_ANDROID
 
             TaploginBt.gameObject.SetActive(true);//true
             loginBt.gameObject.SetActive(false);
-
-            bg_xwrj.gameObject.SetActive(true);
-            bg_molong.gameObject.SetActive(false);
+            bg_xwrj.gameObject.SetActive(false);
+            bg_molong.gameObject.SetActive(true);
+            //bg_xwrj.gameObject.SetActive(true);
+            //bg_molong.gameObject.SetActive(false);
 #elif UNITY_IPHONE
             TaploginBt.gameObject.SetActive(false);
             loginBt.gameObject.SetActive(true);
@@ -180,16 +188,23 @@ namespace MVC
             {
                 if (SumSave.db_pars[i].device == device)
                 {
-                    btn_item item = Instantiate(btn_Item, TheServerList);
-                    string into = (SumSave.db_pars[i].index).ToString() + "区";
-
-                   if (SumSave.nowtime<= SumSave.db_pars[i].opentime)
+                    if (!open_pars.ContainsKey(SumSave.db_pars[i].index))
                     {
-                        into += "  开区时间：" + SumSave.db_pars[i].opentime.ToString();
+                        open_pars.Add(SumSave.db_pars[i].index, false);
                     }
-
-
-                    item.Show(SumSave.db_pars[i].index, into);
+                    btn_item item = Instantiate(btn_Item, TheServerList);
+                    string into = SumSave.db_pars[i].par_name;
+                    if (SumSave.nowtime < SumSave.db_pars[i].opentime)
+                    {
+                        int time = Battle_Tool.SettlementTransport(SumSave.db_pars[i].opentime.ToString(), SumSave.nowtime.ToString(), 2);
+                        StartCoroutine(wait_par(time, SumSave.db_pars[i], item));
+                    }
+                    else
+                    {
+                        into += "\n开区:" + SumSave.db_pars[i].opentime;
+                        item.Show(SumSave.db_pars[i].index, into);
+                        open_pars[SumSave.db_pars[i].index] = true;
+                    }
                     item.GetComponent<Button>().onClick.AddListener(() => { SelectPar(item); });
                     select_par_list.Add(item);
                 }
@@ -202,23 +217,50 @@ namespace MVC
                     if (item.index == lastServer_Index)
                     {
                         select_par = item;
-                        TheServerText.text = "选中" + select_par.index.ToString() + "区";
+                        db_base_par par = ArrayHelper.Find(SumSave.db_pars, e => e.index == item.index);
+                        TheServerText.text = "选中" + par.par_name;
                         SumSave.par = select_par.index;
                     }
                 }
             }
         }
+        /// <summary>
+        /// 等待开区
+        /// </summary>
+        /// <param name="time"></param>
+        /// <returns></returns>
+        private IEnumerator wait_par(int time,db_base_par par, btn_item item)
+        {
+            string dec = par.par_name;
+            dec += "\n倒计时:" + ConvertSecondsToHHMMSS(time);
+            item.Show(par.index, dec);
+            while (time>0)
+            {
+                yield return new WaitForSeconds(1f);
+                time--;
+                dec = par.par_name;
+                dec += "\n倒计时:" + ConvertSecondsToHHMMSS(time);
+                item.Show(par.index, dec);
+            }
+            open_pars[par.index] = true;
+            item.Show(par.index, par.par_name + "\n开区:" + par.opentime);
 
+        }
         /// <summary>
         /// 点击选择服务器
         /// </summary>
         /// <param name="i"></param>
         private void SelectPar(btn_item item)
         {
-            Alert_Dec.Show("选择了"+ (item.index).ToString() + "区");
-            select_par = item;
-            TheServerText.text ="选中"+(item.index).ToString()+"区";
-            SumSave.par = item.index;
+            db_base_par par = ArrayHelper.Find(SumSave.db_pars, e => e.index == item.index);
+            if (par!=null && open_pars.ContainsKey(par.index))
+            {
+                Alert_Dec.Show("选择了" + (par.par_name));
+                select_par = item;
+                TheServerText.text = "选中 " + (par.par_name);
+                SumSave.par = item.index;
+            }
+            else Alert.Show("系统错误", "请联系管理员qq386246268");
         }
 
         //tap登录完成之后打开开关
@@ -289,18 +331,26 @@ namespace MVC
                 Alert_Dec.Show("请先选择服务器");
                 return;
             }
-
-            for(int i=0;i<SumSave.db_pars.Count;i++)
-            {
-                if (SumSave.db_pars[i].index == select_par.index)
-                {
-                    if (SumSave.nowtime <= SumSave.db_pars[i].opentime)
-                    {
-                        Alert.Show("暂未开启", "当前服务器暂为开启");
-                        return;
-                    }
-                }    
+            if (!open_pars.ContainsKey(select_par.index)) {
+                Alert_Dec.Show("当前服务器暂为开启");
+                return;
             }
+            if (!open_pars[select_par.index])
+            {
+                Alert_Dec.Show("当前服务器暂为开启");
+                return;
+            }
+            //for(int i=0;i<SumSave.db_pars.Count;i++)
+            //{
+            //    if (SumSave.db_pars[i].index == select_par.index)
+            //    {
+            //        if (SumSave.nowtime <= SumSave.db_pars[i].opentime)
+            //        {
+            //            Alert.Show("暂未开启", "当前服务器暂为开启");
+            //            return;
+            //        }
+            //    }    
+            //}
             if (!Toggle.isOn)
             {
                 Alert_Dec.Show("请先阅读并勾选同意协议");
@@ -310,7 +360,6 @@ namespace MVC
             }
             PlayerPrefs.SetInt("同意阅读协议", 1);
 #if UNITY_EDITOR
-<<<<<<< HEAD
             SumSave.uid = "DSFSDFSDFSDF3";//测试用号 DSFSDFSDFSDF3
                                           //SumSave.uid = "ed7091920d8f4f8aa193805fe45f8b3f";//温毓(ip)自然呆
                                           //SumSave.uid = "d6a5b51fddf94459bb2e80e54c091453";//666(ip)
@@ -320,8 +369,6 @@ namespace MVC
                                           // SumSave.uid = "8026157149ab4e86af8f69b22e12a7c4";
                                           //SumSave.uid = "b4a6dc9406a0478889e753ddff4c6b00";//都做了土（ip）
             //SumSave.uid = "96e0f4194df348d794db72ae26464604";//缘起
-=======
-            SumSave.uid = "DSFSDFSDFSDFixnc";//测试用号 DSFSDFSDFSDF3
                                              //SumSave.uid = "ed7091920d8f4f8aa193805fe45f8b3f";//温毓(ip)自然呆
                                              //SumSave.uid = "d6a5b51fddf94459bb2e80e54c091453";//666(ip)
                                              //SumSave.uid = "4024aeea8a704d3d965fafcb82d29493";//Rigine(ip)
@@ -331,8 +378,6 @@ namespace MVC
                                              //SumSave.uid = "b4a6dc9406a0478889e753ddff4c6b00";//都做了土（ip）
                                             // SumSave.uid = "ae47220bfc8242f381692c52edb15aba";//隐官(ip)
 
-
->>>>>>> 2ace10018f9069cfd47d90f86d83484bb6987857
             //SumSave.par = 101;
             Login();
             //UI_Manager.Instance.GetPanel<Panel_cratehero>().Show();

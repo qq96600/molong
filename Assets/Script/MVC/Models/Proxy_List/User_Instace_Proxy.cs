@@ -1201,7 +1201,7 @@ namespace MVC
                     //case EquipConfigTypeList.护符:
                     //case EquipConfigTypeList.灵宝:
                     //case EquipConfigTypeList.勋章:
-                    // case EquipConfigTypeList.饰品:
+                    //case EquipConfigTypeList.饰品:
                     //case EquipConfigTypeList.玉佩:
                     //case EquipConfigTypeList.披风:
                         crt_euqip = (crt_euqip.Item1 + 1, (int)MathF.Min(crt_euqip.Item2, strengthenlv), (int)MathF.Min(crt_euqip.Item3, quilty), (int)MathF.Min(crt_euqip.Item4, data.equip_lv));
@@ -1565,15 +1565,15 @@ namespace MVC
                 }
             }
 
-       
+
 
 
 
             //皮肤
-#if UNITY_EDITOR
+#if UNITY_EDITOR  
             //crt.hit += 1000;
-            //crt.damageMax += 100000;
-            //crt.MagicdamageMax += 100000;
+            //crt.damageMax += 10000000;
+            //crt.MagicdamageMax += 10000000;
 #elif UNITY_ANDROID
 #elif UNITY_IPHONE
 #endif

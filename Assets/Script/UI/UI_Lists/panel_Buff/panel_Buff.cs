@@ -70,7 +70,6 @@ public class panel_Buff : Panel_Base
 
         Five_element_transform= Find<Transform>("bg_main/Five_element_attribute/Viewport/Content");
         btn_item_prefabs = Battle_Tool.Find_Prefabs<btn_item>("btn_item");
-
         Instantiate(skin_prefabs, panel_role_health);
         Display_Five_element_attribute();
     }

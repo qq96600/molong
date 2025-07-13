@@ -57,7 +57,7 @@ public enum Mysql_Table_Name
     mo_user_signin,
     mo_user_tap,//tap登录
     mo_user_iphone,//苹果登录
-    db_par,//服务器列表
+    db_pars,//服务器列表
     user_message_window,//消息窗口
     db_basetask,//大世界信息
     mo_user_greenhandguide,//新手引导
