@@ -10,23 +10,23 @@ using UnityEngine.UI;
 public class panel_tianmingTai : Base_Mono
 {
     /// <summary>
-    /// ÌìÃüÏÔÊ¾Î»ÖÃ
+    /// å¤©å‘½æ˜¾ç¤ºä½ç½®
     /// </summary>
     private Transform tianming_image;
     /// <summary>
-    /// ÌìÃüĞÅÏ¢ÏÔÊ¾Î»ÖÃ
+    /// å¤©å‘½ä¿¡æ¯æ˜¾ç¤ºä½ç½®
     /// </summary>
     private Text tianming_Title, title_button;
     /// <summary>
-    /// Ë¢ĞÂÌìÃü°´Å¥
+    /// åˆ·æ–°å¤©å‘½æŒ‰é’®
     /// </summary>
     private Button UpButton;
     /// <summary>
-    /// ÌìÃüÔ¤ÖÆÌå
+    /// å¤©å‘½é¢„åˆ¶ä½“
     /// </summary>
     private GameObject tianming_item;
     /// <summary>
-    /// Ë¢ĞÂÏûºÄÄ§ÍèÊıÁ¿
+    /// åˆ·æ–°æ¶ˆè€—é­”ä¸¸æ•°é‡
     /// </summary>
     private int need = 20;
     
@@ -37,17 +37,17 @@ public class panel_tianmingTai : Base_Mono
         UpButton = Find<Button>("UpButton");
         UpButton.onClick.AddListener(UpButtonOnClick);
         title_button= Find<Text>("UpButton/title_button");
-        title_button.text = "Ä§Íè*" + need + "Ë¢ĞÂÒ»´Î";
+        title_button.text = "é­”ä¸¸*" + need + "åˆ·æ–°ä¸€æ¬¡";
     }
 
     /// <summary>
-    /// Ë¢ĞÂÌìÃüÌ¨ÏÔÊ¾
+    /// åˆ·æ–°å¤©å‘½å°æ˜¾ç¤º
     /// </summary>
     private void RefreshDisplay()
     {
         ClearObject(tianming_image);
         string str = "";
-        str = "ÌìÃüÊôĞÔ£º";
+        str = "å¤©å‘½å±æ€§ï¼š";
         for (int i = 0; i < SumSave.crt_hero.tianming_Platform.Length; i++)
         {
             GameObject game = Resources.Load<GameObject>("Prefabs/halo/halo_" + SumSave.crt_hero.tianming_Platform[i]);
@@ -58,18 +58,18 @@ public class panel_tianmingTai : Base_Mono
     }
 
     /// <summary>
-    /// Ë¢ĞÂÌìÃüÊôĞÔ
+    /// åˆ·æ–°å¤©å‘½å±æ€§
     /// </summary>
     private void UpButtonOnClick()
     {
-        NeedConsumables(currency_unit.Ä§Íè, need);
+        NeedConsumables(currency_unit.é­”ä¸¸, need);
         if (RefreshConsumables())
         {
             SumSave.crt_hero.RefreshTianming();
             RefreshDisplay();
         }else
         {
-            Alert_Dec.Show("Ä§Íè²»×ã");
+            Alert_Dec.Show("é­”ä¸¸ä¸è¶³");
         }
             
     }

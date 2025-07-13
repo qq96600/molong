@@ -35,6 +35,11 @@ public class monitor_info : Base_Mono
     /// </summary>
     private Transform pos_health, show_tianming_Platform;
     /// <summary>
+    /// 天命台父物体大小，当前天命台大小
+    /// </summary>
+    private Vector2 pos_tianming_size,tianming_size;
+
+    /// <summary>
     /// 任务按钮
     /// </summary>
     private Button btn_base_task;
@@ -182,10 +187,16 @@ public class monitor_info : Base_Mono
         {
             Destroy(show_tianming_Platform.GetChild(i).gameObject);
         }
+
+        pos_tianming_size= show_tianming_Platform.GetComponent<RectTransform>().rect.size;
+       
+
         for (int i = 0; i < SumSave.crt_hero.tianming_Platform.Length; i++)
         {
             GameObject game = Resources.Load<GameObject>("Prefabs/halo/halo_" + SumSave.crt_hero.tianming_Platform[i]);
-            Instantiate(game, show_tianming_Platform);
+            GameObject tianming = Instantiate(game, show_tianming_Platform);
+            tianming_size = new Vector2(pos_tianming_size.x * (1 - (0.05f * (i + 1))), pos_tianming_size.y * (1-(0.05f*(i+1))));
+            tianming.GetComponent<RectTransform>().sizeDelta = tianming_size;
         }
     }
     private void Update()
