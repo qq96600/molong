@@ -196,6 +196,7 @@ public class panel_fight : Panel_Base
     protected void DailyCopies(BattleHealth target)
     {
         int damge = (int)(target.maxHP - target.HP);
+        damge = (int)MathF.Min(damge, target.maxHP);
         long max = 0;
         long value = 0;
         switch (select_map.map_index)

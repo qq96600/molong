@@ -21,7 +21,11 @@ public class monitor_info : Base_Mono
     /// <summary>
     /// 角色皮肤
     /// </summary>
-    private enum_skin_state skin_state;
+    private string skin_state;
+    /// <summary>
+    /// 天命台
+    /// </summary>
+    private int[] tianming_Platform;
     /// <summary>
     /// 角色皮肤预制体
     /// </summary>
@@ -29,7 +33,7 @@ public class monitor_info : Base_Mono
     /// <summary>
     /// 角色头像
     /// </summary>
-    private Transform pos_health;
+    private Transform pos_health, show_tianming_Platform;
     /// <summary>
     /// 任务按钮
     /// </summary>
@@ -51,6 +55,7 @@ public class monitor_info : Base_Mono
         show_point = Find<Text>("show_unit/Point/info");
         show_diamond = Find<Text>("show_unit/diamond/info");
         pos_health = Find<Transform>("base_info/profile_picture");
+        show_tianming_Platform = Find<Transform>("base_info/profile_picture/tianming_Platform");
         btn_base_task = Find<Button>("base_task");
         show_task = Find<Text>("base_task/task_info");
         btn_base_task.onClick.AddListener(Show_GreenhandGuide);
@@ -158,21 +163,43 @@ public class monitor_info : Base_Mono
     /// </summary>
     private void Instance_Skin()
     {
-        for (int i = pos_health.childCount - 1; i >= 0; i--)//清空区域内按钮
+        Debug.Log(1);
+        for (int i = pos_health.childCount - 1; i >= 1; i--)//清空区域内按钮
         {
             Destroy(pos_health.GetChild(i).gameObject);
         }
         skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/within_" + SumSave.crt_hero.hero_pos);
         Instantiate(skin_prefabs, pos_health);
+        skin_state = SumSave.crt_hero.hero_pos;
+    }
+    /// <summary>
+    /// 显示五行光环
+    /// </summary>
+    private void Show_Info_life()
+    {
+        tianming_Platform = SumSave.crt_hero.tianming_Platform;
+        for (int i = show_tianming_Platform.childCount - 1; i >= 0; i--)//清空区域内按钮
+        {
+            Destroy(show_tianming_Platform.GetChild(i).gameObject);
+        }
+        for (int i = 0; i < SumSave.crt_hero.tianming_Platform.Length; i++)
+        {
+            GameObject game = Resources.Load<GameObject>("Prefabs/halo/halo_" + SumSave.crt_hero.tianming_Platform[i]);
+            Instantiate(game, show_tianming_Platform);
+        }
     }
     private void Update()
     {
         if (SumSave.crt_MaxHero != null)
         {
-            //if (int.Parse(SumSave.crt_hero.hero_index) != (int)skin_state)
-            //{
+            if (SumSave.crt_hero.hero_pos!= skin_state)
+            {
                 Instance_Skin();
-            //}
+            }
+            if (tianming_Platform==null || SumSave.crt_hero.tianming_Platform != tianming_Platform)
+            {
+                Show_Info_life();
+            }
             show_name.text = SumSave.crt_hero.hero_name;
             show_exp.text = " Lv." + SumSave.crt_hero.hero_Lv +
                "(" +  SumSave.crt_hero.hero_Exp * 100 / SumSave.db_lvs.hero_lv_list[SumSave.crt_hero.hero_Lv] + "%)";

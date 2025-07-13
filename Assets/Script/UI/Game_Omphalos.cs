@@ -462,7 +462,7 @@ namespace MVC
                     break;
                 case Mysql_Table_Name.mo_user_iphone:
                     break;
-                case Mysql_Table_Name.db_par:
+                case Mysql_Table_Name.db_pars:
                     break;
                 case Mysql_Table_Name.user_message_window:
                     break;
