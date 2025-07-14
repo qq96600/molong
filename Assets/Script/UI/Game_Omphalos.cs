@@ -393,7 +393,7 @@ namespace MVC
                     break;
                 case Mysql_Table_Name.db_setting:
                     break;
-                case Mysql_Table_Name.db_artifacts:
+                case Mysql_Table_Name.db_artifact:
                     break;
                 case Mysql_Table_Name.mo_user_base:
                     break;
