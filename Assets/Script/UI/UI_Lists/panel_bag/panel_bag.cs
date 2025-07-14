@@ -4,6 +4,7 @@ using MVC;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UI;
 using UnityEngine;
 using UnityEngine.UI;
@@ -74,6 +75,8 @@ public class panel_bag : Panel_Base
         skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/within_" + SumSave.crt_hero.hero_pos);
         panel_role_health = Find<Transform>("bg_main/bag_equips/panel_role_health");
         Instantiate(skin_prefabs, panel_role_health);
+        show_tianming_Platform= Find<Transform>("bg_main/bag_equips/tianming_Platform");
+
 
         for (int i = 0; i < Enum.GetNames(typeof(bag_btn_list)).Length; i++)
         {
@@ -237,6 +240,10 @@ public class panel_bag : Panel_Base
         //Base_Show();
         base_Equip();
         ObtainEquipmentTasks();
+        if (tianming_Platform == null || !tianming_Platform.SequenceEqual(SumSave.crt_hero.tianming_Platform))
+        {
+            Show_Info_life();
+        }
     }
 
     /// <summary>
@@ -285,27 +292,84 @@ public class panel_bag : Panel_Base
         }
     }
 
-    ///// <summary>
-    ///// 显示穿戴装备列表
-    ///// </summary>
-    //private void Base_Show()
-    //{
-    //    foreach (var item in dic_equips.Keys)
-    //    {
-    //        dic_equips[item].Init();
 
-    //        foreach (Bag_Base_VO equip in SumSave.crt_euqip)
-    //        {
-    //            if (equip.StdMode == item.ToString())
-    //            {
-    //                dic_equips[item].Data = equip;
-    //            }
-    //        }
-            
-    //    }
-    //}
+
+
+    #region 显示天命光环
     /// <summary>
-    /// 显示背包物品
+    /// 天命台
+    /// </summary>
+    private int[] tianming_Platform;
+    /// <summary>
+    /// 天命台位置
+    /// </summary>
+    private Transform show_tianming_Platform;
+    /// <summary>
+    /// 天命台父物体大小,当前天命大小
+    /// </summary>
+    private Vector2 pos_tianming_size, tianming_size;
+    /// <summary>
+    /// 缩放比例
+    /// </summary>
+    private float scaling = 1;
+    /// <summary>
+    /// 每个天命的数量
+    /// </summary>
+    private Dictionary<int, int> tianming_num;
+
+    /// <summary>
+    /// 显示五行光环
+    /// </summary>
+    private void Show_Info_life()
+    {
+
+        tianming_Platform = (int[])SumSave.crt_hero.tianming_Platform.Clone();
+
+        for (int i = show_tianming_Platform.childCount - 1; i >= 0; i--)//清空区域内按钮
+        {
+            Destroy(show_tianming_Platform.GetChild(i).gameObject);
+        }
+        pos_tianming_size = show_tianming_Platform.GetComponent<RectTransform>().rect.size;
+
+        tianming_num = new Dictionary<int, int>();
+
+
+
+        for (int i = 0; i < SumSave.crt_hero.tianming_Platform.Length; i++)
+        {
+            if (tianming_num.ContainsKey(SumSave.crt_hero.tianming_Platform[i]))
+            {
+                tianming_num[SumSave.crt_hero.tianming_Platform[i]]++;
+            }
+            else
+            {
+                tianming_num.Add(SumSave.crt_hero.tianming_Platform[i], 1);
+            }
+        }
+
+
+        for (int i = 0; i < SumSave.crt_hero.tianming_Platform.Length; i++)
+        {
+            GameObject game = Resources.Load<GameObject>("Prefabs/halo/halo_" + SumSave.crt_hero.tianming_Platform[i]);
+            GameObject tianming = Instantiate(game, show_tianming_Platform);
+
+            tianming.transform.Rotate(new Vector3(0, 0, 15 * i));
+
+
+            tianming_size = new Vector2(pos_tianming_size.x * scaling, pos_tianming_size.y * scaling);
+            tianming.GetComponent<RectTransform>().sizeDelta = tianming_size;
+
+            Color currentColor = tianming.GetComponentInChildren<Image>().color;
+            currentColor.a = tianming_num[SumSave.crt_hero.tianming_Platform[i]] * 0.2f;
+            tianming.GetComponentInChildren<Image>().color = currentColor;
+        }
+    }
+
+    #endregion
+
+
+    /// <summary>
+    /// 显示背包装备
     /// </summary>
     private void Show_Bag()
     {

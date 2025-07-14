@@ -4,6 +4,7 @@ using MVC;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UI;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,7 +28,7 @@ public class panel_Buff : Panel_Base
     /// <summary>
     /// 角色类型
     /// </summary>
-    private enum_skin_state skin_state;
+    private string skin_state;
     /// <summary>
     /// 角色皮肤预制体
     /// </summary>
@@ -64,15 +65,105 @@ public class panel_Buff : Panel_Base
         info = Find<Text>("bg_main/ScrollView/Viewport/Content/info");
         confirm.onClick.AddListener(OnConfirmClick);
 
-       
-        skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/within_" + SumSave.crt_hero.hero_pos);
         panel_role_health = Find<Transform>("bg_main/bg");
 
-        Five_element_transform= Find<Transform>("bg_main/Five_element_attribute/Viewport/Content");
-        btn_item_prefabs = Battle_Tool.Find_Prefabs<btn_item>("btn_item");
+        skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/within_" + SumSave.crt_hero.hero_pos);
         Instantiate(skin_prefabs, panel_role_health);
+
+        Five_element_transform = Find<Transform>("bg_main/Five_element_attribute/Viewport/Content");
+        btn_item_prefabs = Battle_Tool.Find_Prefabs<btn_item>("btn_item");
+
+        show_tianming_Platform= Find<Transform>("bg_main/bg/tianming_Platform");
+
+
         Display_Five_element_attribute();
     }
+    /// <summary>
+    /// 初始化皮肤
+    /// </summary>
+    private void Instance_Skin()
+    {
+        for (int i = panel_role_health.childCount - 1; i >= 1; i--)//保留天命台组件
+        {
+            Destroy(panel_role_health.GetChild(i).gameObject);
+        }
+        skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/within_" + SumSave.crt_hero.hero_pos);
+        Instantiate(skin_prefabs, panel_role_health);
+        skin_state = SumSave.crt_hero.hero_pos;
+    }
+
+    #region 显示天命光环
+    /// <summary>
+    /// 天命台
+    /// </summary>
+    private int[] tianming_Platform;
+    /// <summary>
+    /// 天命台位置
+    /// </summary>
+    private Transform show_tianming_Platform;
+    /// <summary>
+    /// 天命台父物体大小,当前天命大小
+    /// </summary>
+    private Vector2 pos_tianming_size,tianming_size;
+    /// <summary>
+    /// 缩放比例
+    /// </summary>
+    private float scaling=1;
+    /// <summary>
+    /// 每个天命的数量
+    /// </summary>
+    private Dictionary<int, int> tianming_num;
+
+    /// <summary>
+    /// 显示五行光环
+    /// </summary>
+    private void Show_Info_life()
+    {
+
+        tianming_Platform = (int[])SumSave.crt_hero.tianming_Platform.Clone();
+
+        for (int i = show_tianming_Platform.childCount - 1; i >= 0; i--)//清空区域内按钮
+        {
+            Destroy(show_tianming_Platform.GetChild(i).gameObject);
+        }
+        pos_tianming_size = show_tianming_Platform.GetComponent<RectTransform>().rect.size;
+
+        tianming_num = new Dictionary<int, int>();
+
+
+
+        for (int i = 0; i < SumSave.crt_hero.tianming_Platform.Length; i++)
+        {
+            if(tianming_num.ContainsKey(SumSave.crt_hero.tianming_Platform[i]))
+            {
+                tianming_num[SumSave.crt_hero.tianming_Platform[i]]++;
+            }
+            else
+            {
+                tianming_num.Add(SumSave.crt_hero.tianming_Platform[i], 1);
+            }
+        }
+        
+
+        for (int i = 0; i < SumSave.crt_hero.tianming_Platform.Length; i++)
+        {
+            GameObject game = Resources.Load<GameObject>("Prefabs/halo/halo_" + SumSave.crt_hero.tianming_Platform[i]);
+            GameObject tianming = Instantiate(game, show_tianming_Platform);
+
+            tianming.transform.Rotate(new Vector3(0, 0, 15 * i));
+
+           
+            tianming_size = new Vector2(pos_tianming_size.x * scaling, pos_tianming_size.y * scaling);
+            tianming.GetComponent<RectTransform>().sizeDelta = tianming_size;
+
+            Color currentColor = tianming.GetComponentInChildren<Image>().color;
+            currentColor.a = tianming_num[SumSave.crt_hero.tianming_Platform[i]] * 0.2f;
+            tianming.GetComponentInChildren<Image>().color = currentColor;
+        }
+    }
+
+#endregion
+
     /// <summary>
     /// 点击事件
     /// </summary>
@@ -122,10 +213,21 @@ public class panel_Buff : Panel_Base
     public override void Show()
     {
         base.Show();
+
+        if (SumSave.crt_hero.hero_pos != skin_state)
+        {
+            Instance_Skin();
+        }
+
         confirm.gameObject.SetActive(SumSave.crt_hero.hero_material_list[0] == 0 || SumSave.crt_hero.hero_name == "墨龙新星");
         inputField.text = SumSave.crt_hero.hero_name;
         InitInformation();
         Refresh_Five_element_attribute();
+
+        if (tianming_Platform == null || !tianming_Platform.SequenceEqual(SumSave.crt_hero.tianming_Platform))
+        {
+            Show_Info_life();
+        }
     }
     private void Update()
     {
@@ -164,7 +266,7 @@ public class panel_Buff : Panel_Base
 
     private void InitInformation()
     {
-        
+ 
         string dec = " ";
         List<float> buff_list = new List<float>(3) { 0,0,0};//0经验加成 1灵珠加成 2历练加成
         if (SumSave.crt_player_buff.player_Buffs.Count > 0)

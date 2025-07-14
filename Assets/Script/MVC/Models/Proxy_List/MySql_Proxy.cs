@@ -464,6 +464,23 @@ namespace MVC
                     SumSave.db_Artifacts.Add(ReadDb.Read(mysqlReader, new db_artifact_vo()));
                 }
             }
+
+            //List<string> db_artifact = new List<string>();
+            //for(int i = 0; i < SumSave.db_Artifacts.Count; i++)
+            //{
+            //    if(UI.UI_Manager.I.GetEquipSprite("icon/", SumSave.db_Artifacts[i].arrifact_name) == null)
+            //    {
+            //        db_artifact.Add(SumSave.db_Artifacts[i].arrifact_name);
+            //    }
+            //}
+
+            //string str = "";
+            //for(int i = 0; i < db_artifact.Count; i++)
+            //{
+            //    str+= db_artifact[i] + ",";
+            //}
+            //Debug.Log(str);
+
         }
 
         /// <summary>

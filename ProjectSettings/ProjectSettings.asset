@@ -161,7 +161,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.xiwuriji.zwfc.cn
+    Android: com.molong.zwfc.cn
     Standalone: com.DefaultCompany.2DProject
     iPhone: com.molong.zwfc.cn
   buildNumber:
