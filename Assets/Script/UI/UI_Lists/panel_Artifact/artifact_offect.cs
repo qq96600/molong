@@ -48,9 +48,9 @@ public class artifact_offect : Base_Mono
             (string, int) result = ArrayHelper.Find(SumSave.crt_artifact.Set(), e => e.Item1 == crt_artifact.Data.arrifact_name);
             if (result.Item2 == 0)//未激活
             {
-                for (int i = 0; i < crt_artifact.Data.arrifact_needs.Length; i++)
+                for (int i = 0; i < crt_artifact.Data.Artifact_open_needs.Length; i++)
                 {
-                    string[] temp = crt_artifact.Data.arrifact_needs[i].Split(' ');
+                    string[] temp = crt_artifact.Data.Artifact_open_needs[i].Split(' ');
                     NeedConsumables(temp[0], int.Parse(temp[1]));
                 }
                 if (RefreshConsumables())
@@ -154,15 +154,28 @@ public class artifact_offect : Base_Mono
                         + "(未激活)")) + "\n";
                 }
             }
-           
         }
-        splits = crt_artifact.Data.arrifact_needs;
-        dec += Show_Color.Green(item.base_lv == 0 ? "\n激活条件: \n" : "\n升级条件: \n");
-        for (int i = 0; i < splits.Length; i ++)
+        if (item.base_lv == 0)
+        {
+            dec += Show_Color.Green("\n激活条件: \n");
+            dec += Show_Needs(crt_artifact.Data.Artifact_open_needs);
+        }
+        else
         { 
-         dec += Show_Color.Red(splits[i]) + "\n";
+            dec += Show_Color.Green("\n升级条件: \n");
+            dec += Show_Needs(crt_artifact.Data.arrifact_needs);
         }
         dec +="\n "+ crt_artifact.Data.Artifact_dec;
         artifact_info.text = dec;
+    }
+
+    private string Show_Needs(string[] splits)
+    {
+        string dec = "";
+        for (int i = 0; i < splits.Length; i++)
+        {
+            dec += Show_Color.Red(splits[i]) + "\n";
+        }
+        return dec;
     }
 }

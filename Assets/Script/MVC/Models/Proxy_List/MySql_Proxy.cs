@@ -453,7 +453,7 @@ namespace MVC
         /// </summary>
         private void Read_Db_artifact()
         {
-            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_artifacts);
+            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_artifact);
 
             SumSave.db_Artifacts = new List<db_artifact_vo>();
 

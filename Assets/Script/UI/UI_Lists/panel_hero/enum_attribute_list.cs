@@ -148,5 +148,6 @@ public enum enum_skill_attribute_list
     签到收益,//522
     月卡,//523
     至尊卡,//524
+    试练塔积分,//525
 }
 

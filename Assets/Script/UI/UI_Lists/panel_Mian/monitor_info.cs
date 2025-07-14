@@ -179,7 +179,6 @@ public class monitor_info : Base_Mono
     /// </summary>
     private void Instance_Skin()
     {
-        Debug.Log(1);
         for (int i = pos_health.childCount - 1; i >= 1; i--)//清空区域内按钮
         {
             Destroy(pos_health.GetChild(i).gameObject);
@@ -207,13 +206,6 @@ public class monitor_info : Base_Mono
             Image game = Resources.Load<Image>("Prefabs/halo/halo_" + SumSave.crt_hero.tianming_Platform[i]);
             Instantiate(game, show_tianming_Platform);
         }
-    }
-
-    private void Show_need_life()
-    {
-        crt_show_life.gameObject.SetActive(false);
-        crt_show_life = ArrayHelper.ObtainT(tianming_Platform_list, crt_show_life);
-        crt_show_life.gameObject.SetActive(true);
     }
     private void Update()
     {

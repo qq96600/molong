@@ -56,6 +56,21 @@ public static class Battle_Tool
         return user_value;
     }
     /// <summary>
+    /// 获取基准值
+    /// </summary>
+    /// <param name="base_value"></param>
+    /// <returns></returns>
+    public static int Alchemy_limit(int base_value)
+    {
+        int value = base_value / 10;
+        if (SumSave.crt_MaxHero.Lv >= 30)
+        {
+            value += (SumSave.crt_MaxHero.Lv - 20) / 10 * base_value / 100;
+        }
+        value =(int) MathF.Min(value, base_value);
+        return value;
+    }
+    /// <summary>
     /// 加成属性
     /// </summary>
     /// <param name="crt">主体</param>

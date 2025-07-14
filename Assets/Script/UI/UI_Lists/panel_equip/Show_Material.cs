@@ -183,6 +183,7 @@ public class Show_Material : Base_Mono
         dec += Show_Color.Red(item.type + " " + data.Item2[1]) + "(Max" + item.pill_effect.Split(' ')[1] + ")"
         + "\n丹药创造时间" + data.Item2[0];
         List<(string,List<int>)> list = SumSave.crt_seeds.GetuseList();
+        int limit = Battle_Tool.Alchemy_limit(item.limit);
         bool exsit = true;
         for (int i = 0; i < list.Count; i++)
         {
@@ -190,15 +191,15 @@ public class Show_Material : Base_Mono
             {
                 exsit= false;
                 dec += "\n" + "累积效果 " + item.type + " " + list[i].Item2[1] ;
-                dec += "\n" + "剩余次数 " + list[i].Item2[0]+"/"+item.limit;
+                dec += "\n" + "剩余次数 " + list[i].Item2[0]+"/"+ limit;
                 //是否还可以吃
-                confirm.gameObject.SetActive(list[i].Item2[0] < item.limit);
+                confirm.gameObject.SetActive(list[i].Item2[0] < limit);
             }
         }
         if (exsit)
         {
             dec += "\n" + "累积效果 " + item.type + " " + 0;
-            dec += "\n" + "剩余次数 " + 0 + "/" + item.limit;
+            dec += "\n" + "剩余次数 " + 0 + "/" + limit;
         }
 
         base_info.text = dec;

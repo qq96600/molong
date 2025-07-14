@@ -14,6 +14,10 @@ public class db_artifact_vo : Base_VO
     /// </summary>
     public int arrifact_type;
     /// <summary>
+    /// 神器激活需求
+    /// </summary>
+    public string[] Artifact_open_needs;
+    /// <summary>
     /// 神器升级需求
     /// </summary>
     public string[] arrifact_needs;

@@ -554,6 +554,7 @@ public static class ReadDb
     public static db_artifact_vo Read(MySqlDataReader reader, db_artifact_vo item)
     {
         item.arrifact_name = reader.GetString(reader.GetOrdinal("Artifact_name"));
+        item.Artifact_open_needs= reader.GetString(reader.GetOrdinal("Artifact_open_need")).Split('&');
         item.arrifact_needs = reader.GetString(reader.GetOrdinal("Artifact_need")).Split('&');
         item.arrifact_effects = reader.GetString(reader.GetOrdinal("Artifact_effect")).Split('&');
         item.arrifact_type = reader.GetInt32(reader.GetOrdinal("Artifact_type"));
