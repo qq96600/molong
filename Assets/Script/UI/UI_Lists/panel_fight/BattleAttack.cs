@@ -51,6 +51,11 @@ namespace MVC
         public AttackStateMachine AttackStateMachine;
         public RolesManage StateMachine;
         private Text name_text;
+
+        /// <summary>
+        /// 天命台父物体大小,当前天命大小
+        /// </summary>
+        private Vector2 pos_tianming_size, tianming_size;
         /// <summary>
         /// 刷新属性
         /// </summary>
@@ -75,6 +80,10 @@ namespace MVC
             hp_text = Find<Text>("Slider/Hp_text");
         }
 
+        /// <summary>
+        /// 天命台位置
+        /// </summary>
+        private Transform show_tianming_Platform;
 
         protected crtMaxHeroVO data;
         /// <summary>
@@ -128,6 +137,33 @@ namespace MVC
                 }
                 dec += " " + data.show_name;
                 name_text.text = dec;
+
+                if (GetComponent<Monster>() != null)
+                {
+                    
+                    show_tianming_Platform = transform.Find("Appearance/tianming_Platform");
+
+                    int[] life = data.life;
+                    for (int j = show_tianming_Platform.childCount - 1; j >= 0; j--)//清空区域内按钮
+                    {
+                        Destroy(show_tianming_Platform.GetChild(j).gameObject);
+                    }
+                    for (int i = 0; i < life.Length; i++)
+                    {
+                        if (life[i] > 0)
+                        {
+                            GameObject game = Resources.Load<GameObject>("Prefabs/halo/halo_" + (i+1));
+                            GameObject tianming = Instantiate(game, show_tianming_Platform);
+                            pos_tianming_size = show_tianming_Platform.GetComponent<RectTransform>().rect.size;
+                            tianming_size = new Vector2(pos_tianming_size.x , pos_tianming_size.y );
+                            tianming.GetComponent<RectTransform>().sizeDelta = tianming_size;
+                        }
+                    }
+                }
+
+
+
+
             }
             get
             {
