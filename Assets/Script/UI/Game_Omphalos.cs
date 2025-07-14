@@ -98,6 +98,15 @@ namespace MVC
                 SumSave.crt_achievement.increase_date_Exp((Achieve_collect.在线时间).ToString(), 1);
                 //SumSave.crt_pass.day_state[0] += 1;
                 SumSave.crt_pass.progress(0);
+                for (int i = 0; i < SumSave.crt_Trial_Tower_rank.lists.Count; i++)
+                {
+                    if (SumSave.crt_Trial_Tower_rank.lists[i].Item1 == SumSave.crt_user.uid)
+                    {
+                        int value= (int)SumSave.crt_Trial_Tower_rank.lists[i].Item3;
+                        Battle_Tool.Obtain_Unit(currency_unit.试炼积分, value);
+                        break;
+                    }
+                }
             }
         }
         /// <summary>

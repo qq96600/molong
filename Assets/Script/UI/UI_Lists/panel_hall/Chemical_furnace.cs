@@ -52,7 +52,7 @@ public class Chemical_furnace : Base_Mono
     /// <summary>
     /// 合成类型
     /// </summary>
-    private string[] synthesis_item_list = new string[] { "资源", "材料" ,"分解","灵宝"};
+    private string[] synthesis_item_list = new string[] { "资源", "材料" ,"分解","灵宝","灵宠"};
     /// <summary>
     /// 选择类型
     /// </summary>

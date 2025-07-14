@@ -14,7 +14,10 @@ using System.IO;
 /// </summary>
 public static class Battle_Tool
 {
-    
+    /// <summary>
+    /// 五行天命
+    /// </summary>
+    private static Dictionary<int, int> base_life_types = new Dictionary<int, int>();
     /// <summary>
     /// 获取资源
     /// </summary>
@@ -54,6 +57,63 @@ public static class Battle_Tool
             user_value+=(user_value == "" ? "" : " ") + infos[i];
         }
         return user_value;
+    }
+    /// <summary>
+    /// 获取五行类型
+    /// </summary>
+    /// <returns></returns>
+    public static Dictionary<int, int> Get_Life_Type()
+    {
+        if (base_life_types.Count == 0)
+        {
+            Init_Life_type();
+        }
+        return base_life_types;
+    }
+    /// <summary>
+    /// 初始化五行天命
+    /// </summary>
+    public static void Init_Life_type()
+    {
+        base_life_types = new Dictionary<int, int>();
+
+        for (int i = 0; i < SumSave.crt_hero.tianming_Platform.Length; i++)
+        {
+            if (base_life_types.ContainsKey(SumSave.crt_hero.tianming_Platform[i]))
+            {
+                base_life_types[SumSave.crt_hero.tianming_Platform[i]]++;
+            }
+            else
+            {
+                base_life_types.Add(SumSave.crt_hero.tianming_Platform[i], 1);
+            }
+        }
+    }
+
+    public static int Judging_Five_Elements(int[] life_type,int[] tagert_life)
+    {
+        int value = 0;
+        for (int i = 0; i < life_type.Length; i++)
+            for (int j = 0; j < tagert_life.Length; j++)
+            {
+
+            }
+        return value ;
+    }
+    /// <summary>
+    /// 获取基准值
+    /// </summary>
+    /// <param name="base_value"></param>
+    /// <returns></returns>
+    public static int Alchemy_limit(int base_value)
+    {
+        int value = base_value / 10;
+        if (SumSave.crt_MaxHero.Lv >= 30)
+        {
+            value += (SumSave.crt_MaxHero.Lv - 20) / 10 * base_value / 100;
+        }
+        value =(int) MathF.Min(value, base_value);
+        return value;
     }
     /// <summary>
     /// 加成属性
@@ -862,7 +922,19 @@ public static class Battle_Tool
         }
         //SumSave.user_ranks.lists.Sort((x, y) => -x.value.CompareTo(y.value));
     }
-
+    /// <summary>
+    /// 五行加成值
+    /// </summary>
+    private static int[] life_bonus = new int[7] { 0, 5, 10, 30, 60, 120, 120 };
+    /// <summary>
+    /// 获得五行加成系数
+    /// </summary>
+    /// <param name="life_type"></param>
+    /// <returns></returns>
+    public static int battle_life_bonus(int life_type)
+    { 
+     return life_bonus[life_type];
+    }
     /// <summary>
     /// 创造怪物
     /// </summary>
@@ -874,8 +946,14 @@ public static class Battle_Tool
         base_crt.map_index = map.map_index;
         if (map.map_life != 0)
         {
-            base_crt.life[map.map_life-1] = map.need_lv * 2;
+            base_crt.life_types.Add(map.map_life - 1, 1);
+            while (Random.Range(0, 100) > base_crt.life_types[map.map_life - 1] * 20)
+            {
+                base_crt.life_types[map.map_life - 1]++;
+            }
+            base_crt.life[map.map_life - 1] = map.need_lv * 2 * (100 + life_bonus[base_crt.life_types[map.map_life - 1]]) / 100;
         }
+        
         base_crt.Monster_Lv = map.map_type;
         base_crt.Type= crt.damageMax>crt.MagicdamageMax?1:2;
         base_crt.show_name = crt.show_name;

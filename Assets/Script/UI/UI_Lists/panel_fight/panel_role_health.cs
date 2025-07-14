@@ -217,23 +217,18 @@ public class panel_role_health : Base_Mono
         }
         pos_tianming_size = show_tianming_Platform.GetComponent<RectTransform>().rect.size;
 
-        tianming_num = new Dictionary<int, int>();
-
-
-
-        for (int i = 0; i < SumSave.crt_hero.tianming_Platform.Length; i++)
-        {
-            if (tianming_num.ContainsKey(SumSave.crt_hero.tianming_Platform[i]))
-            {
-                tianming_num[SumSave.crt_hero.tianming_Platform[i]]++;
-            }
-            else
-            {
-                tianming_num.Add(SumSave.crt_hero.tianming_Platform[i], 1);
-            }
-        }
-
-
+        tianming_num = Battle_Tool.Get_Life_Type();
+        //for (int i = 0; i < SumSave.crt_hero.tianming_Platform.Length; i++)
+        //{
+        //    if (tianming_num.ContainsKey(SumSave.crt_hero.tianming_Platform[i]))
+        //    {
+        //        tianming_num[SumSave.crt_hero.tianming_Platform[i]]++;
+        //    }
+        //    else
+        //    {
+        //        tianming_num.Add(SumSave.crt_hero.tianming_Platform[i], 1);
+        //    }
+        //}
         for (int i = 0; i < SumSave.crt_hero.tianming_Platform.Length; i++)
         {
             GameObject game = Resources.Load<GameObject>("Prefabs/halo/halo_" + SumSave.crt_hero.tianming_Platform[i]);

@@ -272,5 +272,7 @@ public class monitor_info : Base_Mono
             }
             show_task.text = dec;
         }
-    }
 
+
+
+}

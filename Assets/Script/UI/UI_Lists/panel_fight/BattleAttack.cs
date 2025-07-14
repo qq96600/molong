@@ -157,12 +157,12 @@ namespace MVC
                             pos_tianming_size = show_tianming_Platform.GetComponent<RectTransform>().rect.size;
                             tianming_size = new Vector2(pos_tianming_size.x , pos_tianming_size.y );
                             tianming.GetComponent<RectTransform>().sizeDelta = tianming_size;
+                            Color currentColor = tianming.GetComponentInChildren<Image>().color;
+                            currentColor.a = Data.life_types[i] * 0.2f;
+                            tianming.GetComponentInChildren<Image>().color = currentColor;
                         }
                     }
                 }
-
-
-
 
             }
             get
@@ -475,6 +475,12 @@ namespace MVC
             }
             damage = damage * (100 + penetrate(monster)) / 100;
             damage = damage * (100 + data.double_damage - monster.data.Damage_Reduction) / 100;
+            if (skill == null)
+            {
+                //int life = restrain_value(monster.Data.life, monster.Data.life_types);
+                //if (life < 0) damage = (damage / 2) * (100 + (life)) / 100;
+                //else damage = damage * (100 + (life)) / 100;
+            }
             damage =(long) Mathf.Max(1, damage);
             return damage;
         }
@@ -530,60 +536,147 @@ namespace MVC
                     monsterlifevaluelue = monsterlife[i];
                 }
             }
-            ///添加天气五行
-
-
-    //        /*
-    //         *    土属性强化,// 201  
-    //火属性强化,//202
-    //水属性强化,// 203
-    //木属性强化,//204
-    //金属性强化,//205
-    //         //*// 0土 1火 2水 3木 4金 
+            float coefficient = 1.25f;
+            foreach (var item in data.life_types.Keys)
+            {
+                if (item == type)
+                {
+                    coefficient += (Battle_Tool.battle_life_bonus(data.life_types[item]) / 100f);
+                }
+            }
+            //        /*
+            //         *    土属性强化,// 201  
+            //火属性强化,//202
+            //水属性强化,// 203
+            //木属性强化,//204
+            //金属性强化,//205
+            //         //*// 0土 1火 2水 3木 4金 
             //对手五行
+            value = battle_restrain_value(index, type, coefficient, monsterlifevaluelue);
+            //switch (index)//金克木 木克土 土克水 水克火 火克金   0土 1火 2水 3木 4金 
+            //{
+            //    //金属性 同属计算抗性
+            //    case 0:
+            //        if (type == index) value = 0;
+            //        //克制计算乘法（木克）
+            //        else if (type == 3) value = (int)(data.life[type] * coefficient - monsterlifevaluelue);
+            //        else if (type == 2) value = (int)(data.life[type] * 0.1f - monsterlifevaluelue);
+            //        //被克制计算乘法（水克）
+            //        if (type != 2) value = Mathf.Max(0, value);
+            //        break;
+            //    case 1:
+            //        if (type == index) value = 0;
+            //        else if (type == 2) value = (int)(data.life[type] * coefficient - monsterlifevaluelue);
+            //        else if (type == 4) value = (int)(data.life[type] * 0.1f - monsterlifevaluelue);
+            //        if (type != 4) value = Mathf.Max(0, value);
+
+            //        break;
+            //    case 2:
+            //        if (type == index) value = 0;
+            //        else if (type == 0) value = (int)(data.life[type] * coefficient - monsterlifevaluelue);
+            //        else if (type == 1) value = (int)(data.life[type] * 0.1f - monsterlifevaluelue);
+            //        if (type != 1) value = Mathf.Max(0, value);
+
+            //        break;
+            //    case 3:
+            //        if (type == index) value = 0;
+            //        else if (type == 4) value = (int)(data.life[type] * coefficient - monsterlifevaluelue);
+            //        else if (type == 0 ) value = (int)(data.life[type] * 0.1f - monsterlifevaluelue);
+            //        if (type != 0) value = Mathf.Max(0, value);
+
+            //        break;
+            //    case 4:
+            //        if (type == index) value = 0; //value = data.life[type] - monsterlifevaluelue;
+            //        else if (type == 1) value = (int)(data.life[type] * coefficient - monsterlifevaluelue);
+            //        else if (type == 3) value = (int)(data.life[type] * 0.1f - monsterlifevaluelue);
+            //        if (type != 3) value = Mathf.Max(0, value);
+            //        break;
+            //    default:
+            //        break;
+            //}
+            return value;
+        }
+        /// <summary>
+        /// 普通战斗五行属性
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="monsterlife"></param>
+        /// <param name="dec"></param>
+        /// <returns></returns>
+        private int restrain_value(int[] monsterlife,Dictionary<int,int> dec)
+        {
+            int value = 0, type = 0;
+            float coefficient = 1.25f;
+             
+            foreach (var item in data.life_types.Keys)
+            {
+                if (item == type)
+                {
+                    coefficient += (Battle_Tool.battle_life_bonus(data.life_types[item]) / 100f);
+                }
+            }
+            foreach (var item in dec.Keys)
+            {
+                value = (int)MathF.Max(value, battle_restrain_value(item, type, coefficient, monsterlife[item]));
+            }
+            return value;
+        }
+        /// <summary>
+        /// 获取计算加成
+        /// </summary>
+        /// <param name="index">目标五行</param>
+        /// <param name="type">自身五行</param>
+        /// <param name="coefficient">系数</param>
+        /// <param name="monsterlifevaluelue">五行值</param>
+        /// <returns></returns>
+        private int battle_restrain_value(int index,int type,float coefficient,int monsterlifevaluelue)
+        {
+            int value = 0;
             switch (index)//金克木 木克土 土克水 水克火 火克金   0土 1火 2水 3木 4金 
             {
                 //金属性 同属计算抗性
                 case 0:
-                    if (type == index) value = data.life[type] - monsterlifevaluelue;
+                    if (type == index) value = 0;
                     //克制计算乘法（木克）
-                    else if (type == 3) value = (int)(data.life[type] * 1.5f - monsterlifevaluelue);
+                    else if (type == 3) value = (int)(data.life[type] * coefficient - monsterlifevaluelue);
                     else if (type == 2) value = (int)(data.life[type] * 0.1f - monsterlifevaluelue);
                     //被克制计算乘法（水克）
                     if (type != 2) value = Mathf.Max(0, value);
                     break;
                 case 1:
-                    if (type == index) value = data.life[type] - monsterlifevaluelue;
-                    else if (type == 2) value = (int)(data.life[type] * 1.5f - monsterlifevaluelue);
+                    if (type == index) value = 0;
+                    else if (type == 2) value = (int)(data.life[type] * coefficient - monsterlifevaluelue);
                     else if (type == 4) value = (int)(data.life[type] * 0.1f - monsterlifevaluelue);
                     if (type != 4) value = Mathf.Max(0, value);
 
                     break;
                 case 2:
-                    if (type == index) value = data.life[type] - monsterlifevaluelue;
-                    else if (type == 0) value = (int)(data.life[type] * 1.5f - monsterlifevaluelue);
+                    if (type == index) value = 0;
+                    else if (type == 0) value = (int)(data.life[type] * coefficient - monsterlifevaluelue);
                     else if (type == 1) value = (int)(data.life[type] * 0.1f - monsterlifevaluelue);
                     if (type != 1) value = Mathf.Max(0, value);
 
                     break;
                 case 3:
-                    if (type == index) value = data.life[type] - monsterlifevaluelue;
-                    else if (type == 4) value = (int)(data.life[type] * 1.5f - monsterlifevaluelue);
-                    else if (type == 0 ) value = (int)(data.life[type] * 0.1f - monsterlifevaluelue);
+                    if (type == index) value = 0;
+                    else if (type == 4) value = (int)(data.life[type] * coefficient - monsterlifevaluelue);
+                    else if (type == 0) value = (int)(data.life[type] * 0.1f - monsterlifevaluelue);
                     if (type != 0) value = Mathf.Max(0, value);
 
                     break;
                 case 4:
-                    if (type == index) value = data.life[type] - monsterlifevaluelue;
-                    else if (type == 1) value = (int)(data.life[type] * 1.5f - monsterlifevaluelue);
+                    if (type == index) value = 0; //value = data.life[type] - monsterlifevaluelue;
+                    else if (type == 1) value = (int)(data.life[type] * coefficient - monsterlifevaluelue);
                     else if (type == 3) value = (int)(data.life[type] * 0.1f - monsterlifevaluelue);
                     if (type != 3) value = Mathf.Max(0, value);
                     break;
                 default:
                     break;
             }
+
             return value;
         }
+
         /// <summary>
         /// 判断命中
         /// </summary>
