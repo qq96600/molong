@@ -33,7 +33,7 @@ public class panel_store : Base_Mono
     /// <summary>
     /// 商店类型名字
     /// </summary>
-    private string[] type_name = { "道具", "限购", "离线","荣耀商店" };
+    private string[] type_name = { "道具", "限购", "离线","荣耀商店","试炼商店" };
     /// <summary>
     /// 商店类型按钮
     /// </summary>

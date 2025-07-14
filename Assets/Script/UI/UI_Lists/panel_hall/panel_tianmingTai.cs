@@ -67,6 +67,8 @@ public class panel_tianmingTai : Base_Mono
         {
             SumSave.crt_hero.RefreshTianming();
             RefreshDisplay();
+            Battle_Tool.Init_Life_type();
+            SendNotification(NotiList.Refresh_Max_Hero_Attribute);
         }else
         {
             Alert_Dec.Show("魔丸不足");

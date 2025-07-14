@@ -1170,6 +1170,7 @@ namespace MVC
                     }
                 }
             }
+            crt.life_types = Battle_Tool.Get_Life_Type();
             //装备加成 item1数量 item2最低判断表准（强化18 ） item3 品质7 item4 最低等级
             //  List<(int, int, int,int)> crt_euqips = new List<(int, int, int, int)>() { (1,18,0,100),(2,7,0,100)};
             (int, int, int, int) crt_euqip = (0, 18, 7, 100);
@@ -1564,11 +1565,6 @@ namespace MVC
                     }
                 }
             }
-
-
-
-
-
             //皮肤
 #if UNITY_EDITOR  
             //crt.hit += 1000;
@@ -1582,6 +1578,7 @@ namespace MVC
 
             Battle_Tool.validate_rank();
         }
+         
 
         /// <summary>
         /// 加成属性

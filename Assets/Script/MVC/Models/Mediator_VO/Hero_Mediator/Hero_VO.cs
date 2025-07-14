@@ -82,7 +82,7 @@ public class Hero_VO : Base_VO
     {
         for (int i = 0; i < tianming_Platform.Length; i++)
         {
-            int index = Random.Range(1, 6);
+            int index = Random.Range(0, 5);
             tianming_Platform[i] = index;
         }
         MysqlData();

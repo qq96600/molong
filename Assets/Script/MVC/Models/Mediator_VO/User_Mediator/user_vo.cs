@@ -115,6 +115,16 @@ public class user_vo : Base_VO
                 }
                 MysqlData();
                 return;
+            case currency_unit.试炼积分://单次获得离线积分获取最高7440
+                if (value >= 10000)
+                    Game_Omphalos.i.Delete("获得" + (currency_unit)_index + value);
+                else
+                {
+                    list[4] += value;
+                    verify_list[4] += value;
+                }
+                MysqlData();
+                return;
         }
         
     }

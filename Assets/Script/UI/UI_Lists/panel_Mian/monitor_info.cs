@@ -272,46 +272,7 @@ public class monitor_info : Base_Mono
             }
             show_task.text = dec;
         }
-    }
-<<<<<<< HEAD
-    private void Update()
-    {
-        if (SumSave.crt_MaxHero != null)
-        {
-            if (SumSave.crt_hero.hero_pos!= skin_state)
-            {
-                Instance_Skin();
-            }
-            if (tianming_Platform==null || SumSave.crt_hero.tianming_Platform != tianming_Platform)
-            {
-                Show_Info_life();
-            }
-            show_name.text = SumSave.crt_hero.hero_name;
-            show_exp.text = " Lv." + SumSave.crt_hero.hero_Lv +
-               "(" +  SumSave.crt_hero.hero_Exp * 100 / SumSave.db_lvs.hero_lv_list[SumSave.crt_hero.hero_Lv] + "%)";
-            role_exp.maxValue = SumSave.db_lvs.hero_lv_list[SumSave.crt_hero.hero_Lv];
-            role_exp.value = SumSave.crt_hero.hero_Exp;
-            List<long> list = SumSave.crt_user_unit.Set();
-            show_moeny.text = Battle_Tool.FormatNumberToChineseUnit(list[0]) + " " + currency_unit.灵珠;
-            show_point.text = Battle_Tool.FormatNumberToChineseUnit(list[1]) + " " + currency_unit.历练;
-            show_diamond.text = Battle_Tool.FormatNumberToChineseUnit(list[2]) + " " + currency_unit.魔丸;
-            base_info_Task();
-        }
-    }
-    /// <summary>
-    /// 显示任务信息
-    /// </summary>
-    private void base_info_Task()
-    {
-        string dec = "";
-        if (SumSave.GreenhandGuide_TotalTasks.ContainsKey(SumSave.crt_greenhand.crt_task))
-        {
-            GreenhandGuide_TotalTaskVO task = SumSave.GreenhandGuide_TotalTasks[SumSave.crt_greenhand.crt_task];
-            dec = task.TaskDesc + "(" + SumSave.crt_greenhand.crt_progress + "/" + task.progress + ")";
-        }
-        show_task.text = dec;
-    }
-}
-=======
 
->>>>>>> 8a8dae972d292cbcf84c91a0ffdc2e829bd9a182
+
+
+}

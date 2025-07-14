@@ -192,6 +192,10 @@ public class crtMaxHeroVO
     /// </summary>
     public int[] life = new int[] { 0, 0, 0, 0, 0 };
     /// <summary>
+    /// 天命五行
+    /// </summary>
+    public Dictionary<int, int> life_types = new Dictionary<int, int>();
+    /// <summary>
     /// buff加成
     /// </summary>
     public List<int> bufflist = new List<int>();
