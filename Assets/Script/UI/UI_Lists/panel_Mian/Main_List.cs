@@ -22,4 +22,5 @@ public enum Main_List
     panel_warehouse,//仓库
     panel_AstrologyPlatform,//占星台
     Trial_Tower,//试炼塔
+    panel_destinyTower,//天命台
 }

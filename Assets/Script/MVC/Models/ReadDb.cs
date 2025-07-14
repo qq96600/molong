@@ -5,6 +5,7 @@ using Common;
 using MVC;
 using MySql.Data.MySqlClient;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 /// <summary>
 /// 读取数据
@@ -158,6 +159,7 @@ public static class ReadDb
         item.opentime = Convert.ToDateTime(reader.GetString(reader.GetOrdinal("time")));
         item.openstate= reader.GetInt32(reader.GetOrdinal("openstate"));
         item.device = reader.GetInt32(reader.GetOrdinal("device"));
+        item.par_name= reader.GetString(reader.GetOrdinal("show_name"));
         return item;
     }
 
@@ -552,6 +554,7 @@ public static class ReadDb
     public static db_artifact_vo Read(MySqlDataReader reader, db_artifact_vo item)
     {
         item.arrifact_name = reader.GetString(reader.GetOrdinal("Artifact_name"));
+        item.Artifact_open_needs= reader.GetString(reader.GetOrdinal("Artifact_open_need")).Split('&');
         item.arrifact_needs = reader.GetString(reader.GetOrdinal("Artifact_need")).Split('&');
         item.arrifact_effects = reader.GetString(reader.GetOrdinal("Artifact_effect")).Split('&');
         item.arrifact_type = reader.GetInt32(reader.GetOrdinal("Artifact_type"));
@@ -600,7 +603,8 @@ public static class ReadDb
         item.hero_Lv = int.Parse(item.hero_lv);
         item.hero_exp= reader.GetString(reader.GetOrdinal("hero_exp"));
         item.hero_Exp = long.Parse(item.hero_exp);
-        item.hero_pos= reader.GetString(reader.GetOrdinal("hero_pos"));
+        
+
         item.hero_value= reader.GetString(reader.GetOrdinal("hero_value"));
         item.hero_material= reader.GetString(reader.GetOrdinal("hero_material"));
         string[] hero_material_array = item.hero_material.Split(' ');
@@ -609,7 +613,28 @@ public static class ReadDb
         { 
             item.hero_material_list[i] = int.Parse(hero_material_array[i]);
         }
-        
+
+        string[] hero_lv_array = reader.GetString(reader.GetOrdinal("hero_pos")).Split('|');
+        item.hero_pos = hero_lv_array[0];
+        item.tianming_Platform = new int[5];
+        if (hero_lv_array.Length<2)
+        {
+            for (int i = 0; i < item.tianming_Platform.Length; i++)
+            {
+                int index = Random.Range(1, 6);
+                item.tianming_Platform[i] = index;
+            }
+        }
+        else
+        {
+            string[] tianming= hero_lv_array[1].Split(' ');
+
+            for (int i = 0; i < tianming.Length; i++)
+            {
+                item.tianming_Platform[i] = int.Parse(tianming[i]);
+            }
+        }
+
         return item;
     }
     public static db_hero_vo Read(MySqlDataReader reader, db_hero_vo item)

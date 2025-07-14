@@ -142,6 +142,13 @@ public static class Combat_statistics
     public static bool isSuperlative()
     {
         if (SetMap == null) SetMap = SumSave.crt_needlist.SetMap();
+#if UNITY_EDITOR
+        
+#elif UNITY_ANDROID
+#elif UNITY_IPHONE
+#endif
+
+
         for (int i = 0; i < SetMap.Count; i++)
         {
             if (SetMap[i].Item1 == "至尊宝箱")

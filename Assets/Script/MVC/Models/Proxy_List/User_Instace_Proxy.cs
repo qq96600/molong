@@ -510,6 +510,7 @@ namespace MVC
             Read_user_player_Buff();
             Read_User_Mail();
             Read_User_Reward();
+            read_Trial_Tower();
             Read_user_world_boss();
             world_boss_Login();
             refresh_Max_Hero_Attribute();
@@ -872,10 +873,10 @@ namespace MVC
         public void Read_User_Rank()
         {
             OpenMySqlDB();
-            if (MysqlDb.MysqlClose)
-            {
+            //if (MysqlDb.MysqlClose)
+            //{
                 read_User_Rank();
-            }
+            //}
             CloseMySqlDB();
         }
 
@@ -1170,6 +1171,7 @@ namespace MVC
                     }
                 }
             }
+            crt.life_types = Battle_Tool.Get_Life_Type();
             //装备加成 item1数量 item2最低判断表准（强化18 ） item3 品质7 item4 最低等级
             //  List<(int, int, int,int)> crt_euqips = new List<(int, int, int, int)>() { (1,18,0,100),(2,7,0,100)};
             (int, int, int, int) crt_euqip = (0, 18, 7, 100);
@@ -1201,7 +1203,7 @@ namespace MVC
                     //case EquipConfigTypeList.护符:
                     //case EquipConfigTypeList.灵宝:
                     //case EquipConfigTypeList.勋章:
-                    // case EquipConfigTypeList.饰品:
+                    //case EquipConfigTypeList.饰品:
                     //case EquipConfigTypeList.玉佩:
                     //case EquipConfigTypeList.披风:
                         crt_euqip = (crt_euqip.Item1 + 1, (int)MathF.Min(crt_euqip.Item2, strengthenlv), (int)MathF.Min(crt_euqip.Item3, quilty), (int)MathF.Min(crt_euqip.Item4, data.equip_lv));
@@ -1564,24 +1566,20 @@ namespace MVC
                     }
                 }
             }
-
-       
-
-
-
             //皮肤
-#if UNITY_EDITOR
+#if UNITY_EDITOR  
             //crt.hit += 1000;
-            //crt.damageMax += 100000;
-            //crt.MagicdamageMax += 100000;
+            //crt.damageMax += 10000000;
+            //crt.MagicdamageMax += 10000000;
 #elif UNITY_ANDROID
 #elif UNITY_IPHONE
 #endif
             SumSave.crt_MaxHero = crt;
             SumSave.crt_MaxHero.Init();
-            SendNotification(NotiList.Read_User_Ranks);
+
             Battle_Tool.validate_rank();
         }
+         
 
         /// <summary>
         /// 加成属性
@@ -1877,9 +1875,18 @@ namespace MVC
                 SumSave.crt_hero.hero_Exp = 0;
                 SumSave.crt_hero.hero_pos = SumSave.db_heros[0].hero_name;
                 SumSave.crt_hero.hero_material_list = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+
+                SumSave.crt_hero.tianming_Platform = new int[5];
+                for (int i = 0; i < SumSave.crt_hero.tianming_Platform.Length; i++)
+                {
+                    int index = Random.Range(1, 6);
+                    SumSave.crt_hero.tianming_Platform[i] = index;
+                }
+
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_hero, SumSave.crt_hero.Set_Instace_String());
             }
         }
+
 
 
         /// <summary>

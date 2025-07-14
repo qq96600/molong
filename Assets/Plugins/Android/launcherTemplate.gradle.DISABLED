@@ -4,6 +4,17 @@ dependencies {
     implementation project(':unityLibrary')
     }
 
+
+    android {
+    defaultConfig {
+        multiDexEnabled true
+    }
+}
+
+dependencies {
+    implementation 'androidx.multidex:multidex:2.0.1'
+}
+
 android {
     compileSdkVersion **APIVERSION**
     buildToolsVersion '**BUILDTOOLS**'
@@ -56,4 +67,6 @@ android {
             enableSplit = true
         }
     }
+
+
 }**SPLITS_VERSION_CODE****LAUNCHER_SOURCE_BUILD_SETUP**

@@ -95,12 +95,12 @@ public class Alchemy : Base_Mono
                 if (list[i].Item1 == item.pill)
                 {
                     eixst = false;
-                    dec += "\n" + item.type + " " + Show_Color.Red(list[i].Item2[1]) + "(" + list[i].Item2[0] + "/" + item.limit + ")";
+                    dec += "\n" + item.type + " " + Show_Color.Red(list[i].Item2[1]) + "(" + list[i].Item2[0] + "/" + Battle_Tool.Alchemy_limit(item.limit) + ")";
                 }
             }
             if (eixst)
             {
-                dec += Show_Color.Grey("\n" + item.type + " " + 0 + "(" + 0 + "/" + item.limit + ")");
+                dec += Show_Color.Grey("\n" + item.type + " " + 0 + "(" + 0 + "/" + Battle_Tool.Alchemy_limit(item.limit) + ")");
             }
         }
        

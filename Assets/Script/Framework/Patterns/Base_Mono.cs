@@ -121,7 +121,7 @@ namespace MVC
             Dictionary<string, long> keys = dic;
             Dictionary<string, int> bagdic = new Dictionary<string, int>();
             long count = 0;
-            //0灵珠 1历练 2元宝 3灵气4离线积分
+            //0灵珠 1历练 2元宝 3灵气4离线积分5试炼积分
             List<long> currency_unit_list = new List<long> { 0, 0, 0, 0, 0, 0 };
             List<long> listunit = SumSave.crt_user_unit.Set();
 
@@ -163,16 +163,25 @@ namespace MVC
                     }
                 }
                 else
-                if (item == currency_unit.灵气.ToString())
+                if (item == currency_unit.试炼积分.ToString())
                 {
-                    int value = Battle_Tool.Obtain_World();
-                    if (value >= Mathf.Abs(keys[item]))
+                    if (listunit[4] >= Mathf.Abs(keys[item]))
                     {
                         currency_unit_list[4] += (long)Mathf.Abs(keys[item]);
                         count++;
                     }
                 }
-                
+                else
+                if (item == currency_unit.灵气.ToString())
+                {
+                    int value = Battle_Tool.Obtain_World();
+                    if (value >= Mathf.Abs(keys[item]))
+                    {
+                        currency_unit_list[5] += (long)Mathf.Abs(keys[item]);
+                        count++;
+                    }
+                }
+               
                 else
                 {
                     List<(string,int)> list = SumSave.crt_bag_resources.Set();
@@ -188,7 +197,6 @@ namespace MVC
                                     count++;
                                 }
                                 continue;
-
                             }
                         }
                     }
@@ -206,6 +214,7 @@ namespace MVC
                             case currency_unit.历练:
                             case currency_unit.魔丸:
                             case currency_unit.离线积分:
+                            case currency_unit.试炼积分:
                                 SumSave.crt_user_unit.verify_data((currency_unit)i, -currency_unit_list[i]);
                                 break;
                             case currency_unit.灵气:
@@ -301,6 +310,8 @@ namespace MVC
        历练,
        魔丸,
        离线积分,
+       试炼积分,
        灵气,
+       
     }
 }

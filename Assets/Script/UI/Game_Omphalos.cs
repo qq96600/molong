@@ -98,6 +98,15 @@ namespace MVC
                 SumSave.crt_achievement.increase_date_Exp((Achieve_collect.在线时间).ToString(), 1);
                 //SumSave.crt_pass.day_state[0] += 1;
                 SumSave.crt_pass.progress(0);
+                for (int i = 0; i < SumSave.crt_Trial_Tower_rank.lists.Count; i++)
+                {
+                    if (SumSave.crt_Trial_Tower_rank.lists[i].Item1 == SumSave.crt_user.uid)
+                    {
+                        int value= (int)SumSave.crt_Trial_Tower_rank.lists[i].Item3;
+                        Battle_Tool.Obtain_Unit(currency_unit.试炼积分, value);
+                        break;
+                    }
+                }
             }
         }
         /// <summary>
@@ -170,7 +179,6 @@ namespace MVC
         private void Read_User_Ranks()
         {
             //每日任务 在线时长
-            SendNotification(NotiList.Read_User_Ranks);
             Battle_Tool.validate_rank();
             Tool_State.self_inspection();//10分钟验证一次状态
         }
@@ -394,7 +402,7 @@ namespace MVC
                     break;
                 case Mysql_Table_Name.db_setting:
                     break;
-                case Mysql_Table_Name.db_artifacts:
+                case Mysql_Table_Name.db_artifact:
                     break;
                 case Mysql_Table_Name.mo_user_base:
                     break;
@@ -463,7 +471,7 @@ namespace MVC
                     break;
                 case Mysql_Table_Name.mo_user_iphone:
                     break;
-                case Mysql_Table_Name.db_par:
+                case Mysql_Table_Name.db_pars:
                     break;
                 case Mysql_Table_Name.user_message_window:
                     break;

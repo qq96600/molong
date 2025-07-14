@@ -2,6 +2,7 @@ using Common;
 using MVC;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -81,7 +82,13 @@ namespace StateMachine
                 skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/skin_" + SumSave.crt_hero.hero_pos);
                 panel_role_health = transform.Find("Appearance");
                 Instantiate(skin_prefabs, panel_role_health);
-            }else if(GetComponent<Monster>() != null)
+                show_tianming_Platform=transform.Find("Appearance/tianming_Platform");
+                if (tianming_Platform == null || !tianming_Platform.SequenceEqual(SumSave.crt_hero.tianming_Platform))
+                {
+                    Show_Info_life();
+                }
+            }
+            else if(GetComponent<Monster>() != null)
             {
                 monster_type = enum_monster_type.磷火兵;
                 ////skin_prefabs = Resources.Load<GameObject>("Prefabs/monsters/mon_" + monster_type.ToString());
@@ -89,6 +96,7 @@ namespace StateMachine
 
                 panel_role_health = transform.Find("Appearance/profilePicture");
                 panel_role_health.GetComponent<Image>().sprite = mon_profilePicture;
+
                 //Instantiate(skin_prefabs, panel_role_health);
             }
 
@@ -106,6 +114,80 @@ namespace StateMachine
            
         }
 
+
+        #region 显示天命光环
+        /// <summary>
+        /// 天命台
+        /// </summary>
+        private int[] tianming_Platform;
+        /// <summary>
+        /// 天命台位置
+        /// </summary>
+        private Transform show_tianming_Platform;
+        /// <summary>
+        /// 天命台父物体大小,当前天命大小
+        /// </summary>
+        private Vector2 pos_tianming_size, tianming_size;
+        /// <summary>
+        /// 缩放比例
+        /// </summary>
+        private float scaling = 1;
+        /// <summary>
+        /// 每个天命的数量
+        /// </summary>
+        private Dictionary<int, int> tianming_num;
+
+        /// <summary>
+        /// 显示天命光环
+        /// </summary>
+        private void Show_Info_life()
+        {
+
+            tianming_Platform = (int[])SumSave.crt_hero.tianming_Platform.Clone();
+
+            for (int i = show_tianming_Platform.childCount - 1; i >= 0; i--)//清空区域内按钮
+            {
+                Destroy(show_tianming_Platform.GetChild(i).gameObject);
+            }
+            pos_tianming_size = show_tianming_Platform.GetComponent<RectTransform>().rect.size;
+
+            tianming_num = new Dictionary<int, int>();
+
+
+
+            for (int i = 0; i < SumSave.crt_hero.tianming_Platform.Length; i++)
+            {
+                if (tianming_num.ContainsKey(SumSave.crt_hero.tianming_Platform[i]))
+                {
+                    tianming_num[SumSave.crt_hero.tianming_Platform[i]]++;
+                }
+                else
+                {
+                    tianming_num.Add(SumSave.crt_hero.tianming_Platform[i], 1);
+                }
+            }
+
+
+            for (int i = 0; i < SumSave.crt_hero.tianming_Platform.Length; i++)
+            {
+                GameObject game = Resources.Load<GameObject>("Prefabs/halo/halo_" + (SumSave.crt_hero.tianming_Platform[i] + 1));
+                GameObject tianming = Instantiate(game, show_tianming_Platform);
+
+                tianming.transform.Rotate(new Vector3(0, 0, 15 * i));
+
+
+                tianming_size = new Vector2(pos_tianming_size.x * scaling, pos_tianming_size.y * scaling);
+                tianming.GetComponent<RectTransform>().sizeDelta = tianming_size;
+
+                Color currentColor = tianming.GetComponentInChildren<Image>().color;
+                currentColor.a = tianming_num[SumSave.crt_hero.tianming_Platform[i]] * 0.2f;
+                tianming.GetComponentInChildren<Image>().color = currentColor;
+            }
+        }
+
+        #endregion
+
+
         protected virtual void Start()
         {
            
@@ -121,9 +203,7 @@ namespace StateMachine
 
         public virtual void Init(BattleAttack battle, BattleHealth _tatgetObg)//初始化参数
         {
-            //anim.speed = attack_speed;
-            //AttackDistance = attack_distance;
-            //MoveSpeed = move_speed;
+
             TatgetObg = _tatgetObg;
             BattleAttack = battle;
         }
@@ -132,13 +212,6 @@ namespace StateMachine
         {
 
         }
-
-     
-
-
-
-        
-     
 
 
         /// <summary>

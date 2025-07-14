@@ -10,7 +10,7 @@ public class user_vo : Base_VO
 {
 
     /// <summary>
-    /// 0 灵珠，1 历练，2 魔丸
+    /// 0 灵珠，1 历练，2 魔丸，3离线积分，4试炼积分
     /// </summary>
     private List<long> list = new List<long>();
     private List<long> verify_list = new List<long>();
@@ -63,6 +63,8 @@ public class user_vo : Base_VO
             }
             else Game_Omphalos.i.Delete(_index + " 显示数据 " + list[i] + " 验证值 " + index + " " + verify_list[i]);
         }
+
+
         switch (_index)
         {
             case currency_unit.灵珠:
@@ -110,6 +112,16 @@ public class user_vo : Base_VO
                 {
                     list[3] += value;
                     verify_list[3] += value;
+                }
+                MysqlData();
+                return;
+            case currency_unit.试炼积分://单次获得离线积分获取最高7440
+                if (value >= 10000)
+                    Game_Omphalos.i.Delete("获得" + (currency_unit)_index + value);
+                else
+                {
+                    list[4] += value;
+                    verify_list[4] += value;
                 }
                 MysqlData();
                 return;

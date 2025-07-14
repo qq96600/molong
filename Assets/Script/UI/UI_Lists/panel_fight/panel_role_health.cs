@@ -2,6 +2,7 @@ using Common;
 using MVC;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UI;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,7 +22,7 @@ public class panel_role_health : Base_Mono
     /// <summary>
     /// 角色皮肤
     /// </summary>
-    private enum_skin_state skin_state;
+    private string skin_state;
     /// <summary>
     /// 角色皮肤预制体
     /// </summary>
@@ -45,6 +46,7 @@ public class panel_role_health : Base_Mono
         show_moeny = Find<Text>("show_unit/moeny/info");
         show_point = Find<Text>("show_unit/Point/info");
         pos_health = Find<Transform>("profile_picture");
+        show_tianming_Platform= Find<Transform>("profile_picture/tianming_Platform");
         Instance_Skin();
     }
     public void SetHealth(BattleHealth _health)
@@ -62,22 +64,30 @@ public class panel_role_health : Base_Mono
     /// </summary>
     private void Instance_Skin()
     {
-        for (int i = pos_health.childCount - 1; i >= 0; i--)//清空区域内按钮
+        for (int i = pos_health.childCount - 1; i >= 1; i--)//清空区域内按钮
         {
             Destroy(pos_health.GetChild(i).gameObject);
         }
      
         skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/within_" + SumSave.crt_hero.hero_pos);
         Instantiate(skin_prefabs, pos_health);
+        skin_state = SumSave.crt_hero.hero_pos;
     }
     private void Update()
     {
         if (health != null)
         {
-            //if (int.Parse(SumSave.crt_hero.hero_index) != (int)skin_state)
-            //{
+            if (SumSave.crt_hero.hero_pos != skin_state)
+            {
                 Instance_Skin();
-            //}
+            }
+
+            if (tianming_Platform == null || !tianming_Platform.SequenceEqual(SumSave.crt_hero.tianming_Platform))
+            {
+                Show_Info_life();
+            }
+
+
             show_name.text = SumSave.crt_hero.hero_name + " Lv." + SumSave.crt_hero.hero_Lv +
                "(" + SumSave.crt_hero.hero_Exp * 100 / SumSave.db_lvs.hero_lv_list[SumSave.crt_hero.hero_Lv] + "%)";
             role_exp.maxValue = SumSave.db_lvs.hero_lv_list[SumSave.crt_hero.hero_Lv];
@@ -170,5 +180,72 @@ public class panel_role_health : Base_Mono
         }
     }
 
+
+    #region 显示天命光环
+    /// <summary>
+    /// 天命台
+    /// </summary>
+    private int[] tianming_Platform;
+    /// <summary>
+    /// 天命台位置
+    /// </summary>
+    private Transform show_tianming_Platform;
+    /// <summary>
+    /// 天命台父物体大小,当前天命大小
+    /// </summary>
+    private Vector2 pos_tianming_size, tianming_size;
+    /// <summary>
+    /// 缩放比例
+    /// </summary>
+    private float scaling = 1;
+    /// <summary>
+    /// 每个天命的数量
+    /// </summary>
+    private Dictionary<int, int> tianming_num;
+
+    /// <summary>
+    /// 显示天命光环
+    /// </summary>
+    private void Show_Info_life()
+    {
+
+        tianming_Platform = (int[])SumSave.crt_hero.tianming_Platform.Clone();
+
+        for (int i = show_tianming_Platform.childCount - 1; i >= 0; i--)//清空区域内按钮
+        {
+            Destroy(show_tianming_Platform.GetChild(i).gameObject);
+        }
+        pos_tianming_size = show_tianming_Platform.GetComponent<RectTransform>().rect.size;
+
+        tianming_num = Battle_Tool.Get_Life_Type();
+        //for (int i = 0; i < SumSave.crt_hero.tianming_Platform.Length; i++)
+        //{
+        //    if (tianming_num.ContainsKey(SumSave.crt_hero.tianming_Platform[i]))
+        //    {
+        //        tianming_num[SumSave.crt_hero.tianming_Platform[i]]++;
+        //    }
+        //    else
+        //    {
+        //        tianming_num.Add(SumSave.crt_hero.tianming_Platform[i], 1);
+        //    }
+        //}
+        for (int i = 0; i < SumSave.crt_hero.tianming_Platform.Length; i++)
+        {
+            GameObject game = Resources.Load<GameObject>("Prefabs/halo/halo_" + (SumSave.crt_hero.tianming_Platform[i] + 1));
+            GameObject tianming = Instantiate(game, show_tianming_Platform);
+
+            tianming.transform.Rotate(new Vector3(0, 0, 15 * i));
+
+
+            tianming_size = new Vector2(pos_tianming_size.x * scaling, pos_tianming_size.y * scaling);
+            tianming.GetComponent<RectTransform>().sizeDelta = tianming_size;
+
+            Color currentColor = tianming.GetComponentInChildren<Image>().color;
+            currentColor.a = tianming_num[SumSave.crt_hero.tianming_Platform[i]] * 0.2f;
+            tianming.GetComponentInChildren<Image>().color = currentColor;
+        }
+    }
+
+    #endregion
 
 }

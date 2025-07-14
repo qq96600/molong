@@ -23,7 +23,7 @@ public enum Mysql_Table_Name
     db_map,
     db_hero,//标准参数
     db_setting,//标准设置信息
-    db_artifacts,//标准神器
+    db_artifact,//标准神器
     mo_user_base,//用户基础信息
     mo_user_value,//用户资源信息
     mo_user_hero,//用户英雄信息
@@ -57,7 +57,7 @@ public enum Mysql_Table_Name
     mo_user_signin,
     mo_user_tap,//tap登录
     mo_user_iphone,//苹果登录
-    db_par,//服务器列表
+    db_pars,//服务器列表
     user_message_window,//消息窗口
     db_basetask,//大世界信息
     mo_user_greenhandguide,//新手引导

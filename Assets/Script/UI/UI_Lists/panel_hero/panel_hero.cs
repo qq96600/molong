@@ -7,6 +7,7 @@ using System;
 using Common;
 using UnityEngine.UI;
 using Components;
+using System.Linq;
 
 public class panel_hero : Panel_Base
 {
@@ -99,6 +100,8 @@ public class panel_hero : Panel_Base
         crate_btn.onClick.AddListener(() => { SwitchRoles(); });
         panel_role_health = Find<Transform>("bg_main/bag_equips/hero_icon/panel_role_health");
         panel_equip = UI_Manager.I.GetPanel<panel_equip>();
+        show_tianming_Platform= Find<Transform>("bg_main/bag_equips/hero_icon/tianming_Platform");
+
         CharacterRefresh();
 
 
@@ -205,12 +208,90 @@ public class panel_hero : Panel_Base
             }
         }
     }
+    #region 显示天命光环
+    /// <summary>
+    /// 天命台
+    /// </summary>
+    private int[] tianming_Platform;
+    /// <summary>
+    /// 天命台位置
+    /// </summary>
+    private Transform show_tianming_Platform;
+    /// <summary>
+    /// 天命台父物体大小,当前天命大小
+    /// </summary>
+    private Vector2 pos_tianming_size, tianming_size;
+    /// <summary>
+    /// 缩放比例
+    /// </summary>
+    private float scaling = 1;
+    /// <summary>
+    /// 每个天命的数量
+    /// </summary>
+    private Dictionary<int, int> tianming_num;
+
+    /// <summary>
+    /// 显示五行光环
+    /// </summary>
+    private void Show_Info_life()
+    {
+
+        tianming_Platform = (int[])SumSave.crt_hero.tianming_Platform.Clone();
+
+        for (int i = show_tianming_Platform.childCount - 1; i >= 0; i--)//清空区域内按钮
+        {
+            Destroy(show_tianming_Platform.GetChild(i).gameObject);
+        }
+        pos_tianming_size = show_tianming_Platform.GetComponent<RectTransform>().rect.size;
+
+        tianming_num = new Dictionary<int, int>();
+
+
+
+        for (int i = 0; i < SumSave.crt_hero.tianming_Platform.Length; i++)
+        {
+            if (tianming_num.ContainsKey(SumSave.crt_hero.tianming_Platform[i]))
+            {
+                tianming_num[SumSave.crt_hero.tianming_Platform[i]]++;
+            }
+            else
+            {
+                tianming_num.Add(SumSave.crt_hero.tianming_Platform[i], 1);
+            }
+        }
+
+
+        for (int i = 0; i < SumSave.crt_hero.tianming_Platform.Length; i++)
+        {
+            GameObject game = Resources.Load<GameObject>("Prefabs/halo/halo_" + (SumSave.crt_hero.tianming_Platform[i] + 1));
+            GameObject tianming = Instantiate(game, show_tianming_Platform);
+
+            tianming.transform.Rotate(new Vector3(0, 0, 15 * i));
+
+
+            tianming_size = new Vector2(pos_tianming_size.x * scaling, pos_tianming_size.y * scaling);
+            tianming.GetComponent<RectTransform>().sizeDelta = tianming_size;
+
+            Color currentColor = tianming.GetComponentInChildren<Image>().color;
+            currentColor.a = tianming_num[SumSave.crt_hero.tianming_Platform[i]] * 0.2f;
+            tianming.GetComponentInChildren<Image>().color = currentColor;
+        }
+    }
+
+    #endregion
+
+
 
     public override void Show()
     {
         base.Show();
         base_show();
         Base_Show();
+
+        if (tianming_Platform == null || !tianming_Platform.SequenceEqual(SumSave.crt_hero.tianming_Platform))
+        {
+            Show_Info_life();
+        }
     }
     /// <summary>
     /// 显示属性表

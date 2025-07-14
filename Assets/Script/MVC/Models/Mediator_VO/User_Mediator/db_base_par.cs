@@ -23,6 +23,10 @@ public class db_base_par : Base_VO
     /// 设备类型
     /// </summary>
     public int device;
+    /// <summary>
+    /// 显示名称
+    /// </summary>
+    public string par_name;
 
 
 }
