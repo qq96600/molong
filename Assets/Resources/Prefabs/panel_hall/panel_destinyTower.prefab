@@ -555,7 +555,7 @@ GameObject:
   - component: {fileID: 7110223051096908205}
   - component: {fileID: 546198794235001113}
   m_Layer: 5
-  m_Name: panel_tianmingTai
+  m_Name: panel_destinyTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

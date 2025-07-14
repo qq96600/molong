@@ -10,7 +10,7 @@ public class user_vo : Base_VO
 {
 
     /// <summary>
-    /// 0 灵珠，1 历练，2 魔丸
+    /// 0 灵珠，1 历练，2 魔丸，3离线积分，4试炼积分
     /// </summary>
     private List<long> list = new List<long>();
     private List<long> verify_list = new List<long>();

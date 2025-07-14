@@ -96,6 +96,10 @@ public class panel_store : Base_Mono
     /// </summary>
     private Text OfflinePointsText;
 
+    /// <summary>
+    /// 货币0 灵珠，1 历练，2 魔丸，3离线积分，4试炼积分
+    /// </summary>
+    private List<long> list = new List<long>();
 
     private void Awake()
     {
@@ -133,8 +137,9 @@ public class panel_store : Base_Mono
 
     private void Update()
     {
-        List<long> list = SumSave.crt_user_unit.Set();
-        OfflinePointsText.text= currency_unit.离线积分+";\n"+ Battle_Tool.FormatNumberToChineseUnit(list[3]);
+        list = SumSave.crt_user_unit.Set();
+        OfflinePointsText.text= currency_unit.离线积分+";"+ Battle_Tool.FormatNumberToChineseUnit(list[3])+"\n"+currency_unit.试炼积分+":" + Battle_Tool.FormatNumberToChineseUnit(list[4]);
+
     }
 
 

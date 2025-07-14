@@ -90,6 +90,17 @@ public class bag_Resources_vo : Base_VO
     public string GetData()
     {
         string data_list= "";
+
+
+        for (int i = list.Count - 1; i >= 0; i--)
+        {
+            if (list[i].Item2 <= 0)
+            {
+                list.RemoveAt(i);
+                verify_list.RemoveAt(i);
+            }
+        }
+
         for (int i = 0; i < list.Count; i++)
         {
             data_list += (i == 0 ? "" : ",") + (list[i].Item1 + " " + list[i].Item2);

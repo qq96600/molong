@@ -150,16 +150,16 @@ namespace MVC
                     }
                     for (int i = 0; i < life.Length; i++)
                     {
-                        if (life[i] > 0)
+                        if (life[i] > 0)///怪物天命环
                         {
                             GameObject game = Resources.Load<GameObject>("Prefabs/halo/halo_" + (i+1));
                             GameObject tianming = Instantiate(game, show_tianming_Platform);
                             pos_tianming_size = show_tianming_Platform.GetComponent<RectTransform>().rect.size;
                             tianming_size = new Vector2(pos_tianming_size.x , pos_tianming_size.y );
                             tianming.GetComponent<RectTransform>().sizeDelta = tianming_size;
-                            Color currentColor = tianming.GetComponentInChildren<Image>().color;
-                            currentColor.a = Data.life_types[i] * 0.2f;
-                            tianming.GetComponentInChildren<Image>().color = currentColor;
+                            //Color currentColor = tianming.GetComponentInChildren<Image>().color;
+                            //currentColor.a = Data.life_types[i] * 0.2f;
+                            //tianming.GetComponentInChildren<Image>().color = currentColor;
                         }
                     }
                 }
