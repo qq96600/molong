@@ -133,18 +133,31 @@ public class panel_hero : Panel_Base
         {
             if (crt_hero.SetData().hero_name == item)
             {
-                SumSave.crt_hero.hero_pos = item;
-                Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_hero,
-                    SumSave.crt_hero.Set_Uptade_String(), SumSave.crt_hero.Get_Update_Character());
-                Alert_Dec.Show("切换角色 " + item + " 成功");
-
-                SendNotification(NotiList.Refresh_Max_Hero_Attribute);
-                base_show();
-                CharacterRefresh();
+                switch_Hero(item);
                 return;
             }
         }
-      Alert_Dec.Show("该角色尚未获取");
+        if (Tool_State.IsState(State_List.至尊卡))
+        {
+            if (crt_hero.SetData().hero_name == "昭月")
+            {
+                switch_Hero(crt_hero.SetData().hero_name);
+                return;
+            }
+        }
+        Alert_Dec.Show("该角色尚未获取");
+    }
+
+    private void switch_Hero(string item)
+    {
+        SumSave.crt_hero.hero_pos = item;
+        Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_hero,
+            SumSave.crt_hero.Set_Uptade_String(), SumSave.crt_hero.Get_Update_Character());
+        Alert_Dec.Show("切换角色 " + item + " 成功");
+
+        SendNotification(NotiList.Refresh_Max_Hero_Attribute);
+        base_show();
+        CharacterRefresh();
     }
     /// <summary>
     /// 角色刷新
