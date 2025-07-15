@@ -1879,7 +1879,7 @@ namespace MVC
                 SumSave.crt_hero.tianming_Platform = new int[5];
                 for (int i = 0; i < SumSave.crt_hero.tianming_Platform.Length; i++)
                 {
-                    int index = Random.Range(1, 6);
+                    int index = Random.Range(0, 5);
                     SumSave.crt_hero.tianming_Platform[i] = index;
                 }
 
