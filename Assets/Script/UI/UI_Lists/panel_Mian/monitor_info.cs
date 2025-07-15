@@ -221,7 +221,7 @@ public class monitor_info : Base_Mono
 
         for (int i = 0; i < SumSave.crt_hero.tianming_Platform.Length; i++)
         {
-            GameObject game = Resources.Load<GameObject>("Prefabs/halo/halo_" + SumSave.crt_hero.tianming_Platform[i]);
+            GameObject game = Resources.Load<GameObject>("Prefabs/halo/halo_" + (SumSave.crt_hero.tianming_Platform[i] + 1));
             GameObject tianming = Instantiate(game, show_tianming_Platform);
 
             tianming.transform.Rotate(new Vector3(0, 0, 15 * i));

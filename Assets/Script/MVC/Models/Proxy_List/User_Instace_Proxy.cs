@@ -510,6 +510,7 @@ namespace MVC
             Read_user_player_Buff();
             Read_User_Mail();
             Read_User_Reward();
+            read_Trial_Tower();
             Read_user_world_boss();
             world_boss_Login();
             refresh_Max_Hero_Attribute();

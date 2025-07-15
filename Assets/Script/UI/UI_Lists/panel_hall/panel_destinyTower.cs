@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class panel_tianmingTai : Base_Mono
+public class panel_destinyTower : Base_Mono
 {
     /// <summary>
     /// 天命显示位置
@@ -50,9 +50,9 @@ public class panel_tianmingTai : Base_Mono
         str = "天命属性：";
         for (int i = 0; i < SumSave.crt_hero.tianming_Platform.Length; i++)
         {
-            GameObject game = Resources.Load<GameObject>("Prefabs/halo/halo_" + SumSave.crt_hero.tianming_Platform[i]);
+            GameObject game = Resources.Load<GameObject>("Prefabs/halo/halo_" +(SumSave.crt_hero.tianming_Platform[i]+1));
             Instantiate(game, tianming_image);
-            str += SumSave.five_element_type[SumSave.crt_hero.tianming_Platform[i]-1]+" ";
+            str += SumSave.five_element_type[SumSave.crt_hero.tianming_Platform[i]]+" ";
         }
         tianming_Title.text = str;
     }
