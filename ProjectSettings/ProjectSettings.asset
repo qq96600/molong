@@ -12,8 +12,13 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
+<<<<<<< HEAD
   companyName: DefaultCompany
   productName: molong
+=======
+  companyName: "\u638C\u63E1\u65B9\u5BF8"
+  productName: "\u9B54\u9F99"
+>>>>>>> 3f3b450c8dec5f63a1b78ba5e0895a69b8e1ec38
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.12156863, g: 0.12156863, b: 0.1254902, a: 1}
