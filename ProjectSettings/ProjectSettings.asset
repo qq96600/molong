@@ -4,11 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 26
-<<<<<<< HEAD
   productGUID: b7dcaf7323e5f4b22b4d74daed2975cc
-=======
-  productGUID: 87587d962570f16429eedffb1961dc60
->>>>>>> 162619f3535a04ac3e0cf9203e084d1abad20d47
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -16,13 +12,8 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-<<<<<<< HEAD
   companyName: "\u638C\u63E1\u5206\u5BF8"
-  productName: molong
-=======
-  companyName: DefaultCompany
-  productName: molong1
->>>>>>> 162619f3535a04ac3e0cf9203e084d1abad20d47
+  productName: "\u58A8\u9F99"
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.12156863, g: 0.12156863, b: 0.1254902, a: 1}
@@ -67,8 +58,8 @@ PlayerSettings:
   iosShowActivityIndicatorOnLoading: -1
   androidShowActivityIndicatorOnLoading: -1
   iosUseCustomAppBackgroundBehavior: 0
-  allowedAutorotateToPortrait: 1
-  allowedAutorotateToPortraitUpsideDown: 1
+  allowedAutorotateToPortrait: 0
+  allowedAutorotateToPortraitUpsideDown: 0
   allowedAutorotateToLandscapeRight: 1
   allowedAutorotateToLandscapeLeft: 1
   useOSAutorotation: 1
@@ -149,11 +140,7 @@ PlayerSettings:
   loadStoreDebugModeEnabled: 0
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
-<<<<<<< HEAD
   bundleVersion: 0.2025.13
-=======
-  bundleVersion: 1.0
->>>>>>> 162619f3535a04ac3e0cf9203e084d1abad20d47
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -174,18 +161,14 @@ PlayerSettings:
   resetResolutionOnWindowResize: 0
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
-<<<<<<< HEAD
   applicationIdentifier:
     iPhone: com.molong.zwfc.cn
-=======
-  applicationIdentifier: {}
->>>>>>> 162619f3535a04ac3e0cf9203e084d1abad20d47
   buildNumber:
     Standalone: 0
     VisionOS: 0
     iPhone: 0
     tvOS: 0
-  overrideDefaultApplicationIdentifier: 0
+  overrideDefaultApplicationIdentifier: 1
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 22
   AndroidTargetSdkVersion: 0
@@ -303,7 +286,6 @@ PlayerSettings:
   AndroidMinifyDebug: 0
   AndroidValidateAppBundleSize: 1
   AndroidAppBundleSizeToValidate: 200
-<<<<<<< HEAD
   m_BuildTargetIcons:
   - m_BuildTarget: 
     m_Icons:
@@ -312,9 +294,6 @@ PlayerSettings:
       m_Width: 128
       m_Height: 128
       m_Kind: 0
-=======
-  m_BuildTargetIcons: []
->>>>>>> 162619f3535a04ac3e0cf9203e084d1abad20d47
   m_BuildTargetPlatformIcons:
   - m_BuildTarget: iPhone
     m_Icons:
@@ -506,7 +485,10 @@ PlayerSettings:
       m_Height: 36
       m_Kind: 0
       m_SubKind: 
-  m_BuildTargetBatching: []
+  m_BuildTargetBatching:
+  - m_BuildTarget: iPhone
+    m_StaticBatching: 1
+    m_DynamicBatching: 1
   m_BuildTargetShaderSettings: []
   m_BuildTargetGraphicsJobs: []
   m_BuildTargetGraphicsJobMode: []
@@ -724,11 +706,7 @@ PlayerSettings:
   ps4GarlicHeapSize: 2048
   ps4ProGarlicHeapSize: 2560
   playerPrefsMaxSize: 32768
-<<<<<<< HEAD
   ps4Passcode: oqFTuMXjzEprfUMDVkSolBUC7N2Y7b8o
-=======
-  ps4Passcode: frAQBc8Wsa1xVPfvJcrgRYwTiizs2trQ
->>>>>>> 162619f3535a04ac3e0cf9203e084d1abad20d47
   ps4pnSessions: 1
   ps4pnPresence: 1
   ps4pnFriends: 1
@@ -809,22 +787,14 @@ PlayerSettings:
   apiCompatibilityLevelPerPlatform: {}
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-<<<<<<< HEAD
   metroPackageName: molong
-=======
-  metroPackageName: molong1
->>>>>>> 162619f3535a04ac3e0cf9203e084d1abad20d47
   metroPackageVersion: 
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
   metroCertificateIssuer: 
   metroCertificateNotAfter: 0000000000000000
-<<<<<<< HEAD
   metroApplicationDescription: molong
-=======
-  metroApplicationDescription: molong1
->>>>>>> 162619f3535a04ac3e0cf9203e084d1abad20d47
   wsaImages: {}
   metroTileShortName: 
   metroTileShowName: 0
