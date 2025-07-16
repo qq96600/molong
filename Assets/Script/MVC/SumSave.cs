@@ -23,6 +23,10 @@ namespace Common
         /// </summary>
         public static List<int> base_setting = new List<int>() { 90000, 90000, 9000, 5000};
         /// <summary>
+        /// 验证单次材料收益
+        /// </summary>
+        public static List<long> base_settin_uint = new List<long>();
+        /// <summary>
         /// 当前时间
         /// </summary>
         public static DateTime nowtime=DateTime.Now;

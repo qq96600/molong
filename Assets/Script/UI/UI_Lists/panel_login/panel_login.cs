@@ -459,6 +459,13 @@ namespace MVC
                         break;
                     }
                 }
+                if (SumSave.crt_world != null)
+                {
+                    int value = SumSave.db_lvs.world_offect_list[SumSave.crt_world.World_Lv];
+                    int value_2 = number / 60 * value;
+                    Battle_Tool.Obtain_Unit(currency_unit.灵气, value_2, 2);
+                    dec += "\n获得灵气 " + value_2;
+                }
                 if (SumSave.crt_resources.user_map_index != "")
                 {
                     user_map_vo map = ArrayHelper.Find(SumSave.db_maps, e => e.map_name == SumSave.crt_resources.user_map_index);

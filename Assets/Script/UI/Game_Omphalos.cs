@@ -106,6 +106,12 @@ namespace MVC
                         break;
                     }
                 }
+                if (SumSave.crt_world != null)
+                {
+                    int value = SumSave.db_lvs.world_offect_list[SumSave.crt_world.World_Lv];
+                    Battle_Tool.Obtain_Unit(currency_unit.灵气, value, 2);
+
+                }
             }
         }
         /// <summary>

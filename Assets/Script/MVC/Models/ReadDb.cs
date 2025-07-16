@@ -323,6 +323,13 @@ public static class ReadDb
             if(limitation_value2[i] != "")
             SumSave.base_setting.Add(int.Parse(limitation_value2[i]));
         }
+        string unitvalue = reader.GetString(reader.GetOrdinal("unit_value"));
+        string[] unitvalue2 = unitvalue.Split(',');
+        for (int i = 0; i < unitvalue2.Length; i++)
+        {
+            if (unitvalue2[i] != "")
+                SumSave.base_settin_uint.Add(long.Parse(unitvalue2[i]));
+        }
         return item;
     }
 
