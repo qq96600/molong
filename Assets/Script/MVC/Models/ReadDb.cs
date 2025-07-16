@@ -621,7 +621,7 @@ public static class ReadDb
         {
             for (int i = 0; i < item.tianming_Platform.Length; i++)
             {
-                int index = Random.Range(1, 6);
+                int index = Random.Range(0, 5);
                 item.tianming_Platform[i] = index;
             }
         }

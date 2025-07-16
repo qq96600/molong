@@ -147,6 +147,7 @@ namespace MVC
             if (!result.Item1||result.Item2 == null) return;
             Bag_Base_VO bag = new Bag_Base_VO();
             bag = ArrayHelper.Find(SumSave.db_stditems, e => e.Name == result.Item2);
+            if (bag == null) return;
             bool exist = true;
             switch ((EquipConfigTypeList)Enum.Parse(typeof(EquipConfigTypeList), bag.StdMode))
             {
