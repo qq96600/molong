@@ -16,10 +16,17 @@ public class GameLogin : Singleton<GameLogin>
         // 核心配置
         TapTapSdkOptions coreOptions = new TapTapSdkOptions
         {
-            // 客户端 ID，开发者后台获取
-            clientId = "diqpfrjikflwxbkm0z",
+            //// 客户端 ID，开发者后台获取//习武日记
+            //clientId = "diqpfrjikflwxbkm0z",
+            //// 客户端令牌，开发者后台获取
+            //clientToken = "6lbvS0IuoPFVm8t0SWh2BpOj0lwnLXf0f3ucc0hJ",
+
+
+            // 客户端 ID，开发者后台获取//墨龙
+            clientId = "99w80cd8fszpefza13",
             // 客户端令牌，开发者后台获取
-            clientToken = "6lbvS0IuoPFVm8t0SWh2BpOj0lwnLXf0f3ucc0hJ",
+            clientToken = "iLYHRXKbRCbHfyK79xtOeegwoNAeXd80ifIh4fzf",
+
             // 地区，CN 为国内，Overseas 为海外
             region = TapTapRegionType.CN,
             // 语言，默认为 Auto，默认情况下，国内为 zh_Hans，海外为 en
@@ -153,10 +160,17 @@ public class GameLogin : Singleton<GameLogin>
         // 核心配置
         TapTapSdkOptions coreOptions = new TapTapSdkOptions
         {
-            // 客户端 ID，开发者后台获取
-            clientId = "diqpfrjikflwxbkm0z",
+            //// 客户端 ID，开发者后台获取//习武日记
+            //clientId = "diqpfrjikflwxbkm0z",
+            //// 客户端令牌，开发者后台获取
+            //clientToken = "6lbvS0IuoPFVm8t0SWh2BpOj0lwnLXf0f3ucc0hJ",
+
+
+            // 客户端 ID，开发者后台获取//墨龙
+            clientId = "99w80cd8fszpefza13",
             // 客户端令牌，开发者后台获取
-            clientToken = "6lbvS0IuoPFVm8t0SWh2BpOj0lwnLXf0f3ucc0hJ",
+            clientToken = "iLYHRXKbRCbHfyK79xtOeegwoNAeXd80ifIh4fzf",
+
             // 地区，CN 为国内，Overseas 为海外
             region = TapTapRegionType.CN,
             // 语言，默认为 Auto，默认情况下，国内为 zh_Hans，海外为 en
