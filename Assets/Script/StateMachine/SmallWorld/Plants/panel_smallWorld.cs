@@ -104,11 +104,11 @@ public class panel_smallWorld : Panel_Base
     /// </summary>
     private void Update_State()
     {
-        List<string> list = SumSave.crt_world.Get();
-        int time = Battle_Tool.SettlementTransport(list[0]); ;
-        SumSave.crt_world.Set(Obtain_Init(1, time, int.Parse(list[1])));
+        //List<string> list = SumSave.crt_world.Get();
+        //int time = Battle_Tool.SettlementTransport(list[0]); ;
+        //SumSave.crt_world.Set(Obtain_Init(1, time, int.Parse(list[1])));
 
-        Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_world, SumSave.crt_world.Set_Uptade_String(), SumSave.crt_world.Get_Update_Character());
+        //Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_world, SumSave.crt_world.Set_Uptade_String(), SumSave.crt_world.Get_Update_Character());
     }
 
     //点击宠物显示奖励信息
@@ -227,9 +227,9 @@ public class panel_smallWorld : Panel_Base
         //NeedConsumables(dec.Item1, dec.Item2);
         if (RefreshConsumables())
         {
-            List<string> list = SumSave.crt_world.Get();
-            int time = Battle_Tool.SettlementTransport(list[0]);
-            SumSave.crt_world.Set(Obtain_Init(1, time, int.Parse(list[1])));
+            //List<string> list = SumSave.crt_world.Get();
+            //int time = Battle_Tool.SettlementTransport(list[0]);
+            //SumSave.crt_world.Set(Obtain_Init(1, time, int.Parse(list[1])));
             SumSave.crt_world.World_Lv++;
             Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_world, SumSave.crt_world.Set_Uptade_String(), SumSave.crt_world.Get_Update_Character());
         }
@@ -263,7 +263,7 @@ public class panel_smallWorld : Panel_Base
         List<string> list = SumSave.crt_world.Get();
         int time = Battle_Tool.SettlementTransport(list[0]);
         string dec = "界灵：Lv." + SumSave.crt_world.World_Lv + "\n";
-        dec += "灵气 ：" + Obtain_Init(1,time,int.Parse(list[1])) + "(Max" + Obtain_Init(2) + ")\n";
+        dec += "灵气 ：" + Obtain_Init(1) + "(Max" + Obtain_Init(2) + ")\n";
         dec += "每分钟可获得 ：" + SumSave.db_lvs.world_offect_list[SumSave.crt_world.World_Lv]+  "灵气\n";
         dec += "历练获得 :" + (SumSave.crt_world.World_Lv * 10) + "%\n";
         dec += "最大种植数量 :" + (SumSave.crt_world.World_Lv / 5 +3) + "个\n";
@@ -291,20 +291,21 @@ public class panel_smallWorld : Panel_Base
     /// 获取灵气值
     /// </summary>
     /// <param name="time"></param>
-    private int Obtain_Init(int type,int time=0,int crt_value=0)
+    private int Obtain_Init(int type)
     {
         int value = 0;
         switch (type)
         {
             case 1:
-                ///判断越界
-                if (ArrayHelper.SafeGet(SumSave.db_lvs.world_offect_list, SumSave.crt_world.World_Lv, out int se))
-                {
-                    value = time * SumSave.db_lvs.world_offect_list[SumSave.crt_world.World_Lv];
-                    value += crt_value;
-                    value = Mathf.Min(value, SumSave.db_lvs.word_lv_max_value[SumSave.crt_world.World_Lv]);
-                }
-                
+                /////判断越界
+                //if (ArrayHelper.SafeGet(SumSave.db_lvs.world_offect_list, SumSave.crt_world.World_Lv, out int se))
+                //{
+                //    value = time * SumSave.db_lvs.world_offect_list[SumSave.crt_world.World_Lv];
+                //    value += crt_value;
+                //    value = Mathf.Min(value, SumSave.db_lvs.word_lv_max_value[SumSave.crt_world.World_Lv]);
+                //}
+                List<long> list = SumSave.crt_user_unit.Set();
+                value = (int)list[(int)currency_unit.灵气];
                 break;
             case 2:
                 value = SumSave.db_lvs.word_lv_max_value[SumSave.crt_world.World_Lv];

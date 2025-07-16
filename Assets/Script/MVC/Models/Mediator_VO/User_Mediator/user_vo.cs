@@ -10,7 +10,7 @@ public class user_vo : Base_VO
 {
 
     /// <summary>
-    /// 0 灵珠，1 历练，2 魔丸，3离线积分，4试炼积分
+    /// 0 灵珠，1 历练，2 魔丸，3离线积分，4试炼积分5 灵气
     /// </summary>
     private List<long> list = new List<long>();
     private List<long> verify_list = new List<long>();
@@ -82,49 +82,74 @@ public class user_vo : Base_VO
                 verify_list[0] += value;
                 MysqlData();
                 break;
-            case currency_unit.历练:
-                if (value >= SumSave.base_setting[0])
+            default:
+                if (value >= SumSave.base_settin_uint[(int)_index - 1])
                 {
-                    Game_Omphalos.i.Delete("获得" + (currency_unit)_index + value); 
+                    Game_Omphalos.i.Delete("获得" + (currency_unit)_index + value);
                 }
                 else
                 {
                     if (value > 0) Combat_statistics.AddPoint(value);
-                    list[1] += value;
-                    verify_list[1] += value;
+                    list[(int)_index] += value;
+                    verify_list[(int)_index] += value;
+                    MysqlData();
                 }
-                MysqlData();
-                return;
-            case currency_unit.魔丸:
-                if (value >= SumSave.base_setting[1]) 
-                    Game_Omphalos.i.Delete("获得" + (currency_unit)_index + value);
-                else
-                {
-                    list[2] += value;
-                    verify_list[2] += value;
-                }
-                MysqlData();
-                return;
-            case currency_unit.离线积分://单次获得离线积分获取最高7440
-                if (value >=10000) 
-                    Game_Omphalos.i.Delete("获得" + (currency_unit)_index + value);
-                else
-                {
-                    list[3] += value;
-                    verify_list[3] += value;
-                }
-                MysqlData();
-                return;
-            case currency_unit.试炼积分:
-                if (value >= 100000)
-                    Game_Omphalos.i.Delete("获得" + (currency_unit)_index + value);
-                else
-                {
-                    list[4] += value;
-                    verify_list[4] += value;
-                }
-                MysqlData();
-                return;
+                break;
+
+            //case currency_unit.历练:
+            //    if (value >= SumSave.base_setting[0])
+            //    {
+            //        Game_Omphalos.i.Delete("获得" + (currency_unit)_index + value); 
+            //    }
+            //    else
+            //    {
+            //        if (value > 0) Combat_statistics.AddPoint(value);
+            //        list[1] += value;
+            //        verify_list[1] += value;
+            //    }
+            //    MysqlData();
+            //    return;
+            //case currency_unit.魔丸:
+            //    if (value >= SumSave.base_setting[1]) 
+            //        Game_Omphalos.i.Delete("获得" + (currency_unit)_index + value);
+            //    else
+            //    {
+            //        list[2] += value;
+            //        verify_list[2] += value;
+            //    }
+            //    MysqlData();
+            //    return;
+            //case currency_unit.离线积分://单次获得离线积分获取最高7440
+            //    if (value >=10000) 
+            //        Game_Omphalos.i.Delete("获得" + (currency_unit)_index + value);
+            //    else
+            //    {
+            //        list[3] += value;
+            //        verify_list[3] += value;
+            //    }
+            //    MysqlData();
+            //    return;
+            //case currency_unit.试炼积分://单次获得离线积分获取最高7440
+            //    if (value >= 10000)
+            //        Game_Omphalos.i.Delete("获得" + (currency_unit)_index + value);
+            //    else
+            //    {
+            //        list[4] += value;
+            //        verify_list[4] += value;
+            //    }
+            //    MysqlData();
+            //    return;
+            //case currency_unit.灵气://单次获得离线积分获取最高7440
+            //    if (value >= 10000)
+            //        Game_Omphalos.i.Delete("获得" + (currency_unit)_index + value);
+            //    else
+            //    {
+            //        list[5] += value;
+            //        verify_list[5] += value;
+            //    }
+            //    MysqlData();
+            //    return;
+
         }
         
     }

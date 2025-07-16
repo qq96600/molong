@@ -360,7 +360,7 @@ namespace MVC
             }
             PlayerPrefs.SetInt("同意阅读协议", 1);
 #if UNITY_EDITOR
-            SumSave.uid = "DSFSDFSDFSD412F";//测试用号 DSFSDFSDFSDF3
+            SumSave.uid = "DSFSDFSDFSDF3";//测试用号 DSFSDFSDFSDF3
 
                                          //SumSave.uid = "ed7091920d8f4f8aa193805fe45f8b3f";//温毓(ip)自然呆
                                          //SumSave.uid = "d6a5b51fddf94459bb2e80e54c091453";//666(ip)
@@ -455,10 +455,17 @@ namespace MVC
                     {
                         int value = (int)SumSave.crt_Trial_Tower_rank.lists[i].Item3;
                         int value_2 = number / 60 * value;
-                        Battle_Tool.Obtain_Unit(currency_unit.试炼积分, value_2);
+                        Battle_Tool.Obtain_Unit(currency_unit.试炼积分, value_2, 2);
                         dec += "\n获得试炼积分 " + value_2;
                         break;
                     }
+                }
+                if (SumSave.crt_world != null)
+                {
+                    int value = SumSave.db_lvs.world_offect_list[SumSave.crt_world.World_Lv];
+                    int value_2 = number / 60 * value;
+                    Battle_Tool.Obtain_Unit(currency_unit.灵气, value_2, 2);
+                    dec += "\n获得灵气 " + value_2;
                 }
                 if (SumSave.crt_resources.user_map_index != "")
                 {
