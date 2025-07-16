@@ -75,17 +75,43 @@ public class Hero_VO : Base_VO
         return str;
     }
 
+
+    /// <summary>
+    /// 初始化天命台
+    /// </summary>
+   public void InitDestinyTower(string str)
+    {
+        string[] tianming = str.Split(' ');
+        for (int i = 0; i < tianming.Length; i++)
+        {
+            SumSave.crt_hero.tianming_Platform[i] = int.Parse(tianming[i]);
+        }
+
+    }
+
+
+
+
     /// <summary>
     /// 刷新天命台属性并写入
     /// </summary>
     public void RefreshTianming()
+    {
+        Uptianming_Platform();
+        MysqlData();
+    }
+
+
+    /// <summary>
+    /// 刷新天命台属性
+    /// </summary>
+    public  void  Uptianming_Platform()
     {
         for (int i = 0; i < tianming_Platform.Length; i++)
         {
             int index = Random.Range(0, 5);
             tianming_Platform[i] = index;
         }
-        MysqlData();
     }
 
 

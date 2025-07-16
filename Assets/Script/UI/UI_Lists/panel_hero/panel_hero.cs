@@ -131,20 +131,56 @@ public class panel_hero : Panel_Base
         string[] herolists = SumSave.crt_hero.hero_value.Split(',');
         foreach (var item in herolists)
         {
-            if (crt_hero.SetData().hero_name == item)
-            {
-                SumSave.crt_hero.hero_pos = item;
-                Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_hero,
-                    SumSave.crt_hero.Set_Uptade_String(), SumSave.crt_hero.Get_Update_Character());
-                Alert_Dec.Show("切换角色 " + item + " 成功");
+            string[] hero = item.Split('|');
 
-                SendNotification(NotiList.Refresh_Max_Hero_Attribute);
-                base_show();
-                CharacterRefresh();
+            //if (crt_hero.SetData().hero_name == item)
+            //{
+            //    switch_Hero(item);
+            //    return;
+            //}
+            if (crt_hero.SetData().hero_name == hero[0])
+            {
+                if(hero.Length<2)
+                {
+                    switch_Hero(hero[0]);
+                    SumSave.crt_hero.RefreshTianming();
+                }
+                else
+                {
+                    switch_Hero(hero[0]);
+                    string[] tianming = hero[1].Split(' ');
+                    for (int i = 0; i < tianming.Length; i++)
+                    {
+                        SumSave.crt_hero.tianming_Platform[i] = int.Parse(tianming[i]);
+                    }
+                }
+            }
+
+
+        }
+        if (Tool_State.IsState(State_List.至尊卡))
+        {
+            if (crt_hero.SetData().hero_name == "昭月")
+            {
+                switch_Hero(crt_hero.SetData().hero_name);
                 return;
             }
         }
-      Alert_Dec.Show("该角色尚未获取");
+        Alert_Dec.Show("该角色尚未获取");
+    }
+
+    private void switch_Hero(string item)
+    {
+        
+        SumSave.crt_hero.hero_pos = item;
+
+        Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_hero,
+            SumSave.crt_hero.Set_Uptade_String(), SumSave.crt_hero.Get_Update_Character());
+        Alert_Dec.Show("切换角色 " + item + " 成功");
+
+        SendNotification(NotiList.Refresh_Max_Hero_Attribute);
+        base_show();
+        CharacterRefresh();
     }
     /// <summary>
     /// 角色刷新
