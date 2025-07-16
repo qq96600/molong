@@ -619,7 +619,7 @@ public static class ReadDb
         item.tianming_Platform = new int[5];
         if (hero_lv_array.Length<2)
         {
-            item.RefreshTianming();
+            item.Uptianming_Platform();
 
             //for (int i = 0; i < item.tianming_Platform.Length; i++)
             //{

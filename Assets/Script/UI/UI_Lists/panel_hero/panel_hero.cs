@@ -141,40 +141,44 @@ public class panel_hero : Panel_Base
 
             if (crt_hero.SetData().hero_name == hero[0])
             {
-                if(hero.Length<2)
+                SumSave.crt_hero.Merge_hero_value();
+
+                if (hero.Length<2)
                 {
+                    SumSave.crt_hero.Uptianming_Platform();
                     switch_Hero(hero[0]);
-                    SumSave.crt_hero.RefreshTianming();
                 }
                 else
                 {
-                    switch_Hero(hero[0]);
                     string[] tianming = hero[1].Split(' ');
+                    SumSave.crt_hero.tianming_Platform= new int[5];
                     for (int i = 0; i < tianming.Length; i++)
                     {
                         SumSave.crt_hero.tianming_Platform[i] = int.Parse(tianming[i]);
                     }
+                    switch_Hero(hero[0]);
                 }
                 return;
             }
         }
+
         if (Tool_State.IsState(State_List.至尊卡))
         {
             if (crt_hero.SetData().hero_name == "昭月"&& crt_hero.SetData().hero_name == "琉璃")
             {
-
                 switch_Hero(crt_hero.SetData().hero_name);
+
+                //SumSave.crt_hero.AddSkin(crt_hero.SetData().hero_name);
                 return;
-            }
+           }
         }
         Alert_Dec.Show("该角色尚未获取");
     }
 
     private void switch_Hero(string item)
     {
-        
+       
         SumSave.crt_hero.hero_pos = item;
-
         Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_hero,
             SumSave.crt_hero.Set_Uptade_String(), SumSave.crt_hero.Get_Update_Character());
         Alert_Dec.Show("切换角色 " + item + " 成功");

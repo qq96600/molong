@@ -217,6 +217,7 @@ public class panel_role_health : Base_Mono
         }
         pos_tianming_size = show_tianming_Platform.GetComponent<RectTransform>().rect.size;
 
+        tianming_num =new Dictionary<int, int>();
         tianming_num = Battle_Tool.Get_Life_Type();
         //for (int i = 0; i < SumSave.crt_hero.tianming_Platform.Length; i++)
         //{

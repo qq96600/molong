@@ -62,7 +62,7 @@ public class Hero_VO : Base_VO
     /// <summary>
     /// 天命台
     /// </summary>
-    public int[] tianming_Platform=new int[5] ;
+    public int[] tianming_Platform;
 
 
     /// <summary>
@@ -70,6 +70,11 @@ public class Hero_VO : Base_VO
     /// </summary>
     private string Get_hero_pos_vase()
     {
+        if (tianming_Platform == null)
+        {
+            Uptianming_Platform();
+        }
+
         string str = "";
         str = hero_pos + "|" + ArrayHelper.Data_Encryption(tianming_Platform);
         return str;
@@ -81,15 +86,49 @@ public class Hero_VO : Base_VO
     /// </summary>
    public void InitDestinyTower(string str)
     {
+        tianming_Platform = new int[5];
         string[] tianming = str.Split(' ');
         for (int i = 0; i < tianming.Length; i++)
         {
-            SumSave.crt_hero.tianming_Platform[i] = int.Parse(tianming[i]);
+            tianming_Platform[i] = int.Parse(tianming[i]);
         }
 
     }
+    /// <summary>
+    /// 写入皮肤数据，替换前调用
+    /// </summary>
+    public void Merge_hero_value()
+    {
+        string[] str = hero_value.Split(',');
+        for (int i = 0; i < str.Length; i++)
+        {
+            string[] str1 = str[i].Split('|');
+            if(str1[0]== hero_pos)
+            {
+                str[i] = str1[0] + "|" + ArrayHelper.Data_Encryption(tianming_Platform);
+            }
+
+        }
+        hero_value = string.Join(",", str);
+    }
 
 
+   // /// <summary>
+   // /// 新增皮肤
+   // /// </summary>
+   // /// <param name="str"></param>
+   //public void AddSkin(string str)
+   // {
+   //     if(tianming_Platform!=null)
+   //     {
+   //         hero_value += (hero_value == "" ? "" : ",") + str + "|" + ArrayHelper.Data_Encryption(tianming_Platform);
+   //     }else
+   //     {
+   //         Uptianming_Platform();
+   //         hero_value += (hero_value == "" ? "" : ",") + str + "|" + ArrayHelper.Data_Encryption(tianming_Platform);
+   //     }
+   //     MysqlData();
+   // }
 
 
     /// <summary>
@@ -107,6 +146,7 @@ public class Hero_VO : Base_VO
     /// </summary>
     public  void  Uptianming_Platform()
     {
+        tianming_Platform = new int[5];
         for (int i = 0; i < tianming_Platform.Length; i++)
         {
             int index = Random.Range(0, 5);
