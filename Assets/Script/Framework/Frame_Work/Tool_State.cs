@@ -29,11 +29,11 @@ public  static class Tool_State
     /// <returns></returns>
     public static bool IsState(State_List state)
     {
+        self_inspection();
         if (state_list.ContainsKey(state))
         { 
             return state_list[state];
         }
-        self_inspection();
         return state_list[state];
     }
 

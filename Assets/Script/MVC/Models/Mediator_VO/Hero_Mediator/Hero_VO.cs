@@ -100,35 +100,43 @@ public class Hero_VO : Base_VO
     public void Merge_hero_value()
     {
         string[] str = hero_value.Split(',');
+        bool isHave = true ;
         for (int i = 0; i < str.Length; i++)
         {
             string[] str1 = str[i].Split('|');
             if(str1[0]== hero_pos)
             {
                 str[i] = str1[0] + "|" + ArrayHelper.Data_Encryption(tianming_Platform);
+                isHave = false;
+                break;
             }
 
         }
         hero_value = string.Join(",", str);
+
+        if(isHave)
+        {
+            AddSkin(SumSave.crt_hero.hero_pos);
+        }    
     }
 
 
-   // /// <summary>
-   // /// 新增皮肤
-   // /// </summary>
-   // /// <param name="str"></param>
-   //public void AddSkin(string str)
-   // {
-   //     if(tianming_Platform!=null)
-   //     {
-   //         hero_value += (hero_value == "" ? "" : ",") + str + "|" + ArrayHelper.Data_Encryption(tianming_Platform);
-   //     }else
-   //     {
-   //         Uptianming_Platform();
-   //         hero_value += (hero_value == "" ? "" : ",") + str + "|" + ArrayHelper.Data_Encryption(tianming_Platform);
-   //     }
-   //     MysqlData();
-   // }
+    /// <summary>
+    /// 新增皮肤
+    /// </summary>
+    /// <param name="str"></param>
+    public void AddSkin(string str)
+    {
+        if(str== "")
+        {
+            return;
+        }
+        
+            hero_value += (hero_value == "" ? "" : ",") + str + "|" + ArrayHelper.Data_Encryption(tianming_Platform);
+      
+      
+        MysqlData();
+    }
 
 
     /// <summary>

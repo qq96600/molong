@@ -251,7 +251,6 @@ namespace MVC
         public void Wirte_Tap()
         {
             SendNotification(NotiList.Read_Crate_Uid, Accout);
-
         }
         /// <summary>
         /// 写入苹果账户
