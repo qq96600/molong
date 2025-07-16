@@ -62,7 +62,7 @@ public class Hero_VO : Base_VO
     /// <summary>
     /// 天命台
     /// </summary>
-    public int[] tianming_Platform;
+    public int[] tianming_Platform=new int[5] ;
 
 
     /// <summary>

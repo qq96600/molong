@@ -131,13 +131,14 @@ public class panel_hero : Panel_Base
         string[] herolists = SumSave.crt_hero.hero_value.Split(',');
         foreach (var item in herolists)
         {
-            string[] hero = item.Split('|');
-
             //if (crt_hero.SetData().hero_name == item)
             //{
             //    switch_Hero(item);
             //    return;
             //}
+
+            string[] hero = item.Split('|');
+
             if (crt_hero.SetData().hero_name == hero[0])
             {
                 if(hero.Length<2)
@@ -154,14 +155,14 @@ public class panel_hero : Panel_Base
                         SumSave.crt_hero.tianming_Platform[i] = int.Parse(tianming[i]);
                     }
                 }
+                return;
             }
-
-
         }
         if (Tool_State.IsState(State_List.至尊卡))
         {
-            if (crt_hero.SetData().hero_name == "昭月")
+            if (crt_hero.SetData().hero_name == "昭月"&& crt_hero.SetData().hero_name == "琉璃")
             {
+
                 switch_Hero(crt_hero.SetData().hero_name);
                 return;
             }

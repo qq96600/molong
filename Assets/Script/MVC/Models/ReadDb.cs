@@ -619,7 +619,6 @@ public static class ReadDb
         item.tianming_Platform = new int[5];
         if (hero_lv_array.Length<2)
         {
-
             item.RefreshTianming();
 
             //for (int i = 0; i < item.tianming_Platform.Length; i++)
@@ -627,6 +626,7 @@ public static class ReadDb
             //    int index = Random.Range(0, 5);
             //    item.tianming_Platform[i] = index;
             //}
+
         }
         else
         {

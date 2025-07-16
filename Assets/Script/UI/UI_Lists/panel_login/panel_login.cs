@@ -361,6 +361,7 @@ namespace MVC
             PlayerPrefs.SetInt("同意阅读协议", 1);
 #if UNITY_EDITOR
             SumSave.uid = "DSFSDFSDFSDF";//测试用号 DSFSDFSDFSDF3
+
                                          //SumSave.uid = "ed7091920d8f4f8aa193805fe45f8b3f";//温毓(ip)自然呆
                                          //SumSave.uid = "d6a5b51fddf94459bb2e80e54c091453";//666(ip)
                                          //SumSave.uid = "4024aeea8a704d3d965fafcb82d29493";//Rigine(ip)
@@ -448,6 +449,17 @@ namespace MVC
                 Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_value, SumSave.crt_resources.Set_Uptade_String(), SumSave.crt_resources.Get_Update_Character());
                 Battle_Tool.Obtain_Unit(currency_unit.离线积分, number / 30,2);
                 dec+="\n获得离线积分 "+ number / 30;
+                for (int i = 0; i < SumSave.crt_Trial_Tower_rank.lists.Count; i++)
+                {
+                    if (SumSave.crt_Trial_Tower_rank.lists[i].Item1 == SumSave.crt_user.uid)
+                    {
+                        int value = (int)SumSave.crt_Trial_Tower_rank.lists[i].Item3;
+                        int value_2 = number / 60 * value;
+                        Battle_Tool.Obtain_Unit(currency_unit.试炼积分, value_2);
+                        dec += "\n获得试炼积分 " + value_2;
+                        break;
+                    }
+                }
                 if (SumSave.crt_resources.user_map_index != "")
                 {
                     user_map_vo map = ArrayHelper.Find(SumSave.db_maps, e => e.map_name == SumSave.crt_resources.user_map_index);

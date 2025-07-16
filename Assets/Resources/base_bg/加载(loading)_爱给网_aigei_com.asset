@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Frames:
   - DelayInMs: 100
+<<<<<<< HEAD
     Sprite: {fileID: 21300000, guid: 2e7e014a52619d545a8bf2685e0496a7, type: 3}
   - DelayInMs: 100
     Sprite: {fileID: 21300000, guid: 4f80681bd87320c47ba96b478fcb8b67, type: 3}
@@ -37,3 +38,28 @@ MonoBehaviour:
     Sprite: {fileID: 21300000, guid: 7e49a53122b113145b01530bf8635bcf, type: 3}
   - DelayInMs: 100
     Sprite: {fileID: 21300000, guid: cae507a3143c0df4cb1e9ba223a084d4, type: 3}
+=======
+    Sprite: {fileID: 21300000, guid: c53ecc400962f124dac8e95cd7615b81, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 187e8ec5bca4ce945bab77d212e96fdb, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 0bfa3817b6936bd4caaee72765ddabaa, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 7e97e6c16ebf9fa488a2b8a71f6bdc24, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 930c000d3f3649048a201286591bd2c0, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 349b71c96ec1dd744ace0477a2dad393, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 70237782f0e6f4b48ae31f8367e636c3, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 2dd6aa2c2b06fad4fad8a479ac132910, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 55c4573de3c681944bb18aff8d314098, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 800e9cc1bddfd6a4f99bcaba02483e80, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 55cad0d58090b5f46a0d9146c0c873f8, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 3fd5d4aab0a501646b705538240a6e9e, type: 3}
+>>>>>>> 6b73860056019188c5e5b1b70e668e95b389b118

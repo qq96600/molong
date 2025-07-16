@@ -1568,9 +1568,9 @@ namespace MVC
             }
             //皮肤
 #if UNITY_EDITOR  
-            //crt.hit += 1000;
-            //crt.damageMax += 10000000;
-            //crt.MagicdamageMax += 10000000;
+            crt.hit += 1000;
+            crt.damageMax += 10000000;
+            crt.MagicdamageMax += 10000000;
 #elif UNITY_ANDROID
 #elif UNITY_IPHONE
 #endif
