@@ -371,17 +371,25 @@ public static class Battle_Tool
     {
         if (state == 2)
         {
-            if (unit == currency_unit.历练)
-            {
-                if (ArrayHelper.SafeGet(SumSave.crt_MaxHero.bufflist, (int)enum_skill_attribute_list.人物历练, out int se))
-                    value = (int)(value * (100 + SumSave.crt_MaxHero.bufflist[(int)enum_skill_attribute_list.人物历练]) / 100);
-            }
-            if (unit == currency_unit.灵珠)
-            {
-                if (ArrayHelper.SafeGet(SumSave.crt_MaxHero.bufflist, (int)enum_skill_attribute_list.灵珠收益, out int se))
-                    value = (int)(value * (100 + SumSave.crt_MaxHero.bufflist[(int)enum_skill_attribute_list.灵珠收益]) / 100);
-            }
+            if (ArrayHelper.SafeGet(SumSave.crt_MaxHero.bufflist, (int)unit, out int se))
+                value = (int)(value * (100 + SumSave.crt_MaxHero.bufflist[(int)unit]) / 100);
+            //if (unit == currency_unit.历练)
+            //{
+            //    if (ArrayHelper.SafeGet(SumSave.crt_MaxHero.bufflist, (int)enum_skill_attribute_list.人物历练, out int se))
+            //        value = (int)(value * (100 + SumSave.crt_MaxHero.bufflist[(int)enum_skill_attribute_list.人物历练]) / 100);
+            //}
+            //if (unit == currency_unit.灵珠)
+            //{
+            //    if (ArrayHelper.SafeGet(SumSave.crt_MaxHero.bufflist, (int)enum_skill_attribute_list.灵珠收益, out int se))
+            //        value = (int)(value * (100 + SumSave.crt_MaxHero.bufflist[(int)enum_skill_attribute_list.灵珠收益]) / 100);
+            //}
+            //if (unit == currency_unit.试炼积分)
+            //{
+            //    if (ArrayHelper.SafeGet(SumSave.crt_MaxHero.bufflist, (int)enum_skill_attribute_list.试练塔积分, out int se))
+            //        value = (int)(value * (100 + SumSave.crt_MaxHero.bufflist[(int)enum_skill_attribute_list.试练塔积分]) / 100);
+            //}
         }
+
         SumSave.crt_user_unit.verify_data(unit, value);
         Game_Omphalos.i.GetQueue(
                        Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user, SumSave.crt_user_unit.Set_Uptade_String(), SumSave.crt_user_unit.Get_Update_Character());

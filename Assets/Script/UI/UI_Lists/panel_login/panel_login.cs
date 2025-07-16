@@ -454,7 +454,7 @@ namespace MVC
                     {
                         int value = (int)SumSave.crt_Trial_Tower_rank.lists[i].Item3;
                         int value_2 = number / 60 * value;
-                        Battle_Tool.Obtain_Unit(currency_unit.试炼积分, value_2);
+                        Battle_Tool.Obtain_Unit(currency_unit.试炼积分, value_2, 2);
                         dec += "\n获得试炼积分 " + value_2;
                         break;
                     }
