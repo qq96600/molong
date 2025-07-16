@@ -88,8 +88,7 @@ namespace MVC
                 Combat_statistics.Time();
                 panel_fight.Show_Combat_statistics();
             }
-
-            if ((performTime) % 3 == 0)
+            if ((performTime) % 5 == 0)
                 SendNotification(NotiList.Execute_Write, wirtes);
 
             if (performTime>=60)
@@ -103,9 +102,15 @@ namespace MVC
                     if (SumSave.crt_Trial_Tower_rank.lists[i].Item1 == SumSave.crt_user.uid)
                     {
                         int value= (int)SumSave.crt_Trial_Tower_rank.lists[i].Item3;
-                        Battle_Tool.Obtain_Unit(currency_unit.试炼积分, value);
+                        Battle_Tool.Obtain_Unit(currency_unit.试炼积分, value, 2);
                         break;
                     }
+                }
+                if (SumSave.crt_world != null)
+                {
+                    int value = SumSave.db_lvs.world_offect_list[SumSave.crt_world.World_Lv];
+                    Battle_Tool.Obtain_Unit(currency_unit.灵气, value, 2);
+
                 }
             }
         }

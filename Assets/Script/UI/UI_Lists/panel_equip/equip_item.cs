@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class equip_item : Base_Mono
 {
-    private Image item_icon;
+    private Image item_icon, show_suit;
     /// <summary>
     /// 判断位置 0背包 1装备 2仓库
     /// </summary>
@@ -22,7 +22,8 @@ public class equip_item : Base_Mono
     private string[] btn_list = new string[] { "穿戴", "锁定", "出售" };
     private string[] take_btn_list = new string[] { "卸下" };
     private string[] warehouse_btn_list = new string[] { "放入" };
-    private Text show_name, show_base_need, show_info;
+    private Text show_name, show_base_need, show_info, info_suit;
+
     private void Awake()
     {
         crt_bag = Find<Transform>("show_icon");
@@ -32,6 +33,8 @@ public class equip_item : Base_Mono
         show_name = Find<Text>("show_name/info");
         show_base_need = Find<Text>("show_base_need");
         show_info = Find<Text>("show_bg/show_info");
+        info_suit = Find<Text>("show_suit/show_info");
+        show_suit = Find<Image>("show_suit");
     }
 
 
@@ -61,6 +64,7 @@ public class equip_item : Base_Mono
         {
             Awake();
         }
+        show_suit.gameObject.SetActive(false);
         ClearObject(crt_bag);
         Instantiate(bag_item_Prefabs, crt_bag).Data = data;
         show_name.text = data.Name;
@@ -170,7 +174,8 @@ public class equip_item : Base_Mono
         dec += Show_strengthenlv();
         if (Data.suit != 0)
         {
-            dec += Show_Suit();
+            show_suit.gameObject.SetActive(true);
+            info_suit.text = Show_Suit();
         }
         show_info.text = dec;
 

@@ -138,8 +138,8 @@ public class panel_store : Base_Mono
     private void Update()
     {
         list = SumSave.crt_user_unit.Set();
-        OfflinePointsText.text= currency_unit.离线积分+";"+ Battle_Tool.FormatNumberToChineseUnit(list[3])+"\n"+currency_unit.试炼积分+":" + Battle_Tool.FormatNumberToChineseUnit(list[4]);
-
+        OfflinePointsText.text= currency_unit.离线积分+":"+ Battle_Tool.FormatNumberToChineseUnit(list[3])+
+            "\n"+currency_unit.试炼积分+":" + Battle_Tool.FormatNumberToChineseUnit(list[4]);
     }
 
 
@@ -239,7 +239,8 @@ public class panel_store : Base_Mono
         switch (buy_item.ItemName)
         {
             case "1亿灵珠":
-                SumSave.crt_user_unit.verify_data(currency_unit.灵珠, 100000000 * buy_num);//获得灵珠
+                long value = (long)100000000 * buy_num;
+                SumSave.crt_user_unit.verify_data(currency_unit.灵珠, value);//获得灵珠
                 Alert_Dec.Show(buy_item.ItemName + "X" + buy_num + " 购买成功 ");
                 break;
             case "2000历练值":

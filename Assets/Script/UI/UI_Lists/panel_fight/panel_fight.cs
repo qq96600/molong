@@ -220,8 +220,10 @@ public class panel_fight : Panel_Base
                     value = (long)(damge * max / target.maxHP);
                     Alert.Show(select_map.map_name, "副本战斗结束,造成伤害 " + damge + "\n获得灵气 " + value );
                     //SumSave.crt_world.Set((int)value);
-                    SumSave.crt_world.AddValue_lists((int)value);
-                    Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_world, SumSave.crt_world.Set_Uptade_String(), SumSave.crt_world.Get_Update_Character());
+                    Battle_Tool.Obtain_Unit(currency_unit.灵气, (int)value);
+
+                    //SumSave.crt_world.AddValue_lists((int)value);
+                    //Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_world, SumSave.crt_world.Set_Uptade_String(), SumSave.crt_world.Get_Update_Character());
                 }
                 break;
             case 34: //经验

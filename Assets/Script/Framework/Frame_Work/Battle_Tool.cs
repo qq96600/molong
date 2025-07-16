@@ -371,6 +371,9 @@ public static class Battle_Tool
     {
         if (state == 2)
         {
+            //if (ArrayHelper.SafeGet(SumSave.crt_MaxHero.bufflist, (int)unit, out int se))
+            //    value = (int)(value * (100 + SumSave.crt_MaxHero.bufflist[(int)unit]) / 100);
+
             if (unit == currency_unit.历练)
             {
                 if (ArrayHelper.SafeGet(SumSave.crt_MaxHero.bufflist, (int)enum_skill_attribute_list.人物历练, out int se))
@@ -380,6 +383,28 @@ public static class Battle_Tool
             {
                 if (ArrayHelper.SafeGet(SumSave.crt_MaxHero.bufflist, (int)enum_skill_attribute_list.灵珠收益, out int se))
                     value = (int)(value * (100 + SumSave.crt_MaxHero.bufflist[(int)enum_skill_attribute_list.灵珠收益]) / 100);
+            }
+            if (unit == currency_unit.试炼积分)
+            {
+                if (ArrayHelper.SafeGet(SumSave.crt_MaxHero.bufflist, (int)enum_skill_attribute_list.试练塔积分, out int se))
+                    value = (int)(value * (100 + SumSave.crt_MaxHero.bufflist[(int)enum_skill_attribute_list.试练塔积分]) / 100);
+            }
+            if (unit == currency_unit.灵气)//目前没有灵气加成
+            {
+                //if (ArrayHelper.SafeGet(SumSave.crt_MaxHero.bufflist, (int)enum_skill_attribute_list.灵气上限, out int se))
+                //    value = (int)(value * (100 + SumSave.crt_MaxHero.bufflist[(int)enum_skill_attribute_list.试练塔积分]) / 100);
+            }
+            if (unit == currency_unit.灵气)
+            {
+                if (SumSave.crt_world == null)
+                {
+                    List<long> list = SumSave.crt_user_unit.Set();
+                    if (list[(int)unit] + value > SumSave.db_lvs.word_lv_max_value[SumSave.crt_world.World_Lv])
+                    {
+                        value = SumSave.db_lvs.word_lv_max_value[SumSave.crt_world.World_Lv] - list[(int)unit];
+                        if (value < 0) value = 0;
+                    }
+                }
             }
         }
         SumSave.crt_user_unit.verify_data(unit, value);
@@ -636,9 +661,7 @@ public static class Battle_Tool
             case 6:
                 if (SumSave.crt_world != null)
                 {
-                    //SumSave.crt_world.Set(int.Parse(result_list[1]) * num, false);
-                    SumSave.crt_world.AddValue_lists(int.Parse(result_list[1]) * num, false);
-                    Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_world, SumSave.crt_world.Set_Uptade_String(), SumSave.crt_world.Get_Update_Character());
+                    Obtain_Unit(currency_unit.灵气, int.Parse(result_list[1]) * num);
                 }
                 else Alert_Dec.Show("小世界未激活");
                 break;

@@ -112,6 +112,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     buildTarget: WebGL
     maxTextureSize: 2048
@@ -127,6 +128,8 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
 >>>>>>> 3eb0ec5cead46ef091a262b799ae4bbda76a78f3
+=======
+>>>>>>> 162619f3535a04ac3e0cf9203e084d1abad20d47
     buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
