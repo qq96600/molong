@@ -72,7 +72,7 @@ namespace MVC
         /// 记录开区状态
         /// </summary>
         private Dictionary<int,bool> open_pars= new Dictionary<int, bool>();
-
+   
 
 
         private void Start()
@@ -275,7 +275,15 @@ namespace MVC
         /// </summary>
         private void TapLogin()
         {
-            #if UNITY_EDITOR
+            if (!Toggle.isOn)
+            {
+                Alert_Dec.Show("请先阅读并勾选同意协议");
+                Debug.Log("请先阅读并勾选同意协议");
+                PlayerPrefs.SetInt("同意阅读协议", 0);
+                return;
+            }
+
+#if UNITY_EDITOR
             TaploginBt.gameObject.SetActive(false);
             loginBt.gameObject.SetActive(true);
             #elif UNITY_ANDROID
@@ -360,7 +368,9 @@ namespace MVC
             }
             PlayerPrefs.SetInt("同意阅读协议", 1);
 #if UNITY_EDITOR
-            SumSave.uid = "DSFSDFSDFSDF";//sa";//测试用号 DSFSDFSDFSDF3
+
+            SumSave.uid = "DSFSDFSDFSDF3dsdd";//测试用号 DSFSDFSDFSDF3
+
                                          //SumSave.uid = "ed7091920d8f4f8aa193805fe45f8b3f";//温毓(ip)自然呆
                                          //SumSave.uid = "d6a5b51fddf94459bb2e80e54c091453";//666(ip)
                                          //SumSave.uid = "4024aeea8a704d3d965fafcb82d29493";//Rigine(ip)
@@ -379,7 +389,7 @@ namespace MVC
                                          // SumSave.uid = "ae47220bfc8242f381692c52edb15aba";//隐官(ip)
 
             //SumSave.par = 101;
-            Login();
+           Login();
             //UI_Manager.Instance.GetPanel<Panel_cratehero>().Show();
 #elif UNITY_ANDROID
             Game_Omphalos.i.Wirte_Tap();

@@ -508,9 +508,12 @@ public class Pet_explore : Base_Mono
                 break;
             case 4:
                 //获得灵气
+
+                Battle_Tool.Obtain_Unit(currency_unit.灵气, i);
+
                 //SumSave.crt_world.Set(i);
-                SumSave.crt_world.AddValue_lists(i);
-                Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_world, SumSave.crt_world.Set_Uptade_String(), SumSave.crt_world.Get_Update_Character());
+                //SumSave.crt_world.AddValue_lists(i);
+                //Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_world, SumSave.crt_world.Set_Uptade_String(), SumSave.crt_world.Get_Update_Character());
                 break;
               
 

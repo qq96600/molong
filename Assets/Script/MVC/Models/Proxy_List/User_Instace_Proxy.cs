@@ -1877,12 +1877,12 @@ namespace MVC
                 SumSave.crt_hero.hero_material_list = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
                 SumSave.crt_hero.tianming_Platform = new int[5];
-                for (int i = 0; i < SumSave.crt_hero.tianming_Platform.Length; i++)
-                {
-                    int index = Random.Range(0, 5);
-                    SumSave.crt_hero.tianming_Platform[i] = index;
-                }
-
+                //for (int i = 0; i < SumSave.crt_hero.tianming_Platform.Length; i++)
+                //{
+                //    int index = Random.Range(0, 5);
+                //    SumSave.crt_hero.tianming_Platform[i] = index;
+                //}
+                SumSave.crt_hero.Uptianming_Platform();
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_hero, SumSave.crt_hero.Set_Instace_String());
             }
         }

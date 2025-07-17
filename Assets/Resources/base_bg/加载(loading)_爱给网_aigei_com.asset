@@ -14,26 +14,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Frames:
   - DelayInMs: 100
-    Sprite: {fileID: 21300000, guid: c53ecc400962f124dac8e95cd7615b81, type: 3}
+    Sprite: {fileID: 21300000, guid: 9b5b5448a059f8a46b3abec85f91f0cc, type: 3}
   - DelayInMs: 100
-    Sprite: {fileID: 21300000, guid: 187e8ec5bca4ce945bab77d212e96fdb, type: 3}
+    Sprite: {fileID: 21300000, guid: ed09dc5e06a288c4688fc4933c047401, type: 3}
   - DelayInMs: 100
-    Sprite: {fileID: 21300000, guid: 0bfa3817b6936bd4caaee72765ddabaa, type: 3}
+    Sprite: {fileID: 21300000, guid: 4281e7a6729f8624a84d4f88f16606d4, type: 3}
   - DelayInMs: 100
-    Sprite: {fileID: 21300000, guid: 7e97e6c16ebf9fa488a2b8a71f6bdc24, type: 3}
+    Sprite: {fileID: 21300000, guid: 5d2b42ab4e897ed48b6be5b80e0d3597, type: 3}
   - DelayInMs: 100
-    Sprite: {fileID: 21300000, guid: 930c000d3f3649048a201286591bd2c0, type: 3}
+    Sprite: {fileID: 21300000, guid: 0b40ddba535ddd4428918da91c80e3f5, type: 3}
   - DelayInMs: 100
-    Sprite: {fileID: 21300000, guid: 349b71c96ec1dd744ace0477a2dad393, type: 3}
+    Sprite: {fileID: 21300000, guid: a0cb0429da152f7489b2e8d5dffe16cf, type: 3}
   - DelayInMs: 100
-    Sprite: {fileID: 21300000, guid: 70237782f0e6f4b48ae31f8367e636c3, type: 3}
+    Sprite: {fileID: 21300000, guid: d24ba3fbebbe2e3489ecb133acadec08, type: 3}
   - DelayInMs: 100
-    Sprite: {fileID: 21300000, guid: 2dd6aa2c2b06fad4fad8a479ac132910, type: 3}
+    Sprite: {fileID: 21300000, guid: c9fa87ff173a36e4cbf495ba5b75ccef, type: 3}
   - DelayInMs: 100
-    Sprite: {fileID: 21300000, guid: 55c4573de3c681944bb18aff8d314098, type: 3}
+    Sprite: {fileID: 21300000, guid: 0711e464e82d8cd44ba931f8ea713074, type: 3}
   - DelayInMs: 100
-    Sprite: {fileID: 21300000, guid: 800e9cc1bddfd6a4f99bcaba02483e80, type: 3}
+    Sprite: {fileID: 21300000, guid: 7f4101ec4f6118a4483a76e71ff4e456, type: 3}
   - DelayInMs: 100
-    Sprite: {fileID: 21300000, guid: 55cad0d58090b5f46a0d9146c0c873f8, type: 3}
+    Sprite: {fileID: 21300000, guid: 2e6cc11116bda9c45a0efee721c3d47f, type: 3}
   - DelayInMs: 100
-    Sprite: {fileID: 21300000, guid: 3fd5d4aab0a501646b705538240a6e9e, type: 3}
+    Sprite: {fileID: 21300000, guid: 9897b24bb3363ef42b6b200ffa60d5bd, type: 3}

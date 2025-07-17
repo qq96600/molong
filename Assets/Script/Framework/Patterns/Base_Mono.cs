@@ -139,29 +139,52 @@ namespace MVC
                                 currency_unit_list[i] += (long)Mathf.Abs(keys[item]);
                                 count++;
                                 isneed = false;
-                                continue;
+                               // continue;
+                               break;
                             }
                         }
                     }
-                }else
-                {
-                    List<(string, int)> list = SumSave.crt_bag_resources.Set();
-                    for (int i = 0; i < list.Count; i++)
+                    if(isneed)
                     {
-                        if (item == list[i].Item1)
+                        List<(string, int)> list = SumSave.crt_bag_resources.Set();
+                        for (int i = 0; i < list.Count; i++)
                         {
-                            if (list[i].Item2 >= Mathf.Abs(keys[item]))
+                            if (item == list[i].Item1)
                             {
-                                if (!bagdic.ContainsKey(item))
+                                if (list[i].Item2 >= Mathf.Abs(keys[item]))
                                 {
-                                    bagdic.Add(item, (int)-Mathf.Abs(keys[item]));
-                                    count++;
+                                    if (!bagdic.ContainsKey(item))
+                                    {
+                                        bagdic.Add(item, (int)-Mathf.Abs(keys[item]));
+                                        count++;
+                                    }
+                                    isneed = false;
+                                    break;
+                                    //continue;
                                 }
-                                continue;
                             }
                         }
                     }
                 }
+                //else
+                //{
+                //    List<(string, int)> list = SumSave.crt_bag_resources.Set();
+                //    for (int i = 0; i < list.Count; i++)
+                //    {
+                //        if (item == list[i].Item1)
+                //        {
+                //            if (list[i].Item2 >= Mathf.Abs(keys[item]))
+                //            {
+                //                if (!bagdic.ContainsKey(item))
+                //                {
+                //                    bagdic.Add(item, (int)-Mathf.Abs(keys[item]));
+                //                    count++;
+                //                }
+                //                continue;
+                //            }
+                //        }
+                //    }
+                //}
                 #region 测试后删除
                 //if (item == currency_unit.灵珠.ToString())
                 //{

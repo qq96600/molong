@@ -661,9 +661,7 @@ public static class Battle_Tool
             case 6:
                 if (SumSave.crt_world != null)
                 {
-                    //SumSave.crt_world.Set(int.Parse(result_list[1]) * num, false);
-                    SumSave.crt_world.AddValue_lists(int.Parse(result_list[1]) * num, false);
-                    Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_world, SumSave.crt_world.Set_Uptade_String(), SumSave.crt_world.Get_Update_Character());
+                    Obtain_Unit(currency_unit.灵气, int.Parse(result_list[1]) * num);
                 }
                 else Alert_Dec.Show("小世界未激活");
                 break;

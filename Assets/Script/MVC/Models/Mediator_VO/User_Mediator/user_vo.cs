@@ -95,6 +95,7 @@ public class user_vo : Base_VO
                     MysqlData();
                 }
                 break;
+
             //case currency_unit.历练:
             //    if (value >= SumSave.base_setting[0])
             //    {
@@ -148,6 +149,7 @@ public class user_vo : Base_VO
             //    }
             //    MysqlData();
             //    return;
+
         }
         
     }

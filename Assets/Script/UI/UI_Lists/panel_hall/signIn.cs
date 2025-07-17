@@ -156,7 +156,7 @@ public class signIn : Base_Mono
         }
         string[] strs = vo.value.Split('*');
         string dec = strs[0] + "*" + strs[1];
-        if (strs[0] == "灵珠" || strs[0] == "灵气")
+        if (strs[0] == "灵珠")
         {
             for (int i = 0; i < SumSave.db_vip_list.Count; i++)
             {
@@ -186,7 +186,7 @@ public class signIn : Base_Mono
         signln_item item = arg0 as signln_item;
         int index = item.Set();
         string[]strs = SumSave.db_Signins[index].value.Split('*');
-        if(strs[0]=="灵珠"|| strs[0] == "灵气")
+        if(strs[0]=="灵珠")
         {
             for (int i = 0; i < SumSave.db_vip_list.Count; i++)
             {
