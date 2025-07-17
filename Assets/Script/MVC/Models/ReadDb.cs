@@ -581,8 +581,6 @@ public static class ReadDb
         item.id_setting = reader.GetInt32(reader.GetOrdinal("id"));
         item.type_setting = reader.GetString(reader.GetOrdinal("setting_type"));
         item.option_setting= reader.GetString(reader.GetOrdinal("setting_value"));
-       
-
         return item;
     }
     public static user_base_Resources_vo Read(MySqlDataReader reader, user_base_Resources_vo item)
@@ -626,25 +624,11 @@ public static class ReadDb
         item.tianming_Platform = new int[5];
         if (hero_lv_array.Length<2)
         {
-            item.Uptianming_Platform();
-
-            //for (int i = 0; i < item.tianming_Platform.Length; i++)
-            //{
-            //    int index = Random.Range(0, 5);
-            //    item.tianming_Platform[i] = index;
-            //}
-
+            item.InitTianming_Platform();
         }
         else
         {
-
             item.InitDestinyTower(hero_lv_array[1]);
-            //string[] tianming= hero_lv_array[1].Split(' ');
-
-            //for (int i = 0; i < tianming.Length; i++)
-            //{
-            //    item.tianming_Platform[i] = int.Parse(tianming[i]);
-            //}
         }
 
         return item;

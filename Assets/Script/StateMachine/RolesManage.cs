@@ -46,10 +46,6 @@ namespace StateMachine
 
         #region 角色外观
         /// <summary>
-        /// 角色类型
-        /// </summary>
-        private enum_skin_state skin_state;
-        /// <summary>
         /// 皮肤预制体
         /// </summary>
         private GameObject skin_prefabs;

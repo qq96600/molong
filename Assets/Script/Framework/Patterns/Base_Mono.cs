@@ -339,10 +339,6 @@ namespace MVC
         }
 
 }
-
-
-
-
     /// <summary>
     /// 货币类型
     /// </summary>

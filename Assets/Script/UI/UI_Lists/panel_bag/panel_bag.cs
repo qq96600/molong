@@ -30,12 +30,6 @@ public class panel_bag : Panel_Base
     private Transform crt_btn, crt_bag, pos_function;
 
     private panel_equip panel_equip;
-
-
-    /// <summary>
-    /// 角色皮肤
-    /// </summary>
-    private enum_skin_state skin_state;
     /// <summary>
     /// 角色皮肤预制体
     /// </summary>
