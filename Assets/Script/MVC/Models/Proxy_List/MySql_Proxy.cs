@@ -504,7 +504,7 @@ namespace MVC
         /// </summary>
         private void Read_Db_Hero()
         {
-            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_hero);
+            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_heros);
             SumSave.db_heros = new List<db_hero_vo>();
             if (mysqlReader.HasRows)
             {

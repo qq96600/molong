@@ -1,3 +1,4 @@
+using Common;
 using MVC;
 using System;
 using System.Collections;
@@ -36,17 +37,25 @@ public class hero_item : Base_Mono
             if (data == null) return;
 
             base_info.text = data.hero_name;
-
-            for (int j = 0; j < Enum.GetNames(typeof(enum_skin_state)).Length; j++)
+            for (int j = 0; j < SumSave.db_heros.Count; j++)
             {
-                if (data.hero_name == ((enum_skin_state)(j + 1)).ToString())
-                {
-                    skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/within_" + data.hero_name.ToString());
+                if (data.hero_name == SumSave.db_heros[j].hero_name)
+                { 
+                    skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/within_" + SumSave.db_heros[j].hero_name.ToString());
                     Instantiate(skin_prefabs, skin);
                     return;
                 }
             }
-            Debug.LogError("enum_attribute_list枚举类中没有该皮肤:" + data.hero_name.ToString());
+            //for (int j = 0; j < Enum.GetNames(typeof(enum_skin_state)).Length; j++)
+            //{
+            //    if (data.hero_name == ((enum_skin_state)(j + 1)).ToString())
+            //    {
+            //        skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/within_" + data.hero_name.ToString());
+            //        Instantiate(skin_prefabs, skin);
+            //        return;
+            //    }
+            //}
+            //Debug.LogError("enum_attribute_list枚举类中没有该皮肤:" + data.hero_name.ToString());
 
 
             //读取显示图标

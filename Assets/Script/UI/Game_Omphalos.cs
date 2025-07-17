@@ -402,7 +402,7 @@ namespace MVC
                     break;
                 case Mysql_Table_Name.db_map:
                     break;
-                case Mysql_Table_Name.db_hero:
+                case Mysql_Table_Name.db_heros:
                     break;
                 case Mysql_Table_Name.db_setting:
                     break;

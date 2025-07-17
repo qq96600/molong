@@ -55,10 +55,7 @@ public class panel_hero : Panel_Base
     /// 英雄列表
     /// </summary>
     private Button crate_btn,show_hero_info_close_btn;
-    /// <summary>
-    /// 角色类型
-    /// </summary>
-    private enum_skin_state skin_state;
+   
     /// <summary>
     /// 角色皮肤预制体
     /// </summary>

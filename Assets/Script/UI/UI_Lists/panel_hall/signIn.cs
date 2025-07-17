@@ -75,46 +75,37 @@ public class signIn : Base_Mono
             Alert_Dec.Show("签到成功");
             SumSave.crt_pass.clear_data();
             SumSave.crt_user_unit.verify_data(currency_unit.灵珠, 1000000 * SumSave.crt_signin.number);
-            
-            MonthlyCardRewards();
+            string dec = "\n签到奖励\n";
+           
+            dec+="灵珠 * "+ Battle_Tool.FormatNumberToChineseUnit(1000000 * SumSave.crt_signin.number)+"\n";
+            dec += "荣耀点 * 2\n";
+
+            if (Tool_State.IsState(State_List.月卡))
+            {
+                SumSave.crt_user_unit.verify_data(currency_unit.魔丸, 30);
+                SumSave.crt_accumulatedrewards.Set(2, 4);
+                dec += Show_Color.Red("月卡奖励\n") + "1.魔丸 * 30\n2.荣耀点 + 2\n";
+            }
+            else
+            {
+                SumSave.crt_accumulatedrewards.Set(2, 2);//不是月卡给2点荣耀点
+            } 
+            if (Tool_State.IsState(State_List.至尊卡))
+            {
+                Battle_Tool.Obtain_Resources("命运金币", 2);
+                dec += Show_Color.Red("至尊卡奖励\n") + "命运金币 + 2\n";
+            }
+            dec += "通行证已重置\n";
+            dec += "宝箱已重置\n";
+            dec += "每日副本已重置\n";
+            dec += "世界boss已重置\n";
+            Alert.Show("签到奖励", dec);
             SignInTask();
             base_show();
         }
         else Alert_Dec.Show("今日已签到");
     }
-    /// <summary>
-    /// 月卡签到获得奖励
-    /// </summary>
-    /// <param name="index"></param>
-    private void MonthlyCardRewards()
-    {
-        if (SumSave.crt_player_buff.player_Buffs.Count > 0)
-        {
-            foreach (var item in SumSave.crt_player_buff.player_Buffs)
-            {
-                (DateTime, int, float, int) time = item.Value;
-                ///至尊卡奖励
-                if (3 == time.Item4)
-                {
-                    if ((SumSave.nowtime - time.Item1).Minutes < time.Item2)
-                    {
-                        SumSave.crt_user_unit.verify_data(currency_unit.魔丸, 30);
-                        SumSave.crt_accumulatedrewards.Set(2, 4);
-                    }
-                }
-                else
-                {
-                    SumSave.crt_accumulatedrewards.Set(2, 2);//不是月卡给2点荣耀点
-                }
-                ///至尊卡奖励
-                if(time.Item4==5)
-                {
-                    Battle_Tool.Obtain_Resources("命运金币", 2);
-                    Alert.Show("至尊卡奖励", "恭喜您获得 命运金币*2");
-                }
-            }
-        }
-    }
+    
 
         /// <summary>
         /// 完成签到任务

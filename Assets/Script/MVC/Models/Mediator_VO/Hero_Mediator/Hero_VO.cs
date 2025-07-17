@@ -72,7 +72,7 @@ public class Hero_VO : Base_VO
     {
         if (tianming_Platform == null)
         {
-            Uptianming_Platform();
+            InitTianming_Platform();
         }
 
         string str = "";
@@ -159,6 +159,18 @@ public class Hero_VO : Base_VO
         {
             int index = Random.Range(0, 5);
             tianming_Platform[i] = index;
+        }
+    }
+    /// <summary>
+    /// 初始化天命
+    /// </summary>
+    public void InitTianming_Platform()
+    {
+
+        tianming_Platform = new int[5];
+        for (int i = 0; i < tianming_Platform.Length; i++)
+        {
+            tianming_Platform[i] = i;
         }
     }
 
