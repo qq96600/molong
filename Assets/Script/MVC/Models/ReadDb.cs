@@ -627,24 +627,10 @@ public static class ReadDb
         if (hero_lv_array.Length<2)
         {
             item.Uptianming_Platform();
-
-            //for (int i = 0; i < item.tianming_Platform.Length; i++)
-            //{
-            //    int index = Random.Range(0, 5);
-            //    item.tianming_Platform[i] = index;
-            //}
-
         }
         else
         {
-
             item.InitDestinyTower(hero_lv_array[1]);
-            //string[] tianming= hero_lv_array[1].Split(' ');
-
-            //for (int i = 0; i < tianming.Length; i++)
-            //{
-            //    item.tianming_Platform[i] = int.Parse(tianming[i]);
-            //}
         }
 
         return item;
