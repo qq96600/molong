@@ -131,10 +131,8 @@ public class Hero_VO : Base_VO
         {
             return;
         }
-        
-            hero_value += (hero_value == "" ? "" : ",") + str + "|" + ArrayHelper.Data_Encryption(tianming_Platform);
-      
-      
+        SumSave.crt_hero.InitTianming_Platform();
+        hero_value += (hero_value == "" ? "" : ",") + str + "|" + ArrayHelper.Data_Encryption(tianming_Platform);
         MysqlData();
     }
 

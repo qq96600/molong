@@ -3,7 +3,7 @@ using MVC;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Random = UnityEngine.Random;
 
 public class user_plant_vo : Base_VO
 {
@@ -29,7 +29,7 @@ public class user_plant_vo : Base_VO
     /// </summary>
     public int harvestnumber;
     /// <summary>
-    /// 消耗数量
+    /// 消耗数量 为了实现偷菜玩法
     /// </summary>
     public int lossnumber;
     /// <summary>
@@ -63,6 +63,29 @@ public class user_plant_vo : Base_VO
     {
         user_plants = _user;
     }
+
+    /// <summary>
+    /// 翻倍获取
+    /// </summary>
+    public int  DoubleTheAcquisition()
+    {
+        int number = harvestnumber-lossnumber;
+        int ran =Random.Range(1,100);
+        if(ran<30)
+        {
+            if(ran<10)
+            {
+                number = number * 3;
+            }
+            else
+            {
+                number = number * 2;
+            }
+        }
+        return number;
+    }
+
+
 
     public void Set_data(List<(string, DateTime)> crt_plants)
     {

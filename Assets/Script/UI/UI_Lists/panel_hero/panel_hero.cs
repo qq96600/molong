@@ -164,7 +164,6 @@ public class panel_hero : Panel_Base
             if (crt_hero.SetData().hero_name == "昭月"|| crt_hero.SetData().hero_name == "琉璃")
             {
                 SumSave.crt_hero.Merge_hero_value();
-                SumSave.crt_hero.Uptianming_Platform();
                 switch_Hero(crt_hero.SetData().hero_name);
                 SumSave.crt_hero.AddSkin(crt_hero.SetData().hero_name);
                 return;

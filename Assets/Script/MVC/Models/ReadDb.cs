@@ -624,6 +624,7 @@ public static class ReadDb
         item.tianming_Platform = new int[5];
         if (hero_lv_array.Length<2)
         {
+
             item.InitTianming_Platform();
         }
         else

@@ -103,8 +103,22 @@ public class panel_pass : Base_Mono
             int num = 1;
             //领取奖励
             Battle_Tool.Obtain_Resources("命运金币", num);
+
+
+            Dictionary<int, List<int>> Dir= SumSave.crt_pass.Set();
             SumSave.crt_pass.data_exp++;
-            SumSave.crt_pass.Max_task_number++;
+
+            if (Dir.ContainsKey(1))///升级通行证累计次数加2
+            {
+                SumSave.crt_pass.Max_task_number += 2;
+
+            }else
+            {
+                SumSave.crt_pass.Max_task_number++;
+            }
+           
+
+            
             if (SumSave.crt_pass.data_exp >= 10)
             {
                 SumSave.crt_pass.data_lv++;
@@ -115,6 +129,7 @@ public class panel_pass : Base_Mono
             Alert.Show("领取成功", "命运金币*"+ num);
 
             Show_Pass_Progress();
+            ShowLv();
         }
         else
         {

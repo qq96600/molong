@@ -5,6 +5,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UI;
 using UnityEngine;
+using UnityEngine.Analytics;
+
 namespace MVC
 {
     /// <summary>
@@ -18,9 +20,15 @@ namespace MVC
         private void Awake()
         {
             i= this;
+            ///登录时禁止unity收集信息
+            Analytics.enabled = false;//禁用Unity自带的Analytics服务，使其不会在收集用户数据，保护用户隐私
+            Analytics.deviceStatsEnabled = false;//禁用了Unity收集用户设备的性能数据，比如CPU型号，内存使用情况等，保护用户隐私
+            Analytics.initializeOnStartup = false;//禁止Unity自动初始化，完全自主控制Unity收集用户数据的行为
+            Analytics.limitUserTracking = false;//禁止Unity对用户的追踪，保护用户隐私，一般这个选项是为了遵守隐私政策
+
+            PerformanceReporting.enabled = false;//禁止Unity收集应用程序性能数据的报告，比如崩溃报告，性能下降等
             AppFacade.I.Startup();
             panel_fight = UI_Manager.I.GetPanel<panel_fight>();
-            //panel_Screensaver = UI_Manager.I.GetPanel<Panel_Screensaver>();
         }
         private List<Base_Wirte_VO> wirtes = new List<Base_Wirte_VO>();
         /// <summary>
@@ -138,7 +146,8 @@ namespace MVC
                             {
                                 exist = true;
                                 Set[i] = ("0", SumSave.nowtime > DateTime.Now ? SumSave.nowtime : DateTime.Now);
-                                Battle_Tool.Obtain_Resources(vo.HarvestMaterials, vo.harvestnumber - vo.lossnumber);
+                               int harvestnumber = vo.DoubleTheAcquisition();
+                                Battle_Tool.Obtain_Resources(vo.HarvestMaterials, harvestnumber);
                                 Alert_Dec.Show("自动收获 " + vo.HarvestMaterials + " * " + (vo.harvestnumber - vo.lossnumber));
                             }
                         }
