@@ -1568,9 +1568,9 @@ namespace MVC
             }
             //皮肤
 #if UNITY_EDITOR  
-            crt.hit += 1000;
-            crt.damageMax += 10000000;
-            crt.MagicdamageMax += 10000000;
+            //crt.hit += 1000;
+            //crt.damageMax += 10000000;
+            //crt.MagicdamageMax += 10000000;
 #elif UNITY_ANDROID
 #elif UNITY_IPHONE
 #endif
@@ -1875,14 +1875,8 @@ namespace MVC
                 SumSave.crt_hero.hero_Exp = 0;
                 SumSave.crt_hero.hero_pos = SumSave.db_heros[0].hero_name;
                 SumSave.crt_hero.hero_material_list = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-
                 SumSave.crt_hero.tianming_Platform = new int[5];
-                //for (int i = 0; i < SumSave.crt_hero.tianming_Platform.Length; i++)
-                //{
-                //    int index = Random.Range(0, 5);
-                //    SumSave.crt_hero.tianming_Platform[i] = index;
-                //}
-                SumSave.crt_hero.Uptianming_Platform();
+                SumSave.crt_hero.InitTianming_Platform();
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_hero, SumSave.crt_hero.Set_Instace_String());
             }
         }

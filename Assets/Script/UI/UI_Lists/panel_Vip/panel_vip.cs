@@ -33,7 +33,7 @@ public class panel_vip : Panel_Base
         Information=Find<Transform>("Information/Viewport/Content");
         vip_effect_obj = Battle_Tool.Find_Prefabs<vip_effect>("vip_effect");
         show_vip_lv_text= Find<Text>("show_vip_lv/Text");
-        Show_Vip_Info();
+   
     }
 
     /// <summary>
@@ -76,6 +76,7 @@ public class panel_vip : Panel_Base
     public override void Show()
     {
         base.Show();
+        Show_Vip_Info();
     }
     public override void Hide()
     {

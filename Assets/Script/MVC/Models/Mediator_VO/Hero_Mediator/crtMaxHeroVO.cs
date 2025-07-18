@@ -227,5 +227,15 @@ public class crtMaxHeroVO
             (Damage_Reduction * 10) + (Damage_absorption * 10) + (resistance * 10) + move_speed + ((200 - attack_speed) * 10) + attack_distance +
             (bonus_Hp * 20) + (bonus_Mp * 20) + (bonus_Damage * 20) + (bonus_MagicDamage * 20) + (bonus_Def * 20) + (bonus_MagicDef * 20) +
             (Heal_Hp * 20) + (Heal_Mp * 20) + ((life[0] + life[1] + life[2] + life[3] + life[4]) * 20));
+
+
+#if UNITY_EDITOR
+
+        totalPower = 1;
+
+#elif UNITY_ANDROID
+
+#elif UNITY_IPHONE
+#endif
     }
 }

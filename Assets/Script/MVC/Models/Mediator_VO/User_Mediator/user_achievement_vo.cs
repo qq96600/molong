@@ -66,12 +66,11 @@ public class user_achievement_vo : Base_VO
     /// </summary>
     /// <param name="data"></param>
 
-    public void up_date_Exp(string data ,int lv)
+    public void up_date_Exp(string data , long lv)
     {
         if (user_achievements.ContainsKey(data.ToString()))
         {
             user_achievements[data] = lv;
-
         }
         else
         {
@@ -114,21 +113,43 @@ public class user_achievement_vo : Base_VO
         }
         string[] strs = achievement_exp.Split('|');
         string[] lvs = achievement_lvs.Split('|');
+
+        //if (strs.Length != lvs.Length)
+        //{
+        //    string str = "";
+        //    bool found = Array.Exists(strs, lv => lv == str);
+            
+        //    if (!found)
+        //    {
+        //        string[] str1 = strs[i].Split(' ');
+        //        str += achievement_lvs == "" ? str1[0] + " 0" : "|" + str1[0] + " 0";
+        //    }
+        //    achievement_lvs += achievement_lvs == "" ? str : "|" + str;
+        //    lvs = achievement_lvs.Split('|');
+
+        //}
+
+
         for (int i = 0; i < strs.Length; i++)
         {
             string[] str = strs[i].Split(' ');
-            string[] lv = lvs[i].Split(' ');
+           
             if (!user_achievements.ContainsKey(str[0]))
             {
                 user_achievements.Add(str[0], long.Parse(str[1]));
             }
+            
+        }
+        for (int i = 0; i < lvs.Length; i++)
+        {
+            string[] lv = lvs[i].Split(' ');
             if (!user_achievements_lv.ContainsKey(lv[0]))
             {
                 user_achievements_lv.Add(lv[0], long.Parse(lv[1]));
 
             }
         }
-        
+
     }
 
     public void Refresh()

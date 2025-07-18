@@ -25,6 +25,7 @@ namespace MVC
             Analytics.deviceStatsEnabled = false;//禁用了Unity收集用户设备的性能数据，比如CPU型号，内存使用情况等，保护用户隐私
             Analytics.initializeOnStartup = false;//禁止Unity自动初始化，完全自主控制Unity收集用户数据的行为
             Analytics.limitUserTracking = false;//禁止Unity对用户的追踪，保护用户隐私，一般这个选项是为了遵守隐私政策
+
             PerformanceReporting.enabled = false;//禁止Unity收集应用程序性能数据的报告，比如崩溃报告，性能下降等
             AppFacade.I.Startup();
             panel_fight = UI_Manager.I.GetPanel<panel_fight>();
@@ -145,7 +146,8 @@ namespace MVC
                             {
                                 exist = true;
                                 Set[i] = ("0", SumSave.nowtime > DateTime.Now ? SumSave.nowtime : DateTime.Now);
-                                Battle_Tool.Obtain_Resources(vo.HarvestMaterials, vo.harvestnumber - vo.lossnumber);
+                               int harvestnumber = vo.DoubleTheAcquisition();
+                                Battle_Tool.Obtain_Resources(vo.HarvestMaterials, harvestnumber);
                                 Alert_Dec.Show("自动收获 " + vo.HarvestMaterials + " * " + (vo.harvestnumber - vo.lossnumber));
                             }
                         }
@@ -409,7 +411,7 @@ namespace MVC
                     break;
                 case Mysql_Table_Name.db_map:
                     break;
-                case Mysql_Table_Name.db_hero:
+                case Mysql_Table_Name.db_heros:
                     break;
                 case Mysql_Table_Name.db_setting:
                     break;
