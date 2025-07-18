@@ -339,33 +339,34 @@ namespace MVC
                 Alert_Dec.Show("请先选择服务器");
                 return;
             }
-            //if (!open_pars.ContainsKey(select_par.index))
-            //{
-            //    Alert_Dec.Show("当前服务器暂为开启");
-            //    return;
-            //}
+            if (!open_pars.ContainsKey(select_par.index))
+            {
+                Alert_Dec.Show("当前服务器暂为开启");
+                return;
+            }
 
-            //if (!open_pars[select_par.index])
-            //{
-            //    Alert_Dec.Show("当前服务器暂为开启");
-            //    return;
-            //}
+            if (!open_pars[select_par.index])
+            {
+                Alert_Dec.Show("当前服务器暂为开启");
+                return;
+            }
 #if UNITY_EDITOR
 
 #elif UNITY_ANDROID
+            if (!open_pars.ContainsKey(select_par.index)) {
+                Alert_Dec.Show("当前服务器暂为开启");
+                return;
+            }
+
+            if (!open_pars[select_par.index])
+            {
+                Alert_Dec.Show("当前服务器暂为开启");
+                return;
+            }
             Game_Omphalos.i.Wirte_Tap();
-             if (!open_pars.ContainsKey(select_par.index)) {
-                Alert_Dec.Show("当前服务器暂为开启");
-                return;
-            }
-
-            if (!open_pars[select_par.index])
-            {
-                Alert_Dec.Show("当前服务器暂为开启");
-                return;
-            }
+           
 #elif UNITY_IPHONE
-            UI_Manager.Instance.GetPanel<Panel_cratehero>().Show();
+            
              if (!open_pars.ContainsKey(select_par.index)) {
                 Alert_Dec.Show("当前服务器暂为开启");
                 return;
@@ -376,6 +377,7 @@ namespace MVC
                 Alert_Dec.Show("当前服务器暂为开启");
                 return;
             }
+            UI_Manager.Instance.GetPanel<Panel_cratehero>().Show();
 #endif
 
             //for(int i=0;i<SumSave.db_pars.Count;i++)
