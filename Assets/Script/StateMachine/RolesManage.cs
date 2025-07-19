@@ -68,35 +68,23 @@ namespace StateMachine
         #endregion
 
 
+        
+
         protected virtual void Awake()
         {
             #region 角色外观初始化
-            if(GetComponent<Player>()!= null)
-            {
-                //int hero_index = int.Parse(SumSave.crt_hero.hero_index);
-                //skin_state = (enum_skin_state)hero_index;
-                skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/skin_" + SumSave.crt_hero.hero_pos);
-                panel_role_health = transform.Find("Appearance");
-                Instantiate(skin_prefabs, panel_role_health);
-                show_tianming_Platform=transform.Find("Appearance/tianming_Platform");
-                if (tianming_Platform == null || !tianming_Platform.SequenceEqual(SumSave.crt_hero.tianming_Platform))
-                {
-                    Show_Info_life();
-                }
-            }
-            else if(GetComponent<Monster>() != null)
-            {
-                monster_type = enum_monster_type.磷火兵;
-                ////skin_prefabs = Resources.Load<GameObject>("Prefabs/monsters/mon_" + monster_type.ToString());
-                mon_profilePicture= Resources.Load<Sprite>("Prefabs/monsters/mon_" + monster_type.ToString());
+         
+            //else if(GetComponent<Monster>() != null)
+            //{
+            //    monster_type = enum_monster_type.磷火兵;
+            //    ////skin_prefabs = Resources.Load<GameObject>("Prefabs/monsters/mon_" + monster_type.ToString());
+            //    mon_profilePicture= Resources.Load<Sprite>("Prefabs/monsters/mon_" + monster_type.ToString());
 
-                panel_role_health = transform.Find("Appearance/profilePicture");
-                panel_role_health.GetComponent<Image>().sprite = mon_profilePicture;
+            //    panel_role_health = transform.Find("Appearance/profilePicture");
+            //    panel_role_health.GetComponent<Image>().sprite = mon_profilePicture;
 
-                //Instantiate(skin_prefabs, panel_role_health);
-            }
-
-
+            //    //Instantiate(skin_prefabs, panel_role_health);
+            //}
 
             #endregion
 
@@ -189,11 +177,43 @@ namespace StateMachine
            
 
         }
+        private string animName;
 
         protected virtual void Update()
         {
             TargetPosition = new Vector2(TatgetObg.transform.position.x, transform.position.y);
             BackstabPosition = new Vector2(TatgetObg.transform.position.x - BehindDistance, transform.position.y);
+
+            if (GetComponent<Player>() != null)
+            {
+                //int hero_index = int.Parse(SumSave.crt_hero.hero_index);
+                //skin_state = (enum_skin_state)hero_index;
+                
+                if(animName != SumSave.crt_hero.hero_pos)
+                {
+                    
+                    skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/skin_" + SumSave.crt_hero.hero_pos);
+
+                    animName = SumSave.crt_hero.hero_pos;
+
+                    panel_role_health = transform.Find("Appearance");
+
+                    for (int i = panel_role_health.childCount - 1; i >= 1; i--)
+                    {
+                        Destroy(panel_role_health.GetChild(i).gameObject);
+                    }
+
+                    Instantiate(skin_prefabs, panel_role_health);
+                    show_tianming_Platform = transform.Find("Appearance/tianming_Platform");
+
+                }
+
+                if (tianming_Platform == null || !tianming_Platform.SequenceEqual(SumSave.crt_hero.tianming_Platform))
+                {
+                    Show_Info_life();
+                }
+            }
+
         }
 
 

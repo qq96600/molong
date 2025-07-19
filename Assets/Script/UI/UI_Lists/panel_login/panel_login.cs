@@ -420,7 +420,7 @@ namespace MVC
                                                              //SumSave.uid = "464326ce7bc34ae4b612d53fb9fda084";//都做了土（ip）
                                                              // SumSave.uid = "ae47220bfc8242f381692c52edb15aba";//隐官(ip)
 
-            SumSave.par = 115;
+           // SumSave.par = -2;
 
             #endregion
 

@@ -338,7 +338,7 @@ public static class Battle_Tool
     /// <returns></returns>
     public static int random()
     {
-        return Random.Range(100, 2000);
+        return Random.Range(100, 200);
     }
 
     /// <summary>
