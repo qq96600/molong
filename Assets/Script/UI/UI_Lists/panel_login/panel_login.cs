@@ -339,28 +339,28 @@ namespace MVC
                 Alert_Dec.Show("请先选择服务器");
                 return;
             }
-            if (!open_pars.ContainsKey(select_par.index))
-            {
-                Alert_Dec.Show("当前服务器暂为开启");
-                return;
-            }
+            //if (!open_pars.ContainsKey(select_par.index))
+            //{
+            //    Alert_Dec.Show("当前服务器暂未开启");
+            //    return;
+            //}
 
-            if (!open_pars[select_par.index])
-            {
-                Alert_Dec.Show("当前服务器暂为开启");
-                return;
-            }
+            //if (!open_pars[select_par.index])
+            //{
+            //    Alert_Dec.Show("当前服务器暂未开启");
+            //    return;
+            //}
 #if UNITY_EDITOR
 
 #elif UNITY_ANDROID
             if (!open_pars.ContainsKey(select_par.index)) {
-                Alert_Dec.Show("当前服务器暂为开启");
+                Alert_Dec.Show("当前服务器暂未开启");
                 return;
             }
 
             if (!open_pars[select_par.index])
             {
-                Alert_Dec.Show("当前服务器暂为开启");
+                Alert_Dec.Show("当前服务器暂未开启");
                 return;
             }
             Game_Omphalos.i.Wirte_Tap();
@@ -368,13 +368,13 @@ namespace MVC
 #elif UNITY_IPHONE
             
              if (!open_pars.ContainsKey(select_par.index)) {
-                Alert_Dec.Show("当前服务器暂为开启");
+                Alert_Dec.Show("当前服务器暂未开启");
                 return;
             }
 
             if (!open_pars[select_par.index])
             {
-                Alert_Dec.Show("当前服务器暂为开启");
+                Alert_Dec.Show("当前服务器暂未开启");
                 return;
             }
             UI_Manager.Instance.GetPanel<Panel_cratehero>().Show();
@@ -402,7 +402,7 @@ namespace MVC
 #if UNITY_EDITOR
 
             #region ios区
-            SumSave.uid = "DSFSDFSDFSDF3";//测试用号 DSFSDFSDFSDF3
+            SumSave.uid = "DSFSDFSDFSDF";//测试用号 DSFSDFSDFSDF3
                                           //SumSave.uid = "ed7091920d8f4f8aa193805fe45f8b3f";//温毓(ip)自然呆
                                           //SumSave.uid = "d6a5b51fddf94459bb2e80e54c091453";//666(ip)
                                           //SumSave.uid = "4024aeea8a704d3d965fafcb82d29493";//Rigine(ip)

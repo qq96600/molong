@@ -4,6 +4,7 @@ using MVC;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UI;
 using UnityEngine;
 using UnityEngine.UI;
@@ -103,13 +104,37 @@ public class panel_wodleBoss : Panel_Base
             Alert_Dec.Show("世界Boss已被击败");
             return;
         }
+
+#if UNITY_EDITOR
         if (boss_number >= boss_number_max)
         {
             Alert_Dec.Show("挑战次数不足");
             return;
         }
+#elif UNITY_ANDROID
+if (boss_number >= boss_number_max)
+        {
+            Alert_Dec.Show("挑战次数不足");
+            return;
+        }
+#elif UNITY_IPHONE
+        if (boss_number >= boss_number_max)
+        {
+            Alert_Dec.Show("挑战次数不足");
+            return;
+        }
+#endif
         IncreaseFrequency();
         long hurt=Random.Range(SumSave.crt_MaxHero.totalPower*50/100, SumSave.crt_MaxHero.totalPower * 60 / 100);//每次挑战根据战力50%-60%随机伤害
+#if UNITY_EDITOR
+       // hurt = 1;
+#elif UNITY_ANDROID
+
+#elif UNITY_IPHONE
+
+#endif
+
+
 
         world_Boss_set(hurt);
         crate_rank(hurt);
@@ -262,26 +287,17 @@ public class panel_wodleBoss : Panel_Base
     {
         ///(uid,名字，伤害)
         List<(string, string, long)> Boss_list = SumSave.crt_world_boss_rank.lists;
-        //SumSave.user_ranks.lists.Add(rank);
-        if(Boss_list.Count==0)
-        {
-            Boss_list.Add((SumSave.crt_user.uid, SumSave.crt_hero.hero_name, rank));
-        }
-        for (int i = 0; i < Boss_list.Count; i++)
+        
+        for (int i = Boss_list.Count-1; i >=0; i--)
         {
             if (Boss_list[i].Item1 == SumSave.crt_user.uid)
             {
-                long old_rank = Boss_list[i].Item3+rank;
-                Boss_list[i]= (Boss_list[i].Item1, Boss_list[i].Item2, SumSave.crt_world_boss_hurt.damage);
-                SumSave.crt_world_boss_rank.lists = Boss_list;
-                //排序
-                Refresh_Rank();
-                return;
+                Boss_list.RemoveAt(i);
             }
         }
-
-        Boss_list.Add((SumSave.crt_user.uid, SumSave.crt_hero.hero_name, SumSave.crt_world_boss_hurt.damage));
+        Boss_list.Add((SumSave.crt_user.uid,SumSave.crt_hero.hero_name,SumSave.crt_world_boss_hurt.damage));
         SumSave.crt_world_boss_rank.lists = Boss_list;
+        //排序
         Refresh_Rank();
         return;
 
