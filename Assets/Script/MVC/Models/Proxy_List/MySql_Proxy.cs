@@ -226,7 +226,7 @@ namespace MVC
             {
                 while (mysqlReader.Read())
                 {
-                    SumSave.db_stores_list.Add(ReadDb.Read(mysqlReader, new db_store_vo()));
+                    SumSave.db_stores_list.Add(ReadDb.Read(mysqlReader));
                 }
             }
 

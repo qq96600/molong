@@ -349,7 +349,11 @@ public class panel_fatePalace : Panel_Base
         {
             case 1:
                 //获得材料技能书神器
-                Battle_Tool.Obtain_Resources(CurrentItems[rand].Item1, CurrentItems[rand].Item3);
+                int random = Random.Range(1, 100);
+                int number = CurrentItems[rand].Item3;
+                int maxnumber = number + Random.Range(1, 100);
+                Battle_Tool.Obtain_Resources(Obtain_Int.Add(1, CurrentItems[rand].Item1, new int[] { number + random, random }), maxnumber);
+                //Battle_Tool.Obtain_Resources(CurrentItems[rand].Item1, CurrentItems[rand].Item3);
                 break;
             case 2:
                 //获得货币

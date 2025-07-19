@@ -332,25 +332,20 @@ public static class ReadDb
         }
         return item;
     }
-
-    public static db_store_vo Read(MySqlDataReader reader, db_store_vo item)
+    public static db_store_vo Read(MySqlDataReader reader)
     {
-        item.store_Type = reader.GetInt32(reader.GetOrdinal("StoreType"));
-        item.ItemName = reader.GetString(reader.GetOrdinal("ItemName"));
-        item.ItemPrice = reader.GetInt32(reader.GetOrdinal("ItemPrice"));
-        item.ItemMaxQuantity= reader.GetInt32(reader.GetOrdinal("ItemMaxQuantity"));
-        item.unit = reader.GetString(reader.GetOrdinal("unit"));
+        int store_Type = reader.GetInt32(reader.GetOrdinal("StoreType"));
+        string ItemName = reader.GetString(reader.GetOrdinal("ItemName"));
+        int ItemPrice = reader.GetInt32(reader.GetOrdinal("ItemPrice"));
+        int ItemMaxQuantity= reader.GetInt32(reader.GetOrdinal("ItemMaxQuantity"));
+        string unit = reader.GetString(reader.GetOrdinal("unit"));
         string[] dis= reader.GetString(reader.GetOrdinal("discount")).Split(' ');
-        
-        if(dis.Length ==2)
+        (int,int) discount= (0,0);
+        if (dis.Length ==2)
         {
-            item.discount = (int.Parse(dis[0]) , int.Parse(dis[1]));
+            discount = (int.Parse(dis[0]) , int.Parse(dis[1]));
         }
-        else
-        {
-            item.discount = (0, 0);
-        }
-        return item;
+        return new db_store_vo(store_Type, ItemName, ItemPrice, unit, discount, ItemMaxQuantity);
     }
 
     public static db_achievement_VO Read(MySqlDataReader reader, db_achievement_VO item)

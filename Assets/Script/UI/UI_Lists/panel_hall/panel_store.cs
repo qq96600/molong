@@ -8,6 +8,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 /// <summary>
 /// 商店购买丹药
@@ -323,7 +324,11 @@ public class panel_store : Base_Mono
                 AddBuff(buy_item,3f,1);
                 break;
                 default:
-                Battle_Tool.Obtain_Resources(buy_item.ItemName, buy_num);//获取奖励
+                int random = Random.Range(1, 100);
+                int number = buy_num;
+                int maxnumber = number + Random.Range(1, 100);
+                Battle_Tool.Obtain_Resources(Obtain_Int.Add(1, buy_item.ItemName, new int[] { number + random, random }), maxnumber);
+                //Battle_Tool.Obtain_Resources(buy_item.ItemName, buy_num);//获取奖励
                
                 break;
         }

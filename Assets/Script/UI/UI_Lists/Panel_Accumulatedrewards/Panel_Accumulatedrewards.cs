@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using MVC;
 using Components;
+using Random = UnityEngine.Random;
 /// <summary>
 /// 累积奖励
 /// </summary>
@@ -174,7 +175,11 @@ public class Panel_Accumulatedrewards : Panel_Base
                     ((currency_unit)Enum.Parse(typeof(currency_unit), str[1]), int.Parse(str[2]));
                     break;
                 case 1://道具
-                    Battle_Tool.Obtain_Resources(str[1], int.Parse(str[2]));
+                    int random = Random.Range(1, 100);
+                    int number = int.Parse(str[2]);
+                    int maxnumber = number + Random.Range(1, 100);
+                    Battle_Tool.Obtain_Resources(Obtain_Int.Add(1, str[1], new int[] { number + random, random }), maxnumber);
+                    //Battle_Tool.Obtain_Resources(str[1], int.Parse(str[2]));
                     break;
                 case 3://次数礼包
                     if (str[1] == "次数福利礼包")

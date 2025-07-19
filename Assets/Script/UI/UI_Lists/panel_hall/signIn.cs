@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using System;
 using Components;
 using UI;
+using Random = UnityEngine.Random;
 
 public class signIn : Base_Mono
 {
@@ -92,7 +93,11 @@ public class signIn : Base_Mono
             } 
             if (Tool_State.IsState(State_List.至尊卡))
             {
-                Battle_Tool.Obtain_Resources("命运金币", 2);
+                int random = Random.Range(1, 100);
+                int number = 2;
+                int maxnumber = number + Random.Range(1, 100);
+                Battle_Tool.Obtain_Resources(Obtain_Int.Add(1, "命运金币", new int[] { number + random, random }), maxnumber);
+                //Battle_Tool.Obtain_Resources("命运金币", 2);
                 dec += Show_Color.Red("至尊卡奖励\n") + "命运金币 + 2\n";
             }
             dec += "通行证已重置\n";

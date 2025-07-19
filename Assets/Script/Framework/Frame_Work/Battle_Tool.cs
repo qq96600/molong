@@ -22,13 +22,11 @@ public static class Battle_Tool
     /// 获取资源
     /// </summary>
     /// <param name="resources_name">名称</param>
-    /// <param name="number">数量</param>
+    /// <param name="index">数量指针</param>
     /// <param name="isverify">是否取消检测</param>
-    public static void Obtain_Resources(object resources_name, int number, bool isverify = false)
+    public static void Obtain_Resources(int index, in int maxnumber, bool isverify = false)
     {
-        Dictionary<string, int> dic = new Dictionary<string, int>();
-        dic.Add(resources_name.ToString(), number);
-        SumSave.crt_bag_resources.Get(dic, isverify);
+        SumSave.crt_bag_resources.Get(Obtain_Int.Get(index), maxnumber, isverify);
         //写入数据库
         Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.material_value, SumSave.crt_bag_resources.GetData());
     }
@@ -645,7 +643,10 @@ public static class Battle_Tool
                 BuffAcquisition(result_list,num);
                 break;
             case 2:
-                Obtain_Resources(result_list[0], int.Parse(result_list[1]) * num);
+                int random= Random.Range(1, 100);
+                int number= int.Parse(result_list[1]) * num;
+                int maxnumber = number + Random.Range(1, 100);
+                Obtain_Resources(Obtain_Int.Add(1, result_list[0], new int[] { number + random, random }), maxnumber);
                 break;
             case 3:
                 SumSave.crt_user_unit.verify_data(currency_unit.灵珠, int.Parse(result_list[1]) * num);
@@ -760,7 +761,11 @@ public static class Battle_Tool
                 AddBuff(result_list[0], 3f, 1,int.Parse(result_list[1]) * num);
                 break;
             default:
-                Obtain_Resources(result_list[0], int.Parse(result_list[1]) * num);//获取奖励
+                int random = Random.Range(1, 100);
+                int number = int.Parse(result_list[1]) * num;
+                int maxnumber = number + Random.Range(1, 100);
+                Obtain_Resources(Obtain_Int.Add(1, result_list[0], new int[] { number + random, random }), maxnumber);
+                //Obtain_Resources(result_list[0], int.Parse(result_list[1]) * num);//获取奖励
                 break;
         }
     }

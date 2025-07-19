@@ -39,7 +39,7 @@ public class bag_Resources_vo : Base_VO
     /// 传入参数
     /// </summary>
     /// <param name="list"></param>
-    public void Get(Dictionary<string, int> dec,bool exist = false)
+    public void Get(Dictionary<string, int> dec,int maxnumber,bool exist = false)
     {
         bool crate_state = false;
         //验证数据
@@ -63,13 +63,16 @@ public class bag_Resources_vo : Base_VO
                     crate_state = false;
                     if (exist)
                     {
+                        if (dec[item] > maxnumber)
+                        {
+                            Game_Omphalos.i.Delete(item + " 单次获取 " + list[i].Item2 + " 验证值 " + index + " " + verify_list[i].Item2 + " 单次最大值" + maxnumber);
+                        }
                     }
                     else
                     {
                         if (dec[item] > SumSave.base_setting[3])
                         {
                             Game_Omphalos.i.Delete(item + " 单次获取 " + list[i].Item2 + " 验证值 " + index + " " + verify_list[i].Item2);
-
                         }
                     }
                     list[i] = (item, dec[item] + list[i].Item2);
@@ -78,6 +81,10 @@ public class bag_Resources_vo : Base_VO
             }
             if (crate_state)
             {
+                if (dec[item] > maxnumber)
+                {
+                    Game_Omphalos.i.Delete(item + "当前值" + dec[item] + " 单次最大值 " + maxnumber);
+                }
                 list.Add((item, dec[item]));
                 verify_list.Add((item, dec[item] + index));
             }

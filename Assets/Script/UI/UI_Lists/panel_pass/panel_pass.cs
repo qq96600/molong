@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using UI;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class panel_pass : Base_Mono
 {
@@ -102,9 +103,11 @@ public class panel_pass : Base_Mono
         {
             int num = 1;
             //领取奖励
-            Battle_Tool.Obtain_Resources("命运金币", num);
-
-
+            int random = Random.Range(1, 100);
+            int number = 1;
+            int maxnumber = number + Random.Range(1, 100);
+            Battle_Tool.Obtain_Resources(Obtain_Int.Add(1, "命运金币", new int[] { number + random, random }), maxnumber);
+            //Battle_Tool.Obtain_Resources("命运金币", num);
             Dictionary<int, List<int>> Dir= SumSave.crt_pass.Set();
             SumSave.crt_pass.data_exp++;
 

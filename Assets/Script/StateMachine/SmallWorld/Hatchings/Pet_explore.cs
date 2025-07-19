@@ -377,6 +377,7 @@ public class Pet_explore : Base_Mono
             string[] data = value.Split(",");
             string[] values = data[2].Split(".");//Regex.Split(data[2], "[].");// 
             Dictionary<string, int> dic2 = new Dictionary<string, int>();
+            int max = 1;
             for (int i = 0; i < values.Length; i++)
             {
                 string[] value2 = values[i].Split(" ");
@@ -385,10 +386,11 @@ public class Pet_explore : Base_Mono
                     if (!dic2.ContainsKey(value2[0]))
                         dic2.Add(value2[0], 0);
                     dic2[value2[0]] += int.Parse(value2[1]);
+                    max+= int.Parse(value2[1]);
                 }
             }
             SumSave.crt_explore.DeleteValues(vo.petName + " " + vo.startHatchingTime);
-            SumSave.crt_bag_resources.Get(dic2);
+            SumSave.crt_bag_resources.Get(dic2,max);
             Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_pet_explore,
                 SumSave.crt_explore.Set_Uptade_String(), SumSave.crt_explore.Get_Update_Character());
             //写入数据库
@@ -494,7 +496,11 @@ public class Pet_explore : Base_Mono
         {
             case 1:
                 //获得材料技能书神器
-                Battle_Tool.Obtain_Resources(data[0], i);
+                int random = Random.Range(1, 100);
+                int number = i;
+                int maxnumber = number + Random.Range(1, 100);
+                Battle_Tool.Obtain_Resources(Obtain_Int.Add(1, data[0], new int[] { number + random, random }), maxnumber);
+                //Battle_Tool.Obtain_Resources(data[0], i);
                 break;
             case 2:
                 //获得货币

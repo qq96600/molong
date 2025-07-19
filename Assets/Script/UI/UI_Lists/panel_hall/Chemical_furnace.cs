@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class Chemical_furnace : Base_Mono
 {
@@ -198,8 +199,12 @@ public class Chemical_furnace : Base_Mono
             NeedConsumables("下品噬心魔种", buy_num);
             NeedConsumables(crt_break.Item1,buy_num);
             if (RefreshConsumables())
-            { 
-                Battle_Tool.Obtain_Resources("灵物碎片", buy_num);
+            {
+                int random = Random.Range(1, 100);
+                int number = buy_num;
+                int maxnumber = number + Random.Range(1, 100);
+                Battle_Tool.Obtain_Resources(Obtain_Int.Add(1, "灵物碎片", new int[] { number + random, random }), maxnumber);
+                //Battle_Tool.Obtain_Resources("灵物碎片", buy_num);
                 Alert.Show("分解成功", "获得物品" + " 灵物碎片 " + "*" + buy_num);
                 Init();
 

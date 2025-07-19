@@ -8,6 +8,7 @@ using System.Linq;
 using UI;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class monitor_info : Base_Mono
 {
@@ -151,7 +152,11 @@ public class monitor_info : Base_Mono
                         case GreenhandGuide_Enum_List.技能:
                         case GreenhandGuide_Enum_List.战斗技能:
                         case GreenhandGuide_Enum_List.奇物:
-                            Battle_Tool.Obtain_Resources(task.Award[i], task.AwardNumber[i]);
+                            int random = Random.Range(1, 100);
+                            int number = task.AwardNumber[i];
+                            int maxnumber = number + Random.Range(1, 100);
+                            Battle_Tool.Obtain_Resources(Obtain_Int.Add(1, task.Award[i], new int[] { number + random, random }), maxnumber);
+                            //Battle_Tool.Obtain_Resources(task.Award[i], task.AwardNumber[i]);
                             break;
                         case GreenhandGuide_Enum_List.经验:
                             Battle_Tool.Obtain_Exp(task.AwardNumber[i]);
