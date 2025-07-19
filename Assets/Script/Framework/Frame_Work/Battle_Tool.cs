@@ -842,7 +842,7 @@ public static class Battle_Tool
     /// </summary>
     private static void Refresh_Rank()
     {
-        //SumSave.user_ranks.lists.Sort((x, y) => y.value.CompareTo(x.value));
+        //SumSave.user_ranks.lists.Sort((x, y) => y.value.CompareTo(x.value));//升序排列
         SumSave.user_ranks.lists = ArrayHelper.OrderDescding(SumSave.user_ranks.lists, x => x.value);
         Game_Omphalos.i.immediately(Mysql_Table_Name.user_rank);
     }
@@ -897,10 +897,10 @@ public static class Battle_Tool
             }
             else crate_rank();
         }
-        else if (SumSave.user_ranks.lists.Count > 50 && 
+        else if (SumSave.user_ranks.lists.Count >= 50 && 
         SumSave.crt_MaxHero.totalPower > SumSave.user_ranks.lists[SumSave.user_ranks.lists.Count - 1].value) //50个榜已满,且自身战力大于榜上最低的一名
         {
-            for (int i = SumSave.user_ranks.lists.Count - 2; i >= 0; i--)//此前已经满足 第50名条件，直接从49名开始往上遍历
+            for (int i = SumSave.user_ranks.lists.Count - 1; i >= 0; i--)//此前已经满足 第50名条件，直接从49名开始往上遍历
             {
                 if (SumSave.crt_MaxHero.totalPower > SumSave.user_ranks.lists[i].value) //逐个遍历,继续往上
                 {
@@ -928,7 +928,7 @@ public static class Battle_Tool
                 {
                     if (i != SumSave.user_ranks.lists.Count - 2) //如果说在倒数第二个结束，就直接替换倒数第一个，不需要进循环
                     {
-                        for (int j = SumSave.user_ranks.lists.Count - 1; j > i + 1; j++) //往后依次替换，这个时候已经比i小，不需要取到i
+                        for (int j = SumSave.user_ranks.lists.Count - 1; j > i + 1; j--) //往后依次替换，这个时候已经比i小，不需要取到i
                         {
                             SumSave.user_ranks.lists[j].value = SumSave.user_ranks.lists[j - 1].value;
                             SumSave.user_ranks.lists[j].lv = SumSave.user_ranks.lists[j - 1].lv;
