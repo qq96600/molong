@@ -62,10 +62,7 @@ public static class Battle_Tool
     /// <returns></returns>
     public static Dictionary<int, int> Get_Life_Type()
     {
-        if (base_life_types.Count == 0)
-        {
-            Init_Life_type();
-        }
+        Init_Life_type();
         return base_life_types;
     }
     /// <summary>
