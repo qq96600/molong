@@ -43,6 +43,8 @@ namespace MVC
         {
             InvokeRepeating("CountTime", 1, 1);
             InvokeRepeating("Read_User_Ranks", 600, 600);
+            //InvokeRepeating("Read_User_Ranks", 6, 6);
+
         }
         public void Show_Screensaver()
         {

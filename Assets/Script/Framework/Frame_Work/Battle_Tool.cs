@@ -333,6 +333,15 @@ public static class Battle_Tool
 
     }
     /// <summary>
+    /// 测试随机数
+    /// </summary>
+    /// <returns></returns>
+    public static int random()
+    {
+        return Random.Range(100, 2000);
+    }
+
+    /// <summary>
     /// 获取字符串
     /// </summary>
     /// <param name="o"></param>
@@ -844,6 +853,10 @@ public static class Battle_Tool
     {
         //SumSave.user_ranks.lists.Sort((x, y) => y.value.CompareTo(x.value));//升序排列
         SumSave.user_ranks.lists = ArrayHelper.OrderDescding(SumSave.user_ranks.lists, x => x.value);
+        if (SumSave.user_ranks.lists.Count > 50)
+        { 
+            SumSave.user_ranks.lists.RemoveRange(50, SumSave.user_ranks.lists.Count - 50);
+        }
         Game_Omphalos.i.immediately(Mysql_Table_Name.user_rank);
     }
 
@@ -897,58 +910,82 @@ public static class Battle_Tool
             }
             else crate_rank();
         }
-        else if (SumSave.user_ranks.lists.Count >= 50 && 
-        SumSave.crt_MaxHero.totalPower > SumSave.user_ranks.lists[SumSave.user_ranks.lists.Count - 1].value) //50个榜已满,且自身战力大于榜上最低的一名
+        else if (SumSave.user_ranks.lists.Count >= 50) //50个榜已满,且自身战力大于榜上最低的一名
         {
-            for (int i = SumSave.user_ranks.lists.Count - 1; i >= 0; i--)//此前已经满足 第50名条件，直接从49名开始往上遍历
+            //自身在排行榜内 刷新属性
+            for (int i = 0; i < SumSave.user_ranks.lists.Count; i++)
             {
-                if (SumSave.crt_MaxHero.totalPower > SumSave.user_ranks.lists[i].value) //逐个遍历,继续往上
+                if (SumSave.user_ranks.lists[i].uid == SumSave.crt_user.uid)
                 {
-                    if (i == 0)
-                    {
-                        for (int j = SumSave.user_ranks.lists.Count - 1; j > 0; j++) //往后依次替换,该情况仅适用于第一名
-                        {
-                            SumSave.user_ranks.lists[j].value = SumSave.user_ranks.lists[j - 1].value;
-                            SumSave.user_ranks.lists[j].lv = SumSave.user_ranks.lists[j - 1].lv;
-                            SumSave.user_ranks.lists[j].uid = SumSave.user_ranks.lists[j - 1].uid;
-                            SumSave.user_ranks.lists[j].name = SumSave.user_ranks.lists[j - 1].name;
-                            SumSave.user_ranks.lists[j].type = SumSave.user_ranks.lists[j - 1].type;
-                        }
-                        SumSave.user_ranks.lists[0].value = (int)SumSave.crt_MaxHero.totalPower;
-                        SumSave.user_ranks.lists[0].lv = SumSave.crt_MaxHero.Lv;
-                        SumSave.user_ranks.lists[0].uid = SumSave.crt_user.uid;
-                        SumSave.user_ranks.lists[0].name = SumSave.crt_MaxHero.show_name;
-                        SumSave.user_ranks.lists[0].type = SumSave.crt_hero.hero_pos;
-                        Refresh_Rank();
-                        break;
-                    }//替换第一名
-                    else continue;
-                }
-                else
-                {
-                    if (i != SumSave.user_ranks.lists.Count - 2) //如果说在倒数第二个结束，就直接替换倒数第一个，不需要进循环
-                    {
-                        for (int j = SumSave.user_ranks.lists.Count - 1; j > i + 1; j--) //往后依次替换，这个时候已经比i小，不需要取到i
-                        {
-                            SumSave.user_ranks.lists[j].value = SumSave.user_ranks.lists[j - 1].value;
-                            SumSave.user_ranks.lists[j].lv = SumSave.user_ranks.lists[j - 1].lv;
-                            SumSave.user_ranks.lists[j].uid = SumSave.user_ranks.lists[j - 1].uid;
-                            SumSave.user_ranks.lists[j].name = SumSave.user_ranks.lists[j - 1].name;
-                            SumSave.user_ranks.lists[j].type = SumSave.user_ranks.lists[j - 1].type;
-                        }
-                    }
-                    // 47   i  = cou - 4     j50  49 -1    49-48  -2
-                    SumSave.user_ranks.lists[i + 1].value = (int)SumSave.crt_MaxHero.totalPower;
-                    SumSave.user_ranks.lists[i + 1].lv = SumSave.crt_MaxHero.Lv;
-                    SumSave.user_ranks.lists[i + 1].uid = SumSave.crt_user.uid;
-                    SumSave.user_ranks.lists[i + 1].name = SumSave.crt_MaxHero.show_name;
-                    SumSave.user_ranks.lists[i + 1].type = SumSave.crt_hero.hero_pos;
+                    exist = true;
+                    SumSave.crt_MaxHero.Init();
+                    //写入日志 暂时先关闭
+                    //if (SumSave.crt_MaxHero.totalPower < SumSave.user_ranks.lists[i].value)//小于的情况 写入排行榜战力 且替换排行榜战力
+                    //{
+                    //    Game_Omphalos.i.Alert_Info($"你的战力降低了{"原战斗力" + SumSave.user_ranks.lists[i].value + " 当前" + (int)SumSave.crt_MaxHero.totalPower}");
+                    //}
+                    SumSave.user_ranks.lists[i].rank_name = SumSave.crt_MaxHero.show_name;
+                    SumSave.user_ranks.lists[i].value = (int)SumSave.crt_MaxHero.totalPower;
+                    SumSave.user_ranks.lists[i].lv = SumSave.crt_MaxHero.Lv;
+                    SumSave.user_ranks.lists[i].type = SumSave.crt_hero.hero_pos;// SumSave.crtHeroMaxs[0].Type;  
                     Refresh_Rank();
-                    break;  //比到战力更高的，就结束，替换直到这之前的前一位  这时已留出i之前的空位
+                    return;
                 }
+            }//自身不在排行榜内 
+            if (!exist && SumSave.crt_MaxHero.totalPower > SumSave.user_ranks.lists[SumSave.user_ranks.lists.Count - 1].value)
+            {
+                crate_rank();
+                //for (int i = SumSave.user_ranks.lists.Count - 1; i >= 0; i--)//此前已经满足 第50名条件，直接从49名开始往上遍历
+                //{
+                //    if (SumSave.crt_MaxHero.totalPower > SumSave.user_ranks.lists[i].value) //逐个遍历,继续往上
+                //    {
+                //        if (i == 0)
+                //        {
+                //            for (int j = SumSave.user_ranks.lists.Count - 1; j > 0; j++) //往后依次替换,该情况仅适用于第一名
+                //            {
+                //                SumSave.user_ranks.lists[j].value = SumSave.user_ranks.lists[j - 1].value;
+                //                SumSave.user_ranks.lists[j].lv = SumSave.user_ranks.lists[j - 1].lv;
+                //                SumSave.user_ranks.lists[j].uid = SumSave.user_ranks.lists[j - 1].uid;
+                //                SumSave.user_ranks.lists[j].name = SumSave.user_ranks.lists[j - 1].name;
+                //                SumSave.user_ranks.lists[j].type = SumSave.user_ranks.lists[j - 1].type;
+                //            }
+                //            SumSave.user_ranks.lists[0].value = (int)SumSave.crt_MaxHero.totalPower;
+                //            SumSave.user_ranks.lists[0].lv = SumSave.crt_MaxHero.Lv;
+                //            SumSave.user_ranks.lists[0].uid = SumSave.crt_user.uid;
+                //            SumSave.user_ranks.lists[0].name = SumSave.crt_MaxHero.show_name;
+                //            SumSave.user_ranks.lists[0].type = SumSave.crt_hero.hero_pos;
+                //            Refresh_Rank();
+                //            break;
+                //        }//替换第一名
+                //        else continue;
+                //    }
+                //    else
+                //    {
+                //        if (i != SumSave.user_ranks.lists.Count - 2) //如果说在倒数第二个结束，就直接替换倒数第一个，不需要进循环
+                //        {
+                //            for (int j = SumSave.user_ranks.lists.Count - 1; j > i + 1; j--) //往后依次替换，这个时候已经比i小，不需要取到i
+                //            {
+                //                SumSave.user_ranks.lists[j].value = SumSave.user_ranks.lists[j - 1].value;
+                //                SumSave.user_ranks.lists[j].lv = SumSave.user_ranks.lists[j - 1].lv;
+                //                SumSave.user_ranks.lists[j].uid = SumSave.user_ranks.lists[j - 1].uid;
+                //                SumSave.user_ranks.lists[j].name = SumSave.user_ranks.lists[j - 1].name;
+                //                SumSave.user_ranks.lists[j].type = SumSave.user_ranks.lists[j - 1].type;
+                //            }
+                //        }
+                //        // 47   i  = cou - 4     j50  49 -1    49-48  -2
+                //        SumSave.user_ranks.lists[i + 1].value = (int)SumSave.crt_MaxHero.totalPower;
+                //        SumSave.user_ranks.lists[i + 1].lv = SumSave.crt_MaxHero.Lv;
+                //        SumSave.user_ranks.lists[i + 1].uid = SumSave.crt_user.uid;
+                //        SumSave.user_ranks.lists[i + 1].name = SumSave.crt_MaxHero.show_name;
+                //        SumSave.user_ranks.lists[i + 1].type = SumSave.crt_hero.hero_pos;
+                //        Refresh_Rank();
+                //        break;  //比到战力更高的，就结束，替换直到这之前的前一位  这时已留出i之前的空位
+                //    }
+                //}
+
             }
+
         }
-        //SumSave.user_ranks.lists.Sort((x, y) => -x.value.CompareTo(y.value));
     }
     /// <summary>
     /// 五行加成值

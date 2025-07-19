@@ -186,7 +186,6 @@ namespace MVC
             }
             if (exist) SumSave.crt_Trial_Tower_rank.lists.Add((SumSave.crt_user.uid, SumSave.crt_MaxHero.show_name, trial_storey));
             SumSave.crt_Trial_Tower_rank.lists = ArrayHelper.OrderDescding(SumSave.crt_Trial_Tower_rank.lists, x => x.Item3);
-
             MysqlDb.UpdateInto(Mysql_Table_Name.user_trial_towers, SumSave.crt_Trial_Tower_rank.Get_Update_Character(), SumSave.crt_Trial_Tower_rank.Set_Uptade_String(), "par", GetStr(SumSave.par));
             CloseMySqlDB();
         }
@@ -209,8 +208,7 @@ namespace MVC
         private void world_boss_Login()
         {
             OpenMySqlDB();
-            mysqlReader = MysqlDb.SelectWhere(Mysql_Table_Name.db_world_boss, new string[] { "par" }, new string[] { "="},
-                new string[] { SumSave.par.ToString() });
+            mysqlReader= MysqlDb.Select(Mysql_Table_Name.db_world_boss, "par", GetStr(SumSave.par));
             if (mysqlReader.HasRows)
             {
                 while (mysqlReader.Read())
@@ -230,7 +228,7 @@ namespace MVC
                 SumSave.db_world_boos.DamageLevel_value = "1 1|2 3000|3 6000|4 10000|5 20000|6 35000|7 100000|8 200000";
                 SumSave.db_world_boos.UpTime = SumSave.nowtime.ToString("yyyy-MM-dd HH:mm:ss");
                 SumSave.db_world_boos.Init();
-
+                MysqlDb.InsertInto(Mysql_Table_Name.db_world_boss, SumSave.db_world_boos.Set_Instace_String());
             }
             CloseMySqlDB();
         }
@@ -247,7 +245,6 @@ namespace MVC
         private void world_boss_update()
         {
             OpenMySqlDB();
-            // Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.user_world_boos, SumSave.crt_world_boos.Set_Uptade_String(), SumSave.crt_world_boos.Get_Update_Character());
             MysqlDb.UpdateInto(Mysql_Table_Name.db_world_boss, SumSave.db_world_boos.Get_Update_Character(), SumSave.db_world_boos.Set_Uptade_String(), "par", GetStr(SumSave.par));
             CloseMySqlDB();
         }
