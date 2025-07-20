@@ -13,4 +13,10 @@ public class db_signin_vo : Base_VO
     /// 奖励内容
     /// </summary>
     public string value;
+
+    public db_signin_vo(int index, string value)
+    {
+        this.index = index;
+        this.value = value;
+    }
 }

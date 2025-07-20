@@ -339,17 +339,17 @@ namespace MVC
                 Alert_Dec.Show("请先选择服务器");
                 return;
             }
-            //if (!open_pars.ContainsKey(select_par.index))
-            //{
-            //    Alert_Dec.Show("当前服务器暂未开启");
-            //    return;
-            //}
+            if (!open_pars.ContainsKey(select_par.index))
+            {
+                Alert_Dec.Show("当前服务器暂未开启");
+                return;
+            }
 
-            //if (!open_pars[select_par.index])
-            //{
-            //    Alert_Dec.Show("当前服务器暂未开启");
-            //    return;
-            //}
+            if (!open_pars[select_par.index])
+            {
+                Alert_Dec.Show("当前服务器暂未开启");
+                return;
+            }
 #if UNITY_EDITOR
 
 #elif UNITY_ANDROID
@@ -363,7 +363,7 @@ namespace MVC
                 Alert_Dec.Show("当前服务器暂未开启");
                 return;
             }
-            Game_Omphalos.i.Wirte_Tap();
+       
            
 #elif UNITY_IPHONE
             
@@ -377,20 +377,9 @@ namespace MVC
                 Alert_Dec.Show("当前服务器暂未开启");
                 return;
             }
-            UI_Manager.Instance.GetPanel<Panel_cratehero>().Show();
+
 #endif
 
-            //for(int i=0;i<SumSave.db_pars.Count;i++)
-            //{
-            //    if (SumSave.db_pars[i].index == select_par.index)
-            //    {
-            //        if (SumSave.nowtime <= SumSave.db_pars[i].opentime)
-            //        {
-            //            Alert.Show("暂未开启", "当前服务器暂为开启");
-            //            return;
-            //        }
-            //    }    
-            //}
             if (!Toggle.isOn)
             {
                 Alert_Dec.Show("请先阅读并勾选同意协议");
@@ -402,7 +391,7 @@ namespace MVC
 #if UNITY_EDITOR
 
             #region ios区
-            SumSave.uid = "DSFSDFSDFSDF3";//测试用号 DSFSDFSDFSDF3 7fd776b56fce4dcb9e1e310cab220b6e
+            SumSave.uid = "DSFSDFSDFSDF";//测试用号 DSFSDFSDFSDF3 7fd776b56fce4dcb9e1e310cab220b6e
                                                              //SumSave.uid = "ed7091920d8f4f8aa193805fe45f8b3f";//温毓(ip)自然呆
                                                              //SumSave.uid = "d6a5b51fddf94459bb2e80e54c091453";//666(ip)
                                                              //SumSave.uid = "4024aeea8a704d3d965fafcb82d29493";//Rigine(ip)
@@ -427,6 +416,8 @@ namespace MVC
 
             #region 安卓区
             //SumSave.uid = "DSFSDFSDFSDF3";//
+
+            //SumSave.uid = "0907c455977b4b6bb8f2eb13a7348430";//自古圣贤皆寂寞(Tap id)
 
             //SumSave.par = 1;
             #endregion

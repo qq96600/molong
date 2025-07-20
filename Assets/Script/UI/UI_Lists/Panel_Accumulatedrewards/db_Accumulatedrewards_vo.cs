@@ -13,6 +13,15 @@ public class db_Accumulatedrewards_vo : Base_VO
     public List<(int,string)> pass_list = new List<(int, string)>();
     public List<(int,string)> signin_list = new List<(int, string)>();
     public Dictionary<int, Dictionary<int, List<int>>> fate_dic = new Dictionary<int, Dictionary<int, List<int>>>();
+
+    public db_Accumulatedrewards_vo(string pass_value, string signin_value, string fate_value)
+    {
+        this.pass_value = pass_value;
+        this.signin_value = signin_value;
+        this.fate_value = fate_value;
+        Init();
+    }
+
     public void Init()
     { 
         string[] pass = pass_value.Split('*');

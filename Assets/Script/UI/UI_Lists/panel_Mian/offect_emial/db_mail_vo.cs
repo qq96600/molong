@@ -33,6 +33,19 @@ public class db_mail_vo : Base_VO
     public string user_value;
 
     public Dictionary<int, Dictionary<string, int>> mail_dec = new Dictionary<int, Dictionary<string, int>>();
+
+    public db_mail_vo(int mail_id, DateTime mail_time, int mail_par, string uid, string user_value, string dec, int moeny)
+    {
+        this.mail_id = mail_id;
+        this.mail_time = mail_time;
+        this.mail_par = mail_par;
+        this.uid = uid;
+        this.user_value = user_value;
+        this.dec = dec;
+        this.moeny = moeny;
+        Init();
+    }
+
     public void Init()
     {
         string[] mail_dec_str = user_value.Split(',');
