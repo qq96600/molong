@@ -419,7 +419,7 @@ namespace MVC
 
             //SumSave.uid = "0907c455977b4b6bb8f2eb13a7348430";//自古圣贤皆寂寞(Tap id)
 
-            SumSave.uid = "46d188a5694a483aa2ad2f990ccc4449";//帝天 1区
+            //SumSave.uid = "46d188a5694a483aa2ad2f990ccc4449";//帝天 1区
 
             //SumSave.par = 1;
             #endregion

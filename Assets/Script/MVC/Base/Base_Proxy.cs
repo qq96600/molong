@@ -134,7 +134,6 @@ namespace MVC
                                 break;
                             case Mysql_Type.Delete:
                                 MysqlDb.Delete(wirtes[i].tableName, new string[] { "uid" }, new string[] { GetStr(SumSave.crt_user.uid)});
-                                //SumSave.
                                 break;
 
                             default: break;
@@ -145,10 +144,9 @@ namespace MVC
                         //wirtes.Add(wirte);
                     }
                 }
-               
             }
         }
-        private string[] versions = new string[] { "0.2025.02", "0.2025.02" };
+        private string[] versions = new string[] {"0.2025.02", "0.2025.03" };
         /// <summary>
         /// 检测次数
         /// </summary>
