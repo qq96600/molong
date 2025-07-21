@@ -324,7 +324,13 @@ public class show_Plant : Base_Mono
                 Set[i] = ("0", SumSave.nowtime > DateTime.Now ? SumSave.nowtime : DateTime.Now);
                 Wirte(Set);//写入数据库
                 Alert_Dec.Show("已收获");
-                Battle_Tool.Obtain_Resources(panltList[i].db_plant.HarvestMaterials, panltList[i].db_plant.harvestnumber- panltList[i].db_plant.lossnumber);
+
+                int number = panltList[i].db_plant.DoubleTheAcquisition();
+
+                Debug.Log("获得植物数量"+number);
+
+                Battle_Tool.Obtain_Resources(panltList[i].db_plant.HarvestMaterials, number);
+
                 panltList[i].Clear();
             }
         }

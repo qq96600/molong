@@ -108,8 +108,9 @@ public class plant_achievement : Base_Mono
         dic_lv = SumSave.crt_achievement.Set_Lv();
         if(!dic_lv.ContainsKey(crt_achieve_Item.Data.achievement_value))
         {
-            Alert_Dec.Show("未达到领取条件");
-            return;
+            //Alert_Dec.Show("未达到领取条件");
+            //return;
+            dic_lv.Add(crt_achieve_Item.Data.achievement_value, 0);
         }
         int lv = (int)dic_lv[crt_achieve_Item.Data.achievement_value];
         if (true)

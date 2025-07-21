@@ -92,7 +92,7 @@ public class panel_fight : Panel_Base
     /// <summary>
     /// 五行种子
     /// </summary>
-    private string[] FiveElementSeeds= { "牡丹皮种子", "青蒿种子", "苦参种子", "葛根种子", "金银花种子" };
+    private string[] FiveElementSeeds= { "牡丹皮", "青蒿", "苦参", "葛根", "金银花" , "黄连" , "薄荷" , "决明子", "芍药" , "菊花", "桂枝" , "穿心莲", "银翘", "栀子", "桑叶" };
     protected override void Awake()
     {
         base.Awake();
@@ -297,10 +297,32 @@ public class panel_fight : Panel_Base
 
 
             //获得五行随机五行种子
+
+
+#if UNITY_EDITOR
+            #region 测试副本获得植物材料
+            //string str="";
+            //for(int i = 0; i <1000; i++)
+            //{
+            //    string material = FiveElementSeeds[Random.Range(0, FiveElementSeeds.Length)];
+            //    int num = Random.Range(1, 3);
+            //    Battle_Tool.Obtain_Resources(material, num);
+            //  str+= material + " * " + num + "\n";
+            //
+            //Alert.Show("副本战斗结束", str);
+            #endregion
+#elif UNITY_ANDROID
+
+#elif UNITY_IPHONE
+
+#endif
+
+
             string material = FiveElementSeeds[Random.Range(0, FiveElementSeeds.Length)];
             int num = Random.Range(1, 3);
             Battle_Tool.Obtain_Resources(material, num);
             Alert.Show(map.map_name, "获得 " + material + " * " + num);
+
         }
         Combat_statistics.isTime = true;
         select_map = map;
