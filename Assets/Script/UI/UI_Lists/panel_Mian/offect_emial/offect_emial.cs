@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 /// <summary>
 /// 邮件列表
 /// </summary>
@@ -116,7 +117,11 @@ public class offect_emial : Base_Mono
                         ((currency_unit)Enum.Parse(typeof(currency_unit), material), str[index][material]);
                         break;
                     case 2://道具
-                        Battle_Tool.Obtain_Resources(material, str[index][material],true);
+                        int random = Random.Range(1, 100);
+                        int number = str[index][material];
+                        int maxnumber = number + Random.Range(1, 100);
+                        Battle_Tool.Obtain_Resources(Obtain_Int.Add(1, material, new int[] { number + random, random }), maxnumber);
+                        //Battle_Tool.Obtain_Resources(material, str[index][material],true);
                         break;
                     case 3://通行证
                         Dictionary<int, List<int>> dic = SumSave.crt_pass.Set();

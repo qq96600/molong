@@ -243,7 +243,11 @@ public class panel_fight : Panel_Base
                 value = (int)(damge * max / target.maxHP);
                 List<(string,int)> str = SumSave.db_lvs.world_lv_list_dic[0];
                 Alert.Show(select_map.map_name, "副本战斗结束,造成伤害 " + damge + "\n获得 " + str[0].Item1+" * "+value );
-                Battle_Tool.Obtain_Resources(str[0].Item1,(int)value);
+                int random = Random.Range(1, 100);
+                int number = (int)value;
+                int maxnumber = number + Random.Range(1, 100);
+                Battle_Tool.Obtain_Resources(Obtain_Int.Add(1, str[0].Item1, new int[] { number + random, random }), maxnumber);
+                //Battle_Tool.Obtain_Resources(str[0].Item1,(int)value);
                 break;
             default:
                 break;
@@ -316,11 +320,13 @@ public class panel_fight : Panel_Base
 #elif UNITY_IPHONE
 
 #endif
-
-
             string material = FiveElementSeeds[Random.Range(0, FiveElementSeeds.Length)];
             int num = Random.Range(1, 3);
-            Battle_Tool.Obtain_Resources(material, num);
+            int random = Random.Range(1, 100);
+            int number = num;
+            int maxnumber = number + Random.Range(1, 100);
+            Battle_Tool.Obtain_Resources(Obtain_Int.Add(1, material, new int[] { number + random, random }), maxnumber);
+            //Battle_Tool.Obtain_Resources(material, num);
             Alert.Show(map.map_name, "获得 " + material + " * " + num);
 
         }
@@ -513,13 +519,21 @@ public class panel_fight : Panel_Base
         dec += "\n奖励" + Show_Color.Red("下品噬心魔种" + " * 5");
         dec += "\n奖励" + Show_Color.Red("历练值" + " * " + ((trial_storey / 10 + 1) * 10000));
         Battle_Tool.Obtain_Unit(currency_unit.历练, ((trial_storey / 10 + 1) * 10000));
-        Battle_Tool.Obtain_Resources("下品噬心魔种", 5);
+        int random = Random.Range(1, 100);
+        int number = 5;
+        int maxnumber = number + Random.Range(1, 100);
+        Battle_Tool.Obtain_Resources(Obtain_Int.Add(1, "下品噬心魔种", new int[] { number + random, random }), maxnumber);
+        //Battle_Tool.Obtain_Resources("下品噬心魔种", 5);
         if (trial_storey > 0)
         {
             if ((trial_storey) % 10 == 0)
             {
                 dec += "\n进阶奖励" + Show_Color.Red("万鸦壶" + " * 1");
-                Battle_Tool.Obtain_Resources("万鸦壶", 1);
+                int randoms = Random.Range(1, 100);
+                int numbers = 1;
+                int maxnumbers = number + Random.Range(1, 100);
+                Battle_Tool.Obtain_Resources(Obtain_Int.Add(1, "万鸦壶", new int[] { numbers + randoms, randoms }), maxnumbers);
+                //Battle_Tool.Obtain_Resources("万鸦壶", 1);
             }
         }
         Alert.Show("试炼塔奖励", dec);

@@ -18,4 +18,13 @@ public class db_dec : Base_VO
     /// </summary>
     public string dec;
 
+
+
+    public db_dec(string _panel_index, string _title, string _dec)
+    {
+        this.panel_index = _panel_index;
+        this.title = _title;
+        this.dec = _dec;
+    }
+
 }

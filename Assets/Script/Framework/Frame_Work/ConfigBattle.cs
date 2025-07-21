@@ -209,7 +209,11 @@ namespace MVC
                     }
                 }
                 //获取材料
-                Battle_Tool.Obtain_Resources(bag.Name, 1);
+                int random = Random.Range(1, 100);
+                int number = 1;
+                int maxnumber = number + Random.Range(1, 100);
+                Battle_Tool.Obtain_Resources(Obtain_Int.Add(1, bag.Name, new int[] { number + random, random }), maxnumber);
+                //Battle_Tool.Obtain_Resources(bag.Name, 1);
                 ObtainEquipmentTasks(bag);
                 Calculations.Add("获得 " + bag.Name + " * " + 1);
                 

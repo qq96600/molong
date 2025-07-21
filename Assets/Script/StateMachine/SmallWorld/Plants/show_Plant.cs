@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using UI;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class show_Plant : Base_Mono
 {
@@ -324,13 +325,11 @@ public class show_Plant : Base_Mono
                 Set[i] = ("0", SumSave.nowtime > DateTime.Now ? SumSave.nowtime : DateTime.Now);
                 Wirte(Set);//写入数据库
                 Alert_Dec.Show("已收获");
-
                 int number = panltList[i].db_plant.DoubleTheAcquisition();
-
-                Debug.Log("获得植物数量"+number);
-
-                Battle_Tool.Obtain_Resources(panltList[i].db_plant.HarvestMaterials, number);
-
+                int random = Random.Range(1, 100);
+                int maxnumber = number + Random.Range(1, 100);
+                Battle_Tool.Obtain_Resources(Obtain_Int.Add(1, panltList[i].db_plant.HarvestMaterials, new int[] { number + random, random }), maxnumber);
+                //Battle_Tool.Obtain_Resources(panltList[i].db_plant.HarvestMaterials, number);
                 panltList[i].Clear();
             }
         }

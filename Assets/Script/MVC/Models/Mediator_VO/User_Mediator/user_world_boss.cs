@@ -24,6 +24,14 @@ public class user_world_boss : Base_VO
     /// </summary>
     public string uid;
 
+    public user_world_boss(int damage, DateTime datetime, int par, string uid)
+    {
+        this.damage = damage;
+        this.datetime = datetime;
+        this.par = par;
+        this.uid = uid;
+    }
+
     public void CauseDamage(long damage)
     {
         this.damage += damage;

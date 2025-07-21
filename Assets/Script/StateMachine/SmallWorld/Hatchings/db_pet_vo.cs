@@ -84,6 +84,7 @@ public class db_pet_vo : Base_VO
     public string pet_explore;
 
     public string user_value;
+   
 
 
     /// <summary>

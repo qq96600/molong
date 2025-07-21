@@ -12,6 +12,14 @@ namespace MVC
         public DateTime RegisterDate;//注册日期
         public DateTime Nowdate;//登录日期
 
+        public user_base_vo(string uid, DateTime registerDate, DateTime nowdate, int par)
+        {
+            this.uid = uid;
+            RegisterDate = registerDate;
+            Nowdate = nowdate;
+            this.par = par;
+        }
+
         /// <summary>
         /// 初始化
         /// </summary>

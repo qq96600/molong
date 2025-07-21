@@ -53,4 +53,19 @@ public class db_seed_vo : Base_VO
     /// </summary>
     public int dicdictionary_index;
 
+    public db_seed_vo(string type, int sequence, string seed_name, string seed_formula, string pill, string formula, string pill_effect, int weight, int seed_number, int rule, int dicdictionary_index, int limit)
+    {
+        this.type = type;
+        this.sequence = sequence;
+        this.seed_name = seed_name;
+        this.seed_formula = seed_formula;
+        this.pill = pill;
+        this.formula = formula;
+        this.pill_effect = pill_effect;
+        Weight = weight;
+        this.seed_number = seed_number;
+        this.rule = rule;
+        this.dicdictionary_index = dicdictionary_index;
+        this.limit = limit;
+    }
 }

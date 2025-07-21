@@ -165,8 +165,7 @@ public class hatching_progress : Base_Mono
                     return;
                 }
                 dic.Add(crt_egg.Item1, -1);
-                
-                SumSave.crt_bag_resources.Get(dic);
+                SumSave.crt_bag_resources.Get(dic,1);
                 Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.material_value, SumSave.crt_bag_resources.GetData());
                 db_pet_vo pet = ArrayHelper.Find(SumSave.db_pet, e => e.petEggsName == crt_egg.Item1);
                 if (pet != null)

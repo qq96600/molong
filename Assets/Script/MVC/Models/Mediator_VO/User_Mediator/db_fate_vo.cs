@@ -17,6 +17,12 @@ public class db_fate_vo : Base_VO
     /// </summary>
     public List<(string, int, int, int, int)> fate_value_list= new List<(string, int, int, int, int)>();
 
+    public db_fate_vo(int fate_id, string fate_value)
+    {
+        this.fate_id = fate_id;
+        this.fate_value = fate_value;
+        Init();
+    }
 
     internal void Init()
     {

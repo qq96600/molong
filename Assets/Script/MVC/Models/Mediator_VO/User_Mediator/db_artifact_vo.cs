@@ -34,4 +34,14 @@ public class db_artifact_vo : Base_VO
     /// </summary>
     public int Artifact_MaxLv;
 
+    public db_artifact_vo(string arrifact_name, string[] artifact_open_needs, string[] arrifact_needs, string[] arrifact_effects, int arrifact_type, string artifact_dec, int artifact_MaxLv)
+    {
+        this.arrifact_name = arrifact_name;
+        Artifact_open_needs = artifact_open_needs;
+        this.arrifact_needs = arrifact_needs;
+        this.arrifact_effects = arrifact_effects;
+        this.arrifact_type = arrifact_type;
+        Artifact_dec = artifact_dec;
+        Artifact_MaxLv = artifact_MaxLv;
+    }
 }

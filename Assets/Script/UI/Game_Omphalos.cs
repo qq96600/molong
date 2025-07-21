@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UI;
 using UnityEngine;
 using UnityEngine.Analytics;
+using Random = UnityEngine.Random;
 
 namespace MVC
 {
@@ -42,6 +43,8 @@ namespace MVC
         {
             InvokeRepeating("CountTime", 1, 1);
             InvokeRepeating("Read_User_Ranks", 600, 600);
+            //InvokeRepeating("Read_User_Ranks", 6, 6);
+
         }
         public void Show_Screensaver()
         {
@@ -146,8 +149,11 @@ namespace MVC
                             {
                                 exist = true;
                                 Set[i] = ("0", SumSave.nowtime > DateTime.Now ? SumSave.nowtime : DateTime.Now);
-                               int harvestnumber = vo.DoubleTheAcquisition();
-                                Battle_Tool.Obtain_Resources(vo.HarvestMaterials, harvestnumber);
+                                int harvestnumber = vo.DoubleTheAcquisition();
+                                int random = Random.Range(1, 100);
+                                int maxnumber = harvestnumber + Random.Range(1, 100);
+                                Battle_Tool.Obtain_Resources(Obtain_Int.Add(1, vo.HarvestMaterials, new int[] { harvestnumber + random, random }), maxnumber);
+                                //Battle_Tool.Obtain_Resources(vo.HarvestMaterials, harvestnumber, max);
                                 Alert_Dec.Show("自动收获 " + vo.HarvestMaterials + " * " + (vo.harvestnumber - vo.lossnumber));
                             }
                         }

@@ -231,7 +231,7 @@ public class crtMaxHeroVO
 
 #if UNITY_EDITOR
 
-        totalPower = 1;
+        totalPower = Battle_Tool.random();
 
 #elif UNITY_ANDROID
 

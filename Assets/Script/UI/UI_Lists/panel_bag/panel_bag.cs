@@ -138,7 +138,11 @@ public class panel_bag : Panel_Base
             {
                 SumSave.crt_bag.Remove(item);
             }
-            Battle_Tool.Obtain_Resources("绝世碎片", sell_list.Count * 2);
+            int random = Random.Range(1, 100);
+            int number = sell_list.Count * 2;
+            int maxnumber = number + Random.Range(1, 100);
+            Battle_Tool.Obtain_Resources(Obtain_Int.Add(1, "绝世碎片", new int[] { number + random, random }), maxnumber);
+            //Battle_Tool.Obtain_Resources("绝世碎片", sell_list.Count * 2);
             Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.bag_value, SumSave.crt_bag);
             Show_Bag();
             Alert.Show("分解成功", "获得" + Show_Color.Red("绝世碎片") + " * " + (sell_list.Count * 2));

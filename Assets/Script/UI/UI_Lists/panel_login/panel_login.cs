@@ -339,56 +339,47 @@ namespace MVC
                 Alert_Dec.Show("请先选择服务器");
                 return;
             }
-            //if (!open_pars.ContainsKey(select_par.index))
-            //{
-            //    Alert_Dec.Show("当前服务器暂为开启");
-            //    return;
-            //}
+            if (!open_pars.ContainsKey(select_par.index))
+            {
+                Alert_Dec.Show("当前服务器暂未开启");
+                return;
+            }
 
-            //if (!open_pars[select_par.index])
-            //{
-            //    Alert_Dec.Show("当前服务器暂为开启");
-            //    return;
-            //}
+            if (!open_pars[select_par.index])
+            {
+                Alert_Dec.Show("当前服务器暂未开启");
+                return;
+            }
 #if UNITY_EDITOR
 
 #elif UNITY_ANDROID
-            Game_Omphalos.i.Wirte_Tap();
-             if (!open_pars.ContainsKey(select_par.index)) {
-                Alert_Dec.Show("当前服务器暂为开启");
+            if (!open_pars.ContainsKey(select_par.index)) {
+                Alert_Dec.Show("当前服务器暂未开启");
                 return;
             }
 
             if (!open_pars[select_par.index])
             {
-                Alert_Dec.Show("当前服务器暂为开启");
+                Alert_Dec.Show("当前服务器暂未开启");
                 return;
             }
+       
+           
 #elif UNITY_IPHONE
-            UI_Manager.Instance.GetPanel<Panel_cratehero>().Show();
+            
              if (!open_pars.ContainsKey(select_par.index)) {
-                Alert_Dec.Show("当前服务器暂为开启");
+                Alert_Dec.Show("当前服务器暂未开启");
                 return;
             }
 
             if (!open_pars[select_par.index])
             {
-                Alert_Dec.Show("当前服务器暂为开启");
+                Alert_Dec.Show("当前服务器暂未开启");
                 return;
             }
+
 #endif
 
-            //for(int i=0;i<SumSave.db_pars.Count;i++)
-            //{
-            //    if (SumSave.db_pars[i].index == select_par.index)
-            //    {
-            //        if (SumSave.nowtime <= SumSave.db_pars[i].opentime)
-            //        {
-            //            Alert.Show("暂未开启", "当前服务器暂为开启");
-            //            return;
-            //        }
-            //    }    
-            //}
             if (!Toggle.isOn)
             {
                 Alert_Dec.Show("请先阅读并勾选同意协议");
@@ -401,30 +392,35 @@ namespace MVC
 #if UNITY_EDITOR
 
             #region ios区
-            SumSave.uid = "DSFSDFSDFSDF3";//测试用号 DSFSDFSDFSDF3
-                                          //SumSave.uid = "ed7091920d8f4f8aa193805fe45f8b3f";//温毓(ip)自然呆
-                                          //SumSave.uid = "d6a5b51fddf94459bb2e80e54c091453";//666(ip)
-                                          //SumSave.uid = "4024aeea8a704d3d965fafcb82d29493";//Rigine(ip)
-                                          //SumSave.uid = "df5d8e6d010c4019a7f9bc37b8b92f76";
-                                          //SumSave.uid = "20d964db078a4edd8fa891a5ed779e22";//墨龙 （Wf3120785王小）
-                                          // SumSave.uid = "8026157149ab4e86af8f69b22e12a7c4";
-                                          //SumSave.uid = "b4a6dc9406a0478889e753ddff4c6b00";//都做了土（ip）
-                                          //SumSave.uid = "96e0f4194df348d794db72ae26464604";//缘起
-                                          //SumSave.uid = "ed7091920d8f4f8aa193805fe45f8b3f";//温毓(ip)自然呆
-                                          //SumSave.uid = "d6a5b51fddf94459bb2e80e54c091453";//666(ip)
-                                          //SumSave.uid = "4024aeea8a704d3d965fafcb82d29493";//Rigine(ip)
-                                          //SumSave.uid = "df5d8e6d010c4019a7f9bc37b8b92f76";
-                                          //SumSave.uid = "20d964db078a4edd8fa891a5ed779e22";//墨龙 （Wf3120785王小）
-                                          // SumSave.uid = "8026157149ab4e86af8f69b22e12a7c4";
-                                          //SumSave.uid = "464326ce7bc34ae4b612d53fb9fda084";//都做了土（ip）
-                                          // SumSave.uid = "ae47220bfc8242f381692c52edb15aba";//隐官(ip)
-            SumSave.par = -2;
+            SumSave.uid = "DSFSDFSDFSDF";//测试用号 DSFSDFSDFSDF3 7fd776b56fce4dcb9e1e310cab220b6e
+                                         //SumSave.uid = "ed7091920d8f4f8aa193805fe45f8b3f";//温毓(ip)自然呆
+                                         //SumSave.uid = "d6a5b51fddf94459bb2e80e54c091453";//666(ip)
+                                         //SumSave.uid = "4024aeea8a704d3d965fafcb82d29493";//Rigine(ip)
+                                         //SumSave.uid = "df5d8e6d010c4019a7f9bc37b8b92f76";
+                                         //SumSave.uid = "20d964db078a4edd8fa891a5ed779e22";//墨龙 （Wf3120785王小）
+                                         // SumSave.uid = "8026157149ab4e86af8f69b22e12a7c4";
+                                         //SumSave.uid = "b4a6dc9406a0478889e753ddff4c6b00";//都做了土（ip）
+                                         //SumSave.uid = "96e0f4194df348d794db72ae26464604";//缘起
+                                         //SumSave.uid = "ed7091920d8f4f8aa193805fe45f8b3f";//温毓(ip)自然呆
+                                         //SumSave.uid = "d6a5b51fddf94459bb2e80e54c091453";//666(ip)
+                                         //SumSave.uid = "4024aeea8a704d3d965fafcb82d29493";//Rigine(ip)
+                                         //SumSave.uid = "df5d8e6d010c4019a7f9bc37b8b92f76";
+                                         //SumSave.uid = "20d964db078a4edd8fa891a5ed779e22";//墨龙 （Wf3120785王小）
+                                         // SumSave.uid = "8026157149ab4e86af8f69b22e12a7c4";
+                                         //SumSave.uid = "464326ce7bc34ae4b612d53fb9fda084";//都做了土（ip）
+                                         // SumSave.uid = "ae47220bfc8242f381692c52edb15aba";//隐官(ip)
+
+            // SumSave.par = -2;
 
             #endregion
 
 
             #region 安卓区
             //SumSave.uid = "DSFSDFSDFSDF3";//
+
+            //SumSave.uid = "0907c455977b4b6bb8f2eb13a7348430";//自古圣贤皆寂寞(Tap id)
+
+            SumSave.uid = "46d188a5694a483aa2ad2f990ccc4449";//帝天 1区
 
             //SumSave.par = 1;
             #endregion

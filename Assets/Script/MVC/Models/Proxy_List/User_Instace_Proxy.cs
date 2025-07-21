@@ -29,12 +29,12 @@ namespace MVC
         {
             OpenMySqlDB();
             mysqlReader = MysqlDb.Select(Mysql_Table_Name.mo_user_base, "uid", GetStr(SumSave.uid));
-            SumSave.crt_user = new user_base_vo();
+            SumSave.crt_user = new user_base_vo(SumSave.uid,SumSave.nowtime,SumSave.nowtime,SumSave.par);
             if (mysqlReader.HasRows)
             {
                 while (mysqlReader.Read())
                 { 
-                    SumSave.crt_user = ReadDb.Read(mysqlReader, SumSave.crt_user);
+                    SumSave.crt_user = ReadDb.Read_user_base(mysqlReader);
                 }
                 SumSave.crt_user.Nowdate = DateTime.Now;
                 Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_base, SumSave.crt_user.Set_Uptade_String(), SumSave.crt_user.Get_Update_Character());
@@ -186,7 +186,6 @@ namespace MVC
             }
             if (exist) SumSave.crt_Trial_Tower_rank.lists.Add((SumSave.crt_user.uid, SumSave.crt_MaxHero.show_name, trial_storey));
             SumSave.crt_Trial_Tower_rank.lists = ArrayHelper.OrderDescding(SumSave.crt_Trial_Tower_rank.lists, x => x.Item3);
-
             MysqlDb.UpdateInto(Mysql_Table_Name.user_trial_towers, SumSave.crt_Trial_Tower_rank.Get_Update_Character(), SumSave.crt_Trial_Tower_rank.Set_Uptade_String(), "par", GetStr(SumSave.par));
             CloseMySqlDB();
         }
@@ -209,8 +208,7 @@ namespace MVC
         private void world_boss_Login()
         {
             OpenMySqlDB();
-            mysqlReader = MysqlDb.SelectWhere(Mysql_Table_Name.db_world_boss, new string[] { "par" }, new string[] { "="},
-                new string[] { SumSave.par.ToString() });
+            mysqlReader= MysqlDb.Select(Mysql_Table_Name.db_world_boss, "par", GetStr(SumSave.par));
             if (mysqlReader.HasRows)
             {
                 while (mysqlReader.Read())
@@ -230,7 +228,7 @@ namespace MVC
                 SumSave.db_world_boos.DamageLevel_value = "1 1|2 3000|3 6000|4 10000|5 20000|6 35000|7 100000|8 200000";
                 SumSave.db_world_boos.UpTime = SumSave.nowtime.ToString("yyyy-MM-dd HH:mm:ss");
                 SumSave.db_world_boos.Init();
-
+                MysqlDb.InsertInto(Mysql_Table_Name.db_world_boss, SumSave.db_world_boos.Set_Instace_String());
             }
             CloseMySqlDB();
         }
@@ -247,7 +245,6 @@ namespace MVC
         private void world_boss_update()
         {
             OpenMySqlDB();
-            // Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.user_world_boos, SumSave.crt_world_boos.Set_Uptade_String(), SumSave.crt_world_boos.Get_Update_Character());
             MysqlDb.UpdateInto(Mysql_Table_Name.db_world_boss, SumSave.db_world_boos.Get_Update_Character(), SumSave.db_world_boos.Set_Uptade_String(), "par", GetStr(SumSave.par));
             CloseMySqlDB();
         }
@@ -319,7 +316,7 @@ namespace MVC
                 }
             }
             SumSave.db_world_boss_hurt.Clear();
-            SumSave.crt_world_boss_hurt = new user_world_boss();
+            SumSave.crt_world_boss_hurt = new user_world_boss(0, SumSave.nowtime, SumSave.par, SumSave.uid);
             SumSave.crt_world_boss_hurt.damage = 0;
             SumSave.crt_world_boss_hurt.datetime = SumSave.nowtime;
             //Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.user_world_boss, SumSave.crt_world_boss_hurt.Set_Instace_String());
@@ -341,7 +338,7 @@ namespace MVC
             {
                 while (mysqlReader.Read())
                 {
-                    SumSave.db_world_boss_hurt.Add(ReadDb.Read(mysqlReader, new user_world_boss()));
+                    SumSave.db_world_boss_hurt.Add(ReadDb.Read_world_boss(mysqlReader));
                 }
             }
         }
@@ -528,13 +525,13 @@ namespace MVC
         {
             //mysqlReader = MysqlDb.Select(Mysql_Table_Name.user_world_boss, "uid", GetStr(SumSave.crt_user.uid));
             mysqlReader = MysqlDb.Select(Mysql_Table_Name.user_world_boss_copy1, "uid", GetStr(SumSave.crt_user.uid));
-            SumSave.crt_world_boss_hurt= new user_world_boss();
+            SumSave.crt_world_boss_hurt= new user_world_boss(0,SumSave.nowtime,SumSave.par,SumSave.uid);
 
             if (mysqlReader.HasRows)
             {
                 while (mysqlReader.Read())
                 {
-                    SumSave.crt_world_boss_hurt = ReadDb.Read(mysqlReader, new user_world_boss());
+                    SumSave.crt_world_boss_hurt = ReadDb.Read_world_boss(mysqlReader);
                 }
 
             }else
@@ -552,13 +549,13 @@ namespace MVC
         private void Read_User_Reward()
         {
             mysqlReader = MysqlDb.Select(Mysql_Table_Name.mo_user_rewards_state, "uid", GetStr(SumSave.crt_user.uid));
-            SumSave.crt_accumulatedrewards = new user_Accumulatedrewards_vo();
+            SumSave.crt_accumulatedrewards = new user_Accumulatedrewards_vo("",0,0);
 
             if (mysqlReader.HasRows)
             {
                 while (mysqlReader.Read())
                 {
-                    SumSave.crt_accumulatedrewards = ReadDb.Read(mysqlReader, new user_Accumulatedrewards_vo());
+                    SumSave.crt_accumulatedrewards = ReadDb.Read_Accumulatedrewards(mysqlReader);
                 }
 
             }
@@ -890,7 +887,7 @@ namespace MVC
             {
                 while (mysqlReader.Read())
                 {
-                    SumSave.Db_Mails.Add(ReadDb.Read(mysqlReader, new db_mail_vo()));
+                    SumSave.Db_Mails.Add(ReadDb.Read_mail(mysqlReader));
                 }
             }
 

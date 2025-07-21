@@ -142,7 +142,7 @@ public class Hero_VO : Base_VO
     /// </summary>
     public void RefreshTianming()
     {
-        Uptianming_Platform();
+        tianming_Platform=Uptianming_Platform();
         MysqlData();
     }
 
@@ -150,14 +150,15 @@ public class Hero_VO : Base_VO
     /// <summary>
     /// 刷新天命台属性
     /// </summary>
-    public  void  Uptianming_Platform()
+    public  int[]  Uptianming_Platform()
     {
-        tianming_Platform = new int[5];
-        for (int i = 0; i < tianming_Platform.Length; i++)
+        int[] tianming = new int[5];
+        for (int i = 0; i < tianming.Length; i++)
         {
             int index = Random.Range(0, 5);
-            tianming_Platform[i] = index;
+            tianming[i] = index;
         }
+        return tianming;
     }
     /// <summary>
     /// 初始化天命

@@ -67,6 +67,23 @@ public class db_vip : Base_VO
     /// </summary>
     public int upperLimitOfSpiritualEnergy;
 
-
-
+    public db_vip(int vip_lv, string vip_name, int vip_exp, int experienceBonus, int lingzhuIncome, int equipmentExplosionRate, int characterExperience, int monsterHuntingInterval, int hpRecovery, int manaRegeneration, int goodFortune, int strengthenCosts, int offlineInterval, int signInIncome, int whippingCorpses, int upperLimitOfSpiritualEnergy)
+    {
+        this.vip_lv = vip_lv;
+        this.vip_name = vip_name;
+        this.vip_exp = vip_exp;
+        this.experienceBonus = experienceBonus;
+        this.lingzhuIncome = lingzhuIncome;
+        this.equipmentExplosionRate = equipmentExplosionRate;
+        this.characterExperience = characterExperience;
+        this.monsterHuntingInterval = monsterHuntingInterval;
+        this.hpRecovery = hpRecovery;
+        this.manaRegeneration = manaRegeneration;
+        this.goodFortune = goodFortune;
+        this.strengthenCosts = strengthenCosts;
+        this.offlineInterval = offlineInterval;
+        this.signInIncome = signInIncome;
+        this.whippingCorpses = whippingCorpses;
+        this.upperLimitOfSpiritualEnergy = upperLimitOfSpiritualEnergy;
+    }
 }

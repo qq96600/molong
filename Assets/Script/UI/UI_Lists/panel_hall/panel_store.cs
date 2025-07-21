@@ -8,6 +8,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 /// <summary>
 /// 商店购买丹药
@@ -323,7 +324,11 @@ public class panel_store : Base_Mono
                 AddBuff(buy_item,3f,1);
                 break;
                 default:
-                Battle_Tool.Obtain_Resources(buy_item.ItemName, buy_num);//获取奖励
+                int random = Random.Range(1, 100);
+                int number = buy_num;
+                int maxnumber = number + Random.Range(1, 100);
+                Battle_Tool.Obtain_Resources(Obtain_Int.Add(1, buy_item.ItemName, new int[] { number + random, random }), maxnumber);
+                //Battle_Tool.Obtain_Resources(buy_item.ItemName, buy_num);//获取奖励
                
                 break;
         }
@@ -413,7 +418,39 @@ public class panel_store : Base_Mono
         store_item_info.gameObject.SetActive(true);
         buy_item_Title.text = item.ItemName;
         buy_item= item;
-        if(buy_item.ItemMaxQuantity > 0)
+        buy_text.text= "";
+
+        switch (item.ItemName)
+        {
+            case "下品历练丹":
+                buy_text.text += Show_Color.Red("添加1.5倍历练Buff (1小时)\n");
+                break;
+            case "中品历练丹":
+                buy_text.text += Show_Color.Red("添加2倍历练Buff (1小时)\n");
+                break;
+            case "上品历练丹":
+                buy_text.text += Show_Color.Red("添加3倍历练Buff (1小时)\n");
+                break;
+            case "下品经验丹":
+                buy_text.text += Show_Color.Red("添加1.5倍经验Buff (1小时)\n");
+                break;
+            case "中品经验丹":
+                buy_text.text += Show_Color.Red("添加2倍经验Buff (1小时)\n");
+                break;
+            case "上品经验丹":
+                buy_text.text += Show_Color.Red("添加3倍经验Buff (1小时)\n");
+                break;
+        }
+
+
+
+
+
+
+
+
+
+        if (buy_item.ItemMaxQuantity > 0)
         {
             int nums = 0;
             if (SumSave.crt_needlist.store_value_dic.ContainsKey(buy_item.ItemName))//判断字典中是否含有该物品
@@ -425,10 +462,10 @@ public class panel_store : Base_Mono
                 nums= buy_item.ItemMaxQuantity;
             }
             
-            buy_text.text = "购买数量:\n" + nums + "/"+ buy_item.ItemMaxQuantity;
+            buy_text.text += "购买数量:\n" + nums + "/"+ buy_item.ItemMaxQuantity;
         }else
         {
-            buy_text.text = " ";
+            buy_text.text += " ";
         }
 
     }

@@ -58,7 +58,7 @@ public class Show_Material : Base_Mono
         {
             Dictionary<string,int> dic = new Dictionary<string, int>();
             dic.Add(data.Item1, -data.Item2);
-            SumSave.crt_bag_resources.Get(dic);
+            SumSave.crt_bag_resources.Get(dic,1);
             Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.material_value, SumSave.crt_bag_resources.GetData());
         }
         else
@@ -110,7 +110,7 @@ public class Show_Material : Base_Mono
             }
             Dictionary<string, int> dic = new Dictionary<string, int>();
             dic.Add(data.Item1, -data.Item2);
-            SumSave.crt_bag_resources.Get(dic);
+            SumSave.crt_bag_resources.Get(dic,1);
             Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.material_value, SumSave.crt_bag_resources.GetData());
         }
         else
