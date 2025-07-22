@@ -75,10 +75,15 @@ public class signIn : Base_Mono
                 SumSave.crt_signin.Get_Update_Character());
             Alert_Dec.Show("签到成功");
             SumSave.crt_pass.clear_data();
-            SumSave.crt_user_unit.verify_data(currency_unit.灵珠, 1000000 * SumSave.crt_signin.number);
+            long num = 1000000 * SumSave.crt_signin.number;
+            if(num>=100000000)//限制为1亿
+            {
+                num = 100000000;
+            }
+            SumSave.crt_user_unit.verify_data(currency_unit.灵珠, num);
+
             string dec = "\n签到奖励\n";
-           
-            dec+="灵珠 * "+ Battle_Tool.FormatNumberToChineseUnit(1000000 * SumSave.crt_signin.number)+"\n";
+            dec+="灵珠 * "+ Battle_Tool.FormatNumberToChineseUnit(num) +"\n";
             dec += "荣耀点 * 2\n";
 
             if (Tool_State.IsState(State_List.月卡))

@@ -544,12 +544,12 @@ public static class Battle_Tool
                 {
                     base_value = (int)(time.Item3 * 100 - 100);
                 }
-                else
-                {
-                    SumSave.crt_player_buff.player_Buffs.Remove(item.Key);
-                    Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.user_player_buff, SumSave.crt_player_buff.Set_Uptade_String(), SumSave.crt_player_buff.Get_Update_Character());//角色丹药Buff更新数据库
-                    break;
-                }
+                //else
+                //{
+                //    SumSave.crt_player_buff.player_Buffs.Remove(item.Key);
+                //    Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.user_player_buff, SumSave.crt_player_buff.Set_Uptade_String(), SumSave.crt_player_buff.Get_Update_Character());//角色丹药Buff更新数据库
+                //    break;
+                //}
             }
         }
         return base_value;

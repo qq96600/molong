@@ -51,13 +51,28 @@ public class user_needlist_vo : Base_VO
 
         if (user_value_list.Count!=0&&user_value_list[0][0]!="")
         {
-            user_value_list[0][0] = user_value_list[0][1];//体力重置
-            if(user_value_list[0].Count!=2)
+           
+            if (user_value_list[0].Count!=2)
             {
                 user_value_list[0].Clear();
                 user_value_list[0].Add(100.ToString());//体力上限重置
                 user_value_list[0].Add(100.ToString());
             }
+            else
+            {
+                int num = 100;
+                List<(string, List<int>)> list = SumSave.crt_seeds.GetuseList();
+                for (int i = 0; i < list.Count; i++)
+                {
+                    if (list[i].Item1 == "柴胡丸")
+                    {
+                        num += list[i].Item2[1];
+                    }
+                }
+                user_value_list[0][0] =num.ToString();//体力上限重置
+                user_value_list[0][1]=num.ToString();//体力重置
+            }
+            
         }
         else
         {

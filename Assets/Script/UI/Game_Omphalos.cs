@@ -86,14 +86,20 @@ namespace MVC
         private void CountTime()
         {
             performTime+=1;
-            show_Screensaver_time_state++;
+            
             monitor_plant();
-            //显示屏保
-            if (show_Screensaver_time_state >= 300)
+
+            if (SumSave.crt_setting.user_setting[8]==0)
             {
-                show_Screensaver_time_state = 0;
-                Alert_Screensaver.show_Screensaver();
+                show_Screensaver_time_state++;
+                //显示屏保
+                if (show_Screensaver_time_state >= 300)
+                {
+                    show_Screensaver_time_state = 0;
+                    Alert_Screensaver.show_Screensaver();
+                }
             }
+           
             if (panel_fight.gameObject.activeInHierarchy)
             {
                 Combat_statistics.Time();

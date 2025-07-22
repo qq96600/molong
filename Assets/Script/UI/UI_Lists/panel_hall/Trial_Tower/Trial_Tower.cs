@@ -111,7 +111,7 @@ public class Trial_Tower : Panel_Base
     public override void Show()
     {
         base.Show();
-        if (SumSave.crt_MaxHero.Lv < 40)
+        if (SumSave.crt_MaxHero.Lv < 40 && SumSave.ios_account_number != "admin001")
         {
             Alert_Dec.Show("试炼塔开启等级为40级");
             gameObject.SetActive(false);

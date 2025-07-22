@@ -170,7 +170,7 @@ public class panel_destinyTower : Base_Mono
     public override void Show()
     {
         base.Show();
-        if (SumSave.crt_MaxHero.Lv < 10)
+        if (SumSave.crt_MaxHero.Lv < 10 && SumSave.ios_account_number != "admin001")
         {
             Alert_Dec.Show("天命台开启等级为10级");
             gameObject.SetActive(false);

@@ -168,10 +168,68 @@ public class panel_skill : Panel_Base
             case skill_Offect_btn_list.下阵:
                 Next_formation();
                 break;
+            case skill_Offect_btn_list.重置:
+                ResetSkill();
+                break;
             default:
                 break;
         }
     }
+
+    /// <summary>
+    /// 重置技能
+    /// </summary>
+    public void ResetSkill()
+    {
+        if ((skill_btn_list)user_skill.Data.skill_type != skill_btn_list.秘笈)
+        {
+            int lv = int.Parse(user_skill.Data.user_values[1]);
+            int number = 0;///当前技能类型的总等级
+            foreach (var item in SumSave.crt_skills)
+            {
+                if (item.skill_type == user_skill.Data.skill_type)
+                {
+                    number += int.Parse(item.user_values[1]);
+                }
+                   
+            }
+            int Reset_num = 0;
+            for(int i = lv-1; i >0; i--)
+            {
+                if (lv > 8)
+                {
+                    Reset_num+= (int)(number-- * 10 * MathF.Pow(2, 8) * MathF.Pow(1.5f, i - 8));
+                }
+                else
+                {
+                    Reset_num += (int)(number-- * 10 * MathF.Pow(2, i));
+                }
+            }
+            Reset_num= (int)(Reset_num * 0.7f);
+            ResetSkill_lv();
+            Alert_Dec.Show("重置获得：" + Reset_num + "*历练");
+            Battle_Tool.Obtain_Unit(currency_unit.历练, Reset_num);
+            Show_skill();
+        }
+        else
+        {
+            Alert_Dec.Show("秘籍技能无法重置");
+        }
+    }
+    /// <summary>
+    /// 技能等级重置
+    /// </summary>
+    private void ResetSkill_lv()
+    {
+        user_skill.Data.user_values[1] = "1";
+        user_skill.Data.user_value = ArrayHelper.Data_Encryption(user_skill.Data.user_values);
+        Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.skill_value, SumSave.crt_skills);
+        SendNotification(NotiList.Refresh_Max_Hero_Attribute);
+        Select_skill(user_skill);
+        Alert_Dec.Show("重置成功");
+    }
+
+
 
     private void Next_formation()
     {
@@ -340,6 +398,7 @@ public class panel_skill : Panel_Base
         if (user_skill.Data.skill_max_lv > user_skill.Data.skilllv) btn_item_dic[skill_Offect_btn_list.升级].gameObject.SetActive(true);
         if ((skill_btn_list)user_skill.Data.skill_type != skill_btn_list.特殊) btn_item_dic[skill_Offect_btn_list.上阵].gameObject.SetActive(true);
         if ((skill_btn_list)user_skill.Data.skill_type == skill_btn_list.战斗) btn_item_dic[skill_Offect_btn_list.分配].gameObject.SetActive(true);
+        if ((skill_btn_list)user_skill.Data.skill_type != skill_btn_list.秘笈) btn_item_dic[skill_Offect_btn_list.重置].gameObject.SetActive(true);
         if(user_skill.Data.user_values[2]!="0") btn_item_dic[skill_Offect_btn_list.下阵].gameObject.SetActive(true);
 
     }
@@ -384,10 +443,13 @@ public class panel_skill : Panel_Base
         }
         else
         {
-            int number = 0;
+            int number = 0;//当前技能类型的总等级
             foreach (var item in SumSave.crt_skills)
             {
-                if (item.skill_type == user_skill.Data.skill_type) number += int.Parse(item.user_values[1]);
+                if (item.skill_type == user_skill.Data.skill_type)
+                {
+                    number += int.Parse(item.user_values[1]);
+                }
             }
             if (lv > 8)
             {
