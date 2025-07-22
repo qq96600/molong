@@ -35,6 +35,15 @@ public class db_collect_vo : Base_VO
     /// </summary>
     public string[] bonuses_values;
 
+    public db_collect_vo(string name, string stdMode, string bonuses_type, string bonuses_value)
+    {
+        Name = name;
+        StdMode = stdMode;
+        this.bonuses_type = bonuses_type;
+        this.bonuses_value = bonuses_value;
+        Init();
+    }
+
     public void Init()
     {
         bonuses_types = bonuses_type.Split(' ');

@@ -219,5 +219,10 @@ public class signIn : Base_Mono
         dec += "\n累积签到天数 " + "* " + SumSave.crt_signin.number + " 天";
         dec += "\n签到获得" + currency_unit.灵珠 + "* " + (1000000 * (SumSave.crt_signin.number + 1));
         info.text = dec;
+
+        if ((SumSave.nowtime - SumSave.crt_signin.now_time).Days < 1)
+        {
+            SignInTask();
+        }
     }
 }

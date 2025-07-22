@@ -17,6 +17,15 @@ public class user_Accumulatedrewards_vo : Base_VO
     /// </summary>
     private int sum_recharge;
     public string user_value;
+
+    public user_Accumulatedrewards_vo(string user_value, int real_recharge, int sum_recharge)
+    {
+        this.user_value = user_value;
+        Real_recharge = real_recharge;
+        this.sum_recharge = sum_recharge;
+        Init(real_recharge, sum_recharge);
+    }
+
     public void Init(int Realrecharge,int sumrecharge)
     {
         Real_recharge= Realrecharge;

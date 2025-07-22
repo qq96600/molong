@@ -305,7 +305,7 @@ public class panel_collect : Base_Mono
        
         for (int j= 0; j < item_Type.Count; j++)
         {
-            db_collect_vo collect_vo = new db_collect_vo();
+            db_collect_vo collect_vo = new db_collect_vo("","","","");
             Bag_Base_VO data = new Bag_Base_VO();
             collect_vo = item_Type[j];
             data.Name = item_Type[j].Name;

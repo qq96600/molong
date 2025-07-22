@@ -68,7 +68,7 @@ namespace MVC
             {
                 while (mysqlReader.Read())
                 {
-                    SumSave.db_weather_list.Add(ReadDb.Read(mysqlReader, new db_weather()));
+                    SumSave.db_weather_list.Add(ReadDb.Read_weather(mysqlReader));
                 }
             }
         }
@@ -85,7 +85,7 @@ namespace MVC
             {
                 while (mysqlReader.Read())
                 {
-                    SumSave.db_formula_list.Add(ReadDb.Read(mysqlReader, new db_formula_vo()));
+                    SumSave.db_formula_list.Add(ReadDb.Read_formula(mysqlReader));
                 }
             }
         }
@@ -103,7 +103,7 @@ namespace MVC
             {
                 while (mysqlReader.Read())
                 {
-                    SumSave.db_vip_list.Add(ReadDb.Read(mysqlReader, new db_vip()));
+                    SumSave.db_vip_list.Add(ReadDb.Read_Vip(mysqlReader));
                 }
             }
         }
@@ -115,12 +115,12 @@ namespace MVC
         public void Read_db_Accumulatedrewards()
         {
             mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_accumulatedrewards);
-            SumSave.db_Accumulatedrewards = new db_Accumulatedrewards_vo();
+            SumSave.db_Accumulatedrewards = new db_Accumulatedrewards_vo("","","");
             if (mysqlReader.HasRows)
             {
                 while (mysqlReader.Read())
                 {
-                    SumSave.db_Accumulatedrewards = ReadDb.Read(mysqlReader, new db_Accumulatedrewards_vo());
+                    SumSave.db_Accumulatedrewards = ReadDb.Read_Accumulatedrewards_vo(mysqlReader);
                 }
             }
         }
@@ -136,7 +136,7 @@ namespace MVC
             {
                 while (mysqlReader.Read())
                 {
-                    SumSave.db_fate_list.Add(ReadDb.Read(mysqlReader, new db_fate_vo()));
+                    SumSave.db_fate_list.Add(ReadDb.Read_fate(mysqlReader));
                 }
             }
         }
@@ -170,7 +170,7 @@ namespace MVC
             {
                 while (mysqlReader.Read())
                 {
-                    SumSave.db_pars.Add(ReadDb.Read(mysqlReader, new db_base_par()));
+                    SumSave.db_pars.Add(ReadDb.Read_base_par(mysqlReader));
 
                 }
             }
@@ -188,7 +188,7 @@ namespace MVC
             {
                 while (mysqlReader.Read())
                 {
-                    SumSave.db_Signins.Add(ReadDb.Read(mysqlReader, new db_signin_vo()));
+                    SumSave.db_Signins.Add(ReadDb.Read_signin(mysqlReader));
                 }
             }
         }
@@ -206,7 +206,7 @@ namespace MVC
             {
                 while (mysqlReader.Read())
                 {
-                    SumSave.db_collect_vo.Add(ReadDb.Read(mysqlReader, new db_collect_vo()));
+                    SumSave.db_collect_vo.Add(ReadDb.Read_collect(mysqlReader));
                 }
             }
         }
@@ -255,7 +255,7 @@ namespace MVC
             {
                 while (mysqlReader.Read())
                 {
-                    SumSave.db_Achievement_dic.Add(ReadDb.Read(mysqlReader, new db_achievement_VO()));
+                    SumSave.db_Achievement_dic.Add(ReadDb.Read_achievement_VO(mysqlReader));
                 }
             }
         }
@@ -274,7 +274,7 @@ namespace MVC
             {
                 while (mysqlReader.Read())
                 {
-                    SumSave.db_seeds.Add(ReadDb.Read(mysqlReader, new db_seed_vo()));
+                    SumSave.db_seeds.Add(ReadDb.Read_seed(mysqlReader));
                 }
             }
         }
@@ -326,7 +326,7 @@ namespace MVC
             {
                 while (mysqlReader.Read())
                 {
-                    SumSave.db_dec.Add(ReadDb.Read(mysqlReader, new db_dec()));
+                    SumSave.db_dec.Add(ReadDb.Read_dec(mysqlReader));
                 }
             }
         }
@@ -346,7 +346,7 @@ namespace MVC
             {
                 while (mysqlReader.Read())
                 {
-                    SumSave.db_suits.Add  (ReadDb.Read(mysqlReader, new db_suit_vo()));
+                    SumSave.db_suits.Add (ReadDb.Read_suit(mysqlReader));
                 }
             }
         }
@@ -461,7 +461,7 @@ namespace MVC
             {
                 while (mysqlReader.Read())
                 {
-                    SumSave.db_Artifacts.Add(ReadDb.Read(mysqlReader, new db_artifact_vo()));
+                    SumSave.db_Artifacts.Add(ReadDb.Read_artifact_vo(mysqlReader));
                 }
             }
 

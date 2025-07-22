@@ -28,6 +28,14 @@ public class db_formula_vo : Base_VO
     /// </summary>
     public List<(string,int)> formula_need_list;
 
+    public db_formula_vo(int formula_type, string formula_result, string formula_need)
+    {
+        this.formula_type = formula_type;
+        this.formula_result = formula_result;
+        this.formula_need = formula_need;
+        Init();
+    }
+
     internal void Init()
     {
         formula_need_list= new List<(string,int)>();

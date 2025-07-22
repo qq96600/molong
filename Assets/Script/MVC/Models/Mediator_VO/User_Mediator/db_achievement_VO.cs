@@ -40,4 +40,29 @@ public class db_achievement_VO : Base_VO
     /// 是否有兑换列表
     /// </summary>
     public string achievement_exchange_offect = "";
+
+    public db_achievement_VO(int achievement_type, string achievement_value, string achievement_need, string[] achievement_show_lv, string achievement_reward, string achievement_exchange_offect)
+    {
+        this.achievement_type = achievement_type;
+        this.achievement_value = achievement_value;
+        this.achievement_need = achievement_need;
+        this.achievement_show_lv = achievement_show_lv;
+        this.achievement_reward = achievement_reward;
+        this.achievement_exchange_offect = achievement_exchange_offect;
+        Init();
+    }
+
+    public void Init()
+    {
+        string[] split = achievement_need.Split('|');
+        foreach (string value in split)
+        {
+            achievement_needs.Add(long.Parse(value));
+        }
+        split = achievement_reward.Split('|');
+        foreach (string value in split)
+        {
+            achievement_rewards.Add(value);
+        }
+    }
 }

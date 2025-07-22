@@ -9,6 +9,15 @@ public class db_suit_vo : Base_VO
     public int suit_type;
     public int suit_number;
     public List<(int,int,int)> suit_list;
+
+    public db_suit_vo(string suit_name, int suit_number, int suit_type, string v)
+    {
+        this.suit_name = suit_name;
+        this.suit_number = suit_number;
+        this.suit_type = suit_type;
+        Init(v);
+    }
+
     public void Init(string value)
     {
         suit_list = new List<(int, int, int)>();
