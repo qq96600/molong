@@ -597,19 +597,6 @@ public class hatching_progress : Base_Mono
                 item.GetComponent<Button>().onClick.AddListener(() => { Select_Egg(lists); });
             }
         }
-        //for (int i = 0; i < SumSave.crt_pet.crt_pet_list.Count; i++)
-        //{
-        //    string[] data = SumSave.crt_pet.crt_pet_list[i].Split(",");
-        //    if (data.Length == 2)
-        //    {
-        //        db_pet_vo pet_init = ArrayHelper.Find(SumSave.db_pet, e => e.petName == data[0]);//更具宠物名字找到宠物蛋名字
-        //        store_item item = Instantiate(store_item_Prefabs, pos_list);
-        //        (string, int) lists = (pet_init.petEggsName, -1);
-        //        item.PetInit(lists, "");
-        //        item.GetComponent<Button>().onClick.AddListener(() => { Select_Egg(lists); });
-        //    }
-        //}
-
         int num = 0;
         List<(string, int)> list = SumSave.crt_bag_resources.Set();//获得背包物品名字和数量
         for (int i = 0; i < list.Count; i++)

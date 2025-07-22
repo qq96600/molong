@@ -181,6 +181,7 @@ namespace StateMachine
 
         protected virtual void Update()
         {
+            if (TatgetObg == null) return;
             TargetPosition = new Vector2(TatgetObg.transform.position.x, transform.position.y);
             BackstabPosition = new Vector2(TatgetObg.transform.position.x - BehindDistance, transform.position.y);
 
@@ -253,7 +254,7 @@ namespace StateMachine
 
         public bool isAttackDistance()//攻击距离
         {
-
+            if(TatgetObg == null) return false;
             float distance = Vector2.Distance(transform.position, TatgetObg.transform.position);
 
             if (AttackDistance >= distance)

@@ -325,16 +325,14 @@ namespace Common
         /// 五行类型
         /// </summary>
         public static string[] five_element_type = { "土", "火", "水", "木", "金" };
-
-
-        /// <summary>
-        /// 怪物对象池
-        /// </summary>
-        public static List<BattleHealth> battleMonsterHealths = new List<BattleHealth>();
-        /// <summary>
-        /// 玩家对象池
-        /// </summary>
-        public static List<BattleHealth> battleHeroHealths = new List<BattleHealth>();
+        ///// <summary>
+        ///// 怪物对象池
+        ///// </summary>
+        //public static List<BattleHealth> battleMonsterHealths1 = new List<BattleHealth>();
+        ///// <summary>
+        ///// 玩家对象池
+        ///// </summary>
+        //public static List<BattleHealth> battleHeroHealths1 = new List<BattleHealth>();
         /// <summary>
         /// 战斗刷新时间
         /// </summary>

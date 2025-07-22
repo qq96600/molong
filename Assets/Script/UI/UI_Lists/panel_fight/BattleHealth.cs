@@ -21,11 +21,6 @@ namespace MVC
         public long maxHP, HP, maxMP, MP, add_hp = 0;
 
         public int internalforceMP, EnergyMp, internalforcemaxMP, EnergymaxMp;
-
-        /// <summary>
-        /// 战斗信息
-        /// </summary>
-        public  panel_fight panel_fight;
         /// <summary>
         /// 战斗位置
         /// </summary>
@@ -39,7 +34,6 @@ namespace MVC
             MP = maxMP;
             internalforceMP = internalforcemaxMP;
             EnergyMp = EnergymaxMp;
-            panel_fight = transform.parent.parent.parent.GetComponent<panel_fight>();
         }
         public void Clear()
         {
@@ -101,8 +95,9 @@ namespace MVC
                 {
 
                     SumSave.crt_achievement.increase_date_Exp((Achieve_collect.死亡).ToString(), 1);
-                    SumSave.battleHeroHealths.Remove(this);
                 }
+                transform.parent.parent.parent.SendMessage("clearhealth", this);
+
                 StartCoroutine(WaitAndDestory(GetComponent<BattleAttack>().Data.show_name));
             }
         }
@@ -135,17 +130,23 @@ namespace MVC
         private void WaitAndDestory()
         {
             BattleAttack monster = GetComponent<BattleAttack>();
-            SumSave.battleMonsterHealths.Remove(this);
+            //SumSave.battleMonsterHealths.Remove(this);
             SumSave.crt_achievement.increase_date_Exp((Achieve_collect.击杀怪物).ToString(), 1);
             Battle_Tool.Obtain_Exp(monster.Data.Exp);
-            if (panel_fight.isMapType(4))//判断是否是副本
+            user_map_vo map = ArrayHelper.Find(SumSave.db_maps, e => e.map_index == monster.Data.map_index);
+            if (map.map_type == 4)
             {
                 Battle_Tool.Obtain_Unit(currency_unit.灵珠, monster.Data.unit);
-            }
-            else
-            {
-                Battle_Tool.Obtain_Unit(currency_unit.灵珠, monster.Data.unit, 2);
-            }
+
+            }else Battle_Tool.Obtain_Unit(currency_unit.灵珠, monster.Data.unit, 2);
+            //if (panel_fight.isMapType(4))//判断是否是副本
+            //{
+            //    Battle_Tool.Obtain_Unit(currency_unit.灵珠, monster.Data.unit);
+            //}
+            //else
+            //{
+            //    Battle_Tool.Obtain_Unit(currency_unit.灵珠, monster.Data.unit, 2);
+            //}
             
             int number = 1;
             Combat_statistics.AddMaxNumber();
@@ -178,11 +179,12 @@ namespace MVC
                     Combat_statistics.AddEliteNumber();
                     SumSave.crt_pass.progress(2);
                 }
-               if (panel_fight.isMapType(3))
+
+               if (map.map_type == 3)
                 {
                     SumSave.crt_pass.progress(4);
                 }
-                if (panel_fight.isMapType(4))//判断是否是副本
+                if (map.map_type == 4)//判断是否是副本
                 {
                     Battle_Tool.Obtain_Unit(currency_unit.历练, monster.Data.Point);
                 }

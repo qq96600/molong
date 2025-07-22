@@ -24,7 +24,18 @@ namespace MVC
         /// 目标
         /// </summary>
         protected BattleHealth Terget;
-
+        /// <summary>
+        /// 目标列表
+        /// </summary>
+        protected List<BattleHealth> Tergets;
+        /// <summary>
+        /// 获取目标
+        /// </summary>
+        /// <param name="tergets"></param>
+        public void FindTergets(List<BattleHealth> tergets)
+        { 
+            Tergets = tergets;
+        }
         protected Image frame, icon;
 
         protected Image targetIcon;
@@ -64,6 +75,7 @@ namespace MVC
         { 
 
         }
+
 
         public virtual void Refresh_Skill(List<skill_offect_item> skills)
         { 
@@ -224,35 +236,49 @@ namespace MVC
         /// </summary>
         protected virtual void Find_Terget()
         {
-           if(GetComponent<Player>() != null)
-
+            if (Tergets == null) return;
+            if (Tergets.Count > 0)//怪物找玩家
             {
-                if (SumSave.battleMonsterHealths.Count > 0)//玩家找怪物
-                {
-                    //寻找距离自身最近的目标    
-                    Terget = ArrayHelper.GetMin(SumSave.battleMonsterHealths, e => Vector2.Distance(transform.position, e.transform.position));
-
-                    AttackStateMachine.Init(this, Terget);
-                    StateMachine.Init(this, Terget);
-                }
-                else
-                {
-                   // StateMachine.Animator_State(Arrow_Type.idle);
-                    Game_Next_Map();
-                }
+                //寻找距离自身最近的目标    
+                Terget = ArrayHelper.GetMin(Tergets, e => Vector2.Distance(transform.position, e.transform.position));
+                AttackStateMachine.Init(this, Terget);
+                StateMachine.Init(this, Terget);
             }
-            else if (GetComponent<Monster>() != null)
+            else
             {
-                if (SumSave.battleHeroHealths.Count > 0 )//怪物找玩家
-                {
-                    //寻找距离自身最近的目标    
-                    Terget = ArrayHelper.GetMin(SumSave.battleHeroHealths, e => Vector2.Distance(transform.position, e.transform.position));
-                    AttackStateMachine.Init(this, Terget);
-                    StateMachine.Init(this, Terget);
-                }
-                else 
-                    game_over();
+                if (GetComponent<Player>() != null) Game_Next_Map();
+                else game_over();
+
             }
+            //if (GetComponent<Player>() != null)
+
+            //{
+            //    if (Tergets.Count > 0)//玩家找怪物
+            //    {
+            //        //寻找距离自身最近的目标    
+            //        Terget = ArrayHelper.GetMin(SumSave.battleMonsterHealths, e => Vector2.Distance(transform.position, e.transform.position));
+
+            //        AttackStateMachine.Init(this, Terget);
+            //        StateMachine.Init(this, Terget);
+            //    }
+            //    else
+            //    {
+            //       // StateMachine.Animator_State(Arrow_Type.idle);
+            //        Game_Next_Map();
+            //    }
+            //}
+            //else if (GetComponent<Monster>() != null)
+            //{
+            //    if (Tergets.Count > 0 )//怪物找玩家
+            //    {
+            //        //寻找距离自身最近的目标    
+            //        Terget = ArrayHelper.GetMin(SumSave.battleHeroHealths, e => Vector2.Distance(transform.position, e.transform.position));
+            //        AttackStateMachine.Init(this, Terget);
+            //        StateMachine.Init(this, Terget);
+            //    }
+            //    else 
+            //        game_over();
+            //}
         }
         /// <summary>
         /// 进行下一回合
