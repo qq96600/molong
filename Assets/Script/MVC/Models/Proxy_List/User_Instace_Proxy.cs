@@ -83,6 +83,9 @@ namespace MVC
                 ///新用户
                 MysqlDb.InsertInto(Mysql_Table_Name.mo_user_iphone, new string[] {
                     GetStr(0), GetStr(SumSave.par), GetStr(id[0]), GetStr(id[1]), GetStr(SumSave.uid), GetStr(crt_verify)});
+
+                SumSave.ios_account_number= id[0];
+
                 Login();
                 Game_Omphalos.i.Alert_Show("登录成功");
                 CloseMySqlDB();

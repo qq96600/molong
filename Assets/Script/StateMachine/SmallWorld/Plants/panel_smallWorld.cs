@@ -238,6 +238,12 @@ public class panel_smallWorld : Panel_Base
     public override void Show()
     {
         base.Show();
+
+        if(SumSave.ios_account_number=="admin001")
+        {
+            Open_smallWorld();
+        }
+
         if (SumSave.crt_world == null)
         {
             Alert_Dec.Show("小世界未激活");
@@ -247,6 +253,36 @@ public class panel_smallWorld : Panel_Base
         UpWorldTask();
         Base_Show();
     }
+
+
+
+    /// <summary>
+    /// 开启小世界
+    /// </summary>
+    private void Open_smallWorld()
+    {
+        SumSave.crt_world = new user_world_vo();
+        SumSave.crt_world.World_Lv = 1;
+        Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_world, SumSave.crt_world.Set_Instace_String());
+        AddLand();
+        Alert_Dec.Show("小世界开启成功");
+    }
+    /// <summary>
+    /// 添加一块土地
+    /// </summary>
+    private static void AddLand()
+    {
+        if (SumSave.crt_plant.Set().Count > 0)
+        {
+            return;
+        }
+        List<(string, DateTime)> Set = SumSave.crt_plant.Set();
+        Set.Add(("0", SumSave.nowtime));
+        SumSave.crt_plant.Set_data(Set);
+    }
+
+
+
     /// <summary>
     /// 开启小世界任务
     /// </summary>
