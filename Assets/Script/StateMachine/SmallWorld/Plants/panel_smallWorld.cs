@@ -242,6 +242,10 @@ public class panel_smallWorld : Panel_Base
         if(SumSave.ios_account_number=="admin001")
         {
             Open_smallWorld();
+            SumSave.crt_needlist.user_value_list.Add(new List<string>());
+            SumSave.crt_needlist.user_value_list[0].Clear();
+            SumSave.crt_needlist.user_value_list[0].Add("100");
+            SumSave.crt_needlist.user_value_list[0].Add("100");
         }
 
         if (SumSave.crt_world == null)

@@ -351,7 +351,7 @@ namespace MVC
                 return;
             }
 #if UNITY_EDITOR
-
+            //SumSave.ios_account_number = "admin001";
 #elif UNITY_ANDROID
             if (!open_pars.ContainsKey(select_par.index)) {
                 Alert_Dec.Show("当前服务器暂未开启");
@@ -391,7 +391,7 @@ namespace MVC
 #if UNITY_EDITOR
 
             #region ios区
-            SumSave.uid = "DSFSDFSDFSDF11541";//测试用号 DSFSDFSDFSDF3 7fd776b56fce4dcb9e1e310cab220b6e
+            SumSave.uid = "DSFSDFSDFSDF511";//测试用号 DSFSDFSDFSDF3 7fd776b56fce4dcb9e1e310cab220b6e
                                           //SumSave.uid = "ed7091920d8f4f8aa193805fe45f8b3f";//温毓(ip)自然呆
                                           //SumSave.uid = "d6a5b51fddf94459bb2e80e54c091453";//666(ip)
                                           //SumSave.uid = "4024aeea8a704d3d965fafcb82d29493";//Rigine(ip)
