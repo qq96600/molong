@@ -166,83 +166,6 @@ namespace MVC
                         }
                     }
                 }
-                //else
-                //{
-                //    List<(string, int)> list = SumSave.crt_bag_resources.Set();
-                //    for (int i = 0; i < list.Count; i++)
-                //    {
-                //        if (item == list[i].Item1)
-                //        {
-                //            if (list[i].Item2 >= Mathf.Abs(keys[item]))
-                //            {
-                //                if (!bagdic.ContainsKey(item))
-                //                {
-                //                    bagdic.Add(item, (int)-Mathf.Abs(keys[item]));
-                //                    count++;
-                //                }
-                //                continue;
-                //            }
-                //        }
-                //    }
-                //}
-                #region 测试后删除
-                //if (item == currency_unit.灵珠.ToString())
-                //{
-                //    if (listunit[0] >= Mathf.Abs(keys[item]))
-                //    {
-                //        currency_unit_list[0] += (long)Mathf.Abs(keys[item]);
-                //        count++;
-                //    }
-                //}
-                //else
-                //if (item == currency_unit.历练.ToString())
-                //{
-                //    if (listunit[1] >= Mathf.Abs(keys[item]))
-                //    {
-                //        currency_unit_list[1] += (long)Mathf.Abs(keys[item]);
-                //        count++;
-                //    }
-                //}
-                //else
-                //if (item == currency_unit.魔丸.ToString())
-                //{
-                //    if (listunit[2] >= Mathf.Abs(keys[item]))
-                //    {
-                //        currency_unit_list[2] += (long)Mathf.Abs(keys[item]);
-                //        count++;
-                //    }
-                //}
-                //else
-                // if (item == currency_unit.离线积分.ToString())
-                //{
-                //    if (listunit[3] >= Mathf.Abs(keys[item]))
-                //    {
-                //        currency_unit_list[3] += (long)Mathf.Abs(keys[item]);
-                //        count++;
-                //    }
-                //}
-                //else
-                //if (item == currency_unit.试炼积分.ToString())
-                //{
-                //    if (listunit[4] >= Mathf.Abs(keys[item]))
-                //    {
-                //        currency_unit_list[4] += (long)Mathf.Abs(keys[item]);
-                //        count++;
-                //    }
-                //}
-                //else
-                //if (item == currency_unit.灵气.ToString())
-                //{
-                //    int value = Battle_Tool.Obtain_World();
-                //    if (value >= Mathf.Abs(keys[item]))
-                //    {
-                //        currency_unit_list[5] += (long)Mathf.Abs(keys[item]);
-                //        count++;
-                //    }
-                //}
-
-                //else
-                #endregion
             }
             if (count == keys.Count)
             {
@@ -260,10 +183,6 @@ namespace MVC
                             case currency_unit.灵气:
                                 SumSave.crt_user_unit.verify_data((currency_unit)i, -currency_unit_list[i]);
                                 break;
-                            //case currency_unit.灵气:
-                            //    SumSave.crt_world.AddValue_lists(-(int)currency_unit_list[i]);
-                            //    Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_world, SumSave.crt_world.Set_Uptade_String(), SumSave.crt_world.Get_Update_Character());
-                            //    break;
                             default:
                                 break;
                         }
