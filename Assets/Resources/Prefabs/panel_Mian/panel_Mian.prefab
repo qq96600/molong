@@ -4067,6 +4067,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: hall_function_but (17)
       objectReference: {fileID: 0}
+    - target: {fileID: 7391435681119431392, guid: 46803db84df05f04c98edf315fbc98f3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7755377664888674589, guid: 46803db84df05f04c98edf315fbc98f3, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4651,7 +4655,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4071946602791083398, guid: 5126ee17a46599343b28a052ae0d2d1d, type: 3}
       propertyPath: m_Size
-      value: 0.5394232
+      value: 0.53942335
       objectReference: {fileID: 0}
     - target: {fileID: 4071946602791083398, guid: 5126ee17a46599343b28a052ae0d2d1d, type: 3}
       propertyPath: m_Value

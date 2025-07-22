@@ -2591,9 +2591,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1420616014}
     m_Modifications:
+    - target: {fileID: 1616981223806012213, guid: 97e70798b933d4f4797751e1e719f4fa, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1616981223806012213, guid: 97e70798b933d4f4797751e1e719f4fa, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2571057772752695904, guid: 97e70798b933d4f4797751e1e719f4fa, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4844838835441812429, guid: 97e70798b933d4f4797751e1e719f4fa, type: 3}
       propertyPath: m_Name
       value: panel_skill
+      objectReference: {fileID: 0}
+    - target: {fileID: 4844838835441812429, guid: 97e70798b933d4f4797751e1e719f4fa, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6284574008785509663, guid: 97e70798b933d4f4797751e1e719f4fa, type: 3}
       propertyPath: m_Pivot.x
