@@ -90,9 +90,10 @@ public class AttackStateMachine : MonoBehaviour
 
     private void Update()
     {
+        if (Target == null) return;
         IsState();
         Animator_State();
-        if (arrowType == Arrow_Type.idle&& SumSave.battleMonsterHealths.Count>0)
+        if (arrowType == Arrow_Type.idle)//&& SumSave.battleMonsterHealths.Count>0
         {
             AttackSpeedCounter -= Time.deltaTime * 90f;
             if (AttackSpeedCounter <= 0)

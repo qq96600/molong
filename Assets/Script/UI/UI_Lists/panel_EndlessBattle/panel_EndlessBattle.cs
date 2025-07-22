@@ -1,0 +1,499 @@
+using Common;
+using Components;
+using MVC;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UI;
+using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
+using Random = UnityEngine.Random;
+
+public class panel_EndlessBattle : Panel_Base
+{
+    /// <summary>
+    /// 玩家预制体
+    /// </summary>
+    private GameObject player_battle_attack_prefabs;
+
+    private GameObject monster_battle_attack_prefabs;
+
+    /// <summary>
+    /// 怪物生成位置
+    /// </summary>
+    private Transform pos_player, pos_monster;
+    /// <summary>
+    /// 当前怪物列表
+    /// </summary>
+    private List<crtMaxHeroVO> crt_map_monsters = new List<crtMaxHeroVO>();
+    /// <summary>
+    /// 当前地图
+    /// </summary>
+    private user_map_vo select_map;
+    /// <summary>
+    /// 刷新状态
+    /// </summary>
+    private bool Open_Monster_State = true;
+    /// <summary>
+    /// 刷新技能
+    /// </summary>
+    private pight_show_skill pight_show_skill;
+    /// <summary>
+    /// 战斗技能
+    /// </summary>
+    private List<skill_offect_item> battle_skills;
+    /// <summary>
+    /// 显示基础信息
+    /// </summary>
+    private panel_role_health role_health;
+    /// <summary>
+    /// 显示地图名称和回合时间
+    /// </summary>
+    private Text map_name, map_time;
+    /// <summary>
+    /// 关闭列表按钮
+    /// </summary>
+    private Button close_btn;
+    /// <summary>
+    /// 是否关闭列表
+    /// </summary>
+    private bool close_panel_state = true;
+    /// <summary>
+    /// 列表位置
+    /// </summary>
+    private Transform pos_btn, pos_show_info;
+    /// <summary>
+    /// 信息框
+    /// </summary>
+    private show_info_item show_info_prefabs;
+    /// <summary>
+    /// 存储信息
+    /// </summary>
+    private List<show_info_item> show_info_list = new List<show_info_item>();
+    /// <summary>
+    /// 战斗信息汇总
+    /// </summary>
+    private Text battle_info_list;
+    /// <summary>
+    /// 战斗统计清空
+    /// </summary>
+    private Button btn_Combat_statistics;
+
+    public Button close_battle;
+    /// <summary>
+    /// 当前出现怪物数量 总怪物数量 试练塔层数
+    /// </summary>
+    private int crt_monster_number = 0, maxnumber = 0, trial_storey = -1;
+    /// <summary>
+     //对象池
+    /// </summary>
+    private List<BattleHealth> players=new List<BattleHealth>(), monsters=new List<BattleHealth>();
+    private bool openRefreshStatus = true;
+    /// <summary>
+    /// 刷怪间隔
+    /// </summary>
+    private float wait_time = 1.5f;
+    /// <summary>
+    /// 获取面板的宽度
+    /// </summary>
+    private float width;
+    protected override void Awake()
+    {
+        base.Awake();
+        Combat_statistics.Init();
+        width = GetComponent<RectTransform>().rect.width;
+    }
+
+    public override void Initialize()
+    {
+        base.Initialize();
+        pos_monster = Find<Transform>("battle_pos/monster_pos");
+        pos_player = Find<Transform>("battle_pos/player_pos");
+        player_battle_attack_prefabs = Resources.Load<GameObject>("Prefabs/prefab/player_battle_attck_item"); ; //Battle_Tool.Find_Prefabs<GameObject>("player_battle_attck_item")
+        monster_battle_attack_prefabs = Resources.Load<GameObject>("Prefabs/prefab/monster_battle_attck_item");// Battle_Tool.Find_Prefabs<GameObject>("monster_battle_attck_item"); 
+        //player_battle_attack_prefabs = Resources.Load<GameObject>("Prefabs/prefab/endlessplayer_battle_attck_item");
+        //monster_battle_attack_prefabs = Resources.Load<GameObject>("Prefabs/prefab/endiessmonster_battle_attck_item");
+        pight_show_skill = Find<pight_show_skill>("skill_list");
+        role_health = Find<panel_role_health>("panel_role_health");
+        map_name = Find<Text>("battle_pos/map_name/info");
+        map_time = Find<Text>("battle_pos/map_name/show_time");
+        close_btn = Find<Button>("btn_list/close_btn");
+        close_btn.onClick.AddListener(() => { Close(); });
+        pos_btn = Find<Transform>("btn_list");
+        pos_show_info = Find<Transform>("info_list/Viewport/Content");
+        show_info_prefabs = Battle_Tool.Find_Prefabs<show_info_item>("show_info_item");
+        btn_Combat_statistics = Find<Button>("Combat_statistics");
+        btn_Combat_statistics.onClick.AddListener(() => { clear_Combat_statistics(); });
+        battle_info_list = Find<Text>("Combat_statistics/info");
+    }
+    /// <summary>
+    /// 初始状态
+    /// </summary>
+    private void clear_Combat_statistics()
+    {
+        Alert.Show("清空战斗信息", "是否清空战斗信息", Clear_Combat_statistics);
+
+    }
+    /// <summary>
+    /// 清空战斗信息
+    /// </summary>
+    /// <param name="arg0"></param>
+    private void Clear_Combat_statistics(object arg0)
+    {
+        Combat_statistics.Init();
+    }
+
+    /// <summary>
+    /// 显示战斗信息
+    /// </summary>
+    public void Show_Combat_statistics()
+    {
+        battle_info_list.text = Combat_statistics.Show_Info();
+        IsReply(players);
+        IsReply(monsters);
+    }
+    /// <summary>
+    /// 回复生命魔法
+    /// </summary>
+    /// <param name="list"></param>
+    private void IsReply(List<BattleHealth> list)
+    {
+        for (int i = 0; i < list.Count; i++)
+        {
+            BattleAttack attack = list[i].GetComponent<BattleAttack>();
+            if (attack.Data.Heal_Hp > 0 || attack.Data.Heal_Mp > 0)
+            {
+                list[i].HealConsumables(attack.Data.Heal_Hp, attack.Data.Heal_Mp);
+            }
+        }
+    }
+
+    /// <summary>
+    /// 关闭列表
+    /// </summary>
+    private void Close()
+    {
+        Alert.Show("退出无尽深渊", "请确认是否退出无尽深渊",Hide);
+      
+    }
+
+    private void Hide(object arg0)
+    {
+        Hide();
+    }
+
+    public override void Show()
+    {
+        base.Show();
+        AudioManager.Instance.ChangeBGM(BGMenum.开启);
+    }
+    public override void Hide()
+    {
+        base.Hide();
+    }
+   
+    /// <summary>
+    /// 游戏结束
+    /// </summary>
+    protected void Game_Over()
+    {
+        Hide();
+    }
+    
+   
+    /// <summary>
+    /// 进入地图
+    /// </summary>
+    /// </summary>
+    /// <param name="map"></param>
+    /// <param name="storey">试炼塔开启层数</param>
+    public void Open_Map(user_map_vo map)
+    {
+        select_map = map;
+        map_name.text = map.map_name;
+        init();
+        Crate_Init();
+        StopAllCoroutines();
+        StartCoroutine(ProduceMonster(wait_time));
+
+    }
+    /// <summary>
+    /// 显示战斗状态
+    /// </summary>
+    /// <param name="dec"></param>
+    private void Show_Battle_State(string dec)
+    {
+        map_time.text = dec;
+    }
+    /// <summary>
+    /// 生成角色初始化
+    /// </summary>
+    private void Crate_Init()
+    {
+        crate_Skill();
+        crate_hero();
+        crate_pet();
+        crate_monster();
+    }
+    /// <summary>
+    /// 创造宠物
+    /// </summary>
+    private void crate_pet()
+    {
+        if (SumSave.crt_world != null)
+        {
+            if (SumSave.crt_pet!=null)
+            {
+                List<db_pet_vo> crt_pet_list = SumSave.crt_pet.Set();
+                foreach (db_pet_vo pet in crt_pet_list)
+                {
+                    if (pet.pet_state == "1")
+                    {
+                        crtMaxHeroVO crt = new crtMaxHeroVO();
+                        for (int i = 0; i < pet.crate_values.Count; i++)
+                        {
+                            if (pet.crate_values[i] != "" && pet.up_values[i] != "")
+                            {
+                                int info = int.Parse(pet.crate_values[i]) + (int.Parse(pet.up_values[i]) * pet.level);
+                                Battle_Tool.Enum_Value(crt, i, info);
+                            }
+                        }
+                        GameObject item = ObjectPoolManager.instance.GetObjectFormPool(crt.show_name, player_battle_attack_prefabs,
+           new Vector3(pos_player.position.x, pos_player.position.y+100, pos_player.position.z), Quaternion.identity, pos_player);
+                        // 设置Data
+                        item.GetComponent<player_battle_attck>().Data = crt;
+                        item.GetComponent<player_battle_attck>().Refresh_Skill(battle_skills);
+                        //if (item.GetComponent<Button>().enabled)
+                        //    item.GetComponent<Button>().onClick.AddListener(delegate { AudioManager.Instance.playAudio(ClipEnum.购买物品); SelectMonster(item.GetComponent<MonsterBattleAttack>()); });
+                        //item.GetComponent<Button>().enabled = true;
+                        players.Add(item.GetComponent<BattleHealth>());
+                        return;
+                    }
+                    
+                }
+            }
+        }
+       
+    }
+
+    /// <summary>
+    /// 生成技能
+    /// </summary>
+    private void crate_Skill()
+    {
+        battle_skills = pight_show_skill.Init();
+    }
+
+    private void crate_hero()
+    {
+        crtMaxHeroVO crt = SumSave.crt_MaxHero;
+        GameObject item = ObjectPoolManager.instance.GetObjectFormPool(crt.show_name, player_battle_attack_prefabs,
+            new Vector3(pos_player.position.x, pos_player.position.y, pos_player.position.z), Quaternion.identity, pos_player);
+        // 设置Data
+        item.GetComponent<BattleAttack>().Data = crt;
+        item.GetComponent<BattleAttack>().Refresh_Skill(battle_skills);
+        //if (item.GetComponent<Button>().enabled)
+        //    item.GetComponent<Button>().onClick.AddListener(delegate { AudioManager.Instance.playAudio(ClipEnum.购买物品); SelectMonster(item.GetComponent<MonsterBattleAttack>()); });
+        //item.GetComponent<Button>().enabled = true;
+        players.Add(item.GetComponent<BattleHealth>());
+        role_health.SetHealth(item.GetComponent<BattleHealth>());
+    }
+
+    /// <summary>
+    /// 初始化
+    /// </summary>
+    private void init()
+    {
+        crt_monster_number = 0;
+        maxnumber = 100;
+        switch (select_map.map_type)
+        {
+            case 7: maxnumber = 9999; break;
+            default:
+                break;
+        }
+        if (monsters != null)
+        {
+            for (int i = pos_monster.childCount - 1; i >= 0; i--)
+            {
+                pos_monster.GetChild(i).gameObject.GetComponent<BattleHealth>().Clear();
+            }
+            monsters.Clear();
+        }else monsters=new List<BattleHealth>();
+        if (players != null)
+        {
+            for (int i = pos_player.childCount - 1; i >= 0; i--)
+            {
+                pos_player.GetChild(i).gameObject.GetComponent<BattleHealth>().Clear();
+            }
+            players.Clear();
+        }else players=new List<BattleHealth>();
+
+        crt_map_monsters.Clear();
+        if (select_map.map_type == 7)
+        {
+            for (int i = 0; i < SumSave.db_monsters.Count; i++)
+                crt_map_monsters.Add(SumSave.db_monsters[i]);
+        }
+    }
+    // 下一波怪
+    protected void Game_Next_Map()
+    {
+        
+    }
+
+    private void Update()
+    {
+        if (openRefreshStatus) RefreshStatus();
+    }
+
+    private void RefreshStatus()
+    {
+        if (players != null)
+        {
+            if (players.Count > 0)
+            {
+                for (int i = 0; i < players.Count; i++)
+                {
+                    players[i].GetComponent<BattleAttack>().FindTergets(monsters);
+                }
+            }
+        }
+        if (monsters != null)
+        {
+            if (monsters.Count > 0)
+            {
+                for (int i = 0; i < monsters.Count; i++)
+                {
+                    monsters[i].GetComponent<BattleAttack>().FindTergets(players);
+                }
+            }
+        }
+        openRefreshStatus = false;
+    }
+    /// <summary>
+    /// 清除死亡物品
+    /// </summary>
+    /// <param name="health"></param>
+    protected void clearhealth(BattleHealth health)
+    {
+        if (health.GetComponent<BattleAttack>().Data.Monster_Lv==0)
+        {
+            players.Remove(health);
+        }
+        else  monsters.Remove(health);
+        openRefreshStatus = true;
+    }
+    private IEnumerator ProduceMonster(float time)
+    {
+        float basetime = 0.1f;
+       
+        while (time>0)
+        {
+            time-=basetime;
+            Show_Battle_State("刷新时间 " + time.ToString("F1") + "s");
+            yield return new WaitForSeconds(basetime);
+        }
+        crate_monster();
+        StartCoroutine(ProduceMonster(wait_time));
+    }
+    private void crate_monster()
+    {
+        ///调用天气buff
+        bool isAdd = true;
+        if (SumSave.crt_player_buff.player_Buffs.Count > 0)
+        {
+            foreach (var _item in SumSave.crt_player_buff.player_Buffs)
+            {
+                if (_item.Value.Item4 == 4)
+                {
+                    isAdd = false;
+                    int remainingTime = Battle_Tool.SettlementTransport((_item.Value.Item1).ToString("yyyy-MM-dd HH:mm:ss"));
+                    if (remainingTime > _item.Value.Item2)
+                    {
+                        SumSave.crt_player_buff.player_Buffs.Remove(_item.Key);
+                        AddWeather();
+                        break;
+                    }
+                }
+            }
+            if (isAdd)
+            {
+                AddWeather();
+            }
+        }
+        else
+        {
+            AddWeather();
+        }
+        if (crt_monster_number >= maxnumber) crt_monster_number = 0;
+        crt_monster_number++;
+        int dic=Random.Range(0,100)>50?1:-1;
+        float y = pos_monster.position.y + (width / 20 * monsters.Count) * dic;
+        if (y > pos_monster.position.y + width / 2) y = pos_monster.position.y;
+        crtMaxHeroVO crt = crt_map_monsters[Random.Range(0, crt_map_monsters.Count)];
+        crt = Battle_Tool.crate_monster(crt, select_map, crt_monster_number == maxnumber, trial_storey);
+        GameObject item = ObjectPoolManager.instance.GetObjectFormPool(crt.show_name, monster_battle_attack_prefabs,
+            new Vector3(pos_monster.position.x, y, pos_monster.position.z), Quaternion.identity, pos_monster);
+        // 设置Data
+        item.GetComponent<BattleAttack>().Data = crt;
+        //点击怪物
+        //if (item.GetComponent<Button>().enabled)
+        //    item.GetComponent<Button>().onClick.AddListener(delegate { AudioManager.Instance.playAudio(ClipEnum.购买物品); SelectMonster(item.GetComponent<BattleAttack>()); });
+        //item.GetComponent<Button>().enabled = true;
+        monsters.Add(item.GetComponent<BattleHealth>());
+        Open_Monster_State = true;
+        openRefreshStatus = true;
+        ShowInfoMap();
+    }
+    /// <summary>
+    /// 锁定怪物 增加目标
+    /// </summary>
+    /// <param name="battleAttack"></param>
+    private void SelectMonster(BattleAttack battleAttack)
+    {
+        
+    }
+
+    private void ShowInfoMap()
+    {
+        map_name.text = select_map.map_name + "(" + crt_monster_number + "/" + maxnumber + ")";
+    }
+    /// <summary>
+    /// 判断当前地图是否为对应地图  4副本地图
+    /// </summary>
+    public bool isMapType(int type)
+    {
+        if (select_map.map_type == type)
+        {
+            return true;
+        }
+        return false;
+    }
+
+
+
+
+    /// <summary>
+    /// 显示战斗信息
+    /// </summary>
+    /// <param name="str"></param>
+    protected void show_battle_info(string str)
+    {
+        if (show_info_list.Count <= 80)
+        {
+            show_info_item item = Instantiate(show_info_prefabs, pos_show_info);
+            item.GetComponent<Text>().text = " " + str;
+            show_info_list.Add(item);
+        }
+        else
+        {
+            show_info_item item = show_info_list[0];
+            item.GetComponent<Text>().text = " " + str;
+            item.transform.SetAsLastSibling();
+            show_info_list.Remove(item);
+            show_info_list.Add(item);
+        }
+    }
+}

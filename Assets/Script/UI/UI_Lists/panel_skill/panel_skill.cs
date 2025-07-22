@@ -24,7 +24,7 @@ public class panel_skill : Panel_Base
     /// <summary>
     /// 按钮位置
     /// </summary>
-    private Transform crt_btn,crt_offect_btn, crt_skill,pos_skill;
+    private Transform crt_btn,crt_offect_btn,pos_skill;
     /// <summary>
     /// 当前选中的技能
     /// </summary>
@@ -59,6 +59,7 @@ public class panel_skill : Panel_Base
     private int page_index = 0;
 
     private int crt_skill_number = 0;
+  
     protected override void Awake()
     {
         base.Awake();
@@ -68,16 +69,16 @@ public class panel_skill : Panel_Base
     {
         base.Initialize();
         crt_btn = Find<Transform>("bg_main/skills/btns");
-        crt_skill = Find<Transform>("bg_main/skills/Scroll View/Viewport/Content");
+        //crt_skill = Find<Transform>("bg_main/skills/Scroll View/Viewport/Content");
         crt_offect_btn=Find<Transform>("bg_main/show_skill/btn_list");
         btn_item_Prefabs = Battle_Tool.Find_Prefabs<btn_item>("btn_item");// Resources.Load<btn_item>("Prefabs/base_tool/btn_item");
         skill_item_Prefabs = Battle_Tool.Find_Prefabs<skill_item>("skill_item"); //Resources.Load<skill_item>("Prefabs/panel_skill/skill_item");
         base_info = Find<Text>("bg_main/show_skill/bg_info/Viewport/base_info");
         offect_skill = Find<offect_up_skill>("bg_main/offect_up_skill");
         allocation_skill_damage = Find<allocation_skill_damage>("bg_main/allocation_skill_damage");
-        page_info = Find<Text>("bg_main/item_list/page_info");
+        page_info = Find<Text>("bg_main/skills/item_list/page_info");
         page_info.GetComponent<Button>().onClick.AddListener(delegate { Page_Change(); });
-        pos_skill = Find<Transform>("bg_main/item_list/list");
+        pos_skill = Find<Transform>("bg_main/skills/item_list/list");
         skill_item_parfabs = Battle_Tool.Find_Prefabs<skill_offect_item>("skill_offect_item");
         for (int i = 0; i < Enum.GetNames(typeof(skill_btn_list)).Length; i++)
         {
@@ -105,6 +106,34 @@ public class panel_skill : Panel_Base
 #endif
 
     }
+    /// <summary>
+    /// 初始化技能
+    /// </summary>
+    private void Skill_Clear()
+    {
+        int value = 0;
+        int number = 0;
+        foreach (var item in SumSave.crt_skills)
+        {
+
+            if (item.skill_type == user_skill.Data.skill_type)
+            {
+                int lv = int.Parse(user_skill.Data.user_values[1]);
+                number += int.Parse(item.user_values[1]);
+                //if (lv > 8)
+                //{
+                //    need_exp = (int)(number * 10 * MathF.Pow(2, 8) * MathF.Pow(1.5f, lv - 8));
+                //}
+                //else
+                //    need_exp = (int)(number * 10 * MathF.Pow(2, lv));
+
+                //dec += Show_Color.Green("升级需要 " + need_exp + "历练值\n");
+            }
+            
+        }
+       
+    }
+
     /// <summary>
     /// 翻页
     /// </summary>

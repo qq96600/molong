@@ -1542,8 +1542,6 @@ namespace MVC
                     }
                 }
             }
-
-           
             if (SumSave.crt_player_buff.player_Buffs.Count > 0)
             {
                 foreach (var item in SumSave.crt_player_buff.player_Buffs)
@@ -1567,6 +1565,8 @@ namespace MVC
                     }
                 }
             }
+            ///标准攻击速度
+            crt.attack_speed= Obtain_battle_AttackSpeed(crt.attack_speed, 100);
             //皮肤
 #if UNITY_EDITOR  
             //crt.hit += 1000;
@@ -1580,7 +1580,31 @@ namespace MVC
 
             Battle_Tool.validate_rank();
         }
-         
+        /// <summary>
+        /// 计算攻击速度递减公式
+        /// </summary>
+        /// <param name="crt_speed"></param>
+        /// <param name="base_speed"></param>
+        /// <returns></returns>
+        private static int Obtain_battle_AttackSpeed(int crt_speed, int base_speed)
+        {
+            if (crt_speed >= base_speed) return crt_speed;
+            int max = base_speed - crt_speed;
+            int base_value = base_speed;
+            int base_lv = 1;
+            for (int i = 0; i < max; i++)
+            {
+                if (base_value >= 90 && base_value < 100) base_lv = 2;
+                if (base_value >= 80 && base_value < 90) base_lv = 3;
+                if (base_value >= 70 && base_value < 80) base_lv = 4;
+                if (base_value >= 60 && base_value < 70) base_lv = 5;
+                if (base_value < 60) base_lv += 10;
+                if (i % base_lv == 0) base_value--;
+            }
+            base_value = (int)MathF.Max(50, base_value);
+            return base_value;
+        }
+
 
         /// <summary>
         /// 加成属性

@@ -11,9 +11,9 @@ using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 /// <summary>
-/// 试练塔
+/// 无尽深渊
 /// </summary>
-public class Endless_Battle : Panel_Base
+public class Endless_Tower : Panel_Base
 {
     /// <summary>
     /// 进入调整按钮
@@ -22,7 +22,7 @@ public class Endless_Battle : Panel_Base
     /// <summary>
     /// 战斗地图
     /// </summary>
-    private panel_fight fight_panel;
+    private panel_EndlessBattle fight_panel;
     /// <summary>
     /// 属性显示位置
     /// </summary>
@@ -48,7 +48,7 @@ public class Endless_Battle : Panel_Base
     public override void Initialize()
     {
         base.Initialize();
-        fight_panel = UI_Manager.I.GetPanel<panel_fight>();
+        fight_panel = UI_Manager.I.GetPanel<panel_EndlessBattle>();
         up_map = Find<Button>("up_map");
         up_map.onClick.AddListener(Challenge);
         crt = Find<Transform>("information/Viewport/Content");
@@ -76,14 +76,8 @@ public class Endless_Battle : Panel_Base
     private void Challenge()
     {
         user_map_vo map = ArrayHelper.Find(SumSave.db_maps, e => e.map_type == 7);
-        NeedConsumables(map.need_Required, 1);
-        if (RefreshConsumables())
-        {
-            fight_panel.Show();
-            //fight_panel.Open_Map(map, (int)user.Item3, this);
-        }
-        else Alert_Dec.Show("材料 " + map.need_Required + " 不足");
-
+        fight_panel.Show();
+        fight_panel.Open_Map(map);
     }
     /// <summary>
     /// 初始化
@@ -112,9 +106,9 @@ public class Endless_Battle : Panel_Base
     public override void Show()
     {
         base.Show();
-        if (SumSave.crt_MaxHero.Lv < 40 && SumSave.ios_account_number != "admin001")
+        if (SumSave.crt_MaxHero.Lv < 60)
         {
-            Alert_Dec.Show("试练塔开启等级为40级");
+            Alert_Dec.Show("无尽深渊开启等级为60级");
             gameObject.SetActive(false);
             return;
         }
