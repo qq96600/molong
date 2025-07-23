@@ -253,6 +253,7 @@ public class panel_EndlessBattle : Panel_Base
                     if (pet.pet_state == "1")
                     {
                         crtMaxHeroVO crt = new crtMaxHeroVO();
+                        crt.show_name = pet.petName;
                         for (int i = 0; i < pet.crate_values.Count; i++)
                         {
                             if (pet.crate_values[i] != "" && pet.up_values[i] != "")
@@ -265,7 +266,8 @@ public class panel_EndlessBattle : Panel_Base
            new Vector3(pos_player.position.x, pos_player.position.y+100, pos_player.position.z), Quaternion.identity, pos_player);
                         // 设置Data
                         item.GetComponent<player_battle_attck>().Data = crt;
-                        item.GetComponent<player_battle_attck>().Refresh_Skill(battle_skills);
+                        //item.GetComponent<player_battle_attck>().Refresh_Skill(battle_skills);
+                        item.GetComponent<BattleAttack>().StateMachine.skil_pet(crt.show_name);
                         //if (item.GetComponent<Button>().enabled)
                         //    item.GetComponent<Button>().onClick.AddListener(delegate { AudioManager.Instance.playAudio(ClipEnum.购买物品); SelectMonster(item.GetComponent<MonsterBattleAttack>()); });
                         //item.GetComponent<Button>().enabled = true;

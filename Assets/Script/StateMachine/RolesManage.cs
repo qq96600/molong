@@ -43,6 +43,22 @@ namespace StateMachine
         [Header("是否面向左")]
         protected bool facingLeft=true;
 
+        /// <summary>
+        /// 宠物名称,当前宠物
+        /// </summary>
+        private string pet_name,pet_type;
+        /// <summary>
+        /// 是否为宠物
+        /// </summary>
+        private bool is_pet = false;
+        /// <summary>
+        /// 宠物Image显示
+        /// </summary>
+        private Transform pet_transform;
+        /// <summary>
+        /// 宠物精灵
+        /// </summary>
+        private Image pet_Image;
 
         #region 角色外观
         /// <summary>
@@ -189,33 +205,59 @@ namespace StateMachine
             {
                 //int hero_index = int.Parse(SumSave.crt_hero.hero_index);
                 //skin_state = (enum_skin_state)hero_index;
-                
-                if(animName != SumSave.crt_hero.hero_pos)
+                if(is_pet==false)
                 {
-                    
-                    skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/skin_" + SumSave.crt_hero.hero_pos);
-
-                    animName = SumSave.crt_hero.hero_pos;
-
-                    panel_role_health = transform.Find("Appearance");
-
-                    for (int i = panel_role_health.childCount - 1; i >= 1; i--)
+                    if (animName != SumSave.crt_hero.hero_pos)
                     {
-                        Destroy(panel_role_health.GetChild(i).gameObject);
+
+                        skin_prefabs = Resources.Load<GameObject>("Prefabs/Skins/skin_" + SumSave.crt_hero.hero_pos);
+
+                        animName = SumSave.crt_hero.hero_pos;
+
+                        panel_role_health = transform.Find("Appearance");
+
+                        for (int i = panel_role_health.childCount - 1; i >= 1; i--)
+                        {
+                            Destroy(panel_role_health.GetChild(i).gameObject);
+                        }
+
+                        Instantiate(skin_prefabs, panel_role_health);
+                        show_tianming_Platform = transform.Find("Appearance/tianming_Platform");
+
                     }
 
-                    Instantiate(skin_prefabs, panel_role_health);
-                    show_tianming_Platform = transform.Find("Appearance/tianming_Platform");
-
-                }
-
-                if (tianming_Platform == null || !tianming_Platform.SequenceEqual(SumSave.crt_hero.tianming_Platform))
+                    if (tianming_Platform == null || !tianming_Platform.SequenceEqual(SumSave.crt_hero.tianming_Platform))
+                    {
+                        Show_Info_life();
+                    }
+                }else
                 {
-                    Show_Info_life();
+                    if(pet_name!=pet_type)
+                    {
+                        pet_type = pet_name;
+                        pet_transform= transform.Find("petAppearance");
+                        pet_transform.gameObject.SetActive(true);
+                        pet_Image= pet_transform.GetComponent<Image>();
+                        Sprite pet_Sprite = Resources.Load<Sprite>("icon" + pet_name);
+                        pet_Image.sprite = pet_Sprite;
+
+                    }
                 }
+                
             }
 
         }
+        /// <summary>
+        /// 宠物Image初始化
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="_is_pet"></param>
+        public void skil_pet(string name ,bool _is_pet=true)
+        {
+            pet_name= name;
+            is_pet = _is_pet;
+        }
+
 
 
         public virtual void Init(BattleAttack battle, BattleHealth _tatgetObg)//初始化参数
