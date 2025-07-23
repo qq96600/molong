@@ -392,7 +392,6 @@ namespace MVC
 
             #region ios区
             SumSave.uid = "DSFSDFSDFSDF3";//测试用号 DSFSDFSDFSDF3 7fd776b56fce4dcb9e1e310cab220b6e
-
                                           //SumSave.uid = "ed7091920d8f4f8aa193805fe45f8b3f";//温毓(ip)自然呆
                                           //SumSave.uid = "d6a5b51fddf94459bb2e80e54c091453";//666(ip)
                                           //SumSave.uid = "4024aeea8a704d3d965fafcb82d29493";//Rigine(ip)
@@ -409,8 +408,8 @@ namespace MVC
                                           // SumSave.uid = "8026157149ab4e86af8f69b22e12a7c4";
                                           //SumSave.uid = "464326ce7bc34ae4b612d53fb9fda084";//都做了土（ip） 
                                           // SumSave.uid = "ae47220bfc8242f381692c52edb15aba";//隐官(ip)
-            SumSave.par = -1;
 
+            SumSave.par = -1;
             #endregion
 
             #region 安卓区
