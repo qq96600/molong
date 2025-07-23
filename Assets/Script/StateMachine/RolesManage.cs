@@ -294,18 +294,56 @@ namespace StateMachine
             anim.SetBool(animName, false);
         }
 
+        /// <summary>
+        /// 是否背刺0不背刺1背刺
+        /// </summary>
+        int isBackstab= 0;
+        public void Backstab(int _isBackstab=0)
+        {
+            isBackstab = _isBackstab;
+        }
+
+        float _BehindDistance = 600f;
+        /// <summary>
+        /// 是否到达背刺地点
+        /// </summary>
+        [HideInInspector]
+        public bool isBackstabpos=false;
         public bool isAttackDistance()//攻击距离
         {
             if(TatgetObg == null) return true;
-            float distance = Vector2.Distance(transform.position, TatgetObg.transform.position);
-
-            if (AttackDistance >= distance)
+            if (isBackstab!=1)
             {
-                RbZero();
-                return true;
+                float distance = Vector2.Distance(new Vector2(transform.position.x, 0), new Vector2(TatgetObg.transform.position.x, 0));
+                if (AttackDistance >= distance)
+                {
+                    RbZero();
+                    return true;
+                }
+                else
+                    return false;
+            }else
+            {
+                if (transform.position.x < _BehindDistance)
+                {
+                    RbZero();
+                    isBackstabpos = true;
+                    return true;
+                }
+                else
+                {   
+                    if(isBackstabpos)
+                    {
+                        RbZero();
+                        return true;
+                    }else
+                    {
+                        return false;
+                    }
+                }
+
             }
-            else
-                return false;
+                
         }
 
         public void TargetMove(Vector2 targetMove)//平移 
