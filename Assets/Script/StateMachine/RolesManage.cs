@@ -254,7 +254,7 @@ namespace StateMachine
 
         public bool isAttackDistance()//攻击距离
         {
-            if(TatgetObg == null) return false;
+            if(TatgetObg == null) return true;
             float distance = Vector2.Distance(transform.position, TatgetObg.transform.position);
 
             if (AttackDistance >= distance)

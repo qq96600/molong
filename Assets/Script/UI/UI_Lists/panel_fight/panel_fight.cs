@@ -492,22 +492,6 @@ public class panel_fight : Panel_Base
             players.Clear();
         }
         else players = new List<BattleHealth>();
-        //if (SumSave.battleMonsterHealths != null)
-        //{
-        //    for (int i = pos_monster.childCount - 1; i >= 0; i--)
-        //    {
-        //        pos_monster.GetChild(i).gameObject.GetComponent<BattleHealth>().Clear();
-        //    }
-        //    SumSave.battleMonsterHealths.Clear();
-        //}
-        //if (SumSave.battleHeroHealths != null)
-        //{
-        //    for (int i = pos_player.childCount - 1; i >= 0; i--)
-        //    {
-        //        pos_player.GetChild(i).gameObject.GetComponent<BattleHealth>().Clear();
-        //    }
-        //    SumSave.battleHeroHealths.Clear();
-        //}
         crt_map_monsters.Clear();
         if (select_map.map_type == 6)
         {
@@ -557,9 +541,17 @@ public class panel_fight : Panel_Base
     private float WaitTime()
     {
         float Waittime = 5f;
-        if(SumSave.crt_MaxHero.bufflist.Count> (int)enum_skill_attribute_list.寻怪间隔)
-        Waittime -= SumSave.crt_MaxHero.bufflist[(int)enum_skill_attribute_list.寻怪间隔]/10f;
+        //if(SumSave.crt_MaxHero.bufflist.Count> (int)enum_skill_attribute_list.寻怪间隔)
+        //Waittime -= SumSave.crt_MaxHero.bufflist[(int)enum_skill_attribute_list.寻怪间隔]/10f;
+        //Waittime = Mathf.Clamp(Waittime, 1f, 5f);
+        Waittime = (select_map.map_type-1) * 0.5f;
         Waittime = Mathf.Clamp(Waittime, 1f, 5f);
+
+        if (SumSave.crt_MaxHero.bufflist.Count > (int)enum_skill_attribute_list.寻怪间隔)
+        { 
+            Waittime = SumSave.crt_MaxHero.bufflist[(int)enum_skill_attribute_list.寻怪间隔] * Waittime / 10f;
+          
+        }
         return Waittime;
     }
     // 下一波怪

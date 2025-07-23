@@ -105,6 +105,7 @@ namespace MVC
         {
             set
             {
+                Tergets = new List<BattleHealth>();
                 data = value;
                 if (data == null) return;
                 frame.gameObject.SetActive(false);
@@ -118,7 +119,7 @@ namespace MVC
                 hp_text.text = Battle_Tool.FormatNumberToChineseUnit(target.HP) + "/" + Battle_Tool.FormatNumberToChineseUnit(target.maxHP);
                 target.maxMP= data.MaxMp;
                 target.MP= data.MaxMp;
-                Terget = null;
+                //Terget = null;
                 string dec = "";
                
                 if (data.Monster_Lv >= 1)
@@ -236,7 +237,7 @@ namespace MVC
         /// </summary>
         protected virtual void Find_Terget()
         {
-            if (Tergets == null) return;
+            //if (Tergets == null) return;
             if (Tergets.Count > 0)//怪物找玩家
             {
                 //寻找距离自身最近的目标    
@@ -431,6 +432,7 @@ namespace MVC
 
         protected virtual void BaseAttack()//判断伤害
         {
+            if (Terget == null) return;
             AudioManager.Instance.playAudio(ClipEnum.攻击敌人);
             BattleAttack monster = Terget.GetComponent<BattleAttack>();
             if (monster.target.HP <= 0) return;//结战斗
