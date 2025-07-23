@@ -241,6 +241,8 @@ public class panel_EndlessBattle : Panel_Base
     /// </summary>
     private void crate_pet()
     {
+
+        return;
         if (SumSave.crt_world != null)
         {
             if (SumSave.crt_pet!=null)
