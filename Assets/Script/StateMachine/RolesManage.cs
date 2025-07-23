@@ -237,8 +237,8 @@ namespace StateMachine
                         pet_type = pet_name;
                         pet_transform= transform.Find("petAppearance");
                         pet_transform.gameObject.SetActive(true);
-                        pet_Image= pet_transform.GetComponent<Image>();
-                        Sprite pet_Sprite = Resources.Load<Sprite>("icon" + pet_name);
+                        pet_Image= pet_transform.Find("Image").GetComponent<Image>();
+                        Sprite pet_Sprite = Resources.Load<Sprite>("icon/" + pet_name);
                         pet_Image.sprite = pet_Sprite;
 
                     }
@@ -296,7 +296,7 @@ namespace StateMachine
 
         public bool isAttackDistance()//攻击距离
         {
-            if(TatgetObg == null) return false;
+            if(TatgetObg == null) return true;
             float distance = Vector2.Distance(transform.position, TatgetObg.transform.position);
 
             if (AttackDistance >= distance)

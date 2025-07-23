@@ -55,10 +55,7 @@ public class panel_EndlessBattle : Panel_Base
     /// 关闭列表按钮
     /// </summary>
     private Button close_btn;
-    /// <summary>
-    /// 是否关闭列表
-    /// </summary>
-    private bool close_panel_state = true;
+    
     /// <summary>
     /// 列表位置
     /// </summary>
@@ -110,10 +107,10 @@ public class panel_EndlessBattle : Panel_Base
         base.Initialize();
         pos_monster = Find<Transform>("battle_pos/monster_pos");
         pos_player = Find<Transform>("battle_pos/player_pos");
-        player_battle_attack_prefabs = Resources.Load<GameObject>("Prefabs/prefab/player_battle_attck_item"); ; //Battle_Tool.Find_Prefabs<GameObject>("player_battle_attck_item")
-        monster_battle_attack_prefabs = Resources.Load<GameObject>("Prefabs/prefab/monster_battle_attck_item");// Battle_Tool.Find_Prefabs<GameObject>("monster_battle_attck_item"); 
-        //player_battle_attack_prefabs = Resources.Load<GameObject>("Prefabs/prefab/endlessplayer_battle_attck_item");
-        //monster_battle_attack_prefabs = Resources.Load<GameObject>("Prefabs/prefab/endiessmonster_battle_attck_item");
+        //player_battle_attack_prefabs = Resources.Load<GameObject>("Prefabs/prefab/player_battle_attck_item"); ; //Battle_Tool.Find_Prefabs<GameObject>("player_battle_attck_item")
+        //monster_battle_attack_prefabs = Resources.Load<GameObject>("Prefabs/prefab/monster_battle_attck_item");// Battle_Tool.Find_Prefabs<GameObject>("monster_battle_attck_item"); 
+        player_battle_attack_prefabs = Resources.Load<GameObject>("Prefabs/prefab/endlessplayer_battle_attck_item");
+        monster_battle_attack_prefabs = Resources.Load<GameObject>("Prefabs/prefab/endiessmonster_battle_attck_item");
         pight_show_skill = Find<pight_show_skill>("skill_list");
         role_health = Find<panel_role_health>("panel_role_health");
         map_name = Find<Text>("battle_pos/map_name/info");
@@ -191,8 +188,16 @@ public class panel_EndlessBattle : Panel_Base
     public override void Hide()
     {
         base.Hide();
+        settlement();
     }
-   
+    /// <summary>
+    /// 结算收益
+    /// </summary>
+    private void settlement()
+    { 
+    
+    }
+
     /// <summary>
     /// 游戏结束
     /// </summary>
@@ -241,8 +246,7 @@ public class panel_EndlessBattle : Panel_Base
     /// </summary>
     private void crate_pet()
     {
-
-        return;
+  
         if (SumSave.crt_world != null)
         {
             if (SumSave.crt_pet!=null)
@@ -265,8 +269,9 @@ public class panel_EndlessBattle : Panel_Base
                         GameObject item = ObjectPoolManager.instance.GetObjectFormPool(crt.show_name, player_battle_attack_prefabs,
            new Vector3(pos_player.position.x, pos_player.position.y+100, pos_player.position.z), Quaternion.identity, pos_player);
                         // 设置Data
-                        item.GetComponent<player_battle_attck>().Data = crt;
-                        //item.GetComponent<player_battle_attck>().Refresh_Skill(battle_skills);
+                        item.GetComponent<endlessplayer_battle_attck>().Data = crt;
+                        item.GetComponent<endlessplayer_battle_attck>().Refresh_Skill(new List<skill_offect_item>());
+                        item.GetComponent<BattleAttack>().FindTergets(monsters);
                         item.GetComponent<BattleAttack>().StateMachine.skil_pet(crt.show_name);
                         //if (item.GetComponent<Button>().enabled)
                         //    item.GetComponent<Button>().onClick.AddListener(delegate { AudioManager.Instance.playAudio(ClipEnum.购买物品); SelectMonster(item.GetComponent<MonsterBattleAttack>()); });
@@ -297,6 +302,7 @@ public class panel_EndlessBattle : Panel_Base
         // 设置Data
         item.GetComponent<BattleAttack>().Data = crt;
         item.GetComponent<BattleAttack>().Refresh_Skill(battle_skills);
+        item.GetComponent<BattleAttack>().FindTergets(monsters);
         //if (item.GetComponent<Button>().enabled)
         //    item.GetComponent<Button>().onClick.AddListener(delegate { AudioManager.Instance.playAudio(ClipEnum.购买物品); SelectMonster(item.GetComponent<MonsterBattleAttack>()); });
         //item.GetComponent<Button>().enabled = true;
@@ -382,11 +388,16 @@ public class panel_EndlessBattle : Panel_Base
     /// <param name="health"></param>
     protected void clearhealth(BattleHealth health)
     {
-        if (health.GetComponent<BattleAttack>().Data.Monster_Lv==0)
+        if (health.GetComponent<BattleAttack>().Data.Monster_Lv == 0)
         {
             players.Remove(health);
         }
-        else  monsters.Remove(health);
+        else
+        {
+            //击杀一个怪物
+            crt_monster_number++;
+            monsters.Remove(health);
+        } 
         openRefreshStatus = true;
     }
     private IEnumerator ProduceMonster(float time)
@@ -437,11 +448,12 @@ public class panel_EndlessBattle : Panel_Base
         float y = pos_monster.position.y + (width / 20 * monsters.Count) * dic;
         if (y > pos_monster.position.y + width / 2) y = pos_monster.position.y;
         crtMaxHeroVO crt = crt_map_monsters[Random.Range(0, crt_map_monsters.Count)];
-        crt = Battle_Tool.crate_monster(crt, select_map, crt_monster_number == maxnumber, trial_storey);
+        crt = Battle_Tool.crate_monster(crt, select_map, crt_monster_number / 10 + 1);
         GameObject item = ObjectPoolManager.instance.GetObjectFormPool(crt.show_name, monster_battle_attack_prefabs,
             new Vector3(pos_monster.position.x, y, pos_monster.position.z), Quaternion.identity, pos_monster);
-        // 设置Data
+        // 设置Data   
         item.GetComponent<BattleAttack>().Data = crt;
+        item.GetComponent<BattleAttack>().FindTergets(players);
         //点击怪物
         //if (item.GetComponent<Button>().enabled)
         //    item.GetComponent<Button>().onClick.AddListener(delegate { AudioManager.Instance.playAudio(ClipEnum.购买物品); SelectMonster(item.GetComponent<BattleAttack>()); });
@@ -449,7 +461,7 @@ public class panel_EndlessBattle : Panel_Base
         monsters.Add(item.GetComponent<BattleHealth>());
         Open_Monster_State = true;
         openRefreshStatus = true;
-        ShowInfoMap();
+        ShowInfoMap();   
     }
     /// <summary>
     /// 锁定怪物 增加目标

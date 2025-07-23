@@ -90,7 +90,7 @@ public class AttackStateMachine : MonoBehaviour
 
     private void Update()
     {
-        if (Target == null) return;
+        if (Target == null|| battle==null) return;
         IsState();
         Animator_State();
         if (arrowType == Arrow_Type.idle)//&& SumSave.battleMonsterHealths.Count>0
@@ -118,11 +118,11 @@ public class AttackStateMachine : MonoBehaviour
             IsState();
         }
 
-        distance = Vector3.Distance(initPosition, transform.position);
-        if (distance>800)
-        {
-            transform.position = initPosition;
-        }
+        //distance = Vector3.Distance(initPosition, transform.position);
+        //if (distance > 1600)
+        //{
+        //    transform.position = initPosition;
+        //}
 
     }
 
@@ -182,7 +182,7 @@ public class AttackStateMachine : MonoBehaviour
     public void Init(BattleAttack _battle,BattleHealth target)
     {
         battle= _battle;
-        initPosition=_battle.transform.position;
+        initPosition= _battle.transform.position;
         AttackSpeed = battle.Data.attack_speed;
         AttackSpeedCounter = AttackSpeed;
         Target = target;
