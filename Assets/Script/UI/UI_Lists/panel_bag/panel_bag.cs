@@ -166,7 +166,17 @@ public class panel_bag : Panel_Base
     private void sell_all()
     {
         int moeny= 0;
+        List<(string,int)> list = SumSave.crt_needlist.SetMap();
         List<Bag_Base_VO> sell_list = new List<Bag_Base_VO>();
+        int number = 0, value=0;
+        for (int i = 0; i < list.Count; i++)
+        {
+            if (list[i].Item1 == "背包回收魔丸")
+            {
+                number= list[i].Item2;
+                value= list[i].Item2;
+            }
+        }
         foreach (Bag_Base_VO item in SumSave.crt_bag)
         {
             if (item.user_value != null)
@@ -176,8 +186,20 @@ public class panel_bag : Panel_Base
                 {
                     if (info_str[5] == "0")
                     {
-                        sell_list.Add(item);
-                        moeny += item.price;
+                        if (info_str[2] == "7")
+                        {
+                            if (number + (item.need_lv / 2 + 1) < 50)
+                            {
+                                number+= (item.need_lv / 2 + 1);
+                                sell_list.Add(item);
+                                moeny += item.price;
+                            }
+                        }
+                        else
+                        {
+                            sell_list.Add(item);
+                            moeny += item.price;
+                        }
                     }
                 }
                 else
@@ -192,6 +214,20 @@ public class panel_bag : Panel_Base
             foreach (Bag_Base_VO item in sell_list)
             { 
                 SumSave.crt_bag.Remove(item);
+            }
+        }
+        if (value < number)
+        {
+            SumSave.crt_user_unit.verify_data(currency_unit.魔丸, number - value);
+            string dec = "出售奖励\n" + "本次出售获得魔丸 " + (number - value) + "\n今日剩余获取魔丸" + (50 - number);
+            Alert.Show("出售奖励", dec);
+            SumSave.crt_needlist.SetMap(("背包回收魔丸", number));
+        }
+        else
+        {
+            if (number < 50)
+            {
+                Alert_Dec.Show("出售提示，今日还可获取魔丸 " + (50 - number));
             }
         }
         Alert_Dec.Show("出售成功，获得灵珠 " + moeny);

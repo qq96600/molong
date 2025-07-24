@@ -982,10 +982,6 @@ namespace MVC
                 SumSave.crt_pet.Init("");
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_pet, SumSave.crt_pet.Set_Instace_String());
             }
-<<<<<<< HEAD
-=======
-           
->>>>>>> 5b400ca49c021b3c8ebcdcd7a574ea7b6b0448bf
         }
 
 

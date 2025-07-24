@@ -225,7 +225,6 @@ public class panel_EndlessBattle : Panel_Base
                 for (int i = 0; i < SumSave.db_EndlessBattle_list.Count; i++)
                 {
                     int max= kill_monster_number/ SumSave.db_EndlessBattle_list[i].need_number;
-                    Debug.Log("max"+max);
                     if (max > 0)
                     {
                         max = Mathf.Min(max, SumSave.db_EndlessBattle_list[i].max_number);
@@ -238,9 +237,13 @@ public class panel_EndlessBattle : Panel_Base
                         }
                     }
                 }
-                foreach (var item in dic)
+                foreach (var item in dic.Keys)
                 {
-                   dec+="获得"+item.Value+"个"+item.Key+"\n";
+                    dec+="获得"+item+"个"+dic[item]+"\n";
+                    int random = Random.Range(1, 100);
+                    int number = dic[item];
+                    int maxnumber = number + Random.Range(1, 100);
+                    Battle_Tool.Obtain_Resources(Obtain_Int.Add(1, item, new int[] { number + random, random }), maxnumber);
                 }
                 Alert.Show(select_map.map_name, dec);
             }

@@ -351,7 +351,7 @@ public class hatching_progress : Base_Mono
         NeedConsumables("宠物口粮", 1);
         if (RefreshConsumables())
         {
-            crt_pet_vo.exp += 10;
+            crt_pet_vo.exp += 10 * (100 + Tool_State.Value_playerprobabilit(enum_skill_attribute_list.宠物经验)) / 100;
             int maxlevel = crt_pet_vo.level * 10;
             if (crt_pet_vo.exp >= maxlevel)
             {
