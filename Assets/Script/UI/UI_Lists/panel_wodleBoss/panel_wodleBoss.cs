@@ -212,7 +212,7 @@ public class panel_wodleBoss : Panel_Base
     public override void Show()
     {
         base.Show();
-        if (SumSave.crt_MaxHero.Lv < 20)
+        if (SumSave.crt_MaxHero.Lv < 20&& SumSave.ios_account_number != "admin001")
         {
             Alert_Dec.Show("世界Boss开启等级为20级");
             gameObject.SetActive(false);

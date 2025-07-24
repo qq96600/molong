@@ -74,6 +74,24 @@ namespace MVC
             mysqlReader = MysqlDb.SelectWhere(Mysql_Table_Name.mo_user_iphone, new string[] { "par", "account", "password" }, new string[] { "=", "=", "=" },
                 new string[] { SumSave.par.ToString(), id[0], id[1] });
             string crt_verify = "";
+            if (id[0] == "admin001")//苹果测试账户
+            {
+                SumSave.uid = Guid.NewGuid().ToString("N");
+                Game_Omphalos.i.Alert_Show("创建角色成功");
+                crt_verify = Guid.NewGuid().ToString("N");
+                Wirte_Id(crt_verify);
+                ///新用户
+                MysqlDb.InsertInto(Mysql_Table_Name.mo_user_iphone, new string[] {
+                    GetStr(0), GetStr(SumSave.par), GetStr(id[0]), GetStr(id[1]), GetStr(SumSave.uid), GetStr(crt_verify)});
+
+                SumSave.ios_account_number= id[0];
+
+                Login();
+                Game_Omphalos.i.Alert_Show("登录成功");
+                CloseMySqlDB();
+                return;
+            }
+
             if (mysqlReader.HasRows)
             {
                 while (mysqlReader.Read())
@@ -103,20 +121,6 @@ namespace MVC
             }
             if (!Crt_Verify(crt_verify))
             {
-                if (id[0] == "admin001")//苹果测试账户
-                {
-                    SumSave.uid = Guid.NewGuid().ToString("N");
-                    Game_Omphalos.i.Alert_Show("创建角色成功");
-                    crt_verify = Guid.NewGuid().ToString("N");
-                    Wirte_Id(crt_verify);
-                    ///新用户
-                    MysqlDb.InsertInto(Mysql_Table_Name.mo_user_iphone, new string[] {
-                    GetStr(0), GetStr(SumSave.par), GetStr(id[0]), GetStr(id[1]), GetStr(SumSave.uid), GetStr(crt_verify)});
-                    Login();
-                    Game_Omphalos.i.Alert_Show("登录成功");
-                    CloseMySqlDB();
-                    return;
-                }
                 SumSave.uid = null;
                 Game_Omphalos.i.Alert_Info("查询不到设备信息,请联系管理\nqq 386246268");
             }

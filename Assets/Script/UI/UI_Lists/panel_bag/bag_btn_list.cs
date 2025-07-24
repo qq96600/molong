@@ -20,5 +20,6 @@ public enum skill_Offect_btn_list
     上阵,
     升级,
     分配,
-    下阵
+    下阵,
+    重置
 }

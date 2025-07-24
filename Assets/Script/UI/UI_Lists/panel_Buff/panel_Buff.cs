@@ -281,7 +281,6 @@ public class panel_Buff : Panel_Base
                     {
                         buff_list[0] += time.Item3 * 100 - 100;
                         buff_list[2]+= time.Item3 * 100 - 100;
-                        //dec += Show_Color.Red(item.Key + ": 效果 经验值和灵珠值获取增加" + time.Item3 + "倍 剩余" + (time.Item2 - (SumSave.nowtime - time.Item1).Minutes) + "Min\n ");
                         dec += Show_Color.Red(item.Key + ": " + ConvertSecondsToHHMMSS(time.Item2 * 60 - remainingTime,2) + "\n ");
 
                     }
@@ -300,7 +299,6 @@ public class panel_Buff : Panel_Base
                     {
                         if (time.Item4 == 1) buff_list[0] += time.Item3 * 100 - 100;
                         if (time.Item4 == 2) buff_list[2] += time.Item3 * 100 - 100;
-                        //dec += Show_Color.Red(item.Key + ": 效果" + time.Item3 + "倍 剩余" + (time.Item2 * 60 - remainingTime) + "Min\n ");
                         dec += Show_Color.Red(item.Key + ": " + ConvertSecondsToHHMMSS(time.Item2 * 60 - remainingTime,2) + "\n ");
 
                     }
@@ -327,7 +325,6 @@ public class panel_Buff : Panel_Base
         dec += enum_skill_attribute_list.经验加成 + ": " + Show_Buff(enum_skill_attribute_list.经验加成) + "%\n ";
         dec += enum_skill_attribute_list.人物历练 + ": " + Show_Buff(enum_skill_attribute_list.人物历练) + "%\n ";
         dec += enum_skill_attribute_list.灵珠收益 + ": " + Show_Buff(enum_skill_attribute_list.灵珠收益) + "%\n ";
-
         dec += enum_skill_attribute_list.装备爆率 + ": " + Show_Buff(enum_skill_attribute_list.装备爆率) + "%\n ";
         dec += enum_skill_attribute_list.装备掉落 + ": " + Show_Buff(enum_skill_attribute_list.装备掉落) + "%\n ";
         dec += enum_skill_attribute_list.宠物获取 + ": " + Show_Buff(enum_skill_attribute_list.宠物获取) + "%\n ";
