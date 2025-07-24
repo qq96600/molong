@@ -8,6 +8,7 @@ using UI;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using static user_endless_battle;
 using Random = UnityEngine.Random;
 
 /// <summary>
@@ -63,10 +64,13 @@ public class Endless_Tower : Panel_Base
     private void GetList()
     {
         ClearObject(crt);
-        for (int i = 0; i < SumSave.crt_Trial_Tower_rank.lists.Count; i++)
+        SendNotification(NotiList.Read_EndlessBattle);
+        List <endlsess_battle> endless_list = SumSave.crt_endless_battle.endless_list;
+        for (int i = 0; i < endless_list.Count; i++)
         {
             rank_item item = Instantiate(rank_itemPrefab, crt);
-            item.Data2 = SumSave.crt_Trial_Tower_rank.lists[i];
+            (string, string, long) data = (endless_list[i].type,endless_list[i].name, endless_list[i].num);
+            item.Data2 = data;
             item.Show_index2(i + 1);
         }
     }
@@ -76,44 +80,15 @@ public class Endless_Tower : Panel_Base
     private void Challenge()
     {
         user_map_vo map = ArrayHelper.Find(SumSave.db_maps, e => e.map_type == 7);
-        List<(string, int)> list = SumSave.crt_needlist.SetMap();
-        bool exist = true;
-        for (int i = 0; i < list.Count; i++)
-        {
-            if (list[i].Item1 == map.map_name)
-            {
-                //if (list[i].Item2 >= 1)
-                //{
-                //    Alert_Dec.Show("本日次数不足");
-                //    return;
-                //}
-                exist = false;
-                list[i] = (list[i].Item1, list[i].Item2 + 1);
-                SumSave.crt_needlist.SetMap(list[i]);
-                break;
-            }
-        }
-        if (exist) SumSave.crt_needlist.SetMap((map.map_name, 1));
         fight_panel.Show();
         fight_panel.Open_Map(map);
+        this.gameObject.SetActive(false);
     }
     /// <summary>
     /// 初始化
     /// </summary>
     private void Init()
     {
-        //读取排行榜
-        SendNotification(NotiList.Read_Trial_Tower);
-        SumSave.crt_Trial_Tower_rank.lists = ArrayHelper.OrderDescding(SumSave.crt_Trial_Tower_rank.lists, x => x.Item3);
-        foreach (var item in SumSave.crt_Trial_Tower_rank.lists)
-        {
-            if (item.Item1 == SumSave.crt_user.uid)
-            {
-                user = item;
-            }
-        }
-        //获取层数
-        base_info.text = "当前进度" + user.Item3 + "层\n挑战消耗 中品噬心魔种 * 1";
         GetList();
     }
     public override void Hide()

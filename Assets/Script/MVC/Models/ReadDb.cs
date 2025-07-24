@@ -12,6 +12,16 @@ using Random = UnityEngine.Random;
 /// </summary>
 public static class ReadDb
 {
+    //public static db_weather Read(MySqlDataReader reader, db_weather item)
+    //{
+    //   item.weather_index= reader.GetInt32(reader.GetOrdinal("weather_index"));
+    //    item.weather_type = reader.GetString(reader.GetOrdinal("weather_type"));
+    //    item.life_value = reader.GetString(reader.GetOrdinal("life_value"));
+    //    item.probability = reader.GetInt32(reader.GetOrdinal("probability"));
+    //    item.Init();
+    //    return item;
+    //}
+
 
     public static db_weather Read_weather(MySqlDataReader reader)
     {
@@ -22,7 +32,6 @@ public static class ReadDb
         return new db_weather(_weather_index, _weather_type, _life_value, _probability);
     }
 
-
     public static db_dec Read_dec(MySqlDataReader reader)
     {
         string _panel_index= reader.GetString(reader.GetOrdinal("panel_index"));
@@ -31,6 +40,24 @@ public static class ReadDb
         return new db_dec(_panel_index, _title, _dec);
     }
 
+    public static db_EndlessBattle_vo Read_EndlessBattle(MySqlDataReader reader)
+    {
+        string[] goods = reader.GetString(reader.GetOrdinal("value")).Split(' ');
+        int neednumber = reader.GetInt32(reader.GetOrdinal("need_number"));
+        int maxnumber= reader.GetInt32(reader.GetOrdinal("max_number"));
+        return new db_EndlessBattle_vo(goods, neednumber, maxnumber);
+    }
+
+
+
+    //public static db_formula_vo Read(MySqlDataReader reader, db_formula_vo item)
+    //{
+    //   item.formula_type= reader.GetInt32(reader.GetOrdinal("formula_type"));
+    //    item.formula_result= reader.GetString(reader.GetOrdinal("formula_result"));
+    //    item.formula_need= reader.GetString(reader.GetOrdinal("formula_need"));
+    //    item.Init();
+    //    return item;
+    //}
 
     public static db_formula_vo Read_formula(MySqlDataReader reader)
     {
@@ -39,6 +66,15 @@ public static class ReadDb
         string _formula_need= reader.GetString(reader.GetOrdinal("formula_need"));
         return new db_formula_vo(_formula_type, _formula_result, _formula_need);
     }
+
+    //public static db_suit_vo Read(MySqlDataReader reader, db_suit_vo item)
+    //{
+    //    item.suit_name = reader.GetString(reader.GetOrdinal("suit_name"));
+    //    item.suit_number = reader.GetInt32(reader.GetOrdinal("suit_number"));
+    //    item.suit_type= reader.GetInt32(reader.GetOrdinal("suit_type"));
+    //    item.Init(reader.GetString(reader.GetOrdinal("suit_value")));
+    //    return item;
+    //}
 
 
     public static db_suit_vo Read_suit(MySqlDataReader reader)
@@ -51,6 +87,15 @@ public static class ReadDb
 
 
 
+    //public static user_world_boss Read(MySqlDataReader reader, user_world_boss item)
+    //{
+    //    item.damage = reader.GetInt32(reader.GetOrdinal("damage"));
+    //    item.datetime= Convert.ToDateTime(reader.GetString(reader.GetOrdinal("datetime")));
+    //    item.par= reader.GetInt32(reader.GetOrdinal("par"));
+    //    item.uid= reader.GetString(reader.GetOrdinal("uid"));
+    //    return item;
+    //}
+
     public static user_world_boss Read_world_boss(MySqlDataReader reader)
     {
         int _damage = reader.GetInt32(reader.GetOrdinal("damage"));
@@ -60,6 +105,16 @@ public static class ReadDb
         return new user_world_boss(_damage, _datetime, _par, _uid);
     }
 
+
+
+    //public static db_fate_vo Read(MySqlDataReader reader, db_fate_vo item)
+    //{
+    //    item.fate_id= reader.GetInt32(reader.GetOrdinal("fate_index"));
+    //    item.fate_value= reader.GetString(reader.GetOrdinal("fate_value"));
+    //    item.Init();
+    //    return item;
+    //}
+
     public static db_fate_vo Read_fate(MySqlDataReader reader)
     {
         int _fate_id = reader.GetInt32(reader.GetOrdinal("fate_index"));
@@ -68,6 +123,16 @@ public static class ReadDb
     }
 
 
+
+
+    //public static user_base_vo Read(MySqlDataReader reader, user_base_vo item)
+    //{
+    //    item.uid = reader.GetString(reader.GetOrdinal("uid"));
+    //    item.RegisterDate = Convert.ToDateTime(reader.GetString(reader.GetOrdinal("RegisterDate")));
+    //    item.Nowdate = Convert.ToDateTime(reader.GetString(reader.GetOrdinal("Nowdate")));
+    //    item.par = reader.GetInt32(reader.GetOrdinal("par"));
+    //    return item;
+    //}
 
     public static user_base_vo Read_user_base(MySqlDataReader reader)
     {

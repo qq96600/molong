@@ -27,5 +27,7 @@ public class NotiList
     public const string Read_Crate_RecordAndClearWorldBoss = "清空并记录每个玩家Boss伤害";
     public const string Read_Trial_Tower = "读取试练塔排行榜";
     public const string Refresh_Trial_Tower = "刷新试练塔排行榜";
+    public const string Read_EndlessBattle = "获得无尽塔排行榜";
+    public const string Refresh_Endless_Tower = "写入无尽塔排行榜";
     #endregion
 }
