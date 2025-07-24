@@ -346,7 +346,7 @@ public class panel_EndlessBattle : Panel_Base
                             }
                         }
                         GameObject item = ObjectPoolManager.instance.GetObjectFormPool(crt.show_name, player_battle_attack_prefabs,
-           new Vector3(pos_player.position.x, pos_player.position.y+200, pos_player.position.z), Quaternion.identity, pos_player);
+                        new Vector3(pos_player.position.x, pos_player.position.y+200, pos_player.position.z), Quaternion.identity, pos_player);
                         // 设置Data
                         item.GetComponent<endlessplayer_battle_attck>().Data = crt;
                         item.GetComponent<endlessplayer_battle_attck>().Refresh_Skill(new List<skill_offect_item>());
