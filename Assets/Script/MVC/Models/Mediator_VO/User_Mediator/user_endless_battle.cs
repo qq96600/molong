@@ -90,30 +90,15 @@ public class user_endless_battle : Base_VO
             deleteEndless();
         }
     }
-
     /// <summary>
-    /// 无尽塔排行榜长度
-    /// </summary>
-    private int Max_endless_count=50;
-    /// <summary>
-    /// 排序删除无尽塔排行榜数据
+    /// 排序无尽塔排行榜数据
     /// </summary>
     /// <param name="data"></param>
     public void deleteEndless()
     {
         // 按击杀数降序排序
         endless_list.Sort((a, b) => b.num.CompareTo(a.num));
-        while (endless_dic.Count> Max_endless_count)
-        {
-            var lastEntry = endless_list[endless_list.Count - 1];
-
-            endless_dic.Remove(lastEntry.endless_uid);
-            endless_list.RemoveAt(endless_list.Count - 1);
-        }
     }
-
-
-
     /// <summary>
     /// 合并数组
     /// </summary>

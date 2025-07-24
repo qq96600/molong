@@ -203,18 +203,13 @@ public class panel_EndlessBattle : Panel_Base
         {
             if (list[i].Item1 == select_map.map_name)
             {
-                //if (list[i].Item2 >= 1)
-                //{
-                //    Alert_Dec.Show("本日次数不足");
-                //    return;
-                //}
                 exist = false;
                 list[i] = (list[i].Item1, list[i].Item2 + 1);
                 SumSave.crt_needlist.SetMap(list[i]);
                 break;
             }
         }
-        if (exist|| true)
+        if (exist)
         {
             SumSave.crt_needlist.SetMap((select_map.map_name, 1));
             if (kill_monster_number > 0)
@@ -248,26 +243,28 @@ public class panel_EndlessBattle : Panel_Base
                    dec+="获得"+item.Value+"个"+item.Key+"\n";
                 }
                 Alert.Show(select_map.map_name, dec);
-<<<<<<< HEAD
-=======
-                Write_into_the_leaderboard(kill_monster_number);
->>>>>>> 5b400ca49c021b3c8ebcdcd7a574ea7b6b0448bf
             }
         }
-
         if (kill_monster_number > 0)
-        { 
-            //刷新排行
+        {
+            Write_into_the_leaderboard(kill_monster_number);
         }
     }
-
-
-
     /// <summary>
     /// 写入排行榜
     /// </summary>
     private void  Write_into_the_leaderboard(int _num)
     {
+        for (int i = 0; i < SumSave.crt_endless_battle.endless_list.Count; i++)
+        {
+            if (SumSave.crt_endless_battle.endless_list[i].endless_uid == SumSave.uid)
+            {
+                if (SumSave.crt_endless_battle.endless_list[i].num < _num)//不足刷新排名
+                {
+                    return;
+                }
+            }
+        }
         user_endless_battle.endlsess_battle data = new user_endless_battle.endlsess_battle();
         data.endless_uid = SumSave.uid;
         data.name = SumSave.crt_hero.hero_name;
