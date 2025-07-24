@@ -54,7 +54,7 @@ public class user_endless_battle : Base_VO
                     AddEndless(data);
                 }
             }
-            deleteEndless();
+            //deleteEndless();
         }
     }
     /// <summary>
@@ -72,10 +72,6 @@ public class user_endless_battle : Base_VO
         {
             if(data.num > endless_dic[data.endless_uid].num)
             {
-                if (isSave)
-                {
-                    SendNotification(NotiList.Read_EndlessBattle);
-                }
                 endless_dic[data.endless_uid] = data;
                 int index = endless_list.FindIndex(x => x.endless_uid == data.endless_uid);
                 if (index >= 0)
@@ -86,6 +82,7 @@ public class user_endless_battle : Base_VO
         }
         else
         {
+          
             endless_dic.Add(data.endless_uid, data);
             endless_list.Add(data);
         }
@@ -95,11 +92,7 @@ public class user_endless_battle : Base_VO
             SendNotification(NotiList.Refresh_Endless_Tower);
         }
     }
-    /// <summary>
-    /// 无尽塔排行榜长度
-    /// </summary>
-    private int Max_endless_count=50;
-    /// <summary>
+
     /// 排序无尽塔排行榜数据
     /// </summary>
     /// <param name="data"></param>
@@ -108,9 +101,6 @@ public class user_endless_battle : Base_VO
         // 按击杀数降序排序
         endless_list.Sort((a, b) => b.num.CompareTo(a.num));
     }
-
-
-
     /// <summary>
     /// 合并数组
     /// </summary>

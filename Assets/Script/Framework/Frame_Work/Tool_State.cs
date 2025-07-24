@@ -124,4 +124,11 @@ public  static class Tool_State
         return number;
     }
 
+    public static bool Is_SetMap(string index,int value,int max)
+    {
+        bool exist = false;
+
+        return exist;
+    }
+
 }

@@ -391,9 +391,8 @@ namespace MVC
 #if UNITY_EDITOR
 
             #region ios区
-            SumSave.uid = "DSFSDFSDFSDF3";
-
-            SumSave.par = 101;
+            SumSave.uid = "DSFSDFSDFSDF3";   
+            SumSave.par = -1;
             #endregion
             #region 安卓区
             //SumSave.uid = "DSFSDFSDFSDF3";//

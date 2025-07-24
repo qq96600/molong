@@ -73,8 +73,6 @@ public static class ReadDb
         return new db_fate_vo(_fate_id, _fate_value);
     }
 
-
-
     public static user_base_vo Read_user_base(MySqlDataReader reader)
     {
         string _uid = reader.GetString(reader.GetOrdinal("uid"));

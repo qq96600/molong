@@ -45,6 +45,10 @@ public class Endless_Tower : Panel_Base
     /// 读取自身属性
     /// </summary>
     private (string, string, long) user;
+    /// <summary>
+    /// 可获得奖励次数文本
+    /// </summary>
+    private Text number;
 
     public override void Initialize()
     {
@@ -56,6 +60,7 @@ public class Endless_Tower : Panel_Base
         base_info = Find<Text>("boss_icon/nameText");
         rank_itemPrefab = Battle_Tool.Find_Prefabs<rank_item>("rank_item");
         information = Find<Transform>("information/Viewport/Content");
+        number= Find<Text>("number");
     }
 
     /// <summary>
@@ -90,6 +95,24 @@ public class Endless_Tower : Panel_Base
     private void Init()
     {
         GetList();
+        List<(string, int)> list = SumSave.crt_needlist.SetMap();
+        bool exist = true;
+        string str = "";
+        for (int i = 0; i < list.Count; i++)
+        {
+            if (list[i].Item1 == "无尽深渊")
+            {
+                exist = false;
+                str = "已获得奖励次数:"+ list[i].Item2+ "/1"; 
+                break;
+            }
+        }
+        if(exist)
+        {
+            str = "已获得奖励次数:0/1";
+        }
+        str += "\n最大击杀数量："+ SumSave.crt_endless_battle.endless_dic[SumSave.uid].num;
+        number.text = str;
     }
     public override void Hide()
     {
