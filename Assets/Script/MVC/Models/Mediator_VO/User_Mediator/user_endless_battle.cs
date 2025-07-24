@@ -61,7 +61,7 @@ public class user_endless_battle : Base_VO
     /// 添加无尽塔排行榜数据
     /// </summary>
     /// <param name="data"></param>
-    /// <param name="isSave">是否进行排序</param>
+    /// <param name="isSave">是否进行排序且不为初始化</param>
     public void AddEndless(endlsess_battle data,bool isSave = false)
     {
         if(string.IsNullOrEmpty(data.endless_uid))
@@ -72,6 +72,10 @@ public class user_endless_battle : Base_VO
         {
             if(data.num > endless_dic[data.endless_uid].num)
             {
+                if (isSave)
+                {
+                    SendNotification(NotiList.Read_EndlessBattle);
+                }
                 endless_dic[data.endless_uid] = data;
                 int index = endless_list.FindIndex(x => x.endless_uid == data.endless_uid);
                 if (index >= 0)
@@ -88,28 +92,21 @@ public class user_endless_battle : Base_VO
         if(isSave)
         {
             deleteEndless();
+            SendNotification(NotiList.Refresh_Endless_Tower);
         }
     }
-
     /// <summary>
     /// 无尽塔排行榜长度
     /// </summary>
     private int Max_endless_count=50;
     /// <summary>
-    /// 排序删除无尽塔排行榜数据
+    /// 排序无尽塔排行榜数据
     /// </summary>
     /// <param name="data"></param>
     public void deleteEndless()
     {
         // 按击杀数降序排序
         endless_list.Sort((a, b) => b.num.CompareTo(a.num));
-        while (endless_dic.Count> Max_endless_count)
-        {
-            var lastEntry = endless_list[endless_list.Count - 1];
-
-            endless_dic.Remove(lastEntry.endless_uid);
-            endless_list.RemoveAt(endless_list.Count - 1);
-        }
     }
 
 

@@ -7,12 +7,12 @@ using UnityEngine;
 public class mo_world_boss_rank : Base_VO
 {
     /// <summary>
-    /// 世界boss排行榜
+    /// 试炼塔排行榜
     /// </summary>
     public string Ranking_value;
-   /// <summary>
-   /// 世界boss排行榜列表
-   /// </summary>
+    /// <summary>
+    /// 试炼塔排行榜列表
+    /// </summary>
     public List<(string,string,long)> lists = new List<(string,string,long)>();
 
     /// <summary>

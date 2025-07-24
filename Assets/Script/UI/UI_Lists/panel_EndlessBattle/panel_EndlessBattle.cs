@@ -219,18 +219,24 @@ public class panel_EndlessBattle : Panel_Base
             SumSave.crt_needlist.SetMap((select_map.map_name, 1));
             if (kill_monster_number > 0)
             {
-                //kill_monster_number = Random.Range(100, 10000);
+#if UNITY_EDITOR
+                kill_monster_number = Random.Range(9000, 10000);
+                #endif
+
                 long exp= (long)(kill_monster_number * 10000);//经验
                 int plint= (kill_monster_number * 500);//历练值
                 string dec = select_map.map_name+"\n";
                 dec+="本次击杀 "+kill_monster_number+" 只怪物\n";
                 dec += "获得经验 " + exp + "\n";
                 dec += "获得历练值 " + plint + "\n";
+                Battle_Tool.Obtain_Exp(exp, 2);
+                Battle_Tool.Obtain_Unit(currency_unit.历练, plint);
+
                 Dictionary<string, int> dic = new Dictionary<string, int>();
                 for (int i = 0; i < SumSave.db_EndlessBattle_list.Count; i++)
                 {
                     int max= kill_monster_number/ SumSave.db_EndlessBattle_list[i].need_number;
-                    Debug.Log("max"+max);
+                    //Debug.Log("max"+max);
                     if (max > 0)
                     {
                         max = Mathf.Min(max, SumSave.db_EndlessBattle_list[i].max_number);
@@ -245,23 +251,18 @@ public class panel_EndlessBattle : Panel_Base
                 }
                 foreach (var item in dic)
                 {
-                   dec+="获得"+item.Value+"个"+item.Key+"\n";
+                   Debug.LogError("未获得材料");
+                    dec +="获得"+item.Value+"个"+item.Key+"\n";
                 }
                 Alert.Show(select_map.map_name, dec);
-<<<<<<< HEAD
-=======
-                Write_into_the_leaderboard(kill_monster_number);
->>>>>>> 5b400ca49c021b3c8ebcdcd7a574ea7b6b0448bf
             }
         }
-
         if (kill_monster_number > 0)
-        { 
+        {
             //刷新排行
+            Write_into_the_leaderboard(kill_monster_number);
         }
     }
-
-
 
     /// <summary>
     /// 写入排行榜
@@ -273,9 +274,7 @@ public class panel_EndlessBattle : Panel_Base
         data.name = SumSave.crt_hero.hero_name;
         data.type = SumSave.crt_hero.hero_pos;
         data.num = _num;
-        SendNotification(NotiList.Read_EndlessBattle);
         SumSave.crt_endless_battle.AddEndless(data, true);
-        SendNotification(NotiList.Refresh_Endless_Tower);
     }
 
 

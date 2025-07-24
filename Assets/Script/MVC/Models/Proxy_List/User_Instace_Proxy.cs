@@ -140,7 +140,6 @@ namespace MVC
         private void read_Trial_Tower()
         {
             mysqlReader = MysqlDb.Select(Mysql_Table_Name.user_trial_towers, "par", GetStr(SumSave.par));
-
             SumSave.crt_Trial_Tower_rank = new mo_world_boss_rank();
             if (mysqlReader.HasRows)
             {
@@ -153,7 +152,6 @@ namespace MVC
             }
             else
             {
-
                 MysqlDb.InsertInto(Mysql_Table_Name.user_trial_towers, SumSave.crt_Trial_Tower_rank.Set_Instace_String());
             }
         }
@@ -851,7 +849,6 @@ namespace MVC
             {
                 while (mysqlReader.Read())
                 {
-                    //获取等级
                     SumSave.crt_endless_battle.endless_value = mysqlReader.GetString(mysqlReader.GetOrdinal("value"));
                 }
                 SumSave.crt_endless_battle.Split_endless();
@@ -982,10 +979,6 @@ namespace MVC
                 SumSave.crt_pet.Init("");
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_pet, SumSave.crt_pet.Set_Instace_String());
             }
-<<<<<<< HEAD
-=======
-           
->>>>>>> 5b400ca49c021b3c8ebcdcd7a574ea7b6b0448bf
         }
 
 
