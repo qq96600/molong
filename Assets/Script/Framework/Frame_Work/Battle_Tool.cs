@@ -393,19 +393,15 @@ public static class Battle_Tool
                 if (ArrayHelper.SafeGet(SumSave.crt_MaxHero.bufflist, (int)enum_skill_attribute_list.试练塔积分, out int se))
                     value = (int)(value * (100 + SumSave.crt_MaxHero.bufflist[(int)enum_skill_attribute_list.试练塔积分]) / 100);
             }
-            if (unit == currency_unit.灵气)//目前没有灵气加成
-            {
-                //if (ArrayHelper.SafeGet(SumSave.crt_MaxHero.bufflist, (int)enum_skill_attribute_list.灵气上限, out int se))
-                //    value = (int)(value * (100 + SumSave.crt_MaxHero.bufflist[(int)enum_skill_attribute_list.试练塔积分]) / 100);
-            }
             if (unit == currency_unit.灵气)
             {
                 if (SumSave.crt_world == null)
                 {
                     List<long> list = SumSave.crt_user_unit.Set();
-                    if (list[(int)unit] + value > SumSave.db_lvs.word_lv_max_value[SumSave.crt_world.World_Lv])
+                    int max = SumSave.db_lvs.word_lv_max_value[0] + Tool_State.Value_playerprobabilit(enum_skill_attribute_list.灵气上限);
+                    if (list[(int)unit] + value > max)
                     {
-                        value = SumSave.db_lvs.word_lv_max_value[SumSave.crt_world.World_Lv] - list[(int)unit];
+                        value = max - list[(int)unit];
                         if (value < 0) value = 0;
                     }
                 }

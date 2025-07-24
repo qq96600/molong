@@ -248,9 +248,17 @@ public class panel_EndlessBattle : Panel_Base
                    dec+="获得"+item.Value+"个"+item.Key+"\n";
                 }
                 Alert.Show(select_map.map_name, dec);
+<<<<<<< HEAD
+=======
                 Write_into_the_leaderboard(kill_monster_number);
+>>>>>>> 5b400ca49c021b3c8ebcdcd7a574ea7b6b0448bf
             }
-        } 
+        }
+
+        if (kill_monster_number > 0)
+        { 
+            //刷新排行
+        }
     }
 
 

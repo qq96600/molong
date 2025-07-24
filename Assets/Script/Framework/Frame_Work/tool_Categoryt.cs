@@ -123,7 +123,7 @@ public class tool_Categoryt : MonoBehaviour
                 dec = "%";
                 break;
             case enum_skill_attribute_list.寻怪间隔:
-                dec = "/10s";
+                dec = "%";
                 break;
             case enum_skill_attribute_list.宠物容量:
                 break;

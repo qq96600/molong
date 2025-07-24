@@ -224,12 +224,8 @@ public class panel_smallWorld : Panel_Base
         {
             NeedConsumables(dec[i].Item1, dec[i].Item2);
         }
-        //NeedConsumables(dec.Item1, dec.Item2);
         if (RefreshConsumables())
         {
-            //List<string> list = SumSave.crt_world.Get();
-            //int time = Battle_Tool.SettlementTransport(list[0]);
-            //SumSave.crt_world.Set(Obtain_Init(1, time, int.Parse(list[1])));
             SumSave.crt_world.World_Lv++;
             Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_world, SumSave.crt_world.Set_Uptade_String(), SumSave.crt_world.Get_Update_Character());
         }
@@ -294,10 +290,6 @@ public class panel_smallWorld : Panel_Base
     {
         tool_Categoryt.Base_Task(1086);
     }
-
-
-
-
     public  void Base_Show()
     {
         List<string> list = SumSave.crt_world.Get();
@@ -337,18 +329,12 @@ public class panel_smallWorld : Panel_Base
         switch (type)
         {
             case 1:
-                /////判断越界
-                //if (ArrayHelper.SafeGet(SumSave.db_lvs.world_offect_list, SumSave.crt_world.World_Lv, out int se))
-                //{
-                //    value = time * SumSave.db_lvs.world_offect_list[SumSave.crt_world.World_Lv];
-                //    value += crt_value;
-                //    value = Mathf.Min(value, SumSave.db_lvs.word_lv_max_value[SumSave.crt_world.World_Lv]);
-                //}
                 List<long> list = SumSave.crt_user_unit.Set();
                 value = (int)list[(int)currency_unit.灵气];
                 break;
             case 2:
                 value = SumSave.db_lvs.word_lv_max_value[SumSave.crt_world.World_Lv];
+                value += Tool_State.Value_playerprobabilit(enum_skill_attribute_list.灵气上限);
                 break;
             default:
                 break;
