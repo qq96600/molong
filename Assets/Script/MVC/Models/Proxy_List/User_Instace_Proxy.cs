@@ -169,6 +169,15 @@ namespace MVC
             CloseMySqlDB();
         }
 
+        public void Refresh_Endless_Tower()
+        {
+            OpenMySqlDB();
+            MysqlDb.UpdateInto(Mysql_Table_Name.user_endless_battle, SumSave.crt_endless_battle.Get_Update_Character(), SumSave.crt_endless_battle.Set_Uptade_String(),
+               "par", GetStr(SumSave.par));
+            CloseMySqlDB();
+        }
+
+
         /// <summary>
         /// 刷新试练塔排行榜
         /// </summary>
@@ -508,6 +517,7 @@ namespace MVC
             Read_user_player_Buff();
             Read_User_Mail();
             Read_User_Reward();
+            read_EndlessBattle();
             read_Trial_Tower();
             Read_user_world_boss();
             world_boss_Login();
@@ -830,11 +840,31 @@ namespace MVC
             }
         }
 
-
+        /// <summary>
+        /// 读取无尽塔排行榜
+        /// </summary>
+        private void read_EndlessBattle()
+        {
+            mysqlReader = MysqlDb.Select(Mysql_Table_Name.user_endless_battle, "par", GetStr(SumSave.par));
+            SumSave.crt_endless_battle = new user_endless_battle();
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    //获取等级
+                    SumSave.crt_endless_battle.endless_value = mysqlReader.GetString(mysqlReader.GetOrdinal("value"));
+                }
+                SumSave.crt_endless_battle.Split_endless();
+            }
+            else
+            {
+                Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.user_endless_battle, SumSave.crt_endless_battle.Set_Instace_String());
+            }
+        }
 
 
         /// <summary>
-        /// 读取排行榜
+        /// 读取战力排行榜
         /// </summary>
         private void read_User_Rank()
         {
@@ -877,6 +907,19 @@ namespace MVC
             //}
             CloseMySqlDB();
         }
+
+        /// <summary>
+        /// 读取无尽塔排行榜
+        /// </summary>
+        public void Read_read_EndlessBattle()
+        {
+            OpenMySqlDB();
+            read_EndlessBattle();
+            CloseMySqlDB();
+        }
+
+
+
 
         public void Read_Mail()
         {
@@ -939,6 +982,10 @@ namespace MVC
                 SumSave.crt_pet.Init("");
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_pet, SumSave.crt_pet.Set_Instace_String());
             }
+<<<<<<< HEAD
+=======
+           
+>>>>>>> 5b400ca49c021b3c8ebcdcd7a574ea7b6b0448bf
         }
 
 

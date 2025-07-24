@@ -391,8 +391,13 @@ namespace MVC
 #if UNITY_EDITOR
 
             #region ios区
+<<<<<<< HEAD
             SumSave.uid = "DSFSDFSDFSDF3";
             //SumSave.uid = "e8735c45680048f8a3494d7107a9e5a5";//都做了土（ip） 
+=======
+            SumSave.uid = "DSFSDFSDFSDF";//测试用号 DSFSDFSDFSDF3
+                                         
+>>>>>>> 5b400ca49c021b3c8ebcdcd7a574ea7b6b0448bf
             SumSave.par = -1;
 
             #endregion

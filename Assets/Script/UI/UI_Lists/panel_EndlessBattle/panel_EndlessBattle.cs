@@ -76,7 +76,7 @@ public class panel_EndlessBattle : Panel_Base
     /// 战斗统计清空
     /// </summary>
     private Button btn_Combat_statistics;
-
+    [HideInInspector]
     public Button close_battle;
     /// <summary>
     /// 当前出现怪物数量 总怪物数量 试练塔层数
@@ -185,6 +185,8 @@ public class panel_EndlessBattle : Panel_Base
         base.Show();
         AudioManager.Instance.ChangeBGM(BGMenum.开启);
     }
+  
+
     public override void Hide()
     {
         base.Hide();
@@ -217,7 +219,7 @@ public class panel_EndlessBattle : Panel_Base
             SumSave.crt_needlist.SetMap((select_map.map_name, 1));
             if (kill_monster_number > 0)
             {
-                kill_monster_number = Random.Range(100, 10000);
+                //kill_monster_number = Random.Range(100, 10000);
                 long exp= (long)(kill_monster_number * 10000);//经验
                 int plint= (kill_monster_number * 500);//历练值
                 string dec = select_map.map_name+"\n";
@@ -246,6 +248,10 @@ public class panel_EndlessBattle : Panel_Base
                    dec+="获得"+item.Value+"个"+item.Key+"\n";
                 }
                 Alert.Show(select_map.map_name, dec);
+<<<<<<< HEAD
+=======
+                Write_into_the_leaderboard(kill_monster_number);
+>>>>>>> 5b400ca49c021b3c8ebcdcd7a574ea7b6b0448bf
             }
         }
 
@@ -254,6 +260,25 @@ public class panel_EndlessBattle : Panel_Base
             //刷新排行
         }
     }
+
+
+
+    /// <summary>
+    /// 写入排行榜
+    /// </summary>
+    private void  Write_into_the_leaderboard(int _num)
+    {
+        user_endless_battle.endlsess_battle data = new user_endless_battle.endlsess_battle();
+        data.endless_uid = SumSave.uid;
+        data.name = SumSave.crt_hero.hero_name;
+        data.type = SumSave.crt_hero.hero_pos;
+        data.num = _num;
+        SendNotification(NotiList.Read_EndlessBattle);
+        SumSave.crt_endless_battle.AddEndless(data, true);
+        SendNotification(NotiList.Refresh_Endless_Tower);
+    }
+
+
 
     /// <summary>
     /// 游戏结束
@@ -324,7 +349,7 @@ public class panel_EndlessBattle : Panel_Base
                             }
                         }
                         GameObject item = ObjectPoolManager.instance.GetObjectFormPool(crt.show_name, player_battle_attack_prefabs,
-           new Vector3(pos_player.position.x, pos_player.position.y+100, pos_player.position.z), Quaternion.identity, pos_player);
+           new Vector3(pos_player.position.x, pos_player.position.y+200, pos_player.position.z), Quaternion.identity, pos_player);
                         // 设置Data
                         item.GetComponent<endlessplayer_battle_attck>().Data = crt;
                         item.GetComponent<endlessplayer_battle_attck>().Refresh_Skill(new List<skill_offect_item>());
@@ -353,9 +378,18 @@ public class panel_EndlessBattle : Panel_Base
 
     private void crate_hero()
     {
+        int num = 0;///玩家初始化偏移量
+        List<db_pet_vo> crt_pet_list = SumSave.crt_pet.Set();
+        foreach (db_pet_vo pet in crt_pet_list)
+        {
+            if (pet.pet_state == "1")
+            {
+                num= 250;
+            }
+        }
         crtMaxHeroVO crt = SumSave.crt_MaxHero;
         GameObject item = ObjectPoolManager.instance.GetObjectFormPool(crt.show_name, player_battle_attack_prefabs,
-            new Vector3(pos_player.position.x, pos_player.position.y, pos_player.position.z), Quaternion.identity, pos_player);
+            new Vector3(pos_player.position.x, pos_player.position.y-num, pos_player.position.z), Quaternion.identity, pos_player);
         // 设置Data
         item.GetComponent<BattleAttack>().Data = crt;
         item.GetComponent<BattleAttack>().Refresh_Skill(battle_skills);

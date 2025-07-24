@@ -8,6 +8,7 @@ using UI;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using static user_endless_battle;
 using Random = UnityEngine.Random;
 
 /// <summary>
@@ -63,10 +64,13 @@ public class Endless_Tower : Panel_Base
     private void GetList()
     {
         ClearObject(crt);
-        for (int i = 0; i < SumSave.crt_Trial_Tower_rank.lists.Count; i++)
+        SendNotification(NotiList.Read_EndlessBattle);
+        List <endlsess_battle> endless_list = SumSave.crt_endless_battle.endless_list;
+        for (int i = 0; i < endless_list.Count; i++)
         {
             rank_item item = Instantiate(rank_itemPrefab, crt);
-            item.Data2 = SumSave.crt_Trial_Tower_rank.lists[i];
+            (string, string, long) data = (endless_list[i].type,endless_list[i].name, endless_list[i].num);
+            item.Data2 = data;
             item.Show_index2(i + 1);
         }
     }
@@ -78,24 +82,13 @@ public class Endless_Tower : Panel_Base
         user_map_vo map = ArrayHelper.Find(SumSave.db_maps, e => e.map_type == 7);
         fight_panel.Show();
         fight_panel.Open_Map(map);
+        this.gameObject.SetActive(false);
     }
     /// <summary>
     /// 初始化
     /// </summary>
     private void Init()
     {
-        //读取排行榜
-        SendNotification(NotiList.Read_Trial_Tower);
-        SumSave.crt_Trial_Tower_rank.lists = ArrayHelper.OrderDescding(SumSave.crt_Trial_Tower_rank.lists, x => x.Item3);
-        foreach (var item in SumSave.crt_Trial_Tower_rank.lists)
-        {
-            if (item.Item1 == SumSave.crt_user.uid)
-            {
-                user = item;
-            }
-        }
-        //获取层数
-        base_info.text = "当前进度" + user.Item3 + "层\n挑战消耗 中品噬心魔种 * 1";
         GetList();
     }
     public override void Hide()

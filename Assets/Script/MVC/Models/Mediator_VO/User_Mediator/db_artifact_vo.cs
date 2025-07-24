@@ -8,31 +8,31 @@ public class db_artifact_vo : Base_VO
     /// <summary>
     /// 神器名称
     /// </summary>
-    public string arrifact_name;
+    public readonly string arrifact_name;
     /// <summary>
     /// 神器ID
     /// </summary>
-    public int arrifact_type;
+    public readonly int arrifact_type;
     /// <summary>
     /// 神器激活需求
     /// </summary>
-    public string[] Artifact_open_needs;
+    public readonly string[] Artifact_open_needs;
     /// <summary>
     /// 神器升级需求
     /// </summary>
-    public string[] arrifact_needs;
+    public readonly string[] arrifact_needs;
     /// <summary>
     /// 神器效果
     /// </summary>
-    public string[] arrifact_effects;
+    public readonly string[] arrifact_effects;
     /// <summary>
     /// 神器描述
     /// </summary>
-    public string Artifact_dec;
+    public readonly string Artifact_dec;
     /// <summary>
     /// 最大等级
     /// </summary>
-    public int Artifact_MaxLv;
+    public readonly int Artifact_MaxLv;
 
     public db_artifact_vo(string arrifact_name, string[] artifact_open_needs, string[] arrifact_needs, string[] arrifact_effects, int arrifact_type, string artifact_dec, int artifact_MaxLv)
     {

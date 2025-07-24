@@ -145,6 +145,10 @@ namespace Common
         /// </summary>
         public static rank_vo user_ranks;
         /// <summary>
+        /// 无尽试炼排行榜
+        /// </summary>
+        public static user_endless_battle crt_endless_battle;
+        /// <summary>
         /// 自身成就
         /// </summary>
         public static user_achievement_vo crt_achievement;

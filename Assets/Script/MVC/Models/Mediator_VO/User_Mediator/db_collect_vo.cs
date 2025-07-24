@@ -8,17 +8,17 @@ public class db_collect_vo : Base_VO
     /// <summary>
     /// 需要收集物品的名字
     /// </summary>
-    public string Name;
+    public readonly string Name;
 
     /// <summary>
     /// 需要收集物品的类型
     /// </summary>
-    public string StdMode;
+    public readonly string StdMode;
 
     /// <summary>
     /// 收集完成增加的属性
     /// </summary>
-    public string bonuses_type;
+    public readonly string bonuses_type;
 
     /// <summary>
     /// 收集完成增加的属性数组
@@ -28,7 +28,7 @@ public class db_collect_vo : Base_VO
     /// <summary>
     /// 收集完成增加的属性值
     /// </summary>
-    public string bonuses_value;
+    public readonly string bonuses_value;
 
     /// <summary>
     /// 收集完成增加的属性值数组

@@ -536,8 +536,6 @@ namespace MVC
                     break;
                 case Mysql_Table_Name.versions:
                     break;
-                case Mysql_Table_Name.db_magic_copy1:
-                    break;
                 case Mysql_Table_Name.db_weather:
                     break;
                 case Mysql_Table_Name.user_trial_towers:

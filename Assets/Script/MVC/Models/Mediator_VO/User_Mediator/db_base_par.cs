@@ -9,7 +9,7 @@ public class db_base_par : Base_VO
     /// <summary>
     /// 选中区域
     /// </summary>
-    public int index;
+    public readonly int index;
     /// <summary>
     /// 开启时间
     /// </summary>
@@ -18,15 +18,15 @@ public class db_base_par : Base_VO
     /// <summary>
     /// 开启状态 1开启2关闭
     /// </summary>
-    public int openstate;
+    public readonly int openstate;
     /// <summary>
     /// 设备类型
     /// </summary>
-    public int device;
+    public readonly int device;
     /// <summary>
     /// 显示名称
     /// </summary>
-    public string par_name;
+    public readonly string par_name;
 
     public db_base_par(int index, DateTime opentime, int openstate, int device, string par_name)
     {

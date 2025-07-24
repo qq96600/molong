@@ -45,6 +45,8 @@ namespace MVC
                 NotiList.Read_Trial_Tower,
                 NotiList.Refresh_Trial_Tower,
                 NotiList.Refresh_Rank,
+                NotiList.Read_EndlessBattle,
+                NotiList.Refresh_Endless_Tower,
             };
 
         }
@@ -98,6 +100,9 @@ namespace MVC
                 case NotiList.Read_User_Ranks:
                     user.Read_User_Rank();
                     break;
+                case NotiList.Read_EndlessBattle:
+                    user.Read_read_EndlessBattle();
+                    break;
                 case NotiList.Read_Message_Window:
                     user.Read_user_messageWindow();
                     break;
@@ -116,8 +121,9 @@ namespace MVC
                 case NotiList.Refresh_Rank:
                     user.Refresh_Rank();
                     break;
-
-
+                case NotiList.Refresh_Endless_Tower:
+                    user.Refresh_Endless_Tower();
+                    break;
             }
         }
     }

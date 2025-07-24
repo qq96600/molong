@@ -7,8 +7,8 @@ namespace MVC
     public class user_base_vo : Base_VO
     {
 
-        public readonly int par;//游戏区
-        public readonly string uid;//主id
+        public int par;//游戏区
+        public string uid;//主id
         public DateTime RegisterDate;//注册日期
         public DateTime Nowdate;//登录日期
 

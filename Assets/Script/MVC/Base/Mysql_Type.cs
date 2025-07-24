@@ -77,10 +77,9 @@ public enum Mysql_Table_Name
     db_suit,//套装信息
     db_dec,//具体功能消息
     versions,//版本信息
-    db_magic_copy1,//测试技能属性
     db_weather,//天气信息
     user_trial_towers,//试炼塔
     user_world_boss_copy1,//世界boss测试
-    db_collect_copy1,//测试收集信息
     db_endlessbattle,//无尽试炼
+    user_endless_battle,//无尽试炼排行榜
 }
