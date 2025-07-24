@@ -504,15 +504,18 @@ public class panel_EndlessBattle : Panel_Base
         if (crt_monster_number % 100 == 0) wait_time -= 0.1f;
         wait_time = Mathf.Max(0.1f, wait_time);
         int dic=Random.Range(0,100)>50?1:-1;
-        float y = pos_monster.position.y + (width / 20 * monsters.Count) * dic;
-        if (y > pos_monster.position.y + width / 2) y = pos_monster.position.y;
+
+        float y = pos_monster.position.y + (width / 20 * Random.Range(0, 10)) * dic;
+        if (y >  (width-300 )||y<100) y = pos_monster.position.y;
         crtMaxHeroVO crt = crt_map_monsters[Random.Range(0, crt_map_monsters.Count)];
         crt = Battle_Tool.crate_monster(crt, select_map, crt_monster_number / 10 + 1);
+
         GameObject item = ObjectPoolManager.instance.GetObjectFormPool(crt.show_name, monster_battle_attack_prefabs,
             new Vector3(pos_monster.position.x, y, pos_monster.position.z), Quaternion.identity, pos_monster);
         // 设置Data   
         item.GetComponent<BattleAttack>().Data = crt;
-        item.GetComponent<BattleAttack>().FindTergets(players);
+        item.GetComponent<BattleAttack>().FindTergets(players, Random.Range(0, 100) < 3 ? 1:0);//百分之3的概率为背刺怪
+        
         //点击怪物
         //if (item.GetComponent<Button>().enabled)
         //    item.GetComponent<Button>().onClick.AddListener(delegate { AudioManager.Instance.playAudio(ClipEnum.购买物品); SelectMonster(item.GetComponent<BattleAttack>()); });

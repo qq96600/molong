@@ -9,12 +9,12 @@ public class db_formula_vo : Base_VO
     /// <summary>
     /// 合成类型（1.单个合成，2.选择数量合成）
     /// </summary>
-    public int formula_type;
+    public readonly int formula_type;
 
     /// <summary>
     /// 合成的物品
     /// </summary>
-    public string formula_result;
+    public readonly string formula_result;
     /// <summary>
     /// 合成的物品以及数量 (名字，数量，类型)
     /// </summary>
@@ -22,7 +22,7 @@ public class db_formula_vo : Base_VO
     /// <summary>
     /// 合成需要的材料
     /// </summary>
-    public string formula_need;
+    public readonly string formula_need;
     /// <summary>
     /// 合成需要的材料列表
     /// </summary>

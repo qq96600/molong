@@ -9,15 +9,15 @@ public class db_weather : Base_VO
     /// <summary>
     /// 天气编号
     /// </summary>
-    public int weather_index;
+    public readonly int weather_index;
     /// <summary>
     /// 天气名称
     /// </summary>
-    public string weather_type;
+    public readonly string weather_type;
     /// <summary>
     /// 五行属性值
     /// </summary>
-    public string life_value;
+    public readonly string life_value;
     /// <summary>
     /// 五行属性值列表(对应属性，属性值)
     /// </summary>
@@ -25,7 +25,7 @@ public class db_weather : Base_VO
     /// <summary>
     /// 权重
     /// </summary>
-    public int probability;
+    public readonly int probability;
 
     public void Init()
     {

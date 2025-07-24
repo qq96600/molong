@@ -32,9 +32,15 @@ namespace MVC
         /// 获取目标
         /// </summary>
         /// <param name="tergets"></param>
-        public void FindTergets(List<BattleHealth> tergets)
+        public void FindTergets(List<BattleHealth> tergets,int isBackstab=0)
         { 
             Tergets = tergets;
+            if(isBackstab==1)
+            {
+                data.isBackstab = 1;
+                StateMachine.Backstab(isBackstab);
+                Debug.Log("背刺");
+            }
         }
         protected Image frame, icon;
 
@@ -462,19 +468,38 @@ namespace MVC
             {
                 if (Data.Type == 1)
                 {
-                    damage = Lucky(Data.damageMin, Data.damageMax, data.Lucky) -
-                        (Random.Range(monster.Data.DefMin, monster.Data.DefMax) * (100 + monster.Data.bonus_Def) / 100);
-                    damage -= skillstate(monster.data, Data.Type);
-                    damage = damage * (100 + data.bonus_Damage) / 100;
+                    if (data.isBackstab == 0)
+                    {
+                        damage = Lucky(Data.damageMin, Data.damageMax, data.Lucky) -
+                            (Random.Range(monster.Data.DefMin, monster.Data.DefMax) * (100 + monster.Data.bonus_Def) / 100);
+                        damage -= skillstate(monster.data, Data.Type);
+                        damage = damage * (100 + data.bonus_Damage) / 100;
+                    }
+                    else if (data.isBackstab == 1)
+                    {
+                        damage = Lucky(Data.damageMin, Data.damageMax, data.Lucky);
+                        damage = damage * (100 + data.bonus_Damage) / 100;
+                    }
                 }
                 else
                 if (Data.Type == 2)
                 {
-                    damage = Lucky(Data.MagicdamageMin, Data.MagicdamageMax, data.Lucky) -
-                        (Random.Range(monster.Data.MagicDefMin, monster.Data.MagicDefMax) * (100 + monster.Data.bonus_MagicDef) / 100);
-                    damage -= skillstate(monster.data, Data.Type);
-                    
-                    damage = damage * (100 + data.bonus_MagicDamage) / 100;
+                    if(data.isBackstab==0)
+                    {
+                        damage = Lucky(Data.MagicdamageMin, Data.MagicdamageMax, data.Lucky) -
+                          (Random.Range(monster.Data.MagicDefMin, monster.Data.MagicDefMax) * (100 + monster.Data.bonus_MagicDef) / 100);
+                        damage -= skillstate(monster.data, Data.Type);
+
+                        damage = damage * (100 + data.bonus_MagicDamage) / 100;
+
+                    }
+                    else if (data.isBackstab == 1)
+                    {
+                        damage = Lucky(Data.MagicdamageMin, Data.MagicdamageMax, data.Lucky);
+                        damage = damage * (100 + data.bonus_MagicDamage) / 100;
+                    }
+
+                   
                 }
                 if (monster.Data.Damage_absorption > 0)
                 {
@@ -487,18 +512,39 @@ namespace MVC
 
                 if (skill.skill_damage_type == 1)//物理伤害
                 {
-                    damage = Lucky(Data.damageMin, Data.damageMax, data.Lucky) -
-                           (Random.Range(monster.Data.DefMin, monster.Data.DefMax) * (100 + monster.Data.bonus_Def) / 100);
-                    damage -= skillstate(monster.data, skill.skill_damage_type);
-                    damage = damage * (100 + data.bonus_Damage) / 100;
+                    if (data.isBackstab == 0)
+                    {
+                        damage = Lucky(Data.damageMin, Data.damageMax, data.Lucky) -
+                          (Random.Range(monster.Data.DefMin, monster.Data.DefMax) * (100 + monster.Data.bonus_Def) / 100);
+                        damage -= skillstate(monster.data, skill.skill_damage_type);
+                        damage = damage * (100 + data.bonus_Damage) / 100;
+                    }
+                    else if (data.isBackstab == 1)
+                    {
+                        damage = Lucky(Data.damageMin, Data.damageMax, data.Lucky);
+                        damage = damage * (100 + data.bonus_Damage) / 100;
+                    }
+
+                   
                 }
                 else
                 if (skill.skill_damage_type == 2)//魔法伤害
                 {
-                    damage = Lucky(Data.MagicdamageMin, Data.MagicdamageMax, data.Lucky) -
-                         (Random.Range(monster.Data.MagicDefMin, monster.Data.MagicDefMax) * (100 + monster.Data.bonus_MagicDef) / 100);
-                    damage -= skillstate(monster.data, skill.skill_damage_type);
-                    damage = damage * (100 + data.bonus_MagicDamage) / 100;
+
+                    if (data.isBackstab == 0)
+                    {
+                        damage = Lucky(Data.MagicdamageMin, Data.MagicdamageMax, data.Lucky) -
+                       (Random.Range(monster.Data.MagicDefMin, monster.Data.MagicDefMax) * (100 + monster.Data.bonus_MagicDef) / 100);
+                        damage -= skillstate(monster.data, skill.skill_damage_type);
+                        damage = damage * (100 + data.bonus_MagicDamage) / 100;
+                    }
+                    else if (data.isBackstab == 1)
+                    {
+                        damage = Lucky(Data.MagicdamageMin, Data.MagicdamageMax, data.Lucky);
+                        damage = damage * (100 + data.bonus_MagicDamage) / 100;
+                    }
+
+                  
                 }
             }
             damage = damage * (100 + penetrate(monster)) / 100;

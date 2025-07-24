@@ -126,6 +126,17 @@ public class AttackStateMachine : MonoBehaviour
 
     }
 
+    IEnumerator isExceed()
+    {
+        yield return new WaitForSeconds(1f);
+        distance = Vector3.Distance(initPosition, transform.position);
+        if (distance > 1600)
+        {
+            transform.position = initPosition;
+        }
+    }
+
+
     /// <summary>
     /// 攻击动作
     /// </summary>
@@ -183,9 +194,11 @@ public class AttackStateMachine : MonoBehaviour
     {
         battle= _battle;
         initPosition= _battle.transform.position;
+        StartCoroutine(isExceed());
         AttackSpeed = battle.Data.attack_speed;
         AttackSpeedCounter = AttackSpeed;
         Target = target;
+       // StateMachine.isBackstabpos=false;
      }
     /// <summary>
     /// 技能释放控制
