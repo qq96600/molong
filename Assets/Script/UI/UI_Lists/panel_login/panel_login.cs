@@ -392,6 +392,7 @@ namespace MVC
 
             #region ios区
             SumSave.uid = "DSFSDFSDFSDF3";   
+
             SumSave.par = -1;
             #endregion
             #region 安卓区

@@ -206,7 +206,7 @@ public class panel_EndlessBattle : Panel_Base
                 exist = false;
                 //list[i] = (list[i].Item1, list[i].Item2 + 1);
                 //SumSave.crt_needlist.SetMap(list[i]);
-                Debug.Log("今日无尽试炼已获得过奖励");
+                Alert_Dec.Show("今日无尽试炼已获得过奖励");
                 break;
             }
         }

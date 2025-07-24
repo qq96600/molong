@@ -123,7 +123,7 @@ public class tool_Categoryt : MonoBehaviour
                 dec = "%";
                 break;
             case enum_skill_attribute_list.寻怪间隔:
-                dec = "%";
+                dec = "/10s";
                 break;
             case enum_skill_attribute_list.宠物容量:
                 break;
@@ -205,7 +205,7 @@ public class tool_Categoryt : MonoBehaviour
                 dec = "%";
                 break;
             case enum_skill_attribute_list.无视防御:
-                dec = "%";
+                dec = "";
                 break;
             case enum_skill_attribute_list.灵气上限:
                 break;
