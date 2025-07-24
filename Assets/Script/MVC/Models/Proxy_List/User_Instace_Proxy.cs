@@ -41,10 +41,7 @@ namespace MVC
             }
             else
             {
-                SumSave.crt_user.uid = SumSave.uid; //Guid.NewGuid().ToString("N");
-                SumSave.crt_user.Nowdate = DateTime.Now;
-                SumSave.crt_user.RegisterDate = DateTime.Now;
-                SumSave.crt_user.par = SumSave.par;
+                SumSave.crt_user = new user_base_vo(Guid.NewGuid().ToString("N"), DateTime.Now, DateTime.Now, SumSave.par); //Guid.NewGuid().ToString("N");
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_base, SumSave.crt_user.Set_Instace_String());
             }
             Read_Instace();
@@ -570,7 +567,7 @@ namespace MVC
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_rewards_state, SumSave.crt_accumulatedrewards.Set_Instace_String());
             }
 
-            SumSave.db_lvs.AddUpperLimit();///添加灵气上限
+            //SumSave.db_lvs.AddUpperLimit();///添加灵气上限
 
         }
         /// <summary>
@@ -942,39 +939,6 @@ namespace MVC
                 SumSave.crt_pet.Init("");
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_pet, SumSave.crt_pet.Set_Instace_String());
             }
-            //for (int i = 0; i < SumSave.crt_pet.crt_pet_list.Count; i++)
-            //{
-            //    if(SumSave.crt_pet.crt_pet_list[i]!="")
-            //    {
-            //        string[] splits = SumSave.crt_pet.crt_pet_list[i].Split(',');
-            //        db_pet_vo pet = new db_pet_vo();
-            //        db_pet_vo base_pet = ArrayHelper.Find(SumSave.db_pet, e => e.petName == splits[0]);
-            //        pet.pet_explore = base_pet.pet_explore;
-            //        if (splits.Length == 7)
-            //        {
-            //            pet.petName = splits[0];
-            //            pet.startHatchingTime = DateTime.Parse(splits[1]);
-            //            pet.quality = splits[2];
-            //            pet.level = int.Parse(splits[3]);
-            //            pet.exp = int.Parse(splits[4]);
-
-            //            string[] attributes = splits[5].Split('|');
-                     
-            //            pet.crate_value = "";
-            //            pet.up_value = "";
-            //            pet.up_base_value = "";
-            //            pet.crate_value = attributes[0];
-            //            pet.up_value = attributes[1];
-            //            pet.up_base_value = attributes[2];
-            //            pet.GetNumerical();
-                    
-            //            pet.pet_state = splits[6];
-            //            SumSave.crt_pet_list.Add(pet);
-            //        }
-                    
-            //    }
-                
-            //}
         }
 
 
@@ -1459,7 +1423,6 @@ namespace MVC
                     }
                 }
             }
-
             //收集属性
             for (int j = 0; j < suit_Type.GetNames(typeof(suit_Type)).Length; j++)//循环所有套装
             {

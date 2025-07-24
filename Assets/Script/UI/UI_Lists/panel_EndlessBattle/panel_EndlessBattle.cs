@@ -246,10 +246,13 @@ public class panel_EndlessBattle : Panel_Base
                    dec+="获得"+item.Value+"个"+item.Key+"\n";
                 }
                 Alert.Show(select_map.map_name, dec);
-
-
             }
-        } 
+        }
+
+        if (kill_monster_number > 0)
+        { 
+            //刷新排行
+        }
     }
 
     /// <summary>

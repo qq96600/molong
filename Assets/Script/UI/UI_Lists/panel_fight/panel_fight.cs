@@ -544,9 +544,9 @@ public class panel_fight : Panel_Base
         //if(SumSave.crt_MaxHero.bufflist.Count> (int)enum_skill_attribute_list.寻怪间隔)
         //Waittime -= SumSave.crt_MaxHero.bufflist[(int)enum_skill_attribute_list.寻怪间隔]/10f;
         //Waittime = Mathf.Clamp(Waittime, 1f, 5f);
-        Waittime = (select_map.map_type-1) * 0.5f;
+        Waittime = (select_map.map_index-1) * 0.5f;
         Waittime = Mathf.Clamp(Waittime, 1f, 5f);
-
+        Debug.Log("等待时间基准" + Waittime);
         if (SumSave.crt_MaxHero.bufflist.Count > (int)enum_skill_attribute_list.寻怪间隔)
         {
             Waittime = (5 - (SumSave.crt_MaxHero.bufflist[(int)enum_skill_attribute_list.寻怪间隔] / 10)) * Waittime / 5; 
