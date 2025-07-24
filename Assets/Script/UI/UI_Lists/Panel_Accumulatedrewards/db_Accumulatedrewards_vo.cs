@@ -7,9 +7,9 @@ using UnityEngine;
 /// </summary>
 public class db_Accumulatedrewards_vo : Base_VO
 {
-    public string pass_value;
-    public string signin_value;
-    public string fate_value;
+    public readonly string pass_value;
+    public readonly string signin_value;
+    public readonly string fate_value;
     public List<(int,string)> pass_list = new List<(int, string)>();
     public List<(int,string)> signin_list = new List<(int, string)>();
     public Dictionary<int, Dictionary<int, List<int>>> fate_dic = new Dictionary<int, Dictionary<int, List<int>>>();

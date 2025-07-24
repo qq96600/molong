@@ -9,15 +9,15 @@ public class db_mail_vo : Base_VO
     /// <summary>
     /// 邮件id
     /// </summary>
-    public int mail_id;
+    public readonly int mail_id;
     /// <summary>
     /// 几区
     /// </summary>
-    public int mail_par;
+    public readonly int mail_par;
     /// <summary>
     /// 接受人 -1代表全区 uid代表个人
     /// </summary>
-    public string uid;
+    public readonly string uid;
     /// <summary>
     /// 获取时间
     /// </summary>
@@ -25,12 +25,12 @@ public class db_mail_vo : Base_VO
     /// <summary>
     /// 邮件内容
     /// </summary>
-    public string dec;
+    public readonly string dec;
     /// <summary>
     /// 充值金额
     /// </summary>
-    public int moeny;
-    public string user_value;
+    public readonly int moeny;
+    public readonly string user_value;
 
     public Dictionary<int, Dictionary<string, int>> mail_dec = new Dictionary<int, Dictionary<string, int>>();
 

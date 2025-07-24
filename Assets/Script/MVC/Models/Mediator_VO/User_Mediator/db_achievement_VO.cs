@@ -8,15 +8,15 @@ public class db_achievement_VO : Base_VO
     /// <summary>
     /// 成就类型
     /// </summary>
-    public int achievement_type;
+    public readonly int achievement_type;
     /// <summary>
     /// 成就名称
     /// </summary>
-    public string achievement_value;
+    public readonly string achievement_value;
     /// <summary>
     /// 成就达成条件
     /// </summary>
-    public string achievement_need;
+    public readonly string achievement_need;
     /// <summary>
     /// 成就达成条件列表
     /// </summary>
@@ -27,7 +27,7 @@ public class db_achievement_VO : Base_VO
     /// 0物品 1属性
    
     /// </summary>
-    public string achievement_reward;
+    public readonly string achievement_reward;
     /// <summary>
     /// 收益列表
     /// </summary>
@@ -39,7 +39,7 @@ public class db_achievement_VO : Base_VO
     /// <summary>
     /// 是否有兑换列表
     /// </summary>
-    public string achievement_exchange_offect = "";
+    public readonly string achievement_exchange_offect = "";
 
     public db_achievement_VO(int achievement_type, string achievement_value, string achievement_need, string[] achievement_show_lv, string achievement_reward, string achievement_exchange_offect)
     {
