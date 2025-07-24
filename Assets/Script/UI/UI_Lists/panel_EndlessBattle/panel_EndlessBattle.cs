@@ -81,7 +81,7 @@ public class panel_EndlessBattle : Panel_Base
     /// <summary>
     /// 当前出现怪物数量 总怪物数量 试练塔层数
     /// </summary>
-    private int crt_monster_number = 0, maxnumber = 0, trial_storey = -1;
+    private int crt_monster_number = 0, maxnumber = 0, trial_storey = -1, kill_monster_number=0;
     /// <summary>
      //对象池
     /// </summary>
@@ -194,8 +194,62 @@ public class panel_EndlessBattle : Panel_Base
     /// 结算收益
     /// </summary>
     private void settlement()
-    { 
-    
+    {
+        List<(string, int)> list = SumSave.crt_needlist.SetMap();
+        bool exist = true;
+        for (int i = 0; i < list.Count; i++)
+        {
+            if (list[i].Item1 == select_map.map_name)
+            {
+                //if (list[i].Item2 >= 1)
+                //{
+                //    Alert_Dec.Show("本日次数不足");
+                //    return;
+                //}
+                exist = false;
+                list[i] = (list[i].Item1, list[i].Item2 + 1);
+                SumSave.crt_needlist.SetMap(list[i]);
+                break;
+            }
+        }
+        if (exist|| true)
+        {
+            SumSave.crt_needlist.SetMap((select_map.map_name, 1));
+            if (kill_monster_number > 0)
+            {
+                kill_monster_number = Random.Range(100, 10000);
+                long exp= (long)(kill_monster_number * 10000);//经验
+                int plint= (kill_monster_number * 500);//历练值
+                string dec = select_map.map_name+"\n";
+                dec+="本次击杀 "+kill_monster_number+" 只怪物\n";
+                dec += "获得经验 " + exp + "\n";
+                dec += "获得历练值 " + plint + "\n";
+                Dictionary<string, int> dic = new Dictionary<string, int>();
+                for (int i = 0; i < SumSave.db_EndlessBattle_list.Count; i++)
+                {
+                    int max= kill_monster_number/ SumSave.db_EndlessBattle_list[i].need_number;
+                    Debug.Log("max"+max);
+                    if (max > 0)
+                    {
+                        max = Mathf.Min(max, SumSave.db_EndlessBattle_list[i].max_number);
+                        for (int j = 0; j < max; j++)
+                        {
+                            string value = SumSave.db_EndlessBattle_list[i].goods[Random.Range(0, SumSave.db_EndlessBattle_list[i].goods.Length)];
+                            if(!dic.ContainsKey(value))
+                                dic.Add(value, 0);
+                            dic[value]++;
+                        }
+                    }
+                }
+                foreach (var item in dic)
+                {
+                   dec+="获得"+item.Value+"个"+item.Key+"\n";
+                }
+                Alert.Show(select_map.map_name, dec);
+
+
+            }
+        } 
     }
 
     /// <summary>
@@ -316,7 +370,9 @@ public class panel_EndlessBattle : Panel_Base
     private void init()
     {
         crt_monster_number = 0;
+        kill_monster_number = 0;
         maxnumber = 100;
+        wait_time = 1.5f;
         switch (select_map.map_type)
         {
             case 7: maxnumber = 9999; break;
@@ -395,7 +451,7 @@ public class panel_EndlessBattle : Panel_Base
         else
         {
             //击杀一个怪物
-            crt_monster_number++;
+            kill_monster_number++;
             monsters.Remove(health);
         } 
         openRefreshStatus = true;
@@ -444,6 +500,9 @@ public class panel_EndlessBattle : Panel_Base
         }
         if (crt_monster_number >= maxnumber) crt_monster_number = 0;
         crt_monster_number++;
+        //每100个怪减少刷新cd
+        if (crt_monster_number % 100 == 0) wait_time -= 0.1f;
+        wait_time = Mathf.Max(0.1f, wait_time);
         int dic=Random.Range(0,100)>50?1:-1;
         float y = pos_monster.position.y + (width / 20 * monsters.Count) * dic;
         if (y > pos_monster.position.y + width / 2) y = pos_monster.position.y;

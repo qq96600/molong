@@ -53,7 +53,21 @@ namespace MVC
             Read_db_weather();
             Read_Db_Suit();
             Read_Db_Dec();
+            ReadDb_Endless();
             CloseMySqlDB();
+        }
+
+        private void ReadDb_Endless()
+        {
+            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_endlessbattle);
+            SumSave.db_EndlessBattle_list = new List<db_EndlessBattle_vo>();
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.db_EndlessBattle_list.Add(ReadDb.Read_EndlessBattle(mysqlReader));
+                }
+            }
         }
 
 

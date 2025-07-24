@@ -76,24 +76,6 @@ public class Endless_Tower : Panel_Base
     private void Challenge()
     {
         user_map_vo map = ArrayHelper.Find(SumSave.db_maps, e => e.map_type == 7);
-        List<(string, int)> list = SumSave.crt_needlist.SetMap();
-        bool exist = true;
-        for (int i = 0; i < list.Count; i++)
-        {
-            if (list[i].Item1 == map.map_name)
-            {
-                //if (list[i].Item2 >= 1)
-                //{
-                //    Alert_Dec.Show("本日次数不足");
-                //    return;
-                //}
-                exist = false;
-                list[i] = (list[i].Item1, list[i].Item2 + 1);
-                SumSave.crt_needlist.SetMap(list[i]);
-                break;
-            }
-        }
-        if (exist) SumSave.crt_needlist.SetMap((map.map_name, 1));
         fight_panel.Show();
         fight_panel.Open_Map(map);
     }

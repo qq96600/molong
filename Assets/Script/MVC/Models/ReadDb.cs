@@ -32,23 +32,20 @@ public static class ReadDb
         return new db_weather(_weather_index, _weather_type, _life_value, _probability);
     }
 
-
-
-
-    //public static db_dec Read(MySqlDataReader reader, db_dec item)
-    //{
-    //    item.panel_index= reader.GetString(reader.GetOrdinal("panel_index"));
-    //    item.title= reader.GetString(reader.GetOrdinal("title"));
-    //    item.dec= reader.GetString(reader.GetOrdinal("dec"));
-    //    return item;
-    //}
-
     public static db_dec Read_dec(MySqlDataReader reader)
     {
         string _panel_index= reader.GetString(reader.GetOrdinal("panel_index"));
         string _title= reader.GetString(reader.GetOrdinal("title"));
         string _dec= reader.GetString(reader.GetOrdinal("dec"));
         return new db_dec(_panel_index, _title, _dec);
+    }
+
+    public static db_EndlessBattle_vo Read_EndlessBattle(MySqlDataReader reader)
+    {
+        string[] goods = reader.GetString(reader.GetOrdinal("value")).Split(' ');
+        int neednumber = reader.GetInt32(reader.GetOrdinal("need_number"));
+        int maxnumber= reader.GetInt32(reader.GetOrdinal("max_number"));
+        return new db_EndlessBattle_vo(goods, neednumber, maxnumber);
     }
 
 

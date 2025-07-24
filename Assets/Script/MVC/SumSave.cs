@@ -323,6 +323,10 @@ namespace Common
         /// 造化炉合成列表
         /// </summary>
         public static List<db_formula_vo> db_formula_list;
+        /// <summary>
+        /// 无尽模式奖励表
+        /// </summary>
+        public static List<db_EndlessBattle_vo> db_EndlessBattle_list;
 
         #endregion
 
@@ -353,6 +357,8 @@ namespace Common
         public static List<db_mail_vo> Db_Mails;
 
         public static user_mail_vo CrtMail;
+
+
     
         #endregion
     }
