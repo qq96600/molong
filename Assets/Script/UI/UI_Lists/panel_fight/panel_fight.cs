@@ -545,7 +545,8 @@ public class panel_fight : Panel_Base
         //Waittime -= SumSave.crt_MaxHero.bufflist[(int)enum_skill_attribute_list.寻怪间隔]/10f;
         //Waittime = Mathf.Clamp(Waittime, 1f, 5f);
         Waittime = (select_map.map_index-1) * 0.5f;
-        Waittime = Mathf.Clamp(Waittime, 1f, 5f);
+        //Waittime = Mathf.Clamp(Waittime, 0.5f, 5f);
+        /* 计算等待时间%比模式
         Debug.Log("等待时间基准" + Waittime);
         if (SumSave.crt_MaxHero.bufflist.Count > (int)enum_skill_attribute_list.寻怪间隔)
         {
@@ -553,6 +554,9 @@ public class panel_fight : Panel_Base
         }
         Waittime = Mathf.Clamp(Waittime, 0.3f, 5f);
         Debug.Log("等待时间" + Waittime);
+        */
+        Waittime = Mathf.Min(Waittime, 5f - (SumSave.crt_MaxHero.bufflist[(int)enum_skill_attribute_list.寻怪间隔] / 10f));
+        Waittime = Mathf.Clamp(Waittime, 0.5f, 5f);
         return Waittime;
     }
     // 下一波怪
