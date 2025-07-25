@@ -75,11 +75,17 @@ public static class ReadDb
 
     public static user_base_vo Read_user_base(MySqlDataReader reader)
     {
-        string _uid = reader.GetString(reader.GetOrdinal("uid"));
-        DateTime _RegisterDate = Convert.ToDateTime(reader.GetString(reader.GetOrdinal("RegisterDate")));
-        DateTime _Nowdate = Convert.ToDateTime(reader.GetString(reader.GetOrdinal("Nowdate")));
-        int _par = reader.GetInt32(reader.GetOrdinal("par"));
-        return new user_base_vo(_uid, _RegisterDate, _Nowdate, _par);
+        user_base_vo item = new user_base_vo();
+        //string _uid = reader.GetString(reader.GetOrdinal("uid"));
+        //DateTime _RegisterDate = Convert.ToDateTime(reader.GetString(reader.GetOrdinal("RegisterDate")));
+        //DateTime _Nowdate = Convert.ToDateTime(reader.GetString(reader.GetOrdinal("Nowdate")));
+        //int _par = reader.GetInt32(reader.GetOrdinal("par"));
+        item.uid= reader.GetString(reader.GetOrdinal("uid"));
+        item.RegisterDate= Convert.ToDateTime(reader.GetString(reader.GetOrdinal("RegisterDate")));
+        item.Nowdate= Convert.ToDateTime(reader.GetString(reader.GetOrdinal("Nowdate")));
+        item.par= reader.GetInt32(reader.GetOrdinal("par"));
+        return item;
+        //return new user_base_vo(_uid, _RegisterDate, _Nowdate, _par);
     }
 
 

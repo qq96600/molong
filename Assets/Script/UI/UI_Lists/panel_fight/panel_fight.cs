@@ -383,7 +383,8 @@ public class panel_fight : Panel_Base
     {
         if (trial_tower == null) trial_tower = rank;
         Combat_statistics.isTime = true;
-        trial_storey= storey+1;
+        if (trial_storey <= storey)//拒绝断网重复刷新
+            trial_storey = storey + 1;
         select_map = map;
         map_name.text = map.map_name;
         init();
@@ -577,6 +578,11 @@ public class panel_fight : Panel_Base
     private void Trial_Tower_reward()
     {
         write_Trial();
+        if (SumSave.openMysql)
+        {
+            Alert_Dec.Show("网络连接失败");
+            return;
+        }
         string dec = "";
         dec = "通关试练塔" + Show_Color.Red(trial_storey) + "层";
         dec += "\n奖励" + Show_Color.Red("下品噬心魔种" + " * 5");
