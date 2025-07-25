@@ -143,47 +143,53 @@ public class AttackStateMachine : MonoBehaviour
     /// <returns></returns>
     IEnumerator AttackDash()
     {
-        isAttacking = true;
-        float dashDuration = 10f / (AttackSpeed); // 冲撞持续时间
-        float startTime = Time.time;
-        //Debug.Log("冲撞开始" + battle.Data.show_name+" "+DateTime.Now);
-
-        // 冲刺阶段
-        while (Time.time - startTime < dashDuration)
+        if (Target != null && Target.gameObject.activeSelf && Target.HP > 0)
         {
-            transform.position = Vector2.Lerp(
-                transform.position,
-                new Vector2(transform.position.x + dashDistance, transform.position.y),
-                (Time.time - startTime) / dashDuration
-            );
-           if (GetComponent<player_battle_attck>() != null)
+            isAttacking = true;
+            int max= (int)MathF.Max(180 - AttackSpeed, 80);
+            float dashDuration = 10f / (max); // 冲撞持续时间
+            float startTime = Time.time;
+            // 冲刺阶段
+            while (Time.time - startTime < dashDuration)
             {
-                transform.Translate(Vector2.right * AttackSpeed * Time.deltaTime);
-            }else if(GetComponent<monster_battle_attck>() != null)
+                transform.position = Vector2.Lerp(
+                    transform.position,
+                    new Vector2(transform.position.x + dashDistance, transform.position.y),
+                    (Time.time - startTime) / dashDuration
+                );
+                if (GetComponent<player_battle_attck>() != null)
+                {
+                    transform.Translate(Vector2.right * AttackSpeed * Time.deltaTime);
+                }
+                else if (GetComponent<monster_battle_attck>() != null)
+                {
+                    transform.Translate(Vector2.left * AttackSpeed * Time.deltaTime * 0.8f);
+                }
+
+
+                yield return null;
+            }
+            battle.OnAuto();
+            AttackSpeedCounter = AttackSpeed;
+            // 返回阶段
+            float returnDuration = 0.5f;
+            startTime = Time.time;
+            while (Time.time - startTime < returnDuration)
             {
-                transform.Translate(Vector2.left * AttackSpeed * Time.deltaTime*0.8f);
+                transform.position = Vector2.Lerp(
+                    transform.position,
+                    startPosition,
+                    (Time.time - startTime) / returnDuration
+                );
+                yield return null;
             }
 
-            
-            yield return null;
+            transform.position = startPosition;
+            isAttacking = false;
         }
-        battle.OnAuto();
         AttackSpeedCounter = AttackSpeed;
-        // 返回阶段
-        float returnDuration = 0.5f;
-        startTime = Time.time;
-        while (Time.time - startTime < returnDuration)
-        {
-            transform.position = Vector2.Lerp(
-                transform.position,
-                startPosition,
-                (Time.time - startTime) / returnDuration
-            );
-            yield return null;
-        }
+        battle.Lose_Terget();
 
-        transform.position = startPosition;
-        isAttacking = false;
     }
 
 

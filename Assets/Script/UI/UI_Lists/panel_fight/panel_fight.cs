@@ -383,7 +383,8 @@ public class panel_fight : Panel_Base
     {
         if (trial_tower == null) trial_tower = rank;
         Combat_statistics.isTime = true;
-        trial_storey= storey+1;
+        if (trial_storey <= storey)//拒绝断网重复刷新
+            trial_storey = storey + 1;
         select_map = map;
         map_name.text = map.map_name;
         init();
@@ -541,12 +542,9 @@ public class panel_fight : Panel_Base
     private float WaitTime()
     {
         float Waittime = 5f;
-        //if(SumSave.crt_MaxHero.bufflist.Count> (int)enum_skill_attribute_list.寻怪间隔)
-        //Waittime -= SumSave.crt_MaxHero.bufflist[(int)enum_skill_attribute_list.寻怪间隔]/10f;
-        //Waittime = Mathf.Clamp(Waittime, 1f, 5f);
         Waittime = (select_map.map_index-1) * 0.5f;
         //Waittime = Mathf.Clamp(Waittime, 0.5f, 5f);
-        /* 计算等待时间%比模式
+        /* 计算等待时间%比模式  保留模式
         Debug.Log("等待时间基准" + Waittime);
         if (SumSave.crt_MaxHero.bufflist.Count > (int)enum_skill_attribute_list.寻怪间隔)
         {
@@ -580,6 +578,11 @@ public class panel_fight : Panel_Base
     private void Trial_Tower_reward()
     {
         write_Trial();
+        if (SumSave.openMysql)
+        {
+            Alert_Dec.Show("网络连接失败");
+            return;
+        }
         string dec = "";
         dec = "通关试练塔" + Show_Color.Red(trial_storey) + "层";
         dec += "\n奖励" + Show_Color.Red("下品噬心魔种" + " * 5");

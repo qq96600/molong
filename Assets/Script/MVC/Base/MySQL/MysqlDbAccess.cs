@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using MySql.Data.MySqlClient;
 using Components;
+using Common;
 
 /// <summary>
 /// mysql数据库操作类
@@ -46,11 +47,13 @@ public class MysqlDbAccess
     public void OpenDB(string connectionString)
     {
         MysqlClose = true;
+        SumSave.openMysql = true;
         try
         {
             conn = new MySqlConnection(connectionString);
             conn.Open();
             MysqlClose = false;
+            SumSave.openMysql = false;
         }
         catch (Exception e)
         {
@@ -81,10 +84,11 @@ public class MysqlDbAccess
         {
             reader = cmd.ExecuteReader();
             MysqlClose = false;
+            SumSave.openMysql = false;
         }
         catch (Exception)
         {
-
+            //Debug.Log(sqlQuery);
         }
         return reader;
     }
