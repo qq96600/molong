@@ -361,9 +361,13 @@ namespace Common
         public static List<db_mail_vo> Db_Mails;
 
         public static user_mail_vo CrtMail;
+        /// <summary>
+        /// 判断网络开关
+        /// </summary>
+        public static bool openMysql = false;
 
 
-    
+
         #endregion
     }
 }

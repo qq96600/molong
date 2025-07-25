@@ -29,7 +29,8 @@ namespace MVC
         {
             OpenMySqlDB();
             mysqlReader = MysqlDb.Select(Mysql_Table_Name.mo_user_base, "uid", GetStr(SumSave.uid));
-            SumSave.crt_user = new user_base_vo(SumSave.uid,SumSave.nowtime,SumSave.nowtime,SumSave.par);
+            //SumSave.crt_user = new user_base_vo(SumSave.uid,SumSave.nowtime,SumSave.nowtime,SumSave.par);
+            SumSave.crt_user = new user_base_vo();
             if (mysqlReader.HasRows)
             {
                 while (mysqlReader.Read())
@@ -41,7 +42,10 @@ namespace MVC
             }
             else
             {
-                SumSave.crt_user = new user_base_vo(Guid.NewGuid().ToString("N"), DateTime.Now, DateTime.Now, SumSave.par); //Guid.NewGuid().ToString("N");
+                SumSave.crt_user.uid = SumSave.uid;// Guid.NewGuid().ToString("N");// new user_base_vo(, DateTime.Now, DateTime.Now, SumSave.par); //Guid.NewGuid().ToString("N");
+                SumSave.crt_user.Nowdate = DateTime.Now;
+                SumSave.crt_user.RegisterDate = DateTime.Now;
+                SumSave.crt_user.par = SumSave.par;
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_base, SumSave.crt_user.Set_Instace_String());
             }
             Read_Instace();
@@ -1572,9 +1576,10 @@ namespace MVC
             crt.attack_speed= Obtain_battle_AttackSpeed(crt.attack_speed, 100);
             //皮肤
 #if UNITY_EDITOR  
-            //crt.hit += 1000;
-            //crt.damageMax += 10000000;
-            //crt.MagicdamageMax += 10000000;
+            crt.hit += 1000;
+            crt.attack_speed = 210;
+            crt.damageMax += 10000000;
+            crt.MagicdamageMax += 10000000;
 #elif UNITY_ANDROID
 #elif UNITY_IPHONE
 #endif
@@ -1906,6 +1911,7 @@ namespace MVC
                 SumSave.crt_hero.tianming_Platform = new int[5];
                 SumSave.crt_hero.InitTianming_Platform();
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_hero, SumSave.crt_hero.Set_Instace_String());
+                //MysqlDb.InsertInto(Mysql_Table_Name.mo_user_hero, SumSave.crt_hero.Set_Instace_String());
             }
         }
 

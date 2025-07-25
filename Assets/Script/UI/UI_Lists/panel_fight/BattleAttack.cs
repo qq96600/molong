@@ -233,9 +233,8 @@ namespace MVC
 
         public void Lose_Terget()
         {
-          
+            Debug.Log(1);
             Find_Terget();
-         
         }
 
         /// <summary>

@@ -45,6 +45,8 @@ public class Trial_Tower : Panel_Base
     /// </summary>
     private (string, string, long) user;
 
+    private int index;
+
     public override void Initialize()
     {
         base.Initialize();
@@ -81,6 +83,7 @@ public class Trial_Tower : Panel_Base
         {
             fight_panel.Show();
             fight_panel.Open_Map(map, (int)user.Item3 , this);
+            Hide();
         }else Alert_Dec.Show("材料 "+ map.need_Required+" 不足");
        
     }
