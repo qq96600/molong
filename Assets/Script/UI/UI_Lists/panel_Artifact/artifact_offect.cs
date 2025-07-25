@@ -150,7 +150,7 @@ public class artifact_offect : Base_Mono
                     dec += (infos[1] == "0" ? Show_Color.Green("开启加成:") : infos[2] + "级 激活: ") +
                         (item.base_lv >= int.Parse(infos[2]) ? Show_Color.Red((enum_skill_attribute_list)int.Parse(infos[0]) +
                         " + " + (float.Parse(infos[1]) * item.base_lv) + tool_Categoryt.Obtain_unit(int.Parse(infos[0]))):
-                        Show_Color.Grey((enum_skill_attribute_list)int.Parse(infos[0]) + " + " + (float.Parse(infos[1]) * item.base_lv) + tool_Categoryt.Obtain_unit(int.Parse(infos[0]))
+                        Show_Color.Grey((enum_skill_attribute_list)int.Parse(infos[0]) + " + Max: " + (float.Parse(infos[1]) * item.Data.Artifact_MaxLv) + tool_Categoryt.Obtain_unit(int.Parse(infos[0]))
                         + "(未激活)")) + "\n";
                 }
             }

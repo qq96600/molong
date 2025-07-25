@@ -11,47 +11,47 @@ public class db_seed_vo : Base_VO
     /// <summary>
     /// 编号
     /// </summary>
-    public int sequence;
+    public readonly int sequence;
     /// <summary>
     /// 材料名称
     /// </summary>
-    public string seed_name;
+    public readonly string seed_name;
     /// <summary>
     /// 配方
     /// </summary>
-    public string seed_formula;
+    public readonly string seed_formula;
     /// <summary>
     /// 成名名称
     /// </summary>
-    public string pill;
+    public readonly string pill;
     /// <summary>
     /// 合成公式
     /// </summary>
-    public string formula;
+    public readonly string formula;
     /// <summary>
     /// 药品加成效果最小值最大值
     /// </summary>
-    public string pill_effect;
+    public readonly string pill_effect;
     /// <summary>
     /// 注灵需要数量
     /// </summary>
-    public int seed_number=10;
+    public readonly int seed_number=10;
     /// <summary>
     /// 权重
     /// </summary>
-    public int Weight;
+    public readonly int Weight;
     /// <summary>
     /// 定义类型
     /// </summary>
-    public int rule;
+    public readonly int rule;
     /// <summary>
     /// 累积可以吞的次数
     /// </summary>
-    public int limit;
+    public readonly int limit;
     /// <summary>
     /// 对应字典编号
     /// </summary>
-    public int dicdictionary_index;
+    public readonly int dicdictionary_index;
 
     public db_seed_vo(string type, int sequence, string seed_name, string seed_formula, string pill, string formula, string pill_effect, int weight, int seed_number, int rule, int dicdictionary_index, int limit)
     {

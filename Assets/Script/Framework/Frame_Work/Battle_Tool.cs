@@ -393,19 +393,15 @@ public static class Battle_Tool
                 if (ArrayHelper.SafeGet(SumSave.crt_MaxHero.bufflist, (int)enum_skill_attribute_list.试练塔积分, out int se))
                     value = (int)(value * (100 + SumSave.crt_MaxHero.bufflist[(int)enum_skill_attribute_list.试练塔积分]) / 100);
             }
-            if (unit == currency_unit.灵气)//目前没有灵气加成
-            {
-                //if (ArrayHelper.SafeGet(SumSave.crt_MaxHero.bufflist, (int)enum_skill_attribute_list.灵气上限, out int se))
-                //    value = (int)(value * (100 + SumSave.crt_MaxHero.bufflist[(int)enum_skill_attribute_list.试练塔积分]) / 100);
-            }
             if (unit == currency_unit.灵气)
             {
                 if (SumSave.crt_world == null)
                 {
                     List<long> list = SumSave.crt_user_unit.Set();
-                    if (list[(int)unit] + value > SumSave.db_lvs.word_lv_max_value[SumSave.crt_world.World_Lv])
+                    int max = SumSave.db_lvs.word_lv_max_value[0] + Tool_State.Value_playerprobabilit(enum_skill_attribute_list.灵气上限);
+                    if (list[(int)unit] + value > max)
                     {
-                        value = SumSave.db_lvs.word_lv_max_value[SumSave.crt_world.World_Lv] - list[(int)unit];
+                        value = max - list[(int)unit];
                         if (value < 0) value = 0;
                     }
                 }
@@ -943,54 +939,6 @@ public static class Battle_Tool
             if (!exist && SumSave.crt_MaxHero.totalPower > SumSave.user_ranks.lists[SumSave.user_ranks.lists.Count - 1].value)
             {
                 crate_rank();
-                //for (int i = SumSave.user_ranks.lists.Count - 1; i >= 0; i--)//此前已经满足 第50名条件，直接从49名开始往上遍历
-                //{
-                //    if (SumSave.crt_MaxHero.totalPower > SumSave.user_ranks.lists[i].value) //逐个遍历,继续往上
-                //    {
-                //        if (i == 0)
-                //        {
-                //            for (int j = SumSave.user_ranks.lists.Count - 1; j > 0; j++) //往后依次替换,该情况仅适用于第一名
-                //            {
-                //                SumSave.user_ranks.lists[j].value = SumSave.user_ranks.lists[j - 1].value;
-                //                SumSave.user_ranks.lists[j].lv = SumSave.user_ranks.lists[j - 1].lv;
-                //                SumSave.user_ranks.lists[j].uid = SumSave.user_ranks.lists[j - 1].uid;
-                //                SumSave.user_ranks.lists[j].name = SumSave.user_ranks.lists[j - 1].name;
-                //                SumSave.user_ranks.lists[j].type = SumSave.user_ranks.lists[j - 1].type;
-                //            }
-                //            SumSave.user_ranks.lists[0].value = (int)SumSave.crt_MaxHero.totalPower;
-                //            SumSave.user_ranks.lists[0].lv = SumSave.crt_MaxHero.Lv;
-                //            SumSave.user_ranks.lists[0].uid = SumSave.crt_user.uid;
-                //            SumSave.user_ranks.lists[0].name = SumSave.crt_MaxHero.show_name;
-                //            SumSave.user_ranks.lists[0].type = SumSave.crt_hero.hero_pos;
-                //            Refresh_Rank();
-                //            break;
-                //        }//替换第一名
-                //        else continue;
-                //    }
-                //    else
-                //    {
-                //        if (i != SumSave.user_ranks.lists.Count - 2) //如果说在倒数第二个结束，就直接替换倒数第一个，不需要进循环
-                //        {
-                //            for (int j = SumSave.user_ranks.lists.Count - 1; j > i + 1; j--) //往后依次替换，这个时候已经比i小，不需要取到i
-                //            {
-                //                SumSave.user_ranks.lists[j].value = SumSave.user_ranks.lists[j - 1].value;
-                //                SumSave.user_ranks.lists[j].lv = SumSave.user_ranks.lists[j - 1].lv;
-                //                SumSave.user_ranks.lists[j].uid = SumSave.user_ranks.lists[j - 1].uid;
-                //                SumSave.user_ranks.lists[j].name = SumSave.user_ranks.lists[j - 1].name;
-                //                SumSave.user_ranks.lists[j].type = SumSave.user_ranks.lists[j - 1].type;
-                //            }
-                //        }
-                //        // 47   i  = cou - 4     j50  49 -1    49-48  -2
-                //        SumSave.user_ranks.lists[i + 1].value = (int)SumSave.crt_MaxHero.totalPower;
-                //        SumSave.user_ranks.lists[i + 1].lv = SumSave.crt_MaxHero.Lv;
-                //        SumSave.user_ranks.lists[i + 1].uid = SumSave.crt_user.uid;
-                //        SumSave.user_ranks.lists[i + 1].name = SumSave.crt_MaxHero.show_name;
-                //        SumSave.user_ranks.lists[i + 1].type = SumSave.crt_hero.hero_pos;
-                //        Refresh_Rank();
-                //        break;  //比到战力更高的，就结束，替换直到这之前的前一位  这时已留出i之前的空位
-                //    }
-                //}
-
             }
 
         }
@@ -1209,6 +1157,157 @@ public static class Battle_Tool
         base_crt.monster_attrList.Add((int)state);
         return base_crt;
     }
+    /// <summary>
+    /// 无尽模式怪物
+    /// </summary>
+    /// <param name="crt"></param>
+    /// <param name="map"></param>
+    /// <param name="trial_storey"></param>
+    /// <returns></returns>
+    public static crtMaxHeroVO crate_monster(crtMaxHeroVO crt, user_map_vo map, int trial_storey)
+    {
+        crtMaxHeroVO base_crt = new crtMaxHeroVO();
+        base_crt.map_index = map.map_index;
+        if (map.map_life != 0)
+        {
+            base_crt.life_types.Add(map.map_life - 1, 1);
+            while (Random.Range(0, 100) > base_crt.life_types[map.map_life - 1] * 20)
+            {
+                base_crt.life_types[map.map_life - 1]++;
+            }
+            base_crt.life[map.map_life - 1] = map.need_lv * 2 * (100 + life_bonus[base_crt.life_types[map.map_life - 1]]) / 100;
+        }
+
+        base_crt.Monster_Lv = map.map_type;
+        base_crt.Type = crt.damageMax > crt.MagicdamageMax ? 1 : 2;
+        base_crt.show_name = crt.show_name;
+        base_crt.index = crt.index;
+        base_crt.Lv = crt.Lv;
+        base_crt.icon = crt.icon;
+
+        base_crt.unit = Random.Range(crt.Lv * 5, crt.Lv * 10) + 1;
+
+        //标准战斗系数
+        int coefficient = 1;
+        if (Random.Range(0, 100) < 10)
+        {
+            coefficient = 2;
+            //boss模版
+            if (Random.Range(0, 100) < 10)
+            {
+                coefficient = 3;
+            }
+        }
+        base_crt.Exp = (int)(crt.Exp * MathF.Pow(5, coefficient - 1));
+         
+        if (trial_storey >= 0)
+        {
+            base_crt.life[(trial_storey + (trial_storey / 5)) % 5] = trial_storey * 3;
+            base_crt.MaxHP = (long)((trial_storey + 1) * 100 * (Mathf.Pow(10, trial_storey / 20)));
+            base_crt.MaxMp = (trial_storey + 1) * 100;
+            base_crt.internalforceMP = (trial_storey + 1) * 100;
+            base_crt.EnergyMp = (trial_storey + 1) * 10;
+            base_crt.DefMin = (trial_storey + 1) * 10;
+            base_crt.DefMax = (trial_storey + 1) * 20;
+            base_crt.MagicDefMin = (trial_storey + 1) * 10;
+            base_crt.MagicDefMax = (trial_storey + 1) * 20;
+            base_crt.damageMin = (trial_storey + 1) * 10;
+            base_crt.damageMax = (trial_storey + 1) * 20;
+            base_crt.MagicdamageMin = (trial_storey + 1) * 10;
+            base_crt.MagicdamageMax = (trial_storey + 1) * 20;
+            base_crt.hit = (trial_storey + 1) * 10;
+            base_crt.dodge = (trial_storey + 1) * 5;
+            base_crt.penetrate = (trial_storey + 1) * 5;
+            base_crt.block = (trial_storey + 1) * 5;
+            base_crt.crit_rate = (trial_storey + 1) * 5;
+            base_crt.crit_damage = 150 + (trial_storey + 1) * 5;
+            base_crt.double_damage = (trial_storey + 1) * 5;
+            base_crt.Lucky = (trial_storey + 1) / 10;
+            base_crt.Real_harm = (trial_storey + 1) * 10;
+            base_crt.Damage_Reduction = (trial_storey + 1) / 2;
+            base_crt.move_speed = Random.Range(10, 30); ;
+            base_crt.attack_speed = 300 - ((trial_storey + 1) * 2);
+            base_crt.attack_distance = 100 + (trial_storey + 1) * 10;
+            base_crt.Heal_Hp = (trial_storey + 1) * 10;
+        }
+        else
+        {
+            base_crt.MaxHP = (int)(crt.MaxHP * MathF.Pow(3, coefficient - 1));
+            base_crt.MaxMp = crt.MaxMp;
+            base_crt.internalforceMP = crt.internalforceMP;
+            base_crt.EnergyMp = crt.EnergyMp;
+            base_crt.DefMin = crt.DefMin * coefficient;
+            base_crt.DefMax = crt.DefMax * coefficient;
+            base_crt.MagicDefMin = crt.MagicDefMin * coefficient;
+            base_crt.MagicDefMax = crt.MagicDefMax * coefficient;
+            base_crt.damageMin = crt.damageMin * coefficient;
+            base_crt.damageMax = crt.damageMax * coefficient;
+            base_crt.MagicdamageMin = crt.MagicdamageMin * coefficient;
+            base_crt.MagicdamageMax = crt.MagicdamageMax * coefficient;
+            base_crt.hit = (crt.hit + map.need_lv) * coefficient;
+            base_crt.dodge = crt.dodge * coefficient;
+            base_crt.penetrate = crt.penetrate * coefficient;
+            base_crt.block = crt.block * coefficient;
+            base_crt.crit_rate = crt.crit_rate * coefficient;
+            base_crt.crit_damage = crt.crit_damage;
+            base_crt.double_damage = crt.double_damage;
+            base_crt.Lucky = crt.Lucky;
+            base_crt.Real_harm = crt.Real_harm;
+            base_crt.Damage_Reduction = crt.Damage_Reduction;
+            base_crt.Damage_absorption = crt.Damage_absorption;
+            base_crt.resistance = crt.resistance;
+            base_crt.move_speed = crt.move_speed;
+            base_crt.attack_speed = crt.attack_speed;
+            base_crt.attack_distance = crt.attack_distance;
+            base_crt.bonus_Hp = crt.bonus_Hp;
+            base_crt.bonus_Mp = crt.bonus_Mp;
+            base_crt.bonus_Damage = crt.bonus_Damage;
+            base_crt.bonus_MagicDamage = crt.bonus_MagicDamage;
+            base_crt.bonus_Def = crt.bonus_Def;
+            base_crt.bonus_MagicDef = crt.bonus_MagicDef;
+            base_crt.Heal_Hp = crt.Heal_Hp * coefficient;
+            base_crt.Heal_Mp = crt.Heal_Mp * coefficient;
+        }
+        Array values = Enum.GetValues(typeof(enum_monster_state));
+        enum_monster_state state = (enum_monster_state)values.GetValue(RandomNumberGenerator.GetInt32(values.Length));
+        switch (state)
+        {
+            case enum_monster_state.正常的:
+                break;
+            case enum_monster_state.强壮的:
+                base_crt.MaxHP = (int)(crt.MaxHP * 1.5f);
+                break;
+            case enum_monster_state.混乱的:
+                break;
+            case enum_monster_state.恐惧的:
+                base_crt.attack_speed = (int)(crt.attack_speed / 2);
+                break;
+            case enum_monster_state.感染的:
+                break;
+            case enum_monster_state.沉睡的:
+                base_crt.Heal_Hp = (int)(crt.Heal_Hp * 1.5f);
+                break;
+            case enum_monster_state.沉默的:
+                base_crt.DefMax = (int)(crt.DefMax * 1.5f);
+                base_crt.MagicDefMax = (int)(crt.MagicDefMax * 1.5f);
+                break;
+            case enum_monster_state.神秘的:
+                base_crt.attack_distance = (int)(crt.attack_distance * 1.5f);
+                break;
+            case enum_monster_state.恐怖的:
+                base_crt.damageMax = (int)(crt.damageMax * 1.5f);
+                base_crt.MagicdamageMax = (int)(crt.MagicdamageMax * 1.5f);
+                break;
+            case enum_monster_state.激怒的:
+                base_crt.crit_rate = (int)(crt.crit_rate * 1.5f);
+                break;
+            default:
+                break;
+        }
+        base_crt.monster_attrList.Add((int)state);
+        return base_crt;
+    }
+
 
     /// <summary>
     /// 验证地图列表

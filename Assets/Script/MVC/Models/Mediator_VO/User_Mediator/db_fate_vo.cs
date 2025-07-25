@@ -11,7 +11,7 @@ public class db_fate_vo : Base_VO
     /// <summary>
     /// 命运殿堂具体物品
     /// </summary>
-    public string fate_value;
+    public readonly string fate_value;
     /// <summary>
     /// 命运殿堂物品列表0名字1代表分类（1材料技能书神器2魔丸3皮肤）2单次抽取数量3最大抽取数量4权重）
     /// </summary>

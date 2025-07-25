@@ -217,6 +217,10 @@ public class crtMaxHeroVO
     /// </summary>
     public int Monster_Lv=0;
     /// <summary>
+    /// 是否为背刺怪 为1时为背刺怪
+    /// </summary>
+    public int isBackstab=0;
+    /// <summary>
     /// 显示战斗力
     /// </summary>
     public void Init()

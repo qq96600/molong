@@ -10,6 +10,17 @@ namespace MVC
     public class Base_VO
     {
         /// <summary>
+        /// 发送消息
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="data"></param>
+        public void SendNotification(string name, object data = null)
+        {
+            AppFacade.I.SendNotification(name, data);
+        }
+
+
+        /// <summary>
         ///  写入网络初始化数据
         /// </summary>
         /// <returns></returns>

@@ -93,6 +93,14 @@ public class panel_fight : Panel_Base
     /// 五行种子
     /// </summary>
     private string[] FiveElementSeeds= { "牡丹皮", "青蒿", "苦参", "葛根", "金银花" , "黄连" , "薄荷" , "决明子", "芍药" , "菊花", "桂枝" , "穿心莲", "银翘", "栀子", "桑叶" };
+    /// <summary>
+    /// 数据库
+    /// </summary>
+    private List<BattleHealth> players=new List<BattleHealth>(), monsters=new List<BattleHealth>();
+    /// <summary>
+    /// 状态刷新开关
+    /// </summary>
+    private bool openRefreshStatus = true;
     protected override void Awake()
     {
         base.Awake();
@@ -127,6 +135,36 @@ public class panel_fight : Panel_Base
         Alert.Show("清空战斗信息", "是否清空战斗信息", Clear_Combat_statistics);
        
     }
+
+    private void Update()
+    {
+        if (openRefreshStatus)RefreshStatus();
+    }
+
+    private void RefreshStatus()
+    {
+        if (players != null)
+        {
+            if (players.Count > 0)
+            {
+                for (int i = 0; i < players.Count; i++)
+                {
+                    players[i].GetComponent<BattleAttack>().FindTergets(monsters);
+                }
+            }
+        }
+        if (monsters != null)
+        {
+            if (monsters.Count > 0)
+            {
+                for (int i = 0; i < monsters.Count; i++)
+                {
+                    monsters[i].GetComponent<BattleAttack>().FindTergets(players);
+                }
+            }
+        }
+        openRefreshStatus = false;
+    }
     /// <summary>
     /// 清空战斗信息
     /// </summary>
@@ -142,8 +180,10 @@ public class panel_fight : Panel_Base
     public void Show_Combat_statistics()
     {
         battle_info_list.text = Combat_statistics.Show_Info();
-        IsReply(SumSave.battleHeroHealths);
-        IsReply(SumSave.battleMonsterHealths);
+        //IsReply(SumSave.battleHeroHealths);
+        //IsReply(SumSave.battleMonsterHealths);
+        IsReply(players);
+        IsReply(monsters);
     }
     /// <summary>
     /// 回复生命魔法
@@ -173,12 +213,7 @@ public class panel_fight : Panel_Base
         close_battle.gameObject.SetActive(true);
         transform.SetAsFirstSibling();
         return;
-        //close_panel_state=!close_panel_state;
-        //for (int i = 1; i < pos_btn.childCount; i++)
-        //{ 
-        //    pos_btn.GetChild(i).gameObject.SetActive(close_panel_state);
-        //}
-        //close_btn.GetComponent<Image>().sprite = Resources.Load<Sprite>(close_panel_state ? "UI/btn_list/隐藏" : "UI/btn_list/展开");
+        
     }
     public override void Show()
     {
@@ -379,14 +414,28 @@ public class panel_fight : Panel_Base
         if (gameObject.activeInHierarchy)
         {
             crate_Skill();
-            foreach (var item in SumSave.battleHeroHealths)
+            foreach (var item in players)
             {
                 item.GetComponent<BattleAttack>().Refresh(SumSave.crt_MaxHero);
                 item.GetComponent<BattleAttack>().Refresh_Skill(battle_skills);
             }
         }
     }
-    
+    /// <summary>
+    /// 清除死亡物品
+    /// </summary>
+    /// <param name="health"></param>
+    protected void clearhealth(BattleHealth health)
+    {
+        if (health.GetComponent<player_battle_attck>() != null)
+        { 
+            players.Remove(health);
+        }else if (health.GetComponent<monster_battle_attck>() != null)
+            monsters.Remove(health);
+        openRefreshStatus = true;
+    }
+
+
     private void crate_Skill()
     {
         battle_skills = pight_show_skill.Init();
@@ -403,7 +452,9 @@ public class panel_fight : Panel_Base
         //if (item.GetComponent<Button>().enabled)
         //    item.GetComponent<Button>().onClick.AddListener(delegate { AudioManager.Instance.playAudio(ClipEnum.购买物品); SelectMonster(item.GetComponent<MonsterBattleAttack>()); });
         //item.GetComponent<Button>().enabled = true;
-        SumSave.battleHeroHealths.Add(item.GetComponent<BattleHealth>());
+        //SumSave.battleHeroHealths.Add(item.GetComponent<BattleHealth>());
+        players.Add(item.GetComponent<BattleHealth>());
+        openRefreshStatus = true;
         role_health.SetHealth(item.GetComponent<BattleHealth>());
     }
 
@@ -423,22 +474,24 @@ public class panel_fight : Panel_Base
             default:
                 break;
         }
-        if (SumSave.battleMonsterHealths != null)
+        if (monsters != null)
         {
             for (int i = pos_monster.childCount - 1; i >= 0; i--)
             {
                 pos_monster.GetChild(i).gameObject.GetComponent<BattleHealth>().Clear();
             }
-            SumSave.battleMonsterHealths.Clear();
+            monsters.Clear();
         }
-        if (SumSave.battleHeroHealths != null)
+        else monsters = new List<BattleHealth>();
+        if (players != null)
         {
             for (int i = pos_player.childCount - 1; i >= 0; i--)
             {
                 pos_player.GetChild(i).gameObject.GetComponent<BattleHealth>().Clear();
             }
-            SumSave.battleHeroHealths.Clear();
+            players.Clear();
         }
+        else players = new List<BattleHealth>();
         crt_map_monsters.Clear();
         if (select_map.map_type == 6)
         {
@@ -488,9 +541,22 @@ public class panel_fight : Panel_Base
     private float WaitTime()
     {
         float Waittime = 5f;
-        if(SumSave.crt_MaxHero.bufflist.Count> (int)enum_skill_attribute_list.寻怪间隔)
-        Waittime -= SumSave.crt_MaxHero.bufflist[(int)enum_skill_attribute_list.寻怪间隔]/10f;
-        Waittime = Mathf.Clamp(Waittime, 1f, 5f);
+        //if(SumSave.crt_MaxHero.bufflist.Count> (int)enum_skill_attribute_list.寻怪间隔)
+        //Waittime -= SumSave.crt_MaxHero.bufflist[(int)enum_skill_attribute_list.寻怪间隔]/10f;
+        //Waittime = Mathf.Clamp(Waittime, 1f, 5f);
+        Waittime = (select_map.map_index-1) * 0.5f;
+        //Waittime = Mathf.Clamp(Waittime, 0.5f, 5f);
+        /* 计算等待时间%比模式
+        Debug.Log("等待时间基准" + Waittime);
+        if (SumSave.crt_MaxHero.bufflist.Count > (int)enum_skill_attribute_list.寻怪间隔)
+        {
+            Waittime = (5 - (SumSave.crt_MaxHero.bufflist[(int)enum_skill_attribute_list.寻怪间隔] / 10)) * Waittime / 5; 
+        }
+        Waittime = Mathf.Clamp(Waittime, 0.3f, 5f);
+        Debug.Log("等待时间" + Waittime);
+        */
+        Waittime = Mathf.Min(Waittime, 5f - (SumSave.crt_MaxHero.bufflist[(int)enum_skill_attribute_list.寻怪间隔] / 10f));
+        Waittime = Mathf.Clamp(Waittime, 0.5f, 5f);
         return Waittime;
     }
     // 下一波怪
@@ -639,7 +705,9 @@ public class panel_fight : Panel_Base
         //if (item.GetComponent<Button>().enabled)
         //    item.GetComponent<Button>().onClick.AddListener(delegate { AudioManager.Instance.playAudio(ClipEnum.购买物品); SelectMonster(item.GetComponent<MonsterBattleAttack>()); });
         //item.GetComponent<Button>().enabled = true;
-        SumSave.battleMonsterHealths.Add(item.GetComponent<BattleHealth>());
+        //SumSave.battleMonsterHealths.Add(item.GetComponent<BattleHealth>());
+        monsters.Add(item.GetComponent<BattleHealth>());
+        openRefreshStatus = true;
         Open_Monster_State=true;
         ShowInfoMap();
     }

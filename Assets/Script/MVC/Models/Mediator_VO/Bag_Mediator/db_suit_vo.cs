@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class db_suit_vo : Base_VO
 {
-    public string suit_name;
-    public int suit_type;
-    public int suit_number;
+    public readonly string suit_name;
+    public readonly int suit_type;
+    public readonly int suit_number;
     public List<(int,int,int)> suit_list;
 
     public db_suit_vo(string suit_name, int suit_number, int suit_type, string v)

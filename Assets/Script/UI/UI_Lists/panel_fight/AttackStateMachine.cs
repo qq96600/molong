@@ -90,9 +90,10 @@ public class AttackStateMachine : MonoBehaviour
 
     private void Update()
     {
+        if (Target == null|| battle==null) return;
         IsState();
         Animator_State();
-        if (arrowType == Arrow_Type.idle&& SumSave.battleMonsterHealths.Count>0)
+        if (arrowType == Arrow_Type.idle)//&& SumSave.battleMonsterHealths.Count>0
         {
             AttackSpeedCounter -= Time.deltaTime * 90f;
             if (AttackSpeedCounter <= 0)
@@ -117,13 +118,24 @@ public class AttackStateMachine : MonoBehaviour
             IsState();
         }
 
+        //distance = Vector3.Distance(initPosition, transform.position);
+        //if (distance > 1600)
+        //{
+        //    transform.position = initPosition;
+        //}
+
+    }
+
+    IEnumerator isExceed()
+    {
+        yield return new WaitForSeconds(1f);
         distance = Vector3.Distance(initPosition, transform.position);
-        if (distance>800)
+        if (distance > 1600)
         {
             transform.position = initPosition;
         }
-
     }
+
 
     /// <summary>
     /// 攻击动作
@@ -181,10 +193,12 @@ public class AttackStateMachine : MonoBehaviour
     public void Init(BattleAttack _battle,BattleHealth target)
     {
         battle= _battle;
-        initPosition=_battle.transform.position;
+        initPosition= _battle.transform.position;
+        StartCoroutine(isExceed());
         AttackSpeed = battle.Data.attack_speed;
         AttackSpeedCounter = AttackSpeed;
         Target = target;
+       // StateMachine.isBackstabpos=false;
      }
     /// <summary>
     /// 技能释放控制

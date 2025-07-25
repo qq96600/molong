@@ -14,7 +14,7 @@ public class user_world_boss : Base_VO
     /// <summary>
     /// 对世界最后一次造成伤害的时间
     /// </summary>
-    public DateTime datetime;
+    public  DateTime datetime;
     /// <summary>
     /// 对应区服
     /// </summary>

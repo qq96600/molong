@@ -41,10 +41,7 @@ namespace MVC
             }
             else
             {
-                SumSave.crt_user.uid = SumSave.uid; //Guid.NewGuid().ToString("N");
-                SumSave.crt_user.Nowdate = DateTime.Now;
-                SumSave.crt_user.RegisterDate = DateTime.Now;
-                SumSave.crt_user.par = SumSave.par;
+                SumSave.crt_user = new user_base_vo(Guid.NewGuid().ToString("N"), DateTime.Now, DateTime.Now, SumSave.par); //Guid.NewGuid().ToString("N");
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_base, SumSave.crt_user.Set_Instace_String());
             }
             Read_Instace();
@@ -143,7 +140,6 @@ namespace MVC
         private void read_Trial_Tower()
         {
             mysqlReader = MysqlDb.Select(Mysql_Table_Name.user_trial_towers, "par", GetStr(SumSave.par));
-
             SumSave.crt_Trial_Tower_rank = new mo_world_boss_rank();
             if (mysqlReader.HasRows)
             {
@@ -156,7 +152,6 @@ namespace MVC
             }
             else
             {
-
                 MysqlDb.InsertInto(Mysql_Table_Name.user_trial_towers, SumSave.crt_Trial_Tower_rank.Set_Instace_String());
             }
         }
@@ -171,6 +166,15 @@ namespace MVC
                 "par", GetStr(SumSave.par));
             CloseMySqlDB();
         }
+
+        public void Refresh_Endless_Tower()
+        {
+            OpenMySqlDB();
+            MysqlDb.UpdateInto(Mysql_Table_Name.user_endless_battle, SumSave.crt_endless_battle.Get_Update_Character(), SumSave.crt_endless_battle.Set_Uptade_String(),
+               "par", GetStr(SumSave.par));
+            CloseMySqlDB();
+        }
+
 
         /// <summary>
         /// 刷新试练塔排行榜
@@ -511,6 +515,7 @@ namespace MVC
             Read_user_player_Buff();
             Read_User_Mail();
             Read_User_Reward();
+            read_EndlessBattle();
             read_Trial_Tower();
             Read_user_world_boss();
             world_boss_Login();
@@ -570,7 +575,7 @@ namespace MVC
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_rewards_state, SumSave.crt_accumulatedrewards.Set_Instace_String());
             }
 
-            SumSave.db_lvs.AddUpperLimit();///添加灵气上限
+            //SumSave.db_lvs.AddUpperLimit();///添加灵气上限
 
         }
         /// <summary>
@@ -833,11 +838,30 @@ namespace MVC
             }
         }
 
-
+        /// <summary>
+        /// 读取无尽塔排行榜
+        /// </summary>
+        private void read_EndlessBattle()
+        {
+            mysqlReader = MysqlDb.Select(Mysql_Table_Name.user_endless_battle, "par", GetStr(SumSave.par));
+            SumSave.crt_endless_battle = new user_endless_battle();
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.crt_endless_battle.endless_value = mysqlReader.GetString(mysqlReader.GetOrdinal("value"));
+                }
+                SumSave.crt_endless_battle.Split_endless();
+            }
+            else
+            {
+                Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.user_endless_battle, SumSave.crt_endless_battle.Set_Instace_String());
+            }
+        }
 
 
         /// <summary>
-        /// 读取排行榜
+        /// 读取战力排行榜
         /// </summary>
         private void read_User_Rank()
         {
@@ -880,6 +904,19 @@ namespace MVC
             //}
             CloseMySqlDB();
         }
+
+        /// <summary>
+        /// 读取无尽塔排行榜
+        /// </summary>
+        public void Read_read_EndlessBattle()
+        {
+            OpenMySqlDB();
+            read_EndlessBattle();
+            CloseMySqlDB();
+        }
+
+
+
 
         public void Read_Mail()
         {
@@ -942,39 +979,6 @@ namespace MVC
                 SumSave.crt_pet.Init("");
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_pet, SumSave.crt_pet.Set_Instace_String());
             }
-            //for (int i = 0; i < SumSave.crt_pet.crt_pet_list.Count; i++)
-            //{
-            //    if(SumSave.crt_pet.crt_pet_list[i]!="")
-            //    {
-            //        string[] splits = SumSave.crt_pet.crt_pet_list[i].Split(',');
-            //        db_pet_vo pet = new db_pet_vo();
-            //        db_pet_vo base_pet = ArrayHelper.Find(SumSave.db_pet, e => e.petName == splits[0]);
-            //        pet.pet_explore = base_pet.pet_explore;
-            //        if (splits.Length == 7)
-            //        {
-            //            pet.petName = splits[0];
-            //            pet.startHatchingTime = DateTime.Parse(splits[1]);
-            //            pet.quality = splits[2];
-            //            pet.level = int.Parse(splits[3]);
-            //            pet.exp = int.Parse(splits[4]);
-
-            //            string[] attributes = splits[5].Split('|');
-                     
-            //            pet.crate_value = "";
-            //            pet.up_value = "";
-            //            pet.up_base_value = "";
-            //            pet.crate_value = attributes[0];
-            //            pet.up_value = attributes[1];
-            //            pet.up_base_value = attributes[2];
-            //            pet.GetNumerical();
-                    
-            //            pet.pet_state = splits[6];
-            //            SumSave.crt_pet_list.Add(pet);
-            //        }
-                    
-            //    }
-                
-            //}
         }
 
 
@@ -1459,7 +1463,6 @@ namespace MVC
                     }
                 }
             }
-
             //收集属性
             for (int j = 0; j < suit_Type.GetNames(typeof(suit_Type)).Length; j++)//循环所有套装
             {
@@ -1542,8 +1545,6 @@ namespace MVC
                     }
                 }
             }
-
-           
             if (SumSave.crt_player_buff.player_Buffs.Count > 0)
             {
                 foreach (var item in SumSave.crt_player_buff.player_Buffs)
@@ -1567,6 +1568,8 @@ namespace MVC
                     }
                 }
             }
+            ///标准攻击速度
+            crt.attack_speed= Obtain_battle_AttackSpeed(crt.attack_speed, 100);
             //皮肤
 #if UNITY_EDITOR  
             //crt.hit += 1000;
@@ -1580,7 +1583,31 @@ namespace MVC
 
             Battle_Tool.validate_rank();
         }
-         
+        /// <summary>
+        /// 计算攻击速度递减公式
+        /// </summary>
+        /// <param name="crt_speed"></param>
+        /// <param name="base_speed"></param>
+        /// <returns></returns>
+        private static int Obtain_battle_AttackSpeed(int crt_speed, int base_speed)
+        {
+            if (crt_speed >= base_speed) return crt_speed;
+            int max = base_speed - crt_speed;
+            int base_value = base_speed;
+            int base_lv = 1;
+            for (int i = 0; i < max; i++)
+            {
+                if (base_value >= 90 && base_value < 100) base_lv = 2;
+                if (base_value >= 80 && base_value < 90) base_lv = 3;
+                if (base_value >= 70 && base_value < 80) base_lv = 4;
+                if (base_value >= 60 && base_value < 70) base_lv = 5;
+                if (base_value < 60) base_lv += 10;
+                if (i % base_lv == 0) base_value--;
+            }
+            base_value = (int)MathF.Max(50, base_value);
+            return base_value;
+        }
+
 
         /// <summary>
         /// 加成属性

@@ -145,6 +145,10 @@ namespace Common
         /// </summary>
         public static rank_vo user_ranks;
         /// <summary>
+        /// 无尽试炼排行榜
+        /// </summary>
+        public static user_endless_battle crt_endless_battle;
+        /// <summary>
         /// 自身成就
         /// </summary>
         public static user_achievement_vo crt_achievement;
@@ -323,6 +327,10 @@ namespace Common
         /// 造化炉合成列表
         /// </summary>
         public static List<db_formula_vo> db_formula_list;
+        /// <summary>
+        /// 无尽模式奖励表
+        /// </summary>
+        public static List<db_EndlessBattle_vo> db_EndlessBattle_list;
 
         #endregion
 
@@ -331,16 +339,14 @@ namespace Common
         /// 五行类型
         /// </summary>
         public static string[] five_element_type = { "土", "火", "水", "木", "金" };
-
-
-        /// <summary>
-        /// 怪物对象池
-        /// </summary>
-        public static List<BattleHealth> battleMonsterHealths = new List<BattleHealth>();
-        /// <summary>
-        /// 玩家对象池
-        /// </summary>
-        public static List<BattleHealth> battleHeroHealths = new List<BattleHealth>();
+        ///// <summary>
+        ///// 怪物对象池
+        ///// </summary>
+        //public static List<BattleHealth> battleMonsterHealths1 = new List<BattleHealth>();
+        ///// <summary>
+        ///// 玩家对象池
+        ///// </summary>
+        //public static List<BattleHealth> battleHeroHealths1 = new List<BattleHealth>();
         /// <summary>
         /// 战斗刷新时间
         /// </summary>
@@ -355,6 +361,8 @@ namespace Common
         public static List<db_mail_vo> Db_Mails;
 
         public static user_mail_vo CrtMail;
+
+
     
         #endregion
     }

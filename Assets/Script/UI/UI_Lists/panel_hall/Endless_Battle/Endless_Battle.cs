@@ -114,7 +114,7 @@ public class Endless_Battle : Panel_Base
         base.Show();
         if (SumSave.crt_MaxHero.Lv < 40 && SumSave.ios_account_number != "admin001")
         {
-            Alert_Dec.Show("无尽深渊开启等级为40级");
+            Alert_Dec.Show("试练塔开启等级为40级");
             gameObject.SetActive(false);
             return;
         }

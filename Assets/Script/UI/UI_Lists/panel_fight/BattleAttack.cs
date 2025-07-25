@@ -24,7 +24,24 @@ namespace MVC
         /// 目标
         /// </summary>
         protected BattleHealth Terget;
-
+        /// <summary>
+        /// 目标列表
+        /// </summary>
+        protected List<BattleHealth> Tergets;
+        /// <summary>
+        /// 获取目标
+        /// </summary>
+        /// <param name="tergets"></param>
+        public void FindTergets(List<BattleHealth> tergets,int isBackstab=0)
+        { 
+            Tergets = tergets;
+            if(isBackstab==1)
+            {
+                data.isBackstab = 1;
+                StateMachine.Backstab(isBackstab);
+                Debug.Log("背刺");
+            }
+        }
         protected Image frame, icon;
 
         protected Image targetIcon;
@@ -65,6 +82,7 @@ namespace MVC
 
         }
 
+
         public virtual void Refresh_Skill(List<skill_offect_item> skills)
         { 
         
@@ -93,6 +111,7 @@ namespace MVC
         {
             set
             {
+                Tergets = new List<BattleHealth>();
                 data = value;
                 if (data == null) return;
                 frame.gameObject.SetActive(false);
@@ -106,7 +125,7 @@ namespace MVC
                 hp_text.text = Battle_Tool.FormatNumberToChineseUnit(target.HP) + "/" + Battle_Tool.FormatNumberToChineseUnit(target.maxHP);
                 target.maxMP= data.MaxMp;
                 target.MP= data.MaxMp;
-                Terget = null;
+                //Terget = null;
                 string dec = "";
                
                 if (data.Monster_Lv >= 1)
@@ -224,35 +243,49 @@ namespace MVC
         /// </summary>
         protected virtual void Find_Terget()
         {
-           if(GetComponent<Player>() != null)
-
+            //if (Tergets == null) return;
+            if (Tergets.Count > 0)//怪物找玩家
             {
-                if (SumSave.battleMonsterHealths.Count > 0)//玩家找怪物
-                {
-                    //寻找距离自身最近的目标    
-                    Terget = ArrayHelper.GetMin(SumSave.battleMonsterHealths, e => Vector2.Distance(transform.position, e.transform.position));
-
-                    AttackStateMachine.Init(this, Terget);
-                    StateMachine.Init(this, Terget);
-                }
-                else
-                {
-                   // StateMachine.Animator_State(Arrow_Type.idle);
-                    Game_Next_Map();
-                }
+                //寻找距离自身最近的目标    
+                Terget = ArrayHelper.GetMin(Tergets, e => Vector2.Distance(transform.position, e.transform.position));
+                AttackStateMachine.Init(this, Terget);
+                StateMachine.Init(this, Terget);
             }
-            else if (GetComponent<Monster>() != null)
+            else
             {
-                if (SumSave.battleHeroHealths.Count > 0 )//怪物找玩家
-                {
-                    //寻找距离自身最近的目标    
-                    Terget = ArrayHelper.GetMin(SumSave.battleHeroHealths, e => Vector2.Distance(transform.position, e.transform.position));
-                    AttackStateMachine.Init(this, Terget);
-                    StateMachine.Init(this, Terget);
-                }
-                else 
-                    game_over();
+                if (GetComponent<Player>() != null) Game_Next_Map();
+                else game_over();
+
             }
+            //if (GetComponent<Player>() != null)
+
+            //{
+            //    if (Tergets.Count > 0)//玩家找怪物
+            //    {
+            //        //寻找距离自身最近的目标    
+            //        Terget = ArrayHelper.GetMin(SumSave.battleMonsterHealths, e => Vector2.Distance(transform.position, e.transform.position));
+
+            //        AttackStateMachine.Init(this, Terget);
+            //        StateMachine.Init(this, Terget);
+            //    }
+            //    else
+            //    {
+            //       // StateMachine.Animator_State(Arrow_Type.idle);
+            //        Game_Next_Map();
+            //    }
+            //}
+            //else if (GetComponent<Monster>() != null)
+            //{
+            //    if (Tergets.Count > 0 )//怪物找玩家
+            //    {
+            //        //寻找距离自身最近的目标    
+            //        Terget = ArrayHelper.GetMin(SumSave.battleHeroHealths, e => Vector2.Distance(transform.position, e.transform.position));
+            //        AttackStateMachine.Init(this, Terget);
+            //        StateMachine.Init(this, Terget);
+            //    }
+            //    else 
+            //        game_over();
+            //}
         }
         /// <summary>
         /// 进行下一回合
@@ -405,6 +438,7 @@ namespace MVC
 
         protected virtual void BaseAttack()//判断伤害
         {
+            if (Terget == null) return;
             AudioManager.Instance.playAudio(ClipEnum.攻击敌人);
             BattleAttack monster = Terget.GetComponent<BattleAttack>();
             if (monster.target.HP <= 0) return;//结战斗
@@ -434,19 +468,38 @@ namespace MVC
             {
                 if (Data.Type == 1)
                 {
-                    damage = Lucky(Data.damageMin, Data.damageMax, data.Lucky) -
-                        (Random.Range(monster.Data.DefMin, monster.Data.DefMax) * (100 + monster.Data.bonus_Def) / 100);
-                    damage -= skillstate(monster.data, Data.Type);
-                    damage = damage * (100 + data.bonus_Damage) / 100;
+                    if (data.isBackstab == 0)
+                    {
+                        damage = Lucky(Data.damageMin, Data.damageMax, data.Lucky) -
+                            (Random.Range(monster.Data.DefMin, monster.Data.DefMax) * (100 + monster.Data.bonus_Def) / 100);
+                        damage -= skillstate(monster.data, Data.Type);
+                        damage = damage * (100 + data.bonus_Damage) / 100;
+                    }
+                    else if (data.isBackstab == 1)
+                    {
+                        damage = Lucky(Data.damageMin, Data.damageMax, data.Lucky);
+                        damage = damage * (100 + data.bonus_Damage) / 100;
+                    }
                 }
                 else
                 if (Data.Type == 2)
                 {
-                    damage = Lucky(Data.MagicdamageMin, Data.MagicdamageMax, data.Lucky) -
-                        (Random.Range(monster.Data.MagicDefMin, monster.Data.MagicDefMax) * (100 + monster.Data.bonus_MagicDef) / 100);
-                    damage -= skillstate(monster.data, Data.Type);
-                    
-                    damage = damage * (100 + data.bonus_MagicDamage) / 100;
+                    if(data.isBackstab==0)
+                    {
+                        damage = Lucky(Data.MagicdamageMin, Data.MagicdamageMax, data.Lucky) -
+                          (Random.Range(monster.Data.MagicDefMin, monster.Data.MagicDefMax) * (100 + monster.Data.bonus_MagicDef) / 100);
+                        damage -= skillstate(monster.data, Data.Type);
+
+                        damage = damage * (100 + data.bonus_MagicDamage) / 100;
+
+                    }
+                    else if (data.isBackstab == 1)
+                    {
+                        damage = Lucky(Data.MagicdamageMin, Data.MagicdamageMax, data.Lucky);
+                        damage = damage * (100 + data.bonus_MagicDamage) / 100;
+                    }
+
+                   
                 }
                 if (monster.Data.Damage_absorption > 0)
                 {
@@ -459,18 +512,39 @@ namespace MVC
 
                 if (skill.skill_damage_type == 1)//物理伤害
                 {
-                    damage = Lucky(Data.damageMin, Data.damageMax, data.Lucky) -
-                           (Random.Range(monster.Data.DefMin, monster.Data.DefMax) * (100 + monster.Data.bonus_Def) / 100);
-                    damage -= skillstate(monster.data, skill.skill_damage_type);
-                    damage = damage * (100 + data.bonus_Damage) / 100;
+                    if (data.isBackstab == 0)
+                    {
+                        damage = Lucky(Data.damageMin, Data.damageMax, data.Lucky) -
+                          (Random.Range(monster.Data.DefMin, monster.Data.DefMax) * (100 + monster.Data.bonus_Def) / 100);
+                        damage -= skillstate(monster.data, skill.skill_damage_type);
+                        damage = damage * (100 + data.bonus_Damage) / 100;
+                    }
+                    else if (data.isBackstab == 1)
+                    {
+                        damage = Lucky(Data.damageMin, Data.damageMax, data.Lucky);
+                        damage = damage * (100 + data.bonus_Damage) / 100;
+                    }
+
+                   
                 }
                 else
                 if (skill.skill_damage_type == 2)//魔法伤害
                 {
-                    damage = Lucky(Data.MagicdamageMin, Data.MagicdamageMax, data.Lucky) -
-                         (Random.Range(monster.Data.MagicDefMin, monster.Data.MagicDefMax) * (100 + monster.Data.bonus_MagicDef) / 100);
-                    damage -= skillstate(monster.data, skill.skill_damage_type);
-                    damage = damage * (100 + data.bonus_MagicDamage) / 100;
+
+                    if (data.isBackstab == 0)
+                    {
+                        damage = Lucky(Data.MagicdamageMin, Data.MagicdamageMax, data.Lucky) -
+                       (Random.Range(monster.Data.MagicDefMin, monster.Data.MagicDefMax) * (100 + monster.Data.bonus_MagicDef) / 100);
+                        damage -= skillstate(monster.data, skill.skill_damage_type);
+                        damage = damage * (100 + data.bonus_MagicDamage) / 100;
+                    }
+                    else if (data.isBackstab == 1)
+                    {
+                        damage = Lucky(Data.MagicdamageMin, Data.MagicdamageMax, data.Lucky);
+                        damage = damage * (100 + data.bonus_MagicDamage) / 100;
+                    }
+
+                  
                 }
             }
             damage = damage * (100 + penetrate(monster)) / 100;
