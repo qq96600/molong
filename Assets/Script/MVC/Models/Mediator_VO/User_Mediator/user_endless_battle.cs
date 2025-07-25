@@ -54,14 +54,14 @@ public class user_endless_battle : Base_VO
                     AddEndless(data);
                 }
             }
-            deleteEndless();
+            //deleteEndless();
         }
     }
     /// <summary>
     /// 添加无尽塔排行榜数据
     /// </summary>
     /// <param name="data"></param>
-    /// <param name="isSave">是否进行排序</param>
+    /// <param name="isSave">是否进行排序且不为初始化</param>
     public void AddEndless(endlsess_battle data,bool isSave = false)
     {
         if(string.IsNullOrEmpty(data.endless_uid))
@@ -82,15 +82,17 @@ public class user_endless_battle : Base_VO
         }
         else
         {
+          
             endless_dic.Add(data.endless_uid, data);
             endless_list.Add(data);
         }
         if(isSave)
         {
             deleteEndless();
+            SendNotification(NotiList.Refresh_Endless_Tower);
         }
     }
-    /// <summary>
+
     /// 排序无尽塔排行榜数据
     /// </summary>
     /// <param name="data"></param>

@@ -467,42 +467,6 @@ public class hatching_progress : Base_Mono
         crt_eggs.Remove(data);//孵化宠物只有这一个类型可以直接找到删除
         db_pet_vo pet_init= ArrayHelper.Find(SumSave.db_pet, e => e.petEggsName == crt_egg.Item1);
         Battle_Tool.Obtain_Pet(pet_init.petName, (SumSave.crt_world.World_Lv / 5 + 1));
-        //string value_data = "";
-        //value_data += pet_init.petName + ",";
-        //value_data += SumSave.nowtime + ",";
-        //value_data += (SumSave.crt_world.World_Lv / 5 + 1) + ",";
-        //value_data += pet_init.level + ",";
-        //value_data += pet_init.exp + ",";
-        //value_data += crate_value(pet_init, (SumSave.crt_world.World_Lv / 5 + 1)) + ",";
-        //value_data += 0.ToString();
-        //SumSave.crt_pet.crt_pet_list.Add(value_data);
-
-
-        //db_pet_vo pet = new db_pet_vo();
-        //string[] splits = SumSave.crt_pet.crt_pet_list[SumSave.crt_pet.crt_pet_list.Count - 1].Split(',');
-
-        //if (splits.Length == 7)
-        //{
-        //    pet.petName = splits[0];
-        //    pet.startHatchingTime = DateTime.Parse(splits[1]);
-        //    pet.quality = splits[2];
-        //    pet.level = int.Parse(splits[3]);
-        //    pet.exp = int.Parse(splits[4]);
-
-        //    string[] attributes = splits[5].Split('|');
-        //    if (attributes.Length == 3)
-        //    {
-        //        pet.crate_value = attributes[0];
-        //        pet.up_value = attributes[1];
-        //        pet.up_base_value = attributes[2];
-        //        pet.GetNumerical();
-        //    }
-        //    pet.pet_state = splits[6];
-        //}
-
-        //SumSave.crt_pet_list.Add(pet);
-        //Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_pet,
-        //SumSave.crt_pet.Set_Uptade_String(), SumSave.crt_pet.Get_Update_Character());
         SumSave.crt_achievement.increase_date_Exp((Achieve_collect.孵化宠物).ToString(), 1);
         Show();
         DisplayPetEggs();

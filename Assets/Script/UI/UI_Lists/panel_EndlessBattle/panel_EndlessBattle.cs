@@ -204,8 +204,9 @@ public class panel_EndlessBattle : Panel_Base
             if (list[i].Item1 == select_map.map_name)
             {
                 exist = false;
-                list[i] = (list[i].Item1, list[i].Item2 + 1);
-                SumSave.crt_needlist.SetMap(list[i]);
+                //list[i] = (list[i].Item1, list[i].Item2 + 1);
+                //SumSave.crt_needlist.SetMap(list[i]);
+                Alert_Dec.Show("今日无尽试炼已获得过奖励");
                 break;
             }
         }
@@ -214,13 +215,19 @@ public class panel_EndlessBattle : Panel_Base
             SumSave.crt_needlist.SetMap((select_map.map_name, 1));
             if (kill_monster_number > 0)
             {
-                //kill_monster_number = Random.Range(100, 10000);
+#if UNITY_EDITOR
+                //kill_monster_number = 1000;
+                #endif
+
                 long exp= (long)(kill_monster_number * 10000);//经验
                 int plint= (kill_monster_number * 500);//历练值
                 string dec = select_map.map_name+"\n";
                 dec+="本次击杀 "+kill_monster_number+" 只怪物\n";
                 dec += "获得经验 " + exp + "\n";
                 dec += "获得历练值 " + plint + "\n";
+                Battle_Tool.Obtain_Exp(exp, 2);
+                Battle_Tool.Obtain_Unit(currency_unit.历练, plint);
+
                 Dictionary<string, int> dic = new Dictionary<string, int>();
                 for (int i = 0; i < SumSave.db_EndlessBattle_list.Count; i++)
                 {
@@ -239,11 +246,13 @@ public class panel_EndlessBattle : Panel_Base
                 }
                 foreach (var item in dic.Keys)
                 {
+
                     dec+="获得"+item+"个"+dic[item]+"\n";
                     int random = Random.Range(1, 100);
                     int number = dic[item];
                     int maxnumber = number + Random.Range(1, 100);
                     Battle_Tool.Obtain_Resources(Obtain_Int.Add(1, item, new int[] { number + random, random }), maxnumber);
+
                 }
                 Alert.Show(select_map.map_name, dec);
             }
@@ -253,29 +262,30 @@ public class panel_EndlessBattle : Panel_Base
             Write_into_the_leaderboard(kill_monster_number);
         }
     }
+
     /// <summary>
     /// 写入排行榜
     /// </summary>
     private void  Write_into_the_leaderboard(int _num)
     {
-        for (int i = 0; i < SumSave.crt_endless_battle.endless_list.Count; i++)
+        if (SumSave.crt_endless_battle.endless_dic.ContainsKey(SumSave.uid))
         {
-            if (SumSave.crt_endless_battle.endless_list[i].endless_uid == SumSave.uid)
+            if (_num > SumSave.crt_endless_battle.endless_dic[SumSave.uid].num)
             {
-                if (SumSave.crt_endless_battle.endless_list[i].num < _num)//不足刷新排名
-                {
-                    return;
-                }
+                SendNotification(NotiList.Read_EndlessBattle);
+                user_endless_battle.endlsess_battle data = new user_endless_battle.endlsess_battle();
+                data.endless_uid = SumSave.uid;
+                data.name = SumSave.crt_hero.hero_name;
+                data.type = SumSave.crt_hero.hero_pos;
+                data.num = _num;
+                SumSave.crt_endless_battle.AddEndless(data, true);
+            }
+            else
+            {
+                return;
             }
         }
-        user_endless_battle.endlsess_battle data = new user_endless_battle.endlsess_battle();
-        data.endless_uid = SumSave.uid;
-        data.name = SumSave.crt_hero.hero_name;
-        data.type = SumSave.crt_hero.hero_pos;
-        data.num = _num;
-        SendNotification(NotiList.Read_EndlessBattle);
-        SumSave.crt_endless_battle.AddEndless(data, true);
-        SendNotification(NotiList.Refresh_Endless_Tower);
+        
     }
 
 
