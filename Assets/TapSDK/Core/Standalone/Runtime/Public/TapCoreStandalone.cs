@@ -10,6 +10,11 @@ using TapSDK.Core.Internal.Log;
 using TapSDK.Core.Standalone.Internal.Http;
 using Newtonsoft.Json;
 using TapSDK.Core.Standalone.Internal.Bean;
+using System.Threading.Tasks;
+using System;
+using System.Threading;
+using TapSDK.UI;
+using System.Runtime.InteropServices;
 
 namespace TapSDK.Core.Standalone
 {
@@ -19,10 +24,9 @@ namespace TapSDK.Core.Standalone
     public class TapCoreStandalone : ITapCorePlatform
     {
         internal static Prefs Prefs;
-        internal static Tracker Tracker;
         internal static User User;
         internal static TapTapSdkOptions coreOptions;
-        
+
         // client 信息是否匹配
         internal static bool isClientInfoMatched = true;
         internal static bool enableAutoEvent = true;
@@ -37,8 +41,6 @@ namespace TapSDK.Core.Standalone
         public TapCoreStandalone()
         {
             // Instantiate modules
-           
-            Tracker = new Tracker();
             User = new User();
             TapLoom.Initialize();
         }
@@ -59,26 +61,31 @@ namespace TapSDK.Core.Standalone
         /// <param name="otherOptions">Additional TapCore SDK options.</param>
         public void Init(TapTapSdkOptions coreOption, TapTapSdkBaseOptions[] otherOptions)
         {
-            if (coreOption.clientId == null || coreOption.clientId.Length == 0){
-                TapVerifyInitStateUtils.ShowVerifyErrorMsg("clientId 不能为空","clientId 不能为空");
+            if (coreOption.clientId == null || coreOption.clientId.Length == 0)
+            {
+                TapVerifyInitStateUtils.ShowVerifyErrorMsg("clientId 不能为空", "clientId 不能为空");
                 return;
             }
-            if(coreOption.clientToken == null || coreOption.clientToken.Length == 0) {
-                TapVerifyInitStateUtils.ShowVerifyErrorMsg("clientToken 不能为空","clientToken 不能为空");
+            if (coreOption.clientToken == null || coreOption.clientToken.Length == 0)
+            {
+                TapVerifyInitStateUtils.ShowVerifyErrorMsg("clientToken 不能为空", "clientToken 不能为空");
                 return;
             }
             TapLog.Log("SDK Init Options : ", "coreOption : " + JsonConvert.SerializeObject(coreOption) + "\notherOptions : " + JsonConvert.SerializeObject(otherOptions));
             coreOptions = coreOption;
-            if (Prefs == null) {
+            if (Prefs == null)
+            {
                 Prefs = new Prefs();
             }
             TapOpenlogStandalone.Init();
 
             var path = Path.Combine(Application.persistentDataPath, Constants.ClientSettingsFileName + "_" + coreOption.clientId + ".json");
             // 兼容旧版文件
-            if (!File.Exists(path)) {
+            if (!File.Exists(path))
+            {
                 var oldPath = Path.Combine(Application.persistentDataPath, Constants.ClientSettingsFileName + ".json");
-                if(File.Exists(oldPath)){
+                if (File.Exists(oldPath))
+                {
                     File.Move(oldPath, path);
                 }
             }
@@ -105,8 +112,6 @@ namespace TapSDK.Core.Standalone
                     TapLog.Warning("TriggerEvent error: " + e.Message);
                 }
             }
-
-            Tracker.Init();
 
             requestClientSetting();
         }
@@ -209,25 +214,41 @@ namespace TapSDK.Core.Standalone
         public static bool CheckInitState()
         {
             // 未初始化
-            if (coreOptions == null || coreOptions.clientId == null || coreOptions.clientId.Length  == 0
-            || coreOptions.clientToken == null || coreOptions.clientToken.Length == 0) {
-                TapVerifyInitStateUtils.ShowVerifyErrorMsg("当前应用还未初始化","当前应用还未初始化: 请在调用 SDK 业务接口前，先调用 TapTapSDK.Init  接口");
+            if (coreOptions == null || coreOptions.clientId == null || coreOptions.clientId.Length == 0
+            || coreOptions.clientToken == null || coreOptions.clientToken.Length == 0)
+            {
+                TapVerifyInitStateUtils.ShowVerifyErrorMsg("当前应用还未初始化", "当前应用还未初始化: 请在调用 SDK 业务接口前，先调用 TapTapSDK.Init  接口");
                 return false;
             }
             // 应用信息不匹配
-            if(isClientInfoMatched == false) {
-                TapVerifyInitStateUtils.ShowVerifyErrorMsg("当前应用初始化信息错误","当前应用初始化信息错误: 请在 TapTap 开发者中心检查当前应用调用初始化接口设置的 clientId 、clientToken 是否匹配");
+            if (isClientInfoMatched == false)
+            {
+                TapVerifyInitStateUtils.ShowVerifyErrorMsg("当前应用初始化信息错误", "当前应用初始化信息错误: 请在 TapTap 开发者中心检查当前应用调用初始化接口设置的 clientId 、clientToken 是否匹配");
                 return false;
             }
             return true;
         }
 
         // 获取当前用户设置的 DB userID
-        public static string GetCurrentUserId(){
+        public static string GetCurrentUserId()
+        {
             return User?.Id;
         }
-        
+
+
+        // <summary>
+        // 校验游戏是否通过启动器唤起，建立与启动器通讯
+        //</summary>
+        public async Task<bool> IsLaunchedFromTapTapPC()
+        {
+#if UNITY_STANDALONE_WIN
+            return await TapClientStandalone.IsLaunchedFromTapTapPC();
+#else
+            throw new System.NotImplementedException();
+#endif
+        }
     }
+
 
     public interface IOpenIDProvider
     {

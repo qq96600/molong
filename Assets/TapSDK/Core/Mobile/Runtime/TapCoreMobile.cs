@@ -67,5 +67,10 @@ namespace TapSDK.Core.Mobile
                 .Args("language", (int)language)
                 .CommandBuilder());
         }
+
+        public Task<bool> IsLaunchedFromTapTapPC()
+        {
+            return Task.FromResult(false);
+        }
     }
 }

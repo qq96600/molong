@@ -48,7 +48,7 @@ namespace TapSDK.Compliance.Standalone.Internal
             Dictionary<string, string> parameters = new Dictionary<string, string>
             {
                 { "func_name", funcNace },
-                { "seesion_id", seesionId },
+                { "session_id", seesionId },
             };
             ReportLog(ACTION_START, new Dictionary<string, string>()
             {
@@ -61,7 +61,7 @@ namespace TapSDK.Compliance.Standalone.Internal
             Dictionary<string, string> parameters = new Dictionary<string, string>
             {
                 { "func_name", funcNace },
-                { "seesion_id", seesionId },
+                { "session_id", seesionId },
                 { "identity_verify_type", currentVerifyType }
             };
             ReportLog(ACTION_SUCCESS, new Dictionary<string, string>()
@@ -75,7 +75,7 @@ namespace TapSDK.Compliance.Standalone.Internal
             Dictionary<string, string> parameters = new Dictionary<string, string>
             {
                 { "func_name", funcNace },
-                { "seesion_id", seesionId },
+                { "session_id", seesionId },
                 { "identity_verify_type", currentVerifyType }
             };
             ReportLog(ACTION_CANCEL, new Dictionary<string, string>()
@@ -89,7 +89,7 @@ namespace TapSDK.Compliance.Standalone.Internal
             Dictionary<string, string> parameters = new Dictionary<string, string>
             {
                 { "func_name", funcNace },
-                { "seesion_id", seesionId },
+                { "session_id", seesionId },
                 { "error_code", errorCode.ToString() },
                 { "error_msg", errorMessage },
                 { "identity_verify_type", currentVerifyType }

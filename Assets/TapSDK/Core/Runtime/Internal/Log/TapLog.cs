@@ -47,7 +47,7 @@ namespace TapSDK.Core.Internal.Log
         {
             if (Enabled)
             {
-                //Debug.Log(GetFormattedMessage(message: message, detail: detail, colorHex: InfoColor, tag: tag, module: module));
+                Debug.Log(GetFormattedMessage(message: message, detail: detail, colorHex: InfoColor, tag: tag, module: module));
             }
         }
 
@@ -56,14 +56,14 @@ namespace TapSDK.Core.Internal.Log
         {
             if (Enabled)
             {
-                //Debug.LogWarning(GetFormattedMessage(message: message, detail: detail, colorHex: WarningColor, tag: tag, module: module));
+                Debug.LogWarning(GetFormattedMessage(message: message, detail: detail, colorHex: WarningColor, tag: tag, module: module));
             }
         }
 
         // 输出带有自定义颜色和标签的错误
         public static void Error(string message, string detail = null, string tag = TAG, string module = null)
         {
-            //Debug.LogError(GetFormattedMessage(message: message, detail: detail, colorHex: ErrorColor, tag: tag, module: module));
+            Debug.LogError(GetFormattedMessage(message: message, detail: detail, colorHex: ErrorColor, tag: tag, module: module));
         }
 
         // 格式化带有颜色和标签的消息

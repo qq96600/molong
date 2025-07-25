@@ -2,6 +2,9 @@
 
 namespace TapSDK.Core.Internal {
     public interface ITapEventPlatform {
+        
+        void Init(TapTapEventOptions eventOptions);
+
         void SetUserID(string userID);
         
         void SetUserID(string userID, string properties);
@@ -33,5 +36,9 @@ namespace TapSDK.Core.Internal {
         void LogChargeEvent(string orderID, string productName, long amount, string currencyType, string paymentMethod, string properties);
     
         void RegisterDynamicProperties(Func<string> callback);
+
+        void SetOAID(string value);
+        
+        void LogDeviceLoginEvent();
     }
 }

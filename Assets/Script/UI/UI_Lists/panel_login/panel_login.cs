@@ -4,6 +4,7 @@ using Components;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UI;
 using UnityEngine;
 using UnityEngine.UI;
@@ -116,6 +117,13 @@ namespace MVC
             loginBt.gameObject.SetActive(true);
             bg_xwrj.gameObject.SetActive(false);
             bg_molong.gameObject.SetActive(true);
+
+            TaploginBt.gameObject.SetActive(true);//true
+            loginBt.gameObject.SetActive(false);
+            bg_xwrj.gameObject.SetActive(false);
+            bg_molong.gameObject.SetActive(true);
+            //bg_xwrj.gameObject.SetActive(true);
+            //bg_molong.gameObject.SetActive(false);
 #elif UNITY_ANDROID
 
             TaploginBt.gameObject.SetActive(true);//true
@@ -275,6 +283,7 @@ namespace MVC
         /// </summary>
         private void TapLogin()
         {
+          
             if (!Toggle.isOn)
             {
                 Alert_Dec.Show("请先阅读并勾选同意协议");
@@ -282,16 +291,16 @@ namespace MVC
                 PlayerPrefs.SetInt("同意阅读协议", 0);
                 return;
             }
-
+            Alert_Dec.Show("点击登录");
+            _ = GameLogin.Instance.Login();
 #if UNITY_EDITOR
             TaploginBt.gameObject.SetActive(false);
             loginBt.gameObject.SetActive(true);
-            #elif UNITY_ANDROID
-            _ = GameLogin.Instance.Login();
-           
-            #elif UNITY_IPHONE
+#elif UNITY_ANDROID
+            //_ = GameLogin.Instance.Login();
+#elif UNITY_IPHONE
 
-            #endif
+#endif
         }
 
         private void OpenUser()//打开用户协议
