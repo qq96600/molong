@@ -233,7 +233,6 @@ namespace MVC
 
         public void Lose_Terget()
         {
-            Debug.Log(1);
             Find_Terget();
         }
 
@@ -243,9 +242,26 @@ namespace MVC
         protected virtual void Find_Terget()
         {
             //if (Tergets == null) return;
+            bool exist = false;
             if (Tergets.Count > 0)//怪物找玩家
             {
-                //寻找距离自身最近的目标    
+                for (int i = 0; i < Tergets.Count; i++)
+                {
+                    if (Tergets[i].HP <= 0 || Tergets[i].gameObject.activeSelf == false)
+                    {
+                        //Debug.Log("报空");
+                        Tergets.RemoveAt(i);
+                        i--;
+                    }
+                }
+                if (Tergets.Count > 0)
+                {
+                    //寻找距离自身最近的目标    
+                    exist = true;
+                }
+            }
+            if (exist)
+            {
                 Terget = ArrayHelper.GetMin(Tergets, e => Vector2.Distance(transform.position, e.transform.position));
                 AttackStateMachine.Init(this, Terget);
                 StateMachine.Init(this, Terget);
@@ -254,7 +270,6 @@ namespace MVC
             {
                 if (GetComponent<Player>() != null) Game_Next_Map();
                 else game_over();
-
             }
             //if (GetComponent<Player>() != null)
 
