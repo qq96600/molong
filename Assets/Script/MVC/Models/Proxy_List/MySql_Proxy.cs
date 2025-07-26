@@ -630,6 +630,8 @@ namespace MVC
                     SumSave.db_maps.Add(ReadDb.Read(mysqlReader, new user_map_vo()));
                 }
             }
+            ArrayHelper.Ascending(SumSave.db_maps, e => e.need_lv);
+            //SumSave.db_maps=ArrayHelper.Ascending(SumSave.db_maps, "map_id")
 #if UNITY_EDITOR
             Battle_Tool.tool_map();
 #elif UNITY_ANDROID
