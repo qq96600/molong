@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 public class offect_strengthen : Base_Mono
 {
-    private List<string> btn_list = new List<string>() { "穿戴", "背包","合成" };
+    private List<string> btn_list = new List<string>() { "穿戴", "背包","合成","洗练" };
     private Transform pos_btn,pos_bag,pos_icon;
     /// <summary>
     /// 功能按钮
@@ -65,6 +65,11 @@ public class offect_strengthen : Base_Mono
     /// </summary>
     private void Strengthen()
     {
+        if (index == 3)
+        {
+            Strengthen_succinct();//洗练
+            return;
+        }
         if (index == 2)
         {
             Strengthen_synthesis();//合成
@@ -95,6 +100,23 @@ public class offect_strengthen : Base_Mono
         }
         else Alert_Dec.Show(currency_unit.灵珠 + "不足 " + needs[lv]);
     }
+
+    private void Strengthen_succinct()
+    {
+        if (crt_bag == null) return;
+        NeedConsumables(currency_unit.灵气, 2000);
+        NeedConsumables(currency_unit.灵珠, 50000000);
+        if (RefreshConsumables())
+        {
+            string[] infos = crt_bag.Data.user_value.Split(' ');
+            crt_bag.Data.user_value = tool_Categoryt.Obtain_Equip(crt_bag.Data, int.Parse(infos[1]), int.Parse(infos[2]));
+            Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.equip_value, SumSave.crt_euqip);
+            Alert_Dec.Show("洗练成功");
+            Base_Show();
+        }
+        else Alert_Dec.Show("条件不足");
+    }
+
     /// <summary>
     /// 合成功能
     /// </summary>
@@ -196,6 +218,71 @@ public class offect_strengthen : Base_Mono
                 Alert_Dec.Show("当前无可合成装备");
             }
         }
+        if (index == 3)
+        {
+            synthesis_list = new List<Bag_Base_VO>();
+            info.text = "请放入洗练装备(仅可使用绝世级灵宝)";
+            ClearObject(pos_icon);
+            if (Show_succinct(SumSave.crt_euqip))
+            {
+                Alert_Dec.Show("当前无可洗练装备");
+            }
+        }
+    }
+    /// <summary>
+    /// 洗练装备
+    /// </summary>
+    /// <param name="crt_euqip"></param>
+    /// <returns></returns>
+    private bool Show_succinct(List<Bag_Base_VO> list)
+    {
+        bool exist = true;
+        for (int i = 0; i < list.Count; i++)
+        {
+            switch ((EquipConfigTypeList)Enum.Parse(typeof(EquipConfigTypeList), list[i].StdMode))
+            {
+                //case EquipConfigTypeList.武器:
+                //case EquipConfigTypeList.衣服:
+                //case EquipConfigTypeList.头盔:
+                //case EquipConfigTypeList.项链:
+                //case EquipConfigTypeList.护臂:
+                //case EquipConfigTypeList.戒指:
+                //case EquipConfigTypeList.手镯:
+                //case EquipConfigTypeList.扳指:
+                //case EquipConfigTypeList.腰带:
+                //case EquipConfigTypeList.靴子:
+                //case EquipConfigTypeList.护符:
+                case EquipConfigTypeList.灵宝:
+                //case EquipConfigTypeList.勋章:
+                //case EquipConfigTypeList.饰品:
+                //case EquipConfigTypeList.玉佩:
+                //case EquipConfigTypeList.披风:
+                    exist = false;
+                    bag_item item = Instantiate(bag_item_Prefabs, pos_bag);
+                    item.Data = (list[i]);
+                    item.GetComponent<Button>().onClick.AddListener(() => { Select_succinct(item); });
+                    if (crt_bag == null) Select_succinct(item);
+                    break;
+                default:
+                    break;
+            }
+        }
+        return exist;
+    }
+    /// <summary>
+    /// 选择洗练对象
+    /// </summary>
+    /// <param name="item"></param>
+    private void Select_succinct(bag_item data)
+    {
+        if (data != null)
+        {
+            crt_bag = data;
+        }
+        ClearObject(pos_icon);
+        Instantiate(bag_item_Prefabs, pos_icon).Data = data.Data;
+        info.text = "洗练" + data.Data.Name + "需要" + currency_unit.灵珠 + Battle_Tool.FormatNumberToChineseUnit(50000000);
+        info.text += "\n灵气 * 2000";
     }
 
     private bool Show_Bag(List<Bag_Base_VO> list)
@@ -351,6 +438,6 @@ public class offect_strengthen : Base_Mono
         string[] infos = crt_bag.Data.user_value.Split(' ');
         int lv = int.Parse(infos[1]);
         long need = CostReduction(lv);
-        info.text = "强化" + data.Data.Name + "需要" + currency_unit.灵珠 + need;
+        info.text = "强化" + data.Data.Name + "需要" + currency_unit.灵珠 + Battle_Tool.FormatNumberToChineseUnit(need);
     }
 }

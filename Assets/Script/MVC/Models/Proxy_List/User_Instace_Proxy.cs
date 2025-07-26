@@ -700,6 +700,7 @@ namespace MVC
         public void Read_user_messageWindow()
         {
             OpenMySqlDB();
+            if (MysqlDb.MysqlClose) return;
             mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.user_message_window);
 
             SumSave.crt_message_window = new List<(int, string, string)>();
@@ -1576,10 +1577,10 @@ namespace MVC
             crt.attack_speed= Obtain_battle_AttackSpeed(crt.attack_speed, 100);
             //皮肤
 #if UNITY_EDITOR  
-            crt.hit += 1000;
-            crt.attack_speed = 210;
-            crt.damageMax += 10000000;
-            crt.MagicdamageMax += 10000000;
+            //crt.hit += 1000;
+            //crt.attack_speed = 210;
+            //crt.damageMax += 10000000;
+            //crt.MagicdamageMax += 10000000;
 #elif UNITY_ANDROID
 #elif UNITY_IPHONE
 #endif

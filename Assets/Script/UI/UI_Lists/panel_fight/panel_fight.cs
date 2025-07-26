@@ -477,20 +477,32 @@ public class panel_fight : Panel_Base
         }
         if (monsters != null)
         {
-            for (int i = pos_monster.childCount - 1; i >= 0; i--)
+            for (int i = 0; i < monsters.Count; i++)
             {
-                pos_monster.GetChild(i).gameObject.GetComponent<BattleHealth>().Clear();
+                monsters[i].Clear();
             }
             monsters.Clear();
+
+            //for (int i = pos_monster.childCount - 1; i >= 0; i--)
+            //{
+            //    pos_monster.GetChild(i).gameObject.GetComponent<BattleHealth>().Clear();
+            //}
+            //monsters.Clear();
         }
         else monsters = new List<BattleHealth>();
         if (players != null)
         {
-            for (int i = pos_player.childCount - 1; i >= 0; i--)
+            for (int i = 0; i < players.Count; i++)
             {
-                pos_player.GetChild(i).gameObject.GetComponent<BattleHealth>().Clear();
+                players[i].Clear();
             }
             players.Clear();
+
+            //for (int i = pos_player.childCount - 1; i >= 0; i--)
+            //{
+            //    pos_player.GetChild(i).gameObject.GetComponent<BattleHealth>().Clear();
+            //}
+            //players.Clear();
         }
         else players = new List<BattleHealth>();
         crt_map_monsters.Clear();
