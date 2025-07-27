@@ -109,53 +109,83 @@ public class panel_SecretRealm : Base_Mono
         string str = "";
         for (int i = 0; i < Enum.GetNames(typeof(enum_equip_quality_list)).Length; i++)
         {
-            if (dropdown.value == i)
+            if(dropdown.value != Enum.GetNames(typeof(enum_equip_quality_list)).Length-1)
             {
-                if(qualityColors.Length > i)
+                if (dropdown.value == i)
                 {
-                   str += "<color=" + qualityColors[i] + ">" + Enum.GetNames(typeof(enum_equip_quality_list))[i] + ": 50%</color>\n";
+                    if (qualityColors.Length > i)
+                    {
+                        str += "<color=" + qualityColors[i] + ">" + Enum.GetNames(typeof(enum_equip_quality_list))[i] + ": 50%</color>\n";
+                    }
+                    else
+                    {
+                        str += Enum.GetNames(typeof(enum_equip_quality_list))[i] + ": 50%\n";
+                    }
+
+                }
+                else
+                if (dropdown.value - 1 == i)
+                {
+
+                    if (qualityColors.Length > i)
+                    {
+                        str += "<color=" + qualityColors[i] + ">" + Enum.GetNames(typeof(enum_equip_quality_list))[i] + ": 45%</color>\n";
+                    }
+                    else
+                    {
+                        str += Enum.GetNames(typeof(enum_equip_quality_list))[i] + ": 45%\n";
+                    }
+
+                }
+                else if (dropdown.value + 1 == i)
+                {
+
+                    if (qualityColors.Length > i)
+                    {
+                        str += "<color=" + qualityColors[i] + ">" + Enum.GetNames(typeof(enum_equip_quality_list))[i] + ": 5%</color>\n";
+                    }
+                    else
+                    {
+                        str += Enum.GetNames(typeof(enum_equip_quality_list))[i] + ": 5%\n";
+                    }
+                }
+                else
+                {
+                    if (qualityColors.Length > i)
+                    {
+                        str += "<color=" + qualityColors[i] + ">" + Enum.GetNames(typeof(enum_equip_quality_list))[i] + ": 0%</color>\n";
+                    }
+                    else
+                    {
+                        str += Enum.GetNames(typeof(enum_equip_quality_list))[i] + ": 0%\n";
+                    }
+                }
+            }else
+            {
+                if (dropdown.value== i)
+                {
+                    if (qualityColors.Length > i)
+                    {
+                        str += "<color=" + qualityColors[i] + ">" + Enum.GetNames(typeof(enum_equip_quality_list))[i] + ": 10%</color>\n";
+                    }
+                    else
+                    {
+                        str += Enum.GetNames(typeof(enum_equip_quality_list))[i] + ": 10%\n";
+                    }
                 }else
                 {
-                    str += Enum.GetNames(typeof(enum_equip_quality_list))[i] + ": 50%\n";
-                }
-                
-            }
-            else
-             if (dropdown.value-1== i)
-            {
-
-                if (qualityColors.Length > i)
-                {
-                    str += "<color=" + qualityColors[i] + ">" + Enum.GetNames(typeof(enum_equip_quality_list))[i] + ": 45%</color>\n";
-                }
-                else
-                {
-                    str += Enum.GetNames(typeof(enum_equip_quality_list))[i] + ": 45%\n";
+                    if (qualityColors.Length > i)
+                    {
+                        str += "<color=" + qualityColors[i] + ">" + Enum.GetNames(typeof(enum_equip_quality_list))[i] + ": 0%</color>\n";
+                    }
+                    else
+                    {
+                        str += Enum.GetNames(typeof(enum_equip_quality_list))[i] + ": 0%\n";
+                    }
                 }
 
-            }else if (dropdown.value +1 == i)
-            {
-
-                if (qualityColors.Length > i)
-                {
-                    str += "<color=" + qualityColors[i] + ">" + Enum.GetNames(typeof(enum_equip_quality_list))[i] + ": 5%</color>\n";
-                }
-                else
-                {
-                    str += Enum.GetNames(typeof(enum_equip_quality_list))[i] + ": 5%\n";
-                }
             }
-            else
-            {
-                if (qualityColors.Length > i)
-                {
-                    str += "<color=" + qualityColors[i] + ">" + Enum.GetNames(typeof(enum_equip_quality_list))[i] + ": 0%</color>\n";
-                }
-                else
-                {
-                    str += Enum.GetNames(typeof(enum_equip_quality_list))[i] + ": 0%\n";
-                }
-            }
+            
         }
         drop_rate.text= str;
     }
