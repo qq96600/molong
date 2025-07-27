@@ -118,12 +118,6 @@ namespace MVC
             bg_xwrj.gameObject.SetActive(false);
             bg_molong.gameObject.SetActive(true);
 
-            TaploginBt.gameObject.SetActive(true);//true
-            loginBt.gameObject.SetActive(false);
-            bg_xwrj.gameObject.SetActive(false);
-            bg_molong.gameObject.SetActive(true);
-            //bg_xwrj.gameObject.SetActive(true);
-            //bg_molong.gameObject.SetActive(false);
 #elif UNITY_ANDROID
 
             TaploginBt.gameObject.SetActive(true);//true
