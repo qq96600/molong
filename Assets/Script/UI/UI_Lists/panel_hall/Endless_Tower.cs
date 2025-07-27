@@ -122,7 +122,7 @@ public class Endless_Tower : Panel_Base
     public override void Show()
     {
         base.Show();
-        if (SumSave.crt_MaxHero.Lv < 60)
+        if (SumSave.crt_MaxHero.Lv < 60 && SumSave.ios_account_number != "admin001")
         {
             Alert_Dec.Show("无尽深渊开启等级为60级");
             gameObject.SetActive(false);

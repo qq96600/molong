@@ -555,7 +555,13 @@ public class panel_EndlessBattle : Panel_Base
             new Vector3(pos_monster.position.x, y, pos_monster.position.z), Quaternion.identity, pos_monster);
         // 设置Data   
         item.GetComponent<BattleAttack>().Data = crt;
-        item.GetComponent<BattleAttack>().FindTergets(players, Random.Range(0, 100) < 3 ? 1:0);//百分之3的概率为背刺怪
+        item.GetComponent<BattleAttack>().FindTergets(players, Random.Range(0, 100) < 3 ? 1 : 0);//百分之3的概率为背刺怪
+
+#if UNITY_EDITOR
+        item.GetComponent<BattleAttack>().FindTergets(players, Random.Range(0, 100) < 300 ? 1 : 0);//百分之3的概率为背刺怪
+#endif
+
+        
         
         //点击怪物
         //if (item.GetComponent<Button>().enabled)

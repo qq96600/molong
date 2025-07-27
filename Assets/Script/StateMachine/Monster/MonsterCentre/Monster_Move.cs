@@ -27,8 +27,14 @@ namespace StateMachine
         public override void Update()
         {
             base.Update();
-
-            monster.TargetMove(monster.TargetPosition);
+            if(monster.isBackstab !=1)
+            {
+                monster.TargetMove(monster.TargetPosition);
+            }else
+            {
+                monster.TargetMove(new Vector2(monster.TargetPosition.x - monster._BehindDistance, monster.TargetPosition.y));
+            }
+           
 
 
 

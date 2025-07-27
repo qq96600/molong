@@ -17,6 +17,11 @@ namespace TapSDK.Core.Mobile
             EngineBridgeInitializer.Initialize();
         }
 
+        public void Init(TapTapEventOptions eventOptions)
+        {
+            
+        }
+
         public void SetUserID(string userID)
         {
             Debug.Log("TapEventMobile SetUserID = " + userID);
@@ -258,6 +263,27 @@ namespace TapSDK.Core.Mobile
             IOSNativeWrapper.RegisterDynamicProperties(callback);
 #else
             AndroidNativeWrapper.RegisterDynamicProperties(callback);
+#endif
+        }
+
+        public void SetOAID(string value)
+        {
+            Debug.Log("TapEventMobile SetOAID" + value);
+#if UNITY_ANDROID
+            Bridge.CallHandler(EngineBridgeInitializer.GetBridgeServer()
+                .Method("setOAID")
+                .Args("oaid", value)
+                .CommandBuilder());            
+#endif
+        }
+
+        public void LogDeviceLoginEvent()
+        {
+            Debug.Log("TapEventMobile LogDeviceLoginEvent");
+#if UNITY_ANDROID
+            Bridge.CallHandler(EngineBridgeInitializer.GetBridgeServer()
+                .Method("logDeviceLoginEvent")
+                .CommandBuilder());            
 #endif
         }
     }

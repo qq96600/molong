@@ -8,6 +8,7 @@ using TapSDK.Core.Internal.Utils;
 using UnityEngine.EventSystems;
 using TapSDK.Core.Internal.Log;
 using TapSDK.Core.Standalone.Internal.Http;
+using TapSDK.Login.Standalone.Internal;
 
 namespace TapSDK.Login.Internal {
     public class QRCodeController {
@@ -111,7 +112,7 @@ namespace TapSDK.Login.Internal {
                     try {
                         TokenData tokenData = await LoginService.RequestScanQRCodeResult(clientId, qrcodeData.DeviceCode);
                         TapLog.Log("Login , QRCodeController Success");
-                        onAuth.Invoke(tokenData, "pc_code");
+                        onAuth.Invoke(tokenData, TapLoginTracker.LOGIN_TYPE_CODE);
                         return ;
                     } catch (TapHttpServerException e) {
                         string errorMsg = e.ErrorData?.Error ?? "";

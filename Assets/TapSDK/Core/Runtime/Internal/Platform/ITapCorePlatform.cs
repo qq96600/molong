@@ -8,5 +8,7 @@ namespace TapSDK.Core.Internal {
         void Init(TapTapSdkOptions coreOption, TapTapSdkBaseOptions[] otherOptions);
         
         void UpdateLanguage(TapTapLanguageType language);
+
+        Task<bool> IsLaunchedFromTapTapPC();
     }
 }

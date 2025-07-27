@@ -3,10 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.unity3d.player"
     xmlns:tools="http://schemas.android.com/tools">
-	
 	<!-- TapAd 必须的权限-开始  -->
     <!-- TargetVersion 31 及以上 通过时，需要该权限) deviceName 和下面的 BLUETOOTEH 互斥-->
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT"/>
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	
     <!-- 广告获取坐标（经度、纬度、精度半径（米）、获取时间 毫秒）精准推送 -->
 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/> 

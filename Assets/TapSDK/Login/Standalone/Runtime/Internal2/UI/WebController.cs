@@ -6,6 +6,7 @@ using TapSDK.Login.Internal.Http;
 using System.Collections.Specialized;
 using TapSDK.Core.Internal.Utils;
 using TapSDK.Core.Internal.Log;
+using TapSDK.Login.Standalone.Internal;
 
 namespace TapSDK.Login.Internal {
     public class WebController {
@@ -95,7 +96,7 @@ namespace TapSDK.Login.Internal {
 
                     TokenData tokenData = await LoginService.Authorize(clientId, code);
                     TapLog.Log("Login , WebController Success");
-                    onAuth.Invoke(tokenData, "pc_browser");
+                    onAuth.Invoke(tokenData, TapLoginTracker.LOGIN_TYPE_BROWSER);
 
                     return;
                 } catch (Exception) {

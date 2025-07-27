@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 using TapSDK.Core;
@@ -62,24 +64,41 @@ namespace TapSDK.Login.Internal
             var accountStr = DataStorage.LoadString(_account);
             if (!string.IsNullOrEmpty(accountStr))
             {
-                Account = new TapTapAccount(Json.Deserialize(accountStr) as Dictionary<string, object>);
+                try
+                {
+                    Account = new TapTapAccount(Json.Deserialize(accountStr) as Dictionary<string, object>);
+                }
+                catch (Exception e)
+                {
+                    UnityEngine.Debug.Log("TapSDK Login find account cache but parse failed" + e.Message);
+                    DataStorage.RemoveCacheKey(_account);
+                }
             }
             else
             {
-                var accessTokenStr = DataStorage.LoadString(_accessToken);
-                if (string.IsNullOrEmpty(accessTokenStr))
+                try
                 {
-                    return;
-                }
+                    var accessTokenStr = DataStorage.LoadString(_accessToken);
+                    if (string.IsNullOrEmpty(accessTokenStr))
+                    {
+                        return;
+                    }
 
-                var profileStr = DataStorage.LoadString(_profile);
-                if (string.IsNullOrEmpty(profileStr))
-                {
-                    return;
+                    var profileStr = DataStorage.LoadString(_profile);
+                    if (string.IsNullOrEmpty(profileStr))
+                    {
+                        return;
+                    }
+                    var accessToken = JsonConvert.DeserializeObject<AccessToken>(accessTokenStr);
+                    var profile = JsonConvert.DeserializeObject<Profile>(profileStr);
+                    Account = new TapTapAccount(accessToken, profile.openid, profile.unionid, profile.name, profile.avatar, profile.email);
                 }
-                var accessToken = JsonConvert.DeserializeObject<AccessToken>(accessTokenStr);
-                var profile = JsonConvert.DeserializeObject<Profile>(profileStr);
-                Account = new TapTapAccount(accessToken, profile.openid, profile.unionid, profile.name, profile.avatar, profile.email);
+                catch (Exception e)
+                {
+                    UnityEngine.Debug.Log("TapSDK Login find old account cache but parse failed" + e.Message);
+                    DataStorage.RemoveCacheKey(_accessToken);
+                    DataStorage.RemoveCacheKey(_profile);
+                }
             }
         }
 

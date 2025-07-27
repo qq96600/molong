@@ -14,6 +14,10 @@ namespace TapSDK.Login.Standalone.Internal
         private const string ACTION_FAIL = "fail";
         private const string ACTION_CANCEL = "cancel";
 
+        internal static string LOGIN_TYPE_CLIENT = "pc_client";
+        internal static string LOGIN_TYPE_CODE = "pc_code";
+        internal static string LOGIN_TYPE_BROWSER = "pc_browser";
+
         private static TapLoginTracker instance;
 
         private TapOpenlogStandalone openlog;
@@ -40,13 +44,16 @@ namespace TapSDK.Login.Standalone.Internal
             ReportLog(ACTION_INIT);
         }
 
-        internal void TrackStart(string funcNace, string seesionId)
+        internal void TrackStart(string funcNace, string seesionId, string loginType = null)
         {
             Dictionary<string, string> parameters = new Dictionary<string, string>
             {
                 { "func_name", funcNace },
-                { "seesion_id", seesionId },
+                { "session_id", seesionId },
             };
+            if (loginType != null) {
+                parameters["login_type"] = loginType;
+            }
             ReportLog(ACTION_START, new Dictionary<string, string>()
             {
                 { "args", JsonConvert.SerializeObject(parameters) }
@@ -58,7 +65,7 @@ namespace TapSDK.Login.Standalone.Internal
             Dictionary<string, string> parameters = new Dictionary<string, string>
             {
                 { "func_name", funcNace },
-                { "seesion_id", seesionId },
+                { "session_id", seesionId },
                 { "login_type", loginType }
             };
             ReportLog(ACTION_SUCCESS, new Dictionary<string, string>()
@@ -67,13 +74,16 @@ namespace TapSDK.Login.Standalone.Internal
             });
         }
 
-        internal void TrackCancel(string funcNace, string seesionId)
+        internal void TrackCancel(string funcNace, string seesionId, string loginType = null)
         {
             Dictionary<string, string> parameters = new Dictionary<string, string>
             {
                 { "func_name", funcNace },
-                { "seesion_id", seesionId },
+                { "session_id", seesionId },
             };
+            if (loginType != null) {
+                parameters["login_type"] = loginType;
+            }
             ReportLog(ACTION_CANCEL, new Dictionary<string, string>()
             {
                 { "args", JsonConvert.SerializeObject(parameters) }
@@ -85,7 +95,7 @@ namespace TapSDK.Login.Standalone.Internal
             Dictionary<string, string> parameters = new Dictionary<string, string>
             {
                 { "func_name", funcNace },
-                { "seesion_id", seesionId },
+                { "session_id", seesionId },
                 { "error_code", errorCode.ToString() },
                 { "error_msg", errorMessage },
                 { "login_type", loginType }
