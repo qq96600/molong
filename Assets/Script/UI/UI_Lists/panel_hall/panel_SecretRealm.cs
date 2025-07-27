@@ -213,13 +213,17 @@ public class panel_SecretRealm : Base_Mono
             if (RefreshConsumables())
             {
                 Open_Map(item);
+                base_Show();
             }
             else
             {
                 Alert_Dec.Show("挑战门票不足");
             }
         }
-        else Open_Map(item);
+        else
+        {
+            Alert_Dec.Show("副本暂未开发");
+        }
 
     }
 
@@ -284,7 +288,21 @@ public class panel_SecretRealm : Base_Mono
                     }
                 }
                 copies_item item = Instantiate(copies_item_Prefabs, pos_crtmap);
-                item.Init(SumSave.db_maps[i], number, maxnumber);
+
+
+                List<(string, int)> _list = SumSave.crt_bag_resources.Set();
+                int num = 0;
+                 for (int j = 0; j < _list.Count; j++)
+                {
+                    if (_list[j].Item1 == SumSave.db_maps[i].need_Required)
+                    {
+                        num= _list[j].Item2;
+                    }
+                }
+
+
+
+                item.InitSecretRealm(SumSave.db_maps[i],num);
                 item.GetComponent<Button>().onClick.AddListener(() => { OnClick(item); });
             }
         }
