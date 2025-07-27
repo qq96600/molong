@@ -53,6 +53,7 @@ namespace MVC
             Read_db_strengthen_needlist();
             Read_db_weather();
             Read_Db_Suit();
+            Read_db_Equip_Suits();
             Read_Db_Dec();
             ReadDb_Endless();
             CloseMySqlDB();
@@ -70,8 +71,6 @@ namespace MVC
                 }
             }
         }
-
-
         /// <summary>
         /// 获得天气
         /// </summary>
@@ -359,7 +358,21 @@ namespace MVC
             }
         }
 
+        private void Read_db_Equip_Suits()
+        {
+            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_equip_suit);
 
+            SumSave.db_Equip_Suits = new List<db_equip_suit_vo>();
+
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.db_Equip_Suits.Add(ReadDb.Read_equip_suit(mysqlReader));
+                }
+            }
+
+        }
 
         /// <summary>
         /// 套装

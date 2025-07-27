@@ -82,21 +82,26 @@ public class offect_strengthen : Base_Mono
             Alert_Dec.Show("当前装备强化等级已满");
             return;
         }
+
         long need = CostReduction(lv);
-        if (crt_bag.Data.StdMode == EquipConfigTypeList.灵宝.ToString())
-        { 
-             need = needs[7 +lv];
-            for (int i = 0; i < SumSave.db_strengthen_need_list.Count; i++)
+
+        for (int i = 0; i < SumSave.db_strengthen_need_list.Count; i++)
+        {
+            if (crt_bag.Data.Name == SumSave.db_strengthen_need_list[i].need_value)
             {
-                if (crt_bag.Data.Name == SumSave.db_strengthen_need_list[i].need_value)
+                if (lv >= SumSave.db_strengthen_need_list[i].need_lv)
                 {
-                    for (int j = 0; j < SumSave.db_strengthen_need_list[i].need_value_list.Length; j++)
+                    Alert_Dec.Show("当前装备强化等级已满");
+                    return;
+                }
+                need = needs[7 + lv];
+
+                for (int j = 0; j < SumSave.db_strengthen_need_list[i].need_value_list.Length; j++)
+                {
+                    string[] need_value = SumSave.db_strengthen_need_list[i].need_value_list[j].Split('*');
+                    if (need_value.Length == 2)
                     {
-                        string[] need_value = SumSave.db_strengthen_need_list[i].need_value_list[j].Split(' ');
-                        if (need_value.Length == 2)
-                        { 
-                            NeedConsumables(need_value[0], int.Parse(need_value[1])*(lv+1));
-                        }
+                        NeedConsumables(need_value[0], int.Parse(need_value[1]) * (lv + 1));
                     }
                 }
             }
@@ -115,7 +120,7 @@ public class offect_strengthen : Base_Mono
             SendNotification(NotiList.Refresh_Max_Hero_Attribute);
             EquipmentEnhancementTask();
         }
-        else Alert_Dec.Show(currency_unit.灵珠 + "不足 " + needs[lv]);
+        else Alert_Dec.Show("材料不足");
     }
 
     private void Strengthen_succinct()
@@ -465,10 +470,10 @@ public class offect_strengthen : Base_Mono
                 {
                     for (int j = 0; j < SumSave.db_strengthen_need_list[i].need_value_list.Length; j++)
                     {
-                        string[] need_value = SumSave.db_strengthen_need_list[i].need_value_list[j].Split(' ');
+                        string[] need_value = SumSave.db_strengthen_need_list[i].need_value_list[j].Split('*');
                         if (need_value.Length == 2)
                         {
-                            info.text += need_value[0] + " * " + (int.Parse(need_value[1]) * (lv + 1))+"\n";
+                            info.text += need_value[0] + " * " + (int.Parse(need_value[1]) * (lv + 1)) + (j % 3 == 0 ? "\n" : "   ");
                         }
                     }
                 }

@@ -335,6 +335,10 @@ namespace Common
         /// 特殊物品的强化需求
         /// </summary>
         public static List<db_strengthen_need_Vo> db_strengthen_need_list;
+        /// <summary>
+        ///  特殊装备的套装属性
+        /// </summary>
+        public static List<db_equip_suit_vo> db_Equip_Suits;
 
         #endregion
 

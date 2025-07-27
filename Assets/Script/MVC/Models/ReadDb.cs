@@ -41,7 +41,8 @@ public static class ReadDb
     {
         string need_value = reader.GetString(reader.GetOrdinal("need_value"));
         string[] need_value_list = reader.GetString(reader.GetOrdinal("need_list")).Split('|');
-        return new db_strengthen_need_Vo(need_value, need_value_list);
+        int need_lv= reader.GetInt32(reader.GetOrdinal("need_lv"));
+        return new db_strengthen_need_Vo(need_value, need_lv, need_value_list);
     }
     public static db_formula_vo Read_formula(MySqlDataReader reader)
     {
@@ -248,7 +249,13 @@ public static class ReadDb
         return new db_collect_vo(Name, StdMode, bonuses_type, bonuses_value);
     }
 
-
+    public static db_equip_suit_vo Read_equip_suit(MySqlDataReader reader)
+    {
+        string equip_name = reader.GetString(reader.GetOrdinal("equip_name"));
+        string[] equip_value = reader.GetString(reader.GetOrdinal("equip_value")).Split('|');
+        string[] equip_uplv = reader.GetString(reader.GetOrdinal("equip_uplv")).Split('|');
+        return new db_equip_suit_vo(equip_name, equip_value, equip_uplv);
+    }
 
     public static user_needlist_vo Read(MySqlDataReader reader, user_needlist_vo item)
     {

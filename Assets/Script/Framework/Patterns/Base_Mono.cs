@@ -117,6 +117,7 @@ namespace MVC
         /// <returns></returns>
         protected bool RefreshConsumables()
         {
+            //return true;
             bool exist = false;
             Dictionary<string, long> keys = dic;
             Dictionary<string, int> bagdic = new Dictionary<string, int>();

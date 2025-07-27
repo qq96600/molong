@@ -83,4 +83,5 @@ public enum Mysql_Table_Name
     db_endlessbattle,//无尽试炼
     user_endless_battle,//无尽试炼排行榜
     db_strengthen_needlist,//强化需求信息
+    db_equip_suit,//装备套装信息
 }
