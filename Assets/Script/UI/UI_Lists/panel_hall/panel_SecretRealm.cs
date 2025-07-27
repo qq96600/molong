@@ -15,54 +15,54 @@ public class panel_SecretRealm : Base_Mono
     private Transform pos_crtmap;
     private copies_item copies_item_Prefabs;
     /// <summary>
-    /// Õ½¶·µØÍ¼
+    /// æˆ˜æ–—åœ°å›¾
     /// </summary>
     private panel_fight fight_panel;
     /// <summary>
-    /// ĞÅÏ¢ÏÔÊ¾Ãæ°å
+    /// ä¿¡æ¯æ˜¾ç¤ºé¢æ¿
     /// </summary>
     private Transform base_show_info;
 
     /// <summary>
-    /// µØÍ¼Ãû×Ö, ĞèÒªµÈ¼¶,¹ÖÎïÁĞ±í,ÃÅÆ±
+    /// åœ°å›¾åå­—, éœ€è¦ç­‰çº§,æ€ªç‰©åˆ—è¡¨,é—¨ç¥¨
     /// </summary>
     private Text  map_name,monster_list, need_Required;
     /// <summary>
-    /// ÎïÆ·Î»ÖÃ
+    /// ç‰©å“ä½ç½®
     /// </summary>
     private Transform pos_life;
     /// <summary>
-    /// ½øÈëµØÍ¼°´Å¥,ĞÅÏ¢´°¿Ú¹Ø±Õ°´Å¥
+    /// è¿›å…¥åœ°å›¾æŒ‰é’®,ä¿¡æ¯çª—å£å…³é—­æŒ‰é’®
     /// </summary>
     private Button enter_map_button,Close_button;
     /// <summary>
-    /// µ±Ç°Ñ¡ÔñµØÍ¼
+    /// å½“å‰é€‰æ‹©åœ°å›¾
     /// </summary>
     private copies_item item;
     /// <summary>
-    /// ÎïÆ·ĞÅÏ¢Ô¤ÖÆÌå
+    /// ç‰©å“ä¿¡æ¯é¢„åˆ¶ä½“
     /// </summary>
     private material_item material_item_parfabs;
     /// <summary>
-    /// ÄÑ¶ÈÑ¡ÔñÏÂÀ­ÁĞ±í
+    /// éš¾åº¦é€‰æ‹©ä¸‹æ‹‰åˆ—è¡¨
     /// </summary>
     private Dropdown dropdown;
     /// <summary>
-    /// µôÂä¸ÅÂÊĞÅÏ¢À¸
+    /// æ‰è½æ¦‚ç‡ä¿¡æ¯æ 
     /// </summary>
     private Text drop_rate;
     /// <summary>
-    /// Æ·ÖÊÑÕÉ«
+    /// å“è´¨é¢œè‰²
     /// </summary>
     private readonly string[] qualityColors = new string[]
    {
-        "#FFFFFF", // ÆÕÍ¨£¨»ÒÉ«£©
-        "#00FF00", // ¾«Á¼£¨ÂÌÉ«£©
-        "#00B4FF", // ÍêÃÀ£¨ÌìÀ¶£©
-        "#800080", // Ê·Ê«£¨×ÏÉ«£©
-        "#FFA500", // ´«Ëµ£¨³ÈÉ«£©
-        "#FF0000", // Éñ»°£¨ºìÉ«£©
-        "#FFFF00"  // ¾øÊÀ£¨½ğÉ«£©
+        "#FFFFFF", // æ™®é€šï¼ˆç°è‰²ï¼‰
+        "#00FF00", // ç²¾è‰¯ï¼ˆç»¿è‰²ï¼‰
+        "#00B4FF", // å®Œç¾ï¼ˆå¤©è“ï¼‰
+        "#800080", // å²è¯—ï¼ˆç´«è‰²ï¼‰
+        "#FFA500", // ä¼ è¯´ï¼ˆæ©™è‰²ï¼‰
+        "#FF0000", // ç¥è¯ï¼ˆçº¢è‰²ï¼‰
+        "#FFFF00"  // ç»ä¸–ï¼ˆé‡‘è‰²ï¼‰
    };
 
     private void Awake()
@@ -85,23 +85,23 @@ public class panel_SecretRealm : Base_Mono
         drop_rate = Find<Text>("Difficulty_info/difficulty_selection/Scroll View/Viewport/Content/Intr");
         Close_button= Find<Button>("Difficulty_info/Close");
         Close_button.onClick.AddListener(()=>base_show_info.gameObject.SetActive(false));
-        // Çå¿ÕÏÖÓĞÑ¡Ïî
+        // æ¸…ç©ºç°æœ‰é€‰é¡¹
         dropdown.ClearOptions();
         List<string> options = new List<string>();
         for (int i = 0; i < Enum.GetNames(typeof(enum_equip_quality_list)).Length; i++)
         {
             options.Add(Enum.GetNames(typeof(enum_equip_quality_list))[i]);
         }
-        // Ìí¼ÓĞÂÑ¡Ïî
+        // æ·»åŠ æ–°é€‰é¡¹
         dropdown.AddOptions(options);
         dropdown.onValueChanged.AddListener(OnValueChanged);
-        //ÉèÖÃÎª×îµÍ¼¶ÄÑ¶È
+        //è®¾ç½®ä¸ºæœ€ä½çº§éš¾åº¦
         dropdown.value = 0;
         OnValueChanged(dropdown.value);
     }
 
     /// <summary>
-    /// Ñ¡ÔñÄÑ¶È
+    /// é€‰æ‹©éš¾åº¦
     /// </summary>
     /// <param name="arg0"></param>
     private void OnValueChanged(int arg0)
@@ -195,7 +195,7 @@ public class panel_SecretRealm : Base_Mono
 
 
     /// <summary>
-    /// µã»÷ÊÂ¼ş
+    /// ç‚¹å‡»äº‹ä»¶
     /// </summary>
     /// <param name="item"></param>
     private void OnClick(copies_item _item)
@@ -207,14 +207,14 @@ public class panel_SecretRealm : Base_Mono
 
 
     /// <summary>
-    /// ³õÊ¼»¯¸±±¾ĞÅÏ¢
+    /// åˆå§‹åŒ–å‰¯æœ¬ä¿¡æ¯
     /// </summary>
     private void InitInfo(user_map_vo map)
     {
-        monster_list.text = "¹ÖÎïÁĞ±í£º " + map.monster_list.ToString();
-        need_Required.text = "ÃÅÆ±ÒªÇó£º " + map.need_Required.ToString();
+        monster_list.text = "æ€ªç‰©åˆ—è¡¨ï¼š " + map.monster_list.ToString();
+        need_Required.text = "é—¨ç¥¨è¦æ±‚ï¼š " + map.need_Required.ToString();
         map_name.text = map.map_name;
-        for (int i = pos_life.childCount - 1; i >= 0; i--)//Çå¿ÕÇøÓòÄÚ°´Å¥
+        for (int i = pos_life.childCount - 1; i >= 0; i--)//æ¸…ç©ºåŒºåŸŸå†…æŒ‰é’®
         {
             Destroy(pos_life.GetChild(i).gameObject);
         }
@@ -228,7 +228,7 @@ public class panel_SecretRealm : Base_Mono
     }
 
     /// <summary>
-    /// È·ÈÏ½øÈë
+    /// ç¡®è®¤è¿›å…¥
     /// </summary>
     /// <param name="arg0"></param>
     private void confirm()
@@ -248,18 +248,18 @@ public class panel_SecretRealm : Base_Mono
             }
             else
             {
-                Alert_Dec.Show("ÌôÕ½ÃÅÆ±²»×ã");
+                Alert_Dec.Show("æŒ‘æˆ˜é—¨ç¥¨ä¸è¶³");
             }
         }
         else
         {
-            Alert_Dec.Show("¸±±¾ÔİÎ´¿ª·¢");
+            Alert_Dec.Show("å‰¯æœ¬æš‚æœªå¼€å‘");
         }
 
     }
 
     /// <summary>
-    /// ½øÈëµØÍ¼
+    /// è¿›å…¥åœ°å›¾
     /// </summary>
     /// <param name="item"></param>
     private void Open_Map(copies_item item)
@@ -277,7 +277,7 @@ public class panel_SecretRealm : Base_Mono
             }
         }
         if (exist) SumSave.crt_needlist.SetMap((item.index.map_name, 1));
-        //Ğ´ÈëÊı¾İ
+        //å†™å…¥æ•°æ®
 
         fight_panel.Show();
         fight_panel.Open_Map(item.index, true);
@@ -289,12 +289,12 @@ public class panel_SecretRealm : Base_Mono
     {
         base.Show();
         transform.gameObject.SetActive(false);
-        Alert_Dec.Show("ÃØ¾³¼´½«¿ª·Å");
+        Alert_Dec.Show("ç§˜å¢ƒå³å°†å¼€æ”¾");
         return;
 
         if (SumSave.crt_MaxHero.Lv < 30 && SumSave.ios_account_number != "admin001")
         {
-            Alert_Dec.Show("ÃØ¾³¿ªÆôµÈ¼¶Îª30¼¶");
+            Alert_Dec.Show("ç§˜å¢ƒå¼€å¯ç­‰çº§ä¸º30çº§");
             gameObject.SetActive(false);
             return;
         }
@@ -302,7 +302,7 @@ public class panel_SecretRealm : Base_Mono
         base_Show();
     }
     /// <summary>
-    /// ³õÊ¼»¯
+    /// åˆå§‹åŒ–
     /// </summary>
     private void base_Show()
     {
