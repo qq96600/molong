@@ -26,7 +26,7 @@ public class panel_SecretRealm : Base_Mono
     /// <summary>
     /// 地图名字, 需要等级,怪物列表,门票
     /// </summary>
-    private Text  monster_list, need_Required;
+    private Text  map_name,monster_list, need_Required;
     /// <summary>
     /// 物品位置
     /// </summary>
@@ -70,7 +70,7 @@ public class panel_SecretRealm : Base_Mono
         pos_crtmap = Find<Transform>("Scroll View/Viewport/Content");
         copies_item_Prefabs = Battle_Tool.Find_Prefabs<copies_item>("copies_item");
         fight_panel = UI_Manager.I.GetPanel<panel_fight>();
-
+        map_name= Find<Text>("Difficulty_info/map_name/map_name_text");
 
         base_show_info = Find<Transform>("Difficulty_info");
 
@@ -183,6 +183,7 @@ public class panel_SecretRealm : Base_Mono
     {
         monster_list.text = "怪物列表： " + map.monster_list.ToString();
         need_Required.text = "门票要求： " + map.need_Required.ToString();
+        map_name.text = map.map_name;
         for (int i = pos_life.childCount - 1; i >= 0; i--)//清空区域内按钮
         {
             Destroy(pos_life.GetChild(i).gameObject);
@@ -273,7 +274,7 @@ public class panel_SecretRealm : Base_Mono
     {
         ClearObject(pos_crtmap);
         List<(string, int)> list = SumSave.crt_needlist.SetMap();
-        int maxnumber = SumSave.crt_MaxHero.Lv / 100 + 1;
+        
         for (int i = SumSave.db_maps.Count - 1; i > 0; i--)
         {
             if (SumSave.db_maps[i].map_type == 8&&SumSave.crt_hero.hero_Lv >= SumSave.db_maps[i].need_lv)
@@ -299,8 +300,6 @@ public class panel_SecretRealm : Base_Mono
                         num= _list[j].Item2;
                     }
                 }
-
-
 
                 item.InitSecretRealm(SumSave.db_maps[i],num);
                 item.GetComponent<Button>().onClick.AddListener(() => { OnClick(item); });
