@@ -41,6 +41,23 @@ public class copies_item : Base_Mono
         base_name.text = "(" + five_element_type[map.map_life-1] + ")" + "[Boss]" + map.monster_list;
 
     }
+
+    /// <summary>
+    /// 秘境界面显示
+    /// </summary>
+    /// <param name="map"></param>
+    public void InitSecretRealm(user_map_vo map,int _num)
+    {
+        index = map;
+        info.text = map.map_name+"("+_num+")";
+        icon.sprite = Resources.Load<Sprite>("Prefabs/monsters/" + map.monster_list);
+
+        base_name.text = "(" + five_element_type[map.map_life - 1] + ")" + "[Boss]" + map.monster_list;
+
+    }
+
+
+
     /// <summary>
     /// 显示信息
     /// </summary>
