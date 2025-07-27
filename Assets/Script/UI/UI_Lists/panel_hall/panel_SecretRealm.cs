@@ -258,6 +258,8 @@ public class panel_SecretRealm : Base_Mono
     public override void Show()
     {
         base.Show();
+        Alert_Dec.Show("即将开放");
+        return;
         if (SumSave.crt_MaxHero.Lv < 30 && SumSave.ios_account_number != "admin001")
         {
             Alert_Dec.Show("秘境开启等级为30级");
