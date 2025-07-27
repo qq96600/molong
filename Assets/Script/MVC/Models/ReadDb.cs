@@ -37,7 +37,12 @@ public static class ReadDb
         return new db_EndlessBattle_vo(goods, neednumber, maxnumber);
     }
 
-
+    public static db_strengthen_need_Vo Read_needstrengthen(MySqlDataReader reader)
+    {
+        string need_value = reader.GetString(reader.GetOrdinal("need_value"));
+        string[] need_value_list = reader.GetString(reader.GetOrdinal("need_list")).Split('|');
+        return new db_strengthen_need_Vo(need_value, need_value_list);
+    }
     public static db_formula_vo Read_formula(MySqlDataReader reader)
     {
         int _formula_type= reader.GetInt32(reader.GetOrdinal("formula_type"));

@@ -82,4 +82,5 @@ public enum Mysql_Table_Name
     user_world_boss_copy1,//世界boss测试
     db_endlessbattle,//无尽试炼
     user_endless_battle,//无尽试炼排行榜
+    db_strengthen_needlist,//强化需求信息
 }

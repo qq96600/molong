@@ -83,7 +83,24 @@ public class offect_strengthen : Base_Mono
             return;
         }
         long need = CostReduction(lv);
-
+        if (crt_bag.Data.StdMode == EquipConfigTypeList.灵宝.ToString())
+        { 
+             need = needs[7 +lv];
+            for (int i = 0; i < SumSave.db_strengthen_need_list.Count; i++)
+            {
+                if (crt_bag.Data.Name == SumSave.db_strengthen_need_list[i].need_value)
+                {
+                    for (int j = 0; j < SumSave.db_strengthen_need_list[i].need_value_list.Length; j++)
+                    {
+                        string[] need_value = SumSave.db_strengthen_need_list[i].need_value_list[j].Split(' ');
+                        if (need_value.Length == 2)
+                        { 
+                            NeedConsumables(need_value[0], int.Parse(need_value[1])*(lv+1));
+                        }
+                    }
+                }
+            }
+        }
         NeedConsumables(currency_unit.灵珠, need);
         if (RefreshConsumables())
         {
@@ -303,7 +320,7 @@ public class offect_strengthen : Base_Mono
                 case EquipConfigTypeList.腰带:
                 case EquipConfigTypeList.靴子:
                 //case EquipConfigTypeList.护符:
-                //case EquipConfigTypeList.灵宝:
+                case EquipConfigTypeList.灵宝:
                 case EquipConfigTypeList.勋章:
                 //case EquipConfigTypeList.饰品:
                 //case EquipConfigTypeList.玉佩:
@@ -438,6 +455,27 @@ public class offect_strengthen : Base_Mono
         string[] infos = crt_bag.Data.user_value.Split(' ');
         int lv = int.Parse(infos[1]);
         long need = CostReduction(lv);
-        info.text = "强化" + data.Data.Name + "需要" + currency_unit.灵珠 + Battle_Tool.FormatNumberToChineseUnit(need);
+        info.text = "强化" + data.Data.Name + "需要\n";
+        if (crt_bag.Data.StdMode == EquipConfigTypeList.灵宝.ToString())
+        {
+            need = needs[7 + lv];
+            for (int i = 0; i < SumSave.db_strengthen_need_list.Count; i++)
+            {
+                if (crt_bag.Data.Name == SumSave.db_strengthen_need_list[i].need_value)
+                {
+                    for (int j = 0; j < SumSave.db_strengthen_need_list[i].need_value_list.Length; j++)
+                    {
+                        string[] need_value = SumSave.db_strengthen_need_list[i].need_value_list[j].Split(' ');
+                        if (need_value.Length == 2)
+                        {
+                            info.text += need_value[0] + " * " + (int.Parse(need_value[1]) * (lv + 1))+"\n";
+                        }
+                    }
+                }
+            }
+        }
+        info.text += currency_unit.灵珠 + Battle_Tool.FormatNumberToChineseUnit(need);
+
+
     }
 }

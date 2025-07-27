@@ -50,6 +50,7 @@ namespace MVC
             Read_Guide_Fate();
             Read_db_vip();
             Read_db_formula();
+            Read_db_strengthen_needlist();
             Read_db_weather();
             Read_Db_Suit();
             Read_Db_Dec();
@@ -86,8 +87,21 @@ namespace MVC
                 }
             }
         }
-
-
+        /// <summary>
+        /// 读取强化需求列表
+        /// </summary>
+        public void Read_db_strengthen_needlist()
+        {
+            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_strengthen_needlist);
+            SumSave.db_strengthen_need_list = new List<db_strengthen_need_Vo>();
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.db_strengthen_need_list.Add(ReadDb.Read_needstrengthen(mysqlReader));
+                }
+            }
+        }
         /// <summary>
         /// 读取造化炉合成列表
         /// </summary>
