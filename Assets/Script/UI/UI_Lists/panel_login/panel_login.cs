@@ -286,12 +286,11 @@ namespace MVC
                 return;
             }
             Alert_Dec.Show("点击登录");
-            _ = GameLogin.Instance.Login();
 #if UNITY_EDITOR
             TaploginBt.gameObject.SetActive(false);
             loginBt.gameObject.SetActive(true);
 #elif UNITY_ANDROID
-            //_ = GameLogin.Instance.Login();
+            _ = GameLogin.Instance.Login();
 #elif UNITY_IPHONE
 
 #endif
