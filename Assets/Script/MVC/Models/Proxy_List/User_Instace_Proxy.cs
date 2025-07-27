@@ -452,16 +452,7 @@ namespace MVC
                 }
             }
             SumSave.crt_bag_resources.Init(SumSave.crt_resources.material_value);
-            //if (SumSave.crt_resources.pages[0] > SumSave.base_setting[4])
-            //{
-            //    //作弊玩家;
-            //    Game_Omphalos.i.Delete("背包容量" + SumSave.crt_resources.pages[0]);
-            //}
-            //if (SumSave.crt_resources.pages[1] > SumSave.base_setting[5])
-            //{
-            //    //作弊玩家;
-            //    Game_Omphalos.i.Delete("仓库容量" + SumSave.crt_resources.pages[1]);
-            //}
+          
         }
         public void Delete(string dec)
         {
@@ -578,9 +569,6 @@ namespace MVC
                 SumSave.crt_accumulatedrewards.Init(0,0);
                 Game_Omphalos.i.GetQueue(Mysql_Type.InsertInto, Mysql_Table_Name.mo_user_rewards_state, SumSave.crt_accumulatedrewards.Set_Instace_String());
             }
-
-            //SumSave.db_lvs.AddUpperLimit();///添加灵气上限
-
         }
         /// <summary>
         /// 玩家buff
@@ -607,7 +595,6 @@ namespace MVC
         /// <summary>
         /// 邮件
         /// </summary>
-
         public void Read_User_Mail()
         {
             mysqlReader = MysqlDb.Select(Mysql_Table_Name.user_emial, "uid", GetStr(SumSave.crt_user.uid));
@@ -1190,14 +1177,33 @@ namespace MVC
             for (int i = 0; i < SumSave.crt_euqip.Count; i++)
             {
                 Bag_Base_VO data= SumSave.crt_euqip[i];
-                if (data.suit > 0)
-                {
-                    if (!suits.ContainsKey(data.suit)) suits.Add(data.suit, 0);
-                    suits[data.suit]++;
-                }
                 string[] info = data.user_value.Split(' ');
                 int strengthenlv = int.Parse(info[1]);
                 int quilty = int.Parse(info[2]);
+                if (data.suit > 0)
+                {
+                    for (int s = 0; s < SumSave.db_Equip_Suits.Count; s++)
+                    {
+                        if (data.Name == SumSave.db_Equip_Suits[s].equip_name)
+                        {
+                            for (int j = 0; j < SumSave.db_Equip_Suits[s].equip_suit.Length; j++)
+                            {
+                                string[] value = SumSave.db_Equip_Suits[s].equip_suit[j].Split(' ');
+                                string[] value2 = SumSave.db_Equip_Suits[s].equip_uplv[j].Split(' ');
+                                //套装类型
+                                enum_equip_show_list suit = (enum_equip_show_list)int.Parse(value[0]);
+                                //加成值
+                                int suit_value = (int.Parse(value[1]) + (strengthenlv / int.Parse(value2[0])) * (int.Parse(value2[1])));
+                                if (crt.equip_suit_lists.ContainsKey(suit))
+                                {
+                                    crt.equip_suit_lists[suit] = Mathf.Max(crt.equip_suit_lists[suit], suit_value);
+                                }else crt.equip_suit_lists.Add(suit, suit_value);
+                            }
+                        }
+                    }
+                    if (!suits.ContainsKey(data.suit)) suits.Add(data.suit, 0);
+                    suits[data.suit]++;
+                }
                 switch ((EquipConfigTypeList)Enum.Parse(typeof(EquipConfigTypeList), data.StdMode))
                 {
                     case EquipConfigTypeList.武器:

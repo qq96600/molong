@@ -150,4 +150,16 @@ public enum enum_skill_attribute_list
     至尊卡,//524
     试练塔积分,//525
 }
+/// <summary>
+/// 武器展示效果
+/// </summary>
+public enum enum_equip_show_list
+{ 
+降低对方防御=1,
+暴击伤害,
+双倍打击概率,
+中毒概率,
+麻痹概率,
+释放火球分身概率,
+}
 
