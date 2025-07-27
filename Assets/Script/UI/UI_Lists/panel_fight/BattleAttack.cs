@@ -271,35 +271,6 @@ namespace MVC
                 if (GetComponent<Player>() != null) Game_Next_Map();
                 else game_over();
             }
-            //if (GetComponent<Player>() != null)
-
-            //{
-            //    if (Tergets.Count > 0)//玩家找怪物
-            //    {
-            //        //寻找距离自身最近的目标    
-            //        Terget = ArrayHelper.GetMin(SumSave.battleMonsterHealths, e => Vector2.Distance(transform.position, e.transform.position));
-
-            //        AttackStateMachine.Init(this, Terget);
-            //        StateMachine.Init(this, Terget);
-            //    }
-            //    else
-            //    {
-            //       // StateMachine.Animator_State(Arrow_Type.idle);
-            //        Game_Next_Map();
-            //    }
-            //}
-            //else if (GetComponent<Monster>() != null)
-            //{
-            //    if (Tergets.Count > 0 )//怪物找玩家
-            //    {
-            //        //寻找距离自身最近的目标    
-            //        Terget = ArrayHelper.GetMin(SumSave.battleHeroHealths, e => Vector2.Distance(transform.position, e.transform.position));
-            //        AttackStateMachine.Init(this, Terget);
-            //        StateMachine.Init(this, Terget);
-            //    }
-            //    else 
-            //        game_over();
-            //}
         }
         /// <summary>
         /// 进行下一回合
@@ -373,11 +344,6 @@ namespace MVC
             int lv = int.Parse(skill.user_values[1]);
             if (skill.skill_damage_type == 7)
             {
-                /*
-                 *    case 4: dec += "对自身生成 " + (user_skill.Data.skill_damage + (user_skill.Data.skill_power * lv)) + "%" + Show_Color.Red("护盾") + "\n"; break;
-                    case 6: dec += "对自身回复 " + (user_skill.Data.skill_damage + (user_skill.Data.skill_power * lv)) + "%" + Show_Color.Red("魔法伤害") + "的血量\n"; break;
-                    case 7: dec += "对自身回复 " + (user_skill.Data.skill_damage + (user_skill.Data.skill_power * lv)) + "%"  + "的魔法值\n"; break;
-                 */
                 target.MP += (skill.skill_damage + (skill.skill_power * lv)) * target.maxMP / 100;
                 if (target.MP > target.maxMP) target.MP = target.maxMP;
                 return;
@@ -448,6 +414,10 @@ namespace MVC
 
             damage = MathF.Max(1, damage);
             monster.target.TakeDamage((int)damage, isCrit ? DamageEnum.暴击技能伤害 : DamageEnum.技能伤害);
+            if (data.Real_harm > 0)
+            {
+                monster.target.TakeDamage(data.Real_harm, DamageEnum.真实伤害);
+            }
         }
 
         protected virtual void BaseAttack()//判断伤害

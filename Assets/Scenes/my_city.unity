@@ -338,10 +338,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6881885151181299249, guid: cc1786e2fd9b5f748b221ad600436caf, type: 3}
-      propertyPath: select_panel
-      value: 19
-      objectReference: {fileID: 0}
     - target: {fileID: 7426633380038818412, guid: cc1786e2fd9b5f748b221ad600436caf, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -401,10 +397,6 @@ PrefabInstance:
     - target: {fileID: 7836056682791620927, guid: cc1786e2fd9b5f748b221ad600436caf, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -63.409973
-      objectReference: {fileID: 0}
-    - target: {fileID: 8480973413778554223, guid: cc1786e2fd9b5f748b221ad600436caf, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8576539514539164880, guid: cc1786e2fd9b5f748b221ad600436caf, type: 3}
       propertyPath: m_Pivot.x

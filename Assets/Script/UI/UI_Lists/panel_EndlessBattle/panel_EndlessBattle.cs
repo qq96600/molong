@@ -146,7 +146,6 @@ public class panel_EndlessBattle : Panel_Base
     /// </summary>
     public void Show_Combat_statistics()
     {
-        battle_info_list.text = Combat_statistics.Show_Info();
         IsReply(players);
         IsReply(monsters);
     }
@@ -216,7 +215,6 @@ public class panel_EndlessBattle : Panel_Base
             if (kill_monster_number > 0)
             {
 #if UNITY_EDITOR
-                //kill_monster_number = 1000;
                 #endif
 
                 long exp= (long)(kill_monster_number * 10000);//经验
@@ -285,11 +283,7 @@ public class panel_EndlessBattle : Panel_Base
                 return;
             }
         }
-        
     }
-
-
-
     /// <summary>
     /// 游戏结束
     /// </summary>

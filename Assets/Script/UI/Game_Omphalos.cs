@@ -15,8 +15,15 @@ namespace MVC
     /// </summary>
     public class Game_Omphalos : Base_Mono
     {
+        /// <summary>
+        /// 基础战斗
+        /// </summary>
         private panel_fight panel_fight;
-        //private Panel_Screensaver panel_Screensaver;
+        /// <summary>
+        /// 无尽模式
+        /// </summary>
+        private panel_EndlessBattle panel_EndlessBattle;
+
         public static Game_Omphalos i;
         private void Awake()
         {
@@ -26,10 +33,10 @@ namespace MVC
             Analytics.deviceStatsEnabled = false;//禁用了Unity收集用户设备的性能数据，比如CPU型号，内存使用情况等，保护用户隐私
             Analytics.initializeOnStartup = false;//禁止Unity自动初始化，完全自主控制Unity收集用户数据的行为
             Analytics.limitUserTracking = false;//禁止Unity对用户的追踪，保护用户隐私，一般这个选项是为了遵守隐私政策
-
             PerformanceReporting.enabled = false;//禁止Unity收集应用程序性能数据的报告，比如崩溃报告，性能下降等
             AppFacade.I.Startup();
             panel_fight = UI_Manager.I.GetPanel<panel_fight>();
+            panel_EndlessBattle = UI_Manager.I.GetPanel<panel_EndlessBattle>();
         }
         private List<Base_Wirte_VO> wirtes = new List<Base_Wirte_VO>();
         /// <summary>
@@ -43,7 +50,6 @@ namespace MVC
         {
             InvokeRepeating("CountTime", 1, 1);
             InvokeRepeating("Read_User_Ranks", 600, 600);
-            //InvokeRepeating("Read_User_Ranks", 6, 6);
 
         }
         public void Show_Screensaver()
@@ -105,6 +111,10 @@ namespace MVC
                 Combat_statistics.Time();
                 panel_fight.Show_Combat_statistics();
             }
+            if (panel_EndlessBattle.gameObject.activeInHierarchy)
+            {
+                panel_EndlessBattle.Show_Combat_statistics();
+            }
             if ((performTime) % 5 == 0)
                 SendNotification(NotiList.Execute_Write, wirtes);
 
@@ -112,7 +122,6 @@ namespace MVC
             {
                 performTime = 0;
                 SumSave.crt_achievement.increase_date_Exp((Achieve_collect.在线时间).ToString(), 1);
-                //SumSave.crt_pass.day_state[0] += 1;
                 SumSave.crt_pass.progress(0);
                 for (int i = 0; i < SumSave.crt_Trial_Tower_rank.lists.Count; i++)
                 {
