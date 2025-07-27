@@ -24,4 +24,5 @@ public enum Main_List
     Trial_Tower,//试炼塔
     panel_destinyTower,//天命台
     Endless_Tower,//无尽塔
+    panel_SecretRealm,//秘境
 }

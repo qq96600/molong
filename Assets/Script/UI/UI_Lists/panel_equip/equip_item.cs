@@ -277,12 +277,31 @@ public class equip_item : Base_Mono
     {
         string dec = "";
         int number = 0;
-        if (data.StdMode == EquipConfigTypeList.灵宝.ToString())
+        bool exist = true;
+        for (int i = 0; i < SumSave.db_Equip_Suits.Count; i++)
         {
-            dec="\n" + Show_Color.Yellow("[灵宝]");
-            dec += "\n" + Show_Color.Black("灵宝特性: " + data.suit_dec);
+            if (data.Name == SumSave.db_Equip_Suits[i].equip_name)
+            {
+                exist = false;
+                int lv = int.Parse(data.user_value.Split(' ')[1]);
+                dec = "\n" + Show_Color.Yellow("[" + data.StdMode + "]");
+                dec += "\n" + Show_Color.Black(data.StdMode + "特性: ");
+                for (int j = 0; j < SumSave.db_Equip_Suits[i].equip_suit.Length; j++)
+                { 
+                    string[] value= SumSave.db_Equip_Suits[i].equip_suit[j].Split(' ');
+                    string[] value2 = SumSave.db_Equip_Suits[i].equip_uplv[j].Split(' ');
+                    dec += "\n" + Show_Color.Black((enum_equip_show_list)(int.Parse(value[0]))
+                        + " " + (int.Parse(value[1]) + (lv / int.Parse(value2[0])) * (int.Parse(value2[1])) + "%"));
+                }
+            }
         }
-        else
+        //if (data.StdMode == EquipConfigTypeList.灵宝.ToString())
+        //{
+        //    dec="\n" + Show_Color.Yellow("[灵宝]");
+        //    dec += "\n" + Show_Color.Black("灵宝特性: " + data.suit_dec);
+        //}
+        //else
+        if(exist)
         {
             db_suit_vo suit = SumSave.db_suits.Find(x => x.suit_type == Data.suit);
             foreach (Bag_Base_VO item in SumSave.crt_euqip)

@@ -331,6 +331,14 @@ namespace Common
         /// 无尽模式奖励表
         /// </summary>
         public static List<db_EndlessBattle_vo> db_EndlessBattle_list;
+        /// <summary>
+        /// 特殊物品的强化需求
+        /// </summary>
+        public static List<db_strengthen_need_Vo> db_strengthen_need_list;
+        /// <summary>
+        ///  特殊装备的套装属性
+        /// </summary>
+        public static List<db_equip_suit_vo> db_Equip_Suits;
 
         #endregion
 

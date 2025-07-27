@@ -146,7 +146,6 @@ public class panel_EndlessBattle : Panel_Base
     /// </summary>
     public void Show_Combat_statistics()
     {
-        battle_info_list.text = Combat_statistics.Show_Info();
         IsReply(players);
         IsReply(monsters);
     }
@@ -216,7 +215,6 @@ public class panel_EndlessBattle : Panel_Base
             if (kill_monster_number > 0)
             {
 #if UNITY_EDITOR
-                //kill_monster_number = 1000;
                 #endif
 
                 long exp= (long)(kill_monster_number * 10000);//经验
@@ -285,11 +283,7 @@ public class panel_EndlessBattle : Panel_Base
                 return;
             }
         }
-        
     }
-
-
-
     /// <summary>
     /// 游戏结束
     /// </summary>
@@ -561,7 +555,13 @@ public class panel_EndlessBattle : Panel_Base
             new Vector3(pos_monster.position.x, y, pos_monster.position.z), Quaternion.identity, pos_monster);
         // 设置Data   
         item.GetComponent<BattleAttack>().Data = crt;
-        item.GetComponent<BattleAttack>().FindTergets(players, Random.Range(0, 100) < 3 ? 1:0);//百分之3的概率为背刺怪
+        item.GetComponent<BattleAttack>().FindTergets(players, Random.Range(0, 100) < 3 ? 1 : 0);//百分之3的概率为背刺怪
+
+#if UNITY_EDITOR
+        item.GetComponent<BattleAttack>().FindTergets(players, Random.Range(0, 100) < 300 ? 1 : 0);//百分之3的概率为背刺怪
+#endif
+
+        
         
         //点击怪物
         //if (item.GetComponent<Button>().enabled)

@@ -297,13 +297,15 @@ namespace StateMachine
         /// <summary>
         /// 是否背刺0不背刺1背刺
         /// </summary>
-        int isBackstab= 0;
+        public int isBackstab= 0;
         public void Backstab(int _isBackstab=0)
         {
             isBackstab = _isBackstab;
         }
-
-        float _BehindDistance = 600f;
+        /// <summary>
+        /// 背刺距离
+        /// </summary>
+        public float _BehindDistance = 600f;
         /// <summary>
         /// 是否到达背刺地点
         /// </summary>
@@ -315,7 +317,7 @@ namespace StateMachine
             if (isBackstab!=1)
             {
                 float distance = Vector2.Distance(new Vector2(transform.position.x, 0), new Vector2(TatgetObg.transform.position.x, 0));
-                if (AttackDistance >= distance)
+                if (AttackDistance > distance)
                 {
                     RbZero();
                     return true;
@@ -324,24 +326,14 @@ namespace StateMachine
                     return false;
             }else
             {
-                if (transform.position.x < _BehindDistance)
+                float distance = Vector2.Distance(new Vector2(transform.position.x, 0), new Vector2(TatgetObg.transform.position.x, 0));
+                if (transform.position.x < TatgetObg.transform.position.x-_BehindDistance || isBackstabpos)
                 {
                     RbZero();
                     isBackstabpos = true;
                     return true;
                 }
-                else
-                {   
-                    if(isBackstabpos)
-                    {
-                        RbZero();
-                        return true;
-                    }else
-                    {
-                        return false;
-                    }
-                }
-
+                return false;
             }
                 
         }

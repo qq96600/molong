@@ -147,14 +147,61 @@ public class panel_equip : Panel_Base
         else
          if (index == 2)
         {
-            int moeny= crt_bag.Data.price;
+            sell();
+            //int moeny= crt_bag.Data.price;
+            //SumSave.crt_user_unit.verify_data(currency_unit.灵珠, moeny);
+            //Alert_Dec.Show("出售成功 获得灵珠" + moeny);
+            //SumSave.crt_bag.Remove(crt_bag.Data);
+            //Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.bag_value, SumSave.crt_bag);
+            //SellingSellingEquipmentTask();
+        }
+        Refresh();
+    }
+    /// <summary>
+    /// 出售单个物品
+    /// </summary>
+    private void sell()
+    {
+        int moeny = crt_bag.Data.price;
+        bool exist = true;
+        string[] info_str = crt_bag.Data.user_value.Split(' ');
+        if (info_str.Length >= 6)
+        {
+            //回收绝世
+            if (info_str[2] == "7")
+            {
+                exist = false;
+                List<(string, int)> list = SumSave.crt_needlist.SetMap();
+                int number = 0, value = 0;
+                for (int i = 0; i < list.Count; i++)
+                {
+                    if (list[i].Item1 == "背包回收魔丸")
+                    {
+                        number = list[i].Item2;
+                        value = list[i].Item2;
+                    }
+                }
+                if (number + (crt_bag.Data.need_lv / 2 + 1) < 50)
+                {
+                    number += (crt_bag.Data.need_lv / 2 + 1);
+                    SumSave.crt_user_unit.verify_data(currency_unit.魔丸, (crt_bag.Data.need_lv / 2 + 1));
+                    string dec = "出售奖励\n" + "本次出售获得魔丸 " + ((crt_bag.Data.need_lv / 2 + 1)) + "\n今日剩余获取魔丸" + (50 - number);
+                    Alert.Show("出售奖励", dec);
+                    SumSave.crt_needlist.SetMap(("背包回收魔丸", number));
+                    exist = true;
+                }
+                else Alert_Dec.Show("本日绝世装备出售已满");
+            }
+        }
+        if (exist)
+        {
             SumSave.crt_user_unit.verify_data(currency_unit.灵珠, moeny);
             Alert_Dec.Show("出售成功 获得灵珠" + moeny);
             SumSave.crt_bag.Remove(crt_bag.Data);
             Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.bag_value, SumSave.crt_bag);
             SellingSellingEquipmentTask();
         }
-        Refresh();
+        
     }
     /// <summary>
     /// 回收装备任务

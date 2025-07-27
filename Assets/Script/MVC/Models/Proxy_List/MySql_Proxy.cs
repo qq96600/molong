@@ -50,8 +50,10 @@ namespace MVC
             Read_Guide_Fate();
             Read_db_vip();
             Read_db_formula();
+            Read_db_strengthen_needlist();
             Read_db_weather();
             Read_Db_Suit();
+            Read_db_Equip_Suits();
             Read_Db_Dec();
             ReadDb_Endless();
             CloseMySqlDB();
@@ -69,8 +71,6 @@ namespace MVC
                 }
             }
         }
-
-
         /// <summary>
         /// 获得天气
         /// </summary>
@@ -86,8 +86,21 @@ namespace MVC
                 }
             }
         }
-
-
+        /// <summary>
+        /// 读取强化需求列表
+        /// </summary>
+        public void Read_db_strengthen_needlist()
+        {
+            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_strengthen_needlist);
+            SumSave.db_strengthen_need_list = new List<db_strengthen_need_Vo>();
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.db_strengthen_need_list.Add(ReadDb.Read_needstrengthen(mysqlReader));
+                }
+            }
+        }
         /// <summary>
         /// 读取造化炉合成列表
         /// </summary>
@@ -345,7 +358,21 @@ namespace MVC
             }
         }
 
+        private void Read_db_Equip_Suits()
+        {
+            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_equip_suit);
 
+            SumSave.db_Equip_Suits = new List<db_equip_suit_vo>();
+
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    SumSave.db_Equip_Suits.Add(ReadDb.Read_equip_suit(mysqlReader));
+                }
+            }
+
+        }
 
         /// <summary>
         /// 套装

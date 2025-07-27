@@ -124,7 +124,7 @@ public class Daily_copies : Base_Mono
     public override void Show()
     {
         base.Show();
-        if (SumSave.crt_MaxHero.Lv < 30&& SumSave.ios_account_number != "admin001")
+        if (SumSave.crt_MaxHero.Lv < 30 && SumSave.ios_account_number != "admin001")
         {
             Alert_Dec.Show("副本开启等级为30级");
             gameObject.SetActive(false);
@@ -142,7 +142,7 @@ public class Daily_copies : Base_Mono
         int maxnumber = SumSave.crt_MaxHero.Lv / 100 + 1;
         for (int i = SumSave.db_maps.Count - 1; i > 0; i--)
         {
-            if (SumSave.db_maps[i].map_type == 4)
+            if (SumSave.db_maps[i].map_type == 4&& SumSave.db_maps[i].need_Required=="")
             {
                 int number = 0;
                 for (int j = 0; j < list.Count; j++)
