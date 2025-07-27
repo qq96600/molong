@@ -95,6 +95,10 @@ public class AttackStateMachine : MonoBehaviour
         Animator_State();
         if (arrowType == Arrow_Type.idle)//&& SumSave.battleMonsterHealths.Count>0
         {
+            if(StateMachine.isBackstab ==1&& StateMachine.isBackstabpos != true)
+            {
+                return;
+            }
             AttackSpeedCounter -= Time.deltaTime * 90f;
             if (AttackSpeedCounter <= 0)
             {
@@ -134,6 +138,7 @@ public class AttackStateMachine : MonoBehaviour
         {
             transform.position = initPosition;
         }
+        StartCoroutine(isExceed());
     }
 
 
