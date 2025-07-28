@@ -111,7 +111,16 @@ public class Endless_Tower : Panel_Base
         {
             str = "已获得奖励次数:0/1";
         }
-        str += "\n最大击杀数量："+ SumSave.crt_endless_battle.endless_dic[SumSave.uid].num;
+
+
+        if(SumSave.crt_endless_battle.endless_dic.ContainsKey(SumSave.uid))
+        {
+            str += "\n最大击杀数量：" + SumSave.crt_endless_battle.endless_dic[SumSave.uid].num;
+        }else
+        {
+            str += "\n最大击杀数量：0";
+        }
+       
         number.text = str;
     }
     public override void Hide()

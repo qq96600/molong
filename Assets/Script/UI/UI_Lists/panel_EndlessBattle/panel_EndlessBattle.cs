@@ -282,6 +282,15 @@ public class panel_EndlessBattle : Panel_Base
             {
                 return;
             }
+        }else
+        {
+            SendNotification(NotiList.Read_EndlessBattle);
+            user_endless_battle.endlsess_battle data = new user_endless_battle.endlsess_battle();
+            data.endless_uid = SumSave.uid;
+            data.name = SumSave.crt_hero.hero_name;
+            data.type = SumSave.crt_hero.hero_pos;
+            data.num = _num;
+            SumSave.crt_endless_battle.AddEndless(data, true);
         }
     }
     /// <summary>
@@ -558,7 +567,7 @@ public class panel_EndlessBattle : Panel_Base
         item.GetComponent<BattleAttack>().FindTergets(players, Random.Range(0, 100) < 3 ? 1 : 0);//百分之3的概率为背刺怪
 
 #if UNITY_EDITOR
-        item.GetComponent<BattleAttack>().FindTergets(players, Random.Range(0, 100) < 300 ? 1 : 0);//百分之3的概率为背刺怪
+        //item.GetComponent<BattleAttack>().FindTergets(players, Random.Range(0, 100) < 300 ? 1 : 0);//百分之3的概率为背刺怪
 #endif
 
         

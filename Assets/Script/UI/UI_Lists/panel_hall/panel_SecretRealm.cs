@@ -2,9 +2,8 @@ using Common;
 using Components;
 using MVC;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using TMPro;
+using System.Text;
 using UI;
 using UnityEngine;
 using UnityEngine.UI;
@@ -100,98 +99,55 @@ public class panel_SecretRealm : Base_Mono
         OnValueChanged(dropdown.value);
     }
 
+
+
     /// <summary>
     /// 选择难度
     /// </summary>
     /// <param name="arg0"></param>
+
     private void OnValueChanged(int arg0)
     {
-        string str = "";
-        for (int i = 0; i < Enum.GetNames(typeof(enum_equip_quality_list)).Length; i++)
+        ///获得装备品质枚举
+        var enumNames = Enum.GetNames(typeof(enum_equip_quality_list));
+        ///获得下拉列表的值
+        var selectedValue = dropdown.value;
+        ///判断是否为最后一个选项
+        bool isLastOption = selectedValue == enumNames.Length - 1;
+        ///创建一个StringBuilder对象来构建字符串
+        var stringBuilder = new StringBuilder();
+
+        for (int i = 0; i < enumNames.Length; i++)
         {
-            if(dropdown.value != Enum.GetNames(typeof(enum_equip_quality_list)).Length-1)
-            {
-                if (dropdown.value == i)
-                {
-                    if (qualityColors.Length > i)
-                    {
-                        str += "<color=" + qualityColors[i] + ">" + Enum.GetNames(typeof(enum_equip_quality_list))[i] + ": 50%</color>\n";
-                    }
-                    else
-                    {
-                        str += Enum.GetNames(typeof(enum_equip_quality_list))[i] + ": 50%\n";
-                    }
+            string percentage = GetPercentage(selectedValue, i, isLastOption);
+            string colorTag = qualityColors.Length > i ? $"<color={qualityColors[i]}>" : "";
+            string colorCloseTag = qualityColors.Length > i ? "</color>" : "";
 
-                }
-                else
-                if (dropdown.value - 1 == i)
-                {
-
-                    if (qualityColors.Length > i)
-                    {
-                        str += "<color=" + qualityColors[i] + ">" + Enum.GetNames(typeof(enum_equip_quality_list))[i] + ": 45%</color>\n";
-                    }
-                    else
-                    {
-                        str += Enum.GetNames(typeof(enum_equip_quality_list))[i] + ": 45%\n";
-                    }
-
-                }
-                else if (dropdown.value + 1 == i)
-                {
-
-                    if (qualityColors.Length > i)
-                    {
-                        str += "<color=" + qualityColors[i] + ">" + Enum.GetNames(typeof(enum_equip_quality_list))[i] + ": 5%</color>\n";
-                    }
-                    else
-                    {
-                        str += Enum.GetNames(typeof(enum_equip_quality_list))[i] + ": 5%\n";
-                    }
-                }
-                else
-                {
-                    if (qualityColors.Length > i)
-                    {
-                        str += "<color=" + qualityColors[i] + ">" + Enum.GetNames(typeof(enum_equip_quality_list))[i] + ": 0%</color>\n";
-                    }
-                    else
-                    {
-                        str += Enum.GetNames(typeof(enum_equip_quality_list))[i] + ": 0%\n";
-                    }
-                }
-            }else
-            {
-                if (dropdown.value== i)
-                {
-                    if (qualityColors.Length > i)
-                    {
-                        str += "<color=" + qualityColors[i] + ">" + Enum.GetNames(typeof(enum_equip_quality_list))[i] + ": 10%</color>\n";
-                    }
-                    else
-                    {
-                        str += Enum.GetNames(typeof(enum_equip_quality_list))[i] + ": 10%\n";
-                    }
-                }else
-                {
-                    if (qualityColors.Length > i)
-                    {
-                        str += "<color=" + qualityColors[i] + ">" + Enum.GetNames(typeof(enum_equip_quality_list))[i] + ": 0%</color>\n";
-                    }
-                    else
-                    {
-                        str += Enum.GetNames(typeof(enum_equip_quality_list))[i] + ": 0%\n";
-                    }
-                }
-
-            }
-            
+            stringBuilder.Append($"{colorTag}{enumNames[i]}: {percentage}{colorCloseTag}\n");
         }
-        drop_rate.text= str;
+
+        drop_rate.text = stringBuilder.ToString();
     }
+    /// <summary>
+    /// 获得对应概率
+    /// </summary>
+    /// <param name="selectedValue"></param>
+    /// <param name="currentIndex"></param>
+    /// <param name="isLastOption"></param>
+    /// <returns></returns>
+    private string GetPercentage(int selectedValue, int currentIndex, bool isLastOption)
+    {
+        if (isLastOption)
+        {
+            return selectedValue == currentIndex ? "10%" : "0%";
+        }
 
+        if (selectedValue == currentIndex) return "50%";
+        if (selectedValue - 1 == currentIndex) return "45%";
+        if (selectedValue + 1 == currentIndex) return "5%";
 
-
+        return "0%";
+    }
 
 
     /// <summary>
@@ -288,9 +244,9 @@ public class panel_SecretRealm : Base_Mono
     public override void Show()
     {
         base.Show();
-        transform.gameObject.SetActive(false);
-        Alert_Dec.Show("秘境即将开放");
-        return;
+        //transform.gameObject.SetActive(false);
+        //Alert_Dec.Show("秘境即将开放");
+        //return;
 
         if (SumSave.crt_MaxHero.Lv < 30 && SumSave.ios_account_number != "admin001")
         {
