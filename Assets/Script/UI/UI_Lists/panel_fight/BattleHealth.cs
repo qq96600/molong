@@ -203,7 +203,7 @@ namespace MVC
             }
 
 //#if UNITY_EDITOR
-           number = 1000000;
+           //number = 1000000;
 //#endif
 
 
@@ -352,6 +352,7 @@ namespace MVC
         {
             if (gameObject.activeInHierarchy)
             {
+                gameObject.SetActive(false);
                 yield return new WaitForSeconds(0.8f);
                 ObjectPoolManager.instance.PushObjectToPool(healthname, this.gameObject);
             }

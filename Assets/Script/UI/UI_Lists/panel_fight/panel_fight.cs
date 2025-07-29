@@ -440,6 +440,7 @@ public class panel_fight : Panel_Base
     {
         if (health.GetComponent<player_battle_attck>() != null)
         { 
+            
             players.Remove(health);
         }else if (health.GetComponent<monster_battle_attck>() != null)
             monsters.Remove(health);
