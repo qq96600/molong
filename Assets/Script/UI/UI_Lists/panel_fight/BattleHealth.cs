@@ -38,7 +38,9 @@ namespace MVC
         }
         public void Clear()
         { 
-           ObjectPoolManager.instance.PushObjectToPool(GetComponent<BattleAttack>().Data.show_name, this.gameObject);
+
+            StopAllCoroutines();
+            ObjectPoolManager.instance.PushObjectToPool(GetComponent<BattleAttack>().Data.show_name, this.gameObject);
         }
         /// <summary>
         /// 回复生命魔法
@@ -97,9 +99,7 @@ namespace MVC
 
                     SumSave.crt_achievement.increase_date_Exp((Achieve_collect.死亡).ToString(), 1);
                 }
-
                 transform.parent.parent.parent.SendMessage("clearhealth", this);
-
                 StartCoroutine(WaitAndDestory(GetComponent<BattleAttack>().Data.show_name));
             }
         }
@@ -353,9 +353,9 @@ namespace MVC
         {
             if (gameObject.activeInHierarchy)
             {
-                //yield return new WaitForSeconds(0.8f);
-                yield return new WaitForSeconds(10f);
+                yield return new WaitForSeconds(0.48f);
                 ObjectPoolManager.instance.PushObjectToPool(healthname, this.gameObject);
+                transform.parent.parent.parent.SendMessage("clearSumhealth", this);
             }
         }
 
