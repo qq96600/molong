@@ -244,13 +244,8 @@ public class panel_SecretRealm : Base_Mono
     public override void Show()
     {
         base.Show();
-<<<<<<< HEAD
-        Alert_Dec.Show("¼´½«¿ª·Å");
-        gameObject.SetActive(false);
-=======
         transform.gameObject.SetActive(false);
         Alert_Dec.Show("ç§˜å¢ƒå³å°†å¼€æ”¾");
->>>>>>> acced0fe759a647682d7b1bc1abf3fcc7e169100
         return;
         if (SumSave.crt_MaxHero.Lv < 30 && SumSave.ios_account_number != "admin001")
         {

@@ -37,6 +37,7 @@ namespace MVC
         }
         public void Clear()
         {
+            StopAllCoroutines();
             ObjectPoolManager.instance.PushObjectToPool(GetComponent<BattleAttack>().Data.show_name, this.gameObject);
         }
         /// <summary>
@@ -96,9 +97,7 @@ namespace MVC
 
                     SumSave.crt_achievement.increase_date_Exp((Achieve_collect.死亡).ToString(), 1);
                 }
-
                 transform.parent.parent.parent.SendMessage("clearhealth", this);
-
                 StartCoroutine(WaitAndDestory(GetComponent<BattleAttack>().Data.show_name));
             }
         }
@@ -352,9 +351,9 @@ namespace MVC
         {
             if (gameObject.activeInHierarchy)
             {
-                gameObject.SetActive(false);
-                yield return new WaitForSeconds(0.8f);
+                yield return new WaitForSeconds(0.48f);
                 ObjectPoolManager.instance.PushObjectToPool(healthname, this.gameObject);
+                transform.parent.parent.parent.SendMessage("clearSumhealth", this);
             }
         }
 
