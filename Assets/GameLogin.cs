@@ -59,8 +59,6 @@ public class GameLogin : Singleton<GameLogin>
                 {
                     TapTapLogin.TAP_LOGIN_SCOPE_PUBLIC_PROFILE,
                 };
-            // 发起 Tap 登录
-            Alert_Dec.Show("发起Tap登录");
             var userInfo = await TapTapLogin.Instance.LoginWithScopes(scopes.ToArray());
             AntiAddiction();
             SumSave.Tapid = userInfo.openId;

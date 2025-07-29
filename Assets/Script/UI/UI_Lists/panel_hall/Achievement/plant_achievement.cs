@@ -203,9 +203,6 @@ public class plant_achievement : Base_Mono
                         SumSave.crt_achievement.up_date_Exp((Achieve_collect.技能数量).ToString(), SumSave.crt_skills.Count);//更新技能数量
                     }
 
-
-                    
-
                     ach_item item = Instantiate(Achieve_Item_Prefab, crt);//实例化具体成就
                     item.Data = SumSave.db_Achievement_dic[j];//获取成就信息
                     //读取数据
