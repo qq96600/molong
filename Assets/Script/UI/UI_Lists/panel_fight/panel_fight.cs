@@ -143,6 +143,7 @@ public class panel_fight : Panel_Base
 
     private void RefreshStatus()
     {
+        Debug.Log("刷新状态");
         if (players != null)
         {
             if (players.Count > 0)
@@ -153,6 +154,10 @@ public class panel_fight : Panel_Base
                 }
             }
         }
+        else
+        {
+            Debug.Log("玩家为空");
+        }
         if (monsters != null)
         {
             if (monsters.Count > 0)
@@ -162,6 +167,9 @@ public class panel_fight : Panel_Base
                     monsters[i].GetComponent<BattleAttack>().FindTergets(players);
                 }
             }
+        }else
+        {
+            Debug.Log("怪物为空");
         }
         openRefreshStatus = false;
     }
@@ -219,6 +227,7 @@ public class panel_fight : Panel_Base
     {
         base.Show();
         AudioManager.Instance.ChangeBGM(BGMenum.开启);
+        openRefreshStatus = true;
     }
     public override void Hide()
     { 
@@ -323,6 +332,7 @@ public class panel_fight : Panel_Base
     public void Open_Map(user_map_vo map,bool isCopies = false)
     {
         trial_storey = -1;
+        openRefreshStatus = true;
         if (!isCopies)
         {
             if(map.map_type==1)//普通地图记录切换
@@ -430,6 +440,7 @@ public class panel_fight : Panel_Base
     {
         if (health.GetComponent<player_battle_attck>() != null)
         { 
+            
             players.Remove(health);
         }else if (health.GetComponent<monster_battle_attck>() != null)
             monsters.Remove(health);
@@ -482,12 +493,6 @@ public class panel_fight : Panel_Base
                 monsters[i].Clear();
             }
             monsters.Clear();
-
-            //for (int i = pos_monster.childCount - 1; i >= 0; i--)
-            //{
-            //    pos_monster.GetChild(i).gameObject.GetComponent<BattleHealth>().Clear();
-            //}
-            //monsters.Clear();
         }
         else monsters = new List<BattleHealth>();
         if (players != null)
@@ -497,12 +502,6 @@ public class panel_fight : Panel_Base
                 players[i].Clear();
             }
             players.Clear();
-
-            //for (int i = pos_player.childCount - 1; i >= 0; i--)
-            //{
-            //    pos_player.GetChild(i).gameObject.GetComponent<BattleHealth>().Clear();
-            //}
-            //players.Clear();
         }
         else players = new List<BattleHealth>();
         crt_map_monsters.Clear();

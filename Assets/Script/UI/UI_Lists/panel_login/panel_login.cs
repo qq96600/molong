@@ -285,13 +285,11 @@ namespace MVC
                 PlayerPrefs.SetInt("同意阅读协议", 0);
                 return;
             }
-            Alert_Dec.Show("点击登录");
-            _ = GameLogin.Instance.Login();
 #if UNITY_EDITOR
             TaploginBt.gameObject.SetActive(false);
             loginBt.gameObject.SetActive(true);
 #elif UNITY_ANDROID
-            //_ = GameLogin.Instance.Login();
+            _ = GameLogin.Instance.Login();
 #elif UNITY_IPHONE
 
 #endif
@@ -393,11 +391,11 @@ namespace MVC
             PlayerPrefs.SetInt("同意阅读协议", 1);
 #if UNITY_EDITOR
             #region ios区 
-            SumSave.uid = "DSFSDFSDFSDF"; // 32ac681e5ca845dc9eda67b30a36f6fa
+            SumSave.uid = "DSFSDFSDFSDF3"; // 32ac681e5ca845dc9eda67b30a36f6fa
             //SumSave.uid = "e8735c45680048f8a3494d7107a9e5a5";//都做了土（ip） 
             //SumSave.uid = "399be5eb64f84f01b2e4817bba58a4e3";//殇璃（ip） 
 
-            SumSave.par = -1;
+            //SumSave.par = -1;
             #endregion
             #region 安卓区
             //SumSave.uid = "DSFSDFSDFSDF3";//

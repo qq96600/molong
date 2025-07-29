@@ -146,7 +146,7 @@ namespace MVC
                 }
             }
         }
-        private string[] versions = new string[] {"0.2025.02", "0.2025.03" };
+        private string[] versions = new string[] {"0.2025.03", "0.2025.04" };
         /// <summary>
         /// 检测次数
         /// </summary>
