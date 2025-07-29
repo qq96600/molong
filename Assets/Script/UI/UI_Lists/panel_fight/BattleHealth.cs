@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Common;
 using Components;
+using StateMachine;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -36,8 +37,8 @@ namespace MVC
             EnergyMp = EnergymaxMp;
         }
         public void Clear()
-        {
-            ObjectPoolManager.instance.PushObjectToPool(GetComponent<BattleAttack>().Data.show_name, this.gameObject);
+        { 
+           ObjectPoolManager.instance.PushObjectToPool(GetComponent<BattleAttack>().Data.show_name, this.gameObject);
         }
         /// <summary>
         /// 回复生命魔法
@@ -352,8 +353,8 @@ namespace MVC
         {
             if (gameObject.activeInHierarchy)
             {
-                gameObject.SetActive(false);
-                yield return new WaitForSeconds(0.8f);
+                //yield return new WaitForSeconds(0.8f);
+                yield return new WaitForSeconds(10f);
                 ObjectPoolManager.instance.PushObjectToPool(healthname, this.gameObject);
             }
         }

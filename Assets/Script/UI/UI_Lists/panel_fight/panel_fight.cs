@@ -455,6 +455,7 @@ public class panel_fight : Panel_Base
 
     private void crate_hero()
     {
+       
         crtMaxHeroVO crt = SumSave.crt_MaxHero;
         GameObject item = ObjectPoolManager.instance.GetObjectFormPool(crt.show_name, player_battle_attack_prefabs,
             new Vector3(pos_player.position.x, pos_player.position.y, pos_player.position.z), Quaternion.identity, pos_player);
@@ -475,6 +476,7 @@ public class panel_fight : Panel_Base
     /// </summary>
     private void init()
     {
+
         crt_monster_number = 0;
         maxnumber = 100;
         switch (select_map.map_type)
@@ -493,6 +495,7 @@ public class panel_fight : Panel_Base
                 monsters[i].Clear();
             }
             monsters.Clear();
+            //ClearObject(pos_monster);
         }
         else monsters = new List<BattleHealth>();
         if (players != null)
@@ -502,6 +505,7 @@ public class panel_fight : Panel_Base
                 players[i].Clear();
             }
             players.Clear();
+            //ClearObject(pos_player);
         }
         else players = new List<BattleHealth>();
         crt_map_monsters.Clear();

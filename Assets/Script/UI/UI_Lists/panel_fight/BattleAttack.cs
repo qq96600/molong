@@ -248,6 +248,7 @@ namespace MVC
             {
                 for (int i = 0; i < Tergets.Count; i++)
                 {
+                    if(Tergets[i]==null) continue;
                     if (Tergets[i].HP <= 0 || Tergets[i].gameObject.activeSelf == false)
                     {
                         //Debug.Log("报空");
