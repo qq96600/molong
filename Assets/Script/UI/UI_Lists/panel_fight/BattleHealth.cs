@@ -67,10 +67,10 @@ namespace MVC
         }
         public void TakeDamage(long damage, DamageEnum damageEnum )
         {
-            if (HP <= 0) return;
+            if (HP < 0) return;
 
 #if UNITY_EDITOR
-            //damage = 10000000;
+            //damage = 100;
 #elif UNITY_ANDROID
 #elif UNITY_IPHONE
 #endif
@@ -96,6 +96,7 @@ namespace MVC
 
                     SumSave.crt_achievement.increase_date_Exp((Achieve_collect.死亡).ToString(), 1);
                 }
+
                 transform.parent.parent.parent.SendMessage("clearhealth", this);
 
                 StartCoroutine(WaitAndDestory(GetComponent<BattleAttack>().Data.show_name));
@@ -200,6 +201,12 @@ namespace MVC
                 number *= 2;
                 Game_Omphalos.i.Alert_Show("获得双倍掉落");
             }
+
+//#if UNITY_EDITOR
+           number = 1000000;
+//#endif
+
+
             ClearanceMapTask(monster);
             Game_Omphalos.i.GetQueue(
                         Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user, SumSave.crt_user_unit.Set_Uptade_String(), SumSave.crt_user_unit.Get_Update_Character());

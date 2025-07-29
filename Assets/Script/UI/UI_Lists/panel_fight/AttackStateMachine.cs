@@ -62,7 +62,7 @@ public class AttackStateMachine : MonoBehaviour
     /// <summary>
     /// 是否在攻击动作中
     /// </summary>
-    private bool isAttacking = false;
+    public bool isAttacking = false;
     /// <summary>
     /// 冲撞距离
     /// </summary>
@@ -209,8 +209,9 @@ public class AttackStateMachine : MonoBehaviour
         AttackSpeed = battle.Data.attack_speed;
         AttackSpeedCounter = AttackSpeed;
         Target = target;
-       // StateMachine.isBackstabpos=false;
-     }
+       
+        // StateMachine.isBackstabpos=false;
+    }
     /// <summary>
     /// 技能释放控制
     /// </summary>
@@ -218,7 +219,7 @@ public class AttackStateMachine : MonoBehaviour
     public void Skill(base_skill_vo skill)
     {
         Transform pos=battle.transform;
-        
+        isAttacking = false;
         GameObject skill_prefabs = Resources.Load<GameObject>("Prefabs/panel_skill/Skill_Effects/" + skill.skillname);
         switch ((skill_pos_type)skill.skill_state)
         {
