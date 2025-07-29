@@ -289,6 +289,7 @@ public class panel_SecretRealm : Base_Mono
     {
         base.Show();
         Alert_Dec.Show("¼´½«¿ª·Å");
+        gameObject.SetActive(false);
         return;
         if (SumSave.crt_MaxHero.Lv < 30 && SumSave.ios_account_number != "admin001")
         {
