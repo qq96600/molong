@@ -125,6 +125,7 @@ namespace MVC
                 hp_text.text = Battle_Tool.FormatNumberToChineseUnit(target.HP) + "/" + Battle_Tool.FormatNumberToChineseUnit(target.maxHP);
                 target.maxMP= data.MaxMp;
                 target.MP= data.MaxMp;
+                AttackStateMachine.isAttacking = false;
                 //Terget = null;
                 string dec = "";
                

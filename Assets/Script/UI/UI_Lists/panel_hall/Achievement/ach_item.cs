@@ -77,7 +77,6 @@ public class ach_item : Base_Mono
         else
         {
             info.text += data.achievement_show_lv[0];
-            info.text += data.achievement_show_lv[0];
             info.text += " (" +"0" + "/" + data.achievement_needs[0] + ")";
         }
         

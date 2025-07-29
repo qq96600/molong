@@ -285,7 +285,7 @@ namespace MVC
                 PlayerPrefs.SetInt("同意阅读协议", 0);
                 return;
             }
-            Alert_Dec.Show("点击登录");
+
 #if UNITY_EDITOR
             TaploginBt.gameObject.SetActive(false);
             loginBt.gameObject.SetActive(true);
