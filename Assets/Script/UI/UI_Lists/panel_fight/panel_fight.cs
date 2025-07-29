@@ -98,6 +98,10 @@ public class panel_fight : Panel_Base
     /// </summary>
     private List<BattleHealth> players=new List<BattleHealth>(), monsters=new List<BattleHealth>();
     /// <summary>
+    /// 全部对象
+    /// </summary>
+    private List<BattleHealth> sumhealths = new List<BattleHealth>();
+    /// <summary>
     /// 状态刷新开关
     /// </summary>
     private bool openRefreshStatus = true;
@@ -440,11 +444,18 @@ public class panel_fight : Panel_Base
     {
         if (health.GetComponent<player_battle_attck>() != null)
         { 
-            
             players.Remove(health);
         }else if (health.GetComponent<monster_battle_attck>() != null)
             monsters.Remove(health);
         openRefreshStatus = true;
+    }
+    /// <summary>
+    /// 播放完死亡动画后完全回收
+    /// </summary>
+    /// <param name="health"></param>
+    protected void clearSumhealth(BattleHealth health)
+    { 
+        sumhealths.Remove(health);
     }
 
 
@@ -455,6 +466,7 @@ public class panel_fight : Panel_Base
 
     private void crate_hero()
     {
+       
         crtMaxHeroVO crt = SumSave.crt_MaxHero;
         GameObject item = ObjectPoolManager.instance.GetObjectFormPool(crt.show_name, player_battle_attack_prefabs,
             new Vector3(pos_player.position.x, pos_player.position.y, pos_player.position.z), Quaternion.identity, pos_player);
@@ -466,6 +478,7 @@ public class panel_fight : Panel_Base
         //item.GetComponent<Button>().enabled = true;
         //SumSave.battleHeroHealths.Add(item.GetComponent<BattleHealth>());
         players.Add(item.GetComponent<BattleHealth>());
+        sumhealths.Add(item.GetComponent<BattleHealth>());
         openRefreshStatus = true;
         role_health.SetHealth(item.GetComponent<BattleHealth>());
     }
@@ -475,6 +488,7 @@ public class panel_fight : Panel_Base
     /// </summary>
     private void init()
     {
+
         crt_monster_number = 0;
         maxnumber = 100;
         switch (select_map.map_type)
@@ -486,24 +500,31 @@ public class panel_fight : Panel_Base
             default:
                 break;
         }
-        if (monsters != null)
+        for (int i = 0; i < sumhealths.Count; i++)
         {
-            for (int i = 0; i < monsters.Count; i++)
-            {
-                monsters[i].Clear();
-            }
-            monsters.Clear();
+
+            sumhealths[i].Clear();
         }
-        else monsters = new List<BattleHealth>();
-        if (players != null)
-        {
-            for (int i = 0; i < players.Count; i++)
-            {
-                players[i].Clear();
-            }
-            players.Clear();
-        }
-        else players = new List<BattleHealth>();
+        monsters.Clear();
+        players.Clear();
+        //if (monsters != null)
+        //{
+        //    for (int i = 0; i < monsters.Count; i++)
+        //    {
+        //        monsters[i].Clear();
+        //    }
+        //    monsters.Clear();
+        //}
+        //else monsters = new List<BattleHealth>();
+        //if (players != null)
+        //{
+        //    for (int i = 0; i < players.Count; i++)
+        //    {
+        //        players[i].Clear();
+        //    }
+        //    players.Clear();
+        //}
+        //else players = new List<BattleHealth>();
         crt_map_monsters.Clear();
         if (select_map.map_type == 6)
         {
@@ -721,6 +742,7 @@ public class panel_fight : Panel_Base
         //item.GetComponent<Button>().enabled = true;
         //SumSave.battleMonsterHealths.Add(item.GetComponent<BattleHealth>());
         monsters.Add(item.GetComponent<BattleHealth>());
+        sumhealths.Add(item.GetComponent<BattleHealth>());
         openRefreshStatus = true;
         Open_Monster_State=true;
         ShowInfoMap();

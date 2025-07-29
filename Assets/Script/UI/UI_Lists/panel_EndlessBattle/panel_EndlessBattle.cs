@@ -86,6 +86,10 @@ public class panel_EndlessBattle : Panel_Base
      //对象池
     /// </summary>
     private List<BattleHealth> players=new List<BattleHealth>(), monsters=new List<BattleHealth>();
+    /// <summary>
+    /// 全部对象
+    /// </summary>
+    private List<BattleHealth> sumhealths = new List<BattleHealth>();
     private bool openRefreshStatus = true;
     /// <summary>
     /// 刷怪间隔
@@ -140,6 +144,16 @@ public class panel_EndlessBattle : Panel_Base
     {
         Combat_statistics.Init();
     }
+
+    /// <summary>
+    /// 播放完死亡动画后完全回收
+    /// </summary>
+    /// <param name="health"></param>
+    protected void clearSumhealth(BattleHealth health)
+    {
+        sumhealths.Remove(health);
+    }
+
 
     /// <summary>
     /// 显示战斗信息
@@ -205,7 +219,8 @@ public class panel_EndlessBattle : Panel_Base
                 exist = false;
                 //list[i] = (list[i].Item1, list[i].Item2 + 1);
                 //SumSave.crt_needlist.SetMap(list[i]);
-                Alert_Dec.Show("今日无尽试炼已获得过奖励");
+                Alert.Show("挑战结束","今日无尽试炼已获得过奖励"+ "\n本次击杀 "+kill_monster_number+"只怪物");
+
                 break;
             }
         }
@@ -411,6 +426,7 @@ public class panel_EndlessBattle : Panel_Base
         //    item.GetComponent<Button>().onClick.AddListener(delegate { AudioManager.Instance.playAudio(ClipEnum.购买物品); SelectMonster(item.GetComponent<MonsterBattleAttack>()); });
         //item.GetComponent<Button>().enabled = true;
         players.Add(item.GetComponent<BattleHealth>());
+        sumhealths.Add(item.GetComponent<BattleHealth>());
         role_health.SetHealth(item.GetComponent<BattleHealth>());
     }
 
@@ -429,22 +445,31 @@ public class panel_EndlessBattle : Panel_Base
             default:
                 break;
         }
-        if (monsters != null)
+        for (int i = 0; i < sumhealths.Count; i++)
         {
-            for (int i = pos_monster.childCount - 1; i >= 0; i--)
-            {
-                pos_monster.GetChild(i).gameObject.GetComponent<BattleHealth>().Clear();
-            }
-            monsters.Clear();
-        }else monsters=new List<BattleHealth>();
-        if (players != null)
-        {
-            for (int i = pos_player.childCount - 1; i >= 0; i--)
-            {
-                pos_player.GetChild(i).gameObject.GetComponent<BattleHealth>().Clear();
-            }
-            players.Clear();
-        }else players=new List<BattleHealth>();
+
+            sumhealths[i].Clear();
+        }
+        monsters.Clear();
+        players.Clear();
+
+
+        //if (monsters != null)
+        //{
+        //    for (int i = pos_monster.childCount - 1; i >= 0; i--)
+        //    {
+        //        pos_monster.GetChild(i).gameObject.GetComponent<BattleHealth>().Clear();
+        //    }
+        //    monsters.Clear();
+        //}else monsters=new List<BattleHealth>();
+        //if (players != null)
+        //{
+        //    for (int i = pos_player.childCount - 1; i >= 0; i--)
+        //    {
+        //        pos_player.GetChild(i).gameObject.GetComponent<BattleHealth>().Clear();
+        //    }
+        //    players.Clear();
+        //}else players=new List<BattleHealth>();
 
         crt_map_monsters.Clear();
         if (select_map.map_type == 7)
@@ -570,12 +595,13 @@ public class panel_EndlessBattle : Panel_Base
         //item.GetComponent<BattleAttack>().FindTergets(players, Random.Range(0, 100) < 300 ? 1 : 0);//百分之3的概率为背刺怪
 #endif
 
-        
-        
+
+
         //点击怪物
         //if (item.GetComponent<Button>().enabled)
         //    item.GetComponent<Button>().onClick.AddListener(delegate { AudioManager.Instance.playAudio(ClipEnum.购买物品); SelectMonster(item.GetComponent<BattleAttack>()); });
         //item.GetComponent<Button>().enabled = true;
+        sumhealths.Add(item.GetComponent<BattleHealth>());
         monsters.Add(item.GetComponent<BattleHealth>());
         Open_Monster_State = true;
         openRefreshStatus = true;
