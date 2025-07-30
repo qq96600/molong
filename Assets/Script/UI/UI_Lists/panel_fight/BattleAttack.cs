@@ -380,7 +380,8 @@ namespace MVC
             if (monster.target.HP <= 0) return;//结战斗
             float damage = Base_Damage(monster, skill);
             damage += skill.skill_spell * target.maxMP / 100;
-            damage = damage * (skill.skill_damage + (skill.skill_power * lv)) / 100;
+            damage = damage * (skill.skill_damage + (skill.skill_power * lv)+ Tool_State.Value_playerprobabilit(enum_skill_attribute_list.技能伤害)) / 100;
+            //damage = damage * (skill.skill_damage + (skill.skill_power * lv)) / 100;
             //内力伤害
             if (skill.user_values[3] != "")
             {
@@ -401,7 +402,11 @@ namespace MVC
             //判断五行伤害
             int life = restrain_value(skill.skill_life-1, monster.Data.life);
             if (life < 0) damage = (damage / 2) * (100 + (life)) / 100f;
-            else damage = damage * (100 + (life)) / 100f;
+            else
+            {
+                life += Tool_State.Value_playerprobabilit(enum_skill_attribute_list.五行伤害);
+                damage = damage * (100 + (life)) / 100f;
+            } 
             if (iSnHit(monster))
             {
                 //传递消息，未命中;
@@ -413,8 +418,9 @@ namespace MVC
             {
                 damage = damage * data.crit_damage / 100;
             }
-
             damage = MathF.Max(1, damage);
+            damage = damage * (100 + Tool_State.Value_playerprobabilit(enum_skill_attribute_list.最终伤害)) / 100;
+            
             monster.target.TakeDamage((int)damage, isCrit ? DamageEnum.暴击技能伤害 : DamageEnum.技能伤害);
             if (data.Real_harm > 0)
             {
@@ -439,7 +445,7 @@ namespace MVC
             {
                 damage = damage * data.crit_damage / 100;
             }
-            damage = (int)damage;
+            damage = damage * (100 + Tool_State.Value_playerprobabilit(enum_skill_attribute_list.最终伤害)) / 100;
             monster.target.TakeDamage(damage, isCrit ? DamageEnum.暴击伤害 : DamageEnum.普通伤害);
             if (data.Real_harm > 0)
             {
