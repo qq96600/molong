@@ -585,7 +585,9 @@ public class panel_fight : Panel_Base
         Waittime = Mathf.Clamp(Waittime, 0.3f, 5f);
         Debug.Log("等待时间" + Waittime);
         */
-        Waittime = Mathf.Min(Waittime, 5f - (SumSave.crt_MaxHero.bufflist[(int)enum_skill_attribute_list.寻怪间隔] / 10f));
+      
+        
+        Waittime = Mathf.Min(Waittime, 5f - Tool_State.Value_playerprobabilit(enum_skill_attribute_list.寻怪间隔) / 10f);
         Waittime = Mathf.Clamp(Waittime, 0.5f, 5f);
         return Waittime;
     }
