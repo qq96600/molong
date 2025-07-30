@@ -245,6 +245,7 @@ public class offect_strengthen : Base_Mono
             synthesis_list = new List<Bag_Base_VO>();
             info.text = "请放入洗练装备(仅可使用绝世级灵宝)";
             ClearObject(pos_icon);
+            SendNotification(NotiList.Refresh_Max_Hero_Attribute);
             if (Show_succinct(SumSave.crt_euqip))
             {
                 Alert_Dec.Show("当前无可洗练装备");
