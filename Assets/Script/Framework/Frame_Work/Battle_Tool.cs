@@ -381,17 +381,17 @@ public static class Battle_Tool
             if (unit == currency_unit.历练)
             {
                 if (ArrayHelper.SafeGet(SumSave.crt_MaxHero.bufflist, (int)enum_skill_attribute_list.人物历练, out int se))
-                    value = (int)(value * (100 + SumSave.crt_MaxHero.bufflist[(int)enum_skill_attribute_list.人物历练]) / 100);
+                    value = (int)(value * (100 + Tool_State.Value_playerprobabilit(enum_skill_attribute_list.人物历练))/ 100);
             }
             if (unit == currency_unit.灵珠)
             {
                 if (ArrayHelper.SafeGet(SumSave.crt_MaxHero.bufflist, (int)enum_skill_attribute_list.灵珠收益, out int se))
-                    value = (int)(value * (100 + SumSave.crt_MaxHero.bufflist[(int)enum_skill_attribute_list.灵珠收益]) / 100);
+                    value = (int)(value * (100 + Tool_State.Value_playerprobabilit(enum_skill_attribute_list.灵珠收益)) / 100);
             }
             if (unit == currency_unit.试炼积分)
             {
                 if (ArrayHelper.SafeGet(SumSave.crt_MaxHero.bufflist, (int)enum_skill_attribute_list.试练塔积分, out int se))
-                    value = (int)(value * (100 + SumSave.crt_MaxHero.bufflist[(int)enum_skill_attribute_list.试练塔积分]) / 100);
+                    value = (int)(value * (100 + Tool_State.Value_playerprobabilit(enum_skill_attribute_list.试练塔积分)) / 100);
             }
             if (unit == currency_unit.灵气)
             {
@@ -510,7 +510,7 @@ public static class Battle_Tool
         {
             if (ArrayHelper.SafeGet(SumSave.crt_MaxHero.bufflist, (int)enum_skill_attribute_list.经验加成, out int se))
             {
-                exp = (long)(exp * (100 + SumSave.crt_MaxHero.bufflist[(int)enum_skill_attribute_list.经验加成]) / 100);
+                exp = (long)(exp * (100 + Tool_State.Value_playerprobabilit(enum_skill_attribute_list.经验加成))/ 100);
             }
             Combat_statistics.AddExp(exp);
         }
