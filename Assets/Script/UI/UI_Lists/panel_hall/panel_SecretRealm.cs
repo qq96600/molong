@@ -244,9 +244,9 @@ public class panel_SecretRealm : Base_Mono
     public override void Show()
     {
         base.Show();
-        transform.gameObject.SetActive(false);
-        Alert_Dec.Show("秘境即将开放");
-        return;
+        //transform.gameObject.SetActive(false);
+        //Alert_Dec.Show("秘境即将开放");
+        //return;
         if (SumSave.crt_MaxHero.Lv < 30 && SumSave.ios_account_number != "admin001")
         {
             Alert_Dec.Show("秘境开启等级为30级");
@@ -266,7 +266,7 @@ public class panel_SecretRealm : Base_Mono
         
         for (int i = SumSave.db_maps.Count - 1; i > 0; i--)
         {
-            if (SumSave.db_maps[i].map_type == 8&&SumSave.crt_hero.hero_Lv >= SumSave.db_maps[i].need_lv)
+            if (SumSave.db_maps[i].map_type == 8 && SumSave.crt_hero.hero_Lv >= SumSave.db_maps[i].need_lv)
             {
                 int number = 0;
                 for (int j = 0; j < list.Count; j++)
@@ -278,8 +278,6 @@ public class panel_SecretRealm : Base_Mono
                     }
                 }
                 copies_item item = Instantiate(copies_item_Prefabs, pos_crtmap);
-
-
                 List<(string, int)> _list = SumSave.crt_bag_resources.Set();
                 int num = 0;
                  for (int j = 0; j < _list.Count; j++)
@@ -289,7 +287,6 @@ public class panel_SecretRealm : Base_Mono
                         num= _list[j].Item2;
                     }
                 }
-
                 item.InitSecretRealm(SumSave.db_maps[i],num);
                 item.GetComponent<Button>().onClick.AddListener(() => { OnClick(item); });
             }
