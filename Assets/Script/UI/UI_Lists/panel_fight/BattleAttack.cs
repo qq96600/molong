@@ -418,8 +418,9 @@ namespace MVC
             {
                 damage = damage * data.crit_damage / 100;
             }
-            damage = damage * (100 + Tool_State.Value_playerprobabilit(enum_skill_attribute_list.最终伤害)) / 100;
             damage = MathF.Max(1, damage);
+            damage = damage * (100 + Tool_State.Value_playerprobabilit(enum_skill_attribute_list.最终伤害)) / 100;
+            
             monster.target.TakeDamage((int)damage, isCrit ? DamageEnum.暴击技能伤害 : DamageEnum.技能伤害);
             if (data.Real_harm > 0)
             {
