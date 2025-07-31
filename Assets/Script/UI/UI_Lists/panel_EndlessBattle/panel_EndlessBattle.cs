@@ -94,7 +94,7 @@ public class panel_EndlessBattle : Panel_Base
     /// <summary>
     /// 刷怪间隔
     /// </summary>
-    private float wait_time = 1.5f;
+    private float wait_time = 3f;
     /// <summary>
     /// 获取面板的宽度
     /// </summary>
@@ -191,6 +191,7 @@ public class panel_EndlessBattle : Panel_Base
     private void Hide(object arg0)
     {
         Hide();
+
     }
 
     public override void Show()
@@ -274,6 +275,9 @@ public class panel_EndlessBattle : Panel_Base
         {
             Write_into_the_leaderboard(kill_monster_number);
         }
+        ObjectPoolManager.instance.ClearAll();
+        DamageTextManager.Instance.ClearAll();
+
     }
 
     /// <summary>
@@ -416,7 +420,7 @@ public class panel_EndlessBattle : Panel_Base
             }
         }
         crtMaxHeroVO crt = SumSave.crt_MaxHero;
-        GameObject item = ObjectPoolManager.instance.GetObjectFormPool(crt.show_name, player_battle_attack_prefabs,
+        GameObject item = ObjectPoolManager.instance.GetObjectFormPool( crt.show_name, player_battle_attack_prefabs,
             new Vector3(pos_player.position.x, pos_player.position.y-num, pos_player.position.z), Quaternion.identity, pos_player);
         // 设置Data
         item.GetComponent<BattleAttack>().Data = crt;
@@ -438,7 +442,7 @@ public class panel_EndlessBattle : Panel_Base
         crt_monster_number = 0;
         kill_monster_number = 0;
         maxnumber = 100;
-        wait_time = 1.5f;
+        wait_time = 3f;
         switch (select_map.map_type)
         {
             case 7: maxnumber = 9999; break;
@@ -576,7 +580,7 @@ public class panel_EndlessBattle : Panel_Base
         if (crt_monster_number >= maxnumber) crt_monster_number = 0;
         crt_monster_number++;
         //每100个怪减少刷新cd
-        if (crt_monster_number % 100 == 0) wait_time -= 0.1f;
+        if (crt_monster_number % 200 == 0) wait_time -= 0.1f;
         wait_time = Mathf.Max(0.1f, wait_time);
         int dic=Random.Range(0,100)>50?1:-1;
 
@@ -585,7 +589,7 @@ public class panel_EndlessBattle : Panel_Base
         crtMaxHeroVO crt = crt_map_monsters[Random.Range(0, crt_map_monsters.Count)];
         crt = Battle_Tool.crate_monster(crt, select_map, crt_monster_number / 10 + 1);
 
-        GameObject item = ObjectPoolManager.instance.GetObjectFormPool(crt.show_name, monster_battle_attack_prefabs,
+        GameObject item = ObjectPoolManager.instance.GetObjectFormPool( crt.show_name, monster_battle_attack_prefabs,
             new Vector3(pos_monster.position.x, y, pos_monster.position.z), Quaternion.identity, pos_monster);
         // 设置Data   
         item.GetComponent<BattleAttack>().Data = crt;

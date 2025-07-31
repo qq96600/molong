@@ -46,6 +46,14 @@ public class DamageTextManager : MonoBehaviour// MonoSingleton <DamageTextManage
     {
 
     }
+    /// <summary>
+    /// 清空对象池
+    /// </summary>
+    public void ClearAll()
+    {
+        DamageTipsList.Clear();
+        Init();
+    }
 
     public void Init()
     {
@@ -82,7 +90,6 @@ public class DamageTextManager : MonoBehaviour// MonoSingleton <DamageTextManage
                 color = readlyColor;
                 break;
         }
-
         GameObject damageText = GetDamageTextFromPool();
         damageText.transform.position = parent.position;
         damageText.transform.SetParent(parent);
