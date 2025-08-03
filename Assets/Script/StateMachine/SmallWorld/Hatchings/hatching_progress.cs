@@ -31,7 +31,7 @@ public class hatching_progress : Base_Mono
     /// </summary>
     private pet_item crt_pet;
     private string[] btn_list = new string[] { "宠物", "宠物蛋" };
-    private string[] pet_list_btn = new string[] { "孵化", "守护", "丢弃", "喂养", "探险" };
+    private string[] pet_list_btn = new string[] { "孵化", "守护", "分解", "喂养", "探险" };
     /// <summary>
     /// 选择分配 0宠物 1蛋
     /// </summary>
@@ -187,7 +187,7 @@ public class hatching_progress : Base_Mono
             case "守护":
                 GetPetGuard();
                 break;
-            case "丢弃":
+            case "分解":
                 DeletePet();
                 break;
             case "喂养":
@@ -213,7 +213,6 @@ public class hatching_progress : Base_Mono
             string[] data = crtpeteggs[i].Split(",");
             if (data.Length == 2)
             {
-                //Time = ((int)(SumSave.nowtime - Convert.ToDateTime(data[1])).TotalMinutes) * 60;
                 Time = Battle_Tool.SettlementTransport(data[1], 2);
                 
             }
@@ -224,39 +223,7 @@ public class hatching_progress : Base_Mono
     /// 上阵守护
     /// </summary>
     private void Get_pet_guard()
-    {
-        //for (int i = 0; i < SumSave.crt_pet_list.Count; i++)
-        //{
-        //    if (SumSave.crt_pet_list[i].pet_state == "1")
-        //    {
-        //        string v1 = IntegrationData(SumSave.crt_pet_list[i]);//升级之前的数据
-        //        SumSave.crt_pet_list[i].pet_state = "1";
-        //        string v2 = IntegrationData(SumSave.crt_pet_list[i]);//升级之后的数据
-        //        for (int h = 0; h < SumSave.crt_pet.crt_pet_list.Count; h++)
-        //        {
-        //            if (SumSave.crt_pet.crt_pet_list[h] == v1)
-        //            {
-        //                SumSave.crt_pet.crt_pet_list[h] = "";
-        //                SumSave.crt_pet.crt_pet_list[h] = v2;
-        //            }
-        //        }
-        //    }
-        //}
-        //db_pet_vo crt_pet_vo = crt_pet.SetPet();
-        //string value = IntegrationData(crt_pet_vo);//升级之前的数据
-        //crt_pet_vo.pet_state = "1";
-        //string value1 = IntegrationData(crt_pet_vo);//升级之后的数据
-        //for (int i = 0; i < SumSave.crt_pet.crt_pet_list.Count; i++)
-        //{
-        //    if (SumSave.crt_pet.crt_pet_list[i] == value)
-        //    {
-        //        SumSave.crt_pet.crt_pet_list[i] = "";
-        //        SumSave.crt_pet.crt_pet_list[i] = value1;
-        //    }
-        //}
-        //Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_pet,
-        //SumSave.crt_pet.Set_Uptade_String(), SumSave.crt_pet.Get_Update_Character());
-
+    { 
         Get_pet_guardTask();
         Alert_Dec.Show("当前宠物已开始守护");
     }
@@ -404,12 +371,8 @@ public class hatching_progress : Base_Mono
         List<db_pet_vo> crt_pet_list = SumSave.crt_pet.Set();
         crt_pet_list.Remove(crt_pet_vo);
         SumSave.crt_pet.Get();
-        ////SumSave.crt_pet.crt_pet_list.Remove(value);
-        ////SumSave.crt_pet_list.Remove(crt_pet_vo);
-        ////SumSave.crt_pet.DataSet();
-        //Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_pet,
-        //SumSave.crt_pet.Set_Uptade_String(), SumSave.crt_pet.Get_Update_Character());
-        Alert_Dec.Show("宠物" + crt_pet_vo.petName + "已丢弃");
+        Battle_Tool.Obtain_Unit(currency_unit.灵气, 100);
+        Alert_Dec.Show("宠物" + crt_pet_vo.petName + "已分解");
         SumSave.crt_achievement.increase_date_Exp((Achieve_collect.放生宠物).ToString(), 1);
         btn_item _item=new btn_item();
         _item.index=0;

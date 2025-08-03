@@ -117,7 +117,11 @@ namespace MVC
         /// <returns></returns>
         protected bool RefreshConsumables()
         {
+#if UNITY_EDITOR
             //return true;
+#elif UNITY_ANDROID
+#elif UNITY_IPHONE
+#endif
             bool exist = false;
             Dictionary<string, long> keys = dic;
             Dictionary<string, int> bagdic = new Dictionary<string, int>();

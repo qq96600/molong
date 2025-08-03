@@ -80,7 +80,8 @@ public static class Combat_statistics
 
     public static void Time()
     {
-        if (isTime) time++;
+        time++;
+        //if (isTime) time++;
     }
     public static void AddBossNumber()
     {

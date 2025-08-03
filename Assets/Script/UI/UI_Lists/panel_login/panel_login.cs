@@ -391,16 +391,9 @@ namespace MVC
             PlayerPrefs.SetInt("同意阅读协议", 1);
 #if UNITY_EDITOR
             #region ios区 
-            SumSave.uid = "DSFSDFSDFSDF3dssssssd"; // 32ac681e5ca845dc9eda67b30a36f6fa
+            SumSave.uid = "DSFSDFSDFSDF3"; // 32ac681e5ca845dc9eda67b30a36f6fa
             //SumSave.uid = "e8735c45680048f8a3494d7107a9e5a5";//都做了土（ip） 
             //SumSave.uid = "399be5eb64f84f01b2e4817bba58a4e3";//殇璃（ip） 
-<<<<<<< HEAD
-            SumSave.uid = "275193c861334549a4610b81bb9a6411";//神秘人（ip）
-            //SumSave.par = -1;
-=======
-            //SumSave.uid = "275193c861334549a4610b81bb9a6411";//都做了土（ip）
-            SumSave.par = -1;
->>>>>>> 7ec911b1695921a7059bae678e9e9a0b8d8dd6cc
             #endregion
             #region 安卓区
             //SumSave.uid = "DSFSDFSDFSDF3";//

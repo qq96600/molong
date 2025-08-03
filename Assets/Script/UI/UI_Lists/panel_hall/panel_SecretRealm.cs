@@ -220,23 +220,8 @@ public class panel_SecretRealm : Base_Mono
     /// <param name="item"></param>
     private void Open_Map(copies_item item)
     {
-        bool exist = true;
-        List<(string, int)> list = SumSave.crt_needlist.SetMap();
-        for (int i = 0; i < list.Count; i++)
-        {
-            if (list[i].Item1 == item.index.map_name)
-            {
-                exist = false;
-                list[i] = (list[i].Item1, list[i].Item2 + 1);
-                SumSave.crt_needlist.SetMap(list[i]);
-                break;
-            }
-        }
-        if (exist) SumSave.crt_needlist.SetMap((item.index.map_name, 1));
-        //写入数据
-
         fight_panel.Show();
-        fight_panel.Open_Map(item.index, true);
+        fight_panel.Open_SecretRealm(item.index, dropdown.value);
         item.updatestate();
     }
 

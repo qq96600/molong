@@ -198,7 +198,16 @@ namespace MVC
             }
             else
             {
-
+                //回收宠物蛋
+                if (SumSave.crt_setting.user_setting[9] == 1)
+                {
+                    if (bag.StdMode == EquipConfigTypeList.宠物蛋.ToString())
+                    {
+                        
+                        Calculations.Add("丢失 " + bag.Name + " * " + 1);
+                        return;
+                    }
+                }
                 if ( map!=null&&map.map_type != 4)
                 {
                     if (Combat_statistics.isSuperlative())

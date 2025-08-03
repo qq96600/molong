@@ -388,6 +388,25 @@ public class panel_fight : Panel_Base
         
     }
     /// <summary>
+    /// 秘境副本等级
+    /// </summary>
+    private int SecretRealm_lv = 0;
+    /// <summary>
+    /// 打开秘境副本
+    /// </summary>
+    /// <param name="map"></param>
+    /// <param name="map_lv">地图强度等级</param>
+    public void Open_SecretRealm(user_map_vo map, int map_lv)
+    {
+        select_map = map;
+        map_name.text = map.map_name;
+        SecretRealm_lv = map_lv;
+        init();
+        Crate_Init();
+        StopAllCoroutines();
+    }
+
+    /// <summary>
     /// 进入地图
     /// </summary>
     /// </summary>
@@ -497,6 +516,9 @@ public class panel_fight : Panel_Base
             case 3: maxnumber = 1; break;
             case 4: maxnumber = 1; break;
             case 6: maxnumber = 1; break;
+            case 7: maxnumber = 1; break;
+            case 8: maxnumber = 1; break;
+
             default:
                 break;
         }
@@ -507,24 +529,6 @@ public class panel_fight : Panel_Base
         }
         monsters.Clear();
         players.Clear();
-        //if (monsters != null)
-        //{
-        //    for (int i = 0; i < monsters.Count; i++)
-        //    {
-        //        monsters[i].Clear();
-        //    }
-        //    monsters.Clear();
-        //}
-        //else monsters = new List<BattleHealth>();
-        //if (players != null)
-        //{
-        //    for (int i = 0; i < players.Count; i++)
-        //    {
-        //        players[i].Clear();
-        //    }
-        //    players.Clear();
-        //}
-        //else players = new List<BattleHealth>();
         crt_map_monsters.Clear();
         if (select_map.map_type == 6)
         {
@@ -551,7 +555,6 @@ public class panel_fight : Panel_Base
     private IEnumerator Game_WaitTime(float time)
     {
         Combat_statistics.AddDead();
-        Combat_statistics.isTime = false;
         while (time > 0)
         {
             Show_Battle_State("复活剩余时间 " + time.ToString("F1") + "s");
@@ -575,18 +578,6 @@ public class panel_fight : Panel_Base
     {
         float Waittime = 5f;
         Waittime = (select_map.map_index-1) * 0.5f;
-        //Waittime = Mathf.Clamp(Waittime, 0.5f, 5f);
-        /* 计算等待时间%比模式  保留模式
-        Debug.Log("等待时间基准" + Waittime);
-        if (SumSave.crt_MaxHero.bufflist.Count > (int)enum_skill_attribute_list.寻怪间隔)
-        {
-            Waittime = (5 - (SumSave.crt_MaxHero.bufflist[(int)enum_skill_attribute_list.寻怪间隔] / 10)) * Waittime / 5; 
-        }
-        Waittime = Mathf.Clamp(Waittime, 0.3f, 5f);
-        Debug.Log("等待时间" + Waittime);
-        */
-      
-        
         Waittime = Mathf.Min(Waittime, 5f - Tool_State.Value_playerprobabilit(enum_skill_attribute_list.寻怪间隔) / 10f);
         Waittime = Mathf.Clamp(Waittime, 0.5f, 5f);
         return Waittime;
@@ -715,7 +706,6 @@ public class panel_fight : Panel_Base
         {
             AddWeather();
         }
-        Combat_statistics.isTime = true;
         if (crt_monster_number >= maxnumber) crt_monster_number = 0;
         crt_monster_number++;
         crtMaxHeroVO crt = crt_map_monsters[Random.Range(0, crt_map_monsters.Count)];
@@ -734,7 +724,8 @@ public class panel_fight : Panel_Base
         {
             crt = crt_map_monsters[trial_storey % crt_map_monsters.Count];
         }
-        crt = Battle_Tool.crate_monster(crt, select_map, crt_monster_number == maxnumber, trial_storey);
+        if (select_map.map_index == 8) crt = Battle_Tool.crate_monster(crt, select_map, SecretRealm_lv);
+        else crt = Battle_Tool.crate_monster(crt, select_map, crt_monster_number == maxnumber, trial_storey);
         GameObject item = ObjectPoolManager.instance.GetObjectFormPool(crt.show_name, monster_battle_attack_prefabs,
             new Vector3(pos_monster.position.x, pos_monster.position.y,pos_monster.position.z), Quaternion.identity, pos_monster);
         // 设置Data

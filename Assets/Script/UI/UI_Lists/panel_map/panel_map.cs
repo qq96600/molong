@@ -55,7 +55,6 @@ public class panel_map : Panel_Base
     private Transform base_show_info;
     private material_item material_item_parfabs;
     private Image show_map_list;
-
     protected override void Awake()
     {
         base.Awake();
