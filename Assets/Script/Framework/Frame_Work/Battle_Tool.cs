@@ -1268,6 +1268,54 @@ public static class Battle_Tool
             base_crt.Heal_Hp = crt.Heal_Hp * coefficient;
             base_crt.Heal_Mp = crt.Heal_Mp * coefficient;
         }
+        //Array values = Enum.GetValues(typeof(enum_monster_state));
+        //enum_monster_state state = (enum_monster_state)values.GetValue(RandomNumberGenerator.GetInt32(values.Length));
+        //switch (state)
+        //{
+        //    case enum_monster_state.正常的:
+        //        break;
+        //    case enum_monster_state.强壮的:
+        //        base_crt.MaxHP = (int)(crt.MaxHP * 1.5f);
+        //        break;
+        //    case enum_monster_state.混乱的:
+        //        break;
+        //    case enum_monster_state.恐惧的:
+        //        base_crt.attack_speed = (int)(crt.attack_speed / 2);
+        //        break;
+        //    case enum_monster_state.感染的:
+        //        break;
+        //    case enum_monster_state.沉睡的:
+        //        base_crt.Heal_Hp = (int)(crt.Heal_Hp * 1.5f);
+        //        break;
+        //    case enum_monster_state.沉默的:
+        //        base_crt.DefMax = (int)(crt.DefMax * 1.5f);
+        //        base_crt.MagicDefMax = (int)(crt.MagicDefMax * 1.5f);
+        //        break;
+        //    case enum_monster_state.神秘的:
+        //        base_crt.attack_distance = (int)(crt.attack_distance * 1.5f);
+        //        break;
+        //    case enum_monster_state.恐怖的:
+        //        base_crt.damageMax = (int)(crt.damageMax * 1.5f);
+        //        base_crt.MagicdamageMax = (int)(crt.MagicdamageMax * 1.5f);
+        //        break;
+        //    case enum_monster_state.激怒的:
+        //        base_crt.crit_rate = (int)(crt.crit_rate * 1.5f);
+        //        break;
+        //    default:
+        //        break;
+        //}
+        //base_crt.monster_attrList.Add((int)state);
+        Obtain_monster_state(base_crt, crt);
+        return base_crt;
+    }
+
+    /// <summary>
+    /// 获得加成状态
+    /// </summary>
+    /// <param name="base_crt"></param>
+    /// <param name="crt"></param>
+    private static void Obtain_monster_state(crtMaxHeroVO base_crt,crtMaxHeroVO crt)
+    {
         Array values = Enum.GetValues(typeof(enum_monster_state));
         enum_monster_state state = (enum_monster_state)values.GetValue(RandomNumberGenerator.GetInt32(values.Length));
         switch (state)
@@ -1305,9 +1353,7 @@ public static class Battle_Tool
                 break;
         }
         base_crt.monster_attrList.Add((int)state);
-        return base_crt;
     }
-
 
     /// <summary>
     /// 验证地图列表

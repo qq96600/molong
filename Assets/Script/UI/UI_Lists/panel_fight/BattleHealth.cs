@@ -140,16 +140,8 @@ namespace MVC
             {
                 Battle_Tool.Obtain_Unit(currency_unit.灵珠, monster.Data.unit);
 
-            }else Battle_Tool.Obtain_Unit(currency_unit.灵珠, monster.Data.unit, 2);
-            //if (panel_fight.isMapType(4))//判断是否是副本
-            //{
-            //    Battle_Tool.Obtain_Unit(currency_unit.灵珠, monster.Data.unit);
-            //}
-            //else
-            //{
-            //    Battle_Tool.Obtain_Unit(currency_unit.灵珠, monster.Data.unit, 2);
-            //}
-            
+            }
+            else Battle_Tool.Obtain_Unit(currency_unit.灵珠, monster.Data.unit, 2);
             int number = 1;
             Combat_statistics.AddMaxNumber();
 
