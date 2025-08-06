@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Random = UnityEngine.Random;
 using MVC;
+using System.Text;
 /// <summary>
 /// 状态类列表
 /// </summary>
@@ -124,11 +125,42 @@ public  static class Tool_State
         return number;
     }
 
-    public static bool Is_SetMap(string index,int value,int max)
+    private static void OnValueChanged(int arg0)
     {
-        bool exist = false;
+        ///获得装备品质枚举
+        var enumNames = Enum.GetNames(typeof(enum_equip_quality_list));
+        ///获得下拉列表的值
+        var selectedValue = arg0;
+        ///判断是否为最后一个选项
+        bool isLastOption = selectedValue == enumNames.Length - 1;
+        ///创建一个StringBuilder对象来构建字符串
+        var stringBuilder = new StringBuilder();
 
-        return exist;
+        for (int i = 0; i < enumNames.Length; i++)
+        {
+            //string percentage = GetPercentage(selectedValue, i, isLastOption);
+        }
+    }
+    /// <summary>
+    /// 获得对应概率
+    /// </summary>
+    /// <param name="selectedValue"></param>
+    /// <param name="currentIndex"></param>
+    /// <param name="isLastOption"></param>
+    /// <returns></returns>
+    private static int GetPercentage(int selectedValue, int currentIndex, bool isLastOption)
+    {
+
+        if (isLastOption)
+        {
+            return selectedValue == currentIndex ? 10 : 0;
+        }
+
+        if (selectedValue == currentIndex) return 50;
+        if (selectedValue - 1 == currentIndex) return 45;
+        if (selectedValue + 1 == currentIndex) return 5;
+
+        return 0;
     }
 
 }

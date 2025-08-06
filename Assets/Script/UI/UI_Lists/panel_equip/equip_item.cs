@@ -70,7 +70,7 @@ public class equip_item : Base_Mono
         show_name.text = data.Name;
         string[] info = data.user_value.Split(' ');
         int strengthenlv = int.Parse(info[1]);
-
+        int quilty = int.Parse(info[2]);
         show_base_need.text = "品质:" + (enum_equip_quality_list)int.Parse(info[2]) + "\n" +
             "类型:" + data.StdMode + "\n" +
             "需求:" + data.equip_lv + "级";
@@ -175,7 +175,7 @@ public class equip_item : Base_Mono
         if (Data.suit != 0)
         {
             show_suit.gameObject.SetActive(true);
-            info_suit.text = Show_Suit();
+            info_suit.text = Show_Suit(quilty);
         }
         show_info.text = dec;
 
@@ -273,7 +273,7 @@ public class equip_item : Base_Mono
 
         return dec;
     }
-    private string Show_Suit()
+    private string Show_Suit(int quilty)
     {
         string dec = "";
         int number = 0;
@@ -285,6 +285,7 @@ public class equip_item : Base_Mono
                 exist = false;
                 int lv = int.Parse(data.user_value.Split(' ')[1]);
                 dec = "\n" + Show_Color.Yellow("[" + data.StdMode + "]");
+                if (quilty < 4) dec += Show_Color.Red("\n未激活");
                 dec += "\n" + Show_Color.Black(data.StdMode + "特性: ");
                 for (int j = 0; j < SumSave.db_Equip_Suits[i].equip_suit.Length; j++)
                 { 

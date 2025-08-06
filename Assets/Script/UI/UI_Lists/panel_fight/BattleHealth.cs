@@ -40,7 +40,17 @@ namespace MVC
         { 
 
             StopAllCoroutines();
-            ObjectPoolManager.instance.PushObjectToPool(GetComponent<BattleAttack>().Data.show_name, this.gameObject);
+            PushObjectToPool(GetComponent<BattleAttack>().Data.Push_name);
+        }
+        /// <summary>
+        /// 回收
+        /// </summary>
+        /// <param name="healthname"></param>
+        private void PushObjectToPool(string healthname)
+        {
+            //Debug.Log("回收  " + healthname);
+            ObjectPoolManager.instance.PushObjectToPool(healthname, this.gameObject);
+
         }
         /// <summary>
         /// 回复生命魔法
@@ -100,7 +110,7 @@ namespace MVC
                     SumSave.crt_achievement.increase_date_Exp((Achieve_collect.死亡).ToString(), 1);
                 }
                 transform.parent.parent.parent.SendMessage("clearhealth", this);
-                StartCoroutine(WaitAndDestory(GetComponent<BattleAttack>().Data.show_name));
+                StartCoroutine(WaitAndDestory(GetComponent<BattleAttack>().Data.Push_name));
             }
         }
 
@@ -132,7 +142,12 @@ namespace MVC
         private void WaitAndDestory()
         {
             BattleAttack monster = GetComponent<BattleAttack>();
-            //SumSave.battleMonsterHealths.Remove(this);
+            //结算秘境收益
+            if (monster.Data.Monster_Lv == 8)
+            {
+                transform.parent.parent.parent.SendMessage("settlementSecretRealm", monster);
+                return;
+            }
             SumSave.crt_achievement.increase_date_Exp((Achieve_collect.击杀怪物).ToString(), 1);
             Battle_Tool.Obtain_Exp(monster.Data.Exp);
             user_map_vo map = ArrayHelper.Find(SumSave.db_maps, e => e.map_index == monster.Data.map_index);
@@ -155,7 +170,6 @@ namespace MVC
                     "至尊卡击杀 " + monster.Data.show_name + " 获得 " + value + "历练");//monster.Data.Point 
                 }
             }
-           
             //判断是否增加历练值
             if (monster.Data.Monster_Lv != 1) 
             {
@@ -346,7 +360,7 @@ namespace MVC
             if (gameObject.activeInHierarchy)
             {
                 yield return new WaitForSeconds(0.48f);
-                ObjectPoolManager.instance.PushObjectToPool(healthname, this.gameObject);
+                PushObjectToPool(healthname);
                 transform.parent.parent.parent.SendMessage("clearSumhealth", this);
             }
         }

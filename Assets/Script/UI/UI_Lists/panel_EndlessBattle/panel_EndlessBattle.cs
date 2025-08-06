@@ -32,10 +32,6 @@ public class panel_EndlessBattle : Panel_Base
     /// </summary>
     private user_map_vo select_map;
     /// <summary>
-    /// 刷新状态
-    /// </summary>
-    private bool Open_Monster_State = true;
-    /// <summary>
     /// 刷新技能
     /// </summary>
     private pight_show_skill pight_show_skill;
@@ -218,8 +214,6 @@ public class panel_EndlessBattle : Panel_Base
             if (list[i].Item1 == select_map.map_name)
             {
                 exist = false;
-                //list[i] = (list[i].Item1, list[i].Item2 + 1);
-                //SumSave.crt_needlist.SetMap(list[i]);
                 Alert.Show("挑战结束","今日无尽试炼已获得过奖励"+ "\n本次击杀 "+kill_monster_number+"只怪物");
 
                 break;
@@ -275,8 +269,8 @@ public class panel_EndlessBattle : Panel_Base
         {
             Write_into_the_leaderboard(kill_monster_number);
         }
-        ObjectPoolManager.instance.ClearAll();
-        DamageTextManager.Instance.ClearAll();
+        //ObjectPoolManager.instance.ClearAll();
+        //DamageTextManager.Instance.ClearAll();
 
     }
 
@@ -380,9 +374,10 @@ public class panel_EndlessBattle : Panel_Base
                                 Battle_Tool.Enum_Value(crt, i, info);
                             }
                         }
-                        GameObject item = ObjectPoolManager.instance.GetObjectFormPool(crt.show_name, player_battle_attack_prefabs,
+                        GameObject item = ObjectPoolManager.instance.GetObjectFormPool("无尽"+crt.show_name, player_battle_attack_prefabs,
                         new Vector3(pos_player.position.x, pos_player.position.y+200, pos_player.position.z), Quaternion.identity, pos_player);
                         // 设置Data
+                        crt.Push_name = "无尽" + crt.show_name;
                         item.GetComponent<endlessplayer_battle_attck>().Data = crt;
                         item.GetComponent<endlessplayer_battle_attck>().Refresh_Skill(new List<skill_offect_item>());
                         item.GetComponent<BattleAttack>().FindTergets(monsters);
@@ -391,6 +386,7 @@ public class panel_EndlessBattle : Panel_Base
                         //    item.GetComponent<Button>().onClick.AddListener(delegate { AudioManager.Instance.playAudio(ClipEnum.购买物品); SelectMonster(item.GetComponent<MonsterBattleAttack>()); });
                         //item.GetComponent<Button>().enabled = true;
                         players.Add(item.GetComponent<BattleHealth>());
+                        sumhealths.Add(item.GetComponent<BattleHealth>());
                         return;
                     }
                     
@@ -416,13 +412,14 @@ public class panel_EndlessBattle : Panel_Base
         {
             if (pet.pet_state == "1")
             {
-                num= 250;
+                num= 220;
             }
         }
         crtMaxHeroVO crt = SumSave.crt_MaxHero;
-        GameObject item = ObjectPoolManager.instance.GetObjectFormPool( crt.show_name, player_battle_attack_prefabs,
+        GameObject item = ObjectPoolManager.instance.GetObjectFormPool("无尽" + crt.show_name, player_battle_attack_prefabs,
             new Vector3(pos_player.position.x, pos_player.position.y-num, pos_player.position.z), Quaternion.identity, pos_player);
         // 设置Data
+        crt.Push_name = "无尽" + crt.show_name;
         item.GetComponent<BattleAttack>().Data = crt;
         item.GetComponent<BattleAttack>().Refresh_Skill(battle_skills);
         item.GetComponent<BattleAttack>().FindTergets(monsters);
@@ -589,9 +586,10 @@ public class panel_EndlessBattle : Panel_Base
         crtMaxHeroVO crt = crt_map_monsters[Random.Range(0, crt_map_monsters.Count)];
         crt = Battle_Tool.crate_monster(crt, select_map, crt_monster_number / 10 + 1);
 
-        GameObject item = ObjectPoolManager.instance.GetObjectFormPool( crt.show_name, monster_battle_attack_prefabs,
+        GameObject item = ObjectPoolManager.instance.GetObjectFormPool("无尽" + crt.show_name, monster_battle_attack_prefabs,
             new Vector3(pos_monster.position.x, y, pos_monster.position.z), Quaternion.identity, pos_monster);
         // 设置Data   
+        crt.Push_name = "无尽"+ crt.show_name;
         item.GetComponent<BattleAttack>().Data = crt;
         item.GetComponent<BattleAttack>().FindTergets(players, Random.Range(0, 100) < 3 ? 1 : 0);//百分之3的概率为背刺怪
 
@@ -607,7 +605,7 @@ public class panel_EndlessBattle : Panel_Base
         //item.GetComponent<Button>().enabled = true;
         sumhealths.Add(item.GetComponent<BattleHealth>());
         monsters.Add(item.GetComponent<BattleHealth>());
-        Open_Monster_State = true;
+        //Open_Monster_State = true;
         openRefreshStatus = true;
         ShowInfoMap();   
     }

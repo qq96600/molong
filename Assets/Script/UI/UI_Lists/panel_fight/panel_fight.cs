@@ -237,6 +237,103 @@ public class panel_fight : Panel_Base
     { 
         base.Hide();
     }
+
+    /// <summary>
+    /// 获取秘境奖励
+    /// </summary>
+    /// <param name="target"></param>
+    protected void settlementSecretRealm(BattleAttack target)
+    {
+        user_map_vo map = ArrayHelper.Find(SumSave.db_maps, e => e.map_index == target.Data.map_index);
+        Dictionary<string, int> dic = new Dictionary<string, int>();
+        string dec = "";
+        if (map.Independent_Drop != "")//保底收益
+        {
+            string[] values = map.Independent_Drop.Split('&');
+            int max = SecretRealm_lv + 1;
+            for (int j = 0; j < max; j++)
+            {
+                for (int i = 0; i < values.Length; i++)
+                {
+                    if (values[i] != "")
+                    {
+                        if (!dic.ContainsKey(values[i])) dic.Add(values[i], 0); 
+                        dic[values[i]] += 1;
+                    }
+                    
+                }
+            }
+            foreach (var item in dic.Keys)
+            {
+
+                dec += "获得" + item + " * " + dic[item] + "\n";
+                int random = Random.Range(1, 100);
+                int number = dic[item];
+                int maxnumber = number + Random.Range(1, 100);
+                Battle_Tool.Obtain_Resources(Obtain_Int.Add(1, item, new int[] { number + random, random }), maxnumber);
+
+            }
+        }
+        //10%的概率掉落装备
+        if (Random.Range(0, 100) < 10)
+        {
+            if (map.ProfitList != "")
+            { 
+                string[] values = map.ProfitList.Split('&');
+                string ProfitList = values[Random.Range(0, values.Length)];
+                string[] ProfitList_values = ProfitList.Split(' ');
+                if (ProfitList_values.Length == 3)
+                {
+                    int random = Obtain_Number(SecretRealm_lv);
+                    Bag_Base_VO bag = tool_Categoryt.crate_equip(ProfitList_values[0], random);
+                    dec += "获得" + (enum_equip_quality_list)random + " " + bag.Name + " * 1\n";
+                    SumSave.crt_bag.Add(bag);
+                }
+            }
+        }
+        Alert.Show(map.map_name, dec);
+    }
+    /// <summary>
+    /// 获得品质
+    /// </summary>
+    /// <param name="number"></param>
+    /// <returns></returns>
+    private int Obtain_Number(int number)
+    {
+        int value = 1;
+        var enumNames = Enum.GetNames(typeof(enum_equip_quality_list));
+        if (number == enumNames.Length)//最大难度
+        {
+            if (Random.Range(0, 100) < 10)
+            {
+                value = number;
+            }
+            else value = number - 1;
+        }
+        else
+        {
+            if (number == 0) value = 1;
+            else
+           {
+                if (Random.Range(0, 100) < 5)
+                {
+                    value = number + 1;
+                }
+                else
+                {
+
+                    if (Random.Range(0, 100) < 45)
+                    { 
+                       value = number;
+                    }else value = number - 1;
+                }
+            
+           }
+        }
+        value = Mathf.Max(1, value);
+        return value;
+    }
+
     /// <summary>
     /// 副本初始化
     /// </summary>
@@ -390,7 +487,7 @@ public class panel_fight : Panel_Base
     /// <summary>
     /// 秘境副本等级
     /// </summary>
-    private int SecretRealm_lv = 0;
+    private int SecretRealm_lv = -1;
     /// <summary>
     /// 打开秘境副本
     /// </summary>
@@ -490,6 +587,7 @@ public class panel_fight : Panel_Base
         GameObject item = ObjectPoolManager.instance.GetObjectFormPool(crt.show_name, player_battle_attack_prefabs,
             new Vector3(pos_player.position.x, pos_player.position.y, pos_player.position.z), Quaternion.identity, pos_player);
         // 设置Data
+        crt.Push_name = crt.show_name;
         item.GetComponent<player_battle_attck>().Data = crt;
         item.GetComponent<player_battle_attck>().Refresh_Skill(battle_skills);
         //if (item.GetComponent<Button>().enabled)
@@ -724,10 +822,11 @@ public class panel_fight : Panel_Base
         {
             crt = crt_map_monsters[trial_storey % crt_map_monsters.Count];
         }
-        if (select_map.map_index == 8) crt = Battle_Tool.crate_monster(crt, select_map, SecretRealm_lv);
+        if (select_map.map_type == 8) crt = Battle_Tool.crate_SecretRealm_monster(crt, select_map, SecretRealm_lv);
         else crt = Battle_Tool.crate_monster(crt, select_map, crt_monster_number == maxnumber, trial_storey);
         GameObject item = ObjectPoolManager.instance.GetObjectFormPool(crt.show_name, monster_battle_attack_prefabs,
             new Vector3(pos_monster.position.x, pos_monster.position.y,pos_monster.position.z), Quaternion.identity, pos_monster);
+        crt.Push_name = crt.show_name;
         // 设置Data
         item.GetComponent<monster_battle_attck>().Data = crt;
         //if (item.GetComponent<Button>().enabled)
