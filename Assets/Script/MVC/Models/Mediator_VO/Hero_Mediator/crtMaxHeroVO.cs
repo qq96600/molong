@@ -15,6 +15,10 @@ public class crtMaxHeroVO
     /// </summary>
     public string show_name;
     /// <summary>
+    /// 回收名称
+    /// </summary>
+    public string Push_name;
+    /// <summary>
     /// 职业 1战 2法 3道 11战伤害 12法伤害召唤
     /// </summary>
     public int Type;//角色职业
