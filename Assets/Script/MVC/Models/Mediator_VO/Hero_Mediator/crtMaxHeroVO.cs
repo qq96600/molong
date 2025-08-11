@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 /// <summary>
 /// 属性汇总表
 /// </summary>
@@ -240,6 +241,7 @@ public class crtMaxHeroVO
             (Damage_Reduction * 10) + (Damage_absorption * 10) + (resistance * 10) + move_speed + ((200 - attack_speed) * 10) + attack_distance +
             (bonus_Hp * 20) + (bonus_Mp * 20) + (bonus_Damage * 20) + (bonus_MagicDamage * 20) + (bonus_Def * 20) + (bonus_MagicDef * 20) +
             (Heal_Hp * 20) + (Heal_Mp * 20) + ((life[0] + life[1] + life[2] + life[3] + life[4]) * 20));
+        Debug.Log("战斗力" + totalPower);
 
 
 #if UNITY_EDITOR

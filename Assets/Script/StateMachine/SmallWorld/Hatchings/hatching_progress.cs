@@ -373,6 +373,20 @@ public class hatching_progress : Base_Mono
         SumSave.crt_pet.Get();
         Battle_Tool.Obtain_Unit(currency_unit.灵气, 100);
         Alert_Dec.Show("宠物" + crt_pet_vo.petName + "已分解");
+        if (crt_pet_vo.level > 1)//分解给口粮
+        { 
+            int number= crt_pet_vo.level - 1;
+            number = number * 100 / (100 + (Tool_State.Value_playerprobabilit(enum_skill_attribute_list.宠物经验)));
+            number = (int)(number * 0.8f);
+            if (number > 0)
+            {
+                int random = Random.Range(1, 100);
+                int maxnumber = number + Random.Range(1, 100);
+                Battle_Tool.Obtain_Resources(Obtain_Int.Add(1, "宠物口粮", new int[] { number + random, random }), maxnumber);
+                Alert_Dec.Show("宠物" + crt_pet_vo.petName + "分解成功，获得宠物口粮" + number + "个");
+            }
+
+        }
         SumSave.crt_achievement.increase_date_Exp((Achieve_collect.放生宠物).ToString(), 1);
         btn_item _item=new btn_item();
         _item.index=0;

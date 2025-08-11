@@ -254,7 +254,6 @@ public class panel_EndlessBattle : Panel_Base
                 }
                 foreach (var item in dic.Keys)
                 {
-
                     dec+="获得"+item+"个"+dic[item]+"\n";
                     int random = Random.Range(1, 100);
                     int number = dic[item];

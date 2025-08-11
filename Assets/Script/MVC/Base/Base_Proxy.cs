@@ -156,6 +156,7 @@ namespace MVC
         /// </summary>
         private void QueryVersion()
         {
+
             SumSave.crt_versions = new user_versions();
             mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.versions);
             if (mysqlReader.HasRows)
@@ -166,6 +167,7 @@ namespace MVC
                     SumSave.crt_versions.Weather = mysqlReader.GetString(mysqlReader.GetOrdinal("Weather"));
                     SumSave.crt_versions.WeatherTime = mysqlReader.GetString(mysqlReader.GetOrdinal("WeatherTime"));
                     SumSave.crt_versions.Activity = mysqlReader.GetInt32(mysqlReader.GetOrdinal("Activity"));
+                    SumSave.crt_versions.tapversionversion = mysqlReader.GetString(mysqlReader.GetOrdinal("tapversionversion"));
                 }
             }
             SumSave.OpenGame = false;

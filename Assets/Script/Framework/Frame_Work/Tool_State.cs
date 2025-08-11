@@ -37,6 +37,26 @@ public  static class Tool_State
         }
         return state_list[state];
     }
+    /// <summary>
+    /// 获取临时状态
+    /// </summary>
+    /// <param name="state"></param>
+    /// <returns></returns>
+    public static int GetSetMapState(string state)
+    {
+        
+        List<(string, int)> list = SumSave.crt_needlist.SetMap();
+        List<Bag_Base_VO> sell_list = new List<Bag_Base_VO>();
+        int number = 0;
+        for (int i = 0; i < list.Count; i++)
+        {
+            if (list[i].Item1 == state)
+            {
+                number = list[i].Item2;
+            }
+        }
+        return number;
+    }
 
     /// <summary>
     /// 激活状态

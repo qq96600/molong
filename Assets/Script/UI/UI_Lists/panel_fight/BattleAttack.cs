@@ -177,9 +177,6 @@ namespace MVC
                             pos_tianming_size = show_tianming_Platform.GetComponent<RectTransform>().rect.size;
                             tianming_size = new Vector2(pos_tianming_size.x , pos_tianming_size.y );
                             tianming.GetComponent<RectTransform>().sizeDelta = tianming_size;
-                            //Color currentColor = tianming.GetComponentInChildren<Image>().color;
-                            //currentColor.a = Data.life_types[i] * 0.2f;
-                            //tianming.GetComponentInChildren<Image>().color = currentColor;
                         }
                     }
                 }

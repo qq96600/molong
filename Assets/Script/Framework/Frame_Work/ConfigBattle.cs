@@ -117,6 +117,7 @@ namespace MVC
                     int probability = int.Parse(values2[0]);
                     if (state == 1)
                     {
+
                         probability += Tool_State.Value_playerprobabilit(enum_skill_attribute_list.装备爆率);
                         probability = (int)MathF.Min(int.Parse(values2[1]) / 10, probability);
                     }

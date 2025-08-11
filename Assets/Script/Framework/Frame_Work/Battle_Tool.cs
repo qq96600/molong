@@ -103,9 +103,9 @@ public static class Battle_Tool
     public static int Alchemy_limit(int base_value)
     {
         int value = base_value / 10;
-        if (SumSave.crt_MaxHero.Lv >= 30)
+        if (SumSave.crt_MaxHero.Lv >= 30) 
         {
-            value += (SumSave.crt_MaxHero.Lv - 20) / 10 * base_value / 100;
+            value += (SumSave.crt_MaxHero.Lv - 20) / 2 * base_value / 100;
         }
         value =(int) MathF.Min(value, base_value);
         return value;
@@ -562,7 +562,6 @@ public static class Battle_Tool
         if (time == null || time == "") return -1;
 
         TimeSpan span;
-
         int spanNumber = 0;
         int value = 0;
         if (SumSave.nowtime < DateTime.Now)

@@ -95,24 +95,9 @@ public class Endless_Tower : Panel_Base
     private void Init()
     {
         GetList();
-        List<(string, int)> list = SumSave.crt_needlist.SetMap();
-        bool exist = true;
         string str = "";
-        for (int i = 0; i < list.Count; i++)
-        {
-            if (list[i].Item1 == "无尽深渊")
-            {
-                exist = false;
-                str = "已获得奖励次数:"+ list[i].Item2+ "/1"; 
-                break;
-            }
-        }
-        if(exist)
-        {
-            str = "已获得奖励次数:0/1";
-        }
-
-
+        int value = Tool_State.GetSetMapState(MapStateList.无尽深渊.ToString());
+        str = "已获得奖励次数:" + value + "/1";
         if(SumSave.crt_endless_battle.endless_dic.ContainsKey(SumSave.uid))
         {
             str += "\n最大击杀数量：" + SumSave.crt_endless_battle.endless_dic[SumSave.uid].num;
