@@ -33,12 +33,6 @@ public class user_needlist_vo : Base_VO
     /// </summary>
     public Dictionary<int, Dictionary<(string, int), int>> fate_value_dic = new Dictionary<int, Dictionary<(string, int), int>>();
 
-    /// <summary>
-    /// 0.小世界体力(0.当前体力1.最大体力)
-    /// </summary>
-    public List<List<string>> user_value_list=new List<List<string>>();
-
-
     public string user_value;
 
     /// <summary>
@@ -48,38 +42,8 @@ public class user_needlist_vo : Base_VO
     {
         store_value_dic = new Dictionary<string, int>();
         map_value_list = new List<(string, int)>();
-
-        if (user_value_list.Count!=0&&user_value_list[0][0]!="")
-        {
-           
-            if (user_value_list[0].Count!=2)
-            {
-                user_value_list[0].Clear();
-                user_value_list[0].Add(100.ToString());//体力上限重置
-                user_value_list[0].Add(100.ToString());
-            }
-            else
-            {
-                int num = 100;
-                List<(string, List<int>)> list = SumSave.crt_seeds.GetuseList();
-                for (int i = 0; i < list.Count; i++)
-                {
-                    if (list[i].Item1 == "柴胡丸")
-                    {
-                        num += list[i].Item2[1];
-                    }
-                }
-                user_value_list[0][0] =num.ToString();//体力上限重置
-                user_value_list[0][1]=num.ToString();//体力重置
-            }
-            
-        }
-        else
-        {
-            user_value_list.Add(new List<string>() { "100", "100" });
-        }
-        Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_needlist,
-            Set_Uptade_String(), Get_Update_Character());
+        MysqlData();
+       
     }
 
 
@@ -99,19 +63,19 @@ public class user_needlist_vo : Base_VO
     /// </summary>
     public void user_Init()
     {
-        user_value_list = new List<List<string>>();
-        string[] user = user_value.Split(',');
-        for (int i = 0; i < user.Length; i++)
-        {
-            string[] user1 = user[i].Split(' ');
-            List<string> user_list= new List<string>();
-            for (int x = 0; x < user1.Length; x++)
-            {
-                user_list.Add(user1[x]);
-            }
+        //user_value_list = new List<List<string>>();
+        //string[] user = user_value.Split(',');
+        //for (int i = 0; i < user.Length; i++)
+        //{
+        //    string[] user1 = user[i].Split(' ');
+        //    List<string> user_list= new List<string>();
+        //    for (int x = 0; x < user1.Length; x++)
+        //    {
+        //        user_list.Add(user1[x]);
+        //    }
             
-            user_value_list.Add(user_list);
-        }  
+        //    user_value_list.Add(user_list);
+        //}  
     }
     /// <summary>
     /// 合并user_value
@@ -119,22 +83,22 @@ public class user_needlist_vo : Base_VO
     public string user_Merge()
     {
         string item = "";
-        for (int i = 0; i < user_value_list.Count; i++)
-        {
-            if (item != "")
-            {
-                item += ",";
-            }
-            for (int x = 0; x < user_value_list[i].Count; x++)
-            {
-                if (x != 0)
-                {
-                    item += " ";
-                }
-                item += user_value_list[i][x];
-            }
+        //for (int i = 0; i < user_value_list.Count; i++)
+        //{
+        //    if (item != "")
+        //    {
+        //        item += ",";
+        //    }
+        //    for (int x = 0; x < user_value_list[i].Count; x++)
+        //    {
+        //        if (x != 0)
+        //        {
+        //            item += " ";
+        //        }
+        //        item += user_value_list[i][x];
+        //    }
             
-        }
+        //}
        return item;
     }
 
@@ -168,7 +132,7 @@ public class user_needlist_vo : Base_VO
     /// <summary>
     /// 合并命运殿堂抽奖次数
     /// </summary>
-    /// <returns></returns>
+    /// <returns></returns> 
     private string fate_Merge()
     {
         string item = "";

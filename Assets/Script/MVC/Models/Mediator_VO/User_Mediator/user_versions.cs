@@ -22,5 +22,9 @@ public class user_versions : Base_VO
     /// 活动开启
     /// </summary>
     public int Activity;
+    /// <summary>
+    /// tap版号
+    /// </summary>
+    public string tapversionversion;
 
 }

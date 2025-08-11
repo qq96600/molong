@@ -75,6 +75,10 @@ public class Pet_explore : Base_Mono
     /// </summary>
     private string[] function_btn_list = new string[] { "收获", "探索" };
     /// <summary>
+    /// 存储路径
+    /// </summary>
+    private string setting_path = "宠物探索体力";
+    /// <summary>
     /// 探索按钮列表
     /// </summary>
     private string[] pos_btn_list = new string[] { "1", "2", "3" };
@@ -89,7 +93,6 @@ public class Pet_explore : Base_Mono
     /// 探索体力滚动条
     /// </summary>
     private Slider physicalStrengthSlider;
-
     private Text info;
     protected void Awake()
     {
@@ -134,25 +137,19 @@ public class Pet_explore : Base_Mono
 
     }
  
+    
     /// <summary>
     /// 显示探索体力
     /// </summary>
     private void displayPhysical()
     {
-        if(SumSave.crt_needlist.user_value_list[0].Count ==2)
-        {
-            physicalStrengthSlider.maxValue = float.Parse(SumSave.crt_needlist.user_value_list[0][1]);
-        }
-        else
-        {
-            SumSave.crt_needlist.user_value_list[0].Clear();
-            SumSave.crt_needlist.user_value_list[0].Add("100");
-            SumSave.crt_needlist.user_value_list[0].Add("100");
-        }
-        physicalStrengthSlider.maxValue = float.Parse(SumSave.crt_needlist.user_value_list[0][1]);
-        physicalStrengthSlider.value = float.Parse(SumSave.crt_needlist.user_value_list[0][0]);
-        physicalStrength.text = "当前体力值为" + SumSave.crt_needlist.user_value_list[0][0] + "/" + SumSave.crt_needlist.user_value_list[0][1];
+        int number = Tool_State.GetSetMapState(setting_path);
+        int max= 100 + Tool_State.Value_playerprobabilit(enum_skill_attribute_list.体质);
+        physicalStrengthSlider.maxValue = max;
+        physicalStrengthSlider.value = max - number;
+        physicalStrength.text = "当前体力值为" + (max - number) + "/" + max;
     }
+
 
     /// <summary>
     /// 点击事件
@@ -416,6 +413,7 @@ public class Pet_explore : Base_Mono
             SendNotification(NotiList.Refresh_Max_Hero_Attribute);
         }
     }
+
     /// <summary>
     /// 初始化探索列表
     /// </summary>
@@ -436,9 +434,10 @@ public class Pet_explore : Base_Mono
     {
         explore = SumSave.db_pet_explore[index].petExploreMapName;//获得探索地图的名字
 
+        int number = Tool_State.GetSetMapState(setting_path);
 
-        IsExploring =int.Parse( SumSave.crt_needlist.user_value_list[0][0]) - exhausting;//判断体力是否足够
-
+        IsExploring = 100 + Tool_State.Value_playerprobabilit(enum_skill_attribute_list.体质)
+            - number - exhausting;//判断体力是否足够
 
         if (IsExploring>= 0 && SumSave.db_pet_explore_dic.TryGetValue(explore, out user_pet_explore_vo vo)) //判断次数并且更具名字找到该地图的信息
         {
@@ -476,11 +475,9 @@ public class Pet_explore : Base_Mono
     private void GainRewards(string[] data)
     {
         int i = Random.Range(1, int.Parse(data[1]) + 1);//随机获得奖励数量
-        int r = int.Parse(SumSave.crt_needlist.user_value_list[0][0]) - exhausting;//每次探索消耗的体力
-        SumSave.crt_needlist.user_value_list[0][0] = r.ToString();
-        Game_Omphalos.i.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.mo_user_needlist,
-           SumSave.crt_needlist.Set_Uptade_String(), SumSave.crt_needlist.Get_Update_Character());
-
+        //消耗体力
+        int value = Tool_State.GetSetMapState(setting_path) + exhausting;
+        SumSave.crt_needlist.SetMap((setting_path, value));
         NGetRewards(data, i);
         Alert_Dec.Show("探索收益 " + data[0] + " x " + i);
         Init();

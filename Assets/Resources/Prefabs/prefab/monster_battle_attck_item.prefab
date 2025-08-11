@@ -835,6 +835,7 @@ GameObject:
   - component: {fileID: 2653692686807080668}
   - component: {fileID: 2026325892357606695}
   - component: {fileID: 5155554611015358463}
+  - component: {fileID: 4739199162022313434}
   m_Layer: 5
   m_Name: monster_battle_attck_item
   m_TagString: Moster
@@ -924,7 +925,6 @@ MonoBehaviour:
   EnergyMp: 0
   internalforcemaxMP: 0
   EnergymaxMp: 0
-  panel_fight: {fileID: 0}
   Pos: 0
 --- !u!114 &-4516949447149407766
 MonoBehaviour:
@@ -966,6 +966,9 @@ MonoBehaviour:
   AttackSpeed: 1
   MoveSpeed: 1
   skillRelease: 50
+  isBackstab: 0
+  _BehindDistance: 600
+  isBackstabpos: 0
   IsCentre: 1
 --- !u!50 &2653692686807080668
 Rigidbody2D:
@@ -1041,6 +1044,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b943be1d028e66448a24799dfb9f1d60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAttacking: 0
+--- !u!114 &4739199162022313434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7282181595703900079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 2627187833362180219}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &7821703043978855673
 GameObject:
   m_ObjectHideFlags: 0

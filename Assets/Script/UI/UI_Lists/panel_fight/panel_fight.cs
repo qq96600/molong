@@ -105,6 +105,10 @@ public class panel_fight : Panel_Base
     /// 状态刷新开关
     /// </summary>
     private bool openRefreshStatus = true;
+    /// <summary>
+    /// 怪物属性展示
+    /// </summary>
+    private show_monster_info show_monster_info;
     protected override void Awake()
     {
         base.Awake();
@@ -130,6 +134,7 @@ public class panel_fight : Panel_Base
         btn_Combat_statistics = Find<Button>("Combat_statistics");
         btn_Combat_statistics.onClick.AddListener(() => { clear_Combat_statistics(); });
         battle_info_list= Find<Text>("Combat_statistics/info");
+        show_monster_info = Find<show_monster_info>("show_monster_info");
     }
     /// <summary>
     /// 初始状态
@@ -192,8 +197,6 @@ public class panel_fight : Panel_Base
     public void Show_Combat_statistics()
     {
         battle_info_list.text = Combat_statistics.Show_Info();
-        //IsReply(SumSave.battleHeroHealths);
-        //IsReply(SumSave.battleMonsterHealths);
         IsReply(players);
         IsReply(monsters);
     }
@@ -208,6 +211,7 @@ public class panel_fight : Panel_Base
             BattleAttack attack = list[i].GetComponent<BattleAttack>();
             if (attack.Data.Heal_Hp > 0|| attack.Data.Heal_Mp > 0)
             {
+                //Debug.Log(attack.Data.show_name + " " + attack.Data.Heal_Hp);
                 list[i].HealConsumables(attack.Data.Heal_Hp, attack.Data.Heal_Mp);
             }
         }
@@ -829,9 +833,9 @@ public class panel_fight : Panel_Base
         crt.Push_name = crt.show_name;
         // 设置Data
         item.GetComponent<monster_battle_attck>().Data = crt;
-        //if (item.GetComponent<Button>().enabled)
-        //    item.GetComponent<Button>().onClick.AddListener(delegate { AudioManager.Instance.playAudio(ClipEnum.购买物品); SelectMonster(item.GetComponent<MonsterBattleAttack>()); });
-        //item.GetComponent<Button>().enabled = true;
+        if (item.GetComponent<Button>().enabled)
+            item.GetComponent<Button>().onClick.AddListener(delegate { AudioManager.Instance.playAudio(ClipEnum.购买物品); SelectMonster(crt); });
+        item.GetComponent<Button>().enabled = true;
         //SumSave.battleMonsterHealths.Add(item.GetComponent<BattleHealth>());
         monsters.Add(item.GetComponent<BattleHealth>());
         sumhealths.Add(item.GetComponent<BattleHealth>());
@@ -839,7 +843,15 @@ public class panel_fight : Panel_Base
         Open_Monster_State=true;
         ShowInfoMap();
     }
-   
+    /// <summary>
+    /// 显示怪物属性
+    /// </summary>
+    /// <param name="crt"></param>
+    private void SelectMonster(crtMaxHeroVO crt)
+    {
+        show_monster_info.gameObject.SetActive(true);
+        show_monster_info.show_info(crt);
+    }
 
     private void ShowInfoMap()
     {
