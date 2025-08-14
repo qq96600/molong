@@ -144,6 +144,24 @@ public  static class Tool_State
             
         return number;
     }
+    /// <summary>
+    /// 获取战斗属性buff
+    /// </summary>
+    /// <param name="list"></param>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    public static int Value_playerprobabilit(List<int> list, enum_skill_attribute_list value)
+    {
+        int number = 0;
+        if (list.Count > (int)value)
+        {
+            if (list[(int)value] > 0)
+            {
+                number = list[(int)value];
+            }
+        }
+        return number;
+    }
 
     private static void OnValueChanged(int arg0)
     {

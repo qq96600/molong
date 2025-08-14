@@ -160,6 +160,18 @@ public class panel_EndlessBattle : Panel_Base
         IsReply(monsters);
     }
     /// <summary>
+    /// 群聊回血
+    /// </summary>
+    /// <param name="hp"></param>
+    protected void add_hp(int hp)
+    {
+        for (int i = 0; i < players.Count; i++)
+        {
+            //Debug.Log(players[i].GetComponent<BattleAttack>().Data.show_name + " " + hp);
+            players[i].HealConsumables(hp, 0);
+        }
+    }
+    /// <summary>
     /// 回复生命魔法
     /// </summary>
     /// <param name="list"></param>

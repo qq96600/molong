@@ -150,9 +150,11 @@ public class panel_fight : Panel_Base
         if (openRefreshStatus)RefreshStatus();
     }
 
+
+
     private void RefreshStatus()
     {
-        Debug.Log("刷新状态");
+        //Debug.Log("刷新状态");
         if (players != null)
         {
             if (players.Count > 0)
@@ -199,6 +201,18 @@ public class panel_fight : Panel_Base
         battle_info_list.text = Combat_statistics.Show_Info();
         IsReply(players);
         IsReply(monsters);
+    }
+
+    /// <summary>
+    /// 群聊回血
+    /// </summary>
+    /// <param name="hp"></param>
+    protected void add_hp(int hp)
+    {
+        for (int i = 0; i < players.Count; i++)
+        {
+            players[i].HealConsumables(hp, 0);
+        }
     }
     /// <summary>
     /// 回复生命魔法

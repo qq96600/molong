@@ -393,8 +393,8 @@ namespace MVC
             #region ios区 
             SumSave.uid = "DSFSDFSDFSDF3"; // 32ac681e5ca845dc9eda67b30a36f6fa
             //SumSave.uid = "e8735c45680048f8a3494d7107a9e5a5";//都做了土（ip） 
-            //SumSave.uid = "7833feb021094bd8b101d6715acda083";//殇璃（ip） 
-            //SumSave.uid = "b3b9749fba9a474da9ca3d9c5ec2a509";//魔男（ip） 
+            //SumSave.uid = "399be5eb64f84f01b2e4817bba58a4e3";//殇璃（ip） 
+            //SumSave.uid = "275193c861334549a4610b81bb9a6411";//魔男（ip） 
             #endregion
             #region 安卓区
             //SumSave.uid = "DSFSDFSDFSDF3";//

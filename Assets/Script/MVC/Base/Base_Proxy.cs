@@ -38,7 +38,7 @@ namespace MVC
         /// </summary>
         public void OpenMySqlDB()
         {
-            MysqlDb = new MysqlDbAccess("server=rm-bp1ilq26us071qrl8eo.mysql.rds.aliyuncs.com;port=3306;database=onlinestore;user=mysql_db_shadow;password=tcm520WLF;");
+            MysqlDb = new MysqlDbAccess();
             User_Login();
         }
         /// <summary>
@@ -84,14 +84,14 @@ namespace MVC
         /// </summary>
         public void CloseMySqlDB()
         {
-            if (MysqlDb != null)
-            {
-                MysqlDb.CloseSqlConnection();
+            //if (MysqlDb != null)
+            //{
+            //    MysqlDb.CloseSqlConnection();
 
-                MysqlDb = null;
+            //    MysqlDb = null;
 
-                mysqlReader = null;
-            }
+            //    mysqlReader = null;
+            //}
 
         }
         /// <summary>
@@ -199,6 +199,7 @@ namespace MVC
         /// </summary>
         protected void QueryTime()
         {
+            Debug.Log("读取时间");
             mysqlReader = MysqlDb.QueryTime();
             if (mysqlReader.HasRows)
             {

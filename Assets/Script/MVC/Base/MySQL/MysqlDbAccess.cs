@@ -13,20 +13,24 @@ public class MysqlDbAccess
 
     private MySqlCommand cmd; // mysql命令
 
-    private MySqlDataReader reader;
+    private MySqlDataReader reader; // mysql读取器
+    /// <summary>
+    /// 数据库路径
+    /// </summary>
+    private string path = "server=rm-bp1ilq26us071qrl8eo.mysql.rds.aliyuncs.com;port=3306;database=onlinestore;user=mysql_db_shadow;password=tcm520WLF;";
+
     /// <summary>
     /// 判断网络开关
     /// </summary>
     public bool MysqlClose = false;
     /// <summary>
-    /// 打开只读数据库
+    /// 是否需要重连
     /// </summary>
-    /// <param name="connectionString"></param>
-    public MysqlDbAccess(string connectionString)
-    {
-        OpenDB(connectionString);
+    private bool isOpen = true;
+    
+    public MysqlDbAccess() {
+        if (isOpen) OpenDB();
     }
-    public MysqlDbAccess() { }
 
 
     /// <summary>
@@ -44,30 +48,22 @@ public class MysqlDbAccess
     /// 打开数据库
     /// </summary>
     /// <param name="connectionString"></param>
-    public void OpenDB(string connectionString)
+    private void OpenDB()
     {
         MysqlClose = true;
         SumSave.openMysql = true;
         try
         {
-            conn = new MySqlConnection(connectionString);
+            conn = new MySqlConnection(path);
             conn.Open();
             MysqlClose = false;
             SumSave.openMysql = false;
+            isOpen = false;
         }
         catch (Exception e)
         {
 
         }
-    }
-    /// <summary>
-    /// 关闭数据库连接
-    /// </summary>
-    public void CloseSqlConnection()
-    {
-        if (cmd != null) { cmd.Dispose(); cmd = null; }
-        if (reader != null) { reader.Dispose(); reader = null; }
-        if (conn != null) { conn.Close(); conn = null; }
     }
     /// <summary>
     /// 执行SQL语句
@@ -76,20 +72,37 @@ public class MysqlDbAccess
     /// <returns></returns>
     public MySqlDataReader ExecuteQuery(string sqlQuery)
     {
-        if (MysqlClose) return reader;
-        if (reader != null) { reader.Dispose(); reader = null; }
-        cmd = conn.CreateCommand();
-        cmd.CommandText = sqlQuery;
-        try
+        if (MySqlConnectionChecker.CheckConnection(path))
         {
-            reader = cmd.ExecuteReader();
-            MysqlClose = false;
-            SumSave.openMysql = false;
-        }
-        catch (Exception)
-        {
-            //Debug.Log(sqlQuery);
-        }
+            if (MysqlClose) return reader;
+            if (reader != null) { reader.Dispose(); reader = null; }
+            cmd = conn.CreateCommand();
+            cmd.CommandText = sqlQuery;
+            try
+            {
+                reader = cmd.ExecuteReader();
+                MysqlClose = false;
+                SumSave.openMysql = false;
+            }
+            catch (Exception)
+            {
+                Debug.Log(sqlQuery);
+            }
+        }else isOpen = true;
+        //if (MysqlClose) return reader;
+        //if (reader != null) { reader.Dispose(); reader = null; }
+        //cmd = conn.CreateCommand();
+        //cmd.CommandText = sqlQuery;
+        //try
+        //{
+        //    reader = cmd.ExecuteReader();
+        //    MysqlClose = false;
+        //    SumSave.openMysql = false;
+        //}
+        //catch (Exception)
+        //{
+        //    //Debug.Log(sqlQuery);
+        //}
         return reader;
     }
 

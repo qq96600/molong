@@ -54,10 +54,10 @@ public class panel_Mian : Panel_Base
         BayWindowText = Find<Text>("BayWindow/BayWindoText/Viewport/came/Text");
         BayWindow_btn = Find<Button>("BayWindow/Button");
         BayWindow_btn.onClick.AddListener(Read_prizedraw_info);
-
+        SendNotification(NotiList.Read_Message_Window);
         Obtain_PrizeDraw_info();
         StartCoroutine(AutoScroll());
-
+        InvokeRepeating("Read_Message_Window", 600, 600);
 
         if (SumSave.crt_setting.user_setting[4] == 1)//1为静音
         {
@@ -69,12 +69,14 @@ public class panel_Mian : Panel_Base
             AudioListener.pause = false;
         }
 
-
     }
-
-
-
-
+    /// <summary>
+    /// 10分钟读取一次
+    /// </summary>
+    private void Read_Message_Window()
+    {
+        SendNotification(NotiList.Read_Message_Window);
+    }
 
     /// <summary>
     /// 文本自动滚动
@@ -102,7 +104,6 @@ public class panel_Mian : Panel_Base
     /// </summary>
     private void Obtain_PrizeDraw_info()
     {
-        SendNotification(NotiList.Read_Message_Window);
         if (SumSave.crt_message_window.Count > 0)
         {
             BayWindowText.text = SumSave.crt_message_window[Random.Range(0, SumSave.crt_message_window.Count)].Item3;
