@@ -383,6 +383,7 @@ public class hatching_progress : Base_Mono
             number = number * 100 / (100 + (Tool_State.Value_playerprobabilit(enum_skill_attribute_list.宠物经验)));
             number = (int)(number * 0.8f);
             number = number / 10;
+            //计算加成
             if (number > 0)
             {
                 int random = Random.Range(1, 100);
