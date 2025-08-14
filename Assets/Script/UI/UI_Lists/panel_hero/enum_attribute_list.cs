@@ -150,6 +150,8 @@ public enum enum_skill_attribute_list
     月卡,//523
     至尊卡,//524
     试练塔积分,//525
+    攻击吸血,
+    攻击吸蓝,
 }
 /// <summary>
 /// 武器展示效果

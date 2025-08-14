@@ -375,9 +375,15 @@ public class hatching_progress : Base_Mono
         Alert_Dec.Show("宠物" + crt_pet_vo.petName + "已分解");
         if (crt_pet_vo.level > 1)//分解给口粮
         { 
-            int number= crt_pet_vo.level - 1;
+            int number= 0;
+            for (int i = 0; i < crt_pet_vo.level; i++)
+            {
+                number += i * 10;
+            }
             number = number * 100 / (100 + (Tool_State.Value_playerprobabilit(enum_skill_attribute_list.宠物经验)));
             number = (int)(number * 0.8f);
+            number = number / 10;
+            //计算加成
             if (number > 0)
             {
                 int random = Random.Range(1, 100);

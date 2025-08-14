@@ -91,10 +91,9 @@ namespace MVC
         /// </summary>
         private void CountTime()
         {
+            //Debug.Log(22);
             performTime+=1;
-            
             monitor_plant();
-
             if (SumSave.crt_setting.user_setting[8]==0)
             {
                 show_Screensaver_time_state++;
@@ -115,7 +114,7 @@ namespace MVC
             {
                 panel_EndlessBattle.Show_Combat_statistics();
             }
-            if ((performTime) % 5 == 0)
+            if ((performTime) % 15 == 0)
                 SendNotification(NotiList.Execute_Write, wirtes);
 
             if (performTime>=60)

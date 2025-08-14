@@ -220,6 +220,7 @@ namespace MVC
         private void world_boss_Login()
         {
             OpenMySqlDB();
+            if (MysqlDb.MysqlClose) return;
             mysqlReader= MysqlDb.Select(Mysql_Table_Name.db_world_boss, "par", GetStr(SumSave.par));
             if (mysqlReader.HasRows)
             {
@@ -857,6 +858,7 @@ namespace MVC
         /// </summary>
         private void read_User_Rank()
         {
+            if (MysqlDb.MysqlClose) return;
             mysqlReader = MysqlDb.Select(Mysql_Table_Name.user_rank, "par", GetStr(SumSave.par));
             SumSave.user_ranks = new rank_vo();
             if (mysqlReader.HasRows)

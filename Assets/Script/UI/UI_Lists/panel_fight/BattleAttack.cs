@@ -349,8 +349,10 @@ namespace MVC
             }
             if (skill.skill_damage_type == 6)
             {
-                target.HP += (skill.skill_damage + (skill.skill_power * lv)) * Data.MagicdamageMax/ 100;
-                if (target.HP > target.maxHP) target.HP = target.maxHP;
+                int hp = (int)(skill.skill_damage + (skill.skill_power * lv)) * (data.MagicdamageMax + data.MagicdamageMin) / 200;
+                transform.parent.parent.parent.SendMessage("add_hp", hp);
+                //target.HP += (skill.skill_damage + (skill.skill_power * lv)) * Data.MagicdamageMax/ 100;
+                //if (target.HP > target.maxHP) target.HP = target.maxHP;
                 return;
             }
             if (skill.skill_damage_type == 4) 
@@ -378,7 +380,6 @@ namespace MVC
             float damage = Base_Damage(monster, skill);
             damage += skill.skill_spell * target.maxMP / 100;
             damage = damage * (skill.skill_damage + (skill.skill_power * lv)+ Tool_State.Value_playerprobabilit(enum_skill_attribute_list.技能伤害)) / 100;
-            //damage = damage * (skill.skill_damage + (skill.skill_power * lv)) / 100;
             //内力伤害
             if (skill.user_values[3] != "")
             {
@@ -467,6 +468,16 @@ namespace MVC
                 //else damage = damage * (100 + (life)) / 100;
             }
             damage =(long) Mathf.Max(1, damage);
+
+            if (Tool_State.Value_playerprobabilit(data.bufflist, enum_skill_attribute_list.攻击回血) > 0)
+            { 
+                target.HealConsumables ( Tool_State.Value_playerprobabilit(data.bufflist, enum_skill_attribute_list.攻击回血),
+                    Tool_State.Value_playerprobabilit(data.bufflist, enum_skill_attribute_list.攻击回蓝));
+            }
+            if (Tool_State.Value_playerprobabilit(data.bufflist, enum_skill_attribute_list.攻击吸血) > 0)
+            {
+                target.HealConsumables((int)damage / 100, 0);
+            }
             return damage;
         }
 
@@ -602,47 +613,6 @@ namespace MVC
             //         //*// 0土 1火 2水 3木 4金 
             //对手五行
             value = battle_restrain_value(index, type, coefficient, monsterlifevaluelue);
-            //switch (index)//金克木 木克土 土克水 水克火 火克金   0土 1火 2水 3木 4金 
-            //{
-            //    //金属性 同属计算抗性
-            //    case 0:
-            //        if (type == index) value = 0;
-            //        //克制计算乘法（木克）
-            //        else if (type == 3) value = (int)(data.life[type] * coefficient - monsterlifevaluelue);
-            //        else if (type == 2) value = (int)(data.life[type] * 0.1f - monsterlifevaluelue);
-            //        //被克制计算乘法（水克）
-            //        if (type != 2) value = Mathf.Max(0, value);
-            //        break;
-            //    case 1:
-            //        if (type == index) value = 0;
-            //        else if (type == 2) value = (int)(data.life[type] * coefficient - monsterlifevaluelue);
-            //        else if (type == 4) value = (int)(data.life[type] * 0.1f - monsterlifevaluelue);
-            //        if (type != 4) value = Mathf.Max(0, value);
-
-            //        break;
-            //    case 2:
-            //        if (type == index) value = 0;
-            //        else if (type == 0) value = (int)(data.life[type] * coefficient - monsterlifevaluelue);
-            //        else if (type == 1) value = (int)(data.life[type] * 0.1f - monsterlifevaluelue);
-            //        if (type != 1) value = Mathf.Max(0, value);
-
-            //        break;
-            //    case 3:
-            //        if (type == index) value = 0;
-            //        else if (type == 4) value = (int)(data.life[type] * coefficient - monsterlifevaluelue);
-            //        else if (type == 0 ) value = (int)(data.life[type] * 0.1f - monsterlifevaluelue);
-            //        if (type != 0) value = Mathf.Max(0, value);
-
-            //        break;
-            //    case 4:
-            //        if (type == index) value = 0; //value = data.life[type] - monsterlifevaluelue;
-            //        else if (type == 1) value = (int)(data.life[type] * coefficient - monsterlifevaluelue);
-            //        else if (type == 3) value = (int)(data.life[type] * 0.1f - monsterlifevaluelue);
-            //        if (type != 3) value = Mathf.Max(0, value);
-            //        break;
-            //    default:
-            //        break;
-            //}
             return value;
         }
         /// <summary>
