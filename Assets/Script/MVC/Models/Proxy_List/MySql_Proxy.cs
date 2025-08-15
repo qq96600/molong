@@ -23,7 +23,7 @@ namespace MVC
 
         public void Read_Instace()
         {
-            OpenMySqlDB();
+            OpenMySqlDB1();
             if (MysqlDb.MysqlClose) return;//未联网
             QueryTime();
             Read_Db_Monster();
@@ -505,23 +505,6 @@ namespace MVC
                     SumSave.db_Artifacts.Add(ReadDb.Read_artifact_vo(mysqlReader));
                 }
             }
-
-            //List<string> db_artifact = new List<string>();
-            //for(int i = 0; i < SumSave.db_Artifacts.Count; i++)
-            //{
-            //    if(UI.UI_Manager.I.GetEquipSprite("icon/", SumSave.db_Artifacts[i].arrifact_name) == null)
-            //    {
-            //        db_artifact.Add(SumSave.db_Artifacts[i].arrifact_name);
-            //    }
-            //}
-
-            //string str = "";
-            //for(int i = 0; i < db_artifact.Count; i++)
-            //{
-            //    str+= db_artifact[i] + ",";
-            //}
-            //Debug.Log(str);
-
         }
 
         /// <summary>
@@ -584,7 +567,6 @@ namespace MVC
         private void Read_Db_Magic()
         {
             mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_magic);
-            //mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.db_magic_copy1);
             SumSave.db_skills = new List<base_skill_vo>();
             if (mysqlReader.HasRows)
             {
@@ -601,11 +583,6 @@ namespace MVC
                 {
                     Debug.LogError("Resources/icon 中没有："+ SumSave.db_skills[i].skillname+"技能图标");
                 }
-                //Sprite skill_spr2 = UI.UI_Manager.I.GetEquipSprite("skill/", SumSave.db_skills[i].skillname );// Resources.Load<Sprite
-                //if (skill_spr == null)
-                //{
-                //    Debug.LogError("Resources/skill 中没有：" + SumSave.db_skills[i].skillname + "技能图标");
-                //}
             }
         }
         /// <summary>
@@ -622,26 +599,6 @@ namespace MVC
                     SumSave.db_monsters.Add(ReadDb.Read(mysqlReader, new crtMaxHeroVO()));
                 }
             }
-
-            //List <crtMaxHeroVO> monsters = new List<crtMaxHeroVO>();
-            //string str = "未找到怪物: ";
-            //for (int i = 0; i < SumSave.db_monsters.Count; i++)
-            //{
-            //    if(Resources.Load<Sprite>("Prefabs/monsters/" + SumSave.db_monsters[i].show_name) ==null) 
-            //    {
-            //        //Debug.Log("没有"+ SumSave.db_monsters[i].show_name);
-            //        monsters.Add(SumSave.db_monsters[i]);
-            //    }
-            //}    
-
-            //for (int i = 0; i < monsters.Count; i++)
-            //{
-            //    str += monsters[i].show_name + " ";
-            //}
-            //Debug.Log(str);
-
-
-
         }
         /// <summary>
         /// 读取地图数据库

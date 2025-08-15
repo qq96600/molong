@@ -27,9 +27,8 @@ namespace MVC
         /// </summary>
         public void User_Login()
         {
-            OpenMySqlDB();
+            OpenMySqlDB1();
             mysqlReader = MysqlDb.Select(Mysql_Table_Name.mo_user_base, "uid", GetStr(SumSave.uid));
-            //SumSave.crt_user = new user_base_vo(SumSave.uid,SumSave.nowtime,SumSave.nowtime,SumSave.par);
             SumSave.crt_user = new user_base_vo();
             if (mysqlReader.HasRows)
             {
@@ -71,7 +70,7 @@ namespace MVC
         /// <param name="id"></param>
         private void IPhone_Login(string[] id)
         {
-            OpenMySqlDB();
+            OpenMySqlDB1();
             mysqlReader = MysqlDb.SelectWhere(Mysql_Table_Name.mo_user_iphone, new string[] { "par", "account", "password" }, new string[] { "=", "=", "=" },
                 new string[] { SumSave.par.ToString(), id[0], id[1] });
             string crt_verify = "";
@@ -137,9 +136,10 @@ namespace MVC
         /// </summary>
         public void Read_Trial_Tower()
         {
-            OpenMySqlDB();
-            read_Trial_Tower();
-            CloseMySqlDB();
+            Program.Read_path_Mysql(Mysql_Table_Name.user_trial_towers);
+            //OpenMySqlDB();
+            //read_Trial_Tower();
+            //CloseMySqlDB();
         }
         private void read_Trial_Tower()
         {
@@ -164,19 +164,27 @@ namespace MVC
         /// </summary>
         public void Refresh_Rank()
         {
-            OpenMySqlDB();
-            if (MysqlDb.MysqlClose) return;
-            MysqlDb.UpdateInto(Mysql_Table_Name.user_rank,SumSave.user_ranks.Get_Update_Character(),SumSave.user_ranks.Set_Uptade_String(),
-                "par", GetStr(SumSave.par));
-            CloseMySqlDB();
+            List<Base_Wirte_VO> list = new List<Base_Wirte_VO>();
+            list.Add(Mysql_Read.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.user_rank, SumSave.user_ranks.Set_Uptade_String(), SumSave.user_ranks.Get_Update_Character()));//角色丹药Buff更新数据
+            Program.MysqlMain(list);
+            //OpenMySqlDB();
+            //if (MysqlDb.MysqlClose) return;
+            //MysqlDb.UpdateInto(Mysql_Table_Name.user_rank,SumSave.user_ranks.Get_Update_Character(),SumSave.user_ranks.Set_Uptade_String(),
+            //    "par", GetStr(SumSave.par));
+            //CloseMySqlDB();
         }
 
         public void Refresh_Endless_Tower()
         {
-            OpenMySqlDB();
-            MysqlDb.UpdateInto(Mysql_Table_Name.user_endless_battle, SumSave.crt_endless_battle.Get_Update_Character(), SumSave.crt_endless_battle.Set_Uptade_String(),
-               "par", GetStr(SumSave.par));
-            CloseMySqlDB();
+            List<Base_Wirte_VO> list = new List<Base_Wirte_VO>();
+            list.Add(Mysql_Read.GetQueue(Mysql_Type.UpdateInto, 
+                Mysql_Table_Name.user_endless_battle, SumSave.crt_endless_battle.Set_Uptade_String(),
+                SumSave.crt_endless_battle.Get_Update_Character()));
+            Program.MysqlMain(list);
+            //OpenMySqlDB();
+            //MysqlDb.UpdateInto(Mysql_Table_Name.user_endless_battle, SumSave.crt_endless_battle.Get_Update_Character(), SumSave.crt_endless_battle.Set_Uptade_String(),
+            //   "par", GetStr(SumSave.par));
+            //CloseMySqlDB();
         }
 
 
@@ -185,7 +193,7 @@ namespace MVC
         /// </summary>
         public void Refresh_Trial_Tower(int trial_storey)
         {
-            OpenMySqlDB();
+            OpenMySqlDB1();
             read_Trial_Tower();
             bool exist = true;
             for (int i = 0; i < SumSave.crt_Trial_Tower_rank.lists.Count; i++)
@@ -198,7 +206,12 @@ namespace MVC
             }
             if (exist) SumSave.crt_Trial_Tower_rank.lists.Add((SumSave.crt_user.uid, SumSave.crt_MaxHero.show_name, trial_storey));
             SumSave.crt_Trial_Tower_rank.lists = ArrayHelper.OrderDescding(SumSave.crt_Trial_Tower_rank.lists, x => x.Item3);
-            MysqlDb.UpdateInto(Mysql_Table_Name.user_trial_towers, SumSave.crt_Trial_Tower_rank.Get_Update_Character(), SumSave.crt_Trial_Tower_rank.Set_Uptade_String(), "par", GetStr(SumSave.par));
+            List<Base_Wirte_VO> list = new List<Base_Wirte_VO>();
+            list.Add(Mysql_Read.GetQueue(Mysql_Type.UpdateInto,
+                Mysql_Table_Name.user_trial_towers, SumSave.crt_Trial_Tower_rank.Set_Uptade_String(),
+                SumSave.crt_Trial_Tower_rank.Get_Update_Character()));
+            Program.MysqlMain(list);
+            //MysqlDb.UpdateInto(Mysql_Table_Name.user_trial_towers, SumSave.crt_Trial_Tower_rank.Get_Update_Character(), SumSave.crt_Trial_Tower_rank.Set_Uptade_String(), "par", GetStr(SumSave.par));
             CloseMySqlDB();
         }
 
@@ -219,7 +232,7 @@ namespace MVC
 
         private void world_boss_Login()
         {
-            OpenMySqlDB();
+            OpenMySqlDB1();
             if (MysqlDb.MysqlClose) return;
             mysqlReader= MysqlDb.Select(Mysql_Table_Name.db_world_boss, "par", GetStr(SumSave.par));
             if (mysqlReader.HasRows)
@@ -257,9 +270,14 @@ namespace MVC
         /// </summary>
         private void world_boss_update()
         {
-            OpenMySqlDB();
-            MysqlDb.UpdateInto(Mysql_Table_Name.db_world_boss, SumSave.db_world_boos.Get_Update_Character(), SumSave.db_world_boos.Set_Uptade_String(), "par", GetStr(SumSave.par));
-            CloseMySqlDB();
+            List<Base_Wirte_VO> list = new List<Base_Wirte_VO>();
+            list.Add(Mysql_Read.GetQueue(Mysql_Type.UpdateInto,
+                Mysql_Table_Name.db_world_boss, SumSave.db_world_boos.Set_Uptade_String(),
+                SumSave.db_world_boos.Get_Update_Character()));
+            Program.MysqlMain(list);
+            //OpenMySqlDB();
+            //MysqlDb.UpdateInto(Mysql_Table_Name.db_world_boss, SumSave.db_world_boos.Get_Update_Character(), SumSave.db_world_boos.Set_Uptade_String(), "par", GetStr(SumSave.par));
+            //CloseMySqlDB();
         }
 
 
@@ -317,7 +335,7 @@ namespace MVC
         /// </summary>
         private void RecordAndClearWorldBoss()
         {
-            OpenMySqlDB();
+            OpenMySqlDB1();
             Read_db_world_boss();
             for (int i = 0; i < SumSave.db_world_boss_hurt.Count; i++)
             {
@@ -368,7 +386,7 @@ namespace MVC
         /// 
         private void Tap_Login(string[] id)
         {
-            OpenMySqlDB();
+            OpenMySqlDB1();
             mysqlReader = MysqlDb.SelectWhere(Mysql_Table_Name.mo_user_tap, new string[] { "par", "Tapid" }, new string[] { "=", "=" }, new string[] { SumSave.par.ToString(), id[0] });
             if (mysqlReader.HasRows)
             {
@@ -457,7 +475,7 @@ namespace MVC
         }
         public void Delete(string dec)
         {
-            OpenMySqlDB();
+            OpenMySqlDB1();
             if (!MysqlDb.MysqlClose)
             {
                 MysqlDb.UpdateInto(Mysql_Table_Name.mo_user_base, new string[] { "Nowdate" }, new string[] { GetStr(dec) }, "uid", GetStr(SumSave.crt_user.uid));//login
@@ -469,7 +487,7 @@ namespace MVC
         public void loglist(string dec)
         {
             log_list.Add(dec);
-            OpenMySqlDB();  
+            OpenMySqlDB1();  
             if (!MysqlDb.MysqlClose)
             {
                 for (int i = 0; i < log_list.Count; i++)
@@ -687,11 +705,11 @@ namespace MVC
         /// </summary>
         public void Read_user_messageWindow()
         {
-            OpenMySqlDB();
+            OpenMySqlDB1();
             if (MysqlDb.MysqlClose) return;
-            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.user_message_window);
-
+            if (SumSave.crt_message_window != null) return;
             SumSave.crt_message_window = new List<(int, string, string)>();
+            mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.user_message_window);
 
             if (mysqlReader.HasRows)
             {
@@ -727,7 +745,7 @@ namespace MVC
             SumSave.crt_message_window.Add((index, SumSave.crt_user.uid, value));
             Read_user_messageWindow();
             index = (SumSave.crt_message_window.Count > 0 ? SumSave.crt_message_window[SumSave.crt_message_window.Count - 1].Item1 + 1 : 1);
-            OpenMySqlDB();
+            OpenMySqlDB1();
             MysqlDb.InsertInto(Mysql_Table_Name.user_message_window, new string[] { GetStr(0), GetStr(index), GetStr(SumSave.crt_user.uid), GetStr(value) });
             CloseMySqlDB();
         }
@@ -836,6 +854,7 @@ namespace MVC
         /// </summary>
         private void read_EndlessBattle()
         {
+
             mysqlReader = MysqlDb.Select(Mysql_Table_Name.user_endless_battle, "par", GetStr(SumSave.par));
             SumSave.crt_endless_battle = new user_endless_battle();
             if (mysqlReader.HasRows)
@@ -891,12 +910,13 @@ namespace MVC
         /// </summary>
         public void Read_User_Rank()
         {
-            OpenMySqlDB();
-            //if (MysqlDb.MysqlClose)
-            //{
-                read_User_Rank();
-            //}
-            CloseMySqlDB();
+            Program.Read_path_Mysql(Mysql_Table_Name.user_rank);
+            //OpenMySqlDB();
+            ////if (MysqlDb.MysqlClose)
+            ////{
+            //    read_User_Rank();
+            ////}
+            //CloseMySqlDB();
         }
 
         /// <summary>
@@ -904,19 +924,16 @@ namespace MVC
         /// </summary>
         public void Read_read_EndlessBattle()
         {
-            OpenMySqlDB();
-            read_EndlessBattle();
-            CloseMySqlDB();
+            Program.Read_path_Mysql(Mysql_Table_Name.user_endless_battle);
+            //OpenMySqlDB();
+            //read_EndlessBattle();
+            //CloseMySqlDB();
         }
-
-
-
-
         public void Read_Mail()
         {
-            OpenMySqlDB();
-            if (MysqlDb.MysqlClose) return;//未联网
+            OpenMySqlDB1();
             SumSave.Db_Mails = new List<db_mail_vo>();
+            if (MysqlDb.MysqlClose) return;//未联网
             mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.server_mail);
             if (mysqlReader.HasRows)
             {
@@ -925,7 +942,6 @@ namespace MVC
                     SumSave.Db_Mails.Add(ReadDb.Read_mail(mysqlReader));
                 }
             }
-
             CloseMySqlDB();
         }
         /// <summary>
@@ -1931,10 +1947,11 @@ namespace MVC
         /// </summary>
         public void Execute_Write(List<Base_Wirte_VO> list)
         {
-            OpenMySqlDB();
-            //写入数据
             ExecuteWrite(list);
-            CloseMySqlDB();
+
+            //OpenMySqlDB();
+            ////写入数据
+            //CloseMySqlDB();
         }
         public void Read_Locality()
         {
