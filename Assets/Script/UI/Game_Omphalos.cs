@@ -114,7 +114,7 @@ namespace MVC
             {
                 panel_EndlessBattle.Show_Combat_statistics();
             }
-            if ((performTime) % 15 == 0)
+            if ((performTime) % 5 == 0)
                 SendNotification(NotiList.Execute_Write, wirtes);
 
             if (performTime>=60)

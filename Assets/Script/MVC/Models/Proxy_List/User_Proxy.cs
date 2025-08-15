@@ -18,7 +18,7 @@ namespace MVC
         public User_Proxy()
         {
             this.ProxyName = NAME;
-            OpenMySqlDB();
+            //OpenMySqlDB();
         }
     }
 }

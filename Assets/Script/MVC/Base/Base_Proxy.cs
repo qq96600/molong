@@ -3,6 +3,7 @@ using Components;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using TarenaMVC;
 using UI;
 using UnityEngine;
@@ -36,7 +37,7 @@ namespace MVC
         /// <summary>
         ///  打开网络数据库
         /// </summary>
-        public void OpenMySqlDB()
+        public void OpenMySqlDB1()
         {
             MysqlDb = new MysqlDbAccess();
             User_Login();
@@ -109,10 +110,11 @@ namespace MVC
         /// </summary>
         public void ExecuteWrite(List<Base_Wirte_VO> wirtes)
         {
-            if (MysqlDb.MysqlClose) return;
-            QueryTime();
-            QueryVersion();
-
+            //if (MysqlDb.MysqlClose) return;
+            //QueryTime();
+            //QueryVersion();
+            Program.MysqlMain(wirtes);
+            return;
             if (wirtes.Count > 0)
             {
                 for (int i = 0; i < wirtes.Count; i++)
@@ -199,7 +201,20 @@ namespace MVC
         /// </summary>
         protected void QueryTime()
         {
-            Debug.Log("读取时间");
+            mysqlReader = MysqlDb.QueryTime();
+            if (mysqlReader.HasRows)
+            {
+                while (mysqlReader.Read())
+                {
+                    for (int i = 0; i < mysqlReader.FieldCount; i++)
+                    {
+                        SumSave.nowtime = Convert.ToDateTime(mysqlReader[i].ToString());
+                    }
+                }
+            }
+        }
+        protected void QueryMysqlTime()
+        {
             mysqlReader = MysqlDb.QueryTime();
             if (mysqlReader.HasRows)
             {

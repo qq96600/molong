@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using Common;
 using MVC;
 using MySql.Data.MySqlClient;
@@ -126,10 +127,6 @@ public static class ReadDb
         item.Init();
         return item;
     }
-
-
-
-
     public static user_player_Buff Read(MySqlDataReader reader, user_player_Buff item)
     {
         item.player_baff = reader.GetString(reader.GetOrdinal("player_Buff"));
