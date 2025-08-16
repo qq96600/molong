@@ -55,7 +55,7 @@ public static class Program
     /// 读取路径
     /// </summary>
     /// <param name="tableName"></param>
-    public static void Read_path_Mysql(Mysql_Table_Name tableName)
+    public static void Read_path_Mysql1(Mysql_Table_Name tableName) 
     {
         Task.Run(() => Program.QueryUsersAsync(tableName));
     }

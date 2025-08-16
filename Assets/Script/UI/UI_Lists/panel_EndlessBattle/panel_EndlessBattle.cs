@@ -559,32 +559,32 @@ public class panel_EndlessBattle : Panel_Base
     private void crate_monster()
     {
         ///调用天气buff
-        bool isAdd = true;
-        if (SumSave.crt_player_buff.player_Buffs.Count > 0)
-        {
-            foreach (var _item in SumSave.crt_player_buff.player_Buffs)
-            {
-                if (_item.Value.Item4 == 4)
-                {
-                    isAdd = false;
-                    int remainingTime = Battle_Tool.SettlementTransport((_item.Value.Item1).ToString("yyyy-MM-dd HH:mm:ss"));
-                    if (remainingTime > _item.Value.Item2)
-                    {
-                        SumSave.crt_player_buff.player_Buffs.Remove(_item.Key);
-                        AddWeather();
-                        break;
-                    }
-                }
-            }
-            if (isAdd)
-            {
-                AddWeather();
-            }
-        }
-        else
-        {
-            AddWeather();
-        }
+        //bool isAdd = true;
+        //if (SumSave.crt_player_buff.player_Buffs.Count > 0)
+        //{
+        //    foreach (var _item in SumSave.crt_player_buff.player_Buffs)
+        //    {
+        //        if (_item.Value.Item4 == 4)
+        //        {
+        //            isAdd = false;
+        //            int remainingTime = Battle_Tool.SettlementTransport((_item.Value.Item1).ToString("yyyy-MM-dd HH:mm:ss"));
+        //            if (remainingTime > _item.Value.Item2)
+        //            {
+        //                SumSave.crt_player_buff.player_Buffs.Remove(_item.Key);
+        //                AddWeather();
+        //                break;
+        //            }
+        //        }
+        //    }
+        //    if (isAdd)
+        //    {
+        //        AddWeather();
+        //    }
+        //}
+        //else
+        //{
+        //    AddWeather();
+        //}
         if (crt_monster_number >= maxnumber) crt_monster_number = 0;
         crt_monster_number++;
         //每100个怪减少刷新cd
