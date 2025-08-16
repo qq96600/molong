@@ -164,27 +164,27 @@ namespace MVC
         /// </summary>
         public void Refresh_Rank()
         {
-            List<Base_Wirte_VO> list = new List<Base_Wirte_VO>();
-            list.Add(Mysql_Read.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.user_rank, SumSave.user_ranks.Set_Uptade_String(), SumSave.user_ranks.Get_Update_Character()));//角色丹药Buff更新数据
-            Program.MysqlMain(list);
-            //OpenMySqlDB();
-            //if (MysqlDb.MysqlClose) return;
-            //MysqlDb.UpdateInto(Mysql_Table_Name.user_rank,SumSave.user_ranks.Get_Update_Character(),SumSave.user_ranks.Set_Uptade_String(),
-            //    "par", GetStr(SumSave.par));
-            //CloseMySqlDB();
+            //List<Base_Wirte_VO> list = new List<Base_Wirte_VO>();
+            //list.Add(Mysql_Read.GetQueue(Mysql_Type.UpdateInto, Mysql_Table_Name.user_rank, SumSave.user_ranks.Set_Uptade_String(), SumSave.user_ranks.Get_Update_Character()));//角色丹药Buff更新数据
+            ////Program.MysqlMain(list);
+            OpenMySqlDB();
+            if (MysqlDb.MysqlClose) return;
+            MysqlDb.UpdateInto(Mysql_Table_Name.user_rank, SumSave.user_ranks.Get_Update_Character(), SumSave.user_ranks.Set_Uptade_String(),
+                "par", GetStr(SumSave.par));
+            CloseMySqlDB();
         }
 
         public void Refresh_Endless_Tower()
         {
-            List<Base_Wirte_VO> list = new List<Base_Wirte_VO>();
-            list.Add(Mysql_Read.GetQueue(Mysql_Type.UpdateInto, 
-                Mysql_Table_Name.user_endless_battle, SumSave.crt_endless_battle.Set_Uptade_String(),
-                SumSave.crt_endless_battle.Get_Update_Character()));
-            Program.MysqlMain(list);
-            //OpenMySqlDB();
-            //MysqlDb.UpdateInto(Mysql_Table_Name.user_endless_battle, SumSave.crt_endless_battle.Get_Update_Character(), SumSave.crt_endless_battle.Set_Uptade_String(),
-            //   "par", GetStr(SumSave.par));
-            //CloseMySqlDB();
+            //List<Base_Wirte_VO> list = new List<Base_Wirte_VO>();
+            //list.Add(Mysql_Read.GetQueue(Mysql_Type.UpdateInto, 
+            //    Mysql_Table_Name.user_endless_battle, SumSave.crt_endless_battle.Set_Uptade_String(),
+            //    SumSave.crt_endless_battle.Get_Update_Character()));
+            //Program.MysqlMain(list);
+            OpenMySqlDB();
+            MysqlDb.UpdateInto(Mysql_Table_Name.user_endless_battle, SumSave.crt_endless_battle.Get_Update_Character(), SumSave.crt_endless_battle.Set_Uptade_String(),
+               "par", GetStr(SumSave.par));
+            CloseMySqlDB();
         }
 
 
@@ -206,12 +206,12 @@ namespace MVC
             }
             if (exist) SumSave.crt_Trial_Tower_rank.lists.Add((SumSave.crt_user.uid, SumSave.crt_MaxHero.show_name, trial_storey));
             SumSave.crt_Trial_Tower_rank.lists = ArrayHelper.OrderDescding(SumSave.crt_Trial_Tower_rank.lists, x => x.Item3);
-            List<Base_Wirte_VO> list = new List<Base_Wirte_VO>();
-            list.Add(Mysql_Read.GetQueue(Mysql_Type.UpdateInto,
-                Mysql_Table_Name.user_trial_towers, SumSave.crt_Trial_Tower_rank.Set_Uptade_String(),
-                SumSave.crt_Trial_Tower_rank.Get_Update_Character()));
-            Program.MysqlMain(list);
-            //MysqlDb.UpdateInto(Mysql_Table_Name.user_trial_towers, SumSave.crt_Trial_Tower_rank.Get_Update_Character(), SumSave.crt_Trial_Tower_rank.Set_Uptade_String(), "par", GetStr(SumSave.par));
+            //List<Base_Wirte_VO> list = new List<Base_Wirte_VO>();
+            //list.Add(Mysql_Read.GetQueue(Mysql_Type.UpdateInto,
+            //    Mysql_Table_Name.user_trial_towers, SumSave.crt_Trial_Tower_rank.Set_Uptade_String(),
+            //    SumSave.crt_Trial_Tower_rank.Get_Update_Character()));
+            ////Program.MysqlMain(list);
+            MysqlDb.UpdateInto(Mysql_Table_Name.user_trial_towers, SumSave.crt_Trial_Tower_rank.Get_Update_Character(), SumSave.crt_Trial_Tower_rank.Set_Uptade_String(), "par", GetStr(SumSave.par));
             CloseMySqlDB();
         }
 
@@ -270,14 +270,14 @@ namespace MVC
         /// </summary>
         private void world_boss_update()
         {
-            List<Base_Wirte_VO> list = new List<Base_Wirte_VO>();
-            list.Add(Mysql_Read.GetQueue(Mysql_Type.UpdateInto,
-                Mysql_Table_Name.db_world_boss, SumSave.db_world_boos.Set_Uptade_String(),
-                SumSave.db_world_boos.Get_Update_Character()));
-            Program.MysqlMain(list);
-            //OpenMySqlDB();
-            //MysqlDb.UpdateInto(Mysql_Table_Name.db_world_boss, SumSave.db_world_boos.Get_Update_Character(), SumSave.db_world_boos.Set_Uptade_String(), "par", GetStr(SumSave.par));
-            //CloseMySqlDB();
+            //List<Base_Wirte_VO> list = new List<Base_Wirte_VO>();
+            //list.Add(Mysql_Read.GetQueue(Mysql_Type.UpdateInto,
+            //    Mysql_Table_Name.db_world_boss, SumSave.db_world_boos.Set_Uptade_String(),
+            //    SumSave.db_world_boos.Get_Update_Character()));
+            //Program.MysqlMain(list);
+            OpenMySqlDB();
+            MysqlDb.UpdateInto(Mysql_Table_Name.db_world_boss, SumSave.db_world_boos.Get_Update_Character(), SumSave.db_world_boos.Set_Uptade_String(), "par", GetStr(SumSave.par));
+            CloseMySqlDB();
         }
 
 
