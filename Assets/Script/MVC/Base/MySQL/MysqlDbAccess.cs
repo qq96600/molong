@@ -29,9 +29,18 @@ public class MysqlDbAccess
     private bool isOpen = true;
     
     public MysqlDbAccess() {
-        if (isOpen) OpenDB();
+        //if (isOpen) OpenDB();
+        OpenDB();
     }
-
+    /// <summary>
+    /// 关闭数据库连接
+    /// </summary>
+    public void CloseSqlConnection()
+    {
+        if (cmd != null) { cmd.Dispose(); cmd = null; }
+        if (reader != null) { reader.Dispose(); reader = null; }
+        if (conn != null) { conn.Close(); conn = null; }
+    }
 
     /// <summary>
     /// 获取时间
@@ -72,37 +81,37 @@ public class MysqlDbAccess
     /// <returns></returns>
     public MySqlDataReader ExecuteQuery(string sqlQuery)
     {
-        if (MySqlConnectionChecker.CheckConnection(path))
+        //if (MySqlConnectionChecker.CheckConnection(path))
+        //{
+        //    if (MysqlClose) return reader;
+        //    if (reader != null) { reader.Dispose(); reader = null; }
+        //    cmd = conn.CreateCommand();
+        //    cmd.CommandText = sqlQuery;
+        //    try
+        //    {
+        //        reader = cmd.ExecuteReader();
+        //        MysqlClose = false;
+        //        SumSave.openMysql = false;
+        //    }
+        //    catch (Exception)
+        //    {
+        //        Debug.Log(sqlQuery);
+        //    }
+        //}else isOpen = true;
+        if (MysqlClose) return reader;
+        if (reader != null) { reader.Dispose(); reader = null; }
+        cmd = conn.CreateCommand();
+        cmd.CommandText = sqlQuery;
+        try
         {
-            if (MysqlClose) return reader;
-            if (reader != null) { reader.Dispose(); reader = null; }
-            cmd = conn.CreateCommand();
-            cmd.CommandText = sqlQuery;
-            try
-            {
-                reader = cmd.ExecuteReader();
-                MysqlClose = false;
-                SumSave.openMysql = false;
-            }
-            catch (Exception)
-            {
-                Debug.Log(sqlQuery);
-            }
-        }else isOpen = true;
-        //if (MysqlClose) return reader;
-        //if (reader != null) { reader.Dispose(); reader = null; }
-        //cmd = conn.CreateCommand();
-        //cmd.CommandText = sqlQuery;
-        //try
-        //{
-        //    reader = cmd.ExecuteReader();
-        //    MysqlClose = false;
-        //    SumSave.openMysql = false;
-        //}
-        //catch (Exception)
-        //{
-        //    //Debug.Log(sqlQuery);
-        //}
+            reader = cmd.ExecuteReader();
+            MysqlClose = false;
+            SumSave.openMysql = false;
+        }
+        catch (Exception)
+        {
+            //Debug.Log(sqlQuery);
+        }
         return reader;
     }
 

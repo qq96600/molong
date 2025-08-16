@@ -85,14 +85,14 @@ namespace MVC
         /// </summary>
         public void CloseMySqlDB()
         {
-            //if (MysqlDb != null)
-            //{
-            //    MysqlDb.CloseSqlConnection();
+            if (MysqlDb != null)
+            {
+                MysqlDb.CloseSqlConnection();
 
-            //    MysqlDb = null;
+                MysqlDb = null;
 
-            //    mysqlReader = null;
-            //}
+                mysqlReader = null;
+            }
 
         }
         /// <summary>
