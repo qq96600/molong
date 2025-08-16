@@ -1201,7 +1201,12 @@ public static class Battle_Tool
         if (trial_storey >= 0)
         {
             base_crt.life[(trial_storey + (trial_storey / 5)) % 5] = trial_storey * 3;
-            base_crt.MaxHP = (long)((trial_storey + 1) * 100 * (Mathf.Pow(10, trial_storey / 20)));
+            //base_crt.MaxHP = (long)((trial_storey + 1) * 100 * (Mathf.Pow(10, trial_storey / 20)));
+            if (trial_storey >= 60)
+                base_crt.MaxHP = (long)((trial_storey + 1) * 300 * (Mathf.Pow(10, 2)));
+            else
+                base_crt.MaxHP = (long)((trial_storey + 1) * 100 * (Mathf.Pow(10, trial_storey / 20)));
+
             base_crt.MaxMp = (trial_storey + 1) * 100;
             base_crt.internalforceMP = (trial_storey + 1) * 100;
             base_crt.EnergyMp = (trial_storey + 1) * 10;
