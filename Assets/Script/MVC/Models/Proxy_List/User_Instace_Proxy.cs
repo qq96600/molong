@@ -142,6 +142,14 @@ namespace MVC
             read_Trial_Tower();
             CloseMySqlDB();
         }
+
+        public void Read_Mysql_Base_Time()
+        {
+            OpenMySqlDB();
+            QueryTime();
+            CloseMySqlDB();
+        }
+
         private void read_Trial_Tower()
         {
             mysqlReader = MysqlDb.Select(Mysql_Table_Name.user_trial_towers, "par", GetStr(SumSave.par));

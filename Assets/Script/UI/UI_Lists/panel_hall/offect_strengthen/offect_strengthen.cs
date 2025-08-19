@@ -126,6 +126,12 @@ public class offect_strengthen : Base_Mono
     private void Strengthen_succinct()
     {
         if (crt_bag == null) return;
+        SendNotification(NotiList.Read_Mysql_Base_Time);
+        if (!SumSave.is_ToMysqlOpen)
+        {
+            Alert_Dec.Show("网络连接失败");
+            return;  
+        }
         NeedConsumables(currency_unit.灵气, 2000);
         NeedConsumables(currency_unit.灵珠, 50000000);
         if (RefreshConsumables())
@@ -133,6 +139,7 @@ public class offect_strengthen : Base_Mono
             string[] infos = crt_bag.Data.user_value.Split(' ');
             crt_bag.Data.user_value = tool_Categoryt.Obtain_Equip(crt_bag.Data, int.Parse(infos[1]), int.Parse(infos[2]));
             Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.equip_value, SumSave.crt_euqip);
+            Game_Omphalos.i.archive();
             Alert_Dec.Show("洗练成功");
             Base_Show();
         }

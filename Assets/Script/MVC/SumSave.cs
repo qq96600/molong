@@ -15,6 +15,10 @@ namespace Common
         public static string uid;
         public static string Tapid ;
         /// <summary>
+        /// 网络连接
+        /// </summary>
+        public static bool is_ToMysqlOpen = false; 
+        /// <summary>
         /// 服务器几区
         /// </summary>
         public static int par = 1;
@@ -373,8 +377,6 @@ namespace Common
         /// 判断网络开关
         /// </summary>
         public static bool openMysql = false;
-
-
 
         #endregion
     }
