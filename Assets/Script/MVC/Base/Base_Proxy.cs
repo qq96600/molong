@@ -216,7 +216,12 @@ namespace MVC
         protected void QueryTime()
         {
             mysqlReader = MysqlDb.QueryTime();
-            if (mysqlReader == null) return;
+            if (mysqlReader == null)
+            {
+                SumSave.is_ToMysqlOpen= false;
+                return;
+            }
+            SumSave.is_ToMysqlOpen = true;
             if (mysqlReader.HasRows)
             {
                 while (mysqlReader.Read())
@@ -224,6 +229,7 @@ namespace MVC
                     for (int i = 0; i < mysqlReader.FieldCount; i++)
                     {
                         SumSave.nowtime = Convert.ToDateTime(mysqlReader[i].ToString());
+                        SumSave.is_ToMysqlOpen = true;
                     }
                 }
             }

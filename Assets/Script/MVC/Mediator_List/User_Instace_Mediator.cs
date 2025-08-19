@@ -48,6 +48,7 @@ namespace MVC
                 NotiList.Read_EndlessBattle,
                 NotiList.Refresh_Endless_Tower,
                 NotiList.Mysql_close,
+                NotiList.Read_Mysql_Base_Time
             };
 
         }
@@ -127,6 +128,9 @@ namespace MVC
                     break;
                     case NotiList.Mysql_close:
                     user.close_ApplicationFocus();
+                    break;
+                    case NotiList.Read_Mysql_Base_Time:
+                    user.Read_Mysql_Base_Time();
                     break;
             }
         }
