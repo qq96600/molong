@@ -161,7 +161,7 @@ namespace MVC
                 List<(string, DateTime)> Set = SumSave.crt_plant.Set();
                 for (int i = 0; i < Set.Count; i++)
                 {
-                    if (Set[i].Item1.Contains("天麻"))
+                    if (true || Set[i].Item1.Contains("天麻"))
                     {
                         growTimeInt = Battle_Tool.SettlementTransport(Set[i].Item2.ToString(),2);
                         user_plant_vo vo = ArrayHelper.Find(SumSave.db_plants, e => e.plantName == Set[i].Item1);
@@ -221,7 +221,8 @@ namespace MVC
         private void Read_User_Ranks()
         {
             //定时存档数据
-            SendNotification(NotiList.Execute_Write, wirtes);
+            archive();
+            //SendNotification(NotiList.Execute_Write, wirtes);
             //每日任务 在线时长
             Battle_Tool.validate_rank();
             Tool_State.self_inspection();//10分钟验证一次状态
