@@ -30,6 +30,7 @@ namespace MVC
             OpenMySqlDB();
             mysqlReader = MysqlDb.Select(Mysql_Table_Name.mo_user_base, "uid", GetStr(SumSave.uid));
             SumSave.crt_user = new user_base_vo();
+            if (mysqlReader == null) return;
             if (mysqlReader.HasRows)
             {
                 while (mysqlReader.Read())
@@ -145,6 +146,7 @@ namespace MVC
         {
             mysqlReader = MysqlDb.Select(Mysql_Table_Name.user_trial_towers, "par", GetStr(SumSave.par));
             SumSave.crt_Trial_Tower_rank = new mo_world_boss_rank();
+            if (mysqlReader == null) return;
             if (mysqlReader.HasRows)
             {
                 while (mysqlReader.Read())
@@ -235,6 +237,7 @@ namespace MVC
             OpenMySqlDB();
             if (MysqlDb.MysqlClose) return;
             mysqlReader= MysqlDb.Select(Mysql_Table_Name.db_world_boss, "par", GetStr(SumSave.par));
+            if (mysqlReader == null) return;
             if (mysqlReader.HasRows)
             {
                 while (mysqlReader.Read())
@@ -365,6 +368,7 @@ namespace MVC
               new string[] { SumSave.par.ToString() });
 
             SumSave.db_world_boss_hurt = new List<user_world_boss>();
+            if (mysqlReader == null) return;
             if (mysqlReader.HasRows)
             {
                 while (mysqlReader.Read())
@@ -618,6 +622,7 @@ namespace MVC
         {
             mysqlReader = MysqlDb.Select(Mysql_Table_Name.user_emial, "uid", GetStr(SumSave.crt_user.uid));
             SumSave.CrtMail = new user_mail_vo();
+            if (mysqlReader == null) return;
 
             if (mysqlReader.HasRows)
             {
@@ -710,6 +715,7 @@ namespace MVC
             if (SumSave.crt_message_window != null) return;
             SumSave.crt_message_window = new List<(int, string, string)>();
             mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.user_message_window);
+            if (mysqlReader == null) return;
 
             if (mysqlReader.HasRows)
             {
@@ -857,6 +863,7 @@ namespace MVC
 
             mysqlReader = MysqlDb.Select(Mysql_Table_Name.user_endless_battle, "par", GetStr(SumSave.par));
             SumSave.crt_endless_battle = new user_endless_battle();
+            if (mysqlReader == null) return;
             if (mysqlReader.HasRows)
             {
                 while (mysqlReader.Read())
@@ -880,6 +887,8 @@ namespace MVC
             if (MysqlDb.MysqlClose) return;
             mysqlReader = MysqlDb.Select(Mysql_Table_Name.user_rank, "par", GetStr(SumSave.par));
             SumSave.user_ranks = new rank_vo();
+            if (mysqlReader == null) return;
+
             if (mysqlReader.HasRows)
             {
                 while (mysqlReader.Read())
@@ -895,6 +904,7 @@ namespace MVC
                     {
                         base_rank_vo bag_Base_VO = new base_rank_vo();
                         bag_Base_VO.SetPropertyValue(base_value);
+                        //Debug.Log(bag_Base_VO.name);
                         SumSave.user_ranks.lists.Add(bag_Base_VO);
                     }
                 }
@@ -935,6 +945,8 @@ namespace MVC
             SumSave.Db_Mails = new List<db_mail_vo>();
             if (MysqlDb.MysqlClose) return;//未联网
             mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.server_mail);
+            if (mysqlReader == null) return;
+
             if (mysqlReader.HasRows)
             {
                 while (mysqlReader.Read())

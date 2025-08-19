@@ -32,7 +32,7 @@ namespace MVC
         {
             return new string[] {
                 NotiList.Read_Instace,
-
+                NotiList.Mysql_close
 
             };
         }
@@ -47,6 +47,9 @@ namespace MVC
             { 
                 case NotiList.Read_Instace:
                     MySql.Read_Instace();
+                    break;
+                    case NotiList.Mysql_close:
+                    MySql.close_ApplicationFocus();
                     break;
               
             }

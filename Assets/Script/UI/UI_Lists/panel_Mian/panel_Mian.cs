@@ -32,6 +32,8 @@ public class panel_Mian : Panel_Base
     /// 滚动视图窗口
     /// </summary>
     private ScrollRect scrollRect;
+
+    private Button file;
     public override void Hide()
     {
         if (offect_list.gameObject.activeInHierarchy)
@@ -58,7 +60,8 @@ public class panel_Mian : Panel_Base
         Obtain_PrizeDraw_info();
         StartCoroutine(AutoScroll());
         InvokeRepeating("Read_Message_Window", 600, 600);
-
+        file = Find<Button>("base_info/bg/bg/file");
+        file.onClick.AddListener(() => { Open_File(); });
         if (SumSave.crt_setting.user_setting[4] == 1)//1为静音
         {
             AudioListener.pause = true;
@@ -70,6 +73,14 @@ public class panel_Mian : Panel_Base
         }
 
     }
+    /// <summary>
+    /// 立刻存档
+    /// </summary>
+    private void Open_File()
+    {
+        Game_Omphalos.i.archive();
+    }
+
     /// <summary>
     /// 10分钟读取一次
     /// </summary>

@@ -10,6 +10,7 @@ public class NotiList
     public const string loglist = "日志";
     public const string Refresh_User_Setting = "刷新设置";
     public const string Refresh_Max_Hero_Attribute = "刷新属性";
+    public const string Mysql_close = "关闭数据库";
 
     public const string Read_Mysql_Base_Time = "读取网络时间";
     public const string Read_World = "读取小世界";

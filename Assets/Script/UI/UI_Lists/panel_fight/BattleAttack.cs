@@ -459,8 +459,11 @@ namespace MVC
                 damage = defense(monster, data.Type, data.isBackstab);
             }else
                 damage = defense(monster, skill.skill_damage_type, data.isBackstab);
+            damage = (long)Mathf.Max(1, damage);
             damage = damage * (100 + penetrate(monster)) / 100;
+            damage = (long)Mathf.Max(1, damage);
             damage = damage * (100 + data.double_damage - monster.data.Damage_Reduction) / 100;
+            damage = (long)Mathf.Max(1, damage);
             if (skill == null)
             {
                 //int life = restrain_value(monster.Data.life, monster.Data.life_types);

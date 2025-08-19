@@ -23,13 +23,7 @@ public class MysqlDbAccess
     /// 判断网络开关
     /// </summary>
     public bool MysqlClose = false;
-    /// <summary>
-    /// 是否需要重连
-    /// </summary>
-    private bool isOpen = true;
-    
     public MysqlDbAccess() {
-        //if (isOpen) OpenDB();
         OpenDB();
     }
     /// <summary>
@@ -67,7 +61,6 @@ public class MysqlDbAccess
             conn.Open();
             MysqlClose = false;
             SumSave.openMysql = false;
-            isOpen = false;
         }
         catch (Exception e)
         {
@@ -98,7 +91,7 @@ public class MysqlDbAccess
         //        Debug.Log(sqlQuery);
         //    }
         //}else isOpen = true;
-        if (MysqlClose) return reader;
+        if (MysqlClose) return null;
         if (reader != null) { reader.Dispose(); reader = null; }
         cmd = conn.CreateCommand();
         cmd.CommandText = sqlQuery;
@@ -110,6 +103,7 @@ public class MysqlDbAccess
         }
         catch (Exception)
         {
+            return null;
             //Debug.Log(sqlQuery);
         }
         return reader;
