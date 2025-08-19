@@ -47,6 +47,7 @@ namespace MVC
                 NotiList.Refresh_Rank,
                 NotiList.Read_EndlessBattle,
                 NotiList.Refresh_Endless_Tower,
+                NotiList.Mysql_close,
             };
 
         }
@@ -123,6 +124,9 @@ namespace MVC
                     break;
                 case NotiList.Refresh_Endless_Tower:
                     user.Refresh_Endless_Tower();
+                    break;
+                    case NotiList.Mysql_close:
+                    user.close_ApplicationFocus();
                     break;
             }
         }

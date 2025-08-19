@@ -77,6 +77,11 @@ public class Trial_Tower : Panel_Base
     /// </summary>
     private void Challenge()
     {
+        if (SumSave.crt_Trial_Tower_rank.open_mysql)
+        {
+            Alert_Dec.Show("网络连接失败");
+            return;
+        }
         user_map_vo map = ArrayHelper.Find(SumSave.db_maps, e => e.map_type == 6);
         NeedConsumables(map.need_Required, 1);
         if (RefreshConsumables())

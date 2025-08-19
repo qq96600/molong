@@ -399,7 +399,7 @@ namespace MVC
             #region 安卓区
             //SumSave.uid = "DSFSDFSDFSDF3";//
 
-            //SumSave.uid = "0907c455977b4b6bb8f2eb13a7348430";//自古圣贤皆寂寞(Tap id)
+            //SumSave.uid = "95b1d23b8a394ee4a0921c775668b81b";//自古圣贤皆寂寞(Tap id)
 
             //SumSave.uid = "46d188a5694a483aa2ad2f990ccc4449";//帝天 1区
 

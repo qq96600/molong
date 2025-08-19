@@ -92,6 +92,10 @@ public class user_vo : Base_VO
                     if (value > 0) Combat_statistics.AddPoint(value);
                     list[(int)_index] += value;
                     verify_list[(int)_index] += value;
+                    if (_index == currency_unit.试炼积分)
+                    { 
+                    Debug.Log("试炼积分"+ list[(int)_index]);
+                    }
                     MysqlData();
                 }
                 break;

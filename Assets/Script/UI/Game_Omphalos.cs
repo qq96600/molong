@@ -114,9 +114,8 @@ namespace MVC
             {
                 panel_EndlessBattle.Show_Combat_statistics();
             }
-            if ((performTime) % 5 == 0)
-                SendNotification(NotiList.Execute_Write, wirtes);
-
+            //if ((performTime) % 5 == 0)
+            //    SendNotification(NotiList.Execute_Write, wirtes);
             if (performTime>=60)
             {
                 performTime = 0;
@@ -138,6 +137,15 @@ namespace MVC
 
                 }
             }
+        }
+        /// <summary>
+        /// 存档
+        /// </summary>
+        public void archive()
+        {
+            Alert_Dec.Show("存档中");
+            SendNotification(NotiList.Mysql_close);
+            SendNotification(NotiList.Execute_Write, wirtes);
         }
         /// <summary>
         /// 监控收益
@@ -212,6 +220,8 @@ namespace MVC
         /// </summary>
         private void Read_User_Ranks()
         {
+            //定时存档数据
+            SendNotification(NotiList.Execute_Write, wirtes);
             //每日任务 在线时长
             Battle_Tool.validate_rank();
             Tool_State.self_inspection();//10分钟验证一次状态

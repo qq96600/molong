@@ -2,6 +2,7 @@ using Common;
 using Components;
 using MySql.Data.MySqlClient;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.Common;
 using TarenaMVC;
@@ -51,6 +52,7 @@ namespace MVC
             if (SumSave.crt_user != null)
             {
                 mysqlReader = MysqlDb.Select(Mysql_Table_Name.user_login, "uid", GetStr(SumSave.uid));
+                if(mysqlReader == null) return;
                 if (mysqlReader.HasRows)
                 {
                     if (user_login == 0)
@@ -95,6 +97,16 @@ namespace MVC
             }
 
         }
+        /// <summary>
+        /// 重新打开数据库
+        /// </summary>
+        public virtual void close_ApplicationFocus()
+        {
+            MysqlDb = null;
+            mysqlReader = null;
+            //称号中心.Instance.StartIE(CloseApplicationFocus());
+        }
+      
         /// <summary>
         ///  前后添加单引号
         /// </summary>
@@ -146,6 +158,7 @@ namespace MVC
                         //wirtes.Add(wirte);
                     }
                 }
+                Alert_Dec.Show("数据存入成功");
             }
         }
         private string[] versions = new string[] {"0.2025.03", "0.2025.04" };
@@ -161,6 +174,7 @@ namespace MVC
 
             SumSave.crt_versions = new user_versions();
             mysqlReader = MysqlDb.ReadFullTable(Mysql_Table_Name.versions);
+            if (mysqlReader == null) return;
             if (mysqlReader.HasRows)
             {
                 while (mysqlReader.Read())
@@ -202,20 +216,7 @@ namespace MVC
         protected void QueryTime()
         {
             mysqlReader = MysqlDb.QueryTime();
-            if (mysqlReader.HasRows)
-            {
-                while (mysqlReader.Read())
-                {
-                    for (int i = 0; i < mysqlReader.FieldCount; i++)
-                    {
-                        SumSave.nowtime = Convert.ToDateTime(mysqlReader[i].ToString());
-                    }
-                }
-            }
-        }
-        protected void QueryMysqlTime()
-        {
-            mysqlReader = MysqlDb.QueryTime();
+            if (mysqlReader == null) return;
             if (mysqlReader.HasRows)
             {
                 while (mysqlReader.Read())

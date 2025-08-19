@@ -14,12 +14,17 @@ public class mo_world_boss_rank : Base_VO
     /// 试炼塔排行榜列表
     /// </summary>
     public List<(string,string,long)> lists = new List<(string,string,long)>();
+    /// <summary>
+    /// 网络连接
+    /// </summary>
+    public bool open_mysql = true;
 
     /// <summary>
     /// 初始化排行榜列表
     /// </summary>
     public void InitLists()
     {
+        open_mysql = false;
         string[] strs = Ranking_value.Split(';');
         foreach (string item in strs)
         {

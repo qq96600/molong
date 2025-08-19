@@ -1154,6 +1154,11 @@ public static class Battle_Tool
                 break;
         }
         base_crt.monster_attrList.Add((int)state);
+#if UNITY_EDITOR
+        base_crt.MaxHP = 1;
+#elif UNITY_ANDROID
+#elif UNITY_IPHONE
+#endif
         return base_crt;
     }
     /// <summary>
