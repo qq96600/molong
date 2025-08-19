@@ -91,6 +91,7 @@ namespace MVC
         /// </summary>
         private void CountTime()
         {
+            opentime();
             //Debug.Log(22);
             performTime+=1;
             monitor_plant();
@@ -138,6 +139,13 @@ namespace MVC
                 }
             }
         }
+
+        private void opentime()
+        {
+            SumSave.nowtime += TimeSpan.FromSeconds(1);
+            //Debug.Log(SumSave.nowtime);
+        }
+
         /// <summary>
         /// 存档
         /// </summary>
