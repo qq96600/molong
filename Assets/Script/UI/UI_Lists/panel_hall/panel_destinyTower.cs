@@ -129,6 +129,12 @@ public class panel_destinyTower : Base_Mono
     /// </summary>
     private void UpButtonOnClick()
     {
+        SendNotification(NotiList.Read_Mysql_Base_Time);
+        if (SumSave.openMysql)
+        {
+            Alert_Dec.Show("网络连接失败");
+            return;
+        }
         if (locktianming.gameObject.activeInHierarchy)
         {
             Alert_Dec.Show("天命已锁定");
@@ -137,6 +143,7 @@ public class panel_destinyTower : Base_Mono
             {
                 switch_tianming = (int[])SumSave.crt_hero.Uptianming_Platform().Clone();
                 Refresh_and_switch_display(switch_tianming);
+                Game_Omphalos.i.archive();
             }
             else
             {
@@ -154,6 +161,7 @@ public class panel_destinyTower : Base_Mono
                 RefreshDisplay();
                 Battle_Tool.Init_Life_type();
                 SendNotification(NotiList.Refresh_Max_Hero_Attribute);
+                Game_Omphalos.i.archive();
             }
             else
             {

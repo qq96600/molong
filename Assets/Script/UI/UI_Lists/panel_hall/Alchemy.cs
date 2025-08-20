@@ -150,6 +150,12 @@ public class Alchemy : Base_Mono
                 return;
             }
         }
+        SendNotification(NotiList.Read_Mysql_Base_Time);
+        if (SumSave.openMysql)
+        {
+            Alert_Dec.Show("网络连接失败");
+            return;
+        } 
         foreach (var item in Select_Materials.Keys)
         {
             NeedConsumables(Select_Materials[item].Item1, Select_Materials[item].Item2);
@@ -215,6 +221,7 @@ public class Alchemy : Base_Mono
         Alert_Dec.Show("获得丹药 " + split[0]);
         SumSave.crt_pass.progress(5);
         AlchemyMission(split);
+        Game_Omphalos.i.archive();
     }
 
     /// <summary>

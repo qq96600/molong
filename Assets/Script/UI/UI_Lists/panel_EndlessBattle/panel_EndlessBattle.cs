@@ -236,9 +236,6 @@ public class panel_EndlessBattle : Panel_Base
             SumSave.crt_needlist.SetMap((select_map.map_name, 1));
             if (kill_monster_number > 0)
             {
-#if UNITY_EDITOR
-                #endif
-
                 long exp= (long)(kill_monster_number * 10000);//经验
                 int plint= (kill_monster_number * 500);//历练值
                 string dec = select_map.map_name+"\n";
