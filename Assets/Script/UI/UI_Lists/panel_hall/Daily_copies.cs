@@ -44,6 +44,12 @@ public class Daily_copies : Base_Mono
     /// <param name="arg0"></param>
     private void confirm(object arg0)
     {
+        SendNotification(NotiList.Read_Mysql_Base_Time);
+        if (SumSave.openMysql)
+        {
+            Alert_Dec.Show("获取网络失败");
+            return;
+        }
         copies_item item = (arg0 as copies_item);
         if (item.IsSate())
         {
@@ -85,6 +91,7 @@ public class Daily_copies : Base_Mono
         fight_panel.Open_Map(item.index,true);
         item.updatestate();
         EnterTheReplicaTask(item);
+        Game_Omphalos.i.archive();
     }
 
     /// <summary>

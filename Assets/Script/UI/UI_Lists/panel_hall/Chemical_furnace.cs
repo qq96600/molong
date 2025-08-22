@@ -189,6 +189,12 @@ public class Chemical_furnace : Base_Mono
     /// </summary>
     private void Synthesis()
     {
+        SendNotification(NotiList.Read_Mysql_Base_Time);
+        if (SumSave.openMysql)
+        {
+            Alert_Dec.Show("网络连接失败");
+            return;
+        }
         if (select_type == 3)
         {
             if (crt_break.Item2 == 0)
@@ -229,6 +235,7 @@ public class Chemical_furnace : Base_Mono
                 {
                     SumSave.crt_bag.Add(tool_Categoryt.crate_equip(synthesis_item.Item1, 7));
                     Game_Omphalos.i.Wirte_ResourcesList(Emun_Resources_List.bag_value, SumSave.crt_bag);
+                    Game_Omphalos.i.archive();
                 }
                 else
                 {

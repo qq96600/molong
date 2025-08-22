@@ -441,6 +441,12 @@ public class Pet_explore : Base_Mono
 
         if (IsExploring>= 0 && SumSave.db_pet_explore_dic.TryGetValue(explore, out user_pet_explore_vo vo)) //判断次数并且更具名字找到该地图的信息
         {
+            SendNotification(NotiList.Read_Mysql_Base_Time);
+            if (SumSave.openMysql)
+            {
+                Alert_Dec.Show("网络连接失败");
+                return;
+            }
             string[] Explore_list = vo.petEvent_reward.Split("&");//获取该地图的奖励列表
 
             int r = 0;
@@ -464,6 +470,7 @@ public class Pet_explore : Base_Mono
                 }
                   
             }
+            Game_Omphalos.i.archive();
         }
         else Alert_Dec.Show("探索次数不足");
     }
