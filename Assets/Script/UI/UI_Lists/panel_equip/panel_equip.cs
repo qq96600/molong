@@ -184,7 +184,29 @@ public class panel_equip : Panel_Base
                     SumSave.crt_needlist.SetMap((MapStateList.背包回收魔丸.ToString(), number));
                     exist = true;
                 }
-                else Alert_Dec.Show("本日绝世装备出售已满");
+                else
+                {
+                    if (number < 50)
+                    {
+                        SumSave.crt_user_unit.verify_data(currency_unit.魔丸, (50 - number));
+                        string dec = "出售奖励\n" + "本次出售获得魔丸 " + ((50 - number)) + "\n今日剩余获取魔丸" + (50 - number);
+                        Alert.Show("出售奖励", dec);
+                        number = 50;
+                        SumSave.crt_needlist.SetMap((MapStateList.背包回收魔丸.ToString(), number));
+                        exist = true;
+
+                    }
+                    else Alert_Dec.Show("本日绝世装备出售已满");
+                }
+                //else Alert_Dec.Show("本日绝世装备出售已满");
+                //else
+                //{
+                //    if (number < 50)
+                //    {
+                //        number = 50;
+                //    }
+                //} 
+                //else Alert_Dec.Show("本日绝世装备出售已满");
             }
         }
         if (exist)

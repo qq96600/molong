@@ -190,9 +190,19 @@ public class panel_bag : Panel_Base
                         {
                             if (number + (item.need_lv / 2 + 1) < 50)
                             {
-                                number+= (item.need_lv / 2 + 1);
+                                number += (item.need_lv / 2 + 1);
                                 sell_list.Add(item);
                                 moeny += item.price;
+                            }
+                            else
+                            {
+                                if (number < 50)
+                                {
+                                    number = 50;
+                                    sell_list.Add(item);
+                                    moeny += item.price;
+
+                                }
                             }
                         }
                         else

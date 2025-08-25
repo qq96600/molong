@@ -77,7 +77,8 @@ public class Trial_Tower : Panel_Base
     /// </summary>
     private void Challenge()
     {
-        if (SumSave.crt_Trial_Tower_rank.open_mysql)
+        SendNotification(NotiList.Read_Mysql_Base_Time);
+        if (SumSave.openMysql || SumSave.crt_Trial_Tower_rank.open_mysql)
         {
             Alert_Dec.Show("网络连接失败");
             return;
