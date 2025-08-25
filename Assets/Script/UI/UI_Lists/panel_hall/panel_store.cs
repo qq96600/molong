@@ -169,7 +169,8 @@ public class panel_store : Base_Mono
                 int nums = exceedNum(SumSave.crt_needlist.store_value_dic[buy_item.ItemName]);
                 if (nums > 0)//查找限购物品
                 {
-                    NeedConsumables(buy_item.unit, (buy_num * buy_item.ItemPrice));
+                    long value = (((long)buy_num) * (long)(buy_item.ItemPrice));
+                    NeedConsumables(buy_item.unit, value);
                     if (RefreshConsumables())
                     {
                         //Debug.Log("数量："+ buy_num + "消耗金额：" + buy_num * buy_item.ItemPrice);
@@ -184,7 +185,8 @@ public class panel_store : Base_Mono
             else
             {
                 exceedNum(0);
-                NeedConsumables(buy_item.unit, (buy_num * buy_item.ItemPrice));
+                long value = (((long)buy_num) * (long)(buy_item.ItemPrice));
+                NeedConsumables(buy_item.unit, value);
                 if (RefreshConsumables())
                 {
                     SumSave.crt_needlist.store_value_dic.Add(buy_item.ItemName, buy_num);
@@ -198,7 +200,8 @@ public class panel_store : Base_Mono
         }
         else
         {
-            NeedConsumables(buy_item.unit, (buy_num * buy_item.ItemPrice));
+            long value = (((long)buy_num) * (long)(buy_item.ItemPrice));
+            NeedConsumables(buy_item.unit, value);
             if (RefreshConsumables())
             {
                 SpecialItems();

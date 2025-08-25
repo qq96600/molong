@@ -246,6 +246,7 @@ namespace MVC
         //[System.Obsolete("消耗材料使用->称号中心.Instance.RedConsumables()")]
         protected void NeedConsumables(object keys, long value)
         {
+            //Debug.Log(keys.ToString() + "  " + value);
             if (!dic.ContainsKey(keys.ToString())) dic.Add(keys.ToString(), value);
             else dic[keys.ToString()] += value;
         }

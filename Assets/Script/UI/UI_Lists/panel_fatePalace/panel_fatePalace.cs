@@ -189,6 +189,12 @@ public class panel_fatePalace : Panel_Base
     /// </summary>
     private void Ten_consecutive_draws()
     {
+        SendNotification(NotiList.Read_Mysql_Base_Time);
+        if (SumSave.openMysql)
+        {
+            Alert_Dec.Show("网络连接失败");
+            return;
+        }
         NeedConsumables("命运金币", 10);
         if (!RefreshConsumables())
         {
@@ -254,7 +260,12 @@ public class panel_fatePalace : Panel_Base
     /// </summary>
     private void Single_draw()
     {
-
+        SendNotification(NotiList.Read_Mysql_Base_Time);
+        if (SumSave.openMysql)
+        {
+            Alert_Dec.Show("网络连接失败");
+            return;
+        }
         NeedConsumables("命运金币", 1);
         if (!RefreshConsumables())
         {
@@ -372,7 +383,8 @@ public class panel_fatePalace : Panel_Base
             string vale="恭喜玩家 "+SumSave.crt_MaxHero.show_name+" 获得"+CurrentItems[rand].Item1+"x"+CurrentItems[rand].Item3;
             SendNotification(NotiList.Read_Huser_MessageWindow, vale);
         }
+        Game_Omphalos.i.archive();
 
-       
+
     }
 }
