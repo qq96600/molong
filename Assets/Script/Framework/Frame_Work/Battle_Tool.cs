@@ -564,18 +564,19 @@ public static class Battle_Tool
         TimeSpan span;
         int spanNumber = 0;
         int value = 0;
-        if (SumSave.nowtime < DateTime.Now)
-        {
-            if (SettlementTransport(DateTime.Now.ToString(), SumSave.nowtime.ToString(), 2) > 600)
-            {
-                //10分钟未联网
-                span = SumSave.nowtime - Convert.ToDateTime(time);
-                value = 10;
-            }else
-            //判断相差距离
-            span = SumSave.nowtime - Convert.ToDateTime(time);
-        }
-        else span = SumSave.nowtime - Convert.ToDateTime(time);
+        //if (SumSave.nowtime < DateTime.Now)
+        //{
+        //    if (SettlementTransport(DateTime.Now.ToString(), SumSave.nowtime.ToString(), 2) > 600)
+        //    {
+        //        //10分钟未联网
+        //        span = SumSave.nowtime - Convert.ToDateTime(time);
+        //        value = 10;
+        //    }else
+        //    //判断相差距离
+        //    span = SumSave.nowtime - Convert.ToDateTime(time);
+        //}
+        //else span = SumSave.nowtime - Convert.ToDateTime(time);
+        span = SumSave.nowtime - Convert.ToDateTime(time);
         if (type == 1)//计算分钟
             spanNumber = span.Minutes + span.Hours * 60 + span.Days * 60 * 24 + value;
         else if (type == 2)//计算秒

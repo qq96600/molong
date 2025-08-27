@@ -285,7 +285,6 @@ namespace MVC
                 PlayerPrefs.SetInt("同意阅读协议", 0);
                 return;
             }
-
 #if UNITY_EDITOR
             TaploginBt.gameObject.SetActive(false);
             loginBt.gameObject.SetActive(true);
@@ -390,7 +389,6 @@ namespace MVC
                 return;
             }
             PlayerPrefs.SetInt("同意阅读协议", 1);
-          
 #if UNITY_EDITOR
             #region ios区 
             SumSave.uid = "DSFSDFSDFSDF3"; // 32ac681e5ca845dc9eda67b30a36f6fa
@@ -413,7 +411,7 @@ namespace MVC
             Login();
             //UI_Manager.Instance.GetPanel<Panel_cratehero>().Show();
 #elif UNITY_ANDROID
-             Game_Omphalos.i.Wirte_Tap();
+            Game_Omphalos.i.Wirte_Tap();
 #elif UNITY_IPHONE
             UI_Manager.Instance.GetPanel<Panel_cratehero>().Show();
 #endif

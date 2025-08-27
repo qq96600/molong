@@ -29,7 +29,7 @@ public static class Program
                     switch (tableName)
                     { 
                        case Mysql_Table_Name.mysql_time:
-                            Mysql_Read.Read(reader);
+                            //Mysql_Read.Read(reader);
                             break;
                         case Mysql_Table_Name.user_trial_towers:
                             Mysql_Read.Read_towers(reader);

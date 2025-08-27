@@ -139,11 +139,34 @@ namespace MVC
                 }
             }
         }
-
+        /// <summary>
+        /// 获取基准时间
+        /// </summary>
+        private static readonly DateTime UnixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+        /// <summary>
+        /// 每s刷新一次
+        /// </summary>
         private void opentime()
         {
-            SumSave.nowtime += TimeSpan.FromSeconds(1);
-            //Debug.Log(SumSave.nowtime);
+            //SumSave.nowtime += TimeSpan.FromSeconds(1);
+            //Debug.Log($"{SumSave.nowtime}");
+
+            //Debug.Log("基准时间" + $"{UnixEpoch}");
+            long timestamp = GetCurrentTimestamp();
+            // 时间戳转回时间
+            timestamp++;
+            SumSave.nowtime = TimestampToDateTime(timestamp);
+            ////Debug.Log($"{SumSave.nowtime}");
+        }
+        private static long GetCurrentTimestamp()
+        {
+            return (long)(SumSave.nowtime - UnixEpoch).TotalSeconds;
+        }
+
+        // 时间戳转DateTime
+        private static DateTime TimestampToDateTime(long timestamp)
+        {
+            return UnixEpoch.AddSeconds(timestamp);
         }
 
         /// <summary>
@@ -178,7 +201,8 @@ namespace MVC
                             if (growTimeInt > vo.plantTime)
                             {
                                 exist = true;
-                                Set[i] = ("0", SumSave.nowtime > DateTime.Now ? SumSave.nowtime : DateTime.Now);
+                                //Set[i] = ("0", SumSave.nowtime > DateTime.Now ? SumSave.nowtime : DateTime.Now);
+                                Set[i] = ("0", SumSave.nowtime);// > DateTime.Now ? SumSave.nowtime : DateTime.Now);
                                 int harvestnumber = vo.DoubleTheAcquisition();
                                 int random = Random.Range(1, 100);
                                 int maxnumber = harvestnumber + Random.Range(1, 100);

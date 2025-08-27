@@ -33,7 +33,7 @@ namespace Common
         /// <summary>
         /// 当前时间
         /// </summary>
-        public static DateTime nowtime=DateTime.Now;
+        public static DateTime nowtime;//=DateTime.Now;
         /// <summary>
         /// 苹果账号 用来判断是否为苹果审核号
         /// </summary>

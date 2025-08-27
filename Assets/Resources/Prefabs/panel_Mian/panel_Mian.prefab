@@ -4776,11 +4776,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4071946602791083398, guid: 5126ee17a46599343b28a052ae0d2d1d, type: 3}
       propertyPath: m_Size
-      value: 0.5394233
+      value: 0.53942335
       objectReference: {fileID: 0}
     - target: {fileID: 4071946602791083398, guid: 5126ee17a46599343b28a052ae0d2d1d, type: 3}
       propertyPath: m_Value
-      value: 0.50000006
+      value: 0.5000001
       objectReference: {fileID: 0}
     - target: {fileID: 5044409702652327861, guid: 5126ee17a46599343b28a052ae0d2d1d, type: 3}
       propertyPath: m_Name

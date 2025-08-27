@@ -117,6 +117,7 @@ public class panel_map : Panel_Base
         Show_Info(map);
     }
     /// <summary>
+    /// 
     /// 显示信息
     /// </summary>
     /// <param name="map"></param>
@@ -130,10 +131,12 @@ public class panel_map : Panel_Base
         for (int i = pos_life.childCount - 1; i >= 0; i--)//清空区域内按钮
         {
             Destroy(pos_life.GetChild(i).gameObject);
+
         }
         foreach (string str in map.ProfitList.Split('&'))
         {
             string[] str1 = str.Split(' ');
+
             material_item item= Instantiate(material_item_parfabs, pos_life);
             item.Init(((str1[0]), 0));
             item.GetComponent<Button>().onClick.AddListener(delegate { Alert.Show(str1[0], str1[0]); });

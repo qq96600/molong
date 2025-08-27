@@ -209,7 +209,10 @@ namespace MVC
         {
             UI_Manager.Instance.GetPanel<panel_login>().Show();
         }
-
+        /// <summary>
+        /// 时间开关
+        /// </summary>
+        private bool open_time = true;
         /// <summary>
         /// 读取时间
         /// </summary>
@@ -228,7 +231,20 @@ namespace MVC
                 {
                     for (int i = 0; i < mysqlReader.FieldCount; i++)
                     {
-                        SumSave.nowtime = Convert.ToDateTime(mysqlReader[i].ToString());
+                        if (open_time)
+                        {
+                            SumSave.nowtime = Convert.ToDateTime(mysqlReader[i].ToString());
+                            open_time= false;
+                        }
+                        else
+                        { 
+                          DateTime nowtime = Convert.ToDateTime(mysqlReader[i].ToString());
+                            int growTimeInt = Battle_Tool.SettlementTransport(SumSave.nowtime.ToString(), nowtime.ToString(), 2);
+                            if (MathF.Abs( growTimeInt) > 60)
+                            {
+                                user_login = -1;
+                            }
+                        }
                         SumSave.is_ToMysqlOpen = true;
                     }
                 }
