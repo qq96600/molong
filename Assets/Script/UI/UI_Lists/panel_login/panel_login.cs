@@ -12,7 +12,7 @@ using Random = UnityEngine.Random;
 
 namespace MVC
 {
-    public class panel_login : Panel_Base
+    public class panel_login : Panel_Base   
     {
         private const string lastServer = "选区";
 
